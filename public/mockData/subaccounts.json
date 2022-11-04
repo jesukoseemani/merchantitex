@@ -1,0 +1,19 @@
+{
+  "_metadata": {
+    "pagecount": 1,
+    "totalcount": 4,
+    "page": 1,
+    "links": []
+  },
+  "subaccounts": [
+    { "name": "Julz Thrift Store" , "acctId": "ITEX-1234567", "txnShare": "22%", "details": "0723371427 - Access Bank", "acctShare": "78%" },
+    { "name": "Jenkins Marketing Complex" , "acctId": "ITEX-2323445", "txnShare": "22%", "details": "0723371427 - Access Bank", "acctShare": "78%" },
+    { "name": "Uptown Store" , "acctId": "ITEX-1234568", "txnShare": "22%", "details": "0723371427 - Access Bank", "acctShare": "78%" },
+    { "name": "The New Shop" , "acctId": "ITEX-23234454", "txnShare": "22%", "details": "0723371427 - Access Bank", "acctShare": "78%" }
+  ],
+  "code": "00",
+  "message": "Successful",
+  "earned": "2,445,000.00",
+  "paid": "3,445,000.00",
+  "value": "22"
+}

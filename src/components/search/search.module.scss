@@ -1,0 +1,16 @@
+.searchContainer {
+  width: 100%;
+}
+.searchContainer > div {
+  width: 100%;
+}
+.searchContainer > div > input {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #dddddd !important;
+  box-sizing: border-box;
+  border-radius: 4px !important;
+}
+.searchContainer > div > i {
+  color: #bdbdbd;
+}

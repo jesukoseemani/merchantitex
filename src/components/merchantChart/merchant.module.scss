@@ -1,0 +1,203 @@
+.container {
+  width: 95%;
+  height: 472px;
+  background: #fbfefd;
+  border: 1px solid #f2f2f2;
+  border-radius: 4px;
+  margin: 0 auto;
+}
+.chart {
+  padding: 20px 30px;
+}
+.chartHeader {
+  width: 100%;
+  height: 75px;
+  padding: 20px 40px;
+  border-bottom: 1px solid #f2f2f2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  & button.btnDivider {
+    min-width: 0;
+    max-width: 0;
+    width: 0;
+    padding: 0 !important;
+  }
+  & button {
+    background: #f2f2f2 !important;
+    border: 1px solid #e0e0e0 !important;
+    border-radius: 3px;
+    width: auto;
+    min-width: fit-content;
+    padding: 6px 16px !important;
+    height: 32px !important;
+    display: flex !important;
+    font-size: 14px;
+    font-weight: 500;
+    align-items: center;
+    justify-content: center;
+  }
+  & > .btnGroupWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    & > button:last-child {
+      margin-left: 30px !important;
+    }
+    & > .btnGroup {
+      border-radius: 3px;
+      border: 1px solid #e0e0e0 !important;
+      & > button {
+        border: 0 !important;
+      }
+    }
+  }
+}
+.chartWrapper {
+  width: 100%;
+  height: 400px;
+  display: grid;
+  grid-template-columns: 1fr 273px;
+  grid-template-rows: 80px 1fr;
+  padding: 15px 0;
+  & > .header {
+    display: grid;
+    grid-template-columns: repeat(3, 160px) 1fr;
+    padding: 0 40px;
+    border-bottom: 1px solid #f2f2f2;
+    & > .chartCard {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+    }
+  }
+  .side {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    padding: 32px 26px;
+    border-left: 1px solid #f2f2f2;
+    grid-column: 2 / -1;
+    grid-row: 1 / -1;
+    & > .summary {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    & > .summary:first-child {
+      border-bottom: 1px solid #f2f2f2;
+      width: 100%;
+      height: 100%;
+      display: grid;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    & > .summary:last-child {
+      justify-content: end;
+    }
+  }
+}
+.chartStatus {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100px;
+  margin: 0 auto;
+  & > .statusWrapper {
+    display: flex;
+    align-items: center;
+    & > h2 {
+      margin: 0 0 0 6px;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 21px;
+      letter-spacing: -0.20423px;
+      color: #333333;
+    }
+    &:first-child {
+      & > .status {
+        background: #6fcf97;
+      }
+    }
+    &:last-child {
+      & > .status {
+        background: #406a99;
+      }
+    }
+  }
+}
+.pieChart {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px 0;
+  width: 100%;
+  height: 100%;
+}
+.pieChartWrapper {
+  display: grid;
+  grid-template-rows: 1fr 80px;
+  & > .chartSummary {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    & > div {
+      display: flex;
+      align-items: center;
+      & > h2 {
+        margin-left: 6px;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 21px;
+        letter-spacing: -0.20423px;
+        color: #333333;
+      }
+    }
+    & > div:first-child {
+      & > .status {
+        background-color: #eb5757;
+      }
+    }
+    & > div:last-child {
+      margin-top: 10px;
+      & > .status {
+        background-color: #6fcf97;
+      }
+    }
+  }
+}
+.status {
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+}
+.span {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 16px;
+  color: #828282;
+}
+h2 {
+  margin: 0;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 32px;
+  letter-spacing: 0.00536144px;
+  color: #333333;
+}
+a {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: 0.00312px;
+  margin: 20px 0;
+  color: #27ae60;
+}

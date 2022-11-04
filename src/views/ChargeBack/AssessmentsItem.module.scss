@@ -1,0 +1,138 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 269px);
+  position: relative;
+
+  @media screen and (max-width: 850px) {
+		width: calc(100% - 73px);
+	}
+
+  @media screen and (max-width: 600px) {
+		width: calc(100% - 57px);
+	}
+
+  hr {
+    background-color: #E0E0E0;
+  }
+}
+
+.pageWrapper {
+  margin-bottom: 4rem;
+}
+
+.spacedLine {
+  padding: 0 2rem;
+}
+
+.sectionOne {
+  padding: 0 2rem 1.25rem;
+
+  & > div:nth-child(1) {
+    margin: 1.25rem 0;
+    div {
+      display: flex;
+      align-items: center;
+      color: #828282;
+      & > p {
+        color: #4F4F4F;
+        font-size: .875rem;
+        font-weight: 400;
+      }
+    }
+  }
+
+  & >div:nth-child(2) {
+    margin-top: 1.25rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+
+    & >p:nth-child(1) {
+      color: #333;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    & >p:nth-child(2) {
+      color: white;
+      background: #27ae60;
+      padding: .2rem 1rem;
+      border-radius: 2px;
+    }
+  }
+}
+
+.sectionTwo {
+  padding: 2rem 2rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 5rem;
+  flex-wrap: wrap;
+
+  @media screen and (max-width: 1000px) {
+    gap: 3rem;
+  }
+
+  @media screen and (max-width: 768px) {
+    gap: 1.25rem;
+  }
+
+  & > div {
+    border-left: 1px solid #e0e0e0;
+    padding-left: 5rem;
+    @media screen and (max-width: 1000px) {
+      gap: 3rem;
+    }
+    @media screen and (max-width: 850px) {
+      border-left: none;
+      padding-left: 0;
+    }
+
+    & > p:first-of-type {
+      color: #828282;
+      font-size: .75rem;
+      font-weight: 400;
+    }
+
+    & > p:last-of-type {
+      color: #333;
+      font-size: .875rem;
+      font-weight: 500;
+    }
+  }
+
+  & > div:first-of-type {
+    border-left: none;
+    padding-left: 0;
+  }
+}
+
+.sectionThree {
+  padding: 2rem 2rem 1.25rem;
+
+  & > p {
+    color: #333;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: .5rem;
+    margin-bottom: .5rem;
+  }
+
+  & > div {
+    & > div {
+      & > p:first-of-type {
+        color: #828282;
+        font-size: .875rem;
+        font-weight: 400;
+      }
+  
+      & > p:last-of-type {
+        color: #333;
+        font-size: .875rem;
+        font-weight: 500;
+      }
+    }
+  }
+}

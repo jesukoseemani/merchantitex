@@ -1,0 +1,36 @@
+{
+  "_metadata": {
+    "pagecount": 1,
+    "totalcount": 3,
+    "page": 1,
+    "links": []
+  },
+  "reserves": [
+    { 
+      "amt": "45,000.52", 
+      "status": "successful", 
+      "added": "2022-03-28 14:43:38.0",
+      "witheldAmt": "45,000.52",
+      "dueDate": "2022-02-18 14:43:38.0",
+      "id": "1"
+    },
+    { 
+      "amt": "65,000.00", 
+      "status": "pending", 
+      "added": "2022-03-28 14:43:38.0",
+      "witheldAmt": "65,000.00",
+      "dueDate": "2022-02-18 14:43:38.0",
+      "id": "2"
+    },
+    { 
+      "amt": "25,000.00", 
+      "status": "error", 
+      "added": "2022-03-28 14:43:38.0",
+      "witheldAmt": "25,000.00",
+      "dueDate": "2022-02-18 14:43:38.0",
+      "id": "3"
+    }
+  ],
+  "code": "00",
+  "message": "Successful"
+}

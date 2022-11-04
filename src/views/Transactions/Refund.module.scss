@@ -1,0 +1,87 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+
+  & > hr {
+    background-color: #E0E0E0;
+  }
+}
+
+.pageWrapper {
+  padding: 2rem;
+  margin-bottom: 4rem;
+}
+
+
+.historyTopContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @media screen and (max-width: 970px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .75rem;
+  }
+
+  @media screen and (max-width: 570px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .75rem;
+  }
+
+  & > div {
+    & > p {
+      color: #333;
+      font-size: 1.25rem;
+    }
+  }
+}
+
+.tableContainer {
+  margin-top: 1.5rem;
+}
+
+.tableBodyText {
+  font-size: .875rem;
+  color: #333;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.successText {
+  color: white;
+  background-color: #27AE60;
+  padding: .2rem .625rem;
+  text-align: center;
+  border-radius: 2px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.pendingText {
+  color: black;
+  background-color: #F2C94C;
+  padding: .2rem .625rem;
+  text-align: center;
+  border-radius: 2px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.failText {
+  color: white;
+  background-color: #EB5757;
+  padding: .2rem .625rem;
+  text-align: center;
+  border-radius: 2px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.capitalize {
+  text-transform: capitalize;
+  color: #333;
+}

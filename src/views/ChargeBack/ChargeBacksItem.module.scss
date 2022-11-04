@@ -1,0 +1,352 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 269px);
+  position: relative;
+
+  @media screen and (max-width: 850px) {
+		width: calc(100% - 73px);
+	}
+
+  @media screen and (max-width: 600px) {
+		width: calc(100% - 57px);
+	}
+
+  hr {
+    background-color: #E0E0E0;
+  }
+}
+
+.pageWrapper {
+  margin-bottom: 4rem;
+}
+
+.spacedLine {
+  padding: 0 2rem;
+}
+
+.pendingText {
+  font-size: .875rem;
+  color: #12122c;
+  font-weight: 500;
+  cursor: pointer;
+  padding: .2rem 1rem;
+  background-color: #f2c94c;
+  border-radius: 2px;
+  text-align: center;
+  text-transform: capitalize;
+  display: inline-block;
+}
+
+.wonText {
+  font-size: .875rem;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  padding: .2rem 1rem;
+  background-color: #27ae60;
+  border-radius: 2px;
+  text-align: center;
+  text-transform: capitalize;
+  display: inline-block;
+}
+
+.lostText {
+  font-size: .875rem;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  padding: .2rem 1rem;
+  background-color: #eb5757;
+  border-radius: 2px;
+  text-align: center;
+  text-transform: capitalize;
+  display: inline-block;
+}
+
+.sectionOne {
+  padding: 0 2rem 2rem;
+  border-bottom: 1px solid #e0e0e0;
+
+  & > div:first-of-type {
+    margin: 1.25rem 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    color: #828282;
+    & > p {
+      color: #4F4F4F;
+      font-size: .875rem;
+      font-weight: 400;
+    }
+  }
+
+  & > div:last-of-type {
+    display: flex;
+    justify-content: space-between;
+    @media screen and (max-width: 700px) {
+      display: block;
+    }
+
+    & > div:first-of-type {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+  
+      & > p:first-of-type {
+        font-size: 1.5rem;
+        color: #333;
+        font-weight: 700;
+      }
+    }
+
+    & > div:last-of-type {
+      display: grid;
+      place-items: center;
+      @media screen and (max-width: 700px) {
+        display: inline-block;
+        margin-top: 1rem;
+      }
+
+      & > p {
+        border-radius: 4px;
+        background: #e0e0e0;
+        color: #333;
+        font-size: .875rem;
+        font-weight: 400;
+        padding: .5rem 1rem;
+
+      }
+    }
+  }
+}
+
+.sectionTwo {
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  @media screen and (max-width: 1100px) {
+    display: block;
+  }
+
+  & > div:first-of-type {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+  
+    @media screen and (max-width: 1100px) {
+      gap: 2rem;
+    }
+  
+    @media screen and (max-width: 768px) {
+      gap: 1.25rem;
+    }
+    
+    & > div {
+      border-left: 1px solid #e0e0e0;
+      padding-left: 3rem;
+      @media screen and (max-width: 1100px) {
+        padding-left: 2rem;
+      }
+      @media screen and (max-width: 950px) {
+        border-left: none;
+        padding-left: 0;
+      }
+  
+      & > p:first-of-type {
+        color: #828282;
+        font-size: .75rem;
+        font-weight: 400;
+      }
+  
+      & > p:last-of-type {
+        color: #333;
+        font-size: .875rem;
+        font-weight: 500;
+        margin-top: .5rem;
+      }
+    }
+
+    & > div:first-of-type {
+      border-left: none;
+      padding-left: 0;
+    }
+  }
+
+  & > div:last-of-type {
+    border-left: none;
+    padding-left: 0;
+    color: #eb5757;
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    cursor: pointer;
+    margin-left: auto;
+    @media screen and (max-width: 1100px) {
+      margin-top: 1.5rem;
+    }
+
+    & > p {
+      font-size: 1rem;
+      margin-top: 0;
+      color: red;
+    }
+
+  }
+}
+
+.sectionThree {
+  padding: 3rem 2rem;
+
+  & > div:first-of-type {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #e0e0e0;
+
+    & > p:first-of-type {
+      color: #333;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+  }
+
+  & > div:last-of-type {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+
+    & > div {
+      & > p:first-of-type {
+        color: #828282;
+        font-size: .75rem;
+        font-weight: 400;
+      }
+  
+      & > p:last-of-type {
+        color: #333;
+        font-size: .875rem;
+        font-weight: 500;
+        margin-top: .5rem;
+      }
+    }
+
+  }
+}
+
+.sectionFour {
+  padding: 0rem 2rem 3rem;
+
+  & > div:first-of-type {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #e0e0e0;
+
+    & > p:first-of-type {
+      color: #333;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+  }
+
+  & > div:last-of-type {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+
+    & > div {
+      & > p:first-of-type {
+        color: #828282;
+        font-size: .75rem;
+        font-weight: 400;
+      }
+  
+      & > p:last-of-type {
+        color: #333;
+        font-size: .875rem;
+        font-weight: 500;
+        margin-top: .5rem;
+      }
+    }
+
+  }
+}
+
+.sectionFive {
+  padding: 0rem 2rem 3rem;
+
+  & > div:first-of-type {
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding-bottom: .5rem;
+    flex-wrap: wrap;
+    @media screen and (max-width: 500px) {
+      gap: 1rem;
+    }
+
+    & > h3 {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+      color: #333;
+      font-size: 1.2rem;
+      margin-bottom: 0;
+    }
+
+    & > div:first-of-type {
+      display: flex;
+      font-size: .75rem;
+      gap: .5rem;
+      padding-top: .25rem;
+      & > p:nth-child(1) {
+        color: #27ae60;
+      }
+      & > p {
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+    }
+
+    & > div:last-of-type {
+      display: flex;
+      font-size: .75rem;
+      align-items: center;
+      padding-top: .25rem;
+      gap: .5rem;
+      & > p:nth-child(1) {
+        color: #eb5757;
+      }
+    }
+  }
+
+  & > div:last-of-type {
+    margin-top: 2rem;
+    display: grid;
+    grid-gap: 1rem;
+
+    & > div {
+      display: flex;
+      gap: .5rem;
+      align-items: center;
+
+      & > p {
+        color: #333;
+        font-weight: 400;
+        font-size: 1rem;
+      }
+    }
+  }
+
+}

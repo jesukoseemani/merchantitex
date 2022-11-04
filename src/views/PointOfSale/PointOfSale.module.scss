@@ -1,0 +1,97 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 269px);
+  position: relative;
+
+  @media screen and (max-width: 850px) {
+		width: calc(100% - 73px);
+	}
+
+  @media screen and (max-width: 600px) {
+		width: calc(100% - 57px);
+	}
+
+  & > hr {
+    background-color: #E0E0E0;
+  }
+}
+
+.pageWrapper {
+  padding: 2rem;
+  margin-bottom: 4rem;
+}
+
+.tableContainer {
+  margin-top: 1rem;
+}
+
+.tableBodyText {
+  font-size: .875rem;
+  color: #333;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.tableBodySpan {
+  color: #828282;
+}
+
+.topContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: .75rem;
+
+  & > h3 {
+    font-weight: 400;
+    font-size: 1.25rem;
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+  }
+}
+
+.yellowText {
+  font-size: .875rem;
+  color: #12122c;
+  font-weight: 500;
+  cursor: pointer;
+  padding: .2rem 1rem;
+  background-color: #f2c94c;
+  border-radius: 2px;
+  text-align: center;
+  text-transform: capitalize;
+  width: 40%;
+  @media screen and (max-width: 1100px) {
+		width: 80%;
+	}
+}
+
+.greenText {
+  font-size: .875rem;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  padding: .2rem 1rem;
+  background-color: #27ae60;
+  border-radius: 2px;
+  text-align: center;
+  text-transform: capitalize;
+  width: 40%;
+  @media screen and (max-width: 1100px) {
+		width: 80%;
+	}
+}
+
+.redText {
+  font-size: .875rem;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  padding: .2rem 1rem;
+  background-color: #eb5757;
+  border-radius: 2px;
+  text-align: center;
+  text-transform: capitalize;
+  width: 70%;
+}
