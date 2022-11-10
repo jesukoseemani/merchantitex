@@ -1,0 +1,36 @@
+{
+  "_metadata": {
+    "pagecount": 1,
+    "totalcount": 3,
+    "page": 1,
+    "links": []
+  },
+  "requests": [
+    { 
+      "reqId": "111",
+      "status": "Approved" , 
+      "added": "2022-03-28 14:43:38.0",
+      "qtyRequested": 4,
+      "qtyAssigned": 3,
+      "deliveryAddress": "Yaba, Lagos state"
+    },
+    { 
+      "reqId": "112",
+      "status": "In review" , 
+      "added": "2022-03-28 14:43:38.0",
+      "qtyRequested": 5,
+      "qtyAssigned": 5,
+      "deliveryAddress": "Surulere, Lagos state"
+    },
+    { 
+      "reqId": "112",
+      "status": "Approved" , 
+      "added": "2022-03-28 14:43:38.0",
+      "qtyRequested": 2,
+      "qtyAssigned": 1,
+      "deliveryAddress": "Ikorodu, Lagos state"
+    }
+  ],
+  "code": "00",
+  "message": "Successful"
+}
