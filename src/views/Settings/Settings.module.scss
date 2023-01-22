@@ -396,3 +396,162 @@
 	line-height: 16px;
 	color: #4f4f4f;
 }
+
+.account_wrap {
+	margin: 20px 50px;
+}
+
+.account_h1 {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 18px;
+	line-height: 21px;
+	/* identical to box height */
+
+	color: #828282;
+}
+
+.removeModal {
+	margin-top: 40px;
+	width: 100%;
+}
+
+.removeModal_p {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 22px;
+	color: #333333;
+}
+
+.buttonModalwrap {
+	margin: 40px 20px;
+}
+.buttonModal {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	width: 100%;
+}
+.cancelModal {
+	width: 100px;
+	height: 30.76px;
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 26px;
+	text-align: center;
+	color: #ffffff;
+	background: #333333;
+	border: 1.28183px solid #333333;
+	border-radius: 3.8455px;
+}
+.removeModal {
+	width: 100px;
+	height: 30.76px;
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 26px;
+	text-align: center;
+	color: #ffffff;
+	background: #27ae60;
+	border: 1.28183px solid #27ae60;
+	border-radius: 3.8455px;
+	margin-left: 20px;
+	cursor: pointer;
+}
+
+.signupDiv {
+	display: flex;
+	border: 1px solid transparent;
+	// width: 800px;
+	height: auto;
+	// margin: 0 auto;
+	background-color: #fff;
+	padding: 2rem;
+	background: #ffffff;
+	// box-shadow: 0px 4px 14px rgba(15, 49, 32, 0.15);
+	// border-radius: 6px;
+	align-items: center;
+	justify-content: center;
+}
+
+.signUpContent {
+	width: 500px;
+	height: 40%;
+	padding: 0;
+}
+
+.signupList {
+	margin: 20px 0px 0px 20px;
+}
+
+.listType {
+	margin: 0px 40px 18px 40px;
+	height: 300px;
+	overflow-y: scroll;
+}
+
+.listType::-webkit-scrollbar {
+	display: none;
+}
+
+.listType {
+	-ms-overflow-style: none;
+	scrollbar-width: none; /* Firefox */
+}
+
+.listType_h2 {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 20px;
+	color: #333333;
+}
+.listType_wrap {
+	margin: 10px 0px;
+}
+.listType_h3 {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 26px;
+	letter-spacing: -0.2px;
+	color: #333333;
+	margin: 0;
+	padding: 0;
+	font-weight: bold;
+}
+.listType_p {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 24px;
+	/* or 171% */
+	margin: 0;
+	padding: 0;
+	color: #828282;
+}
+.permisions {
+	display: flex;
+	align-items: center;
+}
+
+.formTitle {
+	font-style: normal;
+	font-weight: normal;
+	font-size: 15px;
+	color: #414141;
+}
+
+.mt1 {
+	margin-top: 1rem;
+}

@@ -12,9 +12,15 @@ import axios from 'axios';
 import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
 import { IconButton } from '@material-ui/core';
 import CloseIcon from '@mui/icons-material/Close';
+import {
+	openModalAndSetContent,
+	closeModal,
+} from '../../redux/actions/modal/modalActions';
+import UserModal from './UserModal';
 
 const Users = () => {
 	interface UserProps {
+		// id: string;
 		fullname: string;
 		email: string;
 		added: string;
@@ -31,6 +37,14 @@ const Users = () => {
 	const open = Boolean(anchorEl);
 	const [openModal, setOpenModal] = useState(false);
 	const [active, setActive] = useState(false);
+	const [singleData, setSingleData] = useState<UserProps>({
+		// id: '',
+		fullname: '',
+		email: '',
+		added: '',
+		lastlogin: '',
+		position: '',
+	});
 
 	const dispatch = useDispatch();
 
@@ -101,23 +115,17 @@ const Users = () => {
 		setRowsPerPage(value);
 	};
 
-	const inviteHandler = () => {
+	const inviteHandler = (values: { email: string; position: string }) => {
 		dispatch(openLoader());
 		setActive(true);
 
 		axios
 			.post('/merchant/users/invite', {
-				user: [
-					{
-						email: change.email,
-						position: change.role,
-					},
-				],
+				user: [values],
 			})
 
 			.then((res: any) => {
 				dispatch(closeLoader());
-				setActive(false);
 
 				dispatch(
 					openToastAndSetContent({
@@ -127,12 +135,11 @@ const Users = () => {
 						},
 					})
 				);
-				setOpenModal(false);
+				dispatch(closeModal());
 			})
 
 			.catch((err) => {
 				dispatch(closeLoader());
-				setActive(false);
 
 				dispatch(
 					openToastAndSetContent({
@@ -159,7 +166,13 @@ const Users = () => {
 		{ id: 'action', label: '', align: 'right', minWidth: 100 },
 	];
 	const LoanRowTab = useCallback(
-		(fullname: string, email: string, position: string, lastlogin: string) => ({
+		(
+			fullname: string,
+			email: string,
+			position: string,
+			lastlogin: string,
+			added: string
+		) => ({
 			name: (
 				<div>
 					{fullname.split(' ')[0]} {fullname.split(' ')[1]}
@@ -170,8 +183,18 @@ const Users = () => {
 			last_login: lastlogin.split(' ')[0],
 			action: (
 				<div>
-					<IconButton className='action text-success'>Change role</IconButton>
-					<IconButton className='action text-danger'>Remove</IconButton>
+					<IconButton
+						onClick={() =>
+							editHandler(fullname, email, lastlogin, position, added)
+						}
+						className='action text-success'>
+						Change role
+					</IconButton>
+					<IconButton
+						onClick={() => deleteHandler()}
+						className='action text-danger'>
+						Remove
+					</IconButton>
 				</div>
 			),
 		}),
@@ -181,92 +204,115 @@ const Users = () => {
 		const newRowOptions: any[] = [];
 		settlements?.map((each: UserProps) =>
 			newRowOptions.push(
-				LoanRowTab(each.fullname, each.email, each.position, each.lastlogin)
+				LoanRowTab(
+					each.fullname,
+					each.email,
+					each.position,
+					each.lastlogin,
+					each.added
+				)
 			)
 		);
 		setRows(newRowOptions);
 	}, [settlements, LoanRowTab]);
 
-	const AccountModal = () => {
-		return (
-			<Modal
-				onClose={() => setOpenModal(false)}
-				onOpen={() => setOpenModal(true)}
-				open={openModal}
-				className={Styles.modalContainer}>
-				<div className={Styles.modalHeader}>
-					<h2>Add new user</h2>
-					<IconButton onClick={() => setOpenModal(false)}>
-						<CloseIcon />
-					</IconButton>
-				</div>
-				<Form.Field className={Styles.inputWrapper}>
-					<label>Email address</label>
-					<input
-						placeholder='new@email.com'
-						name='email'
-						onChange={handleChange}
-						value={change.email}
-					/>
-				</Form.Field>
-				<Form.Field className={Styles.inputWrapper}>
-					<label>User role</label>
+	const editBusinessHandler = () => {
+		dispatch(
+			openModalAndSetContent({
+				modalStyles: {
+					padding: 0,
+					maxWidth: '539px',
+					height: '700px',
+					width: '100%',
+				},
+				modalContent: (
+					<div className={Styles.modalDiv}>
+						<UserModal onclick={inviteHandler} title='Add a new user' />
+					</div>
+				),
+			})
+		);
+	};
 
-					<select name='role' value={change.role} onChange={handleChange}>
-						<option value=''>select role</option>
-						<option value='admin'>Administrator</option>
-						<option value='customer_support'>Customer Support</option>
-						<option value='developer'>Developer/IT Support</option>
-						<option value='user'>User</option>
-					</select>
-				</Form.Field>
-				<div className={Styles.modalFooter}>
-					<button
-						style={{ outline: 'none', border: 'none' }}
-						onClick={inviteHandler}>
-						{active ? 'Sending...' : 'Send invite'}
-					</button>
-				</div>
-				<div className={Styles.inputDivider}>
-					<h2>Permissions</h2>
-				</div>
-				<div className={Styles.modalList}>
-					<h2>Administrator</h2>
-					<p>This is best for the business owners and executives.</p>
-				</div>
-				<div className={Styles.modalList}>
-					<h2>Operations</h2>
-					<p>For the business owners and executives.</p>
-				</div>
-				<div className={Styles.modalList}>
-					<h2>Customer support</h2>
-					<p>
-						Best for staff that perform actions like refunds, disputes
-						management.
-					</p>
-				</div>
-				<div className={Styles.modalList}>
-					<h2>Developer</h2>
-					<p>This is best for developers working with the Flutterwave APIs.</p>
-				</div>
-				<div className={Styles.modalList}>
-					<h2>View only</h2>
-					<p>This is best for team members without the need to update data.</p>
-				</div>
-			</Modal>
+	const editHandler = (
+		// id: string,
+		fullname: string,
+		email: string,
+		added: string,
+		lastlogin: string,
+		position: string
+	) => {
+		setSingleData({
+			// id,
+			fullname,
+			email,
+			added,
+			lastlogin,
+			position,
+		});
+		dispatch(
+			openModalAndSetContent({
+				modalStyles: {
+					padding: 0,
+					maxWidth: '539px',
+					height: '700px',
+					width: '100%',
+				},
+				modalContent: (
+					<div className={Styles.modalDiv}>
+						<UserModal title='Edit user' />
+					</div>
+				),
+			})
+		);
+	};
+
+	const deleteHandler = () => {
+		dispatch(
+			openModalAndSetContent({
+				modalStyles: {
+					padding: 0,
+					maxWidth: '653px',
+					height: '254px',
+					width: '100%',
+				},
+				modalContent: (
+					<div className={Styles.modalDiv}>
+						<div className={Styles.account_wrap}>
+							<h1 className={Styles.account_h1}>Remove user</h1>
+						</div>
+
+						<div className={Styles.buttonModalwrap}>
+							<p className={Styles.removeModal_p}>
+								Are you sure want to remover this user. This user will no longer
+								have access to the platform permissions. Click on ‘Remove’ to
+								remove this user.
+							</p>
+
+							<div className={Styles.buttonModal}>
+								<button
+									style={{ background: '#E0E0E0', color: '#333333' }}
+									className={Styles.removeModal}>
+									Cancel
+								</button>
+								<button className={Styles.removeModal}>Remove</button>
+							</div>
+						</div>
+					</div>
+				),
+			})
 		);
 	};
 
 	return (
 		<div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-			<AccountModal />
 			<NavBar name='Bank Accounts' />
 			<div className={Styles.container}>
 				<div className={Styles.formHeader}>
 					<div>
 						<h2>Users</h2>
 					</div>
-					<Button onClick={() => setOpenModal(true)} className='success'>
+					<Button onClick={editBusinessHandler} className='success'>
 						+ New user
 					</Button>
 				</div>
