@@ -20,7 +20,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logOut } from '../../redux/actions/auth/authActions';
 import axios from 'axios';
 import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
-import Switch from 'react-switch';
+import Switch from '../switch/Switch';
+
 
 export default function UserMenu() {
 	const [user, setUser] = useState<any>({});
@@ -136,14 +137,14 @@ export default function UserMenu() {
 		setAnchorEl(null);
 	};
 
-	const handleChecked = () => {
-		setChecked(!checked);
-	};
+	// const handleChecked = () => {
+	// 	setChecked(!checked);
+	// };
 
 	const SwitchToggle = () => {
 		return (
 			<div className={Styles.switchtoggle}>
-				<Switch
+				{/* <Switch
 					checked={checked}
 					onChange={handleChecked}
 					offColor='#d80a0a'
@@ -152,13 +153,16 @@ export default function UserMenu() {
 					uncheckedIcon={false}
 					checkedIcon={false}
 					onColor='#19943C'
-				/>
-				<p className={Styles.switchtoggle_p}>{checked ? 'Live' : 'Test'}</p>
+				/> */}
+				{/* <p className={Styles.switchtoggle_p}>{checked ? 'Live' : 'Test'}</p> */}
+
+				<Switch/>
 			</div>
 		);
 	};
 	return (
 		<div className={Styles.menuContainer}>
+			<SwitchToggle />
 			<Menu
 				id='fade-menu'
 				MenuListProps={{
@@ -241,7 +245,6 @@ export default function UserMenu() {
 			<IconButton>
 				<NotificationsNoneOutlinedIcon className={Styles.menuIcon} />
 			</IconButton>
-			<SwitchToggle />
 			<IconButton
 				id='fade-button'
 				aria-controls='fade-menu'

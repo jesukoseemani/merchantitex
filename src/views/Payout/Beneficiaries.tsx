@@ -123,6 +123,9 @@ function PendingApproval() {
           <h2>Beneficiaries</h2>
           <div>
             <Button>
+              Filter <CloudUploadOutlinedIcon />
+            </Button>
+            <Button>
               Download <CloudUploadOutlinedIcon />
             </Button>
             <Button className={Styles.success}>+ Add new beneficiary</Button>
