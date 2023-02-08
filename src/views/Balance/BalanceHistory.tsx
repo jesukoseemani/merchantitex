@@ -2,14 +2,20 @@ import { Button, Modal, OutlinedInput } from "@mui/material";
 import { MouseEvent, useCallback, useEffect, useState } from "react";
 import NavBar from "../../components/navbar/NavBar";
 import styles from "./Balance.module.scss";
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
 import { makeStyles } from "@material-ui/styles";
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import { BalanceHistoryItem, GetBalanceHistoryRes } from "../../types/BalanceTypes";
-import moment from 'moment';
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
+import {
+  BalanceHistoryItem,
+  GetBalanceHistoryRes,
+} from "../../types/BalanceTypes";
+import moment from "moment";
 import { useDispatch } from "react-redux";
-import { closeLoader, openLoader } from "../../redux/actions/loader/loaderActions";
+import {
+  closeLoader,
+  openLoader,
+} from "../../redux/actions/loader/loaderActions";
 import axios from "axios";
 import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
 import CustomClickTable from "../../components/table/CustomClickTable";
@@ -17,99 +23,99 @@ import CustomClickTable from "../../components/table/CustomClickTable";
 const useBtnStyles = makeStyles({
   root: {
     fontFamily: `'Roboto', sans-serif`,
-    display: 'flex',
-    gap: '1rem',
-    '& .MuiButtonBase-root': {
-      borderRadius: '.25rem',
-      padding: '.5rem 1rem',
-      textTransform: 'none',
-      fontSize: '.875rem',
-      fontWeight: '400',
-      alignItem: 'center',
-      display: 'flex'
+    display: "flex",
+    gap: "1rem",
+    "& .MuiButtonBase-root": {
+      borderRadius: ".25rem",
+      padding: ".5rem 1rem",
+      textTransform: "none",
+      fontSize: ".875rem",
+      fontWeight: "400",
+      alignItem: "center",
+      display: "flex",
     },
-    '& .MuiButtonBase-root:nth-child(1)': {
-      backgroundColor: '#E0E0E0',
-      color: '#333'
+    "& .MuiButtonBase-root:nth-child(1)": {
+      backgroundColor: "#E0E0E0",
+      color: "#333",
     },
-    '& .MuiButtonBase-root:nth-child(2)': {
-      backgroundColor: '#27AE60',
-      color: '#FFF',
-      gap: '.5rem',
+    "& .MuiButtonBase-root:nth-child(2)": {
+      backgroundColor: "#27AE60",
+      color: "#FFF",
+      gap: ".5rem",
     },
-    '& svg': {
-      fontSize: '1rem'
-    }
+    "& svg": {
+      fontSize: "1rem",
+    },
   },
 });
 
 const useTableStyles = makeStyles({
   root: {
-    marginTop: '1rem',
-    '& .MuiTableRow-head': {
-      fontSize: '.875rem',
-      padding: '1rem',
-      backgroundColor: '#F4F6F8',
+    marginTop: "1rem",
+    "& .MuiTableRow-head": {
+      fontSize: ".875rem",
+      padding: "1rem",
+      backgroundColor: "#F4F6F8",
     },
-    '& .MuiTableCell-head': {
-      fontSize: '.875rem',
-      color: '#333',
-      fontWeight: '500',
-      textTransform: 'capitalize'
+    "& .MuiTableCell-head": {
+      fontSize: ".875rem",
+      color: "#333",
+      fontWeight: "500",
+      textTransform: "capitalize",
     },
-    '& .MuiTableCell-root': {
-      borderBottom: 'none'
+    "& .MuiTableCell-root": {
+      borderBottom: "none",
     },
-    '& .MuiTableCell-body': {
+    "& .MuiTableCell-body": {
       fontFamily: `'Roboto', san-serif`,
-      fontWeight: '400',
-      fontSize: '.875rem',
-      color: '#333',
-      borderBottom: '1px solid #E0E0E0'
+      fontWeight: "400",
+      fontSize: ".875rem",
+      color: "#333",
+      borderBottom: "1px solid #E0E0E0",
     },
-    '& .darkText': {
-      color: '#333',
-      fontSize: '.875rem',
-      fontWeight: '700',
+    "& .darkText": {
+      color: "#333",
+      fontSize: ".875rem",
+      fontWeight: "700",
     },
-    '& .redText': {
-      color: '#EB5757',
-      fontSize: '.875rem',
-      fontWeight: '700'
+    "& .redText": {
+      color: "#EB5757",
+      fontSize: ".875rem",
+      fontWeight: "700",
     },
-    '& .greenText': {
-      color: '#219653',
-      fontSize: '.875rem',
-      fontWeight: '700'
+    "& .greenText": {
+      color: "#219653",
+      fontSize: ".875rem",
+      fontWeight: "700",
     },
-    '& .lightText': {
-      color: '#828282',
-      fontSize: '.875rem',
+    "& .lightText": {
+      color: "#828282",
+      fontSize: ".875rem",
     },
-  }
-})
+  },
+});
 
 const useModalBtnStyles = makeStyles({
   root: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    padding: '1rem 1.5rem 0',
-    gap: '1.25rem',
-    '& .MuiButton-root': {
+    display: "flex",
+    justifyContent: "flex-end",
+    padding: "1rem 1.5rem 0",
+    gap: "1.25rem",
+    "& .MuiButton-root": {
       fontFamily: `'Roboto', sans-serif`,
-      fontWeight: '500',
-      fontSize: '.875rem',
-      color: 'black',
-      background: '#E0E0E0',
-      borderRadius: '3px',
-      textTransform: 'none'
+      fontWeight: "500",
+      fontSize: ".875rem",
+      color: "black",
+      background: "#E0E0E0",
+      borderRadius: "3px",
+      textTransform: "none",
     },
-    '& .MuiButton-root:nth-child(2)': {
-      color: 'white',
-      background: '#27AE60'
-    }
-  }
-})
+    "& .MuiButton-root:nth-child(2)": {
+      color: "white",
+      background: "#27AE60",
+    },
+  },
+});
 
 const BalanceHistory = () => {
   const btnClasses = useBtnStyles();
@@ -158,19 +164,38 @@ const BalanceHistory = () => {
 
   const BalanceHistoryRowTab = useCallback(
     (init, amt, after, details, added, id) => ({
-      init: <p className={styles.tableBodyText}><span className={styles.tableBodySpan}>NGN{' '}</span>{init}</p>,
+      init: (
+        <p className={styles.tableBodyText}>
+          <span className={styles.tableBodySpan}>NGN </span>
+          {init}
+        </p>
+      ),
       amt: (
         <p className={styles.tableBodyText}>
-          <span style={{ color: amt.startsWith('+') ? '#219653' : '#eb5757', fontWeight: '700' }}>
+          <span
+            style={{
+              color: amt.startsWith("+") ? "#219653" : "#eb5757",
+              fontWeight: "700",
+            }}
+          >
             {amt}
           </span>
         </p>
       ),
-      after: <p className={styles.tableBodyText}><span className={styles.tableBodySpan}>NGN{' '}</span>{after}</p>,
+      after: (
+        <p className={styles.tableBodyText}>
+          <span className={styles.tableBodySpan}>NGN </span>
+          {after}
+        </p>
+      ),
       details: <p className={styles.tableBodyText}>{details}</p>,
       added: (
         <p className={styles.tableBodyText}>
-          {moment(added).format("MMM D YYYY")}<span className={styles.tableBodySpan}>{' '}{moment(added).format("h:mm A")}</span>
+          {moment(added).format("MMM D YYYY")}
+          <span className={styles.tableBodySpan}>
+            {" "}
+            {moment(added).format("h:mm A")}
+          </span>
         </p>
       ),
       id: <p>{id}</p>,
@@ -198,7 +223,10 @@ const BalanceHistory = () => {
   const getBalanceHistory = async () => {
     dispatch(openLoader());
     try {
-      const res = await axios.get<GetBalanceHistoryRes>('/mockData/balancehistory.json', { baseURL: '' });
+      const res = await axios.get<GetBalanceHistoryRes>(
+        "/mockData/balancehistory.json",
+        { baseURL: "" }
+      );
       const { history, _metadata } = res?.data;
       if (history.length) {
         setHistory(history);
@@ -226,8 +254,9 @@ const BalanceHistory = () => {
   return (
     <div className={styles.container}>
       <Modal
-        open={isFilterModalOpen} onClose={() => setIsFilterModalOpen(false)}
-        aria-labelledby='balance history filter modal'
+        open={isFilterModalOpen}
+        onClose={() => setIsFilterModalOpen(false)}
+        aria-labelledby="balance history filter modal"
       >
         <div className={styles.filterModalContainer}>
           <p>Filters</p>
@@ -252,13 +281,15 @@ const BalanceHistory = () => {
             </div>
             <div>
               <p>Withheld amount</p>
-              <OutlinedInput 
-                placeholder="NGN 0.00" size="small" fullWidth
-              />
+              <OutlinedInput placeholder="NGN 0.00" size="small" fullWidth />
             </div>
             <div>
               <p>Status</p>
-              <OutlinedInput placeholder="Choose status" size="small" fullWidth />
+              <OutlinedInput
+                placeholder="Choose status"
+                size="small"
+                fullWidth
+              />
             </div>
           </div>
           <hr />
@@ -268,7 +299,7 @@ const BalanceHistory = () => {
           </div>
         </div>
       </Modal>
-      <NavBar name="Balance History"/>
+      <NavBar name="Balance History" />
       <hr />
       <div className={styles.pageWrapper}>
         <div className={styles.historyTopContainer}>
@@ -294,8 +325,8 @@ const BalanceHistory = () => {
             changePage={changePage}
             limit={limit}
             clickable
-            link='/balance/balance_history'
-            identifier='id'
+            link="/balance/balance_history"
+            identifier="id"
             rowsData={history}
           />
         </div>

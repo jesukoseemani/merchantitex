@@ -1,39 +1,42 @@
-import React, { MouseEvent, useCallback, useEffect, useState } from 'react';
-import { GetPosRequestsRes, PosRequestItem } from '../../types/PosTypes';
-import { PosTabStateType } from './PointOfSale';
+import React, { MouseEvent, useCallback, useEffect, useState } from "react";
+import { GetPosRequestsRes, PosRequestItem } from "../../types/PosTypes";
+import { PosTabStateType } from "./PointOfSale";
 import styles from "./PointOfSale.module.scss";
-import TabPanel from './TabPanel';
-import moment from 'moment';
-import { useDispatch } from 'react-redux';
-import { closeLoader, openLoader } from '../../redux/actions/loader/loaderActions';
-import axios from 'axios';
-import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
-import { Button } from '@mui/material';
-import CustomClickTable from '../../components/table/CustomClickTable';
+import TabPanel from "./TabPanel";
+import moment from "moment";
+import { useDispatch } from "react-redux";
+import {
+  closeLoader,
+  openLoader,
+} from "../../redux/actions/loader/loaderActions";
+import axios from "axios";
+import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
+import { Button } from "@mui/material";
+import CustomClickTable from "../../components/table/CustomClickTable";
 import { makeStyles } from "@material-ui/styles";
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 
 const useModalBtnStyles = makeStyles({
   root: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    padding: '1rem 1.5rem 0',
-    gap: '1.25rem',
-    '& .MuiButton-root': {
+    display: "flex",
+    justifyContent: "flex-end",
+    padding: "1rem 1.5rem 0",
+    gap: "1.25rem",
+    "& .MuiButton-root": {
       fontFamily: `'Roboto', sans-serif`,
-      fontWeight: '500',
-      fontSize: '.875rem',
-      color: 'black',
-      background: '#E0E0E0',
-      borderRadius: '3px',
-      textTransform: 'none'
+      fontWeight: "500",
+      fontSize: ".875rem",
+      color: "black",
+      background: "#E0E0E0",
+      borderRadius: "3px",
+      textTransform: "none",
     },
-    '& .MuiButton-root:nth-child(2)': {
-      color: 'white',
-      background: '#27AE60'
-    }
-  }
-})
+    "& .MuiButton-root:nth-child(2)": {
+      color: "white",
+      background: "#27AE60",
+    },
+  },
+});
 
 interface RequestsTabProps {
   value: PosTabStateType;
@@ -64,8 +67,12 @@ const useBtnStyles = makeStyles({
   },
 });
 
-
-const RequestsTab = ({ value, index, openModal, closeModal }: RequestsTabProps) => {
+const RequestsTab = ({
+  value,
+  index,
+  openModal,
+  closeModal,
+}: RequestsTabProps) => {
   const [requests, setRequests] = useState<PosRequestItem[]>([]);
   const [rows, setRows] = useState<PosRequestItem[]>([]);
   const [pageNumber, setPageNumber] = useState<number>(1);
@@ -104,20 +111,25 @@ const RequestsTab = ({ value, index, openModal, closeModal }: RequestsTabProps) 
   const columns: Column[] = [
     { id: "status", label: "Delivery status", minWidth: 100 },
     { id: "reqId", label: "Request ID", minWidth: 100 },
-    { id: "added", label: "Date requested", minWidth: 100, align: 'right' },
+    { id: "added", label: "Date requested", minWidth: 100, align: "right" },
   ];
 
   const RequestRowTab = useCallback(
     (reqId, status, added, qtyRequested, qtyAssigned, deliveryAddress) => ({
-      status: status === 'Approved' ? (
-        <p className={styles.greenText}>{status}</p>
-      ) : (
-        <p className={styles.yellowText}>{status}</p>
-      ),
+      status:
+        status === "Approved" ? (
+          <p className={styles.greenText}>{status}</p>
+        ) : (
+          <p className={styles.yellowText}>{status}</p>
+        ),
       reqId: <p className={styles.tableBodyText}>{reqId}</p>,
       added: (
         <p className={styles.tableBodyText}>
-          {moment(added).format("MMM D YYYY")}<span className={styles.tableBodySpan}>{' '}{moment(added).format("h:mm A")}</span>
+          {moment(added).format("MMM D YYYY")}
+          <span className={styles.tableBodySpan}>
+            {" "}
+            {moment(added).format("h:mm A")}
+          </span>
         </p>
       ),
       qtyRequested: <p>{qtyRequested}</p>,
@@ -137,7 +149,7 @@ const RequestsTab = ({ value, index, openModal, closeModal }: RequestsTabProps) 
           each?.added,
           each?.qtyRequested,
           each?.qtyAssigned,
-          each?.deliveryAddress,
+          each?.deliveryAddress
         )
       )
     );
@@ -147,7 +159,10 @@ const RequestsTab = ({ value, index, openModal, closeModal }: RequestsTabProps) 
   const getPosRequests = async () => {
     dispatch(openLoader());
     try {
-      const res = await axios.get<GetPosRequestsRes>('/mockData/posrequests.json', { baseURL: '' });
+      const res = await axios.get<GetPosRequestsRes>(
+        "/mockData/posrequests.json",
+        { baseURL: "" }
+      );
       const { requests, _metadata } = res?.data;
       if (requests.length) {
         setRequests(requests);
@@ -177,9 +192,7 @@ const RequestsTab = ({ value, index, openModal, closeModal }: RequestsTabProps) 
       <div className={styles.topContainer}>
         <h3>{totalRows} POS requests</h3>
         <div className={btnClasses.root}>
-          <Button onClick={openModal}>
-            Request new POS
-          </Button>
+          <Button onClick={openModal}>Request new POS</Button>
         </div>
       </div>
       <div className={styles.tableContainer}>
@@ -190,13 +203,13 @@ const RequestsTab = ({ value, index, openModal, closeModal }: RequestsTabProps) 
           changePage={changePage}
           limit={limit}
           clickable
-          link='/point_of_sale/requests'
-          identifier='reqId'
+          link="/point_of_sale/requests"
+          identifier="reqId"
           rowsData={requests}
         />
       </div>
     </TabPanel>
-  )
-}
+  );
+};
 
-export default RequestsTab
+export default RequestsTab;

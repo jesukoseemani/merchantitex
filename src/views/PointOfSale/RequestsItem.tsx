@@ -1,13 +1,13 @@
-import React from 'react';
-import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
-import NavBar from '../../components/navbar/NavBar';
-import styles from './RequestsItem.module.scss';
-import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
-import { useDispatch } from 'react-redux';
-import { PosRequestItem } from '../../types/PosTypes';
-import moment from 'moment';
-import {ReactComponent as PendingBadge} from '../../assets/images/pending-badge.svg';
-import {ReactComponent as SuccessBadge} from '../../assets/images/success-badge.svg';
+import React from "react";
+import { Link, useHistory, useLocation, useParams } from "react-router-dom";
+import NavBar from "../../components/navbar/NavBar";
+import styles from "./RequestsItem.module.scss";
+import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
+import { useDispatch } from "react-redux";
+import { PosRequestItem } from "../../types/PosTypes";
+import moment from "moment";
+import { ReactComponent as PendingBadge } from "../../assets/images/pending-badge.svg";
+import { ReactComponent as SuccessBadge } from "../../assets/images/success-badge.svg";
 
 const RequestsItem = () => {
   const location = useLocation<{ rowData: string }>();
@@ -16,30 +16,35 @@ const RequestsItem = () => {
 
   const { slug } = useParams<{ slug: string }>();
 
-  if(!location.state.rowData) {
-    history.replace('/point_of_sale');
+  if (!location.state.rowData) {
+    history.replace("/point_of_sale");
   }
 
-  const { rowData } = location.state; 
+  const { rowData } = location.state;
 
   const formattedRowData: PosRequestItem = JSON.parse(rowData);
 
-  const { reqId, status, added, qtyAssigned, qtyRequested, deliveryAddress } = formattedRowData;
+  const { reqId, status, added, qtyAssigned, qtyRequested, deliveryAddress } =
+    formattedRowData;
 
   return (
     <div className={styles.container}>
-      <NavBar name="Point Of Sale"/>
+      <NavBar name="Point Of Sale" />
       <div className={styles.pageWrapper}>
         <div className={styles.sectionOne}>
           <div>
-            <Link to='/point_of_sale'>
+            <Link to="/point_of_sale">
               <div>
                 <ArrowLeftIcon />
                 <p>Back to POS</p>
               </div>
             </Link>
           </div>
-          <p className={status === 'Approved' ? styles.greenText : styles.yellowText}>
+          <p
+            className={
+              status === "Approved" ? styles.greenText : styles.yellowText
+            }
+          >
             {status}
           </p>
         </div>
@@ -81,7 +86,7 @@ const RequestsItem = () => {
           </div>
           <div>
             <div>
-              {status === 'Approved' ? <SuccessBadge /> : <PendingBadge />}
+              {status === "Approved" ? <SuccessBadge /> : <PendingBadge />}
               <p>On its way</p>
             </div>
             <div>
@@ -92,7 +97,7 @@ const RequestsItem = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default RequestsItem
+export default RequestsItem;

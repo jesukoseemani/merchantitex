@@ -1,0 +1,52 @@
+{
+  "_metadata": {
+    "pagecount": 1,
+    "totalcount": 5,
+    "page": 1,
+    "links": []
+  },
+  "history": [
+    {
+      "id": "1",
+      "country": "Nigeria",
+      "recipient": "+2348021907867",
+      "amount": 4000,
+      "network": "mtn",
+      "added": "2022-03-28 14:43:38.0",
+      "transactionRef": "ITEX-hsdh12326erfs6352sdf",
+      "providerRef": "ITEX-hsdh12326erfs6352sdf"
+    },
+    {
+      "id": "2",
+      "country": "Nigeria",
+      "recipient": "+2348021907867",
+      "amount": 6000,
+      "network": "airtel",
+      "added": "2022-03-28 14:43:38.0",
+      "transactionRef": "ITEX-hsdh12326erfs6352sdf",
+      "providerRef": "ITEX-hsdh12326erfs6352sfv"
+    },
+    {
+      "id": "3",
+      "country": "Nigeria",
+      "recipient": "+2348021907867",
+      "amount": 5000,
+      "network": "glo",
+      "added": "2022-03-28 14:43:38.0",
+      "transactionRef": "ITEX-hsdh12326erfs6352sdf",
+      "providerRef": "ITEX-hsdh12326erfs6352sdc"
+    },
+    {
+      "id": "4",
+      "country": "Nigeria",
+      "recipient": "+2348021907867",
+      "amount": 4000,
+      "network": "mtn",
+      "added": "2022-03-28 14:43:38.0",
+      "transactionRef": "ITEX-hsdh12326erfs6352sdf",
+      "providerRef": "ITEX-hsdh12326erfs6352sdtw"
+    }
+  ],
+  "code": "00",
+  "message": "Successful"
+}
