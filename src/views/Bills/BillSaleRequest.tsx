@@ -1,34 +1,15 @@
-// import React from "react";
-// import { Link, useHistory, useLocation, useParams } from "react-router-dom";
-
-// import { useDispatch } from "react-redux";
-
-// import moment from "moment";
-// import { PosRequestItem } from "../../types/PosTypes";
-// import NavBar from "../../components/navbar/NavBar";
-// import styles from "../../views/PointOfSale/PointOfSale.module.scss";
-
-// const AirtimeSaleRequest = () => {
-
-//   );
-// };
-
-// export default AirtimeSaleRequest;
-
-import React from "react";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import { useDispatch } from "react-redux";
 import { Link, useHistory, useLocation, useParams } from "react-router-dom";
 import NavBar from "../../components/navbar/NavBar";
-import { PosRequestItem } from "../../types/PosTypes";
 import styles from "./airtelRequest.module.scss";
 import moment from "moment";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
-import { AirtimeRequestItem } from "../../types/BiilsTypes";
+import { BillRequestItem } from "../../types/BiilsTypes";
 import CopyText from "../../helpers/CopyToClipBoard";
 import FormatToCurrency from "../../helpers/NumberToCurrency";
 
-const AirtimeSaleRequest = () => {
+const BillSaleRequest = () => {
   const location = useLocation<{ rowData: string }>();
   const history = useHistory();
 
@@ -42,16 +23,17 @@ const AirtimeSaleRequest = () => {
 
   const { rowData } = location.state;
 
-  const formattedRowData: AirtimeRequestItem = JSON.parse(rowData);
+  const formattedRowData: BillRequestItem = JSON.parse(rowData);
   console.log(rowData);
   const {
     amount,
     date,
     country,
-    recipient,
-    network,
-    commission,
+    packages,
+    bill,
     providerRef,
+    billId,
+    commission,
     transactionRef,
   } = formattedRowData;
 
@@ -63,6 +45,7 @@ const AirtimeSaleRequest = () => {
         flexDirection: "column",
         width: "100%",
         marginInline: "auto",
+        flexFlow: "row wrap",
       }}
     >
       <NavBar name="Airtime request" />
@@ -72,7 +55,7 @@ const AirtimeSaleRequest = () => {
             <Link to="/bills">
               <div>
                 <ArrowLeftIcon />
-                <p>Back to Airtime</p>
+                <p>Back to Bill</p>
               </div>
             </Link>
             <h2 style={{ padding: "15px 5px", fontSize: "1.4rem" }}>
@@ -86,17 +69,17 @@ const AirtimeSaleRequest = () => {
             <p>{country}</p>
           </div>
           <div>
-            <p>Recepient</p>
-            <p>{recipient}</p>
+            <p>Bill</p>
+            <p>{bill}</p>
           </div>
           <div>
-            <p>Provider</p>
-            <p>{network}</p>
+            <p>Packages</p>
+            <p>{packages}</p>
           </div>
           <div>
             <p>Amount</p>
 
-            <p>{amount}</p>
+            <p>{FormatToCurrency(amount)}</p>
           </div>
         </div>
         <div className={styles.sectionThree}>
@@ -108,7 +91,7 @@ const AirtimeSaleRequest = () => {
                 {transactionRef}{" "}
                 <ContentCopyOutlinedIcon
                   fontSize="medium"
-                  style={{ fontSize: 10, cursor: "pointer" }}
+                  style={{ fontSize: 10 }}
                 />
               </span>
             </div>
@@ -124,6 +107,15 @@ const AirtimeSaleRequest = () => {
               <p>Date/time</p>
               <span>{moment(date).format("MMM D YYYY")}</span>
             </div>
+            <br />
+            <div>
+              <p>Bill payment ID</p>
+              <span>{billId}</span>
+            </div>
+            <div>
+              <p>Bill Name</p>
+              <span>{packages}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -131,4 +123,4 @@ const AirtimeSaleRequest = () => {
   );
 };
 
-export default AirtimeSaleRequest;
+export default BillSaleRequest;

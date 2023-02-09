@@ -3,8 +3,9 @@ import NavBar from "../navbar/NavBar";
 import BulkManualForm from "./AirtimeBulkManualForm";
 import BackupOutlinedIcon from "@mui/icons-material/BackupOutlined";
 import Styles from "./payment.module.scss";
+import BillBulkManualForm from "./BillBulkManualForm";
 
-const BulkAirtimePayment = () => {
+const BulkBillPayment = () => {
   return (
     <div
       style={{
@@ -15,10 +16,10 @@ const BulkAirtimePayment = () => {
       }}
     >
       <NavBar />
-      <div className={Styles.bulk__payment__container}>
+      <div className={Styles.bulk__bill__payment__container}>
         <h3>Bulk airtime purchase</h3>
         <div className={Styles.bulk_payment_body}>
-          <div className="upload__requirement">
+          <div className={Styles.upload__requirement}>
             <div className={Styles.form__title}>
               <h3>File upload requirements</h3>
             </div>
@@ -27,8 +28,8 @@ const BulkAirtimePayment = () => {
               <h4>Files must be CSV</h4>
               <p>
                 CSV file should contain{" "}
-                <span>Phone number, Country, amount</span> and{" "}
-                <span>how often you want to recharge</span> columns.
+                <span>Country, Bill, Bill payment ID, Bill package,</span> and{" "}
+                <span>Amount</span> columns.
               </p>
               <p>
                 The order of the columns should be the same as the order in
@@ -41,7 +42,10 @@ const BulkAirtimePayment = () => {
               <form>
                 <div>
                   <label htmlFor="upload">
-                    <BackupOutlinedIcon /> Choose file to upload
+                    <BackupOutlinedIcon />{" "}
+                    <span style={{ padding: "20px" }}>
+                      Choose file to upload
+                    </span>
                   </label>
                   <input type="file" name="file" id="upload" />
                   <div className="submit">
@@ -51,9 +55,9 @@ const BulkAirtimePayment = () => {
               </form>
             </div>
           </div>
-          <div className={Styles.line}></div>
+          <div className="or"></div>
           <div className="bill__form">
-            <BulkManualForm />
+            <BillBulkManualForm />
           </div>
         </div>
       </div>
@@ -61,4 +65,4 @@ const BulkAirtimePayment = () => {
   );
 };
 
-export default BulkAirtimePayment;
+export default BulkBillPayment;

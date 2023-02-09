@@ -27,7 +27,7 @@ const Transfers = () => {
             </Link>
           ))}
         </ul>
-        <Button>Fund balance</Button>
+        <button>Fund balance</button>
       </div>
       <div className={Styles.panel}>
         <div>

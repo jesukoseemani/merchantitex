@@ -148,6 +148,7 @@ button {
 .menu__container {
   min-width: 4rem;
   min-height: 1rem;
+  margin-top: 3px;
 
   & > div {
     padding: 0.58rem;
@@ -166,6 +167,7 @@ button {
     &:hover {
       background-color: #959393;
       color: #fff;
+      padding: 0.58rem;
     }
   }
 }

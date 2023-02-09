@@ -126,6 +126,7 @@
   & > div {
     display: flex;
     gap: 7rem;
+    flex-flow: row wrap;
 
     & > div {
       & > p:first-of-type {

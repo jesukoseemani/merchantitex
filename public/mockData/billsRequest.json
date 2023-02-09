@@ -9,46 +9,50 @@
     {
       "id": "1",
       "country": "Nigeria",
-      "recipient": "+2348021907867",
       "amount": 4000,
-      "network": "mtn",
-      "added": "2022-03-28 14:43:38.0",
-      "transactionRef": "ITEX-hsdh12326erfs6352bg",
+      "packages": "compact plus",
+      "bill": "DSTV",
+      "date": "2022-03-28 14:43:38.0",
+      "transactionRef": "ITEX-hsdh12326erfs6352sdf",
       "providerRef": "ITEX-hsdh12326erfs6352sdf",
-      "commission": 2900
+      "billId": 3454638293462,
+      "commission": 1900
     },
     {
       "id": "2",
       "country": "Nigeria",
-      "recipient": "+2348021907867",
       "amount": 6000,
-      "network": "airtel",
-      "added": "2022-03-28 14:43:38.0",
-      "transactionRef": "ITEX-hsdh12326erfs6352swtf",
+      "packages": "compact plus",
+      "bill": "STARTIMES",
+      "date": "2022-03-28 14:43:38.0",
+      "transactionRef": "ITEX-hsdh12326erfs6352sdf",
       "providerRef": "ITEX-hsdh12326erfs6352sfv",
-      "commission": 2900
+      "commission": 1900,
+      "billId": 14638293462
     },
     {
       "id": "3",
       "country": "Nigeria",
-      "recipient": "+2348021907867",
       "amount": 5000,
-      "network": "glo",
-      "added": "2022-03-28 14:43:38.0",
+      "packages": "compact plus",
+      "bill": "GOTV",
+      "date": "2022-03-28 14:43:38.0",
       "transactionRef": "ITEX-hsdh12326erfs6352sdf",
       "providerRef": "ITEX-hsdh12326erfs6352sdc",
-      "commission": 2900
+      "commission": 2900,
+      "billId": 54638293462
     },
     {
       "id": "4",
       "country": "Nigeria",
-      "recipient": "+2348021907867",
       "amount": 4000,
-      "network": "mtn",
-      "added": "2022-03-28 14:43:38.0",
+      "packages": "compact plus",
+      "bill": "DSTV",
+      "date": "2022-03-28 14:43:38.0",
       "transactionRef": "ITEX-hsdh12326erfs6352sdf",
       "providerRef": "ITEX-hsdh12326erfs6352sdtw",
-      "commission": 2900
+      "commission": 1200,
+      "billId": 54638293462
     }
   ],
   "code": "00",

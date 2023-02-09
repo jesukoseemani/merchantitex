@@ -1,12 +1,10 @@
 import React from "react";
 import Styles from "./airtime.module.scss";
 import AirtimeRequestTable from "./AirtimeRequestTable";
-import { Menu, MenuItem } from "@mui/material";
 import BeneficiaryMenu from "../../views/Payout/BeneficiaryMenu";
 import { useDispatch } from "react-redux";
 import { openModalAndSetContent } from "../../redux/actions/modal/modalActions";
 import SingleAirtimePayment from "./SingleAirtimePayment";
-import BulkAirtimePayment from "./BulkAirtimePayment";
 import { useHistory } from "react-router-dom";
 
 const Airtime = () => {
@@ -38,6 +36,8 @@ const Airtime = () => {
       openModalAndSetContent({
         modalStyles: {
           padding: 0,
+          borderRadius: "0.5rem",
+          boxShadow: "-4px 4px 14px rgba(224, 224, 224, 0.69)",
         },
         modalContent: (
           <div className="modalDiv">

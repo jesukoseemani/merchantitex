@@ -1,17 +1,24 @@
 import NavBar from "../../components/navbar/NavBar";
 import styles from "./CustomerItem.module.scss";
-import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import { Link, useParams, useLocation, useHistory } from "react-router-dom";
-import { closeLoader, openLoader } from "../../redux/actions/loader/loaderActions";
+import {
+  closeLoader,
+  openLoader,
+} from "../../redux/actions/loader/loaderActions";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
 import moment from "moment";
 import CustomClickTable from "../../components/table/CustomClickTable";
-import DoDisturbIcon from '@mui/icons-material/DoDisturb';
-import { GetTransactionsRes, TransactionItem } from "../../types/CustomerTypes";
+import DoDisturbIcon from "@mui/icons-material/DoDisturb";
+import {
+  GetRecentCustomerRes,
+  GetTransactionsRes,
+  RecentCustomerItem,
+  TransactionItem,
+} from "../../types/CustomerTypes";
 import { useCallback, useEffect, useState } from "react";
-
 
 const CustomerItem = () => {
   const location = useLocation<{ rowData: string }>();
@@ -20,20 +27,21 @@ const CustomerItem = () => {
 
   const { slug } = useParams<{ slug: string }>();
 
-  if(!location.state.rowData) {
-    history.replace('/customers');
+  if (!location.state.rowData) {
+    history.replace("/customers");
   }
 
-  const { rowData } = location.state; 
-  // console.log(rowData)
+  const { rowData } = location.state;
+  console.log(slug);
 
   const formattedRowData = JSON.parse(rowData);
 
-  const { firstname, lastname, email, msisdn } = formattedRowData;
-  
+  const { firstname, lastname, email, phone, transNum, total } =
+    formattedRowData;
+
   const [totalAmt, setTotalAmt] = useState<number>(0);
-  const [transactions, setTransactions] = useState<TransactionItem[]>([]);
-  const [rows, setRows] = useState<TransactionItem[]>([]);
+  const [transactions, setTransactions] = useState<RecentCustomerItem[]>([]);
+  const [rows, setRows] = useState<RecentCustomerItem[]>([]);
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
   const [totalRows, setTotalRows] = useState<number>(0);
@@ -48,7 +56,7 @@ const CustomerItem = () => {
   };
 
   interface Column {
-    id: "amount" | "email" | "added" | "paymentmethod" | "code";
+    id: "amount" | "customerID" | "added" | "paymentType";
     label: any;
     minWidth?: number;
     align?: "right" | "left" | "center";
@@ -56,42 +64,50 @@ const CustomerItem = () => {
 
   const columns: Column[] = [
     { id: "amount", label: "Amount", minWidth: 100 },
-    { id: "code", label: "Status", minWidth: 100 },
-    { id: "email", label: "Customer ID", minWidth: 100 },
-    { id: "paymentmethod", label: "Payment Type", minWidth: 100 },
+
+    { id: "customerID", label: "Customer ID", minWidth: 100 },
+    { id: "paymentType", label: "PaymentType", minWidth: 100 },
     { id: "added", label: "Date", minWidth: 100 },
   ];
 
-  const formatStatus = (val: string) => {
-    if(val === '00') {
-      return <p className={styles.successText}>Successful</p>
-    } else if(val === '09') {
-      return <p className={styles.failText}>Failed</p>
-    } else {
-      return <p className={styles.pendingText}>Pending</p>
-    }
-  }
+  // const formatStatus = (val: string) => {
+  //   if (val === "00") {
+  //     return <p className={styles.successText}>Successful</p>;
+  //   } else if (val === "09") {
+  //     return <p className={styles.failText}>Failed</p>;
+  //   } else {
+  //     return <p className={styles.pendingText}>Pending</p>;
+  //   }
+  // };
 
   const TransactionRowTab = useCallback(
-    (email, added, amount, code, paymentmethod) => ({
+    (amount, customerId, paymentType, added) => ({
       amount: <p className={styles.tableBodyText}>NGN{amount}</p>,
-      code: formatStatus(code),
-      email: <p className={styles.tableBodyText}>{email}</p>,
-      paymentmethod: (
+
+      customerID: <p className={styles.tableBodyText}>{customerId}</p>,
+      paymentType: (
         <p className={styles.tableBodyText}>
-          <span className={styles.capitalize}>{paymentmethod}</span>
+          <span className={styles.capitalize}>{paymentType}</span>
         </p>
       ),
-      added: <p className={styles.tableBodyText}>{moment(added).format('MMM D YYYY h:mm A')}</p>,
+      added: (
+        <p className={styles.tableBodyText}>
+          {moment(added).format("MMM D YYYY h:mm A")}
+        </p>
+      ),
     }),
     []
   );
 
-  const getTransactions = async() => {
+  const getTransactions = async () => {
     dispatch(openLoader());
     try {
-      const res = await axios.get<GetTransactionsRes>(`/merchant/transactions?email=${slug}&page=${pageNumber}&perpage=${rowsPerPage}`);
+      const res = await axios.get<GetRecentCustomerRes>(
+        `/mockData/recentcustomerinfo.json?customerId=${slug}`,
+        { baseURL: "" }
+      );
       const { transactions, _metadata } = res?.data;
+      console.log(res);
       if (transactions.length) {
         setTransactions(transactions);
         setTotalRows(_metadata?.totalcount);
@@ -109,35 +125,43 @@ const CustomerItem = () => {
         })
       );
     }
-  }
+  };
 
-  const getAllTransactions = async() => {
-    dispatch(openLoader());
-    try {
-      const res = await axios.get<GetTransactionsRes>(`/merchant/transactions?email=${slug}`);
-      const { transactions, _metadata } = res?.data;
-      if (transactions.length) {
-        const total = transactions.reduce((sum, current) => sum + Number(current.order.amount), 0);
-        setTotalAmt(total);
-      }
-      dispatch(closeLoader());
-    } catch (err) {
-      console.log(err);
-      dispatch(closeLoader());
-      dispatch(
-        openToastAndSetContent({
-          toastContent: "Failed to get transactions",
-          toastStyles: {
-            backgroundColor: "red",
-          },
-        })
-      );
-    }
-  }
+  // const getAllTransactions = async () => {
+  //   dispatch(openLoader());
+  //   try {
+  //     const res = await axios.get<GetRecentCustomerRes>(
+  //       `/mockData/recentcustomerinfo.json?customerId=${slug}`,
+  //       { baseURL: "" }
+  //     );
+  //     console.log(res);
+  //     const { transactions, _metadata } = res?.data;
+  //     console.log(transactions);
+  //     if (transactions.length) {
+  //       // const total = transactions.reduce(
+  //       //   (sum, current) => sum + Number(current.order.amount),
+  //       //   0
+  //       // );
+  //       // setTotalAmt(total);
+  //     }
+  //     dispatch(closeLoader());
+  //   } catch (err) {
+  //     console.log(err);
+  //     dispatch(closeLoader());
+  //     dispatch(
+  //       openToastAndSetContent({
+  //         toastContent: "Failed to get transactions",
+  //         toastStyles: {
+  //           backgroundColor: "red",
+  //         },
+  //       })
+  //     );
+  //   }
+  // };
 
-  useEffect(() => {
-    getAllTransactions();
-  }, [slug])
+  // useEffect(() => {
+  //   getAllTransactions();
+  // }, [slug]);
 
   useEffect(() => {
     getTransactions();
@@ -145,14 +169,13 @@ const CustomerItem = () => {
 
   useEffect(() => {
     const newRowOptions: any[] = [];
-    transactions?.map((each: TransactionItem) =>
+    transactions?.map((each: RecentCustomerItem) =>
       newRowOptions.push(
         TransactionRowTab(
-          each?.source.customer.email,
-          each?.transaction.added,
-          each?.order.amount,
-          each?.code,
-          each?.transaction.paymentmethod,
+          each?.customerId,
+          each?.added,
+          each?.amount,
+          each?.paymentType
         )
       )
     );
@@ -161,12 +184,12 @@ const CustomerItem = () => {
 
   return (
     <div className={styles.container}>
-      <NavBar name="Customers"/>
+      <NavBar name="Customers" />
       <hr />
       <div className={styles.pageWrapper}>
         <div className={styles.sectionOne}>
           <div>
-            <Link to='/customers'>
+            <Link to="/customers">
               <div>
                 <ArrowLeftIcon />
                 <p>Back to customers</p>
@@ -185,17 +208,20 @@ const CustomerItem = () => {
         <div className={styles.sectionTwo}>
           <div>
             <p>Name</p>
-            <p><span>{firstname}</span>{' '}<span className={styles.capitalize}>{lastname}</span></p>
+            <p>
+              <span>{firstname}</span>{" "}
+              <span className={styles.capitalize}>{lastname}</span>
+            </p>
           </div>
           <div></div>
           <div>
             <p>Email</p>
-            <p>{email ?? 'N/A'}</p>
+            <p>{email ?? "N/A"}</p>
           </div>
           <div></div>
           <div>
             <p>Phone</p>
-            <p>{msisdn ?? 'N/A'}</p>
+            <p>{phone ?? "N/A"}</p>
           </div>
         </div>
         <div className={styles.sectionThree}>
@@ -205,11 +231,11 @@ const CustomerItem = () => {
           <div>
             <div>
               <p>Number of transactions</p>
-              <p>{totalRows}</p>
+              <p>{transNum}</p>
             </div>
             <div>
               <p>Total spend</p>
-              <p>NGN {totalAmt}</p>
+              <p>NGN {total}</p>
             </div>
           </div>
         </div>
@@ -229,7 +255,7 @@ const CustomerItem = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CustomerItem
+export default CustomerItem;

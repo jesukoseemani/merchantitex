@@ -12,7 +12,6 @@ import BeneficiaryFilterModal from "../../components/Beneficiaries/BeneficiaryFi
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import BeneficiaryMenu from "./BeneficiaryMenu";
-import BeneficiaryDownload from "./DownloadMenu";
 
 function PendingApproval() {
   interface TransactionsProps {
@@ -125,15 +124,29 @@ function PendingApproval() {
   const classes = useStyles();
 
   // open menu
-  const [beneficiary, setBeneficary] = React.useState<null | HTMLElement>(null);
+  const [beneficiary, setBeneficiary] = React.useState<null | HTMLElement>(
+    null
+  );
+  const [download, setDownload] = React.useState<null | HTMLElement>(null);
   const openBeneficiary = Boolean(beneficiary);
+  const openDownloadMenu = Boolean(download);
+
   const handleClickBeneficiary = (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
-    setBeneficary(event.currentTarget);
+    setBeneficiary(event.currentTarget);
   };
+  const handleOpenDownloadMenu = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    setDownload(event.currentTarget);
+  };
+
   const handleCloseMenu = () => {
-    setBeneficary(null);
+    setBeneficiary(null);
+  };
+  const handleCloseDownloadMenu = () => {
+    setDownload(null);
   };
 
   // filter
@@ -149,6 +162,7 @@ function PendingApproval() {
     window.alert("this is csv");
   };
 
+  // add beneficiary menu array
   const data = [
     {
       id: 1,
@@ -167,6 +181,8 @@ function PendingApproval() {
       func: CSVFuc,
     },
   ];
+
+  // download menu array
   const dataDownload = [
     {
       id: 1,
@@ -196,7 +212,7 @@ function PendingApproval() {
             <button onClick={handleOpen}>
               Filter <ArrowDropDownOutlinedIcon />
             </button>
-            <button>
+            <button onClick={handleOpenDownloadMenu}>
               Download <CloudUploadOutlinedIcon />
             </button>
             <button className={Styles.success} onClick={handleClickBeneficiary}>
@@ -220,17 +236,21 @@ function PendingApproval() {
         filterOpen={filterOpen}
         setFilterOpen={setFilterOpen}
       />
+
       <BeneficiaryMenu
         openBeneficiary={openBeneficiary}
         handleCloseMenu={handleCloseMenu}
         beneficiary={beneficiary}
         data={data}
+        style={{ width: "12rem", textAlign: "center" }}
       />
-      <BeneficiaryDownload
-        openBeneficiary={openBeneficiary}
-        handleCloseMenu={handleCloseMenu}
-        beneficiary={beneficiary}
-        datas={dataDownload}
+
+      {/* download */}
+      <BeneficiaryMenu
+        openBeneficiary={openDownloadMenu}
+        handleCloseMenu={handleCloseDownloadMenu}
+        beneficiary={download}
+        data={dataDownload}
       />
     </div>
   );

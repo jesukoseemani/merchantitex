@@ -67,6 +67,8 @@ import { saveMe } from "../redux/actions/me/meActions";
 import BillTabPanel from "../views/Bills/BillTabPanel";
 import AirtimeSaleRequest from "../views/Bills/AirtimeSaleRequest";
 import BulkAirtimePayment from "../components/bills/BulkAirtimePayment";
+import BillSaleRequest from "../views/Bills/BillSaleRequest";
+import BulkBillPayment from "../components/bills/BulkBillPayment";
 
 export default function AppRoutes() {
   // const { loadingState } = useSelector((state) => state?.loadingStateReducer);
@@ -432,8 +434,20 @@ export default function AppRoutes() {
             />
             <ProtectedRoute
               exact
+              path="/bill/requests/:slug"
+              component={BillSaleRequest}
+              AuthUser={loadingState}
+            />
+            <ProtectedRoute
+              exact
               path="/airtime/bulk-payment"
               component={BulkAirtimePayment}
+              AuthUser={loadingState}
+            />
+            <ProtectedRoute
+              exact
+              path="/bill/bulk-payment"
+              component={BulkBillPayment}
               AuthUser={loadingState}
             />
             <ProtectedRoute
