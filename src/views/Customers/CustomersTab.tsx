@@ -76,18 +76,8 @@ const CustomersTab = ({ value, index }: CustomersTabProps) => {
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
   const [totalRows, setTotalRows] = useState<number>(0);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [beneficiary, setBeneficiary] = React.useState<null | HTMLElement>(
-    null
-  );
-  const open = Boolean(anchorEl);
-
-  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
+  
+  
   const changePage = (value: number) => {
     setPageNumber(value);
   };
@@ -225,7 +215,6 @@ const CustomersTab = ({ value, index }: CustomersTabProps) => {
         modalContent: (
           <div className="modalDiv">
             <AddNewCustomer />
-            hhhh
           </div>
         ),
       })

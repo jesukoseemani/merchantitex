@@ -42,7 +42,25 @@ export interface GetRecentCustomerRes {
 
 
 
+export interface BlacklistCustomerItem {
+  firstname: string;
+  lastname: string;
+  email: string;
+  phone: number;
+  added?: string;
+  id?: string;
+}
 
+export interface GetBlacklistCustomerRes {
+  _metadata: {
+    page: number;
+    perpage: number;
+    pagecount: number;
+    totalcount: number;
+    links: [];
+  };
+  transactions: BlacklistCustomerItem[];
+}
 
 export interface TransactionItem {
   transaction: {
