@@ -5,7 +5,7 @@
 .form__select_type{
   color: #333;
   font-weight: 500;
-  font-family: Roboto, "Arial, Helvetica, sans-serif";
+  font-family: Avenir, "Arial, Helvetica, sans-serif";
 }
 .form__input {
   font-size: 1.5rem;
@@ -44,7 +44,7 @@
   padding: 1.5rem;
 }
 .form__select-type {
-  font-family: Roboto;
+  font-family: Avenir;
   font-size: 2rem;
   font-style: normal;
   font-weight: 400;
@@ -149,7 +149,7 @@
   font-size: 2rem;
   padding: 0;
   margin: 0;
-  font-family: Roboto;
+  font-family: Avenir;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
@@ -162,7 +162,7 @@
   margin-top: 5px;
   font-size: 1.4rem;
   width: 100%;
-  font-family: Roboto;
+  font-family: Avenir;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;

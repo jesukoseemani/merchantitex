@@ -1,211 +1,211 @@
 .container {
-  display: flex;
-  flex-direction: column;
-  width: calc(100% - 269px);
-  position: relative;
+	display: flex;
+	flex-direction: column;
+	width: calc(100% - 269px);
+	position: relative;
 
-  @media screen and (max-width: 850px) {
+	@media screen and (max-width: 850px) {
 		width: calc(100% - 73px);
 	}
 
-  @media screen and (max-width: 600px) {
+	@media screen and (max-width: 600px) {
 		width: calc(100% - 57px);
 	}
 
-  hr {
-    background-color: #E0E0E0;
-  }
+	hr {
+		background-color: #e0e0e0;
+	}
 }
 
 .pageWrapper {
-  margin-bottom: 4rem;
+	margin-bottom: 4rem;
 }
 
 .spacedLine {
-  padding: 0 2rem;
+	padding: 0 2rem;
 }
 
 .sectionOne {
-  padding: 0 2rem;
+	padding: 0 2rem;
 
-  & > div:nth-child(1) {
-    margin: 1.25rem 0;
-    div {
-      display: flex;
-      align-items: center;
-      color: #828282;
-      & > p {
-        color: #4F4F4F;
-        font-size: .875rem;
-        font-weight: 400;
-      }
-    }
-  };
+	& > div:nth-child(1) {
+		margin: 1.25rem 0;
+		div {
+			display: flex;
+			align-items: center;
+			color: #828282;
+			& > p {
+				color: #4f4f4f;
+				font-size: 0.875rem;
+				font-weight: 400;
+			}
+		}
+	}
 }
 
 .sectionTwo {
-  margin: 1.25rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  @media screen and (max-width: 600px) {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-  }
+	margin: 1.25rem 2rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	@media screen and (max-width: 600px) {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 1rem;
+	}
 
-  & > div {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    color: #333;
-    font-size: 1.25rem;
-    @media screen and (max-width: 450px) {
-      font-size: 1rem;
-    }
-  }
+	& > div {
+		display: flex;
+		gap: 1rem;
+		align-items: center;
+		color: #333;
+		font-size: 1.25rem;
+		@media screen and (max-width: 450px) {
+			font-size: 1rem;
+		}
+	}
 
-  & > div:first-of-type {
-    @media screen and (max-width: 450px) {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: .5rem;
-    }
-    & > p:first-of-type {
-      font-weight: 700;
-    }
-    div {
-      width: 1px;
-      height: 1rem;
-      background-color: #e0e0e0;
-      @media screen and (max-width: 450px) {
-        display: none;
-      }
-    }
-    & > p:last-of-type {
-      font-weight: 400;
-    }
-  }
+	& > div:first-of-type {
+		@media screen and (max-width: 450px) {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 0.5rem;
+		}
+		& > p:first-of-type {
+			font-weight: 700;
+		}
+		div {
+			width: 1px;
+			height: 1rem;
+			background-color: #e0e0e0;
+			@media screen and (max-width: 450px) {
+				display: none;
+			}
+		}
+		& > p:last-of-type {
+			font-weight: 400;
+		}
+	}
 }
 
 .sectionThree {
-  padding: 1.25rem 2rem;
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  flex-wrap: wrap;
-  @media screen and (max-width: 1000px) {
-    gap: 2rem;
-  }
-  @media screen and (max-width: 768px) {
-    gap: 1.25rem;
-  }
+	padding: 1.25rem 2rem;
+	display: flex;
+	align-items: center;
+	gap: 2rem;
+	flex-wrap: wrap;
+	@media screen and (max-width: 1000px) {
+		gap: 2rem;
+	}
+	@media screen and (max-width: 768px) {
+		gap: 1.25rem;
+	}
 
-  & > div {
-    border-left: 1px solid #e0e0e0;
-    padding-left: 2rem;
-    @media screen and (max-width: 850px) {
-      border-left: none;
-      padding-left: 0;
-    }
+	& > div {
+		border-left: 1px solid #e0e0e0;
+		padding-left: 2rem;
+		@media screen and (max-width: 850px) {
+			border-left: none;
+			padding-left: 0;
+		}
 
-    & > p:first-of-type {
-      color: #828282;
-      font-size: .75rem;
-      font-weight: 400;
-    }
+		& > p:first-of-type {
+			color: #828282;
+			font-size: 0.75rem;
+			font-weight: 400;
+		}
 
-    & > p:last-of-type {
-      color: #333;
-      font-size: .875rem;
-      font-weight: 500;
-    }
-  }
+		& > p:last-of-type {
+			color: #333;
+			font-size: 0.875rem;
+			font-weight: 500;
+		}
+	}
 
-  & > div:first-of-type {
-    border-left: none;
-    padding-left: 0;
-  }
+	& > div:first-of-type {
+		border-left: none;
+		padding-left: 0;
+	}
 }
 
 .sectionFour {
-  padding: 2rem;
+	padding: 2rem;
 
-  & >div:first-of-type {
-    display: flex;
-    gap: 1rem;
+	& > div:first-of-type {
+		display: flex;
+		gap: 1rem;
 
-    & > p {
-      font-weight: 500;
-      font-size: .875rem;
-      cursor: pointer;
-      &:hover {
-        opacity: .75;
-      }
-    }
-  }
+		& > p {
+			font-weight: 500;
+			font-size: 0.875rem;
+			cursor: pointer;
+			&:hover {
+				opacity: 0.75;
+			}
+		}
+	}
 
-  & > div:last-of-type {
-    margin-top: 1.5rem;
+	& > div:last-of-type {
+		margin-top: 1.5rem;
 
-    h3 {
-      font-family: 'Roboto', sans-serif;
-    }
-  }
+		h3 {
+			font-family: 'Avenir', sans-serif;
+		}
+	}
 }
 
 .tableContainer {
-  margin-top: 1.5rem;
-  // padding: 0 2rem;
+	margin-top: 1.5rem;
+	// padding: 0 2rem;
 }
 
 .tableBodySpan {
-  color: #828282;
+	color: #828282;
 }
 
 .tableBodyCapital {
-  font-size: .875rem;
-  color: #333;
-  font-weight: 400;
-  cursor: pointer;
-  text-transform: capitalize;
+	font-size: 0.875rem;
+	color: #333;
+	font-weight: 400;
+	cursor: pointer;
+	text-transform: capitalize;
 }
 
 .pendingText {
-  font-size: .875rem;
-  color: #12122c;
-  font-weight: 500;
-  cursor: pointer;
-  padding: .2rem 1rem;
-  background-color: #f2c94c;
-  border-radius: 2px;
-  text-align: center;
-  text-transform: capitalize;
-  width: 90%;
+	font-size: 0.875rem;
+	color: #12122c;
+	font-weight: 500;
+	cursor: pointer;
+	padding: 0.2rem 1rem;
+	background-color: #f2c94c;
+	border-radius: 2px;
+	text-align: center;
+	text-transform: capitalize;
+	width: 90%;
 }
 
 .wonText {
-  font-size: .875rem;
-  color: white;
-  font-weight: 500;
-  cursor: pointer;
-  padding: .2rem 1rem;
-  background-color: #27ae60;
-  border-radius: 2px;
-  text-align: center;
-  text-transform: capitalize;
-  width: 90%;
+	font-size: 0.875rem;
+	color: white;
+	font-weight: 500;
+	cursor: pointer;
+	padding: 0.2rem 1rem;
+	background-color: #27ae60;
+	border-radius: 2px;
+	text-align: center;
+	text-transform: capitalize;
+	width: 90%;
 }
 
 .lostText {
-  font-size: .875rem;
-  color: white;
-  font-weight: 500;
-  cursor: pointer;
-  padding: .2rem 1rem;
-  background-color: #eb5757;
-  border-radius: 2px;
-  text-align: center;
-  text-transform: capitalize;
-  width: 90%;
+	font-size: 0.875rem;
+	color: white;
+	font-weight: 500;
+	cursor: pointer;
+	padding: 0.2rem 1rem;
+	background-color: #eb5757;
+	border-radius: 2px;
+	text-align: center;
+	text-transform: capitalize;
+	width: 90%;
 }

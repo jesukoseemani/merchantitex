@@ -1,74 +1,74 @@
 .container {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
 }
 .header {
-  width: 841px;
-  margin: 0 auto;
-  margin-top: 60px;
-  & > h2 {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: lighter;
-    font-size: 30px;
-    line-height: 35px;
-    color: #333333;
-  }
-  & > p {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 19px;
-    margin-top: 25px;
-    color: #828282;
-  }
+	width: 841px;
+	margin: 0 auto;
+	margin-top: 60px;
+	& > h2 {
+		font-family: Avenir;
+		font-style: normal;
+		font-weight: lighter;
+		font-size: 30px;
+		line-height: 35px;
+		color: #333333;
+	}
+	& > p {
+		font-family: Avenir;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 16px;
+		line-height: 19px;
+		margin-top: 25px;
+		color: #828282;
+	}
 }
 .panel {
-  background: #f8f8f8;
-  border: 1px solid #f0f0f0;
-  box-sizing: border-box;
-  border-radius: 4px;
-  width: 841px;
-  height: 274px;
-  margin: 65px auto auto;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  place-items: center;
-  padding: 50px 0;
-  & > div {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    & > h2 {
-      font-style: normal;
-      font-weight: 600;
-      width: 190px;
-      font-size: 14px;
-      line-height: 16px;
-      text-align: center;
-      margin-top: 20px;
-      color: #333333;
-    }
-    & > button {
-      margin-top: 24px !important;
-    }
-  }
-  & > div:last-child {
-    border-left: 1px solid #dfe7ef;
-  }
+	background: #f8f8f8;
+	border: 1px solid #f0f0f0;
+	box-sizing: border-box;
+	border-radius: 4px;
+	width: 841px;
+	height: 274px;
+	margin: 65px auto auto;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	place-items: center;
+	padding: 50px 0;
+	& > div {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		& > h2 {
+			font-style: normal;
+			font-weight: 600;
+			width: 190px;
+			font-size: 14px;
+			line-height: 16px;
+			text-align: center;
+			margin-top: 20px;
+			color: #333333;
+		}
+		& > button {
+			margin-top: 24px !important;
+		}
+	}
+	& > div:last-child {
+		border-left: 1px solid #dfe7ef;
+	}
 }
 button.primary {
-  background: #27ae60 !important;
-  border-radius: 4px;
-  color: #fff !important;
-  opacity: 1;
-  transition: all 0.4s ease;
+	background: #27ae60 !important;
+	border-radius: 4px;
+	color: #fff !important;
+	opacity: 1;
+	transition: all 0.4s ease;
 }
 button.primary:hover {
-  opacity: 0.9;
+	opacity: 0.9;
 }

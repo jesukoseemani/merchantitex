@@ -53,11 +53,11 @@
 	margin: 0;
 	// line-break: auto;
 
-	font-family: Roboto;
+	font-family: Avenir;
 }
 
 .title {
-	font-family: Roboto;
+	font-family: Avenir;
 	font-style: normal;
 	font-weight: normal;
 	font-size: 16px;
@@ -109,15 +109,14 @@
 }
 
 @media only screen and (max-width: 775px) {
-.signupDiv_flex{
-	flex-direction: column;
-}
+	.signupDiv_flex {
+		flex-direction: column;
+	}
 
-.sub{
-	margin-bottom: 20px;
+	.sub {
+		margin-bottom: 20px;
+	}
 }
-}
-
 
 @media only screen and (max-width: 600px) {
 	.signupDiv {
