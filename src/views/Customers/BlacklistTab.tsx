@@ -8,7 +8,7 @@ const BlacklistTab = () => {
       <div className={Styles.header__title}>
         <div>
           {" "}
-          <h3> 5 Airtime Purchase</h3>
+          <h3> 5 Blacklisted customer</h3>
         </div>
         <div>
           <button>

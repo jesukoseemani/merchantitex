@@ -1,28 +1,15 @@
-import { Tab, Tabs } from "@mui/material";
-import { SyntheticEvent, useState } from "react";
+import Box from "@mui/material/Box";
+import Tab from "@mui/material/Tab";
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
+
+import React, { SyntheticEvent, useState } from "react";
 import NavBar from "../../components/navbar/NavBar";
 import styles from "./Customers.module.scss";
 import { makeStyles } from "@material-ui/styles";
 import BlacklistTab from "./BlacklistTab";
 import CustomersTab from "./CustomersTab";
-
-export type TabStateType = "customers" | "blacklist";
-
-export const useTabBtnStyles = makeStyles({
-  root: {
-    "& .Mui-selected": {
-      color: "#27AE60",
-    },
-    "& .MuiTabs-indicator": {
-      backgroundColor: "#27AE60",
-      height: "3px",
-    },
-    "& .MuiButtonBase-root": {
-      fontSize: "1rem",
-      fontWeight: "400",
-    },
-  },
-});
 
 export const useTableStyles = makeStyles({
   root: {
@@ -72,35 +59,37 @@ export const useTableStyles = makeStyles({
 });
 
 const Customers = () => {
-  const tabBtnClasses = useTabBtnStyles();
+  const [value, setValue] = React.useState("1");
 
-  const [value, setValue] = useState<TabStateType>("customers");
-  const [listView, setListView] = useState(false);
-
-  const handleTabChange = (event: SyntheticEvent, newValue: TabStateType) => {
-    setListView(false);
+  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
 
   return (
     <div className={styles.container}>
       <NavBar name="Customers" />
-      <hr />
-      <div className={styles.pageWrapper}>
-        <Tabs
-          value={value}
-          onChange={handleTabChange}
-          aria-label="customer tabs"
-          className={tabBtnClasses.root}
-        >
-          <Tab label="Customers" value="customers" />
-          <Tab label="Blacklist" value="blacklist" />
-        </Tabs>
+      {/* <hr /> */}
 
-        <CustomersTab value={value} index="customers" />
-        <BlacklistTab />
-      </div>
+      <Box sx={{ width: "98%", marginInline: "auto", typography: "body1" }}>
+        <TabContext value={value}>
+          <Box sx={{ borderBottom: 0, borderColor: "divider" }}>
+            <TabList onChange={handleChange} aria-label="lab API tabs example">
+              <Tab label="Customers" value="1" />
+              <Tab label="Blacklist" value="2" />
+            </TabList>
+          </Box>
+          <TabPanel value="1">
+            <CustomersTab />
+          </TabPanel>
+          <TabPanel value="2">
+            <BlacklistTab />
+          </TabPanel>
+        </TabContext>
+      </Box>
     </div>
+
+    // <CustomersTab value={value} index="customers" />
+    // <BlacklistTab />
   );
 };
 

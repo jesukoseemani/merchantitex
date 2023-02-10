@@ -20,24 +20,30 @@ import {
 } from "../../types/CustomerTypes";
 import { useCallback, useEffect, useState } from "react";
 
+interface customerProps {
+  firstname: string;
+  lastname: string;
+  email: string;
+  phone: number;
+  transNum: number;
+  total: number;
+}
 const CustomerItem = () => {
-  const location = useLocation<{ rowData: string }>();
+  const { state } = useLocation();
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const { slug } = useParams<{ slug: string }>();
+  const { id } = useParams<{ id: string }>();
+  console.log("state", state);
+  // if (!location?.state?.rowData) {
+  //   history.replace("/customers");
+  // }
 
-  if (!location.state.rowData) {
-    history.replace("/customers");
-  }
+  // console.log(lo);
 
-  const { rowData } = location.state;
-  console.log(slug);
-
-  const formattedRowData = JSON.parse(rowData);
-
-  const { firstname, lastname, email, phone, transNum, total } =
-    formattedRowData;
+  // const formattedRowData = JSON.parse(rowData);
+  // transNum, total
+  const { firstname, lastname, email, phone, total, transNum }: any = state;
 
   const [totalAmt, setTotalAmt] = useState<number>(0);
   const [transactions, setTransactions] = useState<RecentCustomerItem[]>([]);
@@ -70,16 +76,6 @@ const CustomerItem = () => {
     { id: "added", label: "Date", minWidth: 100 },
   ];
 
-  // const formatStatus = (val: string) => {
-  //   if (val === "00") {
-  //     return <p className={styles.successText}>Successful</p>;
-  //   } else if (val === "09") {
-  //     return <p className={styles.failText}>Failed</p>;
-  //   } else {
-  //     return <p className={styles.pendingText}>Pending</p>;
-  //   }
-  // };
-
   const TransactionRowTab = useCallback(
     (amount, customerId, paymentType, added) => ({
       amount: <p className={styles.tableBodyText}>NGN{amount}</p>,
@@ -103,7 +99,7 @@ const CustomerItem = () => {
     dispatch(openLoader());
     try {
       const res = await axios.get<GetRecentCustomerRes>(
-        `/mockData/recentcustomerinfo.json?customerId=${slug}`,
+        `/mockData/recentcustomerinfo.json?customerId=${id}`,
         { baseURL: "" }
       );
       const { transactions, _metadata } = res?.data;

@@ -23,7 +23,6 @@ import { openModalAndSetContent } from "../../redux/actions/modal/modalActions";
 
 import AddNewCustomer from "./AddNewCustomer";
 import Addtoblacklist from "./Addtoblacklist";
-import slugify from "react-slugify";
 
 interface CustomersTabProps {
   value: TabStateType;
@@ -76,8 +75,7 @@ const CustomersTab = ({ value, index }: CustomersTabProps) => {
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
   const [totalRows, setTotalRows] = useState<number>(0);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  
-  
+
   const changePage = (value: number) => {
     setPageNumber(value);
   };
@@ -100,7 +98,7 @@ const CustomersTab = ({ value, index }: CustomersTabProps) => {
     { id: "actions", label: "Actions", minWidth: 100, align: "right" },
   ];
 
-  const handleBLacklist = () => {
+  const handleBLacklist = ({ value, index }: CustomersTabProps) => {
     dispatch(
       openModalAndSetContent({
         modalStyles: {
@@ -144,7 +142,22 @@ const CustomersTab = ({ value, index }: CustomersTabProps) => {
           justifyContent="flex-end"
           className={styles.ActionBtn}
         >
-          <button onClick={() => history.push(`/customers/${email}`)}>
+          <button
+            onClick={() =>
+              history.push({
+                pathname: `/customers/${email}`,
+                state: {
+                  firstname,
+                  lastname,
+                  email,
+                  added,
+                  phone,
+                  transNum,
+                  total,
+                },
+              })
+            }
+          >
             View Details
           </button>
           <button onClick={handleBLacklist}>BlackList</button>
@@ -243,8 +256,8 @@ const CustomersTab = ({ value, index }: CustomersTabProps) => {
             limit={limit}
             // clickable
             // link="/customers"
-            identifier="email"
-            rowsData={customers}
+            // identifier="email"
+            // rowsData={customers}
           />
         </div>
       </>
