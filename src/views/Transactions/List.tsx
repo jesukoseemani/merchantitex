@@ -30,9 +30,9 @@ export default function TransactionsList() {
 	const [change, setChange] = useState(true);
 
 	const history = useHistory();
-	const { merchantcode } = useSelector(
-		(state) => state?.meReducer?.me?.business
-	);
+	// const { merchantcode } = useSelector(
+	// 	(state) => state?.meReducer?.me?.business
+	// );
 
 	useEffect(() => {
 		axios
@@ -307,7 +307,7 @@ export default function TransactionsList() {
 	});
 	return (
 		<div className={Styles.container}>
-			<NavBar />
+			<NavBar /> 
 			<FilterModal
 				isOpen={isFilterModalOpen}
 				handleClose={() => setIsFilterModalOpen(false)}

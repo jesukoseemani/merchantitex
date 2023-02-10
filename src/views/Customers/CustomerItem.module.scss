@@ -1,214 +1,212 @@
 .container {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  position: relative;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	position: relative;
 
-  & > hr {
-    background-color: #E0E0E0;
-  }
+	& > hr {
+		background-color: #e0e0e0;
+	}
 }
 
 .pageWrapper {
-  margin-bottom: 4rem;
+	margin-bottom: 4rem;
 
-  & > hr {
-    background-color: #E0E0E0;
-  }
+	& > hr {
+		background-color: #e0e0e0;
+	}
 }
 
 .tableContainer {
-  margin-top: 1.5rem;
+	margin-top: 1.5rem;
 }
 
 .tableBodyText {
-  font-size: .875rem;
-  color: #333;
-  font-weight: 400;
-  cursor: pointer;
+	font-size: 0.875rem;
+	color: #333;
+	font-weight: 400;
+	cursor: pointer;
 }
 
 .successText {
-  color: white;
-  background-color: #27AE60;
-  padding: .2rem .625rem;
-  text-align: center;
-  border-radius: 2px;
-  font-weight: 500;
+	color: white;
+	background-color: #27ae60;
+	padding: 0.2rem 0.625rem;
+	text-align: center;
+	border-radius: 2px;
+	font-weight: 500;
 }
 
 .pendingText {
-  color: black;
-  background-color: #F2C94C;
-  padding: .2rem .625rem;
-  text-align: center;
-  border-radius: 2px;
-  font-weight: 500;
+	color: black;
+	background-color: #f2c94c;
+	padding: 0.2rem 0.625rem;
+	text-align: center;
+	border-radius: 2px;
+	font-weight: 500;
 }
 
 .failText {
-  color: white;
-  background-color: #EB5757;
-  padding: .2rem .625rem;
-  text-align: center;
-  border-radius: 2px;
-  font-weight: 500;
+	color: white;
+	background-color: #eb5757;
+	padding: 0.2rem 0.625rem;
+	text-align: center;
+	border-radius: 2px;
+	font-weight: 500;
 }
 
 .capitalize {
-  text-transform: capitalize;
-  color: #333;
+	text-transform: capitalize;
+	color: #333;
 }
 
 .sectionOne {
-  padding: 0 2rem;
+	padding: 0 2rem;
 
-  & > div:nth-child(1) {
-    margin: 1.25rem 0;
-    div {
-      display: flex;
-      align-items: center;
-      color: #828282;
-      & > p {
-        color: #4F4F4F;
-        font-size: .875rem;
-        font-weight: 400;
-      }
-    }
-  };
+	& > div:nth-child(1) {
+		margin: 1.25rem 0;
+		div {
+			display: flex;
+			align-items: center;
+			color: #828282;
+			& > p {
+				color: #4f4f4f;
+				font-size: 0.875rem;
+				font-weight: 400;
+			}
+		}
+	}
 
-  & > div:nth-child(2) {
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
-    margin-bottom: 1.5rem;
-    justify-content: space-between;
+	& > div:nth-child(2) {
+		display: flex;
+		align-items: center;
+		gap: 1.25rem;
+		margin-bottom: 1.5rem;
+		justify-content: space-between;
 
-    & > p {
-      color: #333;
-      font-size: 1.5rem;
-      font-weight: 700;
-    };
+		& > p {
+			color: #333;
+			font-size: 1.5rem;
+			font-weight: 700;
+		}
 
-    & > div {
-      color: #EB5757;
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      gap: .3rem;
-    };
-  }  
+		& > div {
+			color: #eb5757;
+			display: flex;
+			align-items: center;
+			cursor: pointer;
+			gap: 0.3rem;
+		}
+	}
 }
 
 .sectionTwo {
-  padding: 2rem 2rem 0;
-  display: flex;
-  gap: 5rem;
+	padding: 2rem 2rem 0;
+	display: flex;
+	gap: 5rem;
 
-  @media screen and (max-width: 1050px) {
-    gap: 3rem;
-  }
+	@media screen and (max-width: 1050px) {
+		gap: 3rem;
+	}
 
-  @media screen and (max-width: 920px) {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-  }
+	@media screen and (max-width: 920px) {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+	}
 
-  @media screen and (max-width: 400px) {
-    grid-template-columns: 1fr;
-    grid-gap: 1rem;
-  }
+	@media screen and (max-width: 400px) {
+		grid-template-columns: 1fr;
+		grid-gap: 1rem;
+	}
 
-  & > div:nth-child(even) {
-    margin: .5rem 0;
-    width: 1.5px;
-    background: #E0E0E0;
+	& > div:nth-child(even) {
+		margin: 0.5rem 0;
+		width: 1.5px;
+		background: #e0e0e0;
 
-    @media screen and (max-width: 920px) {
-      display: none;
-    }
-  }
+		@media screen and (max-width: 920px) {
+			display: none;
+		}
+	}
 
-  & > div:nth-child(odd) {
-    font-weight: 400;
-    font-size: .875rem;
-    & > p:nth-child(1) {
-      color: #828282;
-    }
-    & > p:nth-child(2) {
-      color: #333;
-      margin-top: .5rem;
-    }
-  }
+	& > div:nth-child(odd) {
+		font-weight: 400;
+		font-size: 0.875rem;
+		& > p:nth-child(1) {
+			color: #828282;
+		}
+		& > p:nth-child(2) {
+			color: #333;
+			margin-top: 0.5rem;
+		}
+	}
 
-  span {
-    text-transform: capitalize;
-    color: #333;
-  }
+	span {
+		text-transform: capitalize;
+		color: #333;
+	}
 }
 
 .sectionThree {
-  padding: 4rem 2rem 0;
+	padding: 4rem 2rem 0;
 
-  @media screen and (max-width: 760px) {
-    padding: 3rem 6rem 0 2rem;
-  }
+	@media screen and (max-width: 760px) {
+		padding: 3rem 6rem 0 2rem;
+	}
 
-  & > div:nth-child(1) {
-    border-bottom: 1px solid #E0E0E0;
-    h3 {
-      font-family: 'Roboto', sans-serif;
-      color: #333;
-      font-weight: 700;
-      padding: .625rem 0;
-    }
-  }
+	& > div:nth-child(1) {
+		border-bottom: 1px solid #e0e0e0;
+		h3 {
+			font-family: 'Avenir', sans-serif;
+			color: #333;
+			font-weight: 700;
+			padding: 0.625rem 0;
+		}
+	}
 
-  & > div:nth-child(2) {
-    display: flex;
-    gap: 5rem;
-    margin-top: .625rem;
-    flex-wrap: wrap;
+	& > div:nth-child(2) {
+		display: flex;
+		gap: 5rem;
+		margin-top: 0.625rem;
+		flex-wrap: wrap;
 
-    @media screen and (max-width: 920px) {
-      gap: 3rem;
-    }
+		@media screen and (max-width: 920px) {
+			gap: 3rem;
+		}
 
-    @media screen and (max-width: 400px) {
-      display: grid;
-      grid-gap: 1rem;
-    }
+		@media screen and (max-width: 400px) {
+			display: grid;
+			grid-gap: 1rem;
+		}
 
-    & > div {
-      font-weight: 400;
-      font-size: .875rem;
-      & > p:nth-child(1) {
-        color: #828282;
-      }
-      & > p:nth-child(2) {
-        color: #333;
-        margin-top: .5rem;
-      }
-    }
-  }
+		& > div {
+			font-weight: 400;
+			font-size: 0.875rem;
+			& > p:nth-child(1) {
+				color: #828282;
+			}
+			& > p:nth-child(2) {
+				color: #333;
+				margin-top: 0.5rem;
+			}
+		}
+	}
 }
 
 .sectionFour {
-  padding: 4rem 2rem 0;
+	padding: 4rem 2rem 0;
 
-  & > div:nth-child(1) {
-    border-bottom: 1px solid #E0E0E0;
-    h3 {
-      font-family: 'Roboto', sans-serif;
-      color: #333;
-      font-weight: 700;
-      padding: .625rem 0;
-    }
-  }
+	& > div:nth-child(1) {
+		border-bottom: 1px solid #e0e0e0;
+		h3 {
+			font-family: 'Avenir', sans-serif;
+			color: #333;
+			font-weight: 700;
+			padding: 0.625rem 0;
+		}
+	}
 
-  & > div:nth-child(2) {
-    margin-top: 1rem;
-  }
-
+	& > div:nth-child(2) {
+		margin-top: 1rem;
+	}
 }
-

@@ -54,7 +54,7 @@ const QuickUpdate = () => {
 			.get(`/merchant/account/me`)
 			.then((res) => {
 				dispatch(saveMe(res.data));
-			}) 
+			})
 			.catch((err) => console.log(err));
 	}, [dispatch]);
 

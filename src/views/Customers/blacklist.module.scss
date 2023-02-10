@@ -1,0 +1,29 @@
+.header__title {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 2rem;
+	margin-bottom: 1rem;
+	h3 {
+		font-family: 'Avenir';
+		font-style: normal;
+		font-weight: 400;
+		font-size: 1.3rem;
+		line-height: 1.4rem;
+	}
+	button {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 0.5rem 1rem;
+		border-radius: 0.3rem;
+	}
+}
+
+.ActionBtn {
+	border: none;
+	outline: none;
+	background-color: unset;
+	border-radius: 0.3rem;
+	color: lighten(#219653, 10);
+}

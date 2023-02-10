@@ -1,4 +1,5 @@
 .menuContainer {
+	position: relative;
 	display: flex;
 	align-items: center;
 	justify-content: right;
@@ -44,6 +45,7 @@
 }
 
 .switchtoggle {
+	position: relative;
 	display: flex;
 	align-items: center;
 }
