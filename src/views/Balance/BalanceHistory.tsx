@@ -162,45 +162,46 @@ const BalanceHistory = () => {
 		{ id: 'added', label: 'Due Date', minWidth: 100 },
 	];
 
-	const BalanceHistoryRowTab = useCallback(
-		(init, amt, after, details, added, id) => ({
-			init: (
-				<p className={styles.tableBodyText}>
-					<span className={styles.tableBodySpan}>NGN </span>
-					{init}
-				</p>
-			),
-			amt: (
-				<p className={styles.tableBodyText}>
-					<span
-						style={{
-							color: amt.startsWith('+') ? '#219653' : '#eb5757',
-							fontWeight: '700',
-						}}>
-						{amt}
-					</span>
-				</p>
-			),
-			after: (
-				<p className={styles.tableBodyText}>
-					<span className={styles.tableBodySpan}>NGN </span>
-					{after}
-				</p>
-			),
-			details: <p className={styles.tableBodyText}>{details}</p>,
-			added: (
-				<p className={styles.tableBodyText}>
-					{moment(added).format('MMM D YYYY')}
-					<span className={styles.tableBodySpan}>
-						{' '}
-						{moment(added).format('h:mm A')}
-					</span>
-				</p>
-			),
-			id: <p>{id}</p>,
-		}),
-		[]
-	);
+  const BalanceHistoryRowTab = useCallback(
+    (init, amt, after, details, added, id) => ({
+      init: (
+        <p className={styles.tableBodyText}>
+          <span className={styles.tableBodySpan}>NGN </span>
+          {init}
+        </p>
+      ),
+      amt: (
+        <p className={styles.tableBodyText}>
+          <span
+            style={{
+              color: amt.startsWith("+") ? "#219653" : "#eb5757",
+              fontWeight: "700",
+            }}
+          >
+            {amt}
+          </span>
+        </p>
+      ),
+      after: (
+        <p className={styles.tableBodyText}>
+          <span className={styles.tableBodySpan}>NGN </span>
+          {after}
+        </p>
+      ),
+      details: <p className={styles.tableBodyText}>{details}</p>,
+      added: (
+        <p className={styles.tableBodyText}>
+          {moment(added).format("MMM D YYYY")}
+          <span className={styles.tableBodySpan}>
+            {" "}
+            {moment(added).format("h:mm A")}
+          </span>
+        </p>
+      ),
+      id: <p>{id}</p>,
+    }),
+    []
+  );
 
 	useEffect(() => {
 		const newRowOptions: any[] = [];
@@ -219,118 +220,119 @@ const BalanceHistory = () => {
 		setRows(newRowOptions);
 	}, [history, BalanceHistoryRowTab]);
 
-	const getBalanceHistory = async () => {
-		dispatch(openLoader());
-		try {
-			const res = await axios.get<GetBalanceHistoryRes>(
-				'/mockData/balancehistory.json',
-				{ baseURL: '' }
-			);
-			const { history, _metadata } = res?.data;
-			if (history.length) {
-				setHistory(history);
-				setTotalRows(_metadata?.totalcount);
-			}
-			dispatch(closeLoader());
-		} catch (err) {
-			console.log(err);
-			dispatch(closeLoader());
-			dispatch(
-				openToastAndSetContent({
-					toastContent: 'Failed to get history',
-					toastStyles: {
-						backgroundColor: 'red',
-					},
-				})
-			);
-		}
-	};
+  const getBalanceHistory = async () => {
+    dispatch(openLoader());
+    try {
+      const res = await axios.get<GetBalanceHistoryRes>(
+        "/mockData/balancehistory.json",
+        { baseURL: "" }
+      );
+      const { history, _metadata } = res?.data;
+      if (history.length) {
+        setHistory(history);
+        setTotalRows(_metadata?.totalcount);
+      }
+      dispatch(closeLoader());
+    } catch (err) {
+      console.log(err);
+      dispatch(closeLoader());
+      dispatch(
+        openToastAndSetContent({
+          toastContent: "Failed to get history",
+          toastStyles: {
+            backgroundColor: "red",
+          },
+        })
+      );
+    }
+  };
 
 	useEffect(() => {
 		getBalanceHistory();
 	}, [pageNumber, rowsPerPage]);
 
-	return (
-		<div className={styles.container}>
-			<Modal
-				open={isFilterModalOpen}
-				onClose={() => setIsFilterModalOpen(false)}
-				aria-labelledby='balance history filter modal'>
-				<div className={styles.filterModalContainer}>
-					<p>Filters</p>
-					<hr />
-					<div className={styles.modalContent}>
-						<div>
-							<p>Due date</p>
-							<div>
-								<p>Today</p>
-								<p>Last 7 days</p>
-								<p>30 days</p>
-								<p>1 year</p>
-							</div>
-						</div>
-						<div>
-							<p>Custom date range</p>
-							<div>
-								<div>Start date</div>
-								<ArrowRightAltIcon />
-								<div>End date</div>
-							</div>
-						</div>
-						<div>
-							<p>Withheld amount</p>
-							<OutlinedInput placeholder='NGN 0.00' size='small' fullWidth />
-						</div>
-						<div>
-							<p>Status</p>
-							<OutlinedInput
-								placeholder='Choose status'
-								size='small'
-								fullWidth
-							/>
-						</div>
-					</div>
-					<hr />
-					<div className={modalBtnClasses.root}>
-						<Button>Clear filter</Button>
-						<Button>Apply filter</Button>
-					</div>
-				</div>
-			</Modal>
-			<NavBar name='Balance History' />
-			<hr />
-			<div className={styles.pageWrapper}>
-				<div className={styles.historyTopContainer}>
-					<div>
-						<h2>Balance History</h2>
-					</div>
-					<div className={btnClasses.root}>
-						<div>
-							<Button onClick={() => setIsFilterModalOpen(true)}>
-								All <ArrowDropDownIcon />
-							</Button>
-						</div>
-						<Button>
-							Download <CloudUploadOutlinedIcon />
-						</Button>
-					</div>
-				</div>
-				<div className={styles.tableContainer}>
-					<CustomClickTable
-						columns={columns}
-						rows={rows}
-						totalRows={totalRows}
-						changePage={changePage}
-						limit={limit}
-						clickable
-						link='/balance/balance_history'
-						identifier='id'
-						rowsData={history}
-					/>
-				</div>
-			</div>
-		</div>
-	);
+  return (
+    <div className={styles.container}>
+      <Modal
+        open={isFilterModalOpen}
+        onClose={() => setIsFilterModalOpen(false)}
+        aria-labelledby="balance history filter modal"
+      >
+        <div className={styles.filterModalContainer}>
+          <p>Filters</p>
+          <hr />
+          <div className={styles.modalContent}>
+            <div>
+              <p>Due date</p>
+              <div>
+                <p>Today</p>
+                <p>Last 7 days</p>
+                <p>30 days</p>
+                <p>1 year</p>
+              </div>
+            </div>
+            <div>
+              <p>Custom date range</p>
+              <div>
+                <div>Start date</div>
+                <ArrowRightAltIcon />
+                <div>End date</div>
+              </div>
+            </div>
+            <div>
+              <p>Withheld amount</p>
+              <OutlinedInput placeholder="NGN 0.00" size="small" fullWidth />
+            </div>
+            <div>
+              <p>Status</p>
+              <OutlinedInput
+                placeholder="Choose status"
+                size="small"
+                fullWidth
+              />
+            </div>
+          </div>
+          <hr />
+          <div className={modalBtnClasses.root}>
+            <Button>Clear filter</Button>
+            <Button>Apply filter</Button>
+          </div>
+        </div>
+      </Modal>
+      <NavBar name="Balance History" />
+      <hr />
+      <div className={styles.pageWrapper}>
+        <div className={styles.historyTopContainer}>
+          <div>
+            <h2>Balance History</h2>
+          </div>
+          <div className={btnClasses.root}>
+            <div>
+              <Button onClick={() => setIsFilterModalOpen(true)}>
+                All <ArrowDropDownIcon />
+              </Button>
+            </div>
+            <Button>
+              Download <CloudUploadOutlinedIcon />
+            </Button>
+          </div>
+        </div>
+        <div className={styles.tableContainer}>
+          <CustomClickTable
+            columns={columns}
+            rows={rows}
+            totalRows={totalRows}
+            changePage={changePage}
+            limit={limit}
+            clickable
+            link="/balance/balance_history"
+            identifier="id"
+            rowsData={history}
+          />
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default BalanceHistory;

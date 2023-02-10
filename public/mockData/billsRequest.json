@@ -1,0 +1,60 @@
+{
+  "_metadata": {
+    "pagecount": 1,
+    "totalcount": 5,
+    "page": 1,
+    "links": []
+  },
+  "history": [
+    {
+      "id": "1",
+      "country": "Nigeria",
+      "amount": 4000,
+      "packages": "compact plus",
+      "bill": "DSTV",
+      "date": "2022-03-28 14:43:38.0",
+      "transactionRef": "ITEX-hsdh12326erfs6352sdf",
+      "providerRef": "ITEX-hsdh12326erfs6352sdf",
+      "billId": 3454638293462,
+      "commission": 1900
+    },
+    {
+      "id": "2",
+      "country": "Nigeria",
+      "amount": 6000,
+      "packages": "compact plus",
+      "bill": "STARTIMES",
+      "date": "2022-03-28 14:43:38.0",
+      "transactionRef": "ITEX-hsdh12326erfs6352sdf",
+      "providerRef": "ITEX-hsdh12326erfs6352sfv",
+      "commission": 1900,
+      "billId": 14638293462
+    },
+    {
+      "id": "3",
+      "country": "Nigeria",
+      "amount": 5000,
+      "packages": "compact plus",
+      "bill": "GOTV",
+      "date": "2022-03-28 14:43:38.0",
+      "transactionRef": "ITEX-hsdh12326erfs6352sdf",
+      "providerRef": "ITEX-hsdh12326erfs6352sdc",
+      "commission": 2900,
+      "billId": 54638293462
+    },
+    {
+      "id": "4",
+      "country": "Nigeria",
+      "amount": 4000,
+      "packages": "compact plus",
+      "bill": "DSTV",
+      "date": "2022-03-28 14:43:38.0",
+      "transactionRef": "ITEX-hsdh12326erfs6352sdf",
+      "providerRef": "ITEX-hsdh12326erfs6352sdtw",
+      "commission": 1200,
+      "billId": 54638293462
+    }
+  ],
+  "code": "00",
+  "message": "Successful"
+}
