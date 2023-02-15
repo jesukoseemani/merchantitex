@@ -299,7 +299,7 @@ const BalanceHistory = () => {
           </div>
         </div>
       </Modal>
-      <NavBar name="Balance History" />
+      {/* <NavBar name="Balance History" /> */}
       <hr />
       <div className={styles.pageWrapper}>
         <div className={styles.historyTopContainer}>

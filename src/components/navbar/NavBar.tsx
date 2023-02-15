@@ -1,28 +1,68 @@
-import React, { useState, useEffect } from 'react';
-import SearchBar from '../search/searchBar';
-import Styles from './Navbar.module.scss';
-import { IconButton } from '@mui/material';
-import UserMenu from '../menu/userMenu';
-import { useSelector } from 'react-redux';
-
+import React, { useState, useEffect } from "react";
+import SearchBar from "../search/searchBar";
+import Styles from "./Navbar.module.scss";
+import { Button, IconButton } from "@mui/material";
+import UserMenu from "../menu/userMenu";
+import { useSelector } from "react-redux";
+import ArrowDown from "../../assets/images/arrowDown.svg";
+import ArrowLeft from "../../assets/images/arrowLeft.svg";
+import { navRoutes } from "../../mock/navRoutes";
+import { ReactSVG } from "react-svg";
+import { useHistory, useLocation } from "react-router-dom";
 const NavBar = ({ name }: { name?: string }) => {
-	const business = useSelector((state) => state?.meReducer?.me?.business);
+  const business = useSelector((state) => state?.meReducer?.me?.business);
 
-	return (
-		<div className={Styles.container}>
-			<div className={Styles.flex}>
-				{business?.status === 'IN-REVIEW' && (
-					<button className={Styles.headerButton}>Test Mode</button>
-				)}
+  const { pathname } = useLocation();
+  const [active, setActive] = React.useState(0);
+  const [routes, setRoutes] = useState([])
+  const [isNested, setIsNested] = useState(false)
 
-				<div className={Styles.searchContainer}>
-					<SearchBar />
-				</div>
-			</div>
+  const history = useHistory()
 
-			<UserMenu />
-		</div>
-	);
+
+  useEffect(() => {
+    const nestedRoutes = navRoutes?.find((route) => route?.link === pathname)?.nav;
+    setIsNested(nestedRoutes ? true : false)
+    setRoutes(nestedRoutes ?? navRoutes)
+  }, [pathname]);
+
+  return (
+    <div className={Styles.container}>
+      <div className={Styles.userInfo}>
+        <div className={Styles.user__img}>
+          <img src="https://loremflickr.com/640/480/cats" alt="user profile" />
+        </div>
+        <div className={Styles.userProfile__text}>
+          <p>James  <ReactSVG src={ArrowDown} /></p>
+          <span>thejames@gmail.com</span>
+        </div>
+      </div>
+      <div>
+        <div className={Styles.backBtn} >
+
+          {isNested && <Button onClick={() => history.push("/")}><ReactSVG src={ArrowLeft} /> Main menu</Button>}
+
+        </div>
+        <nav>
+          {/* {nextedRoutes?} */}
+          {routes?.map(({ id, title, icon, link }) => {
+            return (
+              <li
+                key={id}
+                onClick={() => history.push(link)}
+                className={link === pathname ? Styles.active : Styles.routes}
+              >
+                {/* <img src={icon} alt={name} /> */}
+
+                <ReactSVG src={icon} />
+                {title}
+              </li>
+            )
+          })}
+        </nav>
+      </div>
+    </div>
+  );
 };
 
 export default NavBar;

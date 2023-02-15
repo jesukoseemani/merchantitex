@@ -105,7 +105,7 @@ const Api = () => {
 	return (
 		<div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
 			<APIModal />
-			<NavBar name='API' />
+			{/* <NavBar name='API' /> */}
 			<div className={Styles.container}>
 				<div className={Styles.formHeader}>
 					<div>

@@ -56,7 +56,7 @@ export default function Transaction() {
   const { email, card } = transaction?.source?.customer ?? "";
   return (
 		<div className={Styles.container}>
-			<NavBar />
+			{/* <NavBar /> */}
 			<div className={Styles.header}>
 				<span onClick={() => history.push('/transactions/list')}>
 					<ArrowLeftIcon />

@@ -17,7 +17,7 @@ const MerchantOverview = () => {
       className={Styles.container}
       style={{ display: "flex", flexDirection: "column", width: "100%" }}
     >
-      <NavBar name="Merchant Overview" />
+      {/* <NavBar name="Merchant Overview" /> */}
       <MerchantChart /> 
       <OverviewCard />
       <div className={Styles.tableWrapper}>

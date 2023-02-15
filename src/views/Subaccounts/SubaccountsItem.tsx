@@ -229,7 +229,7 @@ const SubaccountsItem = () => {
 
 	return (
 		<div className={styles.container}>
-			<NavBar name='Subaccounts' />
+			{/* <NavBar name='Subaccounts' /> */}
 			<hr />
 			<div className={styles.pageWrapper}>
 				<div className={styles.sectionOne}>

@@ -9,7 +9,7 @@ import TransfersTable from "../../components/table/TransfersTable";
 export default function TransferTable() {
   return (
     <div className={Styles.container}>
-      <NavBar />
+      {/* <NavBar /> */}
       <div className={Styles.tableContainer}>
         <div className={Styles.tableHeader}>
           <h2>19 transactions</h2>

@@ -131,7 +131,7 @@ const DeployedItem = () => {
 
   return (
     <div className={styles.container}>
-      <NavBar name="Point Of Sale"/>
+      {/* <NavBar name="Point Of Sale"/> */}
       <div className={styles.pageWrapper}>
         <div className={styles.sectionOne}>
           <div>

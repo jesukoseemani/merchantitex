@@ -26,7 +26,7 @@ const WebHooks = () => {
   ];
   return (
     <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
-      <NavBar />
+      {/* <NavBar /> */}
       <div className={Styles.container}>
         <div className={Styles.formHeader}>
           <div>

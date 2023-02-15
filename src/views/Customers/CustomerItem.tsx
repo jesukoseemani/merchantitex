@@ -14,9 +14,7 @@ import CustomClickTable from "../../components/table/CustomClickTable";
 import DoDisturbIcon from "@mui/icons-material/DoDisturb";
 import {
   GetRecentCustomerRes,
-  GetTransactionsRes,
   RecentCustomerItem,
-  TransactionItem,
 } from "../../types/CustomerTypes";
 import { useCallback, useEffect, useState } from "react";
 
@@ -62,7 +60,7 @@ const CustomerItem = () => {
   };
 
   interface Column {
-    id: "amount" | "customerID" | "added" | "paymentType";
+    id: "amount" | "status" | "customerID" | "added" | "paymentType";
     label: any;
     minWidth?: number;
     align?: "right" | "left" | "center";
@@ -70,6 +68,7 @@ const CustomerItem = () => {
 
   const columns: Column[] = [
     { id: "amount", label: "Amount", minWidth: 100 },
+    { id: "status", label: "", minWidth: 100 },
 
     { id: "customerID", label: "Customer ID", minWidth: 100 },
     { id: "paymentType", label: "PaymentType", minWidth: 100 },
@@ -77,10 +76,18 @@ const CustomerItem = () => {
   ];
 
   const TransactionRowTab = useCallback(
-    (amount, customerId, paymentType, added) => ({
-      amount: <p className={styles.tableBodyText}>NGN{amount}</p>,
-
+    (amount, customerId, paymentType, added, status) => ({
+      amount: <p className={styles.tableBodyText}>NGN{amount} </p>,
+      status: (
+        <span
+          className={status === "Successful" ? styles.status : styles.pending}
+        >
+          {" "}
+          {status}
+        </span>
+      ),
       customerID: <p className={styles.tableBodyText}>{customerId}</p>,
+
       paymentType: (
         <p className={styles.tableBodyText}>
           <span className={styles.capitalize}>{paymentType}</span>
@@ -168,10 +175,11 @@ const CustomerItem = () => {
     transactions?.map((each: RecentCustomerItem) =>
       newRowOptions.push(
         TransactionRowTab(
-          each?.customerId,
-          each?.added,
           each?.amount,
-          each?.paymentType
+          each?.customerId,
+          each?.paymentType,
+          each?.added,
+          each?.status
         )
       )
     );

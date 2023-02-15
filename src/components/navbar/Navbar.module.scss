@@ -1,37 +1,193 @@
+@import "../../components/color/color.module.scss";
 .container {
-	position: relative;
-	background-color: #fff;
-	height: 85px;
-	width: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	padding: 0 30px;
-	border-bottom: 1px solid #e0e0e0;
+  height: 100%;
+  & > .userInfo {
+    padding-inline: 21px;
+    width: 201px;
+    height: 80px;
+    margin-inline:auto ;
+    background: $main_dark;
+    border: 0.6px solid #8cabbe;
+    border-radius: 15px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+
+    & > div {
+      p {
+        color: $light_text;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 28px;
+      }
+     
+      img {
+        width: 40px;
+        height: 40px;
+        border-radius: 100%;
+        margin-left: 5px;
+        
+      }
+    }
+  }
+  .userProfile__text{
+    width: 140px;
+    // gap: 5px;
+     span {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 10px;
+        color: lighten($light_text, 2);
+       
+      }
+      p{
+         display: flex;
+        
+        align-items: center;
+        
+        svg{
+          margin-left: 19px;
+        }
+      }
+  }
+  .user__img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // border: 2px solid red;
+    height: 100%;
+  }
+}
+
+nav {
+  width: 100%;
+  margin-top: 2rem;
+  
+  li {
+    list-style: none;
+    font-weight: 100 !important;
+    width: 100% !important;
+    font-size: 16px;
+   line-height: 45px;
+   font-family: 'Avenir';
+  
+    color: $light;
+    cursor: pointer;
+    // gap: 20px;
+    display: flex;
+    padding-inline: 20px;
+
+    &:hover,
+    &.active {
+      background: rgba(39, 174, 96, 0.06);
+      color: $secondary;
+      width: 100%;
+      path {
+        stroke: $secondary;
+      }
+    }
+  }
+}
+svg {
+  margin-right: 25px;
+  path {
+    stroke: #fff;
+  }
+}
+
+// header
+.header__box {
+  // height: 100%;
+  background-color: $body;
+  overflow: hidden;
 
 }
-.searchContainer {
-	width: 542px;
+
+.left__container {
+  height: 4.7rem;
+}
+input {
+  width: 433px;
+  height: 35px;
+
+  background: #fbfbfb;
+  border: 1px solid #dddddd;
+  border-radius: 10px;
 }
 
-.flex {
-	display: flex;
-	align-items: center;
+.toggleButton {
+  background: rgba(4, 25, 38, 0.1);
+  border: 0.7px solid #041926;
+  border-radius: 17.5px;
+  // width: 200px;
+  // height: 35px;
+  // gap: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // padding-inline: 3px;
+  margin-right: 3rem;
+ 
 }
 
-.headerButton {
-	background-color: transparent;
-	border-radius: 4px;
-	border: 1px solid rgba(243, 44, 0, 1);
-	color: rgba(243, 44, 0, 1);
-	padding: 8px 20px;
-	cursor: none;
-	margin-right: 10px;
-  width: 120px;
+.usersProfile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  // border: 2px solid red;
+  margin-left: 2rem;
 
-	// @media screen and (max-width: 768px) {
-	// 	padding: 3px 5px;
-	// }
+  .userProfileImg__container {
+    display: flex;
+
+    width: 3rem;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .userProfileImg {
+    svg {
+      width: 30.8px;
+      height: 30.8px;
+    }
+  }
+  .arrowDown {
+    margin-right: -8rem !important;
+    // border: 2px solid red;
+  }
+}
+
+.input__box{
+  display: flex;
+  position: relative;
+  input{
+    padding-left: 55px;
+  }
+  
+  svg{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 1rem;
+  }
 }
 
 
+.backBtn{
+  margin-top: 43px;
+  padding: 10px  20px;
+
+  button{
+font-family: 'Avenir';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 24px;
+color: #9EA2B2;
+
+  }
+}

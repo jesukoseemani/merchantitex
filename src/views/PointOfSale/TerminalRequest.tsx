@@ -5,7 +5,7 @@ import styles from "./Balance.module.scss";
 const TerminalRequests = () => {
   return (
     <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
-      <NavBar name="Terminal Requests"/>
+      {/* <NavBar name="Terminal Requests"/> */}
     </div>
   );
 };

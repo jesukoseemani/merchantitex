@@ -232,7 +232,7 @@ const GeneralSettings = () => {
 	};
 	return (
 		<div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-			<NavBar name='GeneralSettings' />
+			{/* <NavBar name='GeneralSettings' /> */}
 			<div className={Styles.container}>
 				<div className={Styles.formHeader}>
 					<div>

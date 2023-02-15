@@ -56,7 +56,7 @@ const RefundItem = () => {
 
   return (
     <div className={styles.container}>
-      <NavBar name="Customers"/>
+      {/* <NavBar name="Customers"/> */}
       <hr />
       <div className={styles.pageWrapper}>
         <div className={styles.sectionOne}>

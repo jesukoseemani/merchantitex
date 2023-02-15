@@ -307,7 +307,7 @@ export default function TransactionsList() {
 	});
 	return (
 		<div className={Styles.container}>
-			<NavBar /> 
+			{/* <NavBar />  */}
 			<FilterModal
 				isOpen={isFilterModalOpen}
 				handleClose={() => setIsFilterModalOpen(false)}

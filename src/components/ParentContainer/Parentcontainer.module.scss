@@ -1,8 +1,36 @@
+@import "../color/color.module.scss";
 .parent {
-  display: flex;
-  // background-color: rgb(246, 246, 248);
+  // border: 2px solid red;
   width: 100%;
-  scroll-behavior: smooth;
-  margin: 0 auto;
-  overflow-x: hidden;
+  height: 100vh;
+  max-height: 100vh;
+  
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  // overflow: hidden;
+  max-height: 100vh;
+
+  .sidebars {
+    background-color: $dark;
+      max-height: 100vh;
+
+    // overflow-y: auto;
+  }
+  .main__container {
+    // border: 2px solid $dark;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 5rem 1fr;
+    .header {
+      grid-column: 1/-1;
+      grid-row: 1fr;
+    }
+    .main {
+      background-color: $body;
+      grid-column: 1/-1;
+      // height: auto;
+      max-height: 100vh;
+      overflow: auto;
+    }
+  }
 }
