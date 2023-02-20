@@ -9,6 +9,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
+import ParentContainer from '../../components/ParentContainer/ParentContainer';
 
 const WebHooks = () => {
 	// const countryList = [
@@ -90,32 +91,33 @@ const WebHooks = () => {
 			});
 	};
 	return (
-		<div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-			{/* <NavBar /> */}
-			<div className={Styles.container}>
-				<div className={Styles.formHeader}>
-					<div>
-						<h2>Webhooks</h2>
+
+			<div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+				{/* <NavBar /> */}
+				<div className={Styles.container}>
+					<div className={Styles.formHeader}>
+						<div>
+							<h2>Webhooks</h2>
+						</div>
 					</div>
-				</div>
-				<div className={Styles.formField}>
-					{/* <Form.Input
+					<div className={Styles.formField}>
+						{/* <Form.Input
 						className={Styles.quarterField}
 						name='slot1'
 						label='http://'
 						placeholder='Enter URL'
 					/> */}
 
-					<Input
-						type='url'
-						className={Styles.quarterField}
-						label='Url'
-						placeholder='https://mysite.com/'
-						value={url}
-						onChange={(e) => setUrl(e.target.value)}
-					/>
-				</div>
-				{/* <div className={Styles.formField}>
+						<Input
+							type='url'
+							className={Styles.quarterField}
+							label='Url'
+							placeholder='https://mysite.com/'
+							value={url}
+							onChange={(e) => setUrl(e.target.value)}
+						/>
+					</div>
+					{/* <div className={Styles.formField}>
           <Form.Input
             fluid
             className={Styles.quarterField}
@@ -124,17 +126,17 @@ const WebHooks = () => {
             placeholder="Secret hash"
           />
         </div> */}
-				{/* <div className={Styles.note}>
+					{/* <div className={Styles.note}>
           <p>
             Secret harsh is used to verify your webhook requests. Verify webhook
             requests with the secretharsh returned as verify hash from ITEX Pay
           </p>
         </div> */}
-				<div className={Styles.checkboxField}>
-					<Checkbox label='Receive webhook response in JSON format' />
-					<Checkbox label='Enable Webhook retries' />
-					<Checkbox label='Enable failed transactions webhook' />
-					{/* <div className={Styles.formField}>
+					<div className={Styles.checkboxField}>
+						<Checkbox label='Receive webhook response in JSON format' />
+						<Checkbox label='Enable Webhook retries' />
+						<Checkbox label='Enable failed transactions webhook' />
+						{/* <div className={Styles.formField}>
 						<Form.Input
 							fluid
 							className={Styles.quarterField}
@@ -142,12 +144,12 @@ const WebHooks = () => {
 							placeholder='Enter a custom hook URL'
 						/>
 					</div> */}
+					</div>
+					<Button onClick={webhookHandler} className='success'>
+						Save webhook settings
+					</Button>
 				</div>
-				<Button onClick={webhookHandler} className='success'>
-					Save webhook settings
-				</Button>
 			</div>
-		</div>
 	);
 };
 

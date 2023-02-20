@@ -12,6 +12,7 @@ import {
 } from "../../redux/actions/loader/loaderActions";
 import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
 import BalanceBox from "./BalanceBox";
+import ParentContainer from "../../components/ParentContainer/ParentContainer";
 
 const Balance = () => {
   const [wallets, setWallets] = useState<WalletItem[]>([]);
@@ -74,9 +75,9 @@ const Balance = () => {
   }, []);
 
   return (
+
     <div className={styles.container}>
-      {/* <NavBar name='Balance' /> */}
-      <hr />
+
       <div className={styles.pageWrapper}>
         <div className={styles.topBoxContainer}>
           <div>
@@ -112,7 +113,9 @@ const Balance = () => {
           ))}
         </div>
       </div>
+
     </div>
+
   );
 };
 

@@ -1,0 +1,63 @@
+.container {
+    width: 100% !important;
+    // min-height: 649px;
+    height: 100;
+    background: #FFFFFF;
+    // border: 2px solid red;
+    // box-shadow: -4px 4px 14px rgba(224, 224, 224, 0.69);
+    border-radius: 20px;
+    overflow: hidden;
+
+    .title {
+        height: 60px;
+        display: flex;
+        align-items: center;
+        padding-left: 50px;
+        border-bottom: 1px solid #E0E0E0;
+
+        p {
+            font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 25px;
+            /* identical to box height */
+
+
+            color: #828282;
+        }
+    }
+}
+
+
+// form
+.formContainer {
+
+    height: 100%;
+    padding: 10px;
+
+    label {
+        font-family: 'Avenir';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 19px;
+
+        color: #333333;
+        padding: 15px 0;
+    }
+
+    button {
+        background: #27AE60;
+        border-radius: 20px;
+        font-family: 'Avenir';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 22px;
+        text-align: center;
+
+        color: #FFFFFF;
+        padding: 10px 30px;
+    }
+}

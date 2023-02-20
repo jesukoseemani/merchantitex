@@ -21,6 +21,7 @@ import axios from "axios";
 import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
 import { IconButton } from "@material-ui/core";
 import CloseIcon from "@mui/icons-material/Close";
+import ParentContainer from "../../components/ParentContainer/ParentContainer";
 
 
 const BankAccounts = () => {
@@ -41,7 +42,7 @@ const BankAccounts = () => {
   const [openModal, setOpenModal] = useState(false);
 
   const dispatch = useDispatch();
-	const bankData = useSelector((state) => state?.countryReducer?.country.banks); 
+  const bankData = useSelector((state) => state?.countryReducer?.country.banks);
 
 
   const countryOptions = [{ key: 1, value: "nigeria", text: "Nigeria" }];
@@ -125,12 +126,12 @@ const BankAccounts = () => {
   ];
   interface Column {
     id:
-      | "account_name"
-      | "account_number"
-      | "bank_name"
-      | "currency"
-      | "status"
-      | "action";
+    | "account_name"
+    | "account_number"
+    | "bank_name"
+    | "currency"
+    | "status"
+    | "action";
     label: any;
     minWidth?: number;
     align?: "right" | "left" | "center";
@@ -144,33 +145,33 @@ const BankAccounts = () => {
     { id: "action", label: "Action", align: "right", minWidth: 100 },
   ];
   const LoanRowTab = useCallback(
-		(
-			account_name: string,
-			account_number: number,
-			bank_name: string,
-			currency: string,
-			status: string
-		) => ({
-			account_name,
-			account_number,
-			bank_name,
-			currency: 'NGN',
-			status: (
-				<Label
-					className={
-						status?.toLowerCase() === 'primary'
-							? 'success'
-							: status?.toLowerCase() === 'new'
-							? 'warning'
-							: 'danger'
-					}>
-					{status}
-				</Label>
-			),
-			action: <IconButton className='action text-success'>Edit</IconButton>,
-		}),
-		[]
-	);
+    (
+      account_name: string,
+      account_number: number,
+      bank_name: string,
+      currency: string,
+      status: string
+    ) => ({
+      account_name,
+      account_number,
+      bank_name,
+      currency: 'NGN',
+      status: (
+        <Label
+          className={
+            status?.toLowerCase() === 'primary'
+              ? 'success'
+              : status?.toLowerCase() === 'new'
+                ? 'warning'
+                : 'danger'
+          }>
+          {status}
+        </Label>
+      ),
+      action: <IconButton className='action text-success'>Edit</IconButton>,
+    }),
+    []
+  );
   useEffect(() => {
     const newRowOptions: any[] = [];
     settlements?.map((each: TransactionsProps) =>
@@ -230,9 +231,10 @@ const BankAccounts = () => {
   };
 
   return (
+
     <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
       <AccountModal />
-      <NavBar name="Bank Accounts" />
+
       <div className={Styles.container}>
         <div className={Styles.formHeader}>
           <div>

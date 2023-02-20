@@ -32,6 +32,7 @@ import axios from "axios";
 import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
 import { useDispatch } from "react-redux";
 import CustomClickTable from "../../components/table/CustomClickTable";
+import ParentContainer from "../../components/ParentContainer/ParentContainer";
 
 const useBtnStyles = makeStyles({
   root: {
@@ -275,6 +276,8 @@ const RollingReserve = () => {
   }, [pageNumber, rowsPerPage]);
 
   return (
+
+
     <div className={styles.container}>
       <Modal
         open={isFilterModalOpen}
@@ -322,7 +325,7 @@ const RollingReserve = () => {
           </div>
         </div>
       </Modal>
-      {/* <NavBar name='Rolling reserve' /> */}
+
       <hr />
       <div className={styles.pageWrapper}>
         <div className={styles.historyTopContainer}>
@@ -355,6 +358,7 @@ const RollingReserve = () => {
         </div>
       </div>
     </div>
+
   );
 };
 

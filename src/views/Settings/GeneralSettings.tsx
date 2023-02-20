@@ -10,7 +10,8 @@ import {
 import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
 import { useDispatch } from 'react-redux';
 import { serialize } from 'object-to-formdata';
-import {FetchProfileDetails} from '../../helpers/FetchProfileDetails'
+import { FetchProfileDetails } from '../../helpers/FetchProfileDetails'
+import ParentContainer from '../../components/ParentContainer/ParentContainer';
 
 const GeneralSettings = () => {
 	interface formTypes {
@@ -107,7 +108,7 @@ const GeneralSettings = () => {
 		console.log(business.businesslogo);
 		setLoader(true);
 		const payload = {
-				...business,
+			...business,
 		};
 		const formData = serialize(payload);
 		try {
@@ -231,8 +232,10 @@ const GeneralSettings = () => {
 		setBusiness((prevState) => ({ ...prevState, businesslogo: files[0] }));
 	};
 	return (
+
+
 		<div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-			{/* <NavBar name='GeneralSettings' /> */}
+			{/* <NavBar  /> */}
 			<div className={Styles.container}>
 				<div className={Styles.formHeader}>
 					<div>

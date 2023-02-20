@@ -18,6 +18,7 @@ import moment from 'moment';
 import { LinkItem } from '../../types/PaymentlinkTypes';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { ReactComponent as ExtLinkIcon } from '../../assets/images/ext-link.svg';
+import ParentContainer from '../../components/ParentContainer/ParentContainer';
 
 const useBtnStyles = makeStyles({
 	root: {
@@ -172,73 +173,76 @@ const PaymentLinksItem = () => {
 	}, [transactions, TransactionRowTab]);
 
 	return (
-		<div className={styles.container}>
-			<NavBar name='Payment Links' />
-			<div className={styles.pageWrapper}>
-				<div className={styles.sectionOne}>
-					<div>
-						<Link to='/payment_links'>
+		
+
+			<div className={styles.container}>
+
+				<div className={styles.pageWrapper}>
+					<div className={styles.sectionOne}>
+						<div>
+							<Link to='/payment_links'>
+								<div>
+									<ArrowLeftIcon />
+									<p>Back to payment links</p>
+								</div>
+							</Link>
+						</div>
+					</div>
+					<div className={styles.sectionTwo}>
+						<div>
+							<p>{name}</p>
+							<p>Active</p>
+						</div>
+						<div className={btnClasses.root}>
+							<Button>Edit</Button>
+							<Button>Deactivate</Button>
+							<Button>Delete</Button>
+						</div>
+					</div>
+					<div className={styles.sectionThree}>
+						<div>
 							<div>
-								<ArrowLeftIcon />
-								<p>Back to payment links</p>
+								<p>Payment Link URL</p>
+								<p>
+									{url} <ContentCopyIcon /> <ExtLinkIcon />
+								</p>
 							</div>
-						</Link>
-					</div>
-				</div>
-				<div className={styles.sectionTwo}>
-					<div>
-						<p>{name}</p>
-						<p>Active</p>
-					</div>
-					<div className={btnClasses.root}>
-						<Button>Edit</Button>
-						<Button>Deactivate</Button>
-						<Button>Delete</Button>
-					</div>
-				</div>
-				<div className={styles.sectionThree}>
-					<div>
-						<div>
-							<p>Payment Link URL</p>
-							<p>
-								{url} <ContentCopyIcon /> <ExtLinkIcon />
-							</p>
+							<div>
+								<p>Date created</p>
+								<p>{moment(added).format('MMM D YYYY h:mm A')}</p>
+							</div>
+							<div>
+								<p>Link type</p>
+								<p>{linkType}</p>
+							</div>
+							<div>
+								<p>Amount</p>
+								<p>NGN {amt}</p>
+							</div>
 						</div>
 						<div>
-							<p>Date created</p>
-							<p>{moment(added).format('MMM D YYYY h:mm A')}</p>
-						</div>
-						<div>
-							<p>Link type</p>
-							<p>{linkType}</p>
-						</div>
-						<div>
-							<p>Amount</p>
-							<p>NGN {amt}</p>
+							<p>Description</p>
+							<p>{desc}</p>
 						</div>
 					</div>
-					<div>
-						<p>Description</p>
-						<p>{desc}</p>
-					</div>
-				</div>
-				<hr />
-				<div className={styles.sectionFour}>
-					<div>
-						<h3>Transactions</h3>
-						<div className={styles.tableContainer}>
-							<CustomClickTable
-								columns={columns}
-								rows={rows}
-								totalRows={totalRows}
-								changePage={changePage}
-								limit={limit}
-							/>
+					<hr />
+					<div className={styles.sectionFour}>
+						<div>
+							<h3>Transactions</h3>
+							<div className={styles.tableContainer}>
+								<CustomClickTable
+									columns={columns}
+									rows={rows}
+									totalRows={totalRows}
+									changePage={changePage}
+									limit={limit}
+								/>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		
 	);
 };
 

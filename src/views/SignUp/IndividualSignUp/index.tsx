@@ -1,7 +1,9 @@
 import { InputLabel, Typography, Button, TextField } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import styles from './style.module.scss';
-import Logo from '../../../assets/images/NavLogo.svg';
+import Logo from '../../../assets/images/white_bg_logo.svg';
+
+import { ReactSVG } from "react-svg";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import List from '@mui/material/List';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -46,7 +48,7 @@ const createAccount = [
 	},
 ];
 
-const IndividualSignUp = () => { 
+const IndividualSignUp = () => {
 	const validate = Yup.object({
 		fullName: Yup.string()
 			.max(30, 'Must be 30 characters or less')
@@ -150,7 +152,7 @@ const IndividualSignUp = () => {
 			{(props) => (
 				<div className={styles.signupContainer}>
 					<div className={styles.logo}>
-						<img src={Logo} alt='' onClick={() => history.push('/signin')} />
+						<ReactSVG src={Logo} onClick={() => history.push('/signin')} />
 					</div>
 					<div className={styles.signupDiv}>
 						<div className={styles.signupDiv_flex}>
@@ -164,7 +166,7 @@ const IndividualSignUp = () => {
 													<ListItemIcon>{icon}</ListItemIcon>
 												</div>
 
-												<div>
+												<div >
 													<ListItemText>
 														<h5 className={styles.title}>{title}</h5>
 														<p className={styles.desc}>{description}</p>
@@ -193,6 +195,7 @@ const IndividualSignUp = () => {
 										size='small'
 										fullWidth
 										required
+
 									/>
 									<InputLabel>
 										<span className={styles.formTitle}>Email Address</span>
@@ -227,6 +230,7 @@ const IndividualSignUp = () => {
 										type='password'
 										size='small'
 										fullWidth
+
 									/>
 									<InputLabel>
 										<span className={styles.formTitle}>Country</span>
@@ -265,7 +269,7 @@ const IndividualSignUp = () => {
 											marginTop: '1rem',
 										}}
 									/>
-									<InputLabel className={styles.mt1}></InputLabel>
+									<InputLabel className={styles.mt}></InputLabel>
 									<button
 										style={{
 											backgroundColor: '#27AE60',
@@ -273,8 +277,9 @@ const IndividualSignUp = () => {
 											width: '100%',
 											color: '#fff',
 											border: 'none',
-											borderRadius: '4px',
+											borderRadius: '20px',
 											cursor: 'pointer',
+											margin: "20px 0px ",
 										}}
 										type='submit'
 										color='primary'>

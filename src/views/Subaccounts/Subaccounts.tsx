@@ -15,9 +15,10 @@ const Subaccounts = () => {
   }
 
   return (
+
     <div className={styles.container}>
       <AddAcctModal isOpen={isModalOpen} handleClose={() => setIsModalOpen(false)} />
-      <NavBar name="Subaccounts"/>
+      {/* <NavBar name="Subaccounts"/> */}
       <div className={styles.pageWrapper}>
         {
           isEmpty ? (

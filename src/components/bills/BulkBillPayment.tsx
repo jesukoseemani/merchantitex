@@ -4,9 +4,12 @@ import BulkManualForm from "./AirtimeBulkManualForm";
 import BackupOutlinedIcon from "@mui/icons-material/BackupOutlined";
 import Styles from "./payment.module.scss";
 import BillBulkManualForm from "./BillBulkManualForm";
+import ParentContainer from "../ParentContainer/ParentContainer";
 
 const BulkBillPayment = () => {
   return (
+
+
     <div
       style={{
         display: "flex",
@@ -62,6 +65,7 @@ const BulkBillPayment = () => {
         </div>
       </div>
     </div>
+
   );
 };
 

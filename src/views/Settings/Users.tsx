@@ -17,6 +17,7 @@ import {
 	closeModal,
 } from '../../redux/actions/modal/modalActions';
 import UserModal from './UserModal';
+import ParentContainer from '../../components/ParentContainer/ParentContainer';
 
 const Users = () => {
 	interface UserProps {
@@ -305,28 +306,29 @@ const Users = () => {
 	};
 
 	return (
-		<div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-			<NavBar name='Bank Accounts' />
-			<div className={Styles.container}>
-				<div className={Styles.formHeader}>
-					<div>
-						<h2>Users</h2>
+
+			<div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+				{/* <NavBar title='Bank Accounts' /> */}
+				<div className={Styles.container}>
+					<div className={Styles.formHeader}>
+						<div>
+							<h2>Users</h2>
+						</div>
+						<Button onClick={editBusinessHandler} className='success'>
+							+ New user
+						</Button>
 					</div>
-					<Button onClick={editBusinessHandler} className='success'>
-						+ New user
-					</Button>
-				</div>
-				<div className={Styles.tableWrapper}>
-					<OperantTable
-						columns={columns}
-						rows={rows}
-						totalRows={totalRows}
-						changePage={changePage}
-						limit={limit}
-					/>
+					<div className={Styles.tableWrapper}>
+						<OperantTable
+							columns={columns}
+							rows={rows}
+							totalRows={totalRows}
+							changePage={changePage}
+							limit={limit}
+						/>
+					</div>
 				</div>
 			</div>
-		</div>
 	);
 };
 

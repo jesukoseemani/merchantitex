@@ -17,6 +17,7 @@ import {
   RecentCustomerItem,
 } from "../../types/CustomerTypes";
 import { useCallback, useEffect, useState } from "react";
+import ParentContainer from "../../components/ParentContainer/ParentContainer";
 
 interface customerProps {
   firstname: string;
@@ -187,78 +188,80 @@ const CustomerItem = () => {
   }, [transactions, TransactionRowTab]);
 
   return (
-    <div className={styles.container}>
-      <NavBar name="Customers" />
-      <hr />
-      <div className={styles.pageWrapper}>
-        <div className={styles.sectionOne}>
-          <div>
-            <Link to="/customers">
-              <div>
-                <ArrowLeftIcon />
-                <p>Back to customers</p>
-              </div>
-            </Link>
-          </div>
-          <div>
-            <p>Customer Information</p>
-            <div>
-              <p>Blacklist customer</p>
-              <DoDisturbIcon />
-            </div>
-          </div>
-        </div>
+ 
+
+      <div className={styles.container}>
+
         <hr />
-        <div className={styles.sectionTwo}>
-          <div>
-            <p>Name</p>
-            <p>
-              <span>{firstname}</span>{" "}
-              <span className={styles.capitalize}>{lastname}</span>
-            </p>
-          </div>
-          <div></div>
-          <div>
-            <p>Email</p>
-            <p>{email ?? "N/A"}</p>
-          </div>
-          <div></div>
-          <div>
-            <p>Phone</p>
-            <p>{phone ?? "N/A"}</p>
-          </div>
-        </div>
-        <div className={styles.sectionThree}>
-          <div>
-            <h3>Performance</h3>
-          </div>
-          <div>
+        <div className={styles.pageWrapper}>
+          <div className={styles.sectionOne}>
             <div>
-              <p>Number of transactions</p>
-              <p>{transNum}</p>
+              <Link to="/customers">
+                <div>
+                  <ArrowLeftIcon />
+                  <p>Back to customers</p>
+                </div>
+              </Link>
             </div>
             <div>
-              <p>Total spend</p>
-              <p>NGN {total}</p>
+              <p>Customer Information</p>
+              <div>
+                <p>Blacklist customer</p>
+                <DoDisturbIcon />
+              </div>
             </div>
           </div>
-        </div>
-        <div className={styles.sectionFour}>
-          <div>
-            <h3>Recent transactions</h3>
+          <hr />
+          <div className={styles.sectionTwo}>
+            <div>
+              <p>Name</p>
+              <p>
+                <span>{firstname}</span>{" "}
+                <span className={styles.capitalize}>{lastname}</span>
+              </p>
+            </div>
+            <div></div>
+            <div>
+              <p>Email</p>
+              <p>{email ?? "N/A"}</p>
+            </div>
+            <div></div>
+            <div>
+              <p>Phone</p>
+              <p>{phone ?? "N/A"}</p>
+            </div>
           </div>
-          <div className={styles.tableContainer}>
-            <CustomClickTable
-              columns={columns}
-              rows={rows}
-              totalRows={totalRows}
-              changePage={changePage}
-              limit={limit}
-            />
+          <div className={styles.sectionThree}>
+            <div>
+              <h3>Performance</h3>
+            </div>
+            <div>
+              <div>
+                <p>Number of transactions</p>
+                <p>{transNum}</p>
+              </div>
+              <div>
+                <p>Total spend</p>
+                <p>NGN {total}</p>
+              </div>
+            </div>
+          </div>
+          <div className={styles.sectionFour}>
+            <div>
+              <h3>Recent transactions</h3>
+            </div>
+            <div className={styles.tableContainer}>
+              <CustomClickTable
+                columns={columns}
+                rows={rows}
+                totalRows={totalRows}
+                changePage={changePage}
+                limit={limit}
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

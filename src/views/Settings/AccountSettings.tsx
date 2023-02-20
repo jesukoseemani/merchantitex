@@ -2,6 +2,7 @@ import React from "react";
 import NavBar from "../../components/navbar/NavBar";
 import Styles from "./Settings.module.scss";
 import { Button, Form, Checkbox, Divider, Radio } from "semantic-ui-react";
+import ParentContainer from "../../components/ParentContainer/ParentContainer";
 
 const WebHooks = () => {
   const countryList = [
@@ -25,6 +26,7 @@ const WebHooks = () => {
     },
   ];
   return (
+
     <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
       {/* <NavBar /> */}
       <div className={Styles.container}>

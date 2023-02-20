@@ -6,6 +6,7 @@ import OperantTable from "../../components/table/OperantTable";
 import Styles from "./pending.module.scss";
 import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import ParentContainer from "../../components/ParentContainer/ParentContainer";
 
 function PendingApproval() {
   interface TransactionsProps {
@@ -136,8 +137,9 @@ function PendingApproval() {
   const classes = useStyles();
 
   return (
+
     <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
-      <NavBar name="Pending Approval" />
+
       <div className={Styles.tableContainer}>
         <div className={Styles.tableHeader}>
           <h2>19 pending transfers</h2>
@@ -159,6 +161,7 @@ function PendingApproval() {
         </div>
       </div>
     </div>
+
   );
 }
 

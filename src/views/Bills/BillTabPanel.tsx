@@ -8,6 +8,7 @@ import TabPanel from "@mui/lab/TabPanel";
 import NavBar from "../../components/navbar/NavBar";
 import Airtime from "../../components/bills/Airtime";
 import Bills from "../../components/bills/Bills";
+import ParentContainer from "../../components/ParentContainer/ParentContainer";
 
 export default function BillTabPanel() {
   const [value, setValue] = React.useState("1");
@@ -17,6 +18,8 @@ export default function BillTabPanel() {
   };
 
   return (
+
+
     <div
       style={{
         display: "flex",
@@ -25,7 +28,7 @@ export default function BillTabPanel() {
         marginInline: "auto",
       }}
     >
-      <NavBar name="Airtime and Bills" />
+      {/* <NavBar title="Airtime and Bills" /> */}
       <Box sx={{ width: "98%", marginInline: "auto", typography: "body1" }}>
         <TabContext value={value}>
           <Box sx={{ borderBottom: 0, borderColor: "divider" }}>
@@ -43,5 +46,6 @@ export default function BillTabPanel() {
         </TabContext>
       </Box>
     </div>
+
   );
 }

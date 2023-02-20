@@ -18,6 +18,7 @@ import {
 import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
 import axios from "axios";
 import CustomClickTable from "../../components/table/CustomClickTable";
+import ParentContainer from "../../components/ParentContainer/ParentContainer";
 
 const useTableStyles = makeStyles({
   root: {
@@ -192,9 +193,9 @@ const SettlementItem = () => {
   }, [pageNumber, rowsPerPage]);
 
   return (
+
     <div className={styles.container}>
-      {/* <NavBar name='Settlements' /> */}
-      <hr />
+
       <div className={styles.pageWrapper}>
         <div className={styles.sectionOne}>
           <div>
@@ -281,6 +282,8 @@ const SettlementItem = () => {
         </div>
       </div>
     </div>
+
+
   );
 };
 

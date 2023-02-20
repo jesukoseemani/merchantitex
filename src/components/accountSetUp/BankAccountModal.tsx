@@ -26,7 +26,7 @@ const BankAccount = () => {
 	// 		})
 	// 		.catch((err) => console.log(err));
 	// }, [dispatch]);
-	const bankData = useSelector((state) => state?.countryReducer?.country.banks);  
+	const bankData = useSelector((state) => state?.countryReducer?.country.banks);
 
 	const validate = Yup.object({
 		bankcode: Yup.string().required('Required'),
@@ -102,6 +102,23 @@ const BankAccount = () => {
 						<Form>
 							<Grid container spacing={2}>
 								<Grid item md={12}>
+									<InputLabel>Phone Number</InputLabel>
+									<Field
+										as={TextField}
+										helperText={
+											<ErrorMessage name='type'>
+												{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
+											</ErrorMessage>
+										}
+										name='phone'
+										placeholder='Phone'
+										variant='outlined'
+										margin='normal'
+										size='small'
+										fullWidth
+									/>
+								</Grid>
+								<Grid item md={12}>
 									<InputLabel>Bank name</InputLabel>
 									<Field
 										as={SelectWrapperCountry}
@@ -158,6 +175,7 @@ const BankAccount = () => {
 										margin='normal'
 										size='small'
 										fullWidth
+										select
 									/>
 								</Grid>
 
@@ -170,6 +188,7 @@ const BankAccount = () => {
 											marginTop: '0.8rem',
 											padding: '0.9rem',
 											marginBottom: '2rem',
+											borderRadius: 20
 										}}
 										fullWidth
 										type='submit'>

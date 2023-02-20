@@ -25,6 +25,7 @@ import SingleRefundModal from './SingleRefundModal';
 import FilterModal from './FilterModal';
 import BulkRefundModal from './BulkRefundModal';
 import CustomClickTable from '../../components/table/CustomClickTable';
+import ParentContainer from '../../components/ParentContainer/ParentContainer';
 
 const Refund = () => {
 	const [isSingleModalOpen, setIsSingleModalOpen] = useState<boolean>(false);
@@ -76,10 +77,10 @@ const Refund = () => {
 				display: 'flex',
 			},
 			'& .MuiButtonBase-root:nth-child(1), & .MuiButtonBase-root:nth-child(2)':
-				{
-					backgroundColor: '#E0E0E0',
-					color: '#333',
-				},
+			{
+				backgroundColor: '#E0E0E0',
+				color: '#333',
+			},
 			'& .MuiButtonBase-root:nth-child(3)': {
 				backgroundColor: '#27AE60',
 				color: '#FFF',
@@ -259,86 +260,87 @@ const Refund = () => {
 	}, [refunds, RefundRowTab]);
 
 	return (
-		<div className={styles.container}>
-			<FilterModal
-				isOpen={isFilterModalOpen}
-				handleClose={() => setIsFilterModalOpen(false)}
-				filters={filters}
-				setFilters={setFilters}
-				setFiltersApplied={setFiltersApplied}
-				fixedToDate={fixedToDate}
-				dateInterval={dateInterval}
-				setDateInterval={setDateInterval}
-			/>
-			<SingleRefundModal
-				isOpen={isSingleModalOpen}
-				handleClose={() => setIsSingleModalOpen(false)}
-				setRefundLogged={setRefundLogged}
-			/>
-			<BulkRefundModal
-				isOpen={isBulkModalOpen}
-				handleClose={() => setIsBulkModalOpen(false)}
-				setRefundLogged={setRefundLogged}
-			/>
-			<NavBar name='Refund' />
-			<div className={styles.pageWrapper}>
-				<div className={styles.historyTopContainer}>
-					<div>
-						<p>{totalRows} Refunds</p>
+
+			<div className={styles.container}>
+				<FilterModal
+					isOpen={isFilterModalOpen}
+					handleClose={() => setIsFilterModalOpen(false)}
+					filters={filters}
+					setFilters={setFilters}
+					setFiltersApplied={setFiltersApplied}
+					fixedToDate={fixedToDate}
+					dateInterval={dateInterval}
+					setDateInterval={setDateInterval}
+				/>
+				<SingleRefundModal
+					isOpen={isSingleModalOpen}
+					handleClose={() => setIsSingleModalOpen(false)}
+					setRefundLogged={setRefundLogged}
+				/>
+				<BulkRefundModal
+					isOpen={isBulkModalOpen}
+					handleClose={() => setIsBulkModalOpen(false)}
+					setRefundLogged={setRefundLogged}
+				/>
+
+				<div className={styles.pageWrapper}>
+					<div className={styles.historyTopContainer}>
+						<div>
+							<p>{totalRows} Refunds</p>
+						</div>
+						<div className={btnClasses.root}>
+							<Button onClick={() => setIsFilterModalOpen(true)}>
+								All refunds <ArrowDropDownIcon />
+							</Button>
+							<Button onClick={() => downloadRefunds()}>
+								Download <CloudUploadOutlinedIcon />
+							</Button>
+							<Button
+								id='log-refund-button'
+								aria-controls={open ? 'refund-menu' : undefined}
+								aria-haspopup='true'
+								aria-expanded={open ? 'true' : undefined}
+								onClick={handleMenuClick}>
+								+ Log a refund
+							</Button>
+							<Menu
+								id='refund-menu'
+								anchorEl={anchorEl}
+								open={open}
+								onClose={handleMenuClose}
+								MenuListProps={{
+									'aria-labelledby': 'log-refund-button',
+								}}
+								PaperProps={{
+									style: {
+										maxWidth: '150px',
+										padding: '.25rem',
+									},
+								}}>
+								<MenuItem onClick={openSingleModal}>
+									<p style={{ padding: '.4rem' }}>Log a Single refund</p>
+								</MenuItem>
+								<MenuItem onClick={openBulkModal}>
+									<p style={{ padding: '.4rem' }}>Log Bulk refunds</p>
+								</MenuItem>
+							</Menu>
+						</div>
 					</div>
-					<div className={btnClasses.root}>
-						<Button onClick={() => setIsFilterModalOpen(true)}>
-							All refunds <ArrowDropDownIcon />
-						</Button>
-						<Button onClick={() => downloadRefunds()}>
-							Download <CloudUploadOutlinedIcon />
-						</Button>
-						<Button
-							id='log-refund-button'
-							aria-controls={open ? 'refund-menu' : undefined}
-							aria-haspopup='true'
-							aria-expanded={open ? 'true' : undefined}
-							onClick={handleMenuClick}>
-							+ Log a refund
-						</Button>
-						<Menu
-							id='refund-menu'
-							anchorEl={anchorEl}
-							open={open}
-							onClose={handleMenuClose}
-							MenuListProps={{
-								'aria-labelledby': 'log-refund-button',
-							}}
-							PaperProps={{
-								style: {
-									maxWidth: '150px',
-									padding: '.25rem',
-								},
-							}}>
-							<MenuItem onClick={openSingleModal}>
-								<p style={{ padding: '.4rem' }}>Log a Single refund</p>
-							</MenuItem>
-							<MenuItem onClick={openBulkModal}>
-								<p style={{ padding: '.4rem' }}>Log Bulk refunds</p>
-							</MenuItem>
-						</Menu>
+					<div className={styles.tableContainer}>
+						<CustomClickTable
+							columns={columns}
+							rows={rows}
+							totalRows={totalRows}
+							changePage={changePage}
+							limit={limit}
+							clickable
+							link='/transactions/refund'
+							identifier='linkingreference'
+							rowsData={refunds}
+						/>
 					</div>
-				</div>
-				<div className={styles.tableContainer}>
-					<CustomClickTable
-						columns={columns}
-						rows={rows}
-						totalRows={totalRows}
-						changePage={changePage}
-						limit={limit}
-						clickable
-						link='/transactions/refund'
-						identifier='linkingreference'
-						rowsData={refunds}
-					/>
 				</div>
 			</div>
-		</div>
 	);
 };
 

@@ -4,7 +4,6 @@ import { InputLabel, Typography, TextField, Button } from '@material-ui/core';
 import { Box } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
 import styles from './BusinessSignUp.module.scss';
-import Logo from '../../assets/images/NavLogo.svg';
 import Mark from '../../assets/images/mark.svg';
 import List from '@mui/material/List';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -22,6 +21,9 @@ import {
 	openLoader,
 	closeLoader,
 } from '../../redux/actions/loader/loaderActions';
+import Logo from '../../assets/images/white_bg_logo.svg';
+
+import { ReactSVG } from "react-svg";
 import { useDispatch } from 'react-redux';
 import { saveAuth } from '../../redux/actions/auth/authActions';
 import { saveLoading } from '../../redux/actions/loadingState/loadingStateActions';
@@ -151,11 +153,11 @@ const BusinessSignUp = () => {
 		<>
 			<div className={styles.container}>
 				<div className={styles.logo} onClick={() => history.push('/signin')}>
-					<img src={Logo} alt='logo' />
+					<ReactSVG src={Logo} />
 				</div>
 				<div className={styles.signUpWrapper}>
-					<Grid container spacing={2}>
-						<Grid item xs={12} md={6}>
+					<Grid container spacing={1}>
+						<Grid item xs={12} sm={12} md={5}>
 							<h2 className={styles.header}>Create Account</h2>
 							{createAccount.map(({ title, id, icon, description }) => (
 								<div key={id}>
@@ -261,10 +263,10 @@ const BusinessSignUp = () => {
 									});
 							}}>
 							{(props) => (
-								<Grid item xs={12} md={6}>
+								<Grid item xs={12} sm={12} md={7}>
 									<Form>
 										<Grid container spacing={2}>
-											<Grid item xs={10} md={6}>
+											<Grid item xs={12} md={6}>
 												<InputLabel className={styles.label}>
 													Full Name
 												</InputLabel>
@@ -284,7 +286,7 @@ const BusinessSignUp = () => {
 													fullWidth
 												/>
 											</Grid>
-											<Grid item xs={10} md={6}>
+											<Grid item xs={12} md={6}>
 												<InputLabel className={styles.label}>
 													Business name
 												</InputLabel>
@@ -304,7 +306,7 @@ const BusinessSignUp = () => {
 													fullWidth
 												/>
 											</Grid>
-											<Grid item xs={10} md={6}>
+											<Grid item xs={12} md={6}>
 												<FormControl
 													classes={{ root: classes.control }}
 													fullWidth>
@@ -330,7 +332,7 @@ const BusinessSignUp = () => {
 													/>
 												</FormControl>
 											</Grid>
-											<Grid item xs={10} md={6}>
+											<Grid item xs={12} md={6}>
 												<InputLabel className={styles.label}>
 													Your position in the business
 												</InputLabel>
@@ -344,7 +346,7 @@ const BusinessSignUp = () => {
 													/>
 												}
 											</Grid>
-											<Grid item xs={10} md={6}>
+											<Grid item xs={12} md={6}>
 												<InputLabel className={styles.label}>Email</InputLabel>
 												<Field
 													as={TextField}
@@ -362,7 +364,7 @@ const BusinessSignUp = () => {
 													fullWidth
 												/>
 											</Grid>
-											<Grid item xs={10} md={6}>
+											<Grid item xs={12} md={6}>
 												<InputLabel className={styles.label}>
 													Phone number
 												</InputLabel>
@@ -382,7 +384,7 @@ const BusinessSignUp = () => {
 													fullWidth
 												/>
 											</Grid>
-											<Grid item xs={10} md={6}>
+											<Grid item xs={12} md={6}>
 												<InputLabel className={styles.label}>
 													Password
 												</InputLabel>
@@ -403,7 +405,7 @@ const BusinessSignUp = () => {
 													fullWidth
 												/>
 											</Grid>
-											<Grid item xs={10} md={6}>
+											<Grid item xs={12} md={6}>
 												<InputLabel className={styles.label}>
 													Country
 												</InputLabel>
@@ -424,7 +426,7 @@ const BusinessSignUp = () => {
 													}}
 												/>
 											</Grid>
-											<Grid item xs={10} md={6}>
+											<Grid item xs={12} md={6}>
 												<InputLabel className={styles.label}>
 													How did you hear about us?
 												</InputLabel>
@@ -446,19 +448,19 @@ const BusinessSignUp = () => {
 													}}
 												/>
 											</Grid>
-											<Grid item xs={10} md={6}>
+											<Grid item xs={12} md={6}>
 												<InputLabel className={styles.emptyLabel}></InputLabel>
 												<button
 													style={{
 														backgroundColor: '#27AE60',
-														padding: '0.4rem',
+														padding: '0.7rem',
 														textTransform: 'none',
 														cursor: 'pointer',
 														color: '#ffffff',
 														width: '100%',
 														outline: 'none',
 														border: 'none',
-														borderRadius: '4px',
+														borderRadius: '20px',
 													}}
 													type='submit'>
 													Create Account

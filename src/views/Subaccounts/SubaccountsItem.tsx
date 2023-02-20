@@ -19,6 +19,7 @@ import axios from 'axios';
 import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
 import moment from 'moment';
 import { GetSubAcctsRes, SubAcctItem } from '../../types/SubaccountTypes';
+import ParentContainer from '../../components/ParentContainer/ParentContainer';
 
 const useBtnStyles = makeStyles({
 	root: {
@@ -228,86 +229,87 @@ const SubaccountsItem = () => {
 	}, []);
 
 	return (
-		<div className={styles.container}>
-			{/* <NavBar name='Subaccounts' /> */}
-			<hr />
-			<div className={styles.pageWrapper}>
-				<div className={styles.sectionOne}>
-					<div>
-						<Link to='/subaccounts'>
-							<div>
-								<ArrowLeftIcon />
-								<p>Back to subaccounts</p>
-							</div>
-						</Link>
-					</div>
-				</div>
+
+			<div className={styles.container}>
+				{/* <NavBar name='Subaccounts' /> */}
 				<hr />
-				<div className={styles.sectionTwo}>
-					<div>
-						<p>{name}</p>
-						<div></div>
-						<p>{acctId}</p>
+				<div className={styles.pageWrapper}>
+					<div className={styles.sectionOne}>
+						<div>
+							<Link to='/subaccounts'>
+								<div>
+									<ArrowLeftIcon />
+									<p>Back to subaccounts</p>
+								</div>
+							</Link>
+						</div>
 					</div>
-					<div className={btnClasses.root}>
-						<Button>Edit</Button>
-						<Button>Delete</Button>
-					</div>
-				</div>
-				<div className={styles.spacedLine}>
 					<hr />
-				</div>
-				<div className={styles.sectionThree}>
-					<div>
-						<p>Total commission paid</p>
-						<p>{paid}</p>
+					<div className={styles.sectionTwo}>
+						<div>
+							<p>{name}</p>
+							<div></div>
+							<p>{acctId}</p>
+						</div>
+						<div className={btnClasses.root}>
+							<Button>Edit</Button>
+							<Button>Delete</Button>
+						</div>
 					</div>
-					<div>
-						<p>Total commission earned</p>
-						<p>{earned}</p>
+					<div className={styles.spacedLine}>
+						<hr />
 					</div>
-					<div>
-						<p>Bank account</p>
-						<p>{details}</p>
+					<div className={styles.sectionThree}>
+						<div>
+							<p>Total commission paid</p>
+							<p>{paid}</p>
+						</div>
+						<div>
+							<p>Total commission earned</p>
+							<p>{earned}</p>
+						</div>
+						<div>
+							<p>Bank account</p>
+							<p>{details}</p>
+						</div>
+						<div>
+							<p>Your share</p>
+							<p>{txnShare}</p>
+						</div>
+						<div>
+							<p>Subaccount's share</p>
+							<p>{acctShare}</p>
+						</div>
 					</div>
-					<div>
-						<p>Your share</p>
-						<p>{txnShare}</p>
-					</div>
-					<div>
-						<p>Subaccount's share</p>
-						<p>{acctShare}</p>
-					</div>
-				</div>
-				<hr />
-				<div className={styles.sectionFour}>
-					<div>
-						<p
-							style={{ color: isOverview ? '#27ae60' : '#828282' }}
-							onClick={() => setIsOverview(true)}>
-							OVERVIEW
-						</p>
-						<p
-							style={{ color: isOverview ? '#828282' : '#27ae60' }}
-							onClick={() => setIsOverview(false)}>
-							SETTLEMENTS
-						</p>
-					</div>
-					<div>
-						<h3>{isOverview ? 'Transactions' : 'Settlements'}</h3>
-						<div className={styles.tableContainer}>
-							<CustomClickTable
-								columns={columns}
-								rows={rows}
-								totalRows={totalRows}
-								changePage={changePage}
-								limit={limit}
-							/>
+					<hr />
+					<div className={styles.sectionFour}>
+						<div>
+							<p
+								style={{ color: isOverview ? '#27ae60' : '#828282' }}
+								onClick={() => setIsOverview(true)}>
+								OVERVIEW
+							</p>
+							<p
+								style={{ color: isOverview ? '#828282' : '#27ae60' }}
+								onClick={() => setIsOverview(false)}>
+								SETTLEMENTS
+							</p>
+						</div>
+						<div>
+							<h3>{isOverview ? 'Transactions' : 'Settlements'}</h3>
+							<div className={styles.tableContainer}>
+								<CustomClickTable
+									columns={columns}
+									rows={rows}
+									totalRows={totalRows}
+									changePage={changePage}
+									limit={limit}
+								/>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 	);
 };
 

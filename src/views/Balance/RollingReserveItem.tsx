@@ -18,6 +18,7 @@ import {
 import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
 import axios from "axios";
 import CustomClickTable from "../../components/table/CustomClickTable";
+import ParentContainer from "../../components/ParentContainer/ParentContainer";
 
 const useTableStyles = makeStyles({
   root: {
@@ -192,82 +193,85 @@ const RollingReserveItem = () => {
   }, [pageNumber, rowsPerPage]);
 
   return (
-    <div className={styles.container}>
-      {/* <NavBar name='Rolling reserve' /> */}
-      <hr />
-      <div className={styles.pageWrapper}>
-        <div className={styles.sectionOne}>
-          <div>
-            <Link to="/balance/rolling_reserve">
-              <div>
-                <ArrowLeftIcon />
-                <p>Back to Rolling reserves</p>
-              </div>
-            </Link>
-          </div>
-          <div>
-            <p>NGN 33,983.92</p>
-            <p>Successful</p>
-          </div>
-        </div>
+  
+
+      <div className={styles.container}>
+        {/* <NavBar name='Rolling reserve' /> */}
         <hr />
-        <div className={styles.sectionTwo}>
-          <div>
-            <p>Date/Time</p>
-            <p>Jul 18, 2018 2:21 PM</p>
-          </div>
-          <div></div>
-          <div>
-            <p>Fee</p>
-            <p>stuff@mail.com</p>
-          </div>
-          <div></div>
-          <div>
-            <p>Chargeback</p>
-            <p>N/A</p>
-          </div>
-          <div></div>
-          <div>
-            <p>Refunds</p>
-            <p>N/A</p>
-          </div>
-        </div>
-        <div className={styles.sectionThree}>
-          <div>
-            <h3>Rolling reserve information</h3>
-          </div>
-          <div>
+        <div className={styles.pageWrapper}>
+          <div className={styles.sectionOne}>
             <div>
-              <p>Rolling reserve reference</p>
-              <p>iTEX-abcsdsjdosu</p>
+              <Link to="/balance/rolling_reserve">
+                <div>
+                  <ArrowLeftIcon />
+                  <p>Back to Rolling reserves</p>
+                </div>
+              </Link>
             </div>
             <div>
-              <p>Bank name</p>
-              <p>Access Bank</p>
+              <p>NGN 33,983.92</p>
+              <p>Successful</p>
+            </div>
+          </div>
+          <hr />
+          <div className={styles.sectionTwo}>
+            <div>
+              <p>Date/Time</p>
+              <p>Jul 18, 2018 2:21 PM</p>
+            </div>
+            <div></div>
+            <div>
+              <p>Fee</p>
+              <p>stuff@mail.com</p>
+            </div>
+            <div></div>
+            <div>
+              <p>Chargeback</p>
+              <p>N/A</p>
+            </div>
+            <div></div>
+            <div>
+              <p>Refunds</p>
+              <p>N/A</p>
+            </div>
+          </div>
+          <div className={styles.sectionThree}>
+            <div>
+              <h3>Rolling reserve information</h3>
             </div>
             <div>
-              <p>Account number</p>
-              <p>121234323</p>
+              <div>
+                <p>Rolling reserve reference</p>
+                <p>iTEX-abcsdsjdosu</p>
+              </div>
+              <div>
+                <p>Bank name</p>
+                <p>Access Bank</p>
+              </div>
+              <div>
+                <p>Account number</p>
+                <p>121234323</p>
+              </div>
             </div>
           </div>
-        </div>
-        <div className={styles.sectionFour}>
-          <div>
-            <h3>Rolling reserve transactions</h3>
-          </div>
-          <div className={styles.tableContainer}>
-            <CustomClickTable
-              columns={columns}
-              rows={rows}
-              totalRows={totalRows}
-              changePage={changePage}
-              limit={limit}
-              rowsData={txns}
-            />
+          <div className={styles.sectionFour}>
+            <div>
+              <h3>Rolling reserve transactions</h3>
+            </div>
+            <div className={styles.tableContainer}>
+              <CustomClickTable
+                columns={columns}
+                rows={rows}
+                totalRows={totalRows}
+                changePage={changePage}
+                limit={limit}
+                rowsData={txns}
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    
   );
 };
 

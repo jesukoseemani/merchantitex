@@ -1,8 +1,12 @@
 .signinContainer {
 	height: 100vh;
 	width: 100%;
-	background-color: rgba(239, 243, 248, 1);
+	background: #1E1E1E;
 	margin: 0 auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 }
 
 .logo {
@@ -10,19 +14,25 @@
 	justify-content: center;
 	align-items: center;
 	width: 100%;
-	margin-top: 4rem;
+
+	background: #1E1E1E;
 }
 
 .signinDiv {
 	border: 1px solid transparent;
-	width: 90%;
+	width: 444px;
+	height: 407px;
 	max-width: 400px;
 	margin: 0 auto;
 	background-color: #fff;
 	padding: 2rem 4rem 0rem 4rem;
 	background: #ffffff;
 	box-shadow: 0px 4px 14px rgba(15, 49, 32, 0.15);
-	border-radius: 6px;
+	border-radius: 20px;
+
+
+
+
 }
 
 .signinHeader {
@@ -30,8 +40,9 @@
 	// justify-content: center;
 	// align-items: center;
 	font-weight: normal;
+	font-weight: 900;
 	font-size: 18px;
-	line-height: 21px;
+	line-height: 25px;
 	text-align: center;
 	color: #000000;
 }
@@ -53,13 +64,18 @@
 	font-size: 14px;
 	line-height: 19px;
 	color: #414141;
+
 }
 
 .formTitle {
+
 	font-style: normal;
-	font-weight: normal;
-	font-size: 15px;
-	color: #414141;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 19px;
+	// margin-bottom: 5px !;
+
+	color: #333333;
 }
 
 .header {
@@ -106,11 +122,12 @@
 
 .signinAnchor {
 	text-decoration: none;
-	color: #000000;
+	color: Green 2;
 	cursor: pointer;
 	font-size: 14px;
-	line-height: 16px;
-	font-weight: 400;
+	line-height: 20px;
+	font-weight: 300;
+
 }
 
 
@@ -125,7 +142,7 @@
 @media only screen and (max-width: 600px) {
 	.signinDiv {
 		padding: 2rem;
-		width: 80%;
+		width: 100%;
 	}
 
 	.signinContainer {

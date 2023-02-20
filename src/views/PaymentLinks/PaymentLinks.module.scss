@@ -1,7 +1,7 @@
 .container {
 	display: flex;
 	flex-direction: column;
-	width: calc(100% - 269px);
+	// width: calc(100% - 269px);
 	position: relative;
 
 	@media screen and (max-width: 850px) {
@@ -131,6 +131,7 @@
 			color: #333;
 			font-size: 0.875rem;
 		}
+
 		& > div {
 			display: flex;
 			margin-top: 0.5rem;
@@ -156,6 +157,7 @@
 			color: #333;
 			font-size: 0.875rem;
 		}
+
 		& > div {
 			display: flex;
 			gap: 1rem;

@@ -11,7 +11,8 @@ import SearchIcon from "../../assets/images/searchs.svg";
 import { ReactSVG } from "react-svg";
 import { styled } from "@mui/material/styles";
 import Styles from "./Navbar.module.scss";
-import { useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
+import UserMenu from "../menu/userMenu";
 
 const Header = () => {
   const [alignment, setAlignment] = React.useState("test server");
@@ -19,9 +20,11 @@ const Header = () => {
     event: React.MouseEvent<HTMLElement>,
     newAlignment: string
   ) => {
-    setAlignment(newAlignment);
+    if (newAlignment !== null) {
+      setAlignment(newAlignment);
+    }
   };
-  const location = useLocation();
+  const { pathname } = useLocation();
   const [active, setActive] = React.useState(0);
   const [activeLink, setActiveLink] = useState(null);
 
@@ -29,36 +32,57 @@ const Header = () => {
     setActive(0);
   }, [active]);
 
+
+  const title = pathname.split('/').at(-1)?.replace(/_ -/g, ' ')
+
+
+
   const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
     "& .MuiToggleButtonGroup-grouped": {
       // margin: theme.spacing(0.4),
-      border: 0,
+
       boxSizing: "border-box",
       width: 190,
       height: 35,
       display: "flex",
       justifyContent: "center",
       alignItem: "center",
-      borderRadius: 17.5,
+      borderRadius: 13.5,
       lineHeight: 13.66,
-      borderer: "0.7px solid #041926",
+      border: 0,
       fontSize: 10,
       padding: 4,
+
 
       "&.Mui-disabled": {
         border: 0,
       },
+
+      "&.css-1gjgmky-MuiToggleButtonGroup-root .MuiToggleButtonGroup-grouped:not(:last-of-type)": {
+        borderTopRightRadius: 'inherit',
+        borderBottomRightRadius: 'inherit'
+
+
+      },
+      "&.css-1gjgmky-MuiToggleButtonGroup-root .MuiToggleButtonGroup-grouped:not(:first-of-type)": {
+
+        borderTopLeftRadius: 'inherit',
+        borderBottomLeftRadius: 'inherit'
+      },
+
       "&.Mui-selected": {
         color: "white",
         backgroundColor: "#041926",
         borderRadius: 13.5,
-        width: 150,
+        width: 190,
         height: 27,
         fontSize: 10,
-        gap: 5,
+        gap: 10,
+        // border: "2px solid red"
       },
     },
   }));
+  // const title = "ssss";
 
   return (
     <div className={Styles.header__box}>
@@ -74,16 +98,17 @@ const Header = () => {
               container
               alignItems="center"
               className={Styles.left__container}
+              spacing={2}
             >
-              <Grid item xs={2}>
-                <Typography variant="h5" component="h2">
-                  Pos
+              <Grid item xs={3} >
+                <Typography variant="h5" component="h2" style={{ fontSize: 16 }}>
+                  {title}
                 </Typography>
               </Grid>
               <Grid item sm={7} className={Styles.input__box}>
                 <input placeholder="Search" />
-                
-                  <ReactSVG src={SearchIcon} />
+
+                <ReactSVG src={SearchIcon} />
               </Grid>
             </Grid>
           </Grid>
@@ -91,8 +116,8 @@ const Header = () => {
             item
             sm={6}
             md={5}
-            justifyContent="flex-end"
-            alignItems="flex-end"
+
+
           >
             <Stack
               direction={"row"}
@@ -116,14 +141,15 @@ const Header = () => {
                 >
                   <ToggleButton
                     value="test server"
-                   
+                    aria-label="left aligned"
                     onClick={() => setActive(0)}
                   >
                     Test Server
                   </ToggleButton>
                   <ToggleButton
                     value="live server"
-                 
+                    aria-label="right aligned"
+
                     onClick={() => setActive(1)}
                   >
                     Live Server
@@ -131,22 +157,11 @@ const Header = () => {
                 </ToggleButtonGroup>
               </StyledToggleButtonGroup>
 
-              <div className={Styles.usersProfile}>
-                {/* <IconButton disableFocusRipple={true} disableRipple={true}> */}
-                <ReactSVG src={BellIcon} />
-                {/* </IconButton> */}
-                {/* <IconButton> */}
-                <div className={Styles.userProfileImg__container}>
-                  <ReactSVG src={UsersIcon} className={Styles.userProfileImg} />
-                  {/* </IconButton> */}
-                  {/* <IconButton> */}
-                  <ReactSVG src={ArrowDown} className={Styles.arrowDown} />
-                </div>
-                {/* </IconButton> */}
-              </div>
+              <UserMenu />
             </Stack>
           </Grid>
         </Grid>
+
       </Container>
     </div>
   );

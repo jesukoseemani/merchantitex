@@ -7,14 +7,17 @@ import Styles from "./transfers.module.scss";
 import queryString from "query-string";
 import EmptyTransfers from "../../components/emptyContent/EmptyTransfers";
 import TransfersTable from "../../components/table/TransfersTable";
+import ParentContainer from "../../components/ParentContainer/ParentContainer";
 
 const Transfers = () => {
   // const { currency } = queryString.parse(location.search);
   const currency = "";
   const currencies = ["NGN", "USD", "EUR", "GBP"];
   return (
+
+
     <div className={Styles.container}>
-      <NavBar />
+
       <div className={Styles.currencies}>
         <ul>
           {currencies?.map((cur, index) => (
@@ -51,6 +54,7 @@ const Transfers = () => {
       </div>
       <EmptyTransfers />
     </div>
+
   );
 };
 

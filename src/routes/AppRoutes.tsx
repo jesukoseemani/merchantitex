@@ -70,6 +70,9 @@ import BulkAirtimePayment from "../components/bills/BulkAirtimePayment";
 import BillSaleRequest from "../views/Bills/BillSaleRequest";
 import BulkBillPayment from "../components/bills/BulkBillPayment";
 import NavHeader from "../components/navbarMenu/NavHeader";
+import ResetPassword from "../views/Reset/password/ResetPassword";
+import AccountSetUp from "../components/accountSetUp/AccountSetUp";
+import AccountSetup from "../views/SignUp/accountsetup/AccountSetup";
 
 export default function AppRoutes() {
   // const { loadingState } = useSelector((state) => state?.loadingStateReducer);
@@ -139,38 +142,40 @@ export default function AppRoutes() {
   );
   return (
     <Router>
-      <ParentContainer>
-        <Route exact path="/navbar">
-          <NavHeader />
-        </Route>
-        <Drawer />
-        <Switch>
-          <Route exact path="/signin">
-            <SignIn />
-          </Route>
-          <Route exact path="/signup">
-            <SignUp />
-          </Route>
-          <Route exact path="/account_type"></Route>
-          <Route exact path="/business/signup">
-            <BusinessSignUp />
-          </Route>
-          <Route exact path="/ngo/signup">
-            <BusinessSignUp />
-          </Route>
-          <Route exact path="/individual_signup">
-            <IndividualSignUp />
-          </Route>
 
-          <Route exact path="/forgotpassword">
-            <LoginPasswordReset />
-          </Route>
-          <Route exact path="/newpassword">
-            <NewPassword />
-          </Route>
-          <Route exact path="/email_verification">
-            <EmailVerification />
-          </Route>
+      <Drawer />
+      <Switch>
+        <Route exact path="/signin">
+          <SignIn />
+        </Route>
+        <Route exact path="/signup">
+          <SignUp />
+        </Route>
+        <Route exact path="/account_type"></Route>
+        <Route exact path="/business/signup">
+          <BusinessSignUp />
+        </Route>
+        <Route exact path="/ngo/signup">
+          <BusinessSignUp />
+        </Route>
+        <Route exact path="/individual_signup">
+          <IndividualSignUp />
+        </Route>
+
+        <Route exact path="/forgotpassword">
+          <LoginPasswordReset />
+        </Route>
+        <Route exact path="/newpassword">
+          <NewPassword />
+        </Route>
+        <Route exact path="/email_verification">
+          <EmailVerification />
+        </Route>
+        <Route exact path="/reset/password">
+          <ResetPassword />
+        </Route>
+        <ParentContainer>
+
           <>
             <ProtectedRoute
               exact
@@ -502,8 +507,11 @@ export default function AppRoutes() {
               AuthUser={loadingState}
             />
           </>
-        </Switch>
-      </ParentContainer>
-    </Router>
+          <Route exact path="/test/home">
+            <AccountSetup />
+          </Route>
+        </ParentContainer>
+      </Switch>
+    </Router >
   );
 }

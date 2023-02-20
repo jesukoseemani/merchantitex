@@ -3,9 +3,12 @@ import NavBar from "../navbar/NavBar";
 import BulkManualForm from "./AirtimeBulkManualForm";
 import BackupOutlinedIcon from "@mui/icons-material/BackupOutlined";
 import Styles from "./payment.module.scss";
+import ParentContainer from "../ParentContainer/ParentContainer";
 
 const BulkAirtimePayment = () => {
   return (
+
+
     <div
       style={{
         display: "flex",
@@ -14,7 +17,7 @@ const BulkAirtimePayment = () => {
         marginInline: "auto",
       }}
     >
-      <NavBar />
+
       <div className={Styles.bulk__payment__container}>
         <h3>Bulk airtime purchase</h3>
         <div className={Styles.bulk_payment_body}>

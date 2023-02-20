@@ -14,6 +14,7 @@ import {
 import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import TextTruncate from 'react-text-truncate';
+import ParentContainer from '../../components/ParentContainer/ParentContainer';
 
 const Api = () => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -103,6 +104,7 @@ const Api = () => {
 	};
 
 	return (
+
 		<div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
 			<APIModal />
 			{/* <NavBar name='API' /> */}

@@ -28,6 +28,7 @@ const RequestsItem = () => {
     formattedRowData;
 
   return (
+
     <div className={styles.container}>
       {/* <NavBar name="Point Of Sale" /> */}
       <div className={styles.pageWrapper}>

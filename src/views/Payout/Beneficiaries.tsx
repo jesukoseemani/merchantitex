@@ -14,6 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import BeneficiaryMenu from "./BeneficiaryMenu";
 import FilterModal from "../../components/FilterModal";
 import moment from "moment";
+import ParentContainer from "../../components/ParentContainer/ParentContainer";
 
 function PendingApproval() {
   interface TransactionsProps {
@@ -254,73 +255,76 @@ function PendingApproval() {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
-      <NavBar name="Pending Approval" />
-      <FilterModal
-        isOpen={isFilterModalOpen}
-        handleClose={() => setIsFilterModalOpen(false)}
-        setEvent={setEvent}
-        setFromDate={setFromDate}
-        setToDate={setToDate}
-        setRef={setRef}
-        setPayment={setPayment}
-        eventDate={event}
-        clearHandler={clearHandler}
-        setBearer={setBearer}
-        payment={payment}
-        name="transaction"
-        filterFunction={modalFunc}
-        changePage={changePage}
-      />
-      <div className={Styles.tableContainer}>
-        <div className={Styles.tableHeader}>
-          <h2>Beneficiaries</h2>
-          <div>
-            <button onClick={() => setIsFilterModalOpen(true)}>
-              Filter <ArrowDropDownOutlinedIcon />
-            </button>
-            <button onClick={handleOpenDownloadMenu}>
-              Download <CloudUploadOutlinedIcon />
-            </button>
-            <button className={Styles.success} onClick={handleClickBeneficiary}>
-              + Add new beneficiary
-            </button>
+
+
+      <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
+
+        <FilterModal
+          isOpen={isFilterModalOpen}
+          handleClose={() => setIsFilterModalOpen(false)}
+          setEvent={setEvent}
+          setFromDate={setFromDate}
+          setToDate={setToDate}
+          setRef={setRef}
+          setPayment={setPayment}
+          eventDate={event}
+          clearHandler={clearHandler}
+          setBearer={setBearer}
+          payment={payment}
+          name="transaction"
+          filterFunction={modalFunc}
+          changePage={changePage}
+        />
+        <div className={Styles.tableContainer}>
+          <div className={Styles.tableHeader}>
+            <h2>Beneficiaries</h2>
+            <div>
+              <button onClick={() => setIsFilterModalOpen(true)}>
+                Filter <ArrowDropDownOutlinedIcon />
+              </button>
+              <button onClick={handleOpenDownloadMenu}>
+                Download <CloudUploadOutlinedIcon />
+              </button>
+              <button className={Styles.success} onClick={handleClickBeneficiary}>
+                + Add new beneficiary
+              </button>
+            </div>
+          </div>
+
+          <div className={Styles.wrapper}>
+            <OperantTable
+              columns={columns}
+              rows={rows}
+              totalRows={totalRows}
+              changePage={changePage}
+              limit={limit}
+            />
           </div>
         </div>
 
-        <div className={Styles.wrapper}>
-          <OperantTable
-            columns={columns}
-            rows={rows}
-            totalRows={totalRows}
-            changePage={changePage}
-            limit={limit}
-          />
-        </div>
+        <BeneficiaryFilterModal
+          filterOpen={filterOpen}
+          setFilterOpen={setFilterOpen}
+        />
+
+        <BeneficiaryMenu
+          openBeneficiary={openBeneficiary}
+          handleCloseMenu={handleCloseMenu}
+          beneficiary={beneficiary}
+          data={data}
+          style={{ width: "13rem", textAlign: "center" }}
+        />
+
+        {/* download */}
+        <BeneficiaryMenu
+          openBeneficiary={openDownloadMenu}
+          handleCloseMenu={handleCloseDownloadMenu}
+          beneficiary={download}
+          data={dataDownload}
+          style={{ width: "8.5rem", textAlign: "center" }}
+        />
       </div>
 
-      <BeneficiaryFilterModal
-        filterOpen={filterOpen}
-        setFilterOpen={setFilterOpen}
-      />
-
-      <BeneficiaryMenu
-        openBeneficiary={openBeneficiary}
-        handleCloseMenu={handleCloseMenu}
-        beneficiary={beneficiary}
-        data={data}
-        style={{ width: "13rem", textAlign: "center" }}
-      />
-
-      {/* download */}
-      <BeneficiaryMenu
-        openBeneficiary={openDownloadMenu}
-        handleCloseMenu={handleCloseDownloadMenu}
-        beneficiary={download}
-        data={dataDownload}
-        style={{ width: "8.5rem", textAlign: "center" }}
-      />
-    </div>
   );
 }
 
