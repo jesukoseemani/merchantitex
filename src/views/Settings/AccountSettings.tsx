@@ -34,7 +34,7 @@ const WebHooks = () => {
           <div>
             <h2>Account preferences</h2>
           </div>
-          <Button className="success">Save settings</Button>
+          <button style={{ borderRadius: "20px", padding: "10px 20px" }} className="success">Save settings</button>
         </div>
         <div className={Styles.wrapper}>
           <div className={Styles.checkboxGrid}>

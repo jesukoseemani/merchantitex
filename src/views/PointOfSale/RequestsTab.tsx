@@ -192,7 +192,7 @@ const RequestsTab = ({
 			<div className={styles.topContainer}>
 				<h3>{totalRows} POS requests</h3>
 				<div className={btnClasses.root}>
-					<Button onClick={openModal}>Request new POS</Button>
+					<Button style={{ borderRadius: "20px" }} onClick={openModal}>Request new POS</Button>
 				</div>
 			</div>
 			<div className={styles.tableContainer}>

@@ -223,8 +223,11 @@ const Users = () => {
 				modalStyles: {
 					padding: 0,
 					maxWidth: '539px',
-					height: '700px',
+					minHeight: '500px',
 					width: '100%',
+					borderRadius: 6,
+					boxShadow: "-4px 4px 14px rgba(224, 224, 224, 0.69)",
+
 				},
 				modalContent: (
 					<div className={Styles.modalDiv}>
@@ -307,28 +310,28 @@ const Users = () => {
 
 	return (
 
-			<div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-				{/* <NavBar title='Bank Accounts' /> */}
-				<div className={Styles.container}>
-					<div className={Styles.formHeader}>
-						<div>
-							<h2>Users</h2>
-						</div>
-						<Button onClick={editBusinessHandler} className='success'>
-							+ New user
-						</Button>
+		<div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+			{/* <NavBar title='Bank Accounts' /> */}
+			<div className={Styles.container}>
+				<div className={Styles.formHeader}>
+					<div>
+						<h2>Users</h2>
 					</div>
-					<div className={Styles.tableWrapper}>
-						<OperantTable
-							columns={columns}
-							rows={rows}
-							totalRows={totalRows}
-							changePage={changePage}
-							limit={limit}
-						/>
-					</div>
+					<button style={{ padding: "10px 20px", borderRadius: "20px" }} onClick={editBusinessHandler} className='success'>
+						+ New user
+					</button>
+				</div>
+				<div className={Styles.tableWrapper}>
+					<OperantTable
+						columns={columns}
+						rows={rows}
+						totalRows={totalRows}
+						changePage={changePage}
+						limit={limit}
+					/>
 				</div>
 			</div>
+		</div>
 	);
 };
 

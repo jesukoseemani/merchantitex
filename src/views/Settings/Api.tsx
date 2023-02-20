@@ -15,6 +15,7 @@ import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import TextTruncate from 'react-text-truncate';
 import ParentContainer from '../../components/ParentContainer/ParentContainer';
+import { Box } from '@mui/material';
 
 const Api = () => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -82,7 +83,7 @@ const Api = () => {
 				className={Styles.modalContainer}>
 				<div className={Styles.modalHeader}>
 					<h2>Generate new API keys</h2>
-					<IconButton onClick={() => setOpenModal(false)}>
+						<IconButton onClick={() => setOpenModal(false)}>
 						<CloseIcon />
 					</IconButton>
 				</div>
@@ -95,8 +96,8 @@ const Api = () => {
 				</div>
 				<div className={Styles.modalFooter}>
 					<div className={Styles.btnGroup}>
-						<Button onClick={() => setOpenModal(false)}>Cancel</Button>
-						<Button className='success'>Proceed</Button>
+						<button style={{ padding: "10px 20px", borderRadius: "20px" }} onClick={() => setOpenModal(false)}>Cancel</button>
+						<button style={{ padding: "10px 20px", borderRadius: "20px" }} className='success'>Proceed</button>
 					</div>
 				</div>
 			</Modal>
@@ -155,9 +156,9 @@ const Api = () => {
 						</div>
 					</div>
 				</div>
-				<Button onClick={() => setOpenModal(true)} className='success'>
+				<button onClick={() => setOpenModal(true)} className='success' style={{ padding: "10px 20px", borderRadius: "20px" }}>
 					Generate new API keys
-				</Button>
+				</button>
 			</div>
 		</div>
 	);

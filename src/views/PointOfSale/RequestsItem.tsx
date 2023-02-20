@@ -37,35 +37,42 @@ const RequestsItem = () => {
             <Link to="/point_of_sale">
               <div>
                 <ArrowLeftIcon />
-                <p>Back to POS</p>
+                <p>Back to POS requests</p>
               </div>
             </Link>
           </div>
-          <p
-            className={
-              status === "Approved" ? styles.greenText : styles.yellowText
-            }
-          >
-            {status}
-          </p>
         </div>
-        <div className={styles.sectionTwo}>
-          <div>
-            <p>Request status</p>
-            <p>{status}</p>
+
+        <div className={styles.sectionOneWrapper}>
+          <div className={styles.statusBox}>
+            Pos request status <p
+              className={
+                status === "Approved" ? styles.greenText : styles.yellowText
+              }
+            >
+              {status}
+            </p>
+
           </div>
-          <div>
-            <p>Quantity requested</p>
-            <p>{qtyRequested}</p>
+          <div className={styles.sectionTwo}>
+            <div>
+              <p>Request status</p>
+              <p>{status}</p>
+            </div>
+            <div>
+              <p>Quantity requested</p>
+              <p>{qtyRequested}</p>
+            </div>
+            <div>
+              <p>Quantity assigned</p>
+              <p>{qtyAssigned}</p>
+            </div>
+            <div>
+              <p>Date requested</p>
+              <p>{moment(added).format("MMM D YYYY")}</p>
+            </div>
           </div>
-          <div>
-            <p>Quantity assigned</p>
-            <p>{qtyAssigned}</p>
-          </div>
-          <div>
-            <p>Date requested</p>
-            <p>{moment(added).format("MMM D YYYY")}</p>
-          </div>
+
         </div>
         <div className={styles.sectionThree}>
           <h3>Payment information</h3>
@@ -86,7 +93,7 @@ const RequestsItem = () => {
             <p>This is the delivery timeline for your POS device(s)</p>
           </div>
           <div>
-            <div>
+            <div style={{ borderRadius: "20px" }}>
               {status === "Approved" ? <SuccessBadge /> : <PendingBadge />}
               <p>On its way</p>
             </div>

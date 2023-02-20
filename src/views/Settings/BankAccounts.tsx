@@ -224,7 +224,7 @@ const BankAccounts = () => {
           label="Make my profile visible"
         />
         <div className={Styles.modalFooter}>
-          <Button>Continue</Button>
+          <Button style={{ borderRadius: "20px" }}>Continue</Button>
         </div>
       </Modal>
     );
@@ -240,7 +240,7 @@ const BankAccounts = () => {
           <div>
             <h2>Settlement bank accounts</h2>
           </div>
-          <Button onClick={() => setOpenModal(true)} className="success">
+          <Button style={{ borderRadius: "20px" }} onClick={() => setOpenModal(true)} className="success">
             + Add bank account
           </Button>
         </div>

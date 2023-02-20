@@ -234,6 +234,7 @@ const GeneralSettings = () => {
 	return (
 
 
+
 		<div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
 			{/* <NavBar  /> */}
 			<div className={Styles.container}>
@@ -245,7 +246,10 @@ const GeneralSettings = () => {
 					<Button
 						loading={loader}
 						className='success'
-						onClick={updateUserDetails}>
+						onClick={updateUserDetails}
+						style={{ borderRadius: "20px" }}
+
+					>
 						Save changes
 					</Button>
 				</div>
@@ -290,7 +294,7 @@ const GeneralSettings = () => {
 						<h2>Password</h2>
 						<p>Personal information</p>
 					</div>
-					<Button className='success'>Save changes</Button>
+					<Button className='success' style={{ borderRadius: "20px" }}>Save changes</Button>
 				</div>
 				<div className={Styles.formField}>
 					<Form.Input
@@ -315,7 +319,7 @@ const GeneralSettings = () => {
 						<h2>Business information</h2>
 						<p>Personal information</p>
 					</div>
-					<Button loading={loader} className='success' onClick={updateBusiness}>
+					<Button style={{ borderRadius: "20px" }} loading={loader} className='success' onClick={updateBusiness}>
 						Save changes
 					</Button>
 				</div>
