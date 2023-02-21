@@ -12,7 +12,7 @@
 		width: calc(100% - 57px);
 	}
 
-	& > hr {
+	&>hr {
 		background-color: #e0e0e0;
 	}
 }
@@ -28,7 +28,7 @@
 	grid-column-gap: 2rem;
 	padding: 1rem 2rem;
 
-	& > div {
+	&>div {
 		display: grid;
 		grid-gap: 1rem;
 	}
@@ -47,11 +47,11 @@
 	gap: 0.5rem;
 	align-items: center;
 
-	& > div {
+	&>div {
 		cursor: pointer;
 	}
 
-	& > div:last-of-type {
+	&>div:last-of-type {
 		svg {
 			width: 0.85rem;
 			height: 0.85rem;
@@ -87,8 +87,8 @@
 		gap: 0.75rem;
 	}
 
-	& > div {
-		& > p {
+	&>div {
+		&>p {
 			color: #333;
 			font-size: 1.25rem;
 		}
@@ -98,7 +98,7 @@
 .filterModalContainer {
 	border: 1px solid #d5dae1;
 	box-shadow: 0px 10px 10px rgba(6, 44, 82, 0.92);
-	border-radius: 3px;
+	border-radius: 20px;
 	background-color: white;
 	max-width: 400px;
 	max-height: 470px;
@@ -110,7 +110,7 @@
 	transform: translate(-50%, -50%);
 	font-family: 'Avenir', sans-serif;
 
-	& > p {
+	&>p {
 		font-size: 0.875rem;
 		color: #4f4f4f;
 		margin: 1rem 1.5rem;
@@ -126,18 +126,18 @@
 	display: grid;
 	grid-gap: 1.25rem;
 
-	& > div:nth-child(1) {
-		& > p {
+	&>div:nth-child(1) {
+		&>p {
 			color: #333;
 			font-size: 0.875rem;
 		}
 
-		& > div {
+		&>div {
 			display: flex;
 			margin-top: 0.5rem;
 			gap: 1rem;
 
-			& > p {
+			&>p {
 				border: 1px solid #dddddd;
 				border-radius: 2px;
 				padding: 0.375rem 0.75rem;
@@ -145,30 +145,30 @@
 				font-size: 0.875rem;
 			}
 
-			& > p:hover {
+			&>p:hover {
 				cursor: pointer;
 				opacity: 0.75;
 			}
 		}
 	}
 
-	& > div:nth-child(2) {
-		& > p {
+	&>div:nth-child(2) {
+		&>p {
 			color: #333;
 			font-size: 0.875rem;
 		}
 
-		& > div {
+		&>div {
 			display: flex;
 			gap: 1rem;
 			align-items: center;
 
-			& > svg {
+			&>svg {
 				color: #25303a;
 				margin-top: 0.5rem;
 			}
 
-			& > div {
+			&>div {
 				border: 1px solid #dddddd;
 				border-radius: 2px;
 				padding: 0.375rem 0.75rem;
@@ -180,16 +180,16 @@
 		}
 	}
 
-	& > div:nth-child(3) {
-		& > p {
+	&>div:nth-child(3) {
+		&>p {
 			color: #333;
 			font-size: 0.875rem;
 			margin-bottom: 0.5rem;
 		}
 	}
 
-	& > div:nth-child(4) {
-		& > p {
+	&>div:nth-child(4) {
+		&>p {
 			color: #333;
 			font-size: 0.875rem;
 			margin-bottom: 0.5rem;

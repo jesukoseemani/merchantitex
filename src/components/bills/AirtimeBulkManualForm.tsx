@@ -2,6 +2,7 @@ import React from "react";
 import { countryListAllIsoData } from "../../helpers/Countries";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import Styles from "./payment.module.scss";
+import { Button } from "@material-ui/core";
 
 const BulkManualForm = () => {
   return (
@@ -37,11 +38,8 @@ const BulkManualForm = () => {
           </div>
 
           <div className="submit">
-            <button type="submit">
-              {" "}
-              <AddOutlinedIcon /> Comfirm Purchase
-            </button>
           </div>
+          <Button disableFocusRipple variant="contained" startIcon={<AddOutlinedIcon sx={{ textAlign: "center", position: "absolute", top: "20%", transform: "translate(-50%-50%)", left: "23%" }} />}>Comfirm Purchase</Button>
         </form>
       </div>
     </div>

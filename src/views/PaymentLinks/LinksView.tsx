@@ -146,11 +146,13 @@ const LinksView = ({ openLinkModal }: LinksViewProps) => {
 					<p className={styles.tableBodyText}>{url}</p>
 					<div onClick={(e) => e.preventDefault()}>
 						<ContentCopyIcon
-							sx={{ color: '#27ae60', fontSize: '.85rem', mt: '6px' }}
+							sx={{ color: '#2F80ED', fontSize: '.85rem', mt: '6px' }}
 						/>
 					</div>
 					<div>
-						<ExtLinkIcon />
+						<ExtLinkIcon
+							style={{ color: '#2F80ED', fontSize: '1rem' }}
+						/>
 					</div>
 				</div>
 			),
@@ -261,8 +263,8 @@ const LinksView = ({ openLinkModal }: LinksViewProps) => {
 					</div>
 					<hr />
 					<div className={modalBtnClasses.root}>
-						<Button>Clear filter</Button>
-						<Button>Apply filter</Button>
+						<Button style={{ borderRadius: "20px" }}>Clear filter</Button>
+						<Button style={{ borderRadius: "20px" }}>Apply filter</Button>
 					</div>
 				</div>
 			</Modal>
@@ -271,10 +273,10 @@ const LinksView = ({ openLinkModal }: LinksViewProps) => {
 					<p>{totalRows} payment links</p>
 				</div>
 				<div className={btnClasses.root}>
-					<Button onClick={() => setIsFilterModalOpen(true)}>
+					<Button style={{ borderRadius: "20px" }} onClick={() => setIsFilterModalOpen(true)}>
 						All payment links <ArrowDropDownIcon />
 					</Button>
-					<Button onClick={openLinkModal}>+ New payment link</Button>
+					<Button style={{ borderRadius: "20px" }} onClick={openLinkModal}>+ New payment link</Button>
 				</div>
 			</div>
 			<div className={styles.tableContainer}>

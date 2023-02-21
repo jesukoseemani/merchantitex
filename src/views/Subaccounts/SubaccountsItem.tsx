@@ -3,7 +3,7 @@ import styles from './SubaccountsItem.module.scss';
 import NavBar from '../../components/navbar/NavBar';
 import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
-import { Button } from '@mui/material';
+import { Stack } from '@mui/material';
 import { makeStyles } from '@material-ui/styles';
 import CustomClickTable from '../../components/table/CustomClickTable';
 import {
@@ -16,11 +16,14 @@ import {
 	openLoader,
 } from '../../redux/actions/loader/loaderActions';
 import axios from 'axios';
+import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
 import moment from 'moment';
 import { GetSubAcctsRes, SubAcctItem } from '../../types/SubaccountTypes';
 import ParentContainer from '../../components/ParentContainer/ParentContainer';
-
+import { Box, Button } from '@material-ui/core';
+import ArrowDropDownOutlinedIcon from '@mui/icons-material/ArrowDropDownOutlined';
+import SettlementAccount from './SettlementAccount';
 const useBtnStyles = makeStyles({
 	root: {
 		fontFamily: `'Avenir', sans-serif`,
@@ -128,7 +131,7 @@ const SubaccountsItem = () => {
 				</p>
 			),
 			status: (
-				<p className={styles[statusFormatObj[status] || 'pendingText']}>
+				<p style={{ borderRadius: "20px" }} className={styles[statusFormatObj[status] || 'pendingText']}>
 					{status}
 				</p>
 			),
@@ -230,21 +233,23 @@ const SubaccountsItem = () => {
 
 	return (
 
-			<div className={styles.container}>
-				{/* <NavBar name='Subaccounts' /> */}
-				<hr />
-				<div className={styles.pageWrapper}>
-					<div className={styles.sectionOne}>
-						<div>
-							<Link to='/subaccounts'>
-								<div>
-									<ArrowLeftIcon />
-									<p>Back to subaccounts</p>
-								</div>
-							</Link>
-						</div>
+		<div className={styles.container}>
+			{/* <NavBar name='Subaccounts' /> */}
+			<hr />
+			<div className={styles.pageWrapper}>
+				<div className={styles.sectionOne}>
+					<div>
+						<Link to='/subaccounts'>
+							<div>
+								<ArrowLeftIcon />
+								<p>Back to subaccounts</p>
+							</div>
+						</Link>
 					</div>
-					<hr />
+				</div>
+				{/* <hr /> */}
+
+				<div className={styles.sectionOneWrapper}>
 					<div className={styles.sectionTwo}>
 						<div>
 							<p>{name}</p>
@@ -252,13 +257,13 @@ const SubaccountsItem = () => {
 							<p>{acctId}</p>
 						</div>
 						<div className={btnClasses.root}>
-							<Button>Edit</Button>
-							<Button>Delete</Button>
+							<Button style={{ borderRadius: "20px" }}>Edit</Button>
+							<Button style={{ borderRadius: "20px" }}>Delete</Button>
 						</div>
 					</div>
-					<div className={styles.spacedLine}>
+					{/* <div className={styles.spacedLine}>
 						<hr />
-					</div>
+					</div> */}
 					<div className={styles.sectionThree}>
 						<div>
 							<p>Total commission paid</p>
@@ -281,35 +286,48 @@ const SubaccountsItem = () => {
 							<p>{acctShare}</p>
 						</div>
 					</div>
-					<hr />
-					<div className={styles.sectionFour}>
-						<div>
-							<p
-								style={{ color: isOverview ? '#27ae60' : '#828282' }}
-								onClick={() => setIsOverview(true)}>
-								OVERVIEW
-							</p>
-							<p
-								style={{ color: isOverview ? '#828282' : '#27ae60' }}
-								onClick={() => setIsOverview(false)}>
-								SETTLEMENTS
-							</p>
-						</div>
-						<div>
+
+				</div>
+				{/* <hr /> */}
+				<div className={styles.sectionFour}>
+					<div>
+						<p
+							style={{ color: isOverview ? '#27ae60' : '#828282' }}
+							onClick={() => setIsOverview(true)}>
+							OVERVIEW
+						</p>
+						<p
+							style={{ color: isOverview ? '#828282' : '#27ae60' }}
+							onClick={() => setIsOverview(false)}>
+							SETTLEMENTS
+						</p>
+					</div>
+					<div>
+						<Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
 							<h3>{isOverview ? 'Transactions' : 'Settlements'}</h3>
-							<div className={styles.tableContainer}>
-								<CustomClickTable
-									columns={columns}
-									rows={rows}
-									totalRows={totalRows}
-									changePage={changePage}
-									limit={limit}
-								/>
-							</div>
-						</div>
+							<Stack direction={"row"} spacing={2}>
+								<Button variant='contained' style={{ borderRadius: "20px", width: "180px", textTransform: "inherit" }}>All Transaction <ArrowDropDownOutlinedIcon sx={{ marginLeft: "10px" }} /></Button>
+
+
+								<Button variant='outlined' style={{ borderRadius: "20px", color: "#27ae60", textTransform: "inherit" }}>Download   <CloudUploadOutlinedIcon sx={{ marginLeft: "10px" }} /></Button>
+							</Stack>
+						</Box>
+						<br />
+
+
+						{isOverview ? <div className={styles.tableContainer}>
+							<CustomClickTable
+								columns={columns}
+								rows={rows}
+								totalRows={totalRows}
+								changePage={changePage}
+								limit={limit}
+							/>
+						</div> : <SettlementAccount />}
 					</div>
 				</div>
 			</div>
+		</div>
 	);
 };
 

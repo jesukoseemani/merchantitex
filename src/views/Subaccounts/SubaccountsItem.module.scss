@@ -1,7 +1,9 @@
 .container {
 	display: flex;
 	flex-direction: column;
-	width: calc(100% - 269px);
+	// width: calc(100% - 269px);
+
+	width: 100%;
 	position: relative;
 
 	@media screen and (max-width: 850px) {
@@ -28,13 +30,15 @@
 .sectionOne {
 	padding: 0 2rem;
 
-	& > div:nth-child(1) {
+	&>div:nth-child(1) {
 		margin: 1.25rem 0;
+
 		div {
 			display: flex;
 			align-items: center;
 			color: #828282;
-			& > p {
+
+			&>p {
 				color: #4f4f4f;
 				font-size: 0.875rem;
 				font-weight: 400;
@@ -43,46 +47,67 @@
 	}
 }
 
+
+.sectionOneWrapper {
+
+	background-color: #fff;
+	width: 95%;
+	margin: 0px auto;
+	border-radius: 20px;
+	// padding: 10px;
+}
+
 .sectionTwo {
-	margin: 1.25rem 2rem;
+	// margin: 1.25rem 2rem;
+	padding: 10px 0;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	border-bottom: 1px solid #e0e0e0;
+
+
 	@media screen and (max-width: 600px) {
+
 		flex-direction: column;
 		align-items: flex-start;
 		gap: 1rem;
 	}
 
-	& > div {
+	&>div {
 		display: flex;
 		gap: 1rem;
 		align-items: center;
 		color: #333;
 		font-size: 1.25rem;
+		padding: 5px 20px;
+
 		@media screen and (max-width: 450px) {
 			font-size: 1rem;
 		}
 	}
 
-	& > div:first-of-type {
+	&>div:first-of-type {
 		@media screen and (max-width: 450px) {
 			flex-direction: column;
 			align-items: flex-start;
 			gap: 0.5rem;
 		}
-		& > p:first-of-type {
+
+		&>p:first-of-type {
 			font-weight: 700;
 		}
+
 		div {
 			width: 1px;
 			height: 1rem;
 			background-color: #e0e0e0;
+
 			@media screen and (max-width: 450px) {
 				display: none;
 			}
 		}
-		& > p:last-of-type {
+
+		&>p:last-of-type {
 			font-weight: 400;
 		}
 	}
@@ -92,37 +117,40 @@
 	padding: 1.25rem 2rem;
 	display: flex;
 	align-items: center;
-	gap: 2rem;
+	gap: 7rem;
 	flex-wrap: wrap;
+
 	@media screen and (max-width: 1000px) {
 		gap: 2rem;
 	}
+
 	@media screen and (max-width: 768px) {
 		gap: 1.25rem;
 	}
 
-	& > div {
+	&>div {
 		border-left: 1px solid #e0e0e0;
 		padding-left: 2rem;
+
 		@media screen and (max-width: 850px) {
 			border-left: none;
 			padding-left: 0;
 		}
 
-		& > p:first-of-type {
+		&>p:first-of-type {
 			color: #828282;
 			font-size: 0.75rem;
 			font-weight: 400;
 		}
 
-		& > p:last-of-type {
+		&>p:last-of-type {
 			color: #333;
 			font-size: 0.875rem;
 			font-weight: 500;
 		}
 	}
 
-	& > div:first-of-type {
+	&>div:first-of-type {
 		border-left: none;
 		padding-left: 0;
 	}
@@ -131,21 +159,22 @@
 .sectionFour {
 	padding: 2rem;
 
-	& > div:first-of-type {
+	&>div:first-of-type {
 		display: flex;
 		gap: 1rem;
 
-		& > p {
+		&>p {
 			font-weight: 500;
 			font-size: 0.875rem;
 			cursor: pointer;
+
 			&:hover {
 				opacity: 0.75;
 			}
 		}
 	}
 
-	& > div:last-of-type {
+	&>div:last-of-type {
 		margin-top: 1.5rem;
 
 		h3 {

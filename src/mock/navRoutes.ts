@@ -25,13 +25,12 @@ interface NavProps {
   title: string;
   icon: string;
   link: string;
- 
+
   nav?: {
     id: string | number;
     title: string;
     icon: string;
     link: string;
-   
   }[];
 }
 export const navRoutes: NavProps[] = [
@@ -40,28 +39,25 @@ export const navRoutes: NavProps[] = [
     title: "Home",
     icon: HomeIcon,
     link: "/",
-   
   },
   {
     id: "2",
     title: "Transaction",
     icon: TranIcon,
     link: "/transactions",
-   
+
     nav: [
       {
         id: " 3",
         title: "Transaction",
         icon: TranIcon,
         link: "/transactions",
-       
       },
       {
         id: "4",
         title: "Refund",
         icon: BackArrow,
         link: "/transactions/refund",
-       
       },
     ],
   },
@@ -70,35 +66,31 @@ export const navRoutes: NavProps[] = [
     title: "Balance",
     icon: Balance,
     link: "/balance",
-   
+
     nav: [
       {
         id: 6,
         title: "Balance",
         icon: CustomerIcon,
         link: "/customers",
-       
       },
       {
         id: 7,
         title: "Balance History",
         icon: CustomerIcon,
         link: "/balance/balance_history",
-       
       },
       {
         id: 8,
         title: "Settlements",
         icon: CustomerIcon,
         link: "/balance/settlements",
-       
       },
       {
         id: 9,
         title: "Rolling Reserve",
         icon: CustomerIcon,
         link: "/balance/rolling_reserve",
-       
       },
     ],
   },
@@ -107,21 +99,19 @@ export const navRoutes: NavProps[] = [
     title: "Customer",
     icon: Customer,
     link: "/customers",
-   
+
     nav: [
       {
         id: 11,
         title: "Customers",
         icon: CustomerIcon,
         link: "/customers",
-       
       },
       {
         id: 12,
         title: "Blacklist",
         icon: BlacklistIcon,
         link: "/customers",
-       
       },
     ],
   },
@@ -130,28 +120,25 @@ export const navRoutes: NavProps[] = [
     title: "Payout",
     icon: Payout,
     link: "/payout/transfers",
-   
+
     nav: [
       {
         id: 14,
         title: "Transfers",
         icon: TranIcon,
         link: "/payout/transfers",
-       
       },
       {
         id: 15,
         title: "Pending Aproval",
         icon: PendingIcon,
         link: "/payout/pending_approval",
-       
       },
       {
         id: 16,
         title: "Beneficiaries",
         icon: CalendaIcon,
         link: "/payout/beneficiaries",
-       
       },
     ],
   },
@@ -160,35 +147,31 @@ export const navRoutes: NavProps[] = [
     title: "Chargebacks",
     icon: Charge,
     link: "/chargebacks",
-   
   },
   {
     id: 18,
     title: "Payment",
     icon: Payment,
     link: "/payment_links",
-   
+
     nav: [
       {
         id: 19,
         title: "payment link",
         icon: Payment,
         link: "/payment_links",
-       
       },
       {
         id: 20,
         title: "Invoices",
         icon: Payment,
-        link: "/payment",
-       
+        link: "/bills/invoice",
       },
       {
         id: 21,
         title: "Airtime & Bills",
         icon: Payment,
         link: "/bills",
-       
       },
     ],
   },
@@ -197,14 +180,12 @@ export const navRoutes: NavProps[] = [
     title: "Subaccounts",
     icon: SubAcct,
     link: "/subaccounts",
-   
   },
   {
     id: 23,
     title: "POS",
     icon: Pos,
     link: "/point_of_sale",
-   
   },
 
   {
@@ -212,49 +193,43 @@ export const navRoutes: NavProps[] = [
     title: "Settings",
     icon: Setting,
     link: "/general_setting",
-   
+
     nav: [
       {
         id: 25,
         title: "General Settings",
         icon: Setting,
         link: "/general_setting",
-       
       },
       {
         id: 26,
         title: "Bank Accounts",
         icon: Payout,
         link: "/general_setting/bank_accounts",
-       
       },
       {
         id: 27,
         title: "Users",
         icon: UserIcon,
         link: "/general_setting/users",
-       
       },
       {
         id: 28,
         title: "API",
         icon: Setting,
         link: "/general_setting/api",
-       
       },
       {
         id: 29,
         title: "Webhooks",
         icon: webhookIcon,
         link: "/general_setting/web_hooks",
-       
       },
       {
         id: 30,
         title: "Accounts Settings",
         icon: AcctSetting,
         link: "/general_setting/account_settings",
-       
       },
     ],
   },

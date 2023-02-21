@@ -1,0 +1,133 @@
+.headerTitle {
+    font-family: 'Avenir';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 27px;
+    color: #333333;
+}
+
+button {
+    gap: 4px;
+    // width: 140px;
+    height: 35px;
+    border-radius: 22px;
+    padding: 7.5px 16px;
+    background: #27AE60;
+    color: #fff;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.outlinedBtn {
+    background-color: #fff;
+    border: 1px solid #27AE60;
+    color: #333;
+
+    &:hover {
+        background: #f6f6f6;
+
+    }
+}
+
+.status {
+    width: 80px;
+    height: 19px;
+    background: lighten(#27ae60, 20%);
+    border-radius: 22px;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: center;
+    color: #ffffff;
+    padding: 2.5px 10px;
+}
+
+.pending {
+    @extend .status;
+    background: #f2c94c;
+    width: 100px !important;
+}
+
+
+
+// create Invoice header
+.createInvoiceheader {
+    padding: 20px;
+    border-bottom: 1px solid #E0E0E0;
+
+    h2 {
+        font-family: 'Avenir';
+        font-style: normal;
+        font-weight: 900;
+        font-size: 20px;
+        line-height: 27px;
+        color: #828282;
+    }
+
+
+    .puchaseHeader {
+
+        p {
+            color: #333;
+        }
+    }
+}
+
+.successWrapper {
+    width: 540px;
+    height: 493px;
+    background: #F8F8F8;
+    border: 1.30275px solid #F0F0F0;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+
+
+    .textContainer {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 30px;
+
+        h2 {
+            font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 28px;
+            line-height: 38px;
+            text-align: center;
+
+            color: #333333;
+        }
+
+        p {
+            font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 19px;
+            width: 358px;
+            height: 38px;
+
+            text-align: center;
+
+            color: #333333;
+        }
+
+        button {
+            // padding: 14px 20px;
+        }
+    }
+
+}
+
+
+// 7040368154
+// mohis
+// palm pay

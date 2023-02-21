@@ -60,7 +60,7 @@ const AdditionalInfo = ({ handleBack, handleNext }: Props) => {
 
                 <Grid item xs={12} sm={6} md={6}>
                     <InputLabel>Business phone number</InputLabel>
-                    <MuiPhoneNumber variant='outlined' fullWidth defaultCountry={'us'} onChange={handleChange} />
+                    <MuiPhoneNumber variant='outlined' fullWidth defaultCountry={'us'} onChange={() => console.log("123")} />
                 </Grid>
                 <Grid item xs={12} sm={6} md={6}>
                     <InputLabel>Support Email Address</InputLabel>
@@ -80,7 +80,7 @@ const AdditionalInfo = ({ handleBack, handleNext }: Props) => {
                             id="demo-simple-select-helper"
                             value={state}
                             fullWidth
-                            onChange={handleChange}
+                            onChange={() => console.log("1234")}
                             placeholder="Select state"
                         >
                             <em>select state</em>

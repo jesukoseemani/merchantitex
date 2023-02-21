@@ -1,7 +1,8 @@
 .container {
 	display: flex;
 	flex-direction: column;
-	width: calc(100% - 269px);
+	// width: calc(100% - 269px);
+	width: 100%;
 	position: relative;
 
 	@media screen and (max-width: 850px) {
@@ -25,16 +26,27 @@
 	padding: 0 2rem;
 }
 
+
+.sectionWrapper {
+	background: #FFFFFF;
+	border: 1px solid #DFDFDF;
+	border-radius: 20px;
+	width: 95%;
+	margin-inline: auto;
+}
+
 .sectionOne {
 	padding: 0 2rem;
 
-	& > div:nth-child(1) {
+	&>div:nth-child(1) {
 		margin: 1.25rem 0;
+
 		div {
 			display: flex;
 			align-items: center;
 			color: #828282;
-			& > p {
+
+			&>p {
 				color: #4f4f4f;
 				font-size: 0.875rem;
 				font-weight: 400;
@@ -48,33 +60,37 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+
 	@media screen and (max-width: 600px) {
 		flex-direction: column;
 		align-items: flex-start;
 		gap: 1rem;
 	}
 
-	& > div {
+	&>div {
 		display: flex;
 		gap: 1rem;
 		align-items: center;
 		color: #333;
 		font-size: 1.25rem;
+
 		@media screen and (max-width: 450px) {
 			font-size: 1rem;
 		}
 	}
 
-	& > div:first-of-type {
+	&>div:first-of-type {
 		@media screen and (max-width: 450px) {
 			flex-direction: column;
 			align-items: flex-start;
 			gap: 0.5rem;
 		}
-		& > p:first-of-type {
+
+		&>p:first-of-type {
 			font-weight: 700;
 		}
-		& > p:last-of-type {
+
+		&>p:last-of-type {
 			font-weight: 500;
 			font-size: 0.75rem;
 			color: white;
@@ -88,7 +104,7 @@
 .sectionThree {
 	padding: 2rem 2rem 1.25rem;
 
-	& > div:first-of-type {
+	&>div:first-of-type {
 		display: flex;
 		align-items: center;
 		gap: 2rem;
@@ -98,26 +114,27 @@
 			gap: 1.25rem;
 		}
 
-		& > div {
+		&>div {
 			border-left: 1px solid #e0e0e0;
 			padding-left: 2rem;
+
 			@media screen and (max-width: 850px) {
 				border-left: none;
 				padding-left: 0;
 			}
 
-			& > p:first-of-type {
+			&>p:first-of-type {
 				color: #828282;
 				font-size: 0.75rem;
 				font-weight: 400;
 			}
 
-			& > p:last-of-type {
+			&>p:last-of-type {
 				color: #333;
 				font-size: 0.875rem;
 				font-weight: 500;
 
-				& > svg {
+				&>svg {
 					color: #27ae60;
 					width: 12px;
 					height: 12px;
@@ -127,30 +144,31 @@
 			}
 		}
 
-		& > div:first-of-type {
+		&>div:first-of-type {
 			border-left: none;
 			padding-left: 0;
 		}
 	}
 
-	& > div:last-of-type {
+	&>div:last-of-type {
 		margin-top: 2rem;
 		width: 50%;
 
 		@media screen and (max-width: 1000px) {
 			width: 70%;
 		}
+
 		@media screen and (max-width: 768px) {
 			width: 100%;
 		}
 
-		& > p:first-of-type {
+		&>p:first-of-type {
 			color: #828282;
 			font-size: 0.75rem;
 			font-weight: 400;
 		}
 
-		& > p:last-of-type {
+		&>p:last-of-type {
 			color: #333;
 			font-size: 0.875rem;
 			font-weight: 500;
@@ -161,7 +179,7 @@
 .sectionFour {
 	padding: 1.5rem 2rem;
 
-	& > div {
+	&>div {
 		h3 {
 			font-family: 'Avenir', sans-serif;
 			font-weight: 500;
@@ -171,4 +189,34 @@
 
 .tableContainer {
 	margin-top: 1.5rem;
+}
+
+.successText {
+	color: white;
+	background-color: #27ae60;
+	padding: 0.2rem 0.200rem;
+	text-align: center;
+	border-radius: 20px;
+	font-weight: 500;
+	width: 90px;
+}
+
+.pendingText {
+	color: black;
+	background-color: #f2c94c;
+	padding: 3px 5px;
+	text-align: center;
+	border-radius: 20px;
+	font-weight: 500;
+	width: 90px;
+}
+
+.failText {
+	color: white;
+	background-color: #eb5757;
+	padding: 0.2rem 0.625rem;
+	text-align: center;
+	border-radius: 20px;
+	width: 90px;
+	font-weight: 500;
 }

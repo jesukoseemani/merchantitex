@@ -173,30 +173,31 @@ const PaymentLinksItem = () => {
 	}, [transactions, TransactionRowTab]);
 
 	return (
-		
 
-			<div className={styles.container}>
 
-				<div className={styles.pageWrapper}>
-					<div className={styles.sectionOne}>
-						<div>
-							<Link to='/payment_links'>
-								<div>
-									<ArrowLeftIcon />
-									<p>Back to payment links</p>
-								</div>
-							</Link>
-						</div>
+		<div className={styles.container}>
+
+			<div className={styles.pageWrapper}>
+				<div className={styles.sectionOne}>
+					<div>
+						<Link to='/payment_links'>
+							<div>
+								<ArrowLeftIcon />
+								<p>Back to payment links</p>
+							</div>
+						</Link>
 					</div>
+				</div>
+				<div className={styles.sectionWrapper}>
 					<div className={styles.sectionTwo}>
 						<div>
 							<p>{name}</p>
-							<p>Active</p>
+							<p style={{ borderRadius: "20px" }}>Active</p>
 						</div>
 						<div className={btnClasses.root}>
-							<Button>Edit</Button>
-							<Button>Deactivate</Button>
-							<Button>Delete</Button>
+							<Button style={{ borderRadius: "20px", padding: "10px 20px" }}>Edit</Button>
+							<Button style={{ borderRadius: "20px", padding: "10px 20px" }}>Deactivate</Button>
+							<Button style={{ borderRadius: "20px", padding: "10px 20px" }}>Delete</Button>
 						</div>
 					</div>
 					<div className={styles.sectionThree}>
@@ -204,7 +205,7 @@ const PaymentLinksItem = () => {
 							<div>
 								<p>Payment Link URL</p>
 								<p>
-									{url} <ContentCopyIcon /> <ExtLinkIcon />
+									{url} <ContentCopyIcon style={{ color: "#2F80ED", fontSize: "50px" }} fontSize={"large"} /> <ExtLinkIcon style={{ color: "#2F80ED" }} />
 								</p>
 							</div>
 							<div>
@@ -225,24 +226,26 @@ const PaymentLinksItem = () => {
 							<p>{desc}</p>
 						</div>
 					</div>
-					<hr />
-					<div className={styles.sectionFour}>
-						<div>
-							<h3>Transactions</h3>
-							<div className={styles.tableContainer}>
-								<CustomClickTable
-									columns={columns}
-									rows={rows}
-									totalRows={totalRows}
-									changePage={changePage}
-									limit={limit}
-								/>
-							</div>
+
+				</div>
+				<hr />
+				<div className={styles.sectionFour}>
+					<div>
+						<h3>Transactions</h3>
+						<div className={styles.tableContainer}>
+							<CustomClickTable
+								columns={columns}
+								rows={rows}
+								totalRows={totalRows}
+								changePage={changePage}
+								limit={limit}
+							/>
 						</div>
 					</div>
 				</div>
 			</div>
-		
+		</div>
+
 	);
 };
 

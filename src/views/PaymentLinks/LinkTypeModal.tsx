@@ -59,7 +59,7 @@ const useStyles = makeStyles({
 	root: {
 		border: '1px solid #D5DAE1',
 		boxShadow: '0px 10px 10px rgba(6, 44, 82, 0.92)',
-		borderRadius: '3px',
+		borderRadius: '20px',
 		backgroundColor: 'white',
 		maxWidth: '400px',
 		width: '100%',
@@ -180,6 +180,7 @@ const LinkTypeModal = ({
 						/>
 					</Box>
 					<Button
+						style={{ borderRadius: "20px" }}
 						onClick={() => selectLinkType(radioValue)}
 						disabled={!radioValue}>
 						Continue

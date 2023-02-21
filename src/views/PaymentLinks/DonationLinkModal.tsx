@@ -20,10 +20,10 @@ const useStyles = makeStyles({
 	root: {
 		border: '1px solid #D5DAE1',
 		boxShadow: '0px 10px 10px rgba(6, 44, 82, 0.92)',
-		borderRadius: '3px',
+		borderRadius: '20px',
 		backgroundColor: 'white',
-		maxWidth: '700px',
-		maxHeight: '500px',
+		maxWidth: '786px',
+		maxHeight: '515px',
 		overflowY: 'scroll',
 		width: '100%',
 		position: 'absolute',
@@ -90,10 +90,10 @@ const useStyles = makeStyles({
 			// maxHeight: '50px'
 		},
 		'& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button':
-			{
-				WebkitAppearance: 'none',
-				margin: '0',
-			},
+		{
+			WebkitAppearance: 'none',
+			margin: '0',
+		},
 	},
 	formBtn: {
 		color: 'white',
@@ -255,7 +255,7 @@ const DonationLinkModal = ({ isOpen, handleClose }: DonationLinkModalProps) => {
 							</p>
 						</div>
 						<div>
-							<Button fullWidth className={classes.formBtn}>
+							<Button style={{ borderRadius: "20px" }} fullWidth className={classes.formBtn}>
 								Create link
 							</Button>
 						</div>

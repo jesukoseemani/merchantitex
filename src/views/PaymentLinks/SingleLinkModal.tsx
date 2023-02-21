@@ -43,12 +43,11 @@ const useStyles = makeStyles({
 	root: {
 		border: '1px solid #D5DAE1',
 		boxShadow: '0px 10px 10px rgba(6, 44, 82, 0.92)',
-		borderRadius: '3px',
+		borderRadius: '20px',
 		backgroundColor: 'white',
-		maxWidth: '400px',
-		maxHeight: '500px',
+		width: '400px',
+		maxHeight: '700px',
 		overflowY: 'scroll',
-		width: '100%',
 		position: 'absolute',
 		top: '50%',
 		left: '50%',
@@ -105,10 +104,10 @@ const useStyles = makeStyles({
 			padding: '0rem',
 		},
 		'& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button':
-			{
-				WebkitAppearance: 'none',
-				margin: '0',
-			},
+		{
+			WebkitAppearance: 'none',
+			margin: '0',
+		},
 	},
 	formBtn: {
 		color: 'white',
@@ -239,7 +238,7 @@ const SingleLinkModal = ({ isOpen, handleClose }: SingleLinkModalProps) => {
 						<label htmlFor='amount'>Description</label>
 						<OutlinedInput
 							placeholder='email@email.com'
-							rows={3}
+							rows={4}
 							multiline
 							value={desc}
 							onChange={(e) => setDesc(e.target.value)}
@@ -329,7 +328,7 @@ const SingleLinkModal = ({ isOpen, handleClose }: SingleLinkModalProps) => {
 					) : null}
 				</div>
 				<div>
-					<Button fullWidth className={classes.formBtn}>
+					<Button style={{ borderRadius: "20px" }} fullWidth className={classes.formBtn}>
 						Create link
 					</Button>
 				</div>

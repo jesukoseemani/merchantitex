@@ -12,6 +12,10 @@ import { closeLoader, openLoader } from '../../redux/actions/loader/loaderAction
 import axios from 'axios';
 import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
 import ParentContainer from '../../components/ParentContainer/ParentContainer';
+import { Box } from '@mui/material';
+import { Button } from '@material-ui/core';
+import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
+
 
 const DeployedItem = () => {
   const location = useLocation<{ rowData: string }>();
@@ -179,7 +183,15 @@ const DeployedItem = () => {
 
         </div>
         <div className={styles.sectionThree}>
-          <h3>{totalRows} Transactions</h3>
+          <Box sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center"
+
+          }}>
+            <h3>{totalRows} Transactions</h3>
+            <Button style={{ border: "1px solid #095B2C", color: "#095B2C" }} variant='outlined'><InsertDriveFileOutlinedIcon /> Download</Button>
+          </Box>
           <div className={styles.tableContainer}>
             <CustomClickTable
               columns={columns}

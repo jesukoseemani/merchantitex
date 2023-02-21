@@ -62,7 +62,7 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { openToastAndSetContent } from "../redux/actions/toast/toastActions";
 import { logOut } from "../redux/actions/auth/authActions";
-// import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.ema';
 import { saveMe } from "../redux/actions/me/meActions";
 import BillTabPanel from "../views/Bills/BillTabPanel";
 import AirtimeSaleRequest from "../views/Bills/AirtimeSaleRequest";
@@ -73,6 +73,7 @@ import NavHeader from "../components/navbarMenu/NavHeader";
 import ResetPassword from "../views/Reset/password/ResetPassword";
 import AccountSetUp from "../components/accountSetUp/AccountSetUp";
 import AccountSetup from "../views/SignUp/accountsetup/AccountSetup";
+import Invoice from "../components/bills/invoice/Invoice";
 
 export default function AppRoutes() {
   // const { loadingState } = useSelector((state) => state?.loadingStateReducer);
@@ -443,6 +444,13 @@ export default function AppRoutes() {
             />
             <ProtectedRoute
               exact
+              path="/bills/invoice"
+              component={Invoice}
+
+              AuthUser={loadingState}
+            />
+            <ProtectedRoute
+              exact
               path="/bill/requests/:slug"
               component={BillSaleRequest}
               AuthUser={loadingState}
@@ -506,6 +514,8 @@ export default function AppRoutes() {
               component={QuickUpdate}
               AuthUser={loadingState}
             />
+
+
           </>
           <Route exact path="/test/home">
             <AccountSetup />

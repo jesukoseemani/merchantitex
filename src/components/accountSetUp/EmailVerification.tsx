@@ -13,7 +13,7 @@ const EmailVerification = () => {
   const history = useHistory();
 
   const handleLogin = () => {
-    history.push("/test/account-setup");
+    history.push("/test/home");
   };
 
   return (

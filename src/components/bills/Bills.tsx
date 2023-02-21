@@ -75,7 +75,7 @@ const Bills = () => {
           <h3> 4 Bill Payment</h3>
         </div>
         <div>
-          <button onClick={handleClickBill}>Make Bill payment</button>
+          <button  onClick={handleClickBill}>Make Bill payment</button>
         </div>
       </div>
 

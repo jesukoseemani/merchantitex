@@ -44,7 +44,7 @@ const BillBulkManualForm = () => {
         <h3>Input Details Manually</h3>
       </div>
 
-      <div className={Styles.airtime_form__body}>
+      <div className={Styles.bill_form__body}>
         <form>
           <div className="country">
             <label htmlFor="country">Country</label>
@@ -93,7 +93,7 @@ const BillBulkManualForm = () => {
           </div>
 
           <div className="submit">
-            <button type="submit">Comfirm Purchase</button>
+            <button type="submit">+ Add Bill</button>
           </div>
         </form>
       </div>

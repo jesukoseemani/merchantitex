@@ -14,13 +14,13 @@
 		color: #333333;
 	}
 
-	& div > button {
-		height: 2rem;
+	& div>button {
+		// height: 3rem;
 		background: #27ae60;
-		border-radius: 0.25rem;
+		border-radius: 20px;
 		outline: none;
 		border: none;
-		padding: 0.5rem 1rem;
+		padding: 10px 20px;
 		cursor: pointer;
 
 		font-family: 'Avenir';
