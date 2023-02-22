@@ -11,8 +11,19 @@ import SingleTransferBankAcct from './SingleTransferBankAcct';
 import SIngleTransferPayvice from './SIngleTransferPayvice';
 import SingleTransferItex from './SingleTransferItex';
 import BulkTransferAccount from './BulkTransferAccount';
+import { makeStyles } from '@material-ui/styles';
 
 const Listtransfer = () => {
+
+    const useStyles = makeStyles({
+        mui: {
+            ".MuiPaper": {
+                border: "2px solid green"
+            }
+        }
+    })
+
+    const { mui } = useStyles()
     const dispatch = useDispatch()
     // open menu
     const [beneficiary, setBeneficiary] = React.useState<null | HTMLElement>(null);
@@ -243,26 +254,26 @@ const Listtransfer = () => {
                 </Stack>
             </Box>
 
-            {/* <Box> */}
-            {/* single transfer menu */}
-            <BeneficiaryMenu
-                openBeneficiary={openSingleTransMenu}
-                handleCloseMenu={handleCloseSingleTrans}
-                beneficiary={singleTrans}
-                data={singleData}
+            <Box classes={mui}>
+                {/* single transfer menu */}
+                <BeneficiaryMenu
+                    openBeneficiary={openSingleTransMenu}
+                    handleCloseMenu={handleCloseSingleTrans}
+                    beneficiary={singleTrans}
+                    data={singleData}
 
-                style={{ width: "10rem", top: 0, borderRadius: "20px", backgroundColor: "white", textAlign: "center", border: "2px solid red" }}
-            />
-            {/* Bulk transfer menu */}
-            <BeneficiaryMenu
-                openBeneficiary={openBulkTransMenu}
-                handleCloseMenu={handleCloseBulkTrans}
-                beneficiary={bulkTrans}
-                data={bulkData}
-                style={{ width: "10rem", borderRadius: "20px", backgroundColor: "white", textAlign: "center", }}
+                    style={{ width: "10rem", top: 0, borderRadius: "20px", backgroundColor: "white", textAlign: "center", border: "2px solid red" }}
+                />
+                {/* Bulk transfer menu */}
+                <BeneficiaryMenu
+                    openBeneficiary={openBulkTransMenu}
+                    handleCloseMenu={handleCloseBulkTrans}
+                    beneficiary={bulkTrans}
+                    data={bulkData}
+                    style={{ width: "10rem", borderRadius: "20px", backgroundColor: "white", textAlign: "center", }}
 
-            />
-            {/* </Box> */}
+                />
+            </Box>
 
 
             {/* add new drop down menu */}

@@ -9,37 +9,46 @@ import { navRoutes } from "../../mock/navRoutes";
 import { ReactSVG } from "react-svg";
 import { useHistory, useLocation } from "react-router-dom";
 
-
-
-
 const NavBar = () => {
   const business = useSelector((state) => state?.meReducer?.me?.business);
 
   const { pathname } = useLocation();
   const [active, setActive] = React.useState(0);
-  const [routes, setRoutes] = useState<any[] | undefined>([])
-  const [isNested, setIsNested] = useState(false)
+  const [routes, setRoutes] = useState<any[] | undefined>([]);
+  const [isNested, setIsNested] = useState(false);
 
-  const history = useHistory()
+  const history = useHistory();
 
+  const navMenu = [
+    "/home",
+    "/transactions",
+    "/transactions/refund",
+    "/customers",
+    "/point_of_sale",
+    "/subaccounts",
+    "/payout/transfers",
+    "/subaccounts/ITEX-1234567",
+  ];
 
   useEffect(() => {
-    const nestedRoutes = navRoutes?.find((route) => route?.link === pathname)?.nav;
-    console.log(nestedRoutes)
+    const nestedRoutes = navRoutes?.find(
+      (route) => route?.link === pathname
+    )?.nav;
+    console.log(nestedRoutes);
     if (pathname === "/") {
-      setIsNested(false)
-      return setRoutes(navRoutes)
+      setIsNested(false);
+      return setRoutes(navRoutes);
     }
     if (nestedRoutes && nestedRoutes?.length > 0) {
-      setIsNested(true)
-      return setRoutes(nestedRoutes)
+      setIsNested(true);
+      return setRoutes(nestedRoutes);
     }
   }, [pathname]);
 
   // console.log(isNested)
   useEffect(() => {
     // console.log(routes)
-  }, [routes])
+  }, [routes]);
   return (
     <div className={Styles.container}>
       <div className={Styles.userInfo}>
@@ -47,17 +56,24 @@ const NavBar = () => {
           <img src="https://loremflickr.com/640/480/cats" alt="user profile" />
         </div>
         <div className={Styles.userProfile__text}>
-          <p>James  <ReactSVG src={ArrowDown} /></p>
+          <p>
+            James <ReactSVG src={ArrowDown} />
+          </p>
           <span>thejames@gmail.com</span>
         </div>
       </div>
       <div>
-        <div className={Styles.backBtn} >
-
-          {isNested && <Button onClick={() => history.push("/")}><ReactSVG src={ArrowLeft} /> Main menu</Button>
-          }
-
-
+        <div className={Styles.backBtn}>
+          {isNested && (
+            <Button onClick={() => history.push("/")}>
+              <ReactSVG src={ArrowLeft} /> Main menu
+            </Button>
+          )}
+          {navMenu.includes(pathname) && (
+            <Button onClick={() => history.push("/")}>
+              PAYOUTS MENU
+            </Button>
+          )}
         </div>
 
         <nav>
@@ -74,7 +90,7 @@ const NavBar = () => {
                 <ReactSVG src={icon} />
                 {title}
               </li>
-            )
+            );
           })}
         </nav>
       </div>

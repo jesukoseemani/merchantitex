@@ -147,7 +147,7 @@ const SignIn = () => {
 									<button
 										style={{
 											backgroundColor: '#27AE60',
-											padding: '1rem',
+											// padding: '1rem',
 											width: '100%',
 											color: '#fff',
 											border: 'none',

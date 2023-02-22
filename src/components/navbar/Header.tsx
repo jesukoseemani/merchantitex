@@ -97,62 +97,13 @@ const Header = ({ toggle, setToggle }: toggleBtn) => {
 
   return (
     <div className={Styles.header__box}>
-      {/* <Container>
-        <Grid
-          container
-          spacing={3}
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Grid item xs={6} md={6}>
-            <Grid
-              container
-              alignItems="center"
-              className={Styles.left__container}
-              justifyContent="space-between"
-            >
-              <Grid item xs={5} md={4}>
-                <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
-
-                  <Typography variant="h5" component="h2" style={{ fontSize: 16 }}>
-                    {title}
-                  </Typography>
-                </Box>
-              </Grid>
-              <Grid item xs={10} md={8} className={Styles.input__box}>
-                <input placeholder="Search" />
-
-                <ReactSVG src={SearchIcon} />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid
-            item
-            xs={6}
-            md={6}
-
-
-          >
-            <Stack
-              direction={"row"}
-              alignItems="center"
-              justifyContent={"center"}
-              spacing={3}
-
-            >
-             
-            </Stack>
-          </Grid>
-        </Grid>
-
-      </Container> */}
 
 
       <Container>
         <Grid container justifyContent="space-between" alignItems="center">
           <Grid item xs={7} md={8}>
             <Stack direction={"row"} spacing={{ xs: 0, md: 5 }}>
-              <Box sx={{ display: { xs: "none", md: "block" } }}><h2>{title}</h2></Box>
+              <Box sx={{ display: { xs: "none", md: "none" } }}><h2>{title}</h2></Box>
               <Grid item xs={10} md={8} className={Styles.input__box}>
                 <input placeholder="Search" />
 
