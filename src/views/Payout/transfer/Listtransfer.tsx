@@ -10,6 +10,7 @@ import { openModalAndSetContent } from '../../../redux/actions/modal/modalAction
 import SingleTransferBankAcct from './SingleTransferBankAcct';
 import SIngleTransferPayvice from './SIngleTransferPayvice';
 import SingleTransferItex from './SingleTransferItex';
+import BulkTransferAccount from './BulkTransferAccount';
 
 const Listtransfer = () => {
     const dispatch = useDispatch()
@@ -17,9 +18,11 @@ const Listtransfer = () => {
     const [beneficiary, setBeneficiary] = React.useState<null | HTMLElement>(null);
     const [download, setDownload] = React.useState<null | HTMLElement>(null);
     const [singleTrans, setSingleTrans] = React.useState<null | HTMLElement>(null);
+    const [bulkTrans, setBulkTrans] = React.useState<null | HTMLElement>(null);
     const openBeneficiary = Boolean(beneficiary);
     const openDownloadMenu = Boolean(download);
     const openSingleTransMenu = Boolean(singleTrans);
+    const openBulkTransMenu = Boolean(bulkTrans);
 
     const handleClickBeneficiary = (
         event: React.MouseEvent<HTMLButtonElement>
@@ -41,6 +44,9 @@ const Listtransfer = () => {
     const handleCloseSingleTrans = () => {
         setSingleTrans(null);
     };
+    const handleCloseBulkTrans = () => {
+        setBulkTrans(null);
+    };
 
 
 
@@ -51,7 +57,9 @@ const Listtransfer = () => {
         setSingleTrans(!null);
 
     }
-    const handleBulkTrans = () => { }
+    const handleBulkTrans = () => {
+        setBulkTrans(2)
+    }
 
     const handleCloseDownloadMenu = () => {
         setDownload(null);
@@ -139,7 +147,7 @@ const Listtransfer = () => {
     const data = [
         {
             id: 1,
-            name: "Single Transfet",
+            name: "Single Transfer",
             func: handleSingleTransfer,
         },
         {
@@ -179,6 +187,46 @@ const Listtransfer = () => {
     ];
 
 
+    const handleBulkBankAcct = () => {
+        dispatch(
+            openModalAndSetContent({
+                modalStyles: {
+                    padding: 0,
+                    borderRadius: "20px",
+                    minWidth: "420px",
+                    minHeight: "380px",
+                    overflow: "hidden"
+                },
+                modalContent: (
+                    <>
+                        <BulkTransferAccount />
+                    </>
+                ),
+            })
+        );
+    }
+    const handleBulkPayviceAcct = () => { }
+    const handleBulkItexPayAcct = () => { }
+
+    const bulkData = [
+        {
+            id: 1,
+            name: "Bank Account",
+            func: handleBulkBankAcct,
+        },
+        {
+            id: 2,
+            name: "Payvice",
+            func: handleBulkPayviceAcct,
+        },
+
+        {
+            id: 3,
+            name: "ITEX pay",
+            func: handleBulkItexPayAcct,
+        },
+    ];
+
 
 
     return (
@@ -194,29 +242,38 @@ const Listtransfer = () => {
                     </Box>
                 </Stack>
             </Box>
-            <Box sx={{ width: "95%", marginInline: "auto" }}>
-                <TransfersTable />
-            </Box>
 
-            <Box>
-                {/* single transfer menu */}
-                <BeneficiaryMenu
-                    openBeneficiary={openSingleTransMenu}
-                    handleCloseMenu={handleCloseSingleTrans}
-                    beneficiary={singleTrans}
-                    data={singleData}
-                    style={{ width: "10rem", borderRadius: "20px", backgroundColor: "white", textAlign: "center", }}
-                />
-                {/* add new drop down menu */}
-                <BeneficiaryMenu
-                    openBeneficiary={openBeneficiary}
-                    handleCloseMenu={handleCloseMenu}
-                    beneficiary={beneficiary}
-                    data={data}
-                    style={{ width: "10rem", borderRadius: "20px", backgroundColor: "white", textAlign: "center" }}
-                />
+            {/* <Box> */}
+            {/* single transfer menu */}
+            <BeneficiaryMenu
+                openBeneficiary={openSingleTransMenu}
+                handleCloseMenu={handleCloseSingleTrans}
+                beneficiary={singleTrans}
+                data={singleData}
 
-            </Box>
+                style={{ width: "10rem", top: 0, borderRadius: "20px", backgroundColor: "white", textAlign: "center", border: "2px solid red" }}
+            />
+            {/* Bulk transfer menu */}
+            <BeneficiaryMenu
+                openBeneficiary={openBulkTransMenu}
+                handleCloseMenu={handleCloseBulkTrans}
+                beneficiary={bulkTrans}
+                data={bulkData}
+                style={{ width: "10rem", borderRadius: "20px", backgroundColor: "white", textAlign: "center", }}
+
+            />
+            {/* </Box> */}
+
+
+            {/* add new drop down menu */}
+            <BeneficiaryMenu
+                openBeneficiary={openBeneficiary}
+                handleCloseMenu={handleCloseMenu}
+                beneficiary={beneficiary}
+                data={data}
+                style={{ width: "10rem", borderRadius: "20px", backgroundColor: "white", textAlign: "center" }}
+            />
+
 
 
 
@@ -228,6 +285,10 @@ const Listtransfer = () => {
                 data={dataDownload}
                 style={{ width: "8.5rem", borderRadius: "20px", textAlign: "center" }}
             />
+
+            <Box sx={{ width: "95%", marginInline: "auto" }}>
+                <TransfersTable />
+            </Box>
         </Box>
     )
 }

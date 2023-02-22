@@ -74,6 +74,7 @@ import ResetPassword from "../views/Reset/password/ResetPassword";
 import AccountSetUp from "../components/accountSetUp/AccountSetUp";
 import AccountSetup from "../views/SignUp/accountsetup/AccountSetup";
 import Invoice from "../components/bills/invoice/Invoice";
+import BulkTransferEntry from "../views/Payout/transfer/BulkTransferEntry";
 
 export default function AppRoutes() {
   // const { loadingState } = useSelector((state) => state?.loadingStateReducer);
@@ -285,6 +286,12 @@ export default function AppRoutes() {
               exact
               path="/payout/transfers"
               component={Transfers}
+              AuthUser={loadingState}
+            />
+            <ProtectedRoute
+              exact
+              path="/payout/transfer/entries"
+              component={BulkTransferEntry}
               AuthUser={loadingState}
             />
             <ProtectedRoute

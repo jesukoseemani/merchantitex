@@ -4,7 +4,7 @@
   // height: 100%;
   // border: 2px solid blue;
 
-  & > .userInfo {
+  &>.userInfo {
     padding-inline: 21px;
     width: 201px;
     height: 80px;
@@ -18,7 +18,7 @@
     justify-content: center;
     gap: 10px;
 
-    & > div {
+    &>div {
       p {
         color: $light_text;
         font-weight: 500;
@@ -118,10 +118,19 @@ svg {
   // height: 100%;
   background-color: $body;
   overflow: hidden;
+  height: 100%;
+  display: flex;
+  align-items: center;
+
+  svg {
+    margin: 0;
+  }
 }
 
 .left__container {
   height: 4.7rem;
+  // border: 2px solid red;
+
 }
 
 input {
@@ -131,6 +140,7 @@ input {
   background: #fbfbfb;
   border: 1px solid #dddddd;
   border-radius: 10px;
+  // border: 2px solid blue;
 }
 
 .toggleButton {

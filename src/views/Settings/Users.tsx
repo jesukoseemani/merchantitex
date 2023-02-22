@@ -261,6 +261,7 @@ const Users = () => {
 					maxWidth: '539px',
 					height: '700px',
 					width: '100%',
+					borderRadius: "20px"
 				},
 				modalContent: (
 					<div className={Styles.modalDiv}>

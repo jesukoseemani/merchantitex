@@ -10,6 +10,7 @@
 
 .menuIcon {
 	color: #bdbdbd;
+	// font-size: 40px;
 }
 
 .iconGroup {
@@ -24,13 +25,13 @@
 	justify-content: flex-start;
 }
 
-.account > div:first-child {
+.account>div:first-child {
 	display: flex;
 	align-items: center;
 	margin-right: 8px;
 }
 
-.account > div:last-child {
+.account>div:last-child {
 	font-family: Inter;
 	font-style: normal;
 	font-weight: 500;

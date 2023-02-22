@@ -501,36 +501,40 @@
 	align-items: center;
 	justify-content: flex-end;
 	width: 100%;
+	border-radius: 20px;
 }
 
 .cancelModal {
 	width: 100px;
-	height: 30.76px;
+	height: 40px;
 	font-family: 'Avenir';
 	font-style: normal;
 	font-weight: 500;
 	font-size: 14px;
-	line-height: 26px;
+	// line-height: 26px;
 	text-align: center;
 	color: #ffffff;
 	background: #333333;
 	border: 1.28183px solid #333333;
-	border-radius: 3.8455px;
+	border-radius: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .removeModal {
 	width: 100px;
-	height: 30.76px;
+	// height: 30.76px;
 	font-family: 'Avenir';
 	font-style: normal;
 	font-weight: 500;
 	font-size: 14px;
-	line-height: 26px;
+	// line-height: 26px;
 	text-align: center;
 	color: #ffffff;
 	background: #27ae60;
 	border: 1.28183px solid #27ae60;
-	border-radius: 3.8455px;
+	border-radius: 20px;
 	margin-left: 20px;
 	cursor: pointer;
 }

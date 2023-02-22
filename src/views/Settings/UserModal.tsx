@@ -141,7 +141,7 @@ function UserModal({
 											width: '100%',
 											color: '#fff',
 											border: 'none',
-											borderRadius: '4px',
+											borderRadius: '20px',
 											cursor: 'pointer',
 										}}
 										type='submit'

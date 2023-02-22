@@ -1,6 +1,6 @@
-import { Grid, IconButton, Typography } from "@material-ui/core";
+import { Grid, IconButton, TextField, Typography } from "@material-ui/core";
 
-import { Container, Stack } from "@mui/material";
+import { Box, Container, Stack } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
@@ -13,8 +13,17 @@ import { styled } from "@mui/material/styles";
 import Styles from "./Navbar.module.scss";
 import { useHistory, useLocation } from "react-router-dom";
 import UserMenu from "../menu/userMenu";
+import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 
-const Header = () => {
+
+
+interface toggleBtn {
+  setToggle: React.Dispatch<React.SetStateAction<boolean>>;
+  toggle: boolean
+
+}
+
+const Header = ({ toggle, setToggle }: toggleBtn) => {
   const [alignment, setAlignment] = React.useState("test server");
   const handleAlignment = (
     event: React.MouseEvent<HTMLElement>,
@@ -33,8 +42,10 @@ const Header = () => {
   }, [active]);
 
 
-  const title = pathname.split('/').at(-1)?.replace(/_ -/g, ' ')
-
+  const title = pathname.split('/').at(-1)
+  const handleToggle = () => {
+    setToggle((prev) => !prev)
+  }
 
 
   const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
@@ -42,16 +53,16 @@ const Header = () => {
       // margin: theme.spacing(0.4),
 
       boxSizing: "border-box",
-      width: 190,
-      height: 35,
+      width: 200,
+      height: 40,
       display: "flex",
       justifyContent: "center",
       alignItem: "center",
-      borderRadius: 13.5,
+      borderRadius: "20px",
       lineHeight: 13.66,
       border: 0,
       fontSize: 10,
-      padding: 4,
+      padding: "10px",
 
 
       "&.Mui-disabled": {
@@ -73,9 +84,9 @@ const Header = () => {
       "&.Mui-selected": {
         color: "white",
         backgroundColor: "#041926",
-        borderRadius: 13.5,
+        borderRadius: "20px",
         width: 190,
-        height: 27,
+        height: 30,
         fontSize: 10,
         gap: 10,
         // border: "2px solid red"
@@ -86,26 +97,29 @@ const Header = () => {
 
   return (
     <div className={Styles.header__box}>
-      <Container>
+      {/* <Container>
         <Grid
           container
-          spacing={4}
+          spacing={3}
           justifyContent="space-between"
           alignItems="center"
         >
-          <Grid item xs={6} md={7}>
+          <Grid item xs={6} md={6}>
             <Grid
               container
               alignItems="center"
               className={Styles.left__container}
-              spacing={2}
+              justifyContent="space-between"
             >
-              <Grid item xs={3} >
-                <Typography variant="h5" component="h2" style={{ fontSize: 16 }}>
-                  {title}
-                </Typography>
+              <Grid item xs={5} md={4}>
+                <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
+
+                  <Typography variant="h5" component="h2" style={{ fontSize: 16 }}>
+                    {title}
+                  </Typography>
+                </Box>
               </Grid>
-              <Grid item sm={7} className={Styles.input__box}>
+              <Grid item xs={10} md={8} className={Styles.input__box}>
                 <input placeholder="Search" />
 
                 <ReactSVG src={SearchIcon} />
@@ -114,8 +128,8 @@ const Header = () => {
           </Grid>
           <Grid
             item
-            sm={6}
-            md={5}
+            xs={6}
+            md={6}
 
 
           >
@@ -123,14 +137,38 @@ const Header = () => {
               direction={"row"}
               alignItems="center"
               justifyContent={"center"}
-              spacing={5}
+              spacing={3}
+
             >
+             
+            </Stack>
+          </Grid>
+        </Grid>
+
+      </Container> */}
+
+
+      <Container>
+        <Grid container justifyContent="space-between" alignItems="center">
+          <Grid item xs={7} md={8}>
+            <Stack direction={"row"} spacing={{ xs: 0, md: 5 }}>
+              <Box sx={{ display: { xs: "none", md: "block" } }}><h2>{title}</h2></Box>
+              <Grid item xs={10} md={8} className={Styles.input__box}>
+                <input placeholder="Search" />
+
+                <ReactSVG src={SearchIcon} />
+              </Grid>
+            </Stack>
+          </Grid>
+          <Grid item xs={5} md={4}>
+            <Stack direction={"row"} justifyContent="flex-end" alignItems={"center"} spacing={1}>
               <StyledToggleButtonGroup
                 size="small"
                 value={alignment}
                 exclusive
                 onChange={handleAlignment}
                 aria-label="text alignment"
+                sx={{ display: { xs: "none", sm: "none", md: "flex" } }}
               >
                 <ToggleButtonGroup
                   color="primary"
@@ -158,13 +196,18 @@ const Header = () => {
               </StyledToggleButtonGroup>
 
               <UserMenu />
+              <Box sx={{ display: { md: "none", }, marginLeft: "2rem" }}>
+                <IconButton onClick={() => handleToggle}>
+                  <MenuOutlinedIcon sx={{ fontSize: "40px" }} />
+                </IconButton>
+
+              </Box>
             </Stack>
           </Grid>
         </Grid>
-
       </Container>
-    </div>
+    </div >
   );
 };
 
-export default Header;
+export default Header

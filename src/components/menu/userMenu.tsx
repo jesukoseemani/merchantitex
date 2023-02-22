@@ -243,7 +243,7 @@ export default function UserMenu() {
 				</MenuItem>
 			</Menu>
 			<IconButton>
-				<NotificationsNoneOutlinedIcon className={Styles.menuIcon} />
+				<NotificationsNoneOutlinedIcon sx={{ fontSize: "30px" }} className={Styles.menuIcon} />
 			</IconButton>
 			<IconButton
 				id='fade-button'
@@ -252,7 +252,7 @@ export default function UserMenu() {
 				aria-expanded={open ? 'true' : undefined}
 				onClick={handleClick}
 				className={Styles.iconGroup}>
-				<AccountCircleOutlinedIcon className={Styles.menuIcon} />
+				<AccountCircleOutlinedIcon sx={{ fontSize: "30px" }} className={Styles.menuIcon} />
 				<ArrowDropDownOutlinedIcon className={Styles.menuIcon} />
 			</IconButton>
 		</div>

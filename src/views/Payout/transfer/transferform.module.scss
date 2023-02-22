@@ -101,3 +101,59 @@ label {
         }
     }
 }
+
+.bulk__container {
+
+    box-shadow: 0px 3px 20px rgba(0, 0, 0, 0.16);
+    border-radius: 20px;
+    width: 611px;
+    height: 616px;
+    max-width: 100%;
+
+    .title {
+        padding: 15px 50px;
+        border-bottom: 1px solid #E0E0E0;
+    }
+
+    &>* {
+        color: #333333;
+    }
+
+    .topText {
+        padding: 40px;
+        border-bottom: 1px solid #E0E0E0;
+
+        h3 {
+            font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 19px;
+            color: #4F4F4F;
+        }
+
+        p {
+            font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 19px;
+            margin-top: 10px;
+            color: #4F4F4F;
+        }
+    }
+
+
+    svg {
+        margin: 10px;
+    }
+
+    button {
+
+        width: 100%;
+        padding: 10px 20px;
+        height: 44px;
+        margin-top: 20px;
+
+    }
+}
