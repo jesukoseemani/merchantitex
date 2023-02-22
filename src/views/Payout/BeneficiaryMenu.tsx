@@ -22,9 +22,9 @@ export default function BeneficiaryMenu({
   style,
 }: MenuProps) {
   const trigerFunction = (trigger: () => void) => {
+    trigger();
     handleCloseMenu();
 
-    trigger();
   };
   const useStyles = makeStyles(() =>
     createStyles({

@@ -10,9 +10,9 @@ import ParentContainer from "../../components/ParentContainer/ParentContainer";
 export default function TransferTable() {
   return (
 
-      <div className={Styles.container}>
-        {/* <NavBar /> */}
-        <div className={Styles.tableContainer}>
+    <div className={Styles.container}>
+      {/* <NavBar /> */}
+      {/* <div className={Styles.tableContainer}>
           <div className={Styles.tableHeader}>
             <h2>19 transactions</h2>
             <div>
@@ -24,7 +24,7 @@ export default function TransferTable() {
             </div>
           </div>
           <TransfersTable />
-        </div>
-      </div>
+        </div> */}
+    </div>
   );
 }
