@@ -6,7 +6,7 @@ import AppRoutes from "./routes/AppRoutes";
 import Modal from "./components/Modal";
 
 function App() {
-  
+
   return (
     <>
       <AppRoutes />

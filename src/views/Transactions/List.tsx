@@ -24,6 +24,7 @@ import { useHistory } from 'react-router-dom';
 import { subDays } from 'date-fns';
 import { CSVLink } from 'react-csv';
 import FilterModal from '../../components/FilterModal';
+import ParentContainer from '../../components/ParentContainer/ParentContainer';
 
 export default function TransactionsList() {
 	const [download, setDownload] = useState([]);
@@ -79,7 +80,7 @@ export default function TransactionsList() {
 					type: string;
 				};
 				device: {
-					fingerprint: string;
+					fingerprint?: string;
 					ip: string;
 				};
 				address: [];
@@ -306,8 +307,11 @@ export default function TransactionsList() {
 		},
 	});
 	return (
+
+
+
 		<div className={Styles.container}>
-			<NavBar /> 
+			{/* <NavBar />  */}
 			<FilterModal
 				isOpen={isFilterModalOpen}
 				handleClose={() => setIsFilterModalOpen(false)}
@@ -371,7 +375,7 @@ export default function TransactionsList() {
 							</div>
 							<div
 								className={Styles.panel}
-								// onClick={() => history.push('/transactions/list')}
+							// onClick={() => history.push('/transactions/list')}
 							>
 								<div>
 									<InvoiceIcon />
@@ -407,5 +411,6 @@ export default function TransactionsList() {
 				)}
 			</div>
 		</div>
+
 	);
 }

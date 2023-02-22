@@ -14,11 +14,10 @@ import CustomClickTable from "../../components/table/CustomClickTable";
 import DoDisturbIcon from "@mui/icons-material/DoDisturb";
 import {
   GetRecentCustomerRes,
-  GetTransactionsRes,
   RecentCustomerItem,
-  TransactionItem,
 } from "../../types/CustomerTypes";
 import { useCallback, useEffect, useState } from "react";
+import ParentContainer from "../../components/ParentContainer/ParentContainer";
 
 interface customerProps {
   firstname: string;
@@ -62,7 +61,7 @@ const CustomerItem = () => {
   };
 
   interface Column {
-    id: "amount" | "customerID" | "added" | "paymentType";
+    id: "amount" | "status" | "customerID" | "added" | "paymentType";
     label: any;
     minWidth?: number;
     align?: "right" | "left" | "center";
@@ -70,6 +69,7 @@ const CustomerItem = () => {
 
   const columns: Column[] = [
     { id: "amount", label: "Amount", minWidth: 100 },
+    { id: "status", label: "", minWidth: 100 },
 
     { id: "customerID", label: "Customer ID", minWidth: 100 },
     { id: "paymentType", label: "PaymentType", minWidth: 100 },
@@ -77,10 +77,18 @@ const CustomerItem = () => {
   ];
 
   const TransactionRowTab = useCallback(
-    (amount, customerId, paymentType, added) => ({
-      amount: <p className={styles.tableBodyText}>NGN{amount}</p>,
-
+    (amount, customerId, paymentType, added, status) => ({
+      amount: <p className={styles.tableBodyText}>NGN{amount} </p>,
+      status: (
+        <span
+          className={status === "Successful" ? styles.status : styles.pending}
+        >
+          {" "}
+          {status}
+        </span>
+      ),
       customerID: <p className={styles.tableBodyText}>{customerId}</p>,
+
       paymentType: (
         <p className={styles.tableBodyText}>
           <span className={styles.capitalize}>{paymentType}</span>
@@ -168,10 +176,11 @@ const CustomerItem = () => {
     transactions?.map((each: RecentCustomerItem) =>
       newRowOptions.push(
         TransactionRowTab(
-          each?.customerId,
-          each?.added,
           each?.amount,
-          each?.paymentType
+          each?.customerId,
+          each?.paymentType,
+          each?.added,
+          each?.status
         )
       )
     );
@@ -179,78 +188,80 @@ const CustomerItem = () => {
   }, [transactions, TransactionRowTab]);
 
   return (
-    <div className={styles.container}>
-      <NavBar name="Customers" />
-      <hr />
-      <div className={styles.pageWrapper}>
-        <div className={styles.sectionOne}>
-          <div>
-            <Link to="/customers">
-              <div>
-                <ArrowLeftIcon />
-                <p>Back to customers</p>
-              </div>
-            </Link>
-          </div>
-          <div>
-            <p>Customer Information</p>
-            <div>
-              <p>Blacklist customer</p>
-              <DoDisturbIcon />
-            </div>
-          </div>
-        </div>
+ 
+
+      <div className={styles.container}>
+
         <hr />
-        <div className={styles.sectionTwo}>
-          <div>
-            <p>Name</p>
-            <p>
-              <span>{firstname}</span>{" "}
-              <span className={styles.capitalize}>{lastname}</span>
-            </p>
-          </div>
-          <div></div>
-          <div>
-            <p>Email</p>
-            <p>{email ?? "N/A"}</p>
-          </div>
-          <div></div>
-          <div>
-            <p>Phone</p>
-            <p>{phone ?? "N/A"}</p>
-          </div>
-        </div>
-        <div className={styles.sectionThree}>
-          <div>
-            <h3>Performance</h3>
-          </div>
-          <div>
+        <div className={styles.pageWrapper}>
+          <div className={styles.sectionOne}>
             <div>
-              <p>Number of transactions</p>
-              <p>{transNum}</p>
+              <Link to="/customers">
+                <div>
+                  <ArrowLeftIcon />
+                  <p>Back to customers</p>
+                </div>
+              </Link>
             </div>
             <div>
-              <p>Total spend</p>
-              <p>NGN {total}</p>
+              <p>Customer Information</p>
+              <div>
+                <p>Blacklist customer</p>
+                <DoDisturbIcon />
+              </div>
             </div>
           </div>
-        </div>
-        <div className={styles.sectionFour}>
-          <div>
-            <h3>Recent transactions</h3>
+          <hr />
+          <div className={styles.sectionTwo}>
+            <div>
+              <p>Name</p>
+              <p>
+                <span>{firstname}</span>{" "}
+                <span className={styles.capitalize}>{lastname}</span>
+              </p>
+            </div>
+            <div></div>
+            <div>
+              <p>Email</p>
+              <p>{email ?? "N/A"}</p>
+            </div>
+            <div></div>
+            <div>
+              <p>Phone</p>
+              <p>{phone ?? "N/A"}</p>
+            </div>
           </div>
-          <div className={styles.tableContainer}>
-            <CustomClickTable
-              columns={columns}
-              rows={rows}
-              totalRows={totalRows}
-              changePage={changePage}
-              limit={limit}
-            />
+          <div className={styles.sectionThree}>
+            <div>
+              <h3>Performance</h3>
+            </div>
+            <div>
+              <div>
+                <p>Number of transactions</p>
+                <p>{transNum}</p>
+              </div>
+              <div>
+                <p>Total spend</p>
+                <p>NGN {total}</p>
+              </div>
+            </div>
+          </div>
+          <div className={styles.sectionFour}>
+            <div>
+              <h3>Recent transactions</h3>
+            </div>
+            <div className={styles.tableContainer}>
+              <CustomClickTable
+                columns={columns}
+                rows={rows}
+                totalRows={totalRows}
+                changePage={changePage}
+                limit={limit}
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

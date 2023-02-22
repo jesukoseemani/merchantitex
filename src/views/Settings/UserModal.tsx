@@ -78,8 +78,9 @@ function UserModal({
 				backgroundColor: '#ffffff',
 				overflowY: 'hidden',
 				height: '650px',
+				// border: "2px solid red"
 			}}>
-			
+
 			<Formik
 				initialValues={{
 					email: '',
@@ -140,7 +141,7 @@ function UserModal({
 											width: '100%',
 											color: '#fff',
 											border: 'none',
-											borderRadius: '4px',
+											borderRadius: '20px',
 											cursor: 'pointer',
 										}}
 										type='submit'

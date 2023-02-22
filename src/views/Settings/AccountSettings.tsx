@@ -2,6 +2,7 @@ import React from "react";
 import NavBar from "../../components/navbar/NavBar";
 import Styles from "./Settings.module.scss";
 import { Button, Form, Checkbox, Divider, Radio } from "semantic-ui-react";
+import ParentContainer from "../../components/ParentContainer/ParentContainer";
 
 const WebHooks = () => {
   const countryList = [
@@ -25,14 +26,15 @@ const WebHooks = () => {
     },
   ];
   return (
+
     <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
-      <NavBar />
+      {/* <NavBar /> */}
       <div className={Styles.container}>
         <div className={Styles.formHeader}>
           <div>
             <h2>Account preferences</h2>
           </div>
-          <Button className="success">Save settings</Button>
+          <button style={{ borderRadius: "20px", padding: "10px 20px" }} className="success">Save settings</button>
         </div>
         <div className={Styles.wrapper}>
           <div className={Styles.checkboxGrid}>

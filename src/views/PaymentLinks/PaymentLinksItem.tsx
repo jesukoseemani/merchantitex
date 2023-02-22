@@ -18,6 +18,7 @@ import moment from 'moment';
 import { LinkItem } from '../../types/PaymentlinkTypes';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { ReactComponent as ExtLinkIcon } from '../../assets/images/ext-link.svg';
+import ParentContainer from '../../components/ParentContainer/ParentContainer';
 
 const useBtnStyles = makeStyles({
 	root: {
@@ -172,8 +173,10 @@ const PaymentLinksItem = () => {
 	}, [transactions, TransactionRowTab]);
 
 	return (
+
+
 		<div className={styles.container}>
-			<NavBar name='Payment Links' />
+
 			<div className={styles.pageWrapper}>
 				<div className={styles.sectionOne}>
 					<div>
@@ -185,42 +188,45 @@ const PaymentLinksItem = () => {
 						</Link>
 					</div>
 				</div>
-				<div className={styles.sectionTwo}>
-					<div>
-						<p>{name}</p>
-						<p>Active</p>
-					</div>
-					<div className={btnClasses.root}>
-						<Button>Edit</Button>
-						<Button>Deactivate</Button>
-						<Button>Delete</Button>
-					</div>
-				</div>
-				<div className={styles.sectionThree}>
-					<div>
+				<div className={styles.sectionWrapper}>
+					<div className={styles.sectionTwo}>
 						<div>
-							<p>Payment Link URL</p>
-							<p>
-								{url} <ContentCopyIcon /> <ExtLinkIcon />
-							</p>
+							<p>{name}</p>
+							<p style={{ borderRadius: "20px" }}>Active</p>
 						</div>
-						<div>
-							<p>Date created</p>
-							<p>{moment(added).format('MMM D YYYY h:mm A')}</p>
-						</div>
-						<div>
-							<p>Link type</p>
-							<p>{linkType}</p>
-						</div>
-						<div>
-							<p>Amount</p>
-							<p>NGN {amt}</p>
+						<div className={btnClasses.root}>
+							<Button style={{ borderRadius: "20px", padding: "10px 20px" }}>Edit</Button>
+							<Button style={{ borderRadius: "20px", padding: "10px 20px" }}>Deactivate</Button>
+							<Button style={{ borderRadius: "20px", padding: "10px 20px" }}>Delete</Button>
 						</div>
 					</div>
-					<div>
-						<p>Description</p>
-						<p>{desc}</p>
+					<div className={styles.sectionThree}>
+						<div>
+							<div>
+								<p>Payment Link URL</p>
+								<p>
+									{url} <ContentCopyIcon style={{ color: "#2F80ED", fontSize: "50px" }} fontSize={"large"} /> <ExtLinkIcon style={{ color: "#2F80ED" }} />
+								</p>
+							</div>
+							<div>
+								<p>Date created</p>
+								<p>{moment(added).format('MMM D YYYY h:mm A')}</p>
+							</div>
+							<div>
+								<p>Link type</p>
+								<p>{linkType}</p>
+							</div>
+							<div>
+								<p>Amount</p>
+								<p>NGN {amt}</p>
+							</div>
+						</div>
+						<div>
+							<p>Description</p>
+							<p>{desc}</p>
+						</div>
 					</div>
+
 				</div>
 				<hr />
 				<div className={styles.sectionFour}>
@@ -239,6 +245,7 @@ const PaymentLinksItem = () => {
 				</div>
 			</div>
 		</div>
+
 	);
 };
 

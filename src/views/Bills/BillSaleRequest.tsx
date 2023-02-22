@@ -8,6 +8,7 @@ import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import { BillRequestItem } from "../../types/BiilsTypes";
 import CopyText from "../../helpers/CopyToClipBoard";
 import FormatToCurrency from "../../helpers/NumberToCurrency";
+import ParentContainer from "../../components/ParentContainer/ParentContainer";
 
 const BillSaleRequest = () => {
   const location = useLocation<{ rowData: string }>();
@@ -38,88 +39,91 @@ const BillSaleRequest = () => {
   } = formattedRowData;
 
   return (
-    <div
-      className={styles.contained}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        width: "100%",
-        marginInline: "auto",
-        flexFlow: "row wrap",
-      }}
-    >
-      <NavBar name="Airtime request" />
-      <div className={styles.pageWrapper}>
-        <div className={styles.sectionOne}>
-          <div>
-            <Link to="/bills">
-              <div>
-                <ArrowLeftIcon />
-                <p>Back to Bill</p>
-              </div>
-            </Link>
-            <h2 style={{ padding: "15px 5px", fontSize: "1.4rem" }}>
-              NGN {FormatToCurrency(amount)}
-            </h2>
-          </div>
-        </div>
-        <div className={styles.sectionTwo}>
-          <div>
-            <p>Country</p>
-            <p>{country}</p>
-          </div>
-          <div>
-            <p>Bill</p>
-            <p>{bill}</p>
-          </div>
-          <div>
-            <p>Packages</p>
-            <p>{packages}</p>
-          </div>
-          <div>
-            <p>Amount</p>
 
-            <p>{FormatToCurrency(amount)}</p>
+
+      <div
+        className={styles.contained}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          width: "100%",
+          marginInline: "auto",
+          flexFlow: "row wrap",
+        }}
+      >
+
+        <div className={styles.pageWrapper}>
+          <div className={styles.sectionOne}>
+            <div>
+              <Link to="/bills">
+                <div>
+                  <ArrowLeftIcon />
+                  <p>Back to Bill</p>
+                </div>
+              </Link>
+              <h2 style={{ padding: "15px 5px", fontSize: "1.4rem" }}>
+                NGN {FormatToCurrency(amount)}
+              </h2>
+            </div>
           </div>
-        </div>
-        <div className={styles.sectionThree}>
-          <h3>Payment information</h3>
-          <div>
+          <div className={styles.sectionTwo}>
             <div>
-              <p>Transaction Reference</p>
-              <span onClick={() => CopyText(transactionRef)}>
-                {transactionRef}{" "}
-                <ContentCopyOutlinedIcon
-                  fontSize="medium"
-                  style={{ fontSize: 10 }}
-                />
-              </span>
+              <p>Country</p>
+              <p>{country}</p>
             </div>
             <div>
-              <p>Commission</p>
-              <span>{commission}</span>
+              <p>Bill</p>
+              <p>{bill}</p>
             </div>
             <div>
-              <p>Provider Reference</p>
-              <span>{providerRef}</span>
+              <p>Packages</p>
+              <p>{packages}</p>
             </div>
             <div>
-              <p>Date/time</p>
-              <span>{moment(date).format("MMM D YYYY")}</span>
+              <p>Amount</p>
+
+              <p>{FormatToCurrency(amount)}</p>
             </div>
-            <br />
+          </div>
+          <div className={styles.sectionThree}>
+            <h3>Payment information</h3>
             <div>
-              <p>Bill payment ID</p>
-              <span>{billId}</span>
-            </div>
-            <div>
-              <p>Bill Name</p>
-              <span>{packages}</span>
+              <div>
+                <p>Transaction Reference</p>
+                <span onClick={() => CopyText(transactionRef)}>
+                  {transactionRef}{" "}
+                  <ContentCopyOutlinedIcon
+                    fontSize="medium"
+                    style={{ fontSize: 10 }}
+                  />
+                </span>
+              </div>
+              <div>
+                <p>Commission</p>
+                <span>{commission}</span>
+              </div>
+              <div>
+                <p>Provider Reference</p>
+                <span>{providerRef}</span>
+              </div>
+              <div>
+                <p>Date/time</p>
+                <span>{moment(date).format("MMM D YYYY")}</span>
+              </div>
+              <br />
+              <div>
+                <p>Bill payment ID</p>
+                <span>{billId}</span>
+              </div>
+              <div>
+                <p>Bill Name</p>
+                <span>{packages}</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+
   );
 };
 

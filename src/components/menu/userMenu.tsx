@@ -156,13 +156,13 @@ export default function UserMenu() {
 				/> */}
 				{/* <p className={Styles.switchtoggle_p}>{checked ? 'Live' : 'Test'}</p> */}
 
-				<Switch/>
+				<Switch />
 			</div>
 		);
 	};
 	return (
 		<div className={Styles.menuContainer}>
-			<SwitchToggle />
+
 			<Menu
 				id='fade-menu'
 				MenuListProps={{
@@ -199,7 +199,7 @@ export default function UserMenu() {
 						<div>
 							<img src={SettingsIcon} alt='' />
 						</div>
-						<div className={Styles.accountDetail}>My Account</div>
+						<div className={Styles.accountDetail} onClick={() => history.push("/general_setting/account_settings")}>My Account</div>
 					</div>
 				</MenuItem>
 				<MenuItem
@@ -243,7 +243,7 @@ export default function UserMenu() {
 				</MenuItem>
 			</Menu>
 			<IconButton>
-				<NotificationsNoneOutlinedIcon className={Styles.menuIcon} />
+				<NotificationsNoneOutlinedIcon sx={{ fontSize: "30px" }} className={Styles.menuIcon} />
 			</IconButton>
 			<IconButton
 				id='fade-button'
@@ -252,7 +252,7 @@ export default function UserMenu() {
 				aria-expanded={open ? 'true' : undefined}
 				onClick={handleClick}
 				className={Styles.iconGroup}>
-				<AccountCircleOutlinedIcon className={Styles.menuIcon} />
+				<AccountCircleOutlinedIcon sx={{ fontSize: "30px" }} className={Styles.menuIcon} />
 				<ArrowDropDownOutlinedIcon className={Styles.menuIcon} />
 			</IconButton>
 		</div>

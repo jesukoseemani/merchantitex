@@ -17,6 +17,7 @@ import {
 	closeModal,
 } from '../../redux/actions/modal/modalActions';
 import UserModal from './UserModal';
+import ParentContainer from '../../components/ParentContainer/ParentContainer';
 
 const Users = () => {
 	interface UserProps {
@@ -222,8 +223,11 @@ const Users = () => {
 				modalStyles: {
 					padding: 0,
 					maxWidth: '539px',
-					height: '700px',
+					minHeight: '500px',
 					width: '100%',
+					borderRadius: 6,
+					boxShadow: "-4px 4px 14px rgba(224, 224, 224, 0.69)",
+
 				},
 				modalContent: (
 					<div className={Styles.modalDiv}>
@@ -257,6 +261,7 @@ const Users = () => {
 					maxWidth: '539px',
 					height: '700px',
 					width: '100%',
+					borderRadius: "20px"
 				},
 				modalContent: (
 					<div className={Styles.modalDiv}>
@@ -305,16 +310,17 @@ const Users = () => {
 	};
 
 	return (
+
 		<div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-			<NavBar name='Bank Accounts' />
+			{/* <NavBar title='Bank Accounts' /> */}
 			<div className={Styles.container}>
 				<div className={Styles.formHeader}>
 					<div>
 						<h2>Users</h2>
 					</div>
-					<Button onClick={editBusinessHandler} className='success'>
+					<button style={{ padding: "10px 20px", borderRadius: "20px" }} onClick={editBusinessHandler} className='success'>
 						+ New user
-					</Button>
+					</button>
 				</div>
 				<div className={Styles.tableWrapper}>
 					<OperantTable

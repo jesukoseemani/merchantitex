@@ -45,3 +45,54 @@ export interface GetBillRequestsRes {
   history: BillRequestItem[];
   //   requests: AirtimeRequestItem[];
 }
+
+// bill entry request table
+export interface BillEntryRequestItem {
+  id: string;
+  country: string;
+  bill: string;
+  amount: number;
+  packages: string;
+  date?: string;
+  providerRef?: string;
+  transactionRef?: string;
+  billId?: number;
+  commission?: number;
+}
+
+export interface GetBillEntryRequestsRes {
+  _metadata: {
+    page: number;
+    pagecount: number;
+    totalcount: number;
+    links: [];
+  };
+  history: BillEntryRequestItem[];
+  //   requests: AirtimeRequestItem[];
+}
+
+// bill invoices  entry request table
+export interface BillInvoiceRequestItem {
+  id: string;
+  title: string;
+  name: string;
+  amount: number;
+  status: string;
+  email: string;
+  added?: string;
+  providerRef?: string;
+  transactionRef?: string;
+  billId?: number;
+  commission?: number;
+}
+
+export interface GetInvoiceRequestsRes {
+  _metadata: {
+    page: number;
+    pagecount: number;
+    totalcount: number;
+    links: [];
+  };
+  history: BillInvoiceRequestItem[];
+  //   requests: AirtimeRequestItem[];
+}

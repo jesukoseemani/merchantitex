@@ -1,3 +1,4 @@
+import { Box, Stack, Button } from "@mui/material";
 import React from "react";
 import { countryListAllIsoData } from "../../helpers/Countries";
 
@@ -40,15 +41,24 @@ const SingleBillPayment = () => {
   ];
   return (
     <div
-      className={Styles.payment__input__container}
-      style={{ height: "42rem" }}
+      className={Styles.single_payment__input__container}
+
     >
       <div className={Styles.form__title}>
-        <h3>Buy Airtime</h3>
+        <h3>Bill Payment</h3>
       </div>
 
-      <div className={Styles.airtime_form__body}>
+      <div className={Styles.single_bill_bulk_form__body}>
         <form>
+          <div className={Styles.category}>
+            <label htmlFor="category">Category</label>
+            <Stack direction={"row"} spacing={1} justifyContent="space-between" alignItems={"center"}>
+              <span id="electricity">Electricity</span>
+              <span id={"cable tv"}>Cable Tv</span>
+              <span id="internet">internet</span>
+              <span id="others">Others</span>
+            </Stack>
+          </div>
           <div className="country">
             <label htmlFor="country">Country</label>
             <select name="country" id="country">
@@ -96,7 +106,7 @@ const SingleBillPayment = () => {
           </div>
 
           <div className="submit">
-            <button type="submit">Comfirm Purchase</button>
+            <button style={{ borderRadius: "20px" }} type="submit">Comfirm Purchase</button>
           </div>
         </form>
       </div>

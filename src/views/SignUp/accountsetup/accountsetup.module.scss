@@ -1,0 +1,163 @@
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    .middle_container {
+        width: 841px;
+        max-width: 100%;
+        margin-inline: auto;
+
+
+
+        h2 {
+            font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 30px;
+            line-height: 41px;
+            color: #333333;
+            margin-bottom: 19px;
+        }
+
+        p {
+            // font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 24px;
+            margin-bottom: 56px;
+            /* or 150% */
+
+
+            color: #828282;
+
+            span {
+                color: #CEA528;
+            }
+        }
+
+        @media screen and (max-width:750px) {
+            width: 90%;
+            padding: 10px;
+        }
+    }
+
+    @media screen and (max-width:900px) {
+        width: 90%;
+        padding: 10px;
+        // border: 2px solid red;
+        flex-direction: column;
+        height: auto;
+    }
+
+}
+
+.box {
+    width: 841px;
+    height: 274px;
+    left: 385px;
+    top: 321px;
+
+    background: #FFFFFF;
+    border: 1px solid #DFDFDF;
+    border-radius: 20px;
+    margin: 0px auto;
+    // max-width: 100%;
+    // height: auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    // gap: 20px;
+
+
+    &>div {
+        height: 170px;
+        border-right: 1px solid #DFE7EF;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+
+        &:nth-of-type(3) {
+            border: none;
+        }
+
+        &>div {
+            height: 40px;
+        }
+
+        button {
+            font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 900;
+            font-size: 14px;
+            line-height: 16px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            background: #27AE60;
+            border-radius: 20px;
+            height: 36px;
+            padding: 10px 30px;
+
+            color: #FFFFFF;
+
+
+        }
+
+        .disable {
+            cursor: none;
+            background-color: #828282;
+        }
+
+        p {
+            font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 19px;
+            text-align: center;
+
+            color: #333333;
+        }
+
+        svg {
+
+            padding: 5px;
+            width: 40px;
+            height: 40px;
+            border: 2ps solid red;
+
+            path {
+
+                stroke: #828282;
+
+
+
+                ;
+            }
+        }
+
+        @media screen and (max-width:750px) {
+            flex-direction: column;
+            border: 2px solid red;
+        }
+    }
+
+    @media screen and (max-width:750px) {
+
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+
+        &>div {
+            border: 1px solid #DFE7EF;
+        }
+
+    }
+}

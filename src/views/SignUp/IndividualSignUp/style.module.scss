@@ -1,30 +1,31 @@
+@import "../../../components/color/color.module.scss";
+
 .signupContainer {
 	min-height: 100vh;
 	width: 100%;
-	// background-color: rgba(239, 243, 248, 1);
-	background-color: #edf2f7;
+	background: $dark;
 	margin: 0 auto;
-}
-
-.logo {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 100%;
-	margin: 3rem 0;
-	cursor: pointer;
+	flex-direction: column;
+}
+
+.logo {
+	margin-bottom: 52.6px;
+	margin-top: 40px;
 }
 
 .signupDiv {
 	border: 1px solid transparent;
-	max-width: 850px;
-	width: 100%;
+	width: 845px;
+	height: 609px;
+	max-width: 100%;
 	margin: 0 auto;
-	background-color: #fff;
+	background-color: $light;
 	padding: 3rem 4rem 2rem 4rem;
-	background: #ffffff;
 	box-shadow: 0px 4px 14px rgba(15, 49, 32, 0.15);
-	border-radius: 6px;
+	border-radius: 20px;
 }
 
 .signupDiv_flex {
@@ -34,6 +35,9 @@
 .signupList {
 	display: flex;
 	align-items: flex-start;
+	gap: 5px;
+	margin-top: 15px;
+
 }
 
 .iconchecked {
@@ -45,23 +49,25 @@
 	font-style: normal;
 	font-weight: normal;
 	font-size: 14px;
-	line-height: 16px;
+	line-height: 21px;
 	overflow: hidden;
 	width: 75%;
-	color: #8b8b8b;
+	color: #8B8B8B;
 	padding: 0;
 	margin: 0;
 	// line-break: auto;
 
-	font-family: Avenir;
+
 }
 
+
+
 .title {
-	font-family: Avenir;
+
 	font-style: normal;
 	font-weight: normal;
 	font-size: 16px;
-	line-height: 19px;
+	line-height: 22px;
 	color: #414141;
 	padding: 0;
 	margin: 0;
@@ -70,20 +76,25 @@
 
 .formTitle {
 	font-style: normal;
-	font-weight: normal;
-	font-size: 15px;
-	color: #414141;
+	font-weight: 400;
+	color: #333333;
+	font-size: 14px;
+	margin-top: 5px;
+	line-height: 19px;
+
 }
 
 .header {
 	font-style: normal;
 	font-weight: 300;
 	font-size: 30px;
-	line-height: 35px;
+	line-height: 41px;
 	color: #333333;
 	margin: 0;
 	padding: 0;
 	margin-bottom: 1.5rem;
+
+
 }
 
 .mt1 {
@@ -97,6 +108,7 @@
 	align-items: center;
 	width: 100%;
 	margin-top: 1rem;
+
 }
 
 .subP {
@@ -121,6 +133,7 @@
 @media only screen and (max-width: 600px) {
 	.signupDiv {
 		padding: 2rem;
+		height: auto;
 	}
 
 	.signupContainer {

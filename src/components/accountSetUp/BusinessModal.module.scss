@@ -1,22 +1,38 @@
 .container {
-	//height: 500px;
-	//width: 530px;
-	width: 100%;
-	margin: 0 auto;
-	padding: 0;
-	color: black;
+	position: absolute;
+	width: 419px;
+	height: 564px;
+	left: 0px;
+	top: 0px;
+
+	background: #FFFFFF;
+	box-shadow: -4px 4px 14px rgba(224, 224, 224, 0.69);
+	border-radius: 20px;
+
 }
+
 .header {
 	border-bottom: 1px solid rgba(224, 224, 224, 1);
 	width: 100%;
 	margin: 1.5rem 0;
 	color: rgba(130, 130, 130, 1);
+	padding-left: 30px;
+	padding-bottom: 1rem;
 
 	h3 {
-		padding: 0.7rem 1rem;
-		font-weight: 500;
+		// padding: 0.7rem 1rem;
+		font-family: 'Avenir';
+		font-style: normal;
+		font-weight: 400;
+		font-size: 18px;
+		line-height: 25px;
+		/* identical to box height */
+
+
+		color: #828282;
 	}
 }
+
 .wrapper {
 	width: 90%;
 	margin: 0 auto 20px auto;
@@ -32,6 +48,7 @@
 	//border: 1px solid rgba(224, 224, 224, 1);
 	cursor: pointer;
 }
+
 .selectContent {
 	padding-left: 1rem;
 }
@@ -46,8 +63,9 @@
 	margin: 2rem;
 	cursor: pointer;
 }
+
 .selectHeader {
-	font-family: Avenir;
+	font-family: 'Avenir';
 	font-size: 16px;
 	font-style: normal;
 	font-weight: 500;
@@ -57,7 +75,7 @@
 }
 
 .selectContent {
-	//   font-family: Avenir;
+	//   font-family: 'Avenir';
 	// font-size: 14px;
 	// font-style: normal;
 	// font-weight: 400;
@@ -78,6 +96,7 @@
 	position: relative;
 	width: 100%;
 }
+
 .selectedContent {
 	position: absolute;
 	top: 0;
@@ -85,6 +104,7 @@
 	width: 100%;
 	z-index: 99;
 }
+
 .active {
 	border: 1px solid #27ae60;
 }
@@ -99,12 +119,12 @@
 }
 
 .inputFile {
-	border: 1px solid gray;
-	padding: 5px;
+	width: 316px;
+	height: 44px;
+
+	background: #27ae60;
+	border: 1px solid #DDDDDD;
 	border-radius: 4px;
-	margin-top: 10px;
-	width: 100%;
-	color: black;
 }
 
 .inputFileText {

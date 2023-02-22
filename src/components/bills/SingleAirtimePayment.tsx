@@ -7,10 +7,10 @@ const SingleAirtimePayment = () => {
   return (
     <div className={Styles.payment__input__container}>
       <div className={Styles.form__title}>
-        <h3>Buy Airtime</h3>
+        <h3>Buy Airtime1</h3>
       </div>
 
-      <div className={Styles.airtime_form__body}>
+      <div className={Styles.single_bill_form__body}>
         <form>
           <div className="country">
             <label htmlFor="country">Country</label>

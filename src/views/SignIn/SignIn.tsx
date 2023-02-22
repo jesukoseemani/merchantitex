@@ -1,7 +1,7 @@
 import react, { useEffect } from 'react';
 import { InputLabel, Typography, Button, TextField } from '@material-ui/core';
 import styles from './SignIn.module.scss';
-import Logo from '../../assets/images/NavLogo.svg';
+import Logo from '../../assets/images/white_bg_logo.svg';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -19,6 +19,7 @@ import { Link } from 'react-router-dom';
 import { saveUserDetail } from '../../redux/actions/userDetail/userDetailActions';
 import { saveCountry } from '../../redux/actions/country/countryActions';
 // import { makeStyles } from '@material-ui/core';
+import { ReactSVG } from "react-svg";
 
 const SignIn = () => {
 	const dispatch = useDispatch();
@@ -97,7 +98,8 @@ const SignIn = () => {
 			{(props) => (
 				<div className={styles.signinContainer}>
 					<div className={styles.logo}>
-						<img src={Logo} alt='' />
+
+						<ReactSVG src={Logo} />
 					</div>
 					<div className={styles.mt1}>
 						<div className={styles.signinDiv}>
@@ -135,20 +137,23 @@ const SignIn = () => {
 										variant='outlined'
 										margin='normal'
 										type='password'
+
 										size='small'
 										fullWidth
+
 									/>
 
 									<InputLabel className={styles.mt1}></InputLabel>
 									<button
 										style={{
 											backgroundColor: '#27AE60',
-											padding: '0.7rem',
+											padding: '1rem',
 											width: '100%',
 											color: '#fff',
 											border: 'none',
-											borderRadius: '4px',
+											borderRadius: '20px',
 											cursor: 'pointer',
+											fontSize: "1rem",
 										}}
 										type='submit'
 										color='primary'>
@@ -157,7 +162,7 @@ const SignIn = () => {
 									<InputLabel>
 										<div className={styles.sub}>
 											<p className={styles.formSub}>
-												<span>Forgot Password?</span>
+												<span onClick={() => history.push("/reset/password")}>Forgot Password?</span>
 											</p>
 										</div>
 									</InputLabel>

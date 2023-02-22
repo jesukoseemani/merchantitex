@@ -6,9 +6,10 @@ import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import { useDispatch } from 'react-redux';
 import { ChargebackItem } from '../../types/ChargebackTypes';
 import moment from 'moment';
-import {ReactComponent as PendingBadge} from '../../assets/images/pending-badge.svg';
-import {ReactComponent as SuccessBadge} from '../../assets/images/success-badge.svg';
+import { ReactComponent as PendingBadge } from '../../assets/images/pending-badge.svg';
+import { ReactComponent as SuccessBadge } from '../../assets/images/success-badge.svg';
 import DoDisturbIcon from '@mui/icons-material/DoDisturb';
+import ParentContainer from '../../components/ParentContainer/ParentContainer';
 
 const ChargeBacksItem = () => {
   const location = useLocation<{ rowData: string }>();
@@ -17,25 +18,26 @@ const ChargeBacksItem = () => {
 
   const { slug } = useParams<{ slug: string }>();
 
-  if(!location.state.rowData) {
+  if (!location.state.rowData) {
     history.replace('/chargebacks');
   }
 
-  const { rowData } = location.state; 
+  const { rowData } = location.state;
 
   const formattedRowData: ChargebackItem = JSON.parse(rowData);
 
-  const { amt,status,txnRef, email, due, added, id, cardNum, cardType, txnFee, country, bank } = formattedRowData;
+  const { amt, status, txnRef, email, due, added, id, cardNum, cardType, txnFee, country, bank } = formattedRowData;
 
-  const statusFormatObj: {[key: string]: string} = {
+  const statusFormatObj: { [key: string]: string } = {
     'won': 'wonText',
     'lost': 'lostText',
     'pending': 'pendingText'
   }
 
   return (
+
     <div className={styles.container}>
-      <NavBar name="ChargeBacks"/>
+      {/* <NavBar title="ChargeBacks"/> */}
       <div className={styles.pageWrapper}>
         <div className={styles.sectionOne}>
           <div onClick={history.goBack}>
@@ -79,7 +81,7 @@ const ChargeBacksItem = () => {
         <div className={styles.sectionThree}>
           <div>
             <p>Chargebacks</p>
-            <p className={styles[statusFormatObj[status] || 'pendingText']}>{status}</p>
+            <p style={{ borderRadius: "20px" }} className={styles[statusFormatObj[status] || 'pendingText']}>{status}</p>
           </div>
           <div>
             <div>

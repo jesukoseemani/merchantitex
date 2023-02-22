@@ -104,13 +104,13 @@ const DeployedTab = ({
 
 	interface Column {
 		id:
-			| 'status'
-			| 'deviceType'
-			| 'terminalId'
-			| 'merchantCode'
-			| 'terminalSerial'
-			| 'bankName'
-			| 'added';
+		| 'status'
+		| 'deviceType'
+		| 'terminalId'
+		| 'merchantCode'
+		| 'terminalSerial'
+		| 'bankName'
+		| 'added';
 		label: any;
 		minWidth?: number;
 		align?: 'right' | 'left' | 'center';
@@ -223,7 +223,7 @@ const DeployedTab = ({
 			<div className={styles.topContainer}>
 				<h3>{totalRows} issued POS terminals</h3>
 				<div className={btnClasses.root}>
-					<Button onClick={openModal}>Request new POS</Button>
+					<Button style={{ borderRadius: "20px" }} onClick={openModal}>Request new POS</Button>
 				</div>
 			</div>
 			<div className={styles.tableContainer}>
