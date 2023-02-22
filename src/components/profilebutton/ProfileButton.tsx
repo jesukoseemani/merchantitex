@@ -34,6 +34,8 @@ export default function ProfileButton() {
 	};
 
 	const history = useHistory();
+	// const history = useHistory();
+
 
 	const useStyles = makeStyles({
 		root: {
