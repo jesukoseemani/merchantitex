@@ -33,6 +33,7 @@
 // form
 .formContainer {
 
+
     height: 100%;
     padding: 10px;
 
@@ -59,5 +60,10 @@
 
         color: #FFFFFF;
         // padding: 10px 30px;
+    }
+
+    svg {
+        width: 30px;
+        height: 30px;
     }
 }

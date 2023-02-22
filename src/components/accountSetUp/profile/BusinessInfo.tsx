@@ -1,4 +1,4 @@
-import { Grid, TextField, InputLabel } from '@mui/material'
+import { Grid, TextField, InputLabel, Box } from '@mui/material'
 import React from 'react'
 import MuiPhoneNumber from 'material-ui-phone-number';
 import Button from '../Button';
@@ -44,12 +44,14 @@ const ProfileBusinessInfo = ({ handleNext }: Props) => {
                         fullWidth
                         onChange={handleChange}
                     >
-                        <MenuItem value="">
-                            {/* <em>Select business category?</em> */}
-                        </MenuItem>
-                        {categoryList?.map(({ name, code }) => (
-                            <MenuItem key={code} value={name}>{name}</MenuItem>
-                        ))}
+                        <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "200px" }}>
+                            <MenuItem value="">
+                                {/* <em>Select business category?</em> */}
+                            </MenuItem>
+                            {categoryList?.map(({ name, code }) => (
+                                <MenuItem key={code} value={name}>{name}</MenuItem>
+                            ))}
+                        </Box>
 
                     </Select>
                 </FormControl>
