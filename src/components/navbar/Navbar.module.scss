@@ -1,5 +1,15 @@
 @import "../../components/color/color.module.scss";
 
+.menuTitle {
+  font-family: 'Avenir SemiBold';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 14px;
+  color: #C7C7C7;
+  text-transform: uppercase;
+}
+
 .container {
   // height: 100%;
   // border: 2px solid blue;

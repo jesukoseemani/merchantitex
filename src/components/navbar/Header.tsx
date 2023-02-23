@@ -14,6 +14,7 @@ import Styles from "./Navbar.module.scss";
 import { useHistory, useLocation } from "react-router-dom";
 import UserMenu from "../menu/userMenu";
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
+import { useSelector } from "react-redux";
 
 
 
@@ -36,6 +37,9 @@ const Header = ({ toggle, setToggle }: toggleBtn) => {
   const { pathname } = useLocation();
   const [active, setActive] = React.useState(0);
   const [activeLink, setActiveLink] = useState(null);
+  const { navbarRoute } = useSelector((state) => state.navbarReducer);
+
+
 
   useEffect(() => {
     setActive(0);
@@ -98,7 +102,7 @@ const Header = ({ toggle, setToggle }: toggleBtn) => {
   return (
     <div className={Styles.header__box}>
 
-
+      <h2>{navbarRoute}</h2>
       <Container>
         <Grid container justifyContent="space-between" alignItems="center">
           <Grid item xs={7} md={8}>

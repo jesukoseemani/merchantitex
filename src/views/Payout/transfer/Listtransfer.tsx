@@ -62,7 +62,7 @@ const Listtransfer = () => {
     };
 
     const handleSingleTransfer = () => {
-        setSingleTrans(!singleTrans);
+        setSingleTrans(null);
 
     }
     const handleBulkTrans = () => {
@@ -251,7 +251,7 @@ const Listtransfer = () => {
                 </Stack>
             </Box>
 
-            <Box classes={mui}>
+            <Box >
                 {/* single transfer menu */}
                 <BeneficiaryMenu
                     openBeneficiary={openSingleTransMenu}
@@ -270,17 +270,19 @@ const Listtransfer = () => {
                     style={{ width: "10rem", borderRadius: "20px", backgroundColor: "white", textAlign: "center", }}
 
                 />
+
+                {/* add new drop down menu */}
+                <BeneficiaryMenu
+                    openBeneficiary={openBeneficiary}
+                    handleCloseMenu={handleCloseMenu}
+                    beneficiary={beneficiary}
+                    data={data}
+                    style={{ width: "10rem", borderRadius: "20px", backgroundColor: "white", textAlign: "center" }}
+                />
             </Box>
 
 
-            {/* add new drop down menu */}
-            <BeneficiaryMenu
-                openBeneficiary={openBeneficiary}
-                handleCloseMenu={handleCloseMenu}
-                beneficiary={beneficiary}
-                data={data}
-                style={{ width: "10rem", borderRadius: "20px", backgroundColor: "white", textAlign: "center" }}
-            />
+
 
 
 
