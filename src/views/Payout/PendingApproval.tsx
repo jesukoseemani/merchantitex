@@ -1,12 +1,9 @@
 import { IconButton, makeStyles } from "@material-ui/core";
 import React, { useEffect, useState, useCallback } from "react";
 import { Button, Checkbox, Icon, Label, Dropdown } from "semantic-ui-react";
-import NavBar from "../../components/navbar/NavBar";
-import OperantTable from "../../components/table/OperantTable";
+
 import Styles from "./pending.module.scss";
-import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import ParentContainer from "../../components/ParentContainer/ParentContainer";
+
 import { Box, Stack } from "@mui/material";
 
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';

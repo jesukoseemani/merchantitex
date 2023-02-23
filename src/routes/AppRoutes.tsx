@@ -75,6 +75,8 @@ import AccountSetUp from "../components/accountSetUp/AccountSetUp";
 import AccountSetup from "../views/SignUp/accountsetup/AccountSetup";
 import Invoice from "../components/bills/invoice/Invoice";
 import BulkTransferEntry from "../views/Payout/transfer/BulkTransferEntry";
+import Pendingdetails from "../views/Payout/Pendingdetails";
+import BeneficiaryDetails from "../views/Payout/BeneficiaryDetails";
 
 export default function AppRoutes() {
   // const { loadingState } = useSelector((state) => state?.loadingStateReducer);
@@ -308,8 +310,21 @@ export default function AppRoutes() {
             />
             <ProtectedRoute
               exact
+              path="/payout/beneficiaries/details/:id"
+              component={BeneficiaryDetails}
+              AuthUser={loadingState}
+            />
+            <ProtectedRoute
+              exact
               path="/payout/pending_approval"
               component={PendingApproval}
+              AuthUser={loadingState}
+            />
+
+            <ProtectedRoute
+              exact
+              path="/payout/pending_approval/details/:id"
+              component={Pendingdetails}
               AuthUser={loadingState}
             />
 

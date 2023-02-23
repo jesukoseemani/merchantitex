@@ -1,43 +1,28 @@
 import { IconButton, makeStyles } from "@material-ui/core";
 import React, { useEffect, useState, useCallback } from "react";
-import NavBar from "../../components/navbar/NavBar";
-import OperantTable from "../../components/table/OperantTable";
+
 import Styles from "./beneficiaries.module.scss";
-import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
-import Modal from "../../components/Modal";
-import BeneficiaryFilter from "../../components/Beneficiaries/BeneficiaryFilterModal";
+
 import BeneficiaryFilterModal from "../../components/Beneficiaries/BeneficiaryFilterModal";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
 import BeneficiaryMenu from "./BeneficiaryMenu";
 import FilterModal from "../../components/FilterModal";
 import moment from "moment";
 import ParentContainer from "../../components/ParentContainer/ParentContainer";
+import { beneficiaryRequestItem, getBeneficiaryRes } from "../../types/beneficiaryTypes";
+import { closeLoader, openLoader } from "../../redux/actions/loader/loaderActions";
+import axios from "axios";
+import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
+import { useDispatch } from "react-redux";
+import CustomClickTable from "../../components/table/CustomClickTable";
 
 function PendingApproval() {
-  interface TransactionsProps {
-    name: string;
-    type: string;
-    receipient: string;
-    date: {
-      format: string;
-      time: string;
-    };
-  }
 
-  const source = new Array(10).fill({
-    name: "Princess Ogechi",
-    type: "ITEX Pay",
-    receipient: "developer@gmail.com",
-    date: {
-      format: "Aug 13 2020",
-      time: "2:21 PM",
-    },
-  });
-  const [transactions, setTransactions] = useState<TransactionsProps[]>(source);
-  const [rows, setRows] = useState<TransactionsProps[]>([]);
+  const dispatch = useDispatch()
+
+  const [history, setHistory] = useState<beneficiaryRequestItem[]>([]);
+  const [rows, setRows] = useState<beneficiaryRequestItem[]>([]);
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [rowsPerPage, setRowsPerPage] = useState<number>(10);
   const [totalRows, setTotalRows] = useState<number>(0);
@@ -59,7 +44,7 @@ function PendingApproval() {
   };
 
   useEffect(() => {
-    setTotalRows(transactions.length);
+    setTotalRows(history.length);
   }, []);
 
   const statusOption = [
@@ -72,40 +57,37 @@ function PendingApproval() {
   ];
 
   interface Column {
-    id: "name" | "type" | "receipient" | "date";
+    id: "name" | "bankName" | "bankAccount" | "date";
     label?: any;
     minWidth?: number;
     align?: "right" | "left" | "center";
   }
   const columns: Column[] = [
     { id: "name", label: "Name", minWidth: 100 },
-    { id: "type", label: "Type", minWidth: 100 },
-    { id: "receipient", label: "Receipient", minWidth: 200 },
+    { id: "bankName", label: "Bank name", minWidth: 100 },
+    { id: "bankAccount", label: "Bank account", minWidth: 200 },
     { id: "date", label: "Date", minWidth: 100 },
   ];
   const LoanRowTab = useCallback(
-    (name: string, type: string, receipient: string, date: any) => ({
+    (name, date, bankName, acctNo, id) => ({
       name,
-      type,
-      receipient,
-      date: (
-        <div className={Styles.date}>
-          <h2>{date.format}</h2>
-          <span>{date.time}</span>
-        </div>
-      ),
+      bankName: bankName,
+      bankAccount: acctNo,
+      date: date,
+      id: <p>{id}</p>
+
     }),
     []
   );
   useEffect(() => {
     const newRowOptions: any[] = [];
-    transactions?.map((each: TransactionsProps) =>
+    history?.map((each: beneficiaryRequestItem) =>
       newRowOptions.push(
-        LoanRowTab(each.name, each.type, each.receipient, each.date)
+        LoanRowTab(each.name, each.bankName, each.acctNo, each.date, each.id)
       )
     );
     setRows(newRowOptions);
-  }, [transactions, LoanRowTab]);
+  }, [history, LoanRowTab]);
   const useStyles = makeStyles({
     container: {
       width: "407px",
@@ -165,10 +147,8 @@ function PendingApproval() {
   const [payment, setPayment] = useState("");
   const [event, setEvent] = useState("");
 
-  const [count, setCounter] = useState(null);
-  const [showNoTransaction, setShowNoTransaction] = useState(false);
+
   const [isFilterModalOpen, setIsFilterModalOpen] = useState<boolean>(false);
-  const [query, setquery] = useState(false);
   const [bearer, setBearer] = useState(false);
 
   const [reset, setReset] = useState<boolean>(false);
@@ -200,6 +180,40 @@ function PendingApproval() {
     setBearer(true);
     setIsFilterModalOpen(false);
   };
+
+
+  const GetPendingRequest = async () => {
+    dispatch(openLoader());
+
+    try {
+      const res = await axios.get<getBeneficiaryRes>(
+        '/mockData/beneficiaryrequest.json',
+        { baseURL: '' }
+      );
+      const { history, _metadata } = res?.data;
+      console.log(history);
+      if (history.length) {
+        setHistory(history);
+        setTotalRows(_metadata?.totalcount);
+      }
+      dispatch(closeLoader());
+    } catch (err) {
+      console.log(err);
+      dispatch(closeLoader());
+      dispatch(
+        openToastAndSetContent({
+          toastContent: 'Failed to get items',
+          toastStyles: {
+            backgroundColor: 'red',
+          },
+        })
+      );
+    }
+  };
+
+  useEffect(() => {
+    GetPendingRequest();
+  }, [pageNumber, rowsPerPage]);
 
   const pdfFuc = () => {
     window.alert("this is pdf");
@@ -257,73 +271,78 @@ function PendingApproval() {
   return (
 
 
-      <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
+    <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
 
-        <FilterModal
-          isOpen={isFilterModalOpen}
-          handleClose={() => setIsFilterModalOpen(false)}
-          setEvent={setEvent}
-          setFromDate={setFromDate}
-          setToDate={setToDate}
-          setRef={setRef}
-          setPayment={setPayment}
-          eventDate={event}
-          clearHandler={clearHandler}
-          setBearer={setBearer}
-          payment={payment}
-          name="transaction"
-          filterFunction={modalFunc}
-          changePage={changePage}
-        />
-        <div className={Styles.tableContainer}>
-          <div className={Styles.tableHeader}>
-            <h2>Beneficiaries</h2>
-            <div>
-              <button onClick={() => setIsFilterModalOpen(true)}>
-                Filter <ArrowDropDownOutlinedIcon />
-              </button>
-              <button onClick={handleOpenDownloadMenu}>
-                Download <CloudUploadOutlinedIcon />
-              </button>
-              <button className={Styles.success} onClick={handleClickBeneficiary}>
-                + Add new beneficiary
-              </button>
-            </div>
-          </div>
-
-          <div className={Styles.wrapper}>
-            <OperantTable
-              columns={columns}
-              rows={rows}
-              totalRows={totalRows}
-              changePage={changePage}
-              limit={limit}
-            />
+      <FilterModal
+        isOpen={isFilterModalOpen}
+        handleClose={() => setIsFilterModalOpen(false)}
+        setEvent={setEvent}
+        setFromDate={setFromDate}
+        setToDate={setToDate}
+        setRef={setRef}
+        setPayment={setPayment}
+        eventDate={event}
+        clearHandler={clearHandler}
+        setBearer={setBearer}
+        payment={payment}
+        name="transaction"
+        filterFunction={modalFunc}
+        changePage={changePage}
+      />
+      <div className={Styles.tableContainer}>
+        <div className={Styles.tableHeader}>
+          <h2>Beneficiaries</h2>
+          <div>
+            <button onClick={() => setIsFilterModalOpen(true)}>
+              Filter <ArrowDropDownOutlinedIcon />
+            </button>
+            <button onClick={handleOpenDownloadMenu}>
+              <InsertDriveFileOutlinedIcon />Download
+            </button>
+            <button className={Styles.success} onClick={handleClickBeneficiary}>
+              + Add new beneficiary
+            </button>
           </div>
         </div>
 
-        <BeneficiaryFilterModal
-          filterOpen={filterOpen}
-          setFilterOpen={setFilterOpen}
-        />
-
-        <BeneficiaryMenu
-          openBeneficiary={openBeneficiary}
-          handleCloseMenu={handleCloseMenu}
-          beneficiary={beneficiary}
-          data={data}
-          style={{ width: "13rem", textAlign: "center" }}
-        />
-
-        {/* download */}
-        <BeneficiaryMenu
-          openBeneficiary={openDownloadMenu}
-          handleCloseMenu={handleCloseDownloadMenu}
-          beneficiary={download}
-          data={dataDownload}
-          style={{ width: "8.5rem", textAlign: "center" }}
-        />
+        <div className={Styles.wrapper}>
+          <CustomClickTable
+            columns={columns}
+            rows={rows}
+            totalRows={totalRows}
+            changePage={changePage}
+            limit={limit}
+            clickable
+            link="/payout/beneficiaries/details"
+            identifier={"id"}
+            rowsData={history}
+          />
+        </div>
       </div>
+
+      <BeneficiaryFilterModal
+        filterOpen={filterOpen}
+        setFilterOpen={setFilterOpen}
+      />
+
+      <BeneficiaryMenu
+        openBeneficiary={openBeneficiary}
+        handleCloseMenu={handleCloseMenu}
+        beneficiary={beneficiary}
+        data={data}
+        style={{ width: "13rem", }}
+        sx={{ border: "2px solid green" }}
+      />
+
+      {/* download */}
+      <BeneficiaryMenu
+        openBeneficiary={openDownloadMenu}
+        handleCloseMenu={handleCloseDownloadMenu}
+        beneficiary={download}
+        data={dataDownload}
+        style={{ width: "8.5rem", textAlign: "center" }}
+      />
+    </div>
 
   );
 }

@@ -33,7 +33,10 @@ export default function BeneficiaryMenu({
   const useStyles = makeStyles(() =>
     createStyles({
       list: {
-        padding: "0",
+        padding: 0,
+        borderRadius: 20,
+        boxShadow: "rgba(63, 63, 68, 0.05), 0px 1px 3px rgba(63, 63, 68, 0.15)"
+
       },
     })
   );

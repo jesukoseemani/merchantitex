@@ -2,11 +2,14 @@
 	border: none;
 	outline: none;
 }
+
 button {
 	cursor: pointer;
 }
+
 .tableContainer {
 	padding: 25px 56px;
+
 	.tableHeader {
 		width: 100%;
 		height: 50px;
@@ -14,7 +17,8 @@ button {
 		justify-content: space-between;
 		align-items: center;
 		margin-bottom: 16px;
-		& > h2 {
+
+		&>h2 {
 			font-family: Avenir;
 			font-style: normal;
 			font-weight: normal;
@@ -22,10 +26,12 @@ button {
 			line-height: 23px;
 			color: #333333;
 		}
-		& > div {
+
+		&>div {
 			display: flex;
 			align-items: center;
-			& > button {
+
+			&>button {
 				padding: 8px 16px;
 				width: auto;
 				min-width: fit-content;
@@ -33,8 +39,8 @@ button {
 				left: 857px;
 				top: 0px;
 				background: #e0e0e0;
-				border-radius: 4px;
-				font-family: Avenir;
+				border-radius: 20px;
+				font-family: "Avenir";
 				font-style: normal;
 				font-weight: normal;
 				font-size: 14px;
@@ -44,14 +50,24 @@ button {
 				margin: 0px 4px;
 				display: flex;
 				align-items: center;
-				& > svg {
+
+				&>svg {
 					width: 15px;
 					margin-left: 5px;
 				}
+
 				&:last-child {
 					background: #27ae60;
 					color: #ffff;
 				}
+
+				&:nth-of-type(2) {
+					background: transparent;
+					color: #27ae60;
+					border: 1px solid #27ae60;
+				}
+
+
 				&:not(:last-child) {
 					margin-right: 10px;
 				}
@@ -62,7 +78,8 @@ button {
 
 .amount {
 	display: flex;
-	& > span {
+
+	&>span {
 		font-family: Avenir;
 		font-style: normal;
 		font-weight: normal;
@@ -70,7 +87,8 @@ button {
 		line-height: 16px;
 		color: #828282;
 	}
-	& > h2 {
+
+	&>h2 {
 		font-family: Avenir;
 		font-style: normal;
 		font-weight: bold;
@@ -80,10 +98,12 @@ button {
 		color: #333333;
 	}
 }
+
 .date {
 	display: flex;
 	align-items: center;
-	& > span {
+
+	&>span {
 		font-family: Avenir;
 		font-style: normal;
 		font-weight: normal;
@@ -92,7 +112,8 @@ button {
 		color: #828282;
 		margin-left: 4px;
 	}
-	& > h2 {
+
+	&>h2 {
 		font-family: Avenir;
 		font-style: normal;
 		font-weight: normal;
@@ -101,19 +122,23 @@ button {
 		color: #333333;
 	}
 }
+
 .actionIcon {
 	color: #4f4f4f;
 }
+
 .menuContainer {
 	margin-left: -100px !important;
-	& > div:not(:last-child) {
+
+	&>div:not(:last-child) {
 		border-bottom: 1px solid #f8f8f8 !important;
 	}
 }
 
 .headerBtn {
-	border: 2px solid red;
-	& > button {
+	// border: 2px solid red;
+
+	&>button {
 		padding: 8px 16px;
 		width: auto;
 		min-width: fit-content;
@@ -121,8 +146,8 @@ button {
 		left: 857px;
 		top: 0px;
 		background: red !important;
-		border-radius: 4px;
-		font-family: Avenir;
+		border-radius: 20px;
+		font-family: "Avenir";
 		font-style: normal;
 		font-weight: normal;
 		font-size: 14px;
@@ -132,29 +157,34 @@ button {
 		margin: 0px 4px;
 		display: flex;
 		align-items: center;
-		& > svg {
+
+		&>svg {
 			width: 15px;
 			margin-left: 5px;
 		}
+
 		&:last-child {
 			background: #27ae60;
 			color: #ffff;
 		}
+
 		&:not(:last-child) {
 			margin-right: 10px;
 		}
 	}
 }
+
 .menu__container {
 	min-width: 4rem;
 	min-height: 1rem;
 	margin-top: 3px;
+	// background-color: red;
 
-	& > div {
-		padding: 0.58rem;
+	&>div {
+		padding: 1.2rem;
 		border-bottom: 0.1px solid #bdb9b9;
 		font-size: 14px;
-		line-height: 1.9rem;
+		// line-height: 2rem;
 		letter-spacing: 0.0024px;
 		color: #333333;
 		cursor: pointer;
@@ -167,7 +197,221 @@ button {
 		&:hover {
 			background-color: #959393;
 			color: #fff;
-			padding: 0.58rem;
+			padding: 1.2rem;
+		}
+	}
+}
+
+
+svg {
+	margin: 0;
+}
+
+
+
+.details__container {
+	width: 90%;
+	margin-inline: auto;
+	border-radius: 20px;
+	margin-top: 57px;
+
+
+	svg {
+		margin: 0;
+	}
+
+	.goBack {
+		display: flex;
+		align-items: center;
+
+		p {
+			font-family: 'Avenir';
+			font-style: normal;
+			font-weight: 400;
+			font-size: 14px;
+			line-height: 19px;
+
+			color: #4F4F4F;
+		}
+	}
+
+	.sectionOne {
+		width: 100%;
+		min-height: 192px;
+
+		margin-top: 20px;
+		background: #FFFFFF;
+		border-bottom: 1px solid #DFDFDF;
+		border-radius: 20px;
+
+		.sectionHeader {
+
+			display: flex;
+			align-items: center;
+			gap: 10px;
+
+			h2 {
+				font-family: 'Avenir';
+				font-style: normal;
+				font-weight: 500;
+				font-size: 24px;
+				line-height: 33px;
+
+				color: #333333;
+			}
+
+			span {
+				font-family: 'Avenir';
+				font-style: normal;
+				font-weight: 500;
+				font-size: 12px;
+				line-height: 16px;
+				text-align: center;
+				background: #FDF7E4;
+				border-radius: 20px;
+				width: 118px;
+				height: 19px;
+				color: #B99528;
+			}
+
+		}
+
+		.btn {
+
+
+			font-family: 'Avenir';
+			font-style: normal;
+			font-weight: 400;
+			font-size: 14px;
+			line-height: 19px;
+			border-radius: 20px;
+			letter-spacing: 0.0024px;
+
+			color: #095B2C;
+			background-color: transparent;
+			border: 1px solid #095B2C;
+		}
+	}
+
+
+	.sectionTwo {
+		span {
+			font-family: 'Avenir';
+			font-style: normal;
+			font-weight: 400;
+			font-size: 14px;
+			line-height: 19px;
+			letter-spacing: 0.0024px;
+
+			color: #828282;
+		}
+
+		p {
+			font-family: 'Avenir';
+			font-style: normal;
+			font-weight: 400;
+			font-size: 14px;
+			line-height: 19px;
+			margin-top: 7px;
+			color: #333333;
+		}
+	}
+}
+
+.recent {
+
+
+	h2 {
+		font-family: 'Avenir';
+		font-style: normal;
+		font-weight: 500;
+		font-size: 18px;
+		line-height: 25px;
+		color: #333333;
+		padding: 5px 60px;
+		margin-top: 30px;
+	}
+
+}
+
+.status {
+	background: rgba(39, 174, 96, 0.15);
+	border-radius: 20px;
+	font-family: 'Avenir';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 12px;
+	line-height: 16px;
+	text-align: center;
+	padding: 3px 12px;
+	color: #27AE60;
+}
+
+.pending {
+	@extend .status;
+	background: rgba(242, 201, 76, 0.15);
+	color: #B99528;
+}
+
+
+// remove
+.modalHeader {
+	border-bottom: 1px solid #E0E0E0;
+	padding: 22px 50px;
+
+	h2 {
+		font-family: 'Avenir';
+		font-style: normal;
+		font-weight: 500;
+		font-size: 18px;
+		line-height: 25px;
+		color: #4F4F4F;
+	}
+}
+
+.bodyText {
+	color: red;
+	padding-inline: 50px;
+	margin-top: 36px;
+
+	p {
+		font-family: 'Avenir';
+		font-style: normal;
+		font-weight: 400;
+		font-size: 14px;
+		line-height: 22px;
+		color: #333333;
+	}
+}
+
+.removeBtn {
+	margin-top: 15px;
+	max-width: 100%;
+
+	.btnWrapper {
+
+		button {
+			border-radius: 20px;
+			font-family: 'Avenir';
+			font-style: normal;
+			font-weight: 400;
+			font-size: 14px;
+			line-height: 19px;
+			letter-spacing: 0.0024px;
+			padding: 5px 30px;
+
+		}
+
+		.cancelBtn {
+			background-color: transparent;
+			border: 1px solid #27AE60;
+			color: #095B2C;
+		}
+
+		.confirmBtn {
+			font-size: 14px;
+			line-height: 26px;
+			font-weight: 500px;
 		}
 	}
 }

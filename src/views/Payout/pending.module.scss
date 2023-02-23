@@ -112,6 +112,8 @@
 
 .menuContainer {
 	margin-left: -100px !important;
+	border-radius: 20px;
+	border: 2px solid red;
 
 	&>div:not(:last-child) {
 		border-bottom: 1px solid #f8f8f8 !important;
@@ -163,4 +165,142 @@
 	background: #FDF7E4;
 	text-transform: capitalize;
 	color: #B99528;
+}
+
+
+
+// pendiing detail
+.details__container {
+	width: 95%;
+	margin-inline: auto;
+	border-radius: 20px;
+	margin-top: 57px;
+
+	svg {
+		margin: 0;
+	}
+
+	.goBack {
+		display: flex;
+		align-items: center;
+
+		p {
+			font-family: 'Avenir';
+			font-style: normal;
+			font-weight: 400;
+			font-size: 14px;
+			line-height: 19px;
+
+			color: #4F4F4F;
+		}
+	}
+
+	.sectionOne {
+		width: 95%;
+		min-height: 192px;
+
+		margin-top: 20px;
+		background: #FFFFFF;
+		border-bottom: 1px solid #DFDFDF;
+		border-radius: 20px;
+
+		.sectionHeader {
+
+			display: flex;
+			align-items: center;
+			gap: 10px;
+
+			h2 {
+				font-family: 'Avenir';
+				font-style: normal;
+				font-weight: 500;
+				font-size: 24px;
+				line-height: 33px;
+
+				color: #333333;
+			}
+
+			span {
+				font-family: 'Avenir';
+				font-style: normal;
+				font-weight: 500;
+				font-size: 12px;
+				line-height: 16px;
+				text-align: center;
+				background: #FDF7E4;
+				border-radius: 20px;
+				width: 118px;
+				height: 19px;
+				color: #B99528;
+			}
+
+		}
+
+		.btn {
+
+
+			font-family: 'Avenir';
+			font-style: normal;
+			font-weight: 400;
+			font-size: 14px;
+			line-height: 19px;
+			border-radius: 20px;
+			letter-spacing: 0.0024px;
+
+			color: #095B2C;
+			background-color: transparent;
+			border: 1px solid #095B2C;
+		}
+	}
+
+
+	.sectionTwo {
+		span {
+			font-family: 'Avenir';
+			font-style: normal;
+			font-weight: 400;
+			font-size: 14px;
+			line-height: 19px;
+			letter-spacing: 0.0024px;
+
+			color: #828282;
+		}
+
+		p {
+			font-family: 'Avenir';
+			font-style: normal;
+			font-weight: 400;
+			font-size: 14px;
+			line-height: 19px;
+			margin-top: 7px;
+			color: #333333;
+		}
+	}
+}
+
+.sectionThree {
+	width: 95%;
+	height: 192px;
+	background: #FFFFFF;
+	border: 1px solid #DFDFDF;
+	border-radius: 20px;
+	margin-top: 30px;
+
+
+	.sectionThree__Header {
+		border-bottom: 1px solid #DFDFDF;
+		padding: 20px;
+
+		p {
+			font-family: 'Avenir';
+			font-style: normal;
+			font-weight: 500;
+			font-size: 18px;
+			line-height: 25px;
+			/* identical to box height */
+
+
+			color: #333333;
+		}
+	}
 }

@@ -61,6 +61,7 @@
 
     svg {
 
+
       margin-left: 19px;
     }
   }
@@ -85,12 +86,13 @@ nav {
     font-size: 16px;
     line-height: 45px;
     font-family: "Avenir";
-
+    gap: 20px;
     color: $light;
     cursor: pointer;
     // gap: 20px;
     display: flex;
     padding-inline: 20px;
+
 
     &:hover,
     &.active {

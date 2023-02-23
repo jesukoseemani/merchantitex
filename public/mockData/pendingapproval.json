@@ -7,46 +7,46 @@
   },
   "history": [
     {
-      "amt": "34,000.52",
+      "amount": "34,000.52",
       "status": "pending",
       "receipient": "Philip Kachikwu | FCMB | 1234567890",
       "date": "Aug 13 2020 2:21 PM",
-      "id": 1
+      "id": "1"
+    },
+    {
+      "amount": "14,000.52",
+      "status": "pending",
+      "receipient": "Philip Kachikwu | FCMB | 1234567890",
+      "date": "Aug 13 2020 2:21 PM",
+      "id": "2"
+    },
+    {
+      "amount": "4,000.52",
+      "status": "pending",
+      "receipient": "Philip Kachikwu | FCMB | 1234567890",
+      "date": "Aug 13 2020 2:21 PM",
+      "id": "3"
+    },
+    {
+      "amount": "564,000.52",
+      "status": "pending",
+      "receipient": "Philip Kachikwu | FCMB | 1234567890",
+      "date": "Aug 13 2020 2:21 PM",
+      "id": "4"
     },
     {
       "amount": "34,000.52",
       "status": "pending",
       "receipient": "Philip Kachikwu | FCMB | 1234567890",
       "date": "Aug 13 2020 2:21 PM",
-      "id": 2
+      "id": "5"
     },
     {
-      "amt": "34,000.52",
+      "amount": "91,000.52",
       "status": "pending",
       "receipient": "Philip Kachikwu | FCMB | 1234567890",
       "date": "Aug 13 2020 2:21 PM",
-      "id": 3
-    },
-    {
-      "amt": "34,000.52",
-      "status": "pending",
-      "receipient": "Philip Kachikwu | FCMB | 1234567890",
-      "date": "Aug 13 2020 2:21 PM",
-      "id": 4
-    },
-    {
-      "amt": "34,000.52",
-      "status": "pending",
-      "receipient": "Philip Kachikwu | FCMB | 1234567890",
-      "date": "Aug 13 2020 2:21 PM",
-      "id": 5
-    },
-    {
-      "amt": "34,000.52",
-      "status": "pending",
-      "receipient": "Philip Kachikwu | FCMB | 1234567890",
-      "date": "Aug 13 2020 2:21 PM",
-      "id": 6
+      "id": "6"
     }
   ],
   "code": "00",

@@ -1,5 +1,5 @@
 export interface pendingApprovalRequestItem {
-  id: number;
+  id: string;
   receipient: string;
   status: string;
   network: string;
