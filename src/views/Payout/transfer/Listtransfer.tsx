@@ -28,8 +28,10 @@ const Listtransfer = () => {
     // open menu
     const [beneficiary, setBeneficiary] = React.useState<null | HTMLElement>(null);
     const [download, setDownload] = React.useState<null | HTMLElement>(null);
-    const [singleTrans, setSingleTrans] = React.useState<null | HTMLElement>(null);
-    const [bulkTrans, setBulkTrans] = React.useState<null | HTMLElement>(null);
+    const [singleTrans, setSingleTrans] = React.useState<any>(null);
+
+    // please explain
+    const [bulkTrans, setBulkTrans] = React.useState<any>(null);
     const openBeneficiary = Boolean(beneficiary);
     const openDownloadMenu = Boolean(download);
     const openSingleTransMenu = Boolean(singleTrans);
@@ -59,13 +61,8 @@ const Listtransfer = () => {
         setBulkTrans(null);
     };
 
-
-
-
-
-
     const handleSingleTransfer = () => {
-        setSingleTrans(!null);
+        setSingleTrans(!singleTrans);
 
     }
     const handleBulkTrans = () => {
