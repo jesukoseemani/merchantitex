@@ -111,7 +111,7 @@ export const navRoutes: NavProps[] = [
         id: 12,
         title: "Blacklist",
         icon: BlacklistIcon,
-        link: "/customers",
+        link: "/blacklist",
       },
     ],
   },

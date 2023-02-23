@@ -16,6 +16,10 @@ import axios from "axios";
 import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
 import { useDispatch } from "react-redux";
 import CustomClickTable from "../../components/table/CustomClickTable";
+import { openModalAndSetContent } from "../../redux/actions/modal/modalActions";
+import AddbankForm from "./beneficiary/AddbankForm";
+import PayviceForm from "./beneficiary/PayviceForm";
+import ItexpayForm from "./beneficiary/ItexpayForm";
 
 function PendingApproval() {
 
@@ -47,14 +51,7 @@ function PendingApproval() {
     setTotalRows(history.length);
   }, []);
 
-  const statusOption = [
-    { key: 1, value: "online", text: "Online" },
-    { key: 2, value: "offline", text: "Offline" },
-  ];
-  const paymentOption = [
-    { key: 1, value: "card", text: "Card" },
-    { key: 2, value: "transfer", text: "Transfer" },
-  ];
+
 
   interface Column {
     id: "name" | "bankName" | "bankAccount" | "date";
@@ -225,6 +222,65 @@ function PendingApproval() {
     window.alert("this is csv");
   };
 
+
+  const handleaddBankForm = () => {
+    dispatch(
+      openModalAndSetContent({
+        modalStyles: {
+          padding: 0,
+          borderRadius: "20px",
+          width: "419px",
+          maxWidth: "97%",
+          height: "498px",
+          overflow: "hidden"
+        },
+        modalContent: (
+          <>
+            <AddbankForm />
+          </>
+        ),
+      })
+    );
+  }
+  const handlePayviceForm = () => {
+    dispatch(
+      openModalAndSetContent({
+        modalStyles: {
+          padding: 0,
+          borderRadius: "20px",
+          width: "419px",
+          maxWidth: "97%",
+          height: "408px",
+          overflow: "hidden"
+        },
+        modalContent: (
+          <>
+            <PayviceForm />
+          </>
+        ),
+      })
+    );
+  }
+  const handleItexPay = () => {
+    dispatch(
+      openModalAndSetContent({
+        modalStyles: {
+          padding: 0,
+          borderRadius: "20px",
+          width: "419px",
+          maxWidth: "97%",
+          height: "408px",
+          overflow: "hidden"
+        },
+        modalContent: (
+          <>
+            <ItexpayForm />
+          </>
+        ),
+      })
+    );
+  }
+
   // download menu array
   const dataDownload = [
     {
@@ -250,18 +306,18 @@ function PendingApproval() {
     {
       id: 1,
       name: "Bank Account",
-      func: pdfFuc,
+      func: handleaddBankForm,
     },
     {
       id: 2,
       name: "Payvice",
-      func: excelFuc,
+      func: handlePayviceForm,
     },
 
     {
       id: 3,
       name: "ITEX pay",
-      func: CSVFuc,
+      func: handleItexPay,
     },
   ];
   const modalFunc = () => {
@@ -271,7 +327,7 @@ function PendingApproval() {
   return (
 
 
-    <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
+    <div style={{ display: "flex", flexDirection: "column", width: "100%", borderRadius: "20px" }}>
 
       <FilterModal
         isOpen={isFilterModalOpen}
