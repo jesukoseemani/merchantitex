@@ -1,5 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './fonts/Avenir Roman.otf';
+import './fonts/black.otf';
+import './fonts/book.otf';
+import './fonts/heavy.ttf';
+import './fonts/light.otf';
+import './fonts/medium.otf';
+import './fonts/roman.otf';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
