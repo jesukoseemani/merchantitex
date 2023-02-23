@@ -55,10 +55,10 @@ const Listtransfer = () => {
         setBeneficiary(null);
     };
     const handleCloseSingleTrans = () => {
-        setSingleTrans(null);
+        setSingleTrans(beneficiary);
     };
     const handleCloseBulkTrans = () => {
-        setBulkTrans(null);
+        setBulkTrans(beneficiary);
     };
 
     const handleSingleTransfer = () => {
