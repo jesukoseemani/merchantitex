@@ -4,7 +4,7 @@
   width: 100%;
   position: relative;
 
-  & > hr {
+  &>hr {
     background-color: #e0e0e0;
   }
 }
@@ -29,8 +29,8 @@
     gap: 0.75rem;
   }
 
-  & > div {
-    & > p {
+  &>div {
+    &>p {
       color: #333;
       font-size: 1.25rem;
     }
@@ -63,46 +63,48 @@
     gap: 1.5rem;
   }
 
-  & > div:nth-child(even) {
+  &>div:nth-child(even) {
     width: 1.5px;
     background: #dfe7ef;
   }
 
-  & > div:nth-child(odd) {
+  &>div:nth-child(odd) {
     display: grid;
     place-items: center;
 
     svg {
       color: #4f4f4f;
       margin-bottom: 1.25rem;
+
       @media screen and (max-width: 570px) {
         margin-bottom: 0rem;
       }
     }
 
-    & > p {
+    &>p {
       color: #4f4f4f;
       font-size: 0.875rem;
       font-weight: 400;
       margin-top: 0.5rem;
+
       @media screen and (max-width: 570px) {
         margin-top: 0.25rem;
       }
     }
 
-    & > p:first-of-type {
+    &>p:first-of-type {
       font-weight: 500;
       font-size: 1rem;
       color: #333;
     }
 
-    & > p:last-of-type {
+    &>p:last-of-type {
       color: #219653;
       text-decoration: underline;
       cursor: pointer;
     }
 
-    & > p:last-of-type:hover {
+    &>p:last-of-type:hover {
       opacity: 0.75;
     }
   }
@@ -125,15 +127,54 @@
     border: none;
     outline: none;
     padding: 0.7rem 1.5rem;
-    border-radius: 0.3rem;
+    border-radius: 20px;
+    background-color: transparent;
+    font-family: 'Avenir';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
 
     &:nth-of-type(1) {
-      background-color: lighten(#219653, 10);
-      color: #f5fffa;
+      // background-color: lighten(#219653, 10);
+      // color: #f5fffa;
+      color: #219653;
     }
+
     &:nth-of-type(2) {
-      background-color: lighten(red, 20);
-      color: #f5fffa;
+      color: #EB5757;
+    }
+  }
+}
+
+
+
+.headerBox {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 20px;
+
+  button {
+
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:nth-of-type(1) {
+      background: #E0E0E0;
+      color: #333;
+    }
+
+    &:nth-of-type(2) {
+      background: transparent;
+      color: #095B2C;
+      border: 1px solid #27AE60;
+    }
+
+    svg {
+      margin: 0;
     }
   }
 }

@@ -1,8 +1,8 @@
 import { Box, Stack } from '@mui/material'
 import React from 'react'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
-import Styles from "./style.module.scss";
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
+import Styles from "./style.module.scss";
 import TransfersTable from '../../../components/table/TransfersTable';
 import BeneficiaryMenu from '../BeneficiaryMenu';
 import { useDispatch } from 'react-redux';

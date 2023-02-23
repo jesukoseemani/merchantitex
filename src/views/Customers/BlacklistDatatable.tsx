@@ -1,4 +1,4 @@
-import { makeStyles } from '@mui/material';
+import { Box, makeStyles, Stack } from '@mui/material';
 import axios from 'axios';
 import moment from 'moment';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -19,44 +19,12 @@ import {
 import Addtoblacklist from './Addtoblacklist';
 import styles from './blacklist.module.scss';
 import RemoveBlacklist from './RemoveBlacklist';
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
+import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 
 const BlacklistDatatable = () => {
 	const theme = useTheme();
 
-	//   const useBtnStyles = makeStyles({
-	//     root: {
-	//       fontFamily: `'Avenir', sans-serif`,
-	//       display: "flex",
-	//       gap: "1rem",
-	//       [theme.breakpoints.down("sm")]: {
-	//         flexDirection: "column",
-	//       },
-	//       "& .MuiButtonBase-root": {
-	//         borderRadius: ".25rem",
-	//         padding: ".5rem 1rem",
-	//         textTransform: "none",
-	//         fontSize: ".875rem",
-	//         fontWeight: "400",
-	//         alignItem: "center",
-	//         display: "flex",
-	//       },
-	//       "& .MuiButtonBase-root:nth-child(1)": {
-	//         backgroundColor: "#E0E0E0",
-	//         color: "#333",
-	//       },
-	//       "& .MuiButtonBase-root:nth-child(2)": {
-	//         backgroundColor: "#27AE60",
-	//         color: "#FFF",
-	//         gap: ".5rem",
-	//       },
-	//       "& svg": {
-	//         fontSize: "1rem",
-	//         marginLeft: ".25rem",
-	//       },
-	//     },
-	//   });
-
-	// const btnClasses = useBtnStyles();
 
 	const dispatch = useDispatch();
 	const history = useHistory();
@@ -94,7 +62,10 @@ const BlacklistDatatable = () => {
 			openModalAndSetContent({
 				modalStyles: {
 					padding: 0,
-					borderRadius: '0.5rem',
+					height: "254px",
+					width: "653px",
+					maxWidth: "97%",
+					borderRadius: '20px',
 					boxShadow: '-4px 4px 14px rgba(224, 224, 224, 0.69)',
 				},
 				modalContent: (
@@ -182,25 +153,22 @@ const BlacklistDatatable = () => {
 		getCustomers();
 	}, [pageNumber, rowsPerPage]);
 
-	// const AddCustomer = () => {
-	//   dispatch(
-	//     openModalAndSetContent({
-	//       modalStyles: {
-	//         padding: 0,
-	//         borderRadius: "0.5rem",
-	//         boxShadow: "-4px 4px 14px rgba(224, 224, 224, 0.69)",
-	//       },
-	//       modalContent: (
-	//         <div className="modalDiv">
-	//           <AddNewCustomer />
-	//         </div>
-	//       ),
-	//     })
-	//   );
-	// };
+
 	return (
-		<div>
-			<div className={styles.tableContainer} style={{ position: 'relative' }}>
+		<Box px={7} py={8}>
+
+
+			<Box>
+				<Stack direction={"row"} justifyContent="space-between" gap={3}>
+					<h2>{transactions?.length} blacklisted customers</h2>
+					<Box className={styles.headerBox}>
+						<button><FilterAltOutlinedIcon />Filter by:</button>
+						<button> <InsertDriveFileOutlinedIcon />Download</button>
+
+					</Box>
+				</Stack>
+			</Box>
+			<div className={styles.tableContainer} style={{ position: 'relative', marginTop: "2rem" }}>
 				<CustomClickTable
 					columns={columns}
 					rows={rows}
@@ -213,7 +181,7 @@ const BlacklistDatatable = () => {
 					rowsData={transactions}
 				/>
 			</div>
-		</div>
+		</Box>
 	);
 };
 

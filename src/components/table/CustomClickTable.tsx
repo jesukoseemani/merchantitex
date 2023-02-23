@@ -15,10 +15,12 @@ import { useHistory } from 'react-router-dom';
 const useStyles = makeStyles({
 	root: {
 		width: '100%',
+		borderRadius: "20px"
 	},
 	container: {
 		maxHeight: '70vh',
 		maxWidth: '100%',
+		borderRadius: "20px"
 	}
 });
 
@@ -81,7 +83,7 @@ export default function CustomClickTable({
 	const handleClick = (row: any) => {
 		const val = row[identifier]?.props?.children;
 
-		if(clickable && val) {
+		if (clickable && val) {
 			const rowData = rowsData.find((dataItem: any) => dataItem[identifier] === row[identifier]?.props?.children);
 
 			const stringifiedRow = JSON.stringify(rowData);
@@ -105,7 +107,7 @@ export default function CustomClickTable({
 									key={index}
 									align={column.align}
 									style={{ minWidth: column.minWidth, maxWidth: column.maxWidth }}
-									>
+								>
 									{column.label}
 								</TableCell>
 							))}
@@ -114,7 +116,7 @@ export default function CustomClickTable({
 					<TableBody>
 						{rows.map((row, index) => {
 							return (
-								<TableRow 
+								<TableRow
 									hover role='checkbox' tabIndex={-1} key={index}
 									onClick={() => handleClick(row)}
 								>

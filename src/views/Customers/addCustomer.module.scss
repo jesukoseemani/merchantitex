@@ -4,25 +4,24 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
+
   h3 {
     padding-left: 2.5rem;
     font-family: "Avenir";
     font-style: normal;
-    font-weight: 400;
+    font-weight: 500;
     font-size: 1.13rem;
     line-height: 1.3rem;
-    /* identical to box height */
-
-    color: #828282;
+    color: #4F4F4F;
   }
 }
 
 .payment__input__container {
-  min-height: 30.4rem;
-  width: 26.1rem;
-  background: #ffffff;
-  box-shadow: -4px 4px 14px rgba(224, 224, 224, 0.69);
-  border-radius: 0.5rem;
+  // min-height: 30.4rem;
+  // width: 26.1rem;
+  // background: #ffffff;
+  // box-shadow: -4px 4px 14px rgba(224, 224, 224, 0.69);
+  // border-radius: 20px;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 5rem 1fr;
@@ -38,36 +37,39 @@
     form {
       width: 100%;
       margin-top: 1.7rem;
+
       label {
         font-family: "Avenir";
         font-style: normal;
         font-weight: 400;
         font-size: 0.9rem;
         line-height: 1rem;
-
+        line-height: 19px;
         color: #414141;
 
         span {
           border: 2px solid red;
         }
       }
-      & > div {
+
+      &>div {
         margin-top: 1.2rem;
       }
+
       select,
       input {
         width: 100% !important;
-        height: 2.8rem;
+        height: 44px;
         background: #ffffff;
         border: 1px solid #dddddd;
         border-radius: 0.3rem;
-        margin-top: 0.5rem;
+        margin-top: 1.2rem;
         padding-inline: 1rem;
       }
 
       button {
         background: #27ae60;
-        border-radius: 0.3rem;
+        border-radius: 20px;
         margin-bottom: 2.4;
         margin-top: 0.5rem;
         width: 100%;
@@ -91,6 +93,7 @@
   width: 94%;
   margin-inline: auto;
   margin-top: 2.5rem;
+
   h3 {
     font-family: "Avenir";
     font-style: normal;
@@ -100,6 +103,7 @@
 
     color: #333333;
   }
+
   // 29rem
   .bulk_payment_body {
     margin-top: 2.1rem;
@@ -109,12 +113,13 @@
     grid-template-columns: 41rem 0.1px 27rem;
     justify-content: space-between;
 
-    & > div {
+    &>div {
       background: #f8f8f8;
       border: 1px solid #f0f0f0;
       border-radius: 4px;
 
       position: relative;
+
       &:nth-of-type(2) {
         position: relative;
         // border: 0.1px solid #35353500 !important;
@@ -148,6 +153,7 @@
     }
   }
 }
+
 .files_text {
   border-bottom: 1px solid #e0e0e0;
   height: 11rem;
@@ -173,6 +179,7 @@
   p {
     margin-top: 1rem;
   }
+
   span {
     color: #333333;
     font-weight: 600;
@@ -184,9 +191,11 @@
   width: 86%;
   margin-inline: auto;
   margin-top: 2.1rem;
+
   input {
     display: none;
   }
+
   label {
     width: 100% !important;
     height: 2.8rem;
@@ -219,27 +228,37 @@
 
 .blacklist__input__container {
   max-width: 100%;
-  height: 16rem;
-  width: 41rem;
+
 
   .airtime_form__body {
     padding-inline: 3.1rem;
+    margin-top: 25px;
+
     p {
-      font-family: "Avenir";
+      font-family: 'Avenir';
       font-style: normal;
       font-weight: 400;
-      font-size: 0.9rem;
-      line-height: 1.4rem;
-      margin-top: 1.5rem;
+      font-size: 14px;
+      line-height: 22px;
+      /* or 157% */
+
 
       color: #333333;
     }
+
     button {
-      margin-top: 2rem;
+      margin-top: 3rem;
       border: none;
       outline: none;
-      padding: 0.5rem 1.2rem;
-      border-radius: 0.2rem;
+      padding: 7px 25px;
+      border-radius: 20px;
+
+      &:nth-of-type(1) {
+        background: transparent;
+
+        color: #27ae60;
+        border: 1px solid #27AE60;
+      }
 
       &:nth-of-type(2) {
         background: #27ae60;
@@ -248,4 +267,9 @@
       }
     }
   }
+}
+
+
+.blacklistBtn {
+  &:nth-of-type(1) {}
 }

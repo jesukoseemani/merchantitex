@@ -2,7 +2,7 @@ import TabPanel from './TabPanel';
 import styles from './Customers.module.scss';
 import { useTheme } from '@mui/material/styles';
 import { makeStyles } from '@material-ui/styles';
-import { Button, Stack } from '@mui/material';
+import { Box, Button, Stack } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import React, { MouseEvent, useCallback, useEffect, useState } from 'react';
@@ -12,14 +12,12 @@ import {
 } from '../../redux/actions/loader/loaderActions';
 import { useDispatch } from 'react-redux';
 import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
-import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
-import OperantTable from '../../components/table/OperantTable';
 import moment from 'moment';
 import { CustomerItem, GetCustomersRes } from '../../types/CustomerTypes';
 import CustomClickTable from '../../components/table/CustomClickTable';
-
 import { openModalAndSetContent } from '../../redux/actions/modal/modalActions';
-
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
+import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 import AddNewCustomer from './AddNewCustomer';
 import Addtoblacklist from './Addtoblacklist';
 
@@ -97,8 +95,9 @@ const CustomersTab = ({ value, index }: any) => {
 			openModalAndSetContent({
 				modalStyles: {
 					padding: 0,
-
-					borderRadius: '0.5rem',
+					width: "653px",
+					height: "254px",
+					borderRadius: '20px',
 					boxShadow: '-4px 4px 14px rgba(224, 224, 224, 0.69)',
 				},
 				modalContent: (
@@ -214,7 +213,9 @@ const CustomersTab = ({ value, index }: any) => {
 			openModalAndSetContent({
 				modalStyles: {
 					padding: 0,
-					borderRadius: '0.5rem',
+					width: "419",
+					height: "475px",
+					borderRadius: '20px',
 					boxShadow: '-4px 4px 14px rgba(224, 224, 224, 0.69)',
 				},
 				modalContent: (
@@ -226,34 +227,36 @@ const CustomersTab = ({ value, index }: any) => {
 		);
 	};
 	return (
-		<TabPanel value={value} index={index}>
-			<>
-				<div className={styles.topContainer}>
-					<div>
-						<p>{totalRows} Customers</p>
-					</div>
-					<div className={btnClasses.root}>
-						<Button>
-							Download <FileDownloadOutlinedIcon />
-						</Button>
-						<Button onClick={AddCustomer}>+ Add customer</Button>
-					</div>
-				</div>
-				<div className={styles.tableContainer} style={{ position: 'relative' }}>
-					<CustomClickTable
-						columns={columns}
-						rows={rows}
-						totalRows={totalRows}
-						changePage={changePage}
-						limit={limit}
-						// clickable
-						// link="/customers"
-						// identifier="email"
-						// rowsData={customers}
-					/>
-				</div>
-			</>
-		</TabPanel>
+
+		<Box px={7} py={8}>
+
+
+			<Box>
+				<Stack direction={"row"} justifyContent="space-between" gap={3}>
+					<h2>19 transfers</h2>
+					<Box className={styles.headerBox}>
+						<button><FilterAltOutlinedIcon />Filter by:</button>
+						<button> <InsertDriveFileOutlinedIcon />Download</button>
+						<button onClick={AddCustomer}>+ Add customer</button>
+					</Box>
+				</Stack>
+			</Box>
+
+			<div className={styles.tableContainer} style={{ position: 'relative' }}>
+				<CustomClickTable
+					columns={columns}
+					rows={rows}
+					totalRows={totalRows}
+					changePage={changePage}
+					limit={limit}
+				// clickable
+				// link="/customers"
+				// identifier="email"
+				// rowsData={customers}
+				/>
+			</div>
+		</Box>
+
 	);
 };
 

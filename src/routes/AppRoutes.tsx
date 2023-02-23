@@ -77,6 +77,9 @@ import Invoice from "../components/bills/invoice/Invoice";
 import BulkTransferEntry from "../views/Payout/transfer/BulkTransferEntry";
 import Pendingdetails from "../views/Payout/Pendingdetails";
 import BeneficiaryDetails from "../views/Payout/BeneficiaryDetails";
+import CustomersTab from "../views/Customers/CustomersTab";
+import BlacklistTab from "../views/Customers/BlacklistTab";
+import BlacklistDatatable from "../views/Customers/BlacklistDatatable";
 
 export default function AppRoutes() {
   // const { loadingState } = useSelector((state) => state?.loadingStateReducer);
@@ -275,9 +278,16 @@ export default function AppRoutes() {
             <ProtectedRoute
               exact
               path="/customers"
-              component={Customers}
+              component={CustomersTab}
               AuthUser={loadingState}
             />
+            <ProtectedRoute
+              exact
+              path="/blacklist"
+              component={BlacklistDatatable}
+              AuthUser={loadingState}
+            />
+
             <ProtectedRoute
               exact
               path="/customers/:slug"
