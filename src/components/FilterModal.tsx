@@ -10,14 +10,14 @@ const useModalBtnStyles = makeStyles({
 		padding: '1rem 1.5rem 1.5rem',
 		gap: '1.25rem',
 		'& .MuiButton-root': {
+			borderRadius: "20px",
 			fontFamily: `'Avenir', sans-serif`,
 			fontWeight: '500',
 			fontSize: '.875rem',
 			color: 'black',
 			background: '#E0E0E0',
-			borderRadius: '3px',
 			textTransform: 'none',
-			padding: '.35rem .85rem',
+			padding: '.35rem 1rem',
 		},
 		'& .MuiButton-root:nth-child(2)': {
 			color: 'white',

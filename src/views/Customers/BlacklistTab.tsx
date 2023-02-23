@@ -5,7 +5,7 @@ import BlacklistDatatable from "./BlacklistDatatable";
 const BlacklistTab = () => {
   return (
     <div>
-      <div className={Styles.header__title}>
+      {/* <div className={Styles.header__title}>
         <div>
           {" "}
           <h3> 5 Blacklisted customer</h3>
@@ -17,7 +17,7 @@ const BlacklistTab = () => {
         </div>
       </div>
 
-      <BlacklistDatatable />
+      <BlacklistDatatable /> */}
     </div>
   );
 };

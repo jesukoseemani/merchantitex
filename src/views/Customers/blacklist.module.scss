@@ -1,29 +1,40 @@
-.header__title {
+.headerBox {
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-end;
 	align-items: center;
-	margin-top: 2rem;
-	margin-bottom: 1rem;
-	h3 {
-		font-family: 'Avenir';
-		font-style: normal;
-		font-weight: 400;
-		font-size: 1.3rem;
-		line-height: 1.4rem;
-	}
+	gap: 20px;
+
 	button {
+
+		border-radius: 20px;
 		display: flex;
-		justify-content: center;
 		align-items: center;
-		padding: 0.5rem 1rem;
-		border-radius: 0.3rem;
+		justify-content: center;
+
+		&:nth-of-type(1) {
+			background: #E0E0E0;
+			color: #333;
+		}
+
+		&:nth-of-type(2) {
+			background: transparent;
+			color: #095B2C;
+			border: 1px solid #27AE60;
+		}
+
+		svg {
+			margin: 0;
+		}
 	}
 }
 
 .ActionBtn {
-	border: none;
-	outline: none;
-	background-color: unset;
-	border-radius: 0.3rem;
-	color: lighten(#219653, 10);
+	background-color: transparent;
+	font-family: 'Avenir';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 19px;
+
+	color: #095B2C;
 }

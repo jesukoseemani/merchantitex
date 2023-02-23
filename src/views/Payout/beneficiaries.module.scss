@@ -182,20 +182,21 @@ button {
 
 	&>div {
 		padding: 1.2rem;
-		border-bottom: 0.1px solid #bdb9b9;
+		border: 0.5px solid #EBEBEB;
 		font-size: 14px;
 		// line-height: 2rem;
 		letter-spacing: 0.0024px;
 		color: #333333;
 		cursor: pointer;
 
-		&:last-child {
+		&:last-child,
+		&:first-child {
 			border: none;
 			margin-bottom: 0;
 		}
 
 		&:hover {
-			background-color: #959393;
+			background-color: #cdcdcd;
 			color: #fff;
 			padding: 1.2rem;
 		}

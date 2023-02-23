@@ -17,7 +17,7 @@ const Addtoblacklist = () => {
           access to your platform. Click on ‘Confirm’ to blacklist this customer
         </p>
 
-        <Stack spacing={2} direction="row" justifyContent={"flex-end"}>
+        <Stack spacing={2} direction="row" justifyContent={"flex-end"} className={Styles.blacklistBtn}>
           <button onClick={() => dispatch(closeModal())}>Cancel</button>
           <button>Comfirm</button>
         </Stack>

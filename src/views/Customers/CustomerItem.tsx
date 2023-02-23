@@ -1,4 +1,3 @@
-import NavBar from "../../components/navbar/NavBar";
 import styles from "./CustomerItem.module.scss";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import { Link, useParams, useLocation, useHistory } from "react-router-dom";
@@ -17,7 +16,10 @@ import {
   RecentCustomerItem,
 } from "../../types/CustomerTypes";
 import { useCallback, useEffect, useState } from "react";
-import ParentContainer from "../../components/ParentContainer/ParentContainer";
+import { Box } from "@mui/material";
+import Addtoblacklist from "./Addtoblacklist";
+import { openModalAndSetContent } from "../../redux/actions/modal/modalActions";
+
 
 interface customerProps {
   firstname: string;
@@ -68,10 +70,10 @@ const CustomerItem = () => {
   }
 
   const columns: Column[] = [
-    { id: "amount", label: "Amount", minWidth: 100 },
-    { id: "status", label: "", minWidth: 100 },
+    { id: "amount", label: "Amount", minWidth: 150 },
+    { id: "status", label: "Status", minWidth: 100 },
 
-    { id: "customerID", label: "Customer ID", minWidth: 100 },
+    { id: "customerID", label: "Email address", minWidth: 300 },
     { id: "paymentType", label: "PaymentType", minWidth: 100 },
     { id: "added", label: "Date", minWidth: 100 },
   ];
@@ -131,41 +133,7 @@ const CustomerItem = () => {
     }
   };
 
-  // const getAllTransactions = async () => {
-  //   dispatch(openLoader());
-  //   try {
-  //     const res = await axios.get<GetRecentCustomerRes>(
-  //       `/mockData/recentcustomerinfo.json?customerId=${slug}`,
-  //       { baseURL: "" }
-  //     );
-  //     console.log(res);
-  //     const { transactions, _metadata } = res?.data;
-  //     console.log(transactions);
-  //     if (transactions.length) {
-  //       // const total = transactions.reduce(
-  //       //   (sum, current) => sum + Number(current.order.amount),
-  //       //   0
-  //       // );
-  //       // setTotalAmt(total);
-  //     }
-  //     dispatch(closeLoader());
-  //   } catch (err) {
-  //     console.log(err);
-  //     dispatch(closeLoader());
-  //     dispatch(
-  //       openToastAndSetContent({
-  //         toastContent: "Failed to get transactions",
-  //         toastStyles: {
-  //           backgroundColor: "red",
-  //         },
-  //       })
-  //     );
-  //   }
-  // };
 
-  // useEffect(() => {
-  //   getAllTransactions();
-  // }, [slug]);
 
   useEffect(() => {
     getTransactions();
@@ -187,31 +155,52 @@ const CustomerItem = () => {
     setRows(newRowOptions);
   }, [transactions, TransactionRowTab]);
 
+
+  const handleBLacklist = () => {
+    dispatch(
+      openModalAndSetContent({
+        modalStyles: {
+          padding: 0,
+          width: "653px",
+          height: "254px",
+          borderRadius: '20px',
+          boxShadow: '-4px 4px 14px rgba(224, 224, 224, 0.69)',
+        },
+        modalContent: (
+          <div className='modalDiv'>
+            <Addtoblacklist />
+          </div>
+        ),
+      })
+    );
+  };
   return (
- 
 
-      <div className={styles.container}>
 
-        <hr />
-        <div className={styles.pageWrapper}>
-          <div className={styles.sectionOne}>
-            <div>
-              <Link to="/customers">
-                <div>
-                  <ArrowLeftIcon />
-                  <p>Back to customers</p>
-                </div>
-              </Link>
-            </div>
-            <div>
-              <p>Customer Information</p>
+    <div className={styles.container}>
+
+      <hr />
+      <div className={styles.pageWrapper}>
+        <div className={styles.sectionOne}>
+          <div>
+            <Link to="/customers">
               <div>
-                <p>Blacklist customer</p>
-                <DoDisturbIcon />
+                <ArrowLeftIcon />
+                <p>Back to customers</p>
               </div>
+            </Link>
+          </div>
+
+        </div>
+
+        <Box className={styles.layerOneWrapper}>
+          <div className={styles.titleText}>
+            <p>Customer Information</p>
+            <div onClick={handleBLacklist}>
+              <p>Blacklist customer</p>
+              <DoDisturbIcon />
             </div>
           </div>
-          <hr />
           <div className={styles.sectionTwo}>
             <div>
               <p>Name</p>
@@ -231,37 +220,47 @@ const CustomerItem = () => {
               <p>{phone ?? "N/A"}</p>
             </div>
           </div>
-          <div className={styles.sectionThree}>
-            <div>
-              <h3>Performance</h3>
-            </div>
-            <div>
-              <div>
-                <p>Number of transactions</p>
-                <p>{transNum}</p>
-              </div>
-              <div>
-                <p>Total spend</p>
-                <p>NGN {total}</p>
-              </div>
-            </div>
+
+
+        </Box>
+        <div className={styles.sectionThree}>
+          <div className={styles.titleText}>
+            <h3>Performance</h3>
           </div>
-          <div className={styles.sectionFour}>
+
+          <div className={styles.bodyText}>
             <div>
-              <h3>Recent transactions</h3>
+              <p>Number of transactions</p>
+              <p>{transNum}</p>
             </div>
-            <div className={styles.tableContainer}>
-              <CustomClickTable
-                columns={columns}
-                rows={rows}
-                totalRows={totalRows}
-                changePage={changePage}
-                limit={limit}
-              />
+            <div>
+              <p>Total spend</p>
+              <p>NGN {total}</p>
             </div>
           </div>
         </div>
+
+
+
+
+
+
+        <div className={styles.sectionFour}>
+          <div>
+            <h3>Recent transactions</h3>
+          </div>
+          <div className={styles.tableContainer}>
+            <CustomClickTable
+              columns={columns}
+              rows={rows}
+              totalRows={totalRows}
+              changePage={changePage}
+              limit={limit}
+            />
+          </div>
+        </div>
       </div>
+    </div>
   );
 };
 
