@@ -15,6 +15,7 @@ import transactionDetailReducer from './transactionDetails/index';
 import loadingStateReducer from './loadingState/index';
 import onboardStateReducer from './onboarding/index';
 import countryReducer from './country/index';
+import navbarReducer from './navbar/index';
 
 const rootReducer = combineReducers({
 	// customizer,
@@ -35,6 +36,7 @@ const rootReducer = combineReducers({
 	modal,
 	loader,
 	products,
+	navbarReducer,
 });
 
 export default rootReducer;

@@ -2,53 +2,48 @@ import React, { useState, useEffect } from "react";
 import SearchBar from "../search/searchBar";
 import Styles from "./Navbar.module.scss";
 import { Button, IconButton } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ArrowDown from "../../assets/images/arrowDown.svg";
 import ArrowLeft from "../../assets/images/arrowLeft.svg";
 import { navRoutes } from "../../mock/navRoutes";
 import { ReactSVG } from "react-svg";
 import { useHistory, useLocation } from "react-router-dom";
+import { changeNewNavbar } from "../../redux/actions/navbarNew/navbarNewActions";
+import useLocalStorage from "../../helpers/useLocalStorage";
 
 const NavBar = () => {
   const business = useSelector((state) => state?.meReducer?.me?.business);
 
   const { pathname } = useLocation();
   const [active, setActive] = React.useState(0);
-  const [routes, setRoutes] = useState<any[] | undefined>([]);
-  const [isNested, setIsNested] = useState(false);
+  const [routes, setRoutes] = useState<any[]>(navRoutes);
+  const [isNested, setIsNested] = useLocalStorage('isNested', false);
+  const [nav, setNav] = useLocalStorage('nav', []);
+  const [menuTitle, setMenuTitle] = useLocalStorage('menuTitle', "");
 
   const history = useHistory();
+  const dispatch = useDispatch()
 
-  const navMenu = [
-    "/home",
-    "/transactions",
-    "/transactions/refund",
-    "/customers",
-    "/point_of_sale",
-    "/subaccounts",
-    "/payout/transfers",
-    "/subaccounts/ITEX-1234567",
-  ];
 
-  useEffect(() => {
-    const nestedRoutes = navRoutes?.find(
-      (route) => route?.link === pathname
-    )?.nav;
-    console.log(nestedRoutes);
-    if (pathname === "/") {
-      setIsNested(false);
-      return setRoutes(navRoutes);
+  const changeHandler = (item: any) => {
+    if (item.submenu) {
+      setIsNested(true)
+      dispatch(changeNewNavbar(item.title))
+      setMenuTitle(item.title)
+      setNav(item.nav)
+      history.push(item.link)
+    } else {
+      history.push(item.link)
+      dispatch(changeNewNavbar(item.title))
     }
-    if (nestedRoutes && nestedRoutes?.length > 0) {
-      setIsNested(true);
-      return setRoutes(nestedRoutes);
-    }
-  }, [pathname]);
 
-  // console.log(isNested)
-  useEffect(() => {
-    // console.log(routes)
-  }, [routes]);
+  }
+
+  const subChangeHandler = (link: string, title: string) => {
+    dispatch(changeNewNavbar(title))
+    history.push(link)
+  }
+
   return (
     <div className={Styles.container}>
       <div className={Styles.userInfo}>
@@ -65,24 +60,43 @@ const NavBar = () => {
       <div>
         <div className={Styles.backBtn}>
           {isNested && (
-            <Button onClick={() => history.push("/")}>
-              <ReactSVG src={ArrowLeft} /> Main menu
-            </Button>
+            <>
+              <Button onClick={() => setIsNested(false)}>
+                <ReactSVG src={ArrowLeft} /> Main menu
+              </Button>
+
+              <h3 className={Styles.menuTitle}>
+                {menuTitle} MENU
+              </h3>
+            </>
           )}
-          {navMenu.includes(pathname) && (
-            <Button onClick={() => history.push("/")}>
-              PAYOUTS MENU
-            </Button>
-          )}
+
         </div>
 
         <nav>
           {/* {nextedRoutes?} */}
-          {routes?.map(({ id, title, icon, link }) => {
+
+          {!isNested && routes?.map((item) => {
+            return (
+              <li
+                key={item?.id}
+                onClick={() => changeHandler(item)}
+                className={item?.link === pathname ? Styles.active : Styles.routes}
+              >
+                {/* <img src={icon} alt={name} /> */}
+
+                <ReactSVG src={item?.icon} />
+                {item?.title}
+              </li>
+            );
+          })}
+
+
+          {isNested && nav?.map(({ id, title, icon, link }: any) => {
             return (
               <li
                 key={id}
-                onClick={() => history.push(link)}
+                onClick={() => subChangeHandler(link, title)}
                 className={link === pathname ? Styles.active : Styles.routes}
               >
                 {/* <img src={icon} alt={name} /> */}

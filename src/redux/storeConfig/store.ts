@@ -16,6 +16,7 @@ const persistConfig = {
 		'userDetailReducer',
 		'onboardStateReducer',
 		'countryReducer',
+		'navbarReducer',
 	],
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
