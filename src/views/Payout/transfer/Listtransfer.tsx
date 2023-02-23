@@ -55,18 +55,18 @@ const Listtransfer = () => {
         setBeneficiary(null);
     };
     const handleCloseSingleTrans = () => {
-        setSingleTrans(beneficiary);
+        setSingleTrans(null);
     };
     const handleCloseBulkTrans = () => {
-        setBulkTrans(beneficiary);
+        setBulkTrans(null);
     };
 
     const handleSingleTransfer = () => {
-        setSingleTrans(null);
+        setSingleTrans(beneficiary);
 
     }
     const handleBulkTrans = () => {
-        setBulkTrans(2)
+        setBulkTrans(beneficiary)
     }
 
     const handleCloseDownloadMenu = () => {
@@ -259,7 +259,7 @@ const Listtransfer = () => {
                     beneficiary={singleTrans}
                     data={singleData}
 
-                    style={{ width: "10rem", top: 0, borderRadius: "20px", backgroundColor: "white", textAlign: "center", border: "2px solid red" }}
+                    style={{ width: "9rem", marginTop: "5px", borderRadius: "20px", backgroundColor: "white", textAlign: "center", }}
                 />
                 {/* Bulk transfer menu */}
                 <BeneficiaryMenu
@@ -277,7 +277,7 @@ const Listtransfer = () => {
                     handleCloseMenu={handleCloseMenu}
                     beneficiary={beneficiary}
                     data={data}
-                    style={{ width: "10rem", borderRadius: "20px", backgroundColor: "white", textAlign: "center" }}
+                    style={{ width: "9rem", marginTop: "5px", borderRadius: "20px", backgroundColor: "white", textAlign: "center" }}
                 />
             </Box>
 
