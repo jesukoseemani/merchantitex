@@ -102,12 +102,12 @@ const Header = ({ toggle, setToggle }: toggleBtn) => {
   return (
     <div className={Styles.header__box}>
 
-      <h2>{navbarRoute}</h2>
+
       <Container>
         <Grid container justifyContent="space-between" alignItems="center">
           <Grid item xs={7} md={8}>
             <Stack direction={"row"} spacing={{ xs: 0, md: 5 }}>
-              <Box sx={{ display: { xs: "none", md: "none" } }}><h2>{title}</h2></Box>
+              <Box sx={{ display: { xs: "none", md: "block" } }}><h2 className={Styles.title}>{navbarRoute}</h2></Box>
               <Grid item xs={10} md={8} className={Styles.input__box}>
                 <input placeholder="Search" />
 

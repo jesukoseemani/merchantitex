@@ -104,7 +104,7 @@ export default function TransfersTable() {
                 : "warning"
           }
         >
-          {status}
+          <p style={{ borderRadius: "20px" }}> {status}</p>
         </Label>
       ),
       receipient,
