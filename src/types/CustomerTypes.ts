@@ -27,6 +27,7 @@ export interface RecentCustomerItem {
   paymentType: string;
   added?: string;
   id?: string;
+  status?: string;
 }
 
 export interface GetRecentCustomerRes {
@@ -39,8 +40,6 @@ export interface GetRecentCustomerRes {
   };
   transactions: RecentCustomerItem[];
 }
-
-
 
 export interface BlacklistCustomerItem {
   firstname: string;

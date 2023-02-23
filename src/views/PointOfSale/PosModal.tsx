@@ -5,6 +5,7 @@ import {
 	Modal,
 	OutlinedInput,
 	Button,
+	Grid,
 } from '@mui/material';
 import { useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
@@ -18,10 +19,10 @@ const useStyles = makeStyles({
 	root: {
 		border: '1px solid #D5DAE1',
 		boxShadow: '0px 10px 10px rgba(6, 44, 82, 0.92)',
-		borderRadius: '3px',
+		borderRadius: '20px',
 		backgroundColor: 'white',
-		maxWidth: '400px',
-		maxHeight: '500px',
+		maxWidth: '768px',
+		maxHeight: '634px',
 		overflowY: 'scroll',
 		width: '100%',
 		position: 'absolute',
@@ -80,10 +81,10 @@ const useStyles = makeStyles({
 			padding: '0rem',
 		},
 		'& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button':
-			{
-				WebkitAppearance: 'none',
-				margin: '0',
-			},
+		{
+			WebkitAppearance: 'none',
+			margin: '0',
+		},
 	},
 	formBtn: {
 		color: 'white',
@@ -147,69 +148,97 @@ const PosModal = ({ isOpen, handleClose }: PosModalProps) => {
 			}}>
 			<div className={classes.root}>
 				<div>
-					<p>POS Request form</p>
+					<p style={{ marginLeft: "15px" }}>POS Request form</p>
 					<IconButton
 						aria-label='close add subaccount modal'
 						onClick={handleClose}>
 						<CloseIcon />
 					</IconButton>
 				</div>
+				<hr />
 				<div>
-					<div className={classes.formBox}>
-						<label htmlFor='revenue'>
-							What is your average monthly revenue?
-						</label>
-						<OutlinedInput
-							placeholder='John Doe'
-							value={revenue}
-							onChange={(e) => setRevenue(e.target.value)}
-						/>
-					</div>
-					<div className={classes.formBox}>
-						<label htmlFor='sales'>How many sales do you make daily</label>
-						<OutlinedInput
-							placeholder='john@mail.com'
-							value={sales}
-							onChange={(e) => setSales(e.target.value)}
-						/>
-					</div>
-					<div className={classes.formBox}>
-						<label htmlFor='numDevices'>How many POS devices do you need</label>
-						<OutlinedInput
-							placeholder='Nigeria'
-							value={numDevices}
-							onChange={(e) => setNumDevices(e.target.value)}
-						/>
-					</div>
-					<div className={classes.formBox}>
-						<label htmlFor='location'>
-							Where should the POS devices be delivered
-						</label>
-						<OutlinedInput
-							placeholder='Access Bank'
-							value={location}
-							onChange={(e) => setLocation(e.target.value)}
-						/>
-					</div>
-					<div className={classes.formBox}>
-						<label htmlFor='state'>State</label>
-						<OutlinedInput
-							placeholder='0723371427'
-							value={state}
-							onChange={(e) => setState(e.target.value)}
-						/>
-					</div>
-					<div className={classes.formBox}>
-						<label htmlFor='city'>City</label>
-						<OutlinedInput
-							placeholder='10%'
-							value={city}
-							onChange={(e) => setCity(e.target.value)}
-						/>
-					</div>
+					<Grid container spacing={5} p={3}>
+						<Grid item xs={12} md={6}>
+							<div className={classes.formBox}>
+								<label htmlFor='revenue'>
+									What is your average monthly revenue?
+								</label>
+								<OutlinedInput
+									placeholder='John Doe'
+									value={revenue}
+									onChange={(e) => setRevenue(e.target.value)}
+								/>
+							</div>
+
+						</Grid>
+						<Grid item xs={12} md={6}>
+							<div className={classes.formBox}>
+								<label htmlFor='sales'>How many sales do you make daily</label>
+								<OutlinedInput
+									placeholder='john@mail.com'
+									value={sales}
+									onChange={(e) => setSales(e.target.value)}
+								/>
+							</div>
+
+						</Grid>
+
+						<Grid item xs={12} md={6}>
+							<div className={classes.formBox}>
+								<label htmlFor='numDevices'>How many POS devices do you need</label>
+								<OutlinedInput
+									placeholder='Nigeria'
+									value={numDevices}
+									onChange={(e) => setNumDevices(e.target.value)}
+								/>
+							</div>
+
+						</Grid>
+
+						<Grid item xs={12}>
+
+							<div className={classes.formBox}>
+								<label htmlFor='location'>
+									Where should the POS devices be delivered
+								</label>
+								<OutlinedInput
+									placeholder='Access Bank'
+									value={location}
+									onChange={(e) => setLocation(e.target.value)}
+									rows={3}
+									multiline
+								/>
+							</div>
+						</Grid>
+
+
+						<Grid item xs={12} sm={12} md={6}>
+
+							<div className={classes.formBox}>
+								<label htmlFor='state'>State</label>
+								<OutlinedInput
+									placeholder='0723371427'
+									value={state}
+									onChange={(e) => setState(e.target.value)}
+								/>
+							</div>
+						</Grid>
+
+						<Grid item xs={12} md={6}>
+
+							<div className={classes.formBox}>
+								<label htmlFor='city'>City</label>
+								<OutlinedInput
+									placeholder='10%'
+									value={city}
+									onChange={(e) => setCity(e.target.value)}
+								/>
+							</div>
+						</Grid>
+					</Grid>
 				</div>
-				<div>
-					<Button fullWidth className={classes.formBtn} onClick={closeModal}>
+				<div style={{ padding: "10px" }}>
+					<Button style={{ borderRadius: "20px" }} fullWidth className={classes.formBtn} onClick={closeModal}>
 						Submit request
 					</Button>
 				</div>

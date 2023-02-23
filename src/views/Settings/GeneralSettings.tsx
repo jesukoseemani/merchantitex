@@ -10,7 +10,8 @@ import {
 import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
 import { useDispatch } from 'react-redux';
 import { serialize } from 'object-to-formdata';
-import {FetchProfileDetails} from '../../helpers/FetchProfileDetails'
+import { FetchProfileDetails } from '../../helpers/FetchProfileDetails'
+import ParentContainer from '../../components/ParentContainer/ParentContainer';
 
 const GeneralSettings = () => {
 	interface formTypes {
@@ -107,7 +108,7 @@ const GeneralSettings = () => {
 		console.log(business.businesslogo);
 		setLoader(true);
 		const payload = {
-				...business,
+			...business,
 		};
 		const formData = serialize(payload);
 		try {
@@ -231,8 +232,11 @@ const GeneralSettings = () => {
 		setBusiness((prevState) => ({ ...prevState, businesslogo: files[0] }));
 	};
 	return (
+
+
+
 		<div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-			<NavBar name='GeneralSettings' />
+			{/* <NavBar  /> */}
 			<div className={Styles.container}>
 				<div className={Styles.formHeader}>
 					<div>
@@ -242,7 +246,10 @@ const GeneralSettings = () => {
 					<Button
 						loading={loader}
 						className='success'
-						onClick={updateUserDetails}>
+						onClick={updateUserDetails}
+						style={{ borderRadius: "20px" }}
+
+					>
 						Save changes
 					</Button>
 				</div>
@@ -287,7 +294,7 @@ const GeneralSettings = () => {
 						<h2>Password</h2>
 						<p>Personal information</p>
 					</div>
-					<Button className='success'>Save changes</Button>
+					<Button className='success' style={{ borderRadius: "20px" }}>Save changes</Button>
 				</div>
 				<div className={Styles.formField}>
 					<Form.Input
@@ -312,7 +319,7 @@ const GeneralSettings = () => {
 						<h2>Business information</h2>
 						<p>Personal information</p>
 					</div>
-					<Button loading={loader} className='success' onClick={updateBusiness}>
+					<Button style={{ borderRadius: "20px" }} loading={loader} className='success' onClick={updateBusiness}>
 						Save changes
 					</Button>
 				</div>

@@ -21,6 +21,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { useTheme } from '@mui/material/styles';
 import { makeStyles } from '@material-ui/styles';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
+import ParentContainer from '../../components/ParentContainer/ParentContainer';
 
 const useBtnStyles = makeStyles({
 	root: {
@@ -145,7 +146,7 @@ const ChargeBacks = () => {
 				</p>
 			),
 			status: (
-				<p className={styles[statusFormatObj[status] || 'pendingText']}>
+				<p style={{ borderRadius: "20px" }} className={styles[statusFormatObj[status] || 'pendingText']}>
 					{status}
 				</p>
 			),
@@ -229,6 +230,8 @@ const ChargeBacks = () => {
 	}, [pageNumber, rowsPerPage]);
 
 	return (
+
+
 		<div className={styles.container}>
 			<Modal
 				open={isFilterModalOpen}
@@ -275,7 +278,7 @@ const ChargeBacks = () => {
 					</div>
 				</div>
 			</Modal>
-			<NavBar name='ChargeBacks' />
+
 			<div className={styles.pageWrapper}>
 				<div className={styles.topSection}>
 					<div>
@@ -325,10 +328,10 @@ const ChargeBacks = () => {
 					<div>
 						<p>{totalRows} chargebacks</p>
 						<div className={btnClasses.root}>
-							<Button onClick={() => setIsFilterModalOpen(true)}>
+							<Button style={{ borderRadius: "20px" }} onClick={() => setIsFilterModalOpen(true)}>
 								Filter <ArrowDropDownIcon />
 							</Button>
-							<Button>
+							<Button style={{ borderRadius: "20px", background: "" }}>
 								Download <CloudUploadOutlinedIcon />
 							</Button>
 						</div>
@@ -349,6 +352,7 @@ const ChargeBacks = () => {
 				</div>
 			</div>
 		</div>
+
 	);
 };
 

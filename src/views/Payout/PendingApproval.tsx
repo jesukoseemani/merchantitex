@@ -1,16 +1,27 @@
 import { IconButton, makeStyles } from "@material-ui/core";
 import React, { useEffect, useState, useCallback } from "react";
 import { Button, Checkbox, Icon, Label, Dropdown } from "semantic-ui-react";
-import NavBar from "../../components/navbar/NavBar";
-import OperantTable from "../../components/table/OperantTable";
-import Styles from "./pending.module.scss";
-import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
-function PendingApproval() {
+import Styles from "./pending.module.scss";
+
+import { Box, Stack } from "@mui/material";
+
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
+import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
+import CustomClickTable from "../../components/table/CustomClickTable";
+import moment from "moment";
+import axios from "axios";
+import { closeLoader, openLoader } from "../../redux/actions/loader/loaderActions";
+import { useDispatch } from "react-redux";
+import { GetPendingApprovalRes, pendingApprovalRequestItem } from "../../types/pendingAprovalTypes";
+import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
+
+const PendingApproval = () => {
+
   interface TransactionsProps {
+    id: number,
     amount: number;
-    narration: string;
+    status: string;
     receipient: string;
     date: {
       format: string;
@@ -25,17 +36,11 @@ function PendingApproval() {
     "Successful",
     "Error",
   ];
-  const source = new Array(10).fill({
-    amount: 20000,
-    narration: "For transportation",
-    receipient: "developer@gmail.com",
-    date: {
-      format: "Aug 13 2020",
-      time: "2:21 PM",
-    },
-  });
-  const [transactions, setTransactions] = useState<TransactionsProps[]>(source);
-  const [rows, setRows] = useState<TransactionsProps[]>([]);
+
+
+
+  const [rows, setRows] = useState<pendingApprovalRequestItem[]>([]);
+  const [history, setHistory] = useState<pendingApprovalRequestItem[]>([]);
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [rowsPerPage, setRowsPerPage] = useState<number>(10);
   const [totalRows, setTotalRows] = useState<number>(0);
@@ -44,6 +49,7 @@ function PendingApproval() {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
+  const dispatch = useDispatch()
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -55,9 +61,9 @@ function PendingApproval() {
     setRowsPerPage(value);
   };
 
-  useEffect(() => {
-    setTotalRows(transactions.length);
-  }, []);
+  // useEffect(() => {
+  //   setTotalRows(history.length);
+  // }, []);
 
   const statusOption = [
     { key: 1, value: "online", text: "Online" },
@@ -68,7 +74,7 @@ function PendingApproval() {
     { key: 2, value: "transfer", text: "Transfer" },
   ];
   interface Column {
-    id: "checkbox" | "amount" | "narration" | "receipient" | "date" | "action";
+    id: "checkbox" | "amount" | "status" | "receipient" | "date" | "action";
     label?: any;
     minWidth?: number;
     align?: "right" | "left" | "center";
@@ -79,13 +85,13 @@ function PendingApproval() {
       label: <Checkbox />,
     },
     { id: "amount", label: "Amount", minWidth: 100 },
-    { id: "narration", label: "Narration", minWidth: 100 },
+    { id: "status", label: "Status", minWidth: 100 },
     { id: "receipient", label: "Receipient", minWidth: 200 },
     { id: "date", label: "Date", minWidth: 100 },
-    { id: "action", label: "" },
+    { id: "action", label: "Actions" },
   ];
   const LoanRowTab = useCallback(
-    (amount: number, narration: string, receipient: string, date: any) => ({
+    (amount, status, receipient, date, id) => ({
       checkbox: <Checkbox />,
       amount: (
         <div className={Styles.amount}>
@@ -93,14 +99,17 @@ function PendingApproval() {
           <h2>{amount}</h2>
         </div>
       ),
-      narration,
+      status: (
+        <p className={Styles.pending}>{status}</p>
+      ),
       receipient,
       date: (
         <div className={Styles.date}>
-          <h2>{date.format}</h2>
-          <span>{date.time}</span>
+          <p>	{moment(date).format('h:mm A')}</p>
+
         </div>
       ),
+      id: <p>{id}</p>,
       action: (
         <Dropdown text="" icon={"ellipsis horizontal"}>
           <Dropdown.Menu className={Styles.menuContainer}>
@@ -115,13 +124,47 @@ function PendingApproval() {
   );
   useEffect(() => {
     const newRowOptions: any[] = [];
-    transactions?.map((each: TransactionsProps) =>
+    history?.map((each: pendingApprovalRequestItem) =>
       newRowOptions.push(
-        LoanRowTab(each.amount, each.narration, each.receipient, each.date)
+        LoanRowTab(each.amount, each.status, each.receipient, each.date, each.id)
       )
     );
     setRows(newRowOptions);
-  }, [transactions, LoanRowTab]);
+  }, [history, LoanRowTab]);
+
+
+  const GetPendingRequest = async () => {
+    dispatch(openLoader());
+
+    try {
+      const res = await axios.get<GetPendingApprovalRes>(
+        '/mockData/pendingapproval.json',
+        { baseURL: '' }
+      );
+      const { history, _metadata } = res?.data;
+      console.log(history);
+      if (history.length) {
+        setHistory(history);
+        setTotalRows(_metadata?.totalcount);
+      }
+      dispatch(closeLoader());
+    } catch (err) {
+      console.log(err);
+      dispatch(closeLoader());
+      dispatch(
+        openToastAndSetContent({
+          toastContent: 'Failed to get items',
+          toastStyles: {
+            backgroundColor: 'red',
+          },
+        })
+      );
+    }
+  };
+
+  useEffect(() => {
+    GetPendingRequest();
+  }, [pageNumber, rowsPerPage]);
   const useStyles = makeStyles({
     container: {
       width: "407px",
@@ -134,31 +177,47 @@ function PendingApproval() {
     },
   });
   const classes = useStyles();
+  const handleOpenDownloadMenu = () => {
+
+  }
+  const handleClickBeneficiary = () => {
+
+  }
 
   return (
+
     <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
-      <NavBar name="Pending Approval" />
+
       <div className={Styles.tableContainer}>
-        <div className={Styles.tableHeader}>
-          <h2>19 pending transfers</h2>
-          <div>
-            <Button>
-              Download <CloudUploadOutlinedIcon />
-            </Button>
-            <Button className={Styles.success}>Approve all</Button>
-          </div>
-        </div>
+        <Box>
+          <Box px={3} py={5}>
+            <Stack direction={"row"} justifyContent="space-between" gap={3}>
+              <h2>19 pending transfers</h2>
+              <Box className={Styles.headerBox}>
+                <button><FilterAltOutlinedIcon />Filter by:</button>
+                <button onClick={handleOpenDownloadMenu}> <InsertDriveFileOutlinedIcon />Download</button>
+                <button onClick={handleClickBeneficiary}>Aprove all</button>
+              </Box>
+            </Stack>
+          </Box>
+        </Box>
         <div className={Styles.wrapper}>
-          <OperantTable
+
+          <CustomClickTable
             columns={columns}
             rows={rows}
             totalRows={totalRows}
             changePage={changePage}
             limit={limit}
+            clickable
+            link="/payout/pending_approval/details"
+            identifier={"id"}
+            rowsData={history}
           />
         </div>
       </div>
     </div>
+
   );
 }
 

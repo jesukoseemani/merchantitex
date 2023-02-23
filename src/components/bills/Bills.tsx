@@ -20,14 +20,14 @@ const Bills = () => {
 
   // open menu
 
-  const [airtime, setAirtime] = React.useState<null | HTMLElement>(null);
-  const openAirtime = Boolean(airtime);
+  const [bill, setBill] = React.useState<null | HTMLElement>(null);
+  const openBill = Boolean(bill);
 
-  const handleClickAirtime = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAirtime(event.currentTarget);
+  const handleClickBill = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setBill(event.currentTarget);
   };
   const handleCloseMenu = () => {
-    setAirtime(null);
+    setBill(null);
   };
   const handleClose = () => {
     setAnchorEl(null);
@@ -72,10 +72,10 @@ const Bills = () => {
       <div className={Styles.airtime_header}>
         <div>
           {" "}
-          <h3> 5 Airtime Purchase</h3>
+          <h3> 4 Bill Payment</h3>
         </div>
         <div>
-          <button onClick={handleClickAirtime}>Buy Airtime</button>
+          <button  onClick={handleClickBill}>Make Bill payment</button>
         </div>
       </div>
 
@@ -84,9 +84,9 @@ const Bills = () => {
       </div>
 
       <BeneficiaryMenu
-        openBeneficiary={openAirtime}
+        openBeneficiary={openBill}
         handleCloseMenu={handleCloseMenu}
-        beneficiary={airtime}
+        beneficiary={bill}
         data={data}
       />
     </div>

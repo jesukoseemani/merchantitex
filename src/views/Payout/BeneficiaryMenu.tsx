@@ -1,15 +1,16 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
 import Styles from "./beneficiaries.module.scss";
 import { createStyles, makeStyles } from "@material-ui/styles";
+import { SxProps } from "@mui/material";
+import { Theme } from "@mui/system";
 
 interface MenuProps {
   openBeneficiary: boolean;
   handleCloseMenu: () => void;
   beneficiary: HTMLElement | null;
   style?: React.CSSProperties;
+  sx?: SxProps<Theme> | undefined;
   data: {
     id: number;
     name: string;
@@ -22,16 +23,20 @@ export default function BeneficiaryMenu({
   data,
   beneficiary,
   style,
+  sx
 }: MenuProps) {
   const trigerFunction = (trigger: () => void) => {
+    trigger();
     handleCloseMenu();
 
-    trigger();
   };
   const useStyles = makeStyles(() =>
     createStyles({
       list: {
-        padding: "0",
+        padding: 0,
+        borderRadius: 20,
+        boxShadow: "rgba(63, 63, 68, 0.05), 0px 1px 3px rgba(63, 63, 68, 0.15)"
+
       },
     })
   );
@@ -48,6 +53,7 @@ export default function BeneficiaryMenu({
         "aria-labelledby": "basic-button",
       }}
       classes={{ list }}
+      sx={sx}
     >
       <div className={Styles.menu__container} style={style}>
         {data.map(({ id, name, func }) => (

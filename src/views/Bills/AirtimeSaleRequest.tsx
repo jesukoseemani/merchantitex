@@ -27,6 +27,7 @@ import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import { AirtimeRequestItem } from "../../types/BiilsTypes";
 import CopyText from "../../helpers/CopyToClipBoard";
 import FormatToCurrency from "../../helpers/NumberToCurrency";
+import ParentContainer from "../../components/ParentContainer/ParentContainer";
 
 const AirtimeSaleRequest = () => {
   const location = useLocation<{ rowData: string }>();
@@ -56,6 +57,8 @@ const AirtimeSaleRequest = () => {
   } = formattedRowData;
 
   return (
+
+
     <div
       className={styles.contained}
       style={{
@@ -65,7 +68,7 @@ const AirtimeSaleRequest = () => {
         marginInline: "auto",
       }}
     >
-      <NavBar name="Airtime request" />
+
       <div className={styles.pageWrapper}>
         <div className={styles.sectionOne}>
           <div>
@@ -128,6 +131,7 @@ const AirtimeSaleRequest = () => {
         </div>
       </div>
     </div>
+
   );
 };
 

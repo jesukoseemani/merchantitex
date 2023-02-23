@@ -1,28 +1,43 @@
+@import "../../components/color/color.module.scss";
+
 .container {
-	min-height: 100vh;
-	background-color: rgba(239, 243, 248, 1);
-	margin: 0 auto;
+	// min-height: 100vh;
+	background-color: $dark;
 	width: 100%;
-}
-.logo {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 100%;
-	margin: 3rem 0;
-	cursor: pointer;
+	flex-direction: column;
 }
+
+.logo {
+	width: 100%;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 40.6px;
+	margin-top: 40px;
+}
+
 .signUpWrapper {
 	border: 1px solid transparent;
 	max-width: 950px;
-	width: 100%;
+	width: 1179px;
+	min-height: 573px;
 	margin: 0 auto;
 	background-color: #fff;
 	padding: 3rem 4rem 2rem 4rem;
 	background: #ffffff;
 	box-shadow: 0px 4px 14px rgba(15, 49, 32, 0.15);
-	border-radius: 6px;
+	border-radius: 20px;
+
+	@media screen and (max-width: 768px) {
+		width: 100%;
+		height: auto;
+	}
 }
+
 .header {
 	font-style: normal;
 	font-weight: 300;
@@ -37,15 +52,18 @@
 .details {
 	margin-left: -10px;
 }
+
 .content {
 	display: flex;
 	width: 50%;
+
 	@media screen and (max-width: 768px) {
 		width: 100%;
 	}
 }
+
 .title {
-	font-family: Avenir;
+	font-family: 'Avenir';
 	font-size: 16px;
 	font-style: normal;
 	font-weight: 400;
@@ -54,16 +72,18 @@
 }
 
 .description {
-	font-family: Avenir;
+	font-family: 'Avenir';
 	font-size: 14px;
 	font-style: normal;
 	font-weight: 400;
 	line-height: 18px;
 	letter-spacing: 0em;
 	color: rgba(139, 139, 139, 1);
+
 }
+
 .label {
-	font-family: Avenir;
+	font-family: 'Avenir';
 	font-size: 14px;
 	font-style: normal;
 	font-weight: 400;
@@ -71,12 +91,14 @@
 	letter-spacing: 0em;
 	color: rgba(51, 51, 51, 1);
 }
+
 .emptyLabel {
 	margin-top: 2rem;
 }
+
 .terms {
 	margin-top: 1rem;
-	font-family: Avenir;
+	font-family: 'Avenir';
 	font-size: 12px;
 	font-style: normal;
 	font-weight: 400;
@@ -88,6 +110,7 @@
 .signupList {
 	display: flex;
 	align-items: flex-start;
+	margin-top: 15px;
 }
 
 .iconchecked {
@@ -97,21 +120,17 @@
 
 .desc {
 	font-style: normal;
-	font-weight: normal;
 	font-size: 14px;
-	line-height: 16px;
-	overflow: hidden;
 	width: 75%;
-	color: #8b8b8b;
-	padding: 0;
-	margin: 0;
-	// line-break: auto;
+	font-weight: 400;
+	line-height: 19px;
+	color: #8B8B8B;
+	font-family: 'Avenir';
 
-	font-family: Avenir;
 }
 
 .title {
-	font-family: Avenir;
+	font-family: 'Avenir';
 	font-style: normal;
 	font-weight: normal;
 	font-size: 16px;
@@ -133,6 +152,10 @@
 	align-items: center;
 	width: 100%;
 	margin-top: 30px;
+
+	p {
+		color: #27AE60;
+	}
 }
 
 .subP {

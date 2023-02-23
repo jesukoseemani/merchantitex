@@ -6,6 +6,7 @@ import { Tab, Tabs } from "@mui/material";
 import DeployedTab from "./DeployedTab";
 import RequestsTab from "./RequestsTab";
 import PosModal from './PosModal';
+import ParentContainer from "../../components/ParentContainer/ParentContainer";
 
 export type PosTabStateType = 'requests' | 'deployed';
 
@@ -26,7 +27,7 @@ export const useTabBtnStyles = makeStyles({
 })
 
 const PointOfSale = () => {
-  const tabBtnClasses = useTabBtnStyles(); 
+  const tabBtnClasses = useTabBtnStyles();
 
   const [value, setValue] = useState<PosTabStateType>('requests');
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -36,32 +37,34 @@ const PointOfSale = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <PosModal isOpen={isModalOpen} handleClose={() => setIsModalOpen(false)} />
-      <NavBar name="Point Of Sale"/>
-      <div className={styles.pageWrapper}>
-        <Tabs 
-          value={value} onChange={handleTabChange} aria-label="pos tabs"
-          className={tabBtnClasses.root}
-        >
-          <Tab label="Requests" value='requests' />
-          <Tab label="Deployed" value='deployed' />
-        </Tabs>
+    
 
-        <RequestsTab 
-          value={value} 
-          index='requests' 
-          openModal={() => setIsModalOpen(true)}
-          closeModal={() => setIsModalOpen(false)}
-        />
-        <DeployedTab 
-          value={value} 
-          index='deployed' 
-          openModal={() => setIsModalOpen(true)}
-          closeModal={() => setIsModalOpen(false)}
-        />
+      <div className={styles.container}>
+        <PosModal isOpen={isModalOpen} handleClose={() => setIsModalOpen(false)} />
+        {/* <NavBar title="Point Of Sale"/> */}
+        <div className={styles.pageWrapper}>
+          <Tabs
+            value={value} onChange={handleTabChange} aria-label="pos tabs"
+            className={tabBtnClasses.root}
+          >
+            <Tab label="Requests" value='requests' />
+            <Tab label="Deployed" value='deployed' />
+          </Tabs>
+
+          <RequestsTab
+            value={value}
+            index='requests'
+            openModal={() => setIsModalOpen(true)}
+            closeModal={() => setIsModalOpen(false)}
+          />
+          <DeployedTab
+            value={value}
+            index='deployed'
+            openModal={() => setIsModalOpen(true)}
+            closeModal={() => setIsModalOpen(false)}
+          />
+        </div>
       </div>
-    </div>
   );
 };
 

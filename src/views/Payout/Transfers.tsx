@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "semantic-ui-react";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
@@ -7,15 +7,19 @@ import Styles from "./transfers.module.scss";
 import queryString from "query-string";
 import EmptyTransfers from "../../components/emptyContent/EmptyTransfers";
 import TransfersTable from "../../components/table/TransfersTable";
+import ParentContainer from "../../components/ParentContainer/ParentContainer";
+import Listtransfer from "./transfer/Listtransfer";
 
 const Transfers = () => {
   // const { currency } = queryString.parse(location.search);
   const currency = "";
   const currencies = ["NGN", "USD", "EUR", "GBP"];
+  const [isEmpty, setIsEmpty] = useState<boolean>(false);
   return (
+
     <div className={Styles.container}>
-      <NavBar />
-      <div className={Styles.currencies}>
+
+      {/* <div className={Styles.currencies}>
         <ul>
           {currencies?.map((cur, index) => (
             <Link
@@ -28,7 +32,7 @@ const Transfers = () => {
           ))}
         </ul>
         <button>Fund balance</button>
-      </div>
+      </div> */}
       <div className={Styles.panel}>
         <div>
           <div>
@@ -49,8 +53,9 @@ const Transfers = () => {
           </div>
         </div>
       </div>
-      <EmptyTransfers />
+      {isEmpty ? <EmptyTransfers /> : <Listtransfer />}
     </div>
+
   );
 };
 

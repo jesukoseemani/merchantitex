@@ -18,10 +18,10 @@ const useStyles = makeStyles({
 	root: {
 		border: '1px solid #D5DAE1',
 		boxShadow: '0px 10px 10px rgba(6, 44, 82, 0.92)',
-		borderRadius: '3px',
+		borderRadius: '20px',
 		backgroundColor: 'white',
-		maxWidth: '400px',
-		maxHeight: '500px',
+		maxWidth: '410px',
+		minHeight: '500px',
 		overflowY: 'scroll',
 		width: '100%',
 		position: 'absolute',
@@ -60,6 +60,7 @@ const useStyles = makeStyles({
 	},
 	formBox: {
 		display: 'grid',
+
 		'& label': {
 			color: '#333',
 			fontWeight: '400',
@@ -80,10 +81,10 @@ const useStyles = makeStyles({
 			padding: '0rem',
 		},
 		'& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button':
-			{
-				WebkitAppearance: 'none',
-				margin: '0',
-			},
+		{
+			WebkitAppearance: 'none',
+			margin: '0',
+		},
 	},
 	formBtn: {
 		color: 'white',
@@ -91,7 +92,7 @@ const useStyles = makeStyles({
 		fontSize: '1rem',
 		backgroundColor: '#27AE60',
 		padding: '.5rem',
-		borderRadius: '.25rem',
+		borderRadius: '20px',
 		textTransform: 'none',
 		'&:hover': {
 			opacity: '.75',

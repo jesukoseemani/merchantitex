@@ -10,6 +10,7 @@ import styles from './Customers.module.scss';
 import { makeStyles } from '@material-ui/styles';
 import BlacklistTab from './BlacklistTab';
 import CustomersTab from './CustomersTab';
+import ParentContainer from '../../components/ParentContainer/ParentContainer';
 
 export const useTableStyles = makeStyles({
 	root: {
@@ -66,27 +67,29 @@ const Customers = () => {
 	};
 
 	return (
-		<div className={styles.container}>
-			<NavBar name='Customers' />
-			{/* <hr /> */}
+		
 
-			<Box sx={{ width: '98%', marginInline: 'auto', typography: 'body1' }}>
-				<TabContext value={value}>
-					<Box sx={{ borderBottom: 0, borderColor: 'divider' }}>
-						<TabList onChange={handleChange} aria-label='lab API tabs example'>
-							<Tab label='Customers' value='1' />
-							<Tab label='Blacklist' value='2' />
-						</TabList>
-					</Box>
-					<TabPanel value='1'>
-						<CustomersTab />
-					</TabPanel>
-					<TabPanel value='2'>
-						<BlacklistTab />
-					</TabPanel>
-				</TabContext>
-			</Box>
-		</div>
+			<div className={styles.container}>
+
+
+				<Box sx={{ width: '98%', marginInline: 'auto', typography: 'body1' }}>
+					<TabContext value={value}>
+						<Box sx={{ borderBottom: 0, borderColor: 'divider' }}>
+							<TabList onChange={handleChange} aria-label='lab API tabs example'>
+								<Tab label='Customers' value='1' />
+								<Tab label='Blacklist' value='2' />
+							</TabList>
+						</Box>
+						<TabPanel value='1'>
+							<CustomersTab />
+						</TabPanel>
+						<TabPanel value='2'>
+							<BlacklistTab />
+						</TabPanel>
+					</TabContext>
+				</Box>
+			</div>
+		
 
 		// <CustomersTab value={value} index="customers" />
 		// <BlacklistTab />

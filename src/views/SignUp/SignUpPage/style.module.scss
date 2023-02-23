@@ -1,21 +1,27 @@
 .signupContainer {
 	min-height: 100vh;
 	min-width: 100%;
-	background-color: rgba(239, 243, 248, 1);
-	margin: 0 auto;
-}
+	background: #1E1E1E;
 
-.logo {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	flex-direction: column;
+}
+
+.logo {
 	width: 100%;
-	margin: 2rem 0 2rem 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 40px;
+	margin-bottom: 30px;
+
 }
 
 .accountTypes {
 	display: flex;
-	align-items: flex-start;
+	// align-items: flex-start;
 	border: 1px solid #e0e0e0;
 	border-radius: 4px;
 	margin: 1rem;
@@ -23,55 +29,52 @@
 }
 
 .signupDiv {
-	display: flex;
-	border: 1px solid transparent;
-	width: 800px;
-	height: auto;
-	margin: 0 auto;
-	background-color: #fff;
-	padding: 2rem;
-	background: #ffffff;
+
+
+	width: 845px;
+	height: 570px;
+	background: #FFFFFF;
 	box-shadow: 0px 4px 14px rgba(15, 49, 32, 0.15);
-	border-radius: 6px;
-	align-items: center;
+	border-radius: 20px;
+	display: flex;
 	justify-content: center;
+	align-items: center;
 }
 
-.signUpContent {
-	width: 500px;
-	height: 40%;
-	padding: 0;
-}
+
 
 .signupList {
 	margin: 20px 0px 0px 20px;
 }
 
 .signupHeader {
-	display: flex;
-	justify-content: flex-start;
-	margin: 0 auto 1rem auto;
-	font-weight: normal;
-	font-size: 22px;
-	color: #4f4f4f;
-	width: 80%;
+	text-align: center;
+	font-weight: 500;
+	font-size: 24px;
+	line-height: 33px;
+	color: #4F4F4F;
 }
 
 .desc {
 	font-style: normal;
 	font-weight: normal;
 	font-size: 14px;
-	line-height: 16px;
-	color: #8b8b8b;
+	line-height: 19px;
+	color: #8B8B8B;
 	margin-top: 1rem;
+	font-weight: 400;
+	// border: 2px solid red;
+	margin-top: -5px;
 }
 
 .title {
-	font-style: normal;
+
+	// border: 2px solid red;
 	font-weight: 500;
 	font-size: 16px;
+	line-height: 22px;
 	color: #414141;
-	margin-top: 0;
+	height: 20px;
 }
 
 .formTitle {
@@ -96,6 +99,10 @@
 	align-items: center;
 	width: 100%;
 	margin-top: 30px;
+
+	p {
+		color: #27AE60;
+	}
 }
 
 .subP {
@@ -105,6 +112,8 @@
 	line-height: 1rem;
 	text-align: center;
 	color: #6f6f6f;
+
+
 }
 
 .formSub {
@@ -112,7 +121,7 @@
 	font-size: 0.9rem;
 	line-height: 1rem;
 	text-align: center;
-	color: #000000;
+	color: #27AE60;
 }
 
 .divRadioGroup {
@@ -123,7 +132,9 @@
 	padding: 1rem;
 	box-sizing: border-box;
 	border-radius: 4px;
-	width: 80%;
+	width: 398px;
+	height: 95px;
+
 }
 
 .divRadioGroup:focus {
@@ -136,6 +147,7 @@
 
 .ml {
 	margin-left: 1rem;
+	height: 100%;
 }
 
 .buttonDiv {
@@ -150,7 +162,12 @@
 	}
 
 	.signupDiv {
-		padding: 0.5rem;
-		width: 90%;
+		padding: 2rem;
+		width: 100%;
+	}
+
+	.divRadioGroup {
+		width: 100%;
+		height: auto;
 	}
 }

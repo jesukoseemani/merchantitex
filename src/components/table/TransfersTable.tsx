@@ -39,7 +39,7 @@ export default function TransfersTable() {
   const source = new Array(5).fill({
     amount: 20000,
     status: status[Math.floor(Math.random() * status.length)],
-    receipient: "developer@gmail.com",
+    receipient: "Philip Kachikwu | FCMB | 1234567890",
     date: {
       format: "Aug 13 2020",
       time: "2:21 PM",
@@ -100,8 +100,8 @@ export default function TransfersTable() {
             status?.toLowerCase() == "successful"
               ? "success"
               : status?.toLowerCase() == "error"
-              ? "danger"
-              : "warning"
+                ? "danger"
+                : "warning"
           }
         >
           {status}

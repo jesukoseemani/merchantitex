@@ -6,6 +6,7 @@ import OperantTable from "../../components/table/OperantTable";
 import Styles from "./funding.module.scss";
 import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import ParentContainer from "../../components/ParentContainer/ParentContainer";
 
 function PendingApproval() {
   interface TransactionsProps {
@@ -126,29 +127,31 @@ function PendingApproval() {
   const classes = useStyles();
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
-      <NavBar name="Pending Approval" />
-      <div className={Styles.tableContainer}>
-        <div className={Styles.tableHeader}>
-          <h2>Funding history</h2>
-          <div>
-            <Button>
-              Download <CloudUploadOutlinedIcon />
-            </Button>
-            <Button className={Styles.success}>Fund balance</Button>
+   
+
+      <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
+        <div className={Styles.tableContainer}>
+          <div className={Styles.tableHeader}>
+            <h2>Funding history</h2>
+            <div>
+              <Button>
+                Download <CloudUploadOutlinedIcon />
+              </Button>
+              <Button className={Styles.success}>Fund balance</Button>
+            </div>
+          </div>
+          <div className={Styles.wrapper}>
+            <OperantTable
+              columns={columns}
+              rows={rows}
+              totalRows={totalRows}
+              changePage={changePage}
+              limit={limit}
+            />
           </div>
         </div>
-        <div className={Styles.wrapper}>
-          <OperantTable
-            columns={columns}
-            rows={rows}
-            totalRows={totalRows}
-            changePage={changePage}
-            limit={limit}
-          />
-        </div>
       </div>
-    </div>
+
   );
 }
 

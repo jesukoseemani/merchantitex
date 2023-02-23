@@ -62,13 +62,21 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { openToastAndSetContent } from "../redux/actions/toast/toastActions";
 import { logOut } from "../redux/actions/auth/authActions";
-// import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.ema';
 import { saveMe } from "../redux/actions/me/meActions";
 import BillTabPanel from "../views/Bills/BillTabPanel";
 import AirtimeSaleRequest from "../views/Bills/AirtimeSaleRequest";
 import BulkAirtimePayment from "../components/bills/BulkAirtimePayment";
 import BillSaleRequest from "../views/Bills/BillSaleRequest";
 import BulkBillPayment from "../components/bills/BulkBillPayment";
+import NavHeader from "../components/navbarMenu/NavHeader";
+import ResetPassword from "../views/Reset/password/ResetPassword";
+import AccountSetUp from "../components/accountSetUp/AccountSetUp";
+import AccountSetup from "../views/SignUp/accountsetup/AccountSetup";
+import Invoice from "../components/bills/invoice/Invoice";
+import BulkTransferEntry from "../views/Payout/transfer/BulkTransferEntry";
+import Pendingdetails from "../views/Payout/Pendingdetails";
+import BeneficiaryDetails from "../views/Payout/BeneficiaryDetails";
 
 export default function AppRoutes() {
   // const { loadingState } = useSelector((state) => state?.loadingStateReducer);
@@ -138,35 +146,40 @@ export default function AppRoutes() {
   );
   return (
     <Router>
-      <ParentContainer>
-        <Drawer />
-        <Switch>
-          <Route exact path="/signin">
-            <SignIn />
-          </Route>
-          <Route exact path="/signup">
-            <SignUp />
-          </Route>
-          {/* <Route exact path='/account_type'></Route> */}
-          <Route exact path="/business/signup">
-            <BusinessSignUp />
-          </Route>
-          <Route exact path="/ngo/signup">
-            <BusinessSignUp />
-          </Route>
-          <Route exact path="/individual_signup">
-            <IndividualSignUp />
-          </Route>
 
-          <Route exact path="/forgotpassword">
-            <LoginPasswordReset />
-          </Route>
-          <Route exact path="/newpassword">
-            <NewPassword />
-          </Route>
-          <Route exact path="/email_verification">
-            <EmailVerification />
-          </Route>
+      <Drawer />
+      <Switch>
+        <Route exact path="/signin">
+          <SignIn />
+        </Route>
+        <Route exact path="/signup">
+          <SignUp />
+        </Route>
+        <Route exact path="/account_type"></Route>
+        <Route exact path="/business/signup">
+          <BusinessSignUp />
+        </Route>
+        <Route exact path="/ngo/signup">
+          <BusinessSignUp />
+        </Route>
+        <Route exact path="/individual_signup">
+          <IndividualSignUp />
+        </Route>
+
+        <Route exact path="/forgotpassword">
+          <LoginPasswordReset />
+        </Route>
+        <Route exact path="/newpassword">
+          <NewPassword />
+        </Route>
+        <Route exact path="/email_verification">
+          <EmailVerification />
+        </Route>
+        <Route exact path="/reset/password">
+          <ResetPassword />
+        </Route>
+        <ParentContainer>
+
           <>
             <ProtectedRoute
               exact
@@ -174,14 +187,14 @@ export default function AppRoutes() {
               component={MerchantOverview}
               AuthUser={loadingState}
             />
-            ​
+
             {/* <ProtectedRoute
 							exact
 							path='/merchant_overview'
 							component={MerchantOverview}
 							AuthUser={loadingState}
 						/> */}
-            ​
+
             <ProtectedRoute
               exact
               path="/transactions"
@@ -200,7 +213,7 @@ export default function AppRoutes() {
               component={Transaction}
               AuthUser={loadingState}
             />
-            ​
+
             <ProtectedRoute
               exact
               path="/transactions/refund"
@@ -213,14 +226,14 @@ export default function AppRoutes() {
               component={RefundItem}
               AuthUser={loadingState}
             />
-            ​
+
             <ProtectedRoute
               exact
               path="/balance"
               component={Balance}
               AuthUser={loadingState}
             />
-            ​
+
             <ProtectedRoute
               exact
               path="/balance/balance_history"
@@ -245,7 +258,7 @@ export default function AppRoutes() {
               component={SettlementItem}
               AuthUser={loadingState}
             />
-            ​
+
             <ProtectedRoute
               exact
               path="/balance/rolling_reserve"
@@ -258,7 +271,7 @@ export default function AppRoutes() {
               component={RollingReserveItem}
               AuthUser={loadingState}
             />
-            ​
+
             <ProtectedRoute
               exact
               path="/customers"
@@ -279,6 +292,12 @@ export default function AppRoutes() {
             />
             <ProtectedRoute
               exact
+              path="/payout/transfer/entries"
+              component={BulkTransferEntry}
+              AuthUser={loadingState}
+            />
+            <ProtectedRoute
+              exact
               path="/payout/transfers/list"
               component={TransferTable}
               AuthUser={loadingState}
@@ -291,24 +310,37 @@ export default function AppRoutes() {
             />
             <ProtectedRoute
               exact
+              path="/payout/beneficiaries/details/:id"
+              component={BeneficiaryDetails}
+              AuthUser={loadingState}
+            />
+            <ProtectedRoute
+              exact
               path="/payout/pending_approval"
               component={PendingApproval}
               AuthUser={loadingState}
             />
-            ​
+
+            <ProtectedRoute
+              exact
+              path="/payout/pending_approval/details/:id"
+              component={Pendingdetails}
+              AuthUser={loadingState}
+            />
+
             <ProtectedRoute
               exact
               path="/payout/funding_history"
               component={FundingHistory}
               AuthUser={loadingState}
             />
-            ​
+
             <ProtectedRoute
               path="/payout/transfer_balance"
               component={TransferBalance}
               AuthUser={loadingState}
             />
-            ​
+
             <ProtectedRoute
               exact
               path="/chargebacks"
@@ -321,27 +353,27 @@ export default function AppRoutes() {
               component={ChargeBacksItem}
               AuthUser={loadingState}
             />
-            ​
+
             <ProtectedRoute
               exact
               path="/chargeback/pending"
               component={Pending}
               AuthUser={loadingState}
             />
-            ​
+
             <ProtectedRoute
               path="/chargeback/awaiting_response"
               component={AwaitingResponse}
               AuthUser={loadingState}
             />
-            ​
+
             <ProtectedRoute
               exact
               path="/chargeback/won"
               component={Won}
               AuthUser={loadingState}
             />
-            ​
+
             <ProtectedRoute
               exact
               path="/chargeback/lost"
@@ -360,7 +392,7 @@ export default function AppRoutes() {
               component={AssessmentsItem}
               AuthUser={loadingState}
             />
-            ​
+
             <ProtectedRoute
               exact
               path="/subaccounts"
@@ -373,7 +405,7 @@ export default function AppRoutes() {
               component={SubaccountsItem}
               AuthUser={loadingState}
             />
-            ​
+
             <ProtectedRoute
               exact
               path="/payment_links"
@@ -386,14 +418,14 @@ export default function AppRoutes() {
               component={PaymentLinksItem}
               AuthUser={loadingState}
             />
-            ​
+
             <ProtectedRoute
               exact
               path="/store"
               component={ItexStore}
               AuthUser={loadingState}
             />
-            ​
+
             <ProtectedRoute
               exact
               path="/point_of_sale"
@@ -412,14 +444,14 @@ export default function AppRoutes() {
               component={DeployedItem}
               AuthUser={loadingState}
             />
-            ​
+
             <ProtectedRoute
               exact
               path="/point_of_sale/terminal_requests"
               component={TerminalRequests}
               AuthUser={loadingState}
             />
-            ​
+
             <ProtectedRoute
               exact
               path="/bills"
@@ -430,6 +462,13 @@ export default function AppRoutes() {
               exact
               path="/airtime/requests/:slug"
               component={AirtimeSaleRequest}
+              AuthUser={loadingState}
+            />
+            <ProtectedRoute
+              exact
+              path="/bills/invoice"
+              component={Invoice}
+
               AuthUser={loadingState}
             />
             <ProtectedRoute
@@ -456,35 +495,35 @@ export default function AppRoutes() {
               component={GeneralSettings}
               AuthUser={loadingState}
             />
-            ​
+
             <ProtectedRoute
               exact
               path="/general_setting/bank_accounts"
               component={BankAccounts}
               AuthUser={loadingState}
             />
-            ​
+
             <ProtectedRoute
               exact
               path="/general_setting/users"
               component={Users}
               AuthUser={loadingState}
             />
-            ​
+
             <ProtectedRoute
               exact
               path="/general_setting/api"
               component={Api}
               AuthUser={loadingState}
             />
-            ​
+
             <ProtectedRoute
               exact
               path="/general_setting/web_hooks"
               component={WebHooks}
               AuthUser={loadingState}
             />
-            ​
+
             <ProtectedRoute
               exact
               path="/general_setting/account_settings"
@@ -497,9 +536,14 @@ export default function AppRoutes() {
               component={QuickUpdate}
               AuthUser={loadingState}
             />
+
+
           </>
-        </Switch>
-      </ParentContainer>
-    </Router>
+          <Route exact path="/test/home">
+            <AccountSetup />
+          </Route>
+        </ParentContainer>
+      </Switch>
+    </Router >
   );
 }

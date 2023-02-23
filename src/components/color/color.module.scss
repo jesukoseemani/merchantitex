@@ -1,0 +1,30 @@
+$dark_blue: #041926;
+$secondary: #27ae60;
+$main: rgba(4, 25, 38, 0.1);
+$main_light: #eeeeee;
+$main_dark: #1d3747;
+$light: #fff;
+$light_text: #FEFEFE;
+$dark: #041926;
+$pending: #b99528;
+$decline: #eb5757;
+$bg__success: rgba(39, 174, 96, 0.15);
+$text_black: #333333;
+$body: #EFF3F8;
+
+$colors: (
+  $dark_blue,
+  $secondary,
+  $main,
+  $main_light,
+  $light,
+  $dark,
+  $pending,
+  $decline,
+  $bg__success,
+  $text_black
+);
+
+@function mycolor($color) {
+  @return map-get($colors, $color);
+}

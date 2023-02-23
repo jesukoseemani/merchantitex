@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './style.module.scss';
-import Logo from '../../../assets/images/NavLogo.svg';
+
 import ListItemText from '@mui/material/ListItemText';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import {
@@ -9,11 +9,16 @@ import {
 	Radio,
 	RadioGroup,
 } from '@material-ui/core';
+import Logo from '../../../assets/images/white_bg_logo.svg';
+
+import { ReactSVG } from "react-svg";
+
+
 import { useHistory } from 'react-router-dom';
 const SignUp = () => {
 	const accountTypes = [
 		{
-			id: 'individual', 
+			id: 'individual',
 			title: 'Individual',
 			description: 'Enter your details to create an account.',
 		},
@@ -81,7 +86,7 @@ const SignUp = () => {
 	return (
 		<div className={styles.signupContainer}>
 			<div className={styles.logo}>
-				<img src={Logo} alt='' />
+				<ReactSVG src={Logo} />
 			</div>
 			<div className={styles.signupDiv}>
 				<div className={styles.signUpContent}>
@@ -116,11 +121,12 @@ const SignUp = () => {
 								style={{
 									backgroundColor: '#27AE60',
 									padding: '0.7rem',
-									width: '80%',
+									width: '100%',
 									color: '#fff',
 									border: 'none',
-									borderRadius: '4px',
+									borderRadius: '20px',
 									cursor: 'pointer',
+									
 								}}
 								type='submit'
 								color='primary'

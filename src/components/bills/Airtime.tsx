@@ -36,7 +36,7 @@ const Airtime = () => {
       openModalAndSetContent({
         modalStyles: {
           padding: 0,
-          borderRadius: "0.5rem",
+          borderRadius: 20,
           boxShadow: "-4px 4px 14px rgba(224, 224, 224, 0.69)",
         },
         modalContent: (

@@ -1,0 +1,35 @@
+.textContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    h2 {
+        font-family: 'Avenir';
+        font-style: normal;
+        font-weight: 900;
+        font-size: 30px;
+        line-height: 41px;
+        text-align: center;
+        width: 361px;
+        height: 82px;
+        color: #333333;
+        margin-bottom: 15px;
+    }
+
+    p {
+        // font-family: 'Avenir';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 25px;
+        text-align: center;
+        color: #333333;
+        // border: 2px solid red;
+    }
+}
+
+.container {
+    padding-inline: 58px;
+    width: 500px;
+}

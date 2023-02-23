@@ -182,7 +182,7 @@ const AcctView = ({ setIsModalOpen }: AcctViewProps) => {
 					<p>{totalRows} Subaccounts</p>
 				</div>
 				<div className={btnClasses.root}>
-					<Button onClick={() => setIsModalOpen(true)}>+ New Subaccount</Button>
+					<Button style={{ borderRadius: "20px" }} onClick={() => setIsModalOpen(true)}>+ New Subaccount</Button>
 				</div>
 			</div>
 			<div className={styles.tableContainer}>

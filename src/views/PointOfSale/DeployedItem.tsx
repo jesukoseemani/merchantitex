@@ -11,6 +11,11 @@ import moment from 'moment';
 import { closeLoader, openLoader } from '../../redux/actions/loader/loaderActions';
 import axios from 'axios';
 import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
+import ParentContainer from '../../components/ParentContainer/ParentContainer';
+import { Box } from '@mui/material';
+import { Button } from '@material-ui/core';
+import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
+
 
 const DeployedItem = () => {
   const location = useLocation<{ rowData: string }>();
@@ -19,11 +24,11 @@ const DeployedItem = () => {
 
   const { slug } = useParams<{ slug: string }>();
 
-  if(!location.state.rowData) {
+  if (!location.state.rowData) {
     history.replace('/point_of_sale');
   }
 
-  const { rowData } = location.state; 
+  const { rowData } = location.state;
 
   const formattedRowData: PosDeployedItem = JSON.parse(rowData);
 
@@ -67,7 +72,7 @@ const DeployedItem = () => {
     { id: "added", label: "Date", minWidth: 100 },
   ];
 
-  const statusFormatObj: {[key: string]: string} = {
+  const statusFormatObj: { [key: string]: string } = {
     'successful': 'wonText',
     'error': 'lostText',
     'pending': 'pendingText'
@@ -76,7 +81,7 @@ const DeployedItem = () => {
   const TransactionRowTab = useCallback(
     (amt, status, txnType, card, bankName, added) => ({
       amt: <p className={styles.tableBodyText}>{amt}</p>,
-      status: <p className={styles[statusFormatObj[status] || 'pendingText']}>{status}</p>,
+      status: <p style={{ borderRadius: "20px" }} className={styles[statusFormatObj[status] || 'pendingText']}>{status}</p>,
       txnType: <p className={styles.tableBodyCapital}>{txnType}</p>,
       card: <p className={styles.tableBodyText}>{card}</p>,
       bankName: <p className={styles.tableBodyText}>{bankName}</p>,
@@ -130,42 +135,63 @@ const DeployedItem = () => {
   }, [pageNumber, rowsPerPage]);
 
   return (
+
     <div className={styles.container}>
-      <NavBar name="Point Of Sale"/>
+      {/* <NavBar name="Point Of Sale"/> */}
       <div className={styles.pageWrapper}>
         <div className={styles.sectionOne}>
           <div>
             <Link to='/point_of_sale'>
               <div>
                 <ArrowLeftIcon />
-                <p>Back to POS</p>
+                <p style={{ color: " #4F4F4F", }}>Back to deployed POS</p>
               </div>
             </Link>
           </div>
-          <p className={status === 'Active' ? styles.greenText : styles.yellowText}>
-            {status}
-          </p>
         </div>
-        <div className={styles.sectionTwo}>
-          <div>
-            <p>Bank name</p>
-            <p>{bankName}</p>
+
+        <div className={styles.sectionTwoWrapper}>
+          <div className={styles.terminalBox}>
+            Terminal Status
+            <p className={status === 'Active' ? styles.greenText : styles.yellowText}>
+              {status}
+            </p>
           </div>
-          <div>
-            <p>Terminal ID</p>
-            <p>{terminalId}</p>
+          {/* <hr /> */}
+          <div className={styles.sectionTwo}>
+
+            <div className={styles.tableOne}>
+              <p>Bank name</p>
+              <p>{bankName}</p>
+            </div>
+            <div>
+              <p>Terminal ID</p>
+              <p>{terminalId}</p>
+            </div>
+            <div>
+              <p>Transactions volume</p>
+              <p>{txnVolume}</p>
+            </div>
+            <div>
+              <p>Transactions value</p>
+              <p>{txnValue}</p>
+              <div>
+
+              </div>
+            </div>
           </div>
-          <div>
-            <p>Transactions volume</p>
-            <p>{txnVolume}</p>
-          </div>
-          <div>
-            <p>Transactions value</p>
-            <p>{txnValue}</p>
-          </div>
+
         </div>
         <div className={styles.sectionThree}>
-          <h3>{totalRows} Transactions</h3>
+          <Box sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center"
+
+          }}>
+            <h3>{totalRows} Transactions</h3>
+            <Button style={{ border: "1px solid #095B2C", color: "#095B2C" }} variant='outlined'><InsertDriveFileOutlinedIcon /> Download</Button>
+          </Box>
           <div className={styles.tableContainer}>
             <CustomClickTable
               columns={columns}
@@ -179,6 +205,7 @@ const DeployedItem = () => {
         </div>
       </div>
     </div>
+
   )
 }
 

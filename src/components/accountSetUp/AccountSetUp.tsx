@@ -154,6 +154,8 @@ const AccountSetUp = ({ data }: AccountSetUpTypes) => {
 		console.log('iam:', compliance);
 	}, [compliance]);
 
+
+	console.log("1234")
 	return (
 		<div className={styles.container}>
 			<div
@@ -225,7 +227,7 @@ const AccountSetUp = ({ data }: AccountSetUpTypes) => {
 				)}
 			</div>
 			{(compliance?.length === 3 || compliance?.length === 4) &&
-			(business?.status === 'IN-REVIEW') ? (
+				(business?.status === 'IN-REVIEW') ? (
 				<div className={styles.mainContentReview} style={{ margin: '0 auto' }}>
 					<div className={styles.contentReview}>
 						<h2>Hey {firstname}, Thank you for setting up your Account</h2>
