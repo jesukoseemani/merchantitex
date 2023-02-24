@@ -79,7 +79,7 @@ const Balance = () => {
     <div className={styles.container}>
 
       <div className={styles.pageWrapper}>
-        <div className={styles.topBoxContainer}>
+        {/* <div className={styles.topBoxContainer}>
           <div>
             <p>Dispute/Chargeback</p>
             <p>NGN 400,000.00</p>
@@ -101,7 +101,7 @@ const Balance = () => {
               </p>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className={styles.balanceContainer}>
           {wallets?.map(({ currency, availablebalance, ledgerbalance }) => (
