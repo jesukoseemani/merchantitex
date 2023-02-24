@@ -20,6 +20,7 @@ import { saveUserDetail } from '../../redux/actions/userDetail/userDetailActions
 import { saveCountry } from '../../redux/actions/country/countryActions';
 // import { makeStyles } from '@material-ui/core';
 import { ReactSVG } from "react-svg";
+import { Box } from '@mui/material';
 
 const SignIn = () => {
 	const dispatch = useDispatch();
@@ -104,44 +105,50 @@ const SignIn = () => {
 					<div className={styles.mt1}>
 						<div className={styles.signinDiv}>
 							<h5 className={styles.signinHeader}>Sign in to your account</h5>
-							<div className={styles.mt2}>
+							<div className={styles.formBody}>
 								<Form>
-									<InputLabel>
-										<span className={styles.formTitle}>Email Address</span>
-									</InputLabel>
-									<Field
-										as={TextField}
-										helperText={
-											<ErrorMessage name='email'>
-												{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
-											</ErrorMessage>
-										}
-										name='email'
-										variant='outlined'
-										margin='normal'
-										type='email'
-										size='small'
-										fullWidth
-									/>
-									<InputLabel>
-										<span className={styles.formTitle}>Password</span>
-									</InputLabel>
-									<Field
-										as={TextField}
-										helperText={
-											<ErrorMessage name='password'>
-												{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
-											</ErrorMessage>
-										}
-										name='password'
-										variant='outlined'
-										margin='normal'
-										type='password'
+									<Box py={3}>
 
-										size='small'
-										fullWidth
+										<InputLabel>
+											<span className={styles.formTitle}>Email Address</span>
+										</InputLabel>
+										<Field
+											as={TextField}
+											helperText={
+												<ErrorMessage name='email'>
+													{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
+												</ErrorMessage>
+											}
+											name='email'
+											variant='outlined'
 
-									/>
+											type='email'
+											size='small'
+											fullWidth
+										/>
+
+										<br /><br />
+										<InputLabel>
+											<span className={styles.formTitle}>Password</span>
+										</InputLabel>
+										<Field
+											as={TextField}
+											helperText={
+												<ErrorMessage name='password'>
+													{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
+												</ErrorMessage>
+											}
+											name='password'
+											variant='outlined'
+
+											type='password'
+
+											size='small'
+											fullWidth
+
+										/>
+
+									</Box>
 
 									<InputLabel className={styles.mt1}></InputLabel>
 									<button
