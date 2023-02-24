@@ -216,13 +216,13 @@ const BalanceBox = ({
 			</div>
 			<hr />
 			<div>
-				<p>Available balance</p>
+				<p>Collection balance</p>
 				<p>
 					{currency} {availablebalance}
 				</p>
 			</div>
 			<div>
-				<p>Ledger balance</p>
+				<p>Payout balance</p>
 				<p>
 					{currency} {ledgerbalance}
 				</p>

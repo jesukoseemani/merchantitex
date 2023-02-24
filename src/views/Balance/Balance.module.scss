@@ -20,7 +20,7 @@
 	border-radius: 20px;
 	grid-gap: 1rem;
 	width: 894px;
-	padding: 20px;
+	padding: 40px;
 }
 
 .topBoxContainer {
@@ -387,33 +387,34 @@
 }
 
 .cancelModal {
-	width: 100px;
-	height: 30.76px;
+
 	font-family: 'Avenir';
 	font-style: normal;
 	font-weight: 500;
 	font-size: 14px;
-	line-height: 26px;
+	// line-height: 26px;
 	text-align: center;
 	color: #ffffff;
 	background: #333333;
 	border: 1.28183px solid #333333;
-	border-radius: 3.8455px;
+	background: #27AE60;
+	border: 1.28183px solid #27AE60;
+	border-radius: 20px
 }
 
 .removeModal {
-	width: 100px;
-	height: 30.76px;
+	width: 150px;
+	// height: 30.76px;
 	font-family: 'Avenir';
 	font-style: normal;
 	font-weight: 500;
 	font-size: 14px;
-	line-height: 26px;
+	// line-height: 26px;
 	text-align: center;
 	color: #ffffff;
 	background: #27ae60;
 	border: 1.28183px solid #27ae60;
-	border-radius: 3.8455px;
+	border-radius: 20px;
 	margin-left: 20px;
 	cursor: pointer;
 }
