@@ -84,8 +84,9 @@ const Listtransfer = () => {
                     padding: 0,
                     borderRadius: "20px",
                     width: "420px",
-                    minHeight: "380px",
-                    overflow: "hidden"
+                    minHeight: "700px",
+                    // border: "/2px solid red"
+                    // overflow: "hidden"
                 },
                 modalContent: (
                     <>
@@ -103,7 +104,7 @@ const Listtransfer = () => {
                     borderRadius: "20px",
                     width: "420px",
                     minHeight: "340px",
-                    overflow: "hidden"
+                    // overflow: "hidden"
                 },
                 modalContent: (
                     <>
@@ -121,7 +122,7 @@ const Listtransfer = () => {
                     borderRadius: "20px",
                     width: "420px",
                     minHeight: "380px",
-                    overflow: "hidden"
+                    // overflow: "hidden"
                 },
                 modalContent: (
                     <>

@@ -44,7 +44,7 @@ const BeneficiaryDetails = () => {
                     width: "653px",
                     maxWidth: "97%",
                     height: "254px",
-                    overflow: "hidden"
+
                 },
                 modalContent: (
                     <>
