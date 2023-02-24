@@ -259,7 +259,7 @@ const Listtransfer = () => {
                     beneficiary={singleTrans}
                     data={singleData}
 
-                    style={{ width: "9rem", marginTop: "5px", borderRadius: "20px", backgroundColor: "white", textAlign: "center", }}
+                    style={{ width: "9rem", marginTop: "5px", borderRadius: "20px", backgroundColor: "white", }}
                 />
                 {/* Bulk transfer menu */}
                 <BeneficiaryMenu
@@ -267,7 +267,7 @@ const Listtransfer = () => {
                     handleCloseMenu={handleCloseBulkTrans}
                     beneficiary={bulkTrans}
                     data={bulkData}
-                    style={{ width: "10rem", borderRadius: "20px", backgroundColor: "white", textAlign: "center", }}
+                    style={{ width: "10rem", borderRadius: "20px", backgroundColor: "white", }}
 
                 />
 
@@ -277,7 +277,7 @@ const Listtransfer = () => {
                     handleCloseMenu={handleCloseMenu}
                     beneficiary={beneficiary}
                     data={data}
-                    style={{ width: "9rem", marginTop: "5px", borderRadius: "20px", backgroundColor: "white", textAlign: "center" }}
+                    style={{ width: "9rem", marginTop: "5px", borderRadius: "20px", backgroundColor: "white" }}
                 />
             </Box>
 
@@ -293,7 +293,7 @@ const Listtransfer = () => {
                 handleCloseMenu={handleCloseDownloadMenu}
                 beneficiary={download}
                 data={dataDownload}
-                style={{ width: "8.5rem", borderRadius: "20px", textAlign: "center" }}
+                style={{ width: "8.5rem", borderRadius: "20px" }}
             />
 
             <Box sx={{ width: "95%", marginInline: "auto" }}>
