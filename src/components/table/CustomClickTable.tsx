@@ -106,7 +106,18 @@ export default function CustomClickTable({
 								<TableCell
 									key={index}
 									align={column.align}
-									style={{ minWidth: column.minWidth, maxWidth: column.maxWidth }}
+									style={{
+										fontFamily: 'Avenir',
+										fontStyle: "normal",
+										fontWeight: 500,
+										fontSize: "14px",
+										lineHeight: "19px",
+										letterSpacing: "0.0024px",
+										color: "#333333",
+										background: "#F4F6F8",
+
+										minWidth: column.minWidth, maxWidth: column.maxWidth
+									}}
 								>
 									{column.label}
 								</TableCell>

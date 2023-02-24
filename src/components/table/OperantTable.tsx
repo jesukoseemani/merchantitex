@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
-  Paper,
-  TableRow,
-  TableHead,
-  TableContainer,
-  TablePagination,
-  Table,
-  TableBody,
-  TableCell,
+	Paper,
+	TableRow,
+	TableHead,
+	TableContainer,
+	TablePagination,
+	Table,
+	TableBody,
+	TableCell,
 } from "@material-ui/core";
 
 const useStyles = makeStyles({
-  root: {
-    width: "100%",
-  },
-  container: {
-    maxHeight: "70vh",
-    maxWidth: "100%",
-  },
+	root: {
+		width: "100%",
+	},
+	container: {
+		maxHeight: "70vh",
+		maxWidth: "100%",
+	},
 });
 
 export default function OperantTable({
@@ -55,7 +55,7 @@ export default function OperantTable({
 		setRowsPerPageOptions(storeArr);
 	}, [totalRows]);
 
-  useEffect(() => {
+	useEffect(() => {
 		if (reset === true) {
 			setPage(0);
 			setRowsPerPage(10);
@@ -94,7 +94,18 @@ export default function OperantTable({
 									<TableCell
 										key={index}
 										align={column.align}
-										style={{ minWidth: column.minWidth }}>
+										style={{
+											fontFamily: 'Avenir',
+											fontStyle: "normal",
+											fontWeight: 500,
+											fontSize: "14px",
+											lineHeight: "19px",
+											letterSpacing: "0.0024px",
+											color: "#333333",
+											background: "#F4F6F8",
+
+											minWidth: column.minWidth
+										}}>
 										{column.label}
 									</TableCell>
 								))}
