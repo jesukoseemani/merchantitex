@@ -1,5 +1,6 @@
 .tableContainer {
-	padding: 25px 56px;
+	// padding: 25px 56px;
+	margin-top: 2.3rem;
 
 	.tableHeader {
 		width: 100%;
@@ -9,7 +10,7 @@
 		align-items: center;
 		margin-bottom: 16px;
 
-		&>h2 {
+		& > h2 {
 			font-family: Avenir;
 			font-style: normal;
 			font-weight: normal;
@@ -18,11 +19,11 @@
 			color: #333333;
 		}
 
-		&>div {
+		& > div {
 			display: flex;
 			align-items: center;
 
-			&>button {
+			& > button {
 				padding: 8px 16px;
 				width: auto;
 				min-width: fit-content;
@@ -42,7 +43,7 @@
 				display: flex;
 				align-items: center;
 
-				&>svg {
+				& > svg {
 					width: 15px;
 					margin-left: 5px;
 				}
@@ -63,7 +64,7 @@
 .amount {
 	display: flex;
 
-	&>span {
+	& > span {
 		font-family: Avenir;
 		font-style: normal;
 		font-weight: normal;
@@ -72,7 +73,7 @@
 		color: #828282;
 	}
 
-	&>h2 {
+	& > h2 {
 		font-family: Avenir;
 		font-style: normal;
 		font-weight: bold;
@@ -87,7 +88,7 @@
 	display: flex;
 	align-items: center;
 
-	&>span {
+	& > span {
 		font-family: 'Avenir';
 		font-style: normal;
 		font-weight: 400;
@@ -96,7 +97,7 @@
 		color: #333333;
 	}
 
-	&>h2 {
+	& > h2 {
 		font-family: Avenir;
 		font-style: normal;
 		font-weight: normal;
@@ -115,7 +116,7 @@
 	border-radius: 20px;
 	border: 2px solid red;
 
-	&>div:not(:last-child) {
+	& > div:not(:last-child) {
 		border-bottom: 1px solid #f8f8f8 !important;
 	}
 }
@@ -127,7 +128,8 @@
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
-	gap: 20px;
+	margin-bottom: 1.1rem;
+	gap: 10px;
 
 	button {
 
@@ -135,6 +137,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		height: 32px;
 
 		&:nth-of-type(1) {
 			background: #E0E0E0;

@@ -2,7 +2,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
 
     button {
 
@@ -10,6 +10,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        height: 32px;
 
         &:nth-of-type(1) {
             background: #E0E0E0;

@@ -15,6 +15,8 @@ import { makeStyles } from '@material-ui/styles';
 
 const Listtransfer = () => {
 
+
+
     const useStyles = makeStyles({
         mui: {
             ".MuiPaper": {
@@ -83,10 +85,11 @@ const Listtransfer = () => {
                 modalStyles: {
                     padding: 0,
                     borderRadius: "20px",
-                    width: "420px",
-                    minHeight: "700px",
-                    // border: "/2px solid red"
-                    // overflow: "hidden"
+                    // width: "419px",
+                    // minHeight: "650px",
+                    height: "auto",
+                    overflowY: "auto",
+                    overflow: "hidden",
                 },
                 modalContent: (
                     <>
@@ -102,8 +105,8 @@ const Listtransfer = () => {
                 modalStyles: {
                     padding: 0,
                     borderRadius: "20px",
-                    width: "420px",
-                    minHeight: "340px",
+                    width: "419px",
+                    // height: "641",
                     // overflow: "hidden"
                 },
                 modalContent: (
@@ -120,9 +123,11 @@ const Listtransfer = () => {
                 modalStyles: {
                     padding: 0,
                     borderRadius: "20px",
-                    width: "420px",
-                    minHeight: "380px",
-                    // overflow: "hidden"
+                    // width: "419px",
+                    // minHeight: "380px",
+
+                    height: "641px",
+                    overflow: "hidden"
                 },
                 modalContent: (
                     <>
@@ -241,8 +246,8 @@ const Listtransfer = () => {
     return (
 
         <Box>
-            <Box px={3} py={5}>
-                <Stack direction={"row"} justifyContent="space-between" gap={3}>
+            <Box>
+                <Stack direction={"row"} justifyContent="space-between" gap={"5px"}>
                     <h2>19 transfers</h2>
                     <Box className={Styles.headerBox}>
                         <button><FilterAltOutlinedIcon />Filter by:</button>
@@ -297,7 +302,7 @@ const Listtransfer = () => {
                 style={{ width: "8.5rem", borderRadius: "20px" }}
             />
 
-            <Box sx={{ width: "95%", marginInline: "auto" }}>
+            <Box sx={{ width: "100%", marginInline: "auto" }}>
                 <TransfersTable />
             </Box>
         </Box>

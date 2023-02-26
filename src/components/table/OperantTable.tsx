@@ -14,6 +14,7 @@ import {
 const useStyles = makeStyles({
 	root: {
 		width: "100%",
+		borderRadius: "20px"
 	},
 	container: {
 		maxHeight: "70vh",

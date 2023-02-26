@@ -103,7 +103,7 @@ const Header = ({ toggle, setToggle }: toggleBtn) => {
     <div className={Styles.header__box}>
 
 
-      <Container>
+      {/* <Container> */}
         <Grid container justifyContent="space-between" alignItems="center">
           <Grid item xs={7} md={8}>
             <Stack direction={"row"} spacing={{ xs: 0, md: 5 }}>
@@ -116,7 +116,7 @@ const Header = ({ toggle, setToggle }: toggleBtn) => {
             </Stack>
           </Grid>
           <Grid item xs={5} md={4}>
-            <Stack direction={"row"} justifyContent="flex-end" alignItems={"center"} spacing={1}>
+            <Stack direction={"row"} justifyContent="flex-end" alignItems={"center"} >
               <StyledToggleButtonGroup
                 size="small"
                 value={alignment}
@@ -160,7 +160,7 @@ const Header = ({ toggle, setToggle }: toggleBtn) => {
             </Stack>
           </Grid>
         </Grid>
-      </Container>
+      {/* </Container> */}
     </div >
   );
 };

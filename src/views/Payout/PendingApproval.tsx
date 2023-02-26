@@ -190,7 +190,7 @@ const PendingApproval = () => {
 
       <div className={Styles.tableContainer}>
         <Box>
-          <Box px={3} py={5}>
+          <Box>
             <Stack direction={"row"} justifyContent="space-between" gap={3}>
               <h2>19 pending transfers</h2>
               <Box className={Styles.headerBox}>

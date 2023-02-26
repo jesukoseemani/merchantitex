@@ -19,6 +19,7 @@
     max-height: 100vh;
 
     .header {
+      padding-inline: 2.4rem;
       grid-column: 1/-1;
       // grid-row: 1fr;
       // border: 2px solid red;
@@ -31,6 +32,10 @@
       // height: auto;
       // max-height: 100vh;
       overflow: auto;
+      padding-inline: 38px;
+
+
+
     }
   }
 

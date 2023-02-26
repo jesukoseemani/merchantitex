@@ -5,9 +5,21 @@ import Styles from "./transferform.module.scss"
 import { openModalAndSetContent } from '../../../redux/actions/modal/modalActions';
 import Confirmation from './Confirmation';
 import { useDispatch } from 'react-redux';
+import { styled } from '@mui/system';
 
 const SingleTransferItex = () => {
     const dispatch = useDispatch()
+
+
+    const StyledTextField = styled(TextField, {
+        name: "StyledTextField",
+    })({
+
+        "& .MuiInputBase-root": {
+            height: 44
+        }
+    });
+
     const handleSubmit = () => {
         dispatch(
             openModalAndSetContent({
@@ -27,34 +39,34 @@ const SingleTransferItex = () => {
         );
     }
     return (
-        <Box className={Styles.container}>
+        <Box height={"641px"} className={Styles.container}>
             <Box className={Styles.title}><h2>Single transfer</h2></Box>
 
 
             <Grid container p={3} px={6} spacing={3}>
                 <Grid item xs={12}>
                     <InputLabel>Balance to be debited</InputLabel>
-                    <TextField select fullWidth>
+                    <StyledTextField select fullWidth>
                         <MenuItem>1</MenuItem>
                         <MenuItem>2</MenuItem>
                         <MenuItem>3</MenuItem>
-                    </TextField>
+                    </StyledTextField>
                 </Grid>
                 <Grid item xs={12}>
                     <InputLabel>Transfer amount</InputLabel>
-                    <TextField fullWidth placeholder='NGN 0.0' />
+                    <StyledTextField fullWidth placeholder='NGN 0.0' />
 
 
                 </Grid>
                 <Grid item xs={12}>
                     <InputLabel>Merchant ID</InputLabel>
-                    <TextField fullWidth placeholder='Merchant ID' />
+                    <StyledTextField fullWidth placeholder='Merchant ID' />
 
 
                 </Grid>
             </Grid>
             <Box className={Styles.box2}>
-                <Stack direction={"row"} justifyContent="space-between" alignItems={"center"}>
+                <Stack direction={"row"} p={0} justifyContent="space-between" alignItems={"center"} >
                     <p>James Holiday</p>
                     {/* <p className={Styles.savebeneficiary}>+ Save as beneficiary</p> */}
                 </Stack>
@@ -62,7 +74,7 @@ const SingleTransferItex = () => {
             <Grid container p={3} spacing={2} px={6}>
                 <Grid item xs={12}>
                     <InputLabel>Transfer description (optional)</InputLabel>
-                    <TextField fullWidth placeholder='Bank account' />
+                    <StyledTextField fullWidth placeholder='Bank account' />
                     <br />
                     <FormHelperText className={Styles.helperText}>
                         <ErrorOutlineIcon />You will be charged NGN 45  fee for this transaction
