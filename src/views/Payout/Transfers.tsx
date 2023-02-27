@@ -19,20 +19,8 @@ const Transfers = () => {
 
     <div className={Styles.container}>
 
-      {/* <div className={Styles.currencies}>
-        <ul>
-          {currencies?.map((cur, index) => (
-            <Link
-              key={index}
-              className={cur === currency ? Styles.active : ""}
-              to={`/payout/transfers?currency=${cur}`}
-            >
-              {cur}
-            </Link>
-          ))}
-        </ul>
-        <button>Fund balance</button>
-      </div> */}
+
+
       <div className={Styles.panel}>
         <div>
           <div>
@@ -54,6 +42,7 @@ const Transfers = () => {
         </div>
       </div>
       {isEmpty ? <EmptyTransfers /> : <Listtransfer />}
+      {/* <EmptyTransfers /> */}
     </div>
 
   );

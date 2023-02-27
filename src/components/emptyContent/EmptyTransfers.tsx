@@ -16,6 +16,7 @@ import { IconButton } from "@material-ui/core";
 import { Link, useHistory } from "react-router-dom";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import CloudDownloadOutlinedIcon from "@mui/icons-material/CloudDownloadOutlined";
+import SingleTransferBankAcct from "../../views/Payout/transfer/SingleTransferBankAcct";
 
 export default function EmptyTransfers() {
   const history = useHistory();
@@ -44,7 +45,7 @@ export default function EmptyTransfers() {
         open={openBankModel}
         className={Styles.modalContainer}
       >
-        <div className={Styles.modalHeader}>
+        {/* <div className={Styles.modalHeader}>
           <h2>Single payout</h2>
           <IconButton onClick={() => setOpenBankModel(false)}>
             <CloseIcon />
@@ -83,7 +84,9 @@ export default function EmptyTransfers() {
         </p>
         <div className={Styles.modalFooter}>
           <Button onClick={transferLink}>Submit</Button>
-        </div>
+        </div> */}
+
+        <SingleTransferBankAcct />
       </Modal>
     );
   };

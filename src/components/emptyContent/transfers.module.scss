@@ -5,6 +5,7 @@
 	max-width: 900px;
 	height: auto;
 	padding: 100px 80px;
+
 	& > h2 {
 		font-family: Avenir;
 		font-style: normal;
@@ -13,22 +14,26 @@
 		line-height: 35px;
 		color: #333333;
 	}
+
 	& > p {
 		margin-top: 4px;
-		font-family: Avenir;
+		font-family: "Avenir";
 		font-style: normal;
 		font-weight: normal;
 		font-size: 16px !important;
 		line-height: 19px;
 		color: #828282;
 	}
+
 	& > button {
 		margin-top: 34px !important;
 	}
 }
+
 .menuOptions {
 	margin-top: 16px !important;
 }
+
 .modalContainer {
 	position: relative;
 	z-index: 9999 !important;
@@ -37,12 +42,14 @@
 	min-height: 442px;
 	background: #ffffff;
 	box-shadow: -4px 4px 14px rgba(224, 224, 224, 0.69);
-	border-radius: 6px;
+	border-radius: 20px;
 	display: flex;
 	flex-direction: column;
+
 	& > div:nth-child(2) {
 		margin-top: 26px;
 	}
+
 	& > p {
 		padding: 0 40px;
 		margin-bottom: 24px;
@@ -54,19 +61,23 @@
 		color: rgba(74, 82, 106);
 		display: flex;
 		align-items: center;
+
 		& > svg {
 			color: #27ae60;
 			margin-right: 5px;
 		}
+
 		& > span {
 			color: #414141;
 			font-weight: 500;
 			margin: 0 5px;
 		}
 	}
+
 	& > .modalFooter {
 		padding: 0 40px;
 		margin-bottom: 24px;
+
 		& > button {
 			width: 100%;
 			font-family: Avenir;
@@ -79,10 +90,12 @@
 			background: #27ae60;
 			height: 44px;
 			transition: all 0.4s ease;
+
 			&:hover {
 				color: #ffffff;
 				background: #1e9751;
 			}
+
 			&:active {
 				color: #ffffff;
 				background: #1e9751;
@@ -91,6 +104,7 @@
 		}
 	}
 }
+
 .modalHeader {
 	display: flex;
 	width: 100%;
@@ -99,6 +113,7 @@
 	align-items: center;
 	justify-content: space-between;
 	border-bottom: 1px solid #e0e0e0;
+
 	& > h2 {
 		font-family: Avenir;
 		font-style: normal;
@@ -108,11 +123,13 @@
 		color: #828282;
 	}
 }
+
 .inputWrapper {
 	padding: 0 40px;
 	margin-bottom: 26px;
 	display: flex;
 	flex-direction: column;
+
 	& > label {
 		font-family: RoAvenirboto;
 		font-style: normal;
@@ -122,6 +139,7 @@
 		color: #333333;
 		margin-bottom: 8px;
 	}
+
 	& > input,
 	select {
 		width: 100%;
@@ -139,6 +157,7 @@
 		padding: 0 15px;
 	}
 }
+
 .inputDivider {
 	width: 100%;
 	height: 50px;
@@ -148,6 +167,7 @@
 	border-bottom: 1px solid #e0e0e0;
 	padding: 0 40px;
 	margin-bottom: 24px;
+
 	& > h2 {
 		font-family: Avenir;
 		font-style: normal;
@@ -156,17 +176,20 @@
 		line-height: 16px;
 		color: #333333;
 	}
+
 	& > a {
 		font-weight: normal;
 		font-size: 14px;
 	}
 }
+
 .inputDesc {
 	padding: 0 40px 26px 40px;
 	border-bottom: 1px solid #e0e0e0;
 	height: auto;
 	margin-bottom: 2rem;
 }
+
 .inputDesc > p {
 	font-family: Avenir;
 	font-style: normal;
@@ -176,6 +199,7 @@
 	color: #4f4f4f !important;
 	margin-bottom: 20px;
 }
+
 .inputDesc > p > span {
 	color: #333333;
 	font-weight: 600;
