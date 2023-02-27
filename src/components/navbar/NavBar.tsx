@@ -10,6 +10,7 @@ import { ReactSVG } from "react-svg";
 import { useHistory, useLocation } from "react-router-dom";
 import { changeNewNavbar } from "../../redux/actions/navbarNew/navbarNewActions";
 import useLocalStorage from "../../helpers/useLocalStorage";
+import { ReactComponent as ActiveStateImg } from '../../assets/images/activeState.svg'
 
 const NavBar = () => {
   const business = useSelector((state) => state?.meReducer?.me?.business);
@@ -87,6 +88,9 @@ const NavBar = () => {
 
                 <ReactSVG src={item?.icon} />
                 {item?.title}
+                <div className={item?.link === pathname ? Styles.replaced_yen : Styles.replaced_not}>
+                  <ActiveStateImg />
+                </div>
               </li>
             );
           })}
@@ -103,6 +107,12 @@ const NavBar = () => {
 
                 <ReactSVG src={icon} />
                 {title}
+                <div className={link === pathname ? Styles.replaced_yen : Styles.replaced_not}>
+                  <ActiveStateImg />
+
+
+                </div>
+
               </li>
             );
           })}

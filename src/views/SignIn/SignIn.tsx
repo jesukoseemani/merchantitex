@@ -127,8 +127,8 @@ const SignIn = () => {
 											fullWidth
 										/>
 
-										<br /><br />
-										<InputLabel>
+
+										<InputLabel style={{ marginTop: "17px" }}>
 											<span className={styles.formTitle}>Password</span>
 										</InputLabel>
 										<Field
@@ -150,17 +150,19 @@ const SignIn = () => {
 
 									</Box>
 
-									<InputLabel className={styles.mt1}></InputLabel>
 									<button
 										style={{
 											backgroundColor: '#27AE60',
 											// padding: '1rem',
+											fontFamily: "Avenir Bold",
 											width: '100%',
 											color: '#fff',
 											border: 'none',
 											borderRadius: '20px',
 											cursor: 'pointer',
-											fontSize: "1rem",
+											fontSize: "16px",
+											height: "44px",
+											fontWeight: "bold"
 										}}
 										type='submit'
 										color='primary'>

@@ -109,6 +109,10 @@ nav {
       background: rgba(39, 174, 96, 0.06);
       color: $secondary;
       width: 100%;
+      position: relative;
+      // border-left: 3px solid #27AE60;
+      // border-top-left-radius: 6px;
+      // border-bottom-left-radius: 6px;
 
       path {
         stroke: $secondary;
@@ -123,6 +127,18 @@ svg {
   path {
     stroke: #fff;
   }
+}
+
+.replaced_not {
+  display: none;
+}
+
+.replaced_yen {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
 }
 
 // header

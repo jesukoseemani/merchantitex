@@ -1,11 +1,12 @@
 .signinContainer {
 	height: 100vh;
 	width: 100%;
-	background: #1E1E1E;
+	background: #041926;
 	margin: 0 auto;
 	display: flex;
-	justify-content: center;
-	align-items: center;
+	padding-top: 52px;
+	// justify-content: center;
+	// align-items: center;
 	flex-direction: column;
 }
 
@@ -14,8 +15,7 @@
 	justify-content: center;
 	align-items: center;
 	width: 100%;
-
-	background: #1E1E1E;
+	margin-bottom: 40px;
 }
 
 .signinDiv {
@@ -25,13 +25,10 @@
 	max-width: 400px;
 	margin: 0 auto;
 	background-color: #fff;
-	padding: 2rem 4rem 0rem 4rem;
+	padding: 41px 50px;
 	background: #ffffff;
 	box-shadow: 0px 4px 14px rgba(15, 49, 32, 0.15);
 	border-radius: 20px;
-
-
-
 
 }
 
@@ -39,22 +36,25 @@
 	// display: flex;
 	// justify-content: center;
 	// align-items: center;
+	font-family: 'Avenir Heavy';
 	font-weight: normal;
 	font-weight: 900;
 	font-size: 18px;
 	line-height: 25px;
 	text-align: center;
 	color: #000000;
+	padding: 0;
+	margin-bottom: 20px;
 }
 
 .desc {
 	font-style: normal;
-	font-weight: normal;
-	font-size: 14px;
+	font-size: 15px;
 	line-height: 16px;
 	overflow: hidden;
 	width: 75%;
 	color: #8b8b8b;
+	font-weight: 400 !important;
 	// line-break: auto;
 }
 
@@ -68,12 +68,11 @@
 }
 
 .formTitle {
-
 	font-style: normal;
 	font-weight: 400;
 	font-size: 14px;
 	// line-height: 19px;
-	margin-top: 10px;
+	// margin-top: 10px;
 	// margin-bottom: 5px !;
 
 	color: #333333;
@@ -89,7 +88,7 @@
 }
 
 .mt1 {
-	margin-top: 1rem;
+	margin-top: 0;
 }
 
 .mt2 {
@@ -125,9 +124,9 @@
 	text-decoration: none;
 	color: Green 2;
 	cursor: pointer;
-	font-size: 14px;
+	font-size: 15px;
 	line-height: 20px;
-	font-weight: 300;
+	font-weight: 900;
 
 }
 

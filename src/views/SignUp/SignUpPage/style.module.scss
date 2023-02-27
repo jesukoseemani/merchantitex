@@ -1,12 +1,10 @@
 .signupContainer {
 	min-height: 100vh;
 	min-width: 100%;
-	background: #1E1E1E;
-
+	background: #041926;
 	display: flex;
-	justify-content: center;
-	align-items: center;
 	flex-direction: column;
+	margin: 0 auto;
 }
 
 .logo {
@@ -14,8 +12,8 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-top: 40px;
-	margin-bottom: 30px;
+	margin-top: 52px;
+	margin-bottom: 40px;
 
 }
 
@@ -29,8 +27,6 @@
 }
 
 .signupDiv {
-
-
 	width: 845px;
 	height: 570px;
 	background: #FFFFFF;
@@ -39,6 +35,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	margin: 0 auto;
 }
 
 
@@ -48,6 +45,7 @@
 }
 
 .signupHeader {
+	font-family: 'Avenir';
 	text-align: center;
 	font-weight: 500;
 	font-size: 24px;
@@ -107,13 +105,24 @@
 
 .subP {
 	font-style: normal;
-	font-weight: normal;
-	font-size: 0.9rem;
-	line-height: 1rem;
-	text-align: center;
-	color: #6f6f6f;
+	font-size: 15px;
+	line-height: 16px;
+	overflow: hidden;
+	width: 75%;
+	color: #8b8b8b;
+	font-weight: 400 !important;
+	// line-break: auto;
 
 
+}
+
+.signinAnchor {
+	text-decoration: none;
+	color: Green 2;
+	cursor: pointer;
+	font-size: 15px;
+	line-height: 20px;
+	font-weight: 900;
 }
 
 .formSub {
@@ -131,7 +140,7 @@
 	margin: 0.5rem auto;
 	padding: 1rem;
 	box-sizing: border-box;
-	border-radius: 4px;
+	border-radius: 10px;
 	width: 398px;
 	height: 95px;
 

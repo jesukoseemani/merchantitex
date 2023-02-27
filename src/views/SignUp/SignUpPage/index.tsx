@@ -97,8 +97,8 @@ const SignUp = () => {
 							name='controlled-radio-buttons-group'
 							value={selectedValue}
 							onChange={handleChange}>
-							{accountTypes.map(({ id, title, description }) => (
-								<div id='divRadioGroup' className={styles.divRadioGroup}>
+							{accountTypes.map(({ id, title, description }, i) => (
+								<div key={i} id='divRadioGroup' className={styles.divRadioGroup}>
 									<ThemeProvider theme={muiTheme}>
 										<FormControlLabel
 											value={id}
@@ -120,13 +120,16 @@ const SignUp = () => {
 							<button
 								style={{
 									backgroundColor: '#27AE60',
-									padding: '0.7rem',
+									// padding: '1rem',
+									fontFamily: "Avenir Bold",
 									width: '100%',
 									color: '#fff',
 									border: 'none',
 									borderRadius: '20px',
 									cursor: 'pointer',
-									
+									fontSize: "16px",
+									height: "44px",
+									fontWeight: "bold"
 								}}
 								type='submit'
 								color='primary'
@@ -139,7 +142,7 @@ const SignUp = () => {
 			</div>
 			<div className={styles.sub}>
 				<div className={styles.mt1}>
-					<p onClick={handleSignin}>
+					<p className={styles.signinAnchor} onClick={handleSignin}>
 						<span className={styles.subP}>Already have an account? </span>
 						Log in
 					</p>

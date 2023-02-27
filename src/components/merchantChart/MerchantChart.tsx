@@ -120,7 +120,7 @@ export default function MerchantChart() {
         setChartData(data);
         dispatch(closeLoader());
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
   const getWalletBalance = () => {
     dispatch(openLoader());
@@ -131,7 +131,7 @@ export default function MerchantChart() {
         setBalance(wallets?.[0]);
         dispatch(closeLoader());
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
   const nextSettlement = () => {
     dispatch(openLoader());
@@ -142,7 +142,7 @@ export default function MerchantChart() {
       .then((res: any) => {
         dispatch(closeLoader());
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
   useEffect(() => {
     getTransactions();
@@ -150,9 +150,9 @@ export default function MerchantChart() {
   useEffect(() => {
     getWalletBalance();
   }, []);
-  useEffect(() => {
-    nextSettlement();
-  }, []);
+  // useEffect(() => {
+  //   nextSettlement();
+  // }, []);
 
   return (
     <div className={Styles.container}>
@@ -227,7 +227,7 @@ export default function MerchantChart() {
                 paddingAngle={4}
               />
             </div> */}
-					{/* <div className={Styles.chartSummary}>
+          {/* <div className={Styles.chartSummary}>
               <div>
                 <div className={Styles.status}></div>
                 <h2>Failed - 444 (44%)</h2>
