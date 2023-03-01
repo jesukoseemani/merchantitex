@@ -39,7 +39,7 @@ const AccountSetup = () => {
             openModalAndSetContent({
                 modalStyles: {
                     padding: 0,
-                    minWidth: "100px",
+                    width: "400px",
                     minHeight: "600px",
                     // minHeight: "97vh",
                     // marginInline: "auto",
