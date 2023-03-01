@@ -1,0 +1,51 @@
+.header__container {
+    background-color: blue;
+    // width: 98%;
+    height: 56px;
+    margin: 0px auto;
+
+    nav {
+
+        position: relative;
+        height: 56px;
+
+        ul {
+            position: relative;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: end;
+            gap: 64px;
+
+            li {
+                list-style: none;
+                padding-bottom: 6px;
+                border-bottom: 2px solid transparent;
+                color: #92959F;
+
+                &.active {
+                    color: green
+                }
+
+                &:hover,
+                &.active {
+                    width: max-content;
+                    transition: width .5s ease-in-out;
+                    border-bottom: 2px solidgreen;
+                }
+
+                a {
+                    position: relative;
+                    font-family: 'Poppins';
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 14px;
+                    line-height: 20px;
+                    color: inherit;
+                }
+            }
+        }
+
+    }
+
+}

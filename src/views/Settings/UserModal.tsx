@@ -10,9 +10,9 @@ import {
 } from '../../redux/actions/loader/loaderActions';
 import { useDispatch } from 'react-redux';
 import { InputLabel, TextField } from '@material-ui/core';
-import Select from '../../components/formUI/Select';
-import { Divider } from '@mui/material';
+import { Divider, MenuItem, styled, Select, Stack, Link } from '@mui/material';
 import { closeModal } from '../../redux/actions/modal/modalActions';
+
 
 function UserModal({
 	title,
@@ -67,19 +67,25 @@ function UserModal({
 		},
 	];
 
+
+
+	// resizing textfiels
+	const StyledTextField = styled(TextField, {
+		name: "StyledTextField",
+	})({
+
+		"& .MuiInputBase-root": {
+			height: 44,
+			marginBottom: "10px",
+		}
+	});
+
 	const funcIn = (values: ResponseData) => {
 		onclick && onclick(values);
 	};
 
 	return (
-		<div
-			style={{
-				color: 'rgba(0, 0, 0, 1)',
-				backgroundColor: '#ffffff',
-				overflowY: 'hidden',
-				height: '650px',
-				// border: "2px solid red"
-			}}>
+		<div>
 
 			<Formik
 				initialValues={{
@@ -89,18 +95,17 @@ function UserModal({
 				validationSchema={validate}
 				onSubmit={(values) => funcIn(values)}>
 				{(props) => (
-					<div className={styles.signinContainer}>
-						<div className={styles.account_wrap}>
-							<h1 className={styles.account_h1}>{title}</h1>
+					<div className={styles.userContainer}>
+						<div className={styles.user_wrap}>
+							<h2>{title}</h2>
 						</div>
-						<div className={styles.signupDiv}>
-							<div className={styles.signUpContent}>
+						<div className={styles.userDiv}>
+							<div className={styles.userContent}>
 								<Form>
-									<InputLabel>
-										<span className={styles.formTitle}>Email Address</span>
+									<InputLabel className={styles.label}>
+										Email Address
 									</InputLabel>
-									<Field
-										as={TextField}
+									<StyledTextField
 										helperText={
 											<ErrorMessage name='email'>
 												{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
@@ -108,41 +113,43 @@ function UserModal({
 										}
 										name='email'
 										variant='outlined'
-										margin='normal'
+
 										type='email'
 										size='small'
 										fullWidth
 									/>
-									<InputLabel>
-										<span className={styles.formTitle}>User Role</span>
+									<InputLabel className={styles.label}>
+										User Role
 									</InputLabel>
 
-									<Field
-										as={Select}
-										helperText={
-											<ErrorMessage name='role'>
-												{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
-											</ErrorMessage>
-										}
-										name='position'
-										variant='outlined'
-										margin='normal'
-										type='text'
-										size='small'
-										options={settlementOptions}
+
+									<Select
+										sx={{
+
+											height: 44,
+										}}
 										fullWidth
-									/>
+									>
+										{settlementOptions?.map(({ name }, i) => (
+											<MenuItem key={i} value={name}>{name}</MenuItem>
+										))}
+									</Select>
 
 									<InputLabel className={styles.mt1}></InputLabel>
 									<button
 										style={{
 											backgroundColor: '#27AE60',
-											padding: '0.7rem',
+											height: '44px',
 											width: '100%',
 											color: '#fff',
 											border: 'none',
 											borderRadius: '20px',
 											cursor: 'pointer',
+											marginTop: "23px",
+											fontFamily: 'Avenir',
+											fontStyle: "normal",
+											fontWeight: 800,
+											fontSize: 16
 										}}
 										type='submit'
 										color='primary'>
@@ -150,16 +157,19 @@ function UserModal({
 									</button>
 								</Form>
 							</div>
-						</div>
-						<div className={styles.listType}>
-							<h3 className={styles.listType_h2}>Roles</h3>
-							<Divider />
-							{accountTypes.map(({ id, title, description }) => (
-								<div className={styles.listType_wrap} key={id}>
-									<h3 className={styles.listType_h3}>{title}</h3>
-									<p className={styles.listType_p}>{description}</p>
-								</div>
-							))}
+							<div className={styles.user}>
+								<Stack direction={"row"} justifyContent="space-between" alignItems={"center"} borderBottom="1px solid #F2F2F2" pb={"18px"}>
+									<h2>Permissions</h2>
+									<Link href={"#"}>View all permissions</Link>
+								</Stack>
+
+								{accountTypes.map(({ id, title, description }) => (
+									<div className={styles.user_content} key={id}>
+										<h3 className={styles.user_h3}>{title}</h3>
+										<p className={styles.user_p}>{description}</p>
+									</div>
+								))}
+							</div>
 						</div>
 					</div>
 				)}

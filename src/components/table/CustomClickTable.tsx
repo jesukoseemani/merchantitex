@@ -117,6 +117,9 @@ export default function CustomClickTable({
 										letterSpacing: "0.0024px",
 										color: "#333333",
 										background: "#F4F6F8",
+										padding: column.padding,
+										paddingLeft: column.paddingLeft,
+										paddingRight: column.paddingRight,
 
 										minWidth: column.minWidth, maxWidth: column.maxWidth
 									}}

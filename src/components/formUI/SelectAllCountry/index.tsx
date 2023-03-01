@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { TextField, MenuItem } from '@material-ui/core';
 import { useField, useFormikContext } from 'formik';
+import { styled } from '@mui/system';
 
 const SelectWrapperAllCountry = ({ name, options, ...otherProps }: any) => {
 	const { setFieldValue } = useFormikContext();
@@ -24,9 +25,18 @@ const SelectWrapperAllCountry = ({ name, options, ...otherProps }: any) => {
 		configSelect.error = true;
 		configSelect.helperText = meta.error;
 	}
+	const StyledTextField = styled(TextField, {
+		name: "StyledTextField",
+	})({
+
+		"& .MuiInputBase-root": {
+			height: 44
+		}
+	});
+	;
 
 	return (
-		<TextField {...configSelect}>
+		<StyledTextField {...configSelect}>
 			{options?.map((item: any, i: any) => {
 				return (
 					<MenuItem key={i} value={item.code}>
@@ -35,7 +45,7 @@ const SelectWrapperAllCountry = ({ name, options, ...otherProps }: any) => {
 					</MenuItem>
 				);
 			})}
-		</TextField>
+		</StyledTextField>
 	);
 };
 

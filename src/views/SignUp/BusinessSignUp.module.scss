@@ -16,21 +16,25 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-bottom: 40.6px;
-	margin-top: 40px;
+	margin-bottom: 52.58px;
+	margin-top: 38px;
 }
 
 .signUpWrapper {
 	border: 1px solid transparent;
 	max-width: 950px;
 	width: 1179px;
-	min-height: 573px;
+	height: 573px;
 	margin: 0 auto;
 	background-color: #fff;
-	padding: 3rem 4rem 2rem 4rem;
+	// padding: 3rem 4rem 2rem 4rem;
+	padding-inline: 50px;
+	padding-top: 47px;
+	padding-bottom: 44px;
 	background: #ffffff;
 	box-shadow: 0px 4px 14px rgba(15, 49, 32, 0.15);
 	border-radius: 20px;
+	overflow: auto;
 
 	@media screen and (max-width: 768px) {
 		width: 100%;
@@ -46,7 +50,8 @@
 	color: #333333;
 	margin: 0;
 	padding: 0;
-	margin-bottom: 1.5rem;
+	margin-top: 5px;
+	margin-bottom: 13px;
 }
 
 .details {
@@ -83,13 +88,16 @@
 }
 
 .label {
-	font-family: 'Avenir';
-	font-size: 14px;
+	font-family: 'Avenir' !important;
 	font-style: normal;
-	font-weight: 400;
-	line-height: 16px;
-	letter-spacing: 0em;
-	color: rgba(51, 51, 51, 1);
+	font-weight: 400 !important;
+	font-size: 14px !important;
+	line-height: 16px !important;
+
+	color: #333333 !important;
+
+
+
 }
 
 .emptyLabel {
@@ -110,7 +118,8 @@
 .signupList {
 	display: flex;
 	align-items: flex-start;
-	margin-top: 15px;
+	margin-top: 21px;
+	// border: 2px solid red;
 }
 
 .iconchecked {
@@ -121,9 +130,9 @@
 .desc {
 	font-style: normal;
 	font-size: 14px;
-	width: 75%;
+	width: 80%;
 	font-weight: 400;
-	line-height: 19px;
+	line-height: 21px;
 	color: #8B8B8B;
 	font-family: 'Avenir';
 
@@ -132,14 +141,15 @@
 .title {
 	font-family: 'Avenir';
 	font-style: normal;
-	font-weight: normal;
+	font-weight: 400;
 	font-size: 16px;
-	line-height: 19px;
+	line-height: 22px;
 	color: #414141;
 	padding: 0;
 	margin: 0;
-	margin: 6px 0;
+	margin-bottom: 3px;
 }
+
 
 .mt1 {
 	margin-top: 1rem;
@@ -152,6 +162,8 @@
 	align-items: center;
 	width: 100%;
 	margin-top: 30px;
+	margin-bottom: 30px;
+
 
 	p {
 		color: #27AE60;
@@ -161,3 +173,14 @@
 .subP {
 	color: #8b8b8b;
 }
+
+
+::-webkit-scrollbar {
+	display: none;
+}
+
+.stepLabel {
+	border: 2px solid red;
+}
+
+.stepDesc {}

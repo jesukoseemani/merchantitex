@@ -1,4 +1,4 @@
-import { Grid, TextField, InputLabel } from '@mui/material'
+import { Grid, TextField, InputLabel, Box } from '@mui/material'
 import React from 'react'
 import MuiPhoneNumber from 'material-ui-phone-number';
 import Button from '../Button';
@@ -6,6 +6,9 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { categoryList } from '../../../helpers/CategoryList';
+import { styled } from '@mui/system'
+import styles from "../style.module.scss"
+
 
 interface Props {
     handleNext: () => void
@@ -18,66 +21,92 @@ const BusinessInfo = ({ handleNext }: Props) => {
         setAge(event.target.value);
     };
 
+
+    const StyledTextField = styled(TextField, {
+        name: "StyledTextField",
+    })({
+
+        "& .MuiInputBase-root": {
+            height: 44,
+            marginBottom: "18px",
+        }
+    });
+
     return (
-        <Grid container columnSpacing={6} justifyContent="space-between">
+        <Box sx={{ marginTop: "-10px" }}>
+            <Grid container columnSpacing={4} justifyContent="space-between">
 
-            <Grid item xs={12} sm={6} md={6}>
-                <InputLabel>Registered business name</InputLabel>
-                <TextField variant='outlined' fullWidth placeholder='Registered business name' />
-            </Grid>
-            <Grid item xs={12} sm={6} md={6}>
-                <InputLabel>RC Number</InputLabel>
-                <TextField variant='outlined' fullWidth placeholder='RC Number' />
-            </Grid>
+                <Grid item xs={12} sm={6} md={6}>
+                    <InputLabel className={styles.label}>Registered business name</InputLabel>
+                    <StyledTextField variant='outlined' fullWidth placeholder='Registered business name' />
+                </Grid>
+                <Grid item xs={12} sm={6} md={6}>
+                    <InputLabel className={styles.label}>RC Number</InputLabel>
+                    <StyledTextField variant='outlined' fullWidth placeholder='RC Number' />
+                </Grid>
 
-            <Grid item xs={12} sm={6} md={6}>
-                <InputLabel>Trading Name(Optional)</InputLabel>
-                <TextField variant='outlined' fullWidth placeholder='Trading Name(Optional)' />
-            </Grid>
-            <Grid item xs={12} sm={6} md={6}>
-                <InputLabel>Business email Address</InputLabel>
-                <TextField variant='outlined' fullWidth placeholder='Business email Address' />
-            </Grid>
-            <Grid item xs={12} sm={6} md={6}>
-                <InputLabel>Business phone number</InputLabel>
-                <MuiPhoneNumber variant='outlined' fullWidth defaultCountry={'us'} onChange={handleOnChange} />
-            </Grid>
-            <Grid item xs={12} sm={6} md={6}>
-                <InputLabel>Business Description</InputLabel>
-                <TextField variant='outlined' fullWidth placeholder='Business Description' />
-            </Grid>
-            <Grid item xs={12} sm={6} md={6}>
-                <InputLabel>Website url</InputLabel>
-                <TextField variant='outlined' fullWidth placeholder='www.website.com' />
-            </Grid>
-            <Grid item xs={12} sm={6} md={6}>
-                <InputLabel>What is your business category</InputLabel>
-                <FormControl fullWidth>
-
+                <Grid item xs={12} sm={6} md={6}>
+                    <InputLabel className={styles.label}>Trading Name(Optional)</InputLabel>
+                    <StyledTextField variant='outlined' fullWidth placeholder='Trading Name(Optional)' />
+                </Grid>
+                <Grid item xs={12} sm={6} md={6}>
+                    <InputLabel className={styles.label}>Business email Address</InputLabel>
+                    <StyledTextField variant='outlined' fullWidth placeholder='Business email Address' />
+                </Grid>
+                <Grid item xs={12} sm={6} md={6}>
+                    <InputLabel className={styles.label}>Business phone number</InputLabel>
+                    <MuiPhoneNumber variant='outlined' fullWidth defaultCountry={'us'} onChange={handleOnChange} sx={{
+                        ".css-x9mhkq-MuiInputBase-root-MuiOutlinedInput-root ": {
+                            height: "44px"
+                        }
+                    }} />
+                </Grid>
+                <Grid item xs={12} sm={6} md={6}>
+                    <InputLabel className={styles.label}>Business Description</InputLabel>
+                    <StyledTextField variant='outlined' fullWidth placeholder='Business Description' />
+                </Grid>
+                <Grid item xs={12} sm={6} md={6}>
+                    <InputLabel className={styles.label}>Website url</InputLabel>
+                    <StyledTextField variant='outlined' fullWidth placeholder='www.website.com' />
+                </Grid>
+                <Grid item xs={12} sm={6} md={6}>
+                    <InputLabel className={styles.label}>What is your business category</InputLabel>
                     <Select
-                        labelId="demo-simple-select-helper-label"
-                        id="demo-simple-select-helper"
-                        value={age}
+                        sx={{
+
+                            height: 44,
+                        }}
                         fullWidth
-                        onChange={handleChange}
                     >
-                        <MenuItem value="">
-                            {/* <em>Select business category?</em> */}
-                        </MenuItem>
                         {categoryList?.map(({ name, code }) => (
                             <MenuItem key={code} value={name}>{name}</MenuItem>
                         ))}
-
                     </Select>
-                </FormControl>
-            </Grid>
-            <Grid item xs={12} sm={6} md={6}></Grid>
-            <br />
-            <div className="continueBtn" style={{ display: "flex", justifyContent: "flex-end", marginTop: "1rem", width: "100%" }}>
-                <Button onClick={handleNext}>Continue</Button>
-            </div>
+                </Grid>
+                <Grid item xs={12} sm={6} md={6}></Grid>
+                <br />
+                <div className="continueBtn" style={{ display: "flex", justifyContent: "flex-end", marginTop: "1rem", marginBottom: "4rem", width: "100%" }}>
+                    <button
 
-        </Grid>
+                        style={{
+                            backgroundColor: '#27AE60',
+                            height: "44px",
+                            width: '146px',
+                            color: '#fff',
+                            border: 'none',
+                            fontSize: "16px",
+                            fontWeight: 800,
+                            borderRadius: '20px',
+                            cursor: 'pointer',
+                            margin: "9px 0px ",
+                            fontFamily: 'Avenir',
+                        }}
+                        onClick={handleNext}>Continue</button>
+
+                </div>
+
+            </Grid>
+        </Box>
     )
 }
 

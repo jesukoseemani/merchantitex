@@ -34,6 +34,7 @@ import SelectWrapperAllCountry from '../../components/formUI/SelectAllCountry';
 import { countryListAllIsoData } from '../../helpers/Countries';
 import { HearFromUs } from '../../helpers/HearFromUs';
 import { categoryList } from '../../helpers/CategoryList';
+import { styled } from '@mui/material';
 
 const BusinessSignUp = () => {
 	const history = useHistory();
@@ -149,9 +150,19 @@ const BusinessSignUp = () => {
 
 	const dispatch = useDispatch();
 
+	const StyledTextField = styled(TextField, {
+		name: "StyledTextField",
+	})({
+
+		"& .MuiInputBase-root": {
+			height: 44
+		}
+	});
+
+
 	return (
 		<>
-			<div className={styles.container}>
+			<div className={styles.container} >
 				<div className={styles.logo} onClick={() => history.push('/signin')}>
 					<ReactSVG src={Logo} />
 				</div>
@@ -263,15 +274,16 @@ const BusinessSignUp = () => {
 									});
 							}}>
 							{(props) => (
-								<Grid item xs={12} sm={12} md={7}>
+								<Grid item xs={12} sm={12} md={7} style={{ marginTop: "1rem" }}>
+
+
 									<Form>
-										<Grid container spacing={2}>
-											<Grid item xs={12} md={6}>
+										<Grid container spacing={3}>
+											<Grid item xs={12} md={6} style={{ marginTop: "-15px" }}>
 												<InputLabel className={styles.label}>
 													Full Name
 												</InputLabel>
-												<Field
-													as={TextField}
+												<StyledTextField
 													helperText={
 														<ErrorMessage name='fullName'>
 															{(msg) => (
@@ -281,17 +293,16 @@ const BusinessSignUp = () => {
 													}
 													name='fullName'
 													variant='outlined'
-													margin='normal'
-													size='small'
+
+													// size='small'
 													fullWidth
 												/>
 											</Grid>
-											<Grid item xs={12} md={6}>
+											<Grid item xs={12} md={6} style={{ marginTop: "-15px" }}>
 												<InputLabel className={styles.label}>
 													Business name
 												</InputLabel>
-												<Field
-													as={TextField}
+												<StyledTextField
 													helperText={
 														<ErrorMessage name='businessName'>
 															{(msg) => (
@@ -301,12 +312,12 @@ const BusinessSignUp = () => {
 													}
 													name='businessName'
 													variant='outlined'
-													margin='normal'
+
 													size='small'
 													fullWidth
 												/>
 											</Grid>
-											<Grid item xs={12} md={6}>
+											<Grid item xs={12} md={6} style={{ marginTop: "-15px" }}>
 												<FormControl
 													classes={{ root: classes.control }}
 													fullWidth>
@@ -326,30 +337,27 @@ const BusinessSignUp = () => {
 														name='busCategory'
 														size='small'
 														options={categoryList}
-														style={{
-															marginTop: '1rem',
-														}}
+
 													/>
 												</FormControl>
 											</Grid>
-											<Grid item xs={12} md={6}>
+											<Grid item xs={12} md={6} style={{ marginTop: "-15px" }}>
 												<InputLabel className={styles.label}>
 													Your position in the business
 												</InputLabel>
 												{
-													<TextField
+													<StyledTextField
 														placeholder='position'
 														variant='outlined'
-														margin='normal'
+
 														size='small'
 														fullWidth
 													/>
 												}
 											</Grid>
-											<Grid item xs={12} md={6}>
+											<Grid item xs={12} md={6} style={{ marginTop: "-15px" }}>
 												<InputLabel className={styles.label}>Email</InputLabel>
-												<Field
-													as={TextField}
+												<StyledTextField
 													helperText={
 														<ErrorMessage name='email'>
 															{(msg) => (
@@ -359,17 +367,16 @@ const BusinessSignUp = () => {
 													}
 													name='email'
 													variant='outlined'
-													margin='normal'
+
 													size='small'
 													fullWidth
 												/>
 											</Grid>
-											<Grid item xs={12} md={6}>
+											<Grid item xs={12} md={6} style={{ marginTop: "-15px" }}>
 												<InputLabel className={styles.label}>
 													Phone number
 												</InputLabel>
-												<Field
-													as={TextField}
+												<StyledTextField
 													helperText={
 														<ErrorMessage name='phoneNumber'>
 															{(msg) => (
@@ -379,17 +386,16 @@ const BusinessSignUp = () => {
 													}
 													name='phoneNumber'
 													variant='outlined'
-													margin='normal'
+
 													size='small'
 													fullWidth
 												/>
 											</Grid>
-											<Grid item xs={12} md={6}>
+											<Grid item xs={12} md={6} style={{ marginTop: "-15px" }}>
 												<InputLabel className={styles.label}>
 													Password
 												</InputLabel>
-												<Field
-													as={TextField}
+												<StyledTextField
 													helperText={
 														<ErrorMessage name='password'>
 															{(msg) => (
@@ -400,12 +406,12 @@ const BusinessSignUp = () => {
 													name='password'
 													type='password'
 													variant='outlined'
-													margin='normal'
+
 													size='small'
 													fullWidth
 												/>
 											</Grid>
-											<Grid item xs={12} md={6}>
+											<Grid item xs={12} md={6} style={{ marginTop: "-15px" }}>
 												<InputLabel className={styles.label}>
 													Country
 												</InputLabel>
@@ -421,12 +427,10 @@ const BusinessSignUp = () => {
 													name='country'
 													size='small'
 													options={countryListAllIsoData}
-													style={{
-														marginTop: '1rem',
-													}}
+
 												/>
 											</Grid>
-											<Grid item xs={12} md={6}>
+											<Grid item xs={12} md={6} style={{ marginTop: "-15px" }}>
 												<InputLabel className={styles.label}>
 													How did you hear about us?
 												</InputLabel>
@@ -443,24 +447,27 @@ const BusinessSignUp = () => {
 													name='hearAbout'
 													size='small'
 													options={HearFromUs}
-													style={{
-														marginTop: '1rem',
-													}}
+
 												/>
 											</Grid>
-											<Grid item xs={12} md={6}>
+											<Grid item xs={12} md={6} style={{ marginTop: "-15px" }}>
 												<InputLabel className={styles.emptyLabel}></InputLabel>
 												<button
 													style={{
 														backgroundColor: '#27AE60',
-														padding: '0.7rem',
+														height: '44px',
 														textTransform: 'none',
 														cursor: 'pointer',
 														color: '#ffffff',
 														width: '100%',
 														outline: 'none',
+														fontSize: "16px",
+														fontWeight: 800,
 														border: 'none',
 														borderRadius: '20px',
+														marginTop: "4px",
+														marginBottom: "6px"
+
 													}}
 													type='submit'>
 													Create Account
@@ -480,7 +487,7 @@ const BusinessSignUp = () => {
 				</div>
 
 				<div className={styles.sub}>
-					<div className={styles.mt1}>
+					<div className={styles.mt}>
 						<p onClick={() => history.push('/signin')}>
 							<span className={styles.subP}>Already have an account? </span>
 							Log in

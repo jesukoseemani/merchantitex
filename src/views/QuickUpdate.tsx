@@ -24,6 +24,7 @@ type idParams = {
 	id: string;
 };
 
+
 const QuickUpdate = () => {
 	// const [data, setData] = useState<
 	// 	{

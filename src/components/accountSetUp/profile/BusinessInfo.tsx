@@ -6,79 +6,100 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { categoryList } from '../../../helpers/CategoryList';
+import { styled } from '@mui/system';
+import Styles from "../style.module.scss"
 
 interface Props {
     handleNext: () => void
 }
 const ProfileBusinessInfo = ({ handleNext }: Props) => {
-    const [age, setAge] = React.useState('');
+
     const handleOnChange = () => { }
 
-    const handleChange = (event: SelectChangeEvent) => {
-        setAge(event.target.value);
-    };
+
+    const StyledTextField = styled(TextField, {
+        name: "StyledTextField",
+    })({
+
+        "& .MuiInputBase-root": {
+            height: 44,
+            marginBottom: "22px",
+        }
+    });
+
 
     return (
-        <Grid container columnSpacing={6} justifyContent="space-between">
+        <Grid container columnSpacing={4} justifyContent="space-between">
 
             <Grid item xs={12} sm={6} md={6}>
-                <InputLabel>Trading Name</InputLabel>
-                <TextField variant='outlined' fullWidth placeholder='Trading Name' />
+                <InputLabel className={Styles.label}>Trading Name</InputLabel>
+                <StyledTextField variant='outlined' fullWidth placeholder='Trading Name' />
             </Grid>
             <Grid item xs={12} sm={6} md={6}>
-                <InputLabel>Business name</InputLabel>
-                <TextField variant='outlined' fullWidth placeholder='Business name' />
+                <InputLabel className={Styles.label}>Business name</InputLabel>
+                <StyledTextField variant='outlined' fullWidth placeholder='Business name' />
             </Grid>
             <Grid item xs={12} sm={6} md={6}>
-                <InputLabel>Business Description</InputLabel>
-                <TextField variant='outlined' fullWidth placeholder='Business Description' />
+                <InputLabel className={Styles.label}>Business Description</InputLabel>
+                <StyledTextField variant='outlined' fullWidth placeholder='Business Description' />
             </Grid>
             <Grid item xs={12} sm={6} md={6}>
-                <InputLabel>What is your business category</InputLabel>
-                <FormControl fullWidth>
+                <InputLabel className={Styles.label}>What is your business category</InputLabel>
+                <Select
+                    sx={{
 
-                    <Select
-                        labelId="demo-simple-select-helper-label"
-                        id="demo-simple-select-helper"
-                        value={age}
-                        fullWidth
-                        onChange={handleChange}
-                    >
-                        <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "200px" }}>
-                            <MenuItem value="">
-                                {/* <em>Select business category?</em> */}
-                            </MenuItem>
-                            {categoryList?.map(({ name, code }) => (
-                                <MenuItem key={code} value={name}>{name}</MenuItem>
-                            ))}
-                        </Box>
-
-                    </Select>
-                </FormControl>
+                        height: 44,
+                    }}
+                    fullWidth
+                >
+                    {categoryList?.map(({ name, code }) => (
+                        <MenuItem key={code} value={name}>{name}</MenuItem>
+                    ))}
+                </Select>
             </Grid>
 
             <Grid item xs={12} sm={6} md={6}>
-                <InputLabel>Website url</InputLabel>
-                <TextField variant='outlined' fullWidth placeholder='www.website.com' />
+                <InputLabel className={Styles.label}>Website url</InputLabel>
+                <StyledTextField variant='outlined' fullWidth placeholder='www.website.com' />
             </Grid>
 
             <Grid item xs={12} sm={6} md={6}>
-                <InputLabel>Support email </InputLabel>
-                <TextField variant='outlined' fullWidth placeholder='Support email ' />
+                <InputLabel className={Styles.label}>Support email </InputLabel>
+                <StyledTextField variant='outlined' fullWidth placeholder='Support email ' />
             </Grid>
 
+
             <Grid item xs={12} sm={6} md={6}>
-                <InputLabel>Support phone number</InputLabel>
-                <MuiPhoneNumber variant='outlined' fullWidth defaultCountry={'us'} onChange={handleOnChange} />
+                <InputLabel className={Styles.label}>Support phone number</InputLabel>
+                <MuiPhoneNumber variant='outlined' fullWidth defaultCountry={'us'} onChange={handleOnChange} sx={{
+                    ".css-x9mhkq-MuiInputBase-root-MuiOutlinedInput-root ": {
+                        height: "44px"
+                    }
+                }} />
             </Grid>
             <Grid item xs={12} sm={6} md={6}>
-                <InputLabel>Chargeback email</InputLabel>
-                <TextField variant='outlined' fullWidth placeholder='Chargeback email' />
+                <InputLabel className={Styles.label}>Chargeback email</InputLabel>
+                <StyledTextField variant='outlined' fullWidth placeholder='Chargeback email' />
             </Grid>
             <Grid item xs={12} sm={6} md={6}></Grid>
             <br />
             <div className="continueBtn" style={{ display: "flex", justifyContent: "flex-end", marginTop: "1rem", width: "100%" }}>
-                <Button onClick={handleNext}>Continue</Button>
+                <button
+
+                    style={{
+                        backgroundColor: '#27AE60',
+                        height: "44px",
+                        width: '146px',
+                        color: '#fff',
+                        border: 'none',
+                        fontSize: "16px",
+                        fontWeight: 800,
+                        borderRadius: '20px',
+                        cursor: 'pointer',
+                        margin: "9px 0px ",
+                        fontFamily: 'Avenir',
+                    }}
+                    onClick={handleNext}>Continue</button>
             </div>
 
         </Grid>

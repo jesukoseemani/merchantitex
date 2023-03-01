@@ -23,13 +23,15 @@ import { openToastAndSetContent } from '../../../redux/actions/toast/toastAction
 import SelectWrapperAllCountry from '../../../components/formUI/SelectAllCountry';
 import { countryListAllIsoData } from '../../../helpers/Countries';
 import { HearFromUs } from '../../../helpers/HearFromUs';
+import { styled } from '@mui/system';
+import { Box } from '@mui/material';
 
 const createAccount = [
 	{
 		id: 'FF',
 		title: 'Fast and free sign up',
 		description: 'Enter your details to create an account.',
-		icon: <CheckCircleIcon sx={{ color: '#60C090' }} />,
+		icon: <CheckCircleIcon sx={{ color: '#60C090', height: 20, width: 20 }} />,
 	},
 
 	{
@@ -47,6 +49,8 @@ const createAccount = [
 		icon: <CheckCircleIcon sx={{ color: '#60C090' }} />,
 	},
 ];
+
+
 
 const IndividualSignUp = () => {
 	const validate = Yup.object({
@@ -72,6 +76,17 @@ const IndividualSignUp = () => {
 	const handleSignin = () => {
 		history.push('/signin');
 	};
+
+	const StyledTextField = styled(TextField, {
+		name: "StyledTextField",
+	})({
+
+		"& .MuiInputBase-root": {
+			height: 44,
+			marginBottom: "18px",
+		}
+	});
+	
 
 	return (
 		<Formik
@@ -166,7 +181,7 @@ const IndividualSignUp = () => {
 													<ListItemIcon>{icon}</ListItemIcon>
 												</div>
 
-												<div >
+												<div className={styles.textBox} >
 													<ListItemText>
 														<h5 className={styles.title}>{title}</h5>
 														<p className={styles.desc}>{description}</p>
@@ -177,13 +192,14 @@ const IndividualSignUp = () => {
 									</div>
 								))}
 							</div>
-							<div>
+							<div className={styles.formBox}>
 								<Form>
 									<InputLabel>
 										<span className={styles.formTitle}>Full Name</span>
 									</InputLabel>
-									<Field
-										as={TextField}
+									<StyledTextField
+
+
 										helperText={
 											<ErrorMessage name='fullName'>
 												{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
@@ -191,17 +207,16 @@ const IndividualSignUp = () => {
 										}
 										name='fullName'
 										variant='outlined'
-										margin='normal'
-										size='small'
+
+
 										fullWidth
 										required
-
+									
 									/>
 									<InputLabel>
 										<span className={styles.formTitle}>Email Address</span>
 									</InputLabel>
-									<Field
-										as={TextField}
+									<StyledTextField
 										helperText={
 											<ErrorMessage name='email'>
 												{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
@@ -209,16 +224,15 @@ const IndividualSignUp = () => {
 										}
 										name='email'
 										variant='outlined'
-										margin='normal'
+
 										type='email'
-										size='small'
+
 										fullWidth
 									/>
 									<InputLabel>
 										<span className={styles.formTitle}>Password</span>
 									</InputLabel>
-									<Field
-										as={TextField}
+									<StyledTextField
 										helperText={
 											<ErrorMessage name='password'>
 												{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
@@ -226,9 +240,9 @@ const IndividualSignUp = () => {
 										}
 										name='password'
 										variant='outlined'
-										margin='normal'
+
 										type='password'
-										size='small'
+
 										fullWidth
 
 									/>
@@ -243,43 +257,44 @@ const IndividualSignUp = () => {
 											</ErrorMessage>
 										}
 										name='country'
-										size='small'
+
 										options={countryListAllIsoData}
-										style={{
-											marginTop: '1rem',
-										}}
+
 									/>
 
-									<InputLabel>
-										<span className={styles.formTitle}>
-											How did you hear about us? (Optional)
-										</span>
-									</InputLabel>
-									<Field
-										as={SelectWrapperAllCountry}
-										helperText={
-											<ErrorMessage name='optional'>
-												{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
-											</ErrorMessage>
-										}
-										name='optional'
-										size='small'
-										options={HearFromUs}
-										style={{
-											marginTop: '1rem',
-										}}
-									/>
+									<Box mt={"22px"}>
+										<InputLabel>
+											<span className={styles.formTitle}>
+												How did you hear about us? (Optional)
+											</span>
+										</InputLabel>
+										<Field
+											as={SelectWrapperAllCountry}
+											helperText={
+												<ErrorMessage name='optional'>
+													{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
+												</ErrorMessage>
+											}
+											name='optional'
+
+											options={HearFromUs}
+
+										/>
+									</Box>
 									<InputLabel className={styles.mt}></InputLabel>
 									<button
 										style={{
 											backgroundColor: '#27AE60',
-											padding: '0.7rem',
+											height: "44px",
 											width: '100%',
 											color: '#fff',
 											border: 'none',
+											fontSize: "16px",
+											fontWeight: 800,
 											borderRadius: '20px',
 											cursor: 'pointer',
-											margin: "20px 0px ",
+											margin: "16px 0px ",
+											fontFamily: 'Avenir',
 										}}
 										type='submit'
 										color='primary'>
@@ -297,7 +312,7 @@ const IndividualSignUp = () => {
 					</div>
 
 					<div className={styles.sub}>
-						<div className={styles.mt1}>
+						<div className={styles.mt}>
 							<p onClick={handleSignin}>
 								<span className={styles.subP}>Already have an account? </span>
 								Log in

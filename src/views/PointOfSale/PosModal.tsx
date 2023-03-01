@@ -6,9 +6,16 @@ import {
 	OutlinedInput,
 	Button,
 	Grid,
+	Select,
+	MenuItem,
 } from '@mui/material';
 import { useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
+import { State } from '../../helpers/State';
+import { CodeOutlined } from '@material-ui/icons';
+import { openModalAndSetContent } from '../../redux/actions/modal/modalActions';
+import { useDispatch } from 'react-redux';
+import PosSuccess from './PosSuccess';
 
 interface PosModalProps {
 	isOpen: boolean;
@@ -44,6 +51,9 @@ const useStyles = makeStyles({
 				color: '#828282',
 				fontSize: '1.125rem',
 				fontWeight: '400',
+				// border: "2px solid red",
+				paddingTop: "15px",
+				paddingBottom: "17px",
 			},
 		},
 		'& hr': {
@@ -60,17 +70,23 @@ const useStyles = makeStyles({
 		},
 	},
 	formBox: {
+
 		display: 'grid',
+		marginBottom: "17px",
 		'& label': {
 			color: '#333',
-			fontWeight: '400',
-			fontSize: '.875rem',
+			fontFamily: 'Avenir',
+			fontStyle: "normal",
+			fontWeight: 400,
+			fontSize: "14px",
+			lineHeight: "19px",
+
 		},
 		'& input, & textarea, & .MuiSelect-select': {
 			background: 'white',
 			borderRadius: '4px',
-			marginTop: '.2rem',
-			padding: '.75rem',
+			// marginTop: '.2rem',
+			height: "11px",
 			fontSize: '.875rem',
 			resize: 'none',
 			'&::placeholder': {
@@ -91,9 +107,11 @@ const useStyles = makeStyles({
 		fontWeight: 700,
 		fontSize: '1rem',
 		backgroundColor: '#27AE60',
-		padding: '.5rem',
+		height: '44px',
+		width: "316px",
 		borderRadius: '.25rem',
 		textTransform: 'none',
+		marginTop: "20px",
 		'&:hover': {
 			opacity: '.75',
 			backgroundColor: '#27AE60',
@@ -115,11 +133,14 @@ const useStyles = makeStyles({
 			whiteSpace: 'nowrap',
 		},
 	},
+	formCont: {
+		marginTop: "35px"
+	}
 });
 
 const PosModal = ({ isOpen, handleClose }: PosModalProps) => {
 	const classes = useStyles();
-
+	const dispatch = useDispatch()
 	const [revenue, setRevenue] = useState<string>('');
 	const [sales, setSales] = useState<string>('');
 	const [numDevices, setNumDevices] = useState<string>('');
@@ -137,6 +158,28 @@ const PosModal = ({ isOpen, handleClose }: PosModalProps) => {
 		handleClose();
 	};
 
+
+	const handleSubmitForm = () => {
+		closeModal()
+		dispatch(
+			openModalAndSetContent({
+				modalStyles: {
+					padding: 0,
+					width: '416px',
+					// minHeight: '450px',
+
+					height: '478px',
+
+					borderRadius: "20px"
+				},
+				modalContent: (
+					<div>
+						<PosSuccess />
+					</div>
+				),
+			})
+		);
+	}
 	return (
 		<Modal
 			open={isOpen}
@@ -148,7 +191,7 @@ const PosModal = ({ isOpen, handleClose }: PosModalProps) => {
 			}}>
 			<div className={classes.root}>
 				<div>
-					<p style={{ marginLeft: "15px" }}>POS Request form</p>
+					<p style={{ paddingLeft: "15px" }}>POS Request form</p>
 					<IconButton
 						aria-label='close add subaccount modal'
 						onClick={handleClose}>
@@ -157,7 +200,7 @@ const PosModal = ({ isOpen, handleClose }: PosModalProps) => {
 				</div>
 				<hr />
 				<div>
-					<Grid container spacing={5} p={3}>
+					<Grid container columnSpacing={4} px={2} className={classes.formCont}>
 						<Grid item xs={12} md={6}>
 							<div className={classes.formBox}>
 								<label htmlFor='revenue'>
@@ -216,11 +259,22 @@ const PosModal = ({ isOpen, handleClose }: PosModalProps) => {
 
 							<div className={classes.formBox}>
 								<label htmlFor='state'>State</label>
-								<OutlinedInput
+								{/* <OutlinedInput
 									placeholder='0723371427'
 									value={state}
 									onChange={(e) => setState(e.target.value)}
-								/>
+								/> */}
+								<Select
+									sx={{
+
+										height: 44,
+									}}
+									fullWidth
+								>
+									{State?.map(({ name, code }) => (
+										<MenuItem key={code} value={name}>{name}</MenuItem>
+									))}
+								</Select>
 							</div>
 						</Grid>
 
@@ -235,12 +289,14 @@ const PosModal = ({ isOpen, handleClose }: PosModalProps) => {
 								/>
 							</div>
 						</Grid>
+						<Grid item xs={12} md={6}>
+							<div>
+								<button style={{ borderRadius: "20px" }} className={classes.formBtn} onClick={handleSubmitForm}>
+									Submit request
+								</button>
+							</div>
+						</Grid>
 					</Grid>
-				</div>
-				<div style={{ padding: "10px" }}>
-					<Button style={{ borderRadius: "20px" }} fullWidth className={classes.formBtn} onClick={closeModal}>
-						Submit request
-					</Button>
 				</div>
 			</div>
 		</Modal>

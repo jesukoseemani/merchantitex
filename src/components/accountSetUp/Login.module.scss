@@ -126,19 +126,18 @@
 	justify-content: center;
 	align-items: center;
 	width: 100%;
-	margin-top: 20px;
+	margin-top: 38px;
 
 
 }
 
 .subP {
+	font-family: 'Avenir';
 	font-style: normal;
-	font-weight: normal;
-	font-size: 0.9rem;
-	line-height: 1rem;
+	font-weight: 300;
+	font-size: 14px;
+	line-height: 19px;
 	text-align: center;
-	color: #6f6f6f;
-
 
 
 }
@@ -149,6 +148,7 @@
 	line-height: 1rem;
 	text-align: center;
 	color: #000000;
+	font-size: 14px;
 }
 
 .signinAnchor {
@@ -157,6 +157,7 @@
 	cursor: pointer;
 	color: #27AE60;
 	margin-top: 30px;
+	font-size: 14px;
 
 
 }
@@ -176,5 +177,73 @@
 	.signinDiv {
 		padding: 2rem;
 		width: 80%;
+	}
+}
+
+.newpassword {
+	height: 100vh;
+	width: 100%;
+	background-color: $dark;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	flex-direction: column;
+
+	.logo {
+
+		margin-bottom: 50.53px;
+		margin-top: 40px;
+
+		svg {
+			height: 43.42px;
+			width: 94px;
+		}
+	}
+
+	.newPasswordDiv {
+		width: 444px;
+		height: 420px;
+		background: #FFFFFF;
+		box-shadow: 0px 4px 14px rgba(15, 49, 32, 0.15);
+		border-radius: 20px;
+		padding: 40px 50px;
+
+		.headers {
+			font-family: 'Avenir' !important;
+			font-style: normal;
+			font-weight: 900 !important;
+			font-size: 18px;
+			line-height: 25px;
+			text-align: center;
+			color: #000000;
+		}
+
+		.headerText {
+			font-family: 'Avenir';
+			font-style: normal;
+			font-weight: 400;
+			width: 252px;
+			margin: 0px auto;
+			font-size: 14px;
+			line-height: 19px;
+			margin-top: 14px;
+			text-align: center;
+			color: #6F6F6F;
+		}
+
+		.formlabel {
+
+			padding: 0 !important;
+			font-family: 'Avenir';
+			font-style: normal;
+			font-weight: 400;
+			font-size: 14px;
+			line-height: 19px;
+
+			color: #333333;
+
+
+
+		}
 	}
 }

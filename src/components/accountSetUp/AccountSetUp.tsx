@@ -26,7 +26,8 @@ import { logOut } from '../../redux/actions/auth/authActions';
 import { removeMe } from '../../redux/actions/me/meActions';
 import { saveLoading } from '../../redux/actions/loadingState/loadingStateActions';
 import { isNullLiteral } from '@babel/types';
-
+import Mark from '../../assets/images/MarkDefault.svg';
+import { ReactSVG } from 'react-svg';
 interface AccountSetUpTypes {
 	data: {
 		title: string;
@@ -35,10 +36,33 @@ interface AccountSetUpTypes {
 		icon: string;
 		completed: boolean;
 		query?: string;
-	}[];
+	};
 }
 
-const AccountSetUp = ({ data }: AccountSetUpTypes) => {
+const AccountSetUp = () => {
+	const data = [
+		{
+			icon: <ReactSVG src={Mark} />,
+			title: 'Business Information',
+			button: 'Continue',
+			id: 'BBI',
+			completed: false,
+		},
+		{
+			icon: <ReactSVG src={Mark} />,
+			title: 'Business Documents',
+			button: 'Continue',
+			id: 'BBD',
+			completed: false,
+		},
+		{
+			icon: <ReactSVG src={Mark} />,
+			title: 'Add Bank Account',
+			button: 'Continue',
+			id: 'BAB',
+			completed: false,
+		},
+	];
 	const [isDesktop, setDesktop] = useState(window.innerWidth > 900);
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 	const { firstname } = useSelector(
@@ -259,7 +283,8 @@ const AccountSetUp = ({ data }: AccountSetUpTypes) => {
 								<List key={item.id} className={styles.list}>
 									<div className={styles.contentWrapper}>
 										<div>
-											<img src={item.icon} alt='icon' />
+											{/* <img src={item.icon} alt='icon' /> */}
+											{item.icon}
 										</div>
 										<div className={styles.mt1}>{item.title}</div>
 										<div className={styles.mt1}>

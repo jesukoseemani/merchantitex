@@ -1,11 +1,13 @@
 import { Grid, Stack, TextField, InputLabel, FormControl, FormHelperText, FormGroup, FormControlLabel } from '@mui/material';
 import React from 'react'
-import MuiPhoneNumber from 'material-ui-phone-number-2';
+import MuiPhoneNumber from 'material-ui-phone-number';
 import Button from '../Button';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { State } from '../../../helpers/State';
 import { Switch } from '@material-ui/core';
+import { styled } from '@mui/system';
+import Styles from "../style.module.scss"
 
 
 interface Props {
@@ -22,13 +24,18 @@ interface priceProps {
 const ProfileAdditionalInfo = ({ handleBack, handleNext }: Props) => {
     const [price, setPrice] = React.useState("");
 
-
-    const handleChange = (e: string | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        // setState(e.target.value);
-    };
+    const handleOnChange = () => { }
 
 
+    const StyledTextField = styled(TextField, {
+        name: "StyledTextField",
+    })({
 
+        "& .MuiInputBase-root": {
+            height: 44,
+            marginBottom: "22px",
+        }
+    });
     const label = { inputProps: { 'aria-label': 'Size switch demo' } };
     const priceList: priceProps[] = [
         {
@@ -56,19 +63,19 @@ const ProfileAdditionalInfo = ({ handleBack, handleNext }: Props) => {
 
     return (
         <div>
-            <Grid container columnSpacing={6} justifyContent="space-between">
+            <Grid container columnSpacing={4} justifyContent="space-between">
 
                 <Grid item xs={12} sm={6} md={6}>
-                    <InputLabel>Contact's firstname</InputLabel>
-                    <TextField variant='outlined' fullWidth placeholder="Contact's firstname" />
+                    <InputLabel className={Styles.label}>Contact's firstname</InputLabel>
+                    <StyledTextField variant='outlined' fullWidth placeholder="Contact's firstname" />
                 </Grid>
                 <Grid item xs={12} sm={6} md={6}>
-                    <InputLabel>Contact's lastname</InputLabel>
-                    <TextField variant='outlined' fullWidth placeholder="Contact's lastname" />
+                    <InputLabel className={Styles.label}>Contact's lastname</InputLabel>
+                    <StyledTextField variant='outlined' fullWidth placeholder="Contact's lastname" />
                 </Grid>
                 <Grid item xs={12} sm={6} md={6}>
-                    <InputLabel>Contact's address</InputLabel>
-                    <TextField variant='outlined' fullWidth placeholder="Contact's address" />
+                    <InputLabel className={Styles.label}>Contact's address</InputLabel>
+                    <StyledTextField variant='outlined' fullWidth placeholder="Contact's address" />
 
                     <FormHelperText id="component-helper-text"
 
@@ -84,9 +91,12 @@ const ProfileAdditionalInfo = ({ handleBack, handleNext }: Props) => {
                 </Grid>
 
                 <Grid item xs={12} sm={6} md={6}>
-                    <InputLabel>Contact phone number</InputLabel>
-                    <MuiPhoneNumber variant='outlined' fullWidth defaultCountry={'us'} onChange={handleChange} />
-
+                    <InputLabel className={Styles.label}>Contact phone number</InputLabel>
+                    <MuiPhoneNumber variant='outlined' fullWidth defaultCountry={'us'} onChange={handleOnChange} sx={{
+                        ".css-x9mhkq-MuiInputBase-root-MuiOutlinedInput-root ": {
+                            height: "44px"
+                        }
+                    }} />
                     <FormHelperText id="component-helper-text"
 
                         sx={{
@@ -101,7 +111,7 @@ const ProfileAdditionalInfo = ({ handleBack, handleNext }: Props) => {
                 </Grid>
                 <Grid item xs={12} sm={6} md={6}>
                     <InputLabel>Contact email address</InputLabel>
-                    <TextField variant='outlined' fullWidth placeholder='Contact email address' />
+                    <StyledTextField variant='outlined' fullWidth placeholder='Contact email address' />
                     <FormHelperText id="component-helper-text"
 
                         sx={{
@@ -118,31 +128,51 @@ const ProfileAdditionalInfo = ({ handleBack, handleNext }: Props) => {
 
                 <Grid item xs={12} sm={6} md={6}>
                     <InputLabel>What is your estimated monthly income </InputLabel>
-                    <FormControl fullWidth>
-                        <Select
-                            labelId="demo-simple-select-helper-label"
-                            id="demo-simple-select-helper"
-                            value={price}
-                            fullWidth
+                    <Select
+                        sx={{
 
-                            placeholder="Select state"
-                        >
-                            <em>select state</em>
-                            <MenuItem value="">
-                                {/* <em>Select business category?</em> */}
-                            </MenuItem>
-                            {priceList?.map(({ name, id }) => (
-                                <MenuItem key={id} value={name} onChange={() => setPrice(name)}>{name}</MenuItem>
-                            ))}
-
-                        </Select>
-                    </FormControl>
+                            height: 44,
+                        }}
+                        fullWidth
+                    >
+                        {priceList?.map(({ name, id }) => (
+                            <MenuItem key={id} value={name}>{name}</MenuItem>
+                        ))}
+                    </Select>
                 </Grid>
 
 
-                <Stack direction="row" spacing={3} justifyContent={"flex-end"} alignItems={"flex-end"} sx={{ width: "100%", marginTop: 10 }}>
-                    <Button backgroundColor='transparent' color='#333' border='1px solid green' onClick={handleBack}>Previous</Button>
-                    <Button onClick={handleNext}>continue</Button>
+                <Stack direction="row" gap={"24px"} justifyContent={"flex-end"} alignItems={"flex-end"} sx={{ width: "100%", marginTop: 10 }}>
+                    <button style={{
+                        backgroundColor: 'transparent',
+                        color: '#333',
+                        border: '1px solid green',
+                        height: "44px",
+                        width: '146px',
+                        fontSize: "16px",
+                        fontWeight: 800,
+                        borderRadius: '20px',
+                        cursor: 'pointer',
+                        margin: "9px 0px ",
+                        fontFamily: 'Avenir',
+
+                    }} onClick={handleBack}>Previous</button>
+                    <button
+                        style={{
+                            backgroundColor: '#27AE60',
+                            height: "44px",
+                            width: '146px',
+                            color: '#fff',
+                            border: 'none',
+                            fontSize: "16px",
+                            fontWeight: 800,
+                            borderRadius: '20px',
+                            cursor: 'pointer',
+                            margin: "9px 0px ",
+                            fontFamily: 'Avenir',
+                        }}
+
+                        onClick={handleNext}>continue</button>
                 </Stack>
             </Grid>
 

@@ -15,6 +15,11 @@ import { closeModal } from '../../redux/actions/modal/modalActions';
 // import { saveCountry } from '../../redux/actions/country/countryActions';
 import * as Yup from 'yup';
 import { FetchProfileDetails } from '../../helpers/FetchProfileDetails';
+import { styled } from '@mui/system';
+import { MenuItem, Select } from '@mui/material';
+
+
+
 const BankAccount = () => {
 	const dispatch = useDispatch();
 
@@ -34,17 +39,25 @@ const BankAccount = () => {
 		type: Yup.string().required('Required'),
 	});
 
-	const settlementOptions = [
-		{
-			name: 'Bank Account',
-		},
+	const StyledTextField = styled(TextField, {
+		name: "StyledTextField",
+	})({
+
+		"& .MuiInputBase-root": {
+			height: 44,
+			marginBottom: "18px",
+		}
+	});
+	const settlementType = [
+		{ name: 'Wallet', code: 'Wallet' },
+		{ name: 'Account', code: 'Account' },
 	];
 	return (
 		<div style={{ width: '100%', maxWidth: '400px', overflow: 'hidden' }}>
 			<div className={styles.header}>
 				<h3>Add a bank account</h3>
 			</div>
-			<div style={{ width: '80%', margin: '0 auto' }}>
+			<div style={{ width: '80%', margin: '0 auto', }}>
 				<Formik
 					initialValues={{
 						bankcode: '',
@@ -100,11 +113,10 @@ const BankAccount = () => {
 					}}>
 					{(props) => (
 						<Form>
-							<Grid container spacing={2}>
-								<Grid item md={12}>
-									<InputLabel>Phone Number</InputLabel>
-									<Field
-										as={TextField}
+							<Grid container style={{ paddingInline: "10px" }}>
+								<Grid item xs={12}>
+									<InputLabel className={styles.label}>Phone Number</InputLabel>
+									<StyledTextField
 										helperText={
 											<ErrorMessage name='type'>
 												{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
@@ -113,13 +125,13 @@ const BankAccount = () => {
 										name='phone'
 										placeholder='Phone'
 										variant='outlined'
-										margin='normal'
+
 										size='small'
 										fullWidth
 									/>
 								</Grid>
-								<Grid item md={12}>
-									<InputLabel>Bank name</InputLabel>
+								<Grid item xs={12}>
+									<InputLabel className={styles.label}>Bank name</InputLabel>
 									<Field
 										as={SelectWrapperCountry}
 										helperText={
@@ -131,15 +143,13 @@ const BankAccount = () => {
 										placeholder='Type'
 										size='small'
 										options={bankData}
-										style={{
-											marginTop: '1rem',
-										}}
+
 									/>
 								</Grid>
-								<Grid item md={12}>
-									<InputLabel>Corporate Bank Account Number</InputLabel>
-									<Field
-										as={TextField}
+
+								<Grid item xs={12}>
+									<InputLabel className={styles.label}>Corporate Bank Account Number</InputLabel>
+									<StyledTextField
 										helperText={
 											<ErrorMessage name='accountnumber'>
 												{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
@@ -148,46 +158,38 @@ const BankAccount = () => {
 										name='accountnumber'
 										placeholder='Account Number'
 										variant='outlined'
-										margin='normal'
+
 										size='small'
 										fullWidth
 									/>
 								</Grid>
-								<div
-									style={{
-										color: 'rgba(130, 130, 130, 1)',
-										marginLeft: '8px',
-									}}>
-									<h6>Resolved Account name</h6>
-								</div>
-								<Grid item md={12}>
-									<InputLabel>Settlement type</InputLabel>
-									<Field
-										as={TextField}
-										helperText={
-											<ErrorMessage name='type'>
-												{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
-											</ErrorMessage>
-										}
-										name='type'
-										placeholder='Type'
-										variant='outlined'
-										margin='normal'
-										size='small'
+								<h6 className={styles.resolve}>Resolved Account name</h6>
+
+								<Grid item xs={12}>
+									<InputLabel className={styles.label}>Settlement type</InputLabel>
+									<Select
+										sx={{
+
+											height: 44,
+											marginBottom: "18px"
+										}}
 										fullWidth
-										select
-									/>
+									>
+										{settlementType?.map(({ name, code }) => (
+											<MenuItem key={code} value={name}>{name}</MenuItem>
+										))}
+									</Select>
 								</Grid>
 
-								<Grid item md={12}>
+								<Grid item xs={12}>
 									<Button
 										variant='contained'
 										style={{
 											background: 'rgba(39, 174, 96, 1)',
 											color: 'white',
-											marginTop: '0.8rem',
-											padding: '0.9rem',
-											marginBottom: '2rem',
+											marginTop: '47px',
+											height: '44px',
+											marginBottom: '2.4rem',
 											borderRadius: 20
 										}}
 										fullWidth

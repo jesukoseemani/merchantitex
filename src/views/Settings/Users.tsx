@@ -54,6 +54,9 @@ const Users = () => {
 		setChange((prevState) => ({ ...prevState, [name]: value }));
 	};
 
+
+
+
 	const getUsers = () => {
 		dispatch(openLoader());
 		axios
@@ -222,10 +225,10 @@ const Users = () => {
 			openModalAndSetContent({
 				modalStyles: {
 					padding: 0,
-					maxWidth: '539px',
-					minHeight: '500px',
-					width: '100%',
-					borderRadius: 6,
+					width: '550px',
+					minHeight: '700px',
+					maxWidth: '100%',
+					borderRadius: 20,
 					boxShadow: "-4px 4px 14px rgba(224, 224, 224, 0.69)",
 
 				},
@@ -259,8 +262,10 @@ const Users = () => {
 				modalStyles: {
 					padding: 0,
 					maxWidth: '539px',
-					height: '700px',
+					// minHeight: '450px',
 					width: '100%',
+					maxHeight: '400px',
+					overflow: "auto",
 					borderRadius: "20px"
 				},
 				modalContent: (
@@ -280,6 +285,7 @@ const Users = () => {
 					maxWidth: '653px',
 					height: '254px',
 					width: '100%',
+					borderRadius: "20px"
 				},
 				modalContent: (
 					<div className={Styles.modalDiv}>
@@ -313,12 +319,12 @@ const Users = () => {
 
 		<div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
 			{/* <NavBar title='Bank Accounts' /> */}
-			<div className={Styles.container}>
+			<div className={Styles.container} style={{ width: "100%" }}>
 				<div className={Styles.formHeader}>
 					<div>
 						<h2>Users</h2>
 					</div>
-					<button style={{ padding: "10px 20px", borderRadius: "20px" }} onClick={editBusinessHandler} className='success'>
+					<button style={{ height: "39px", width: "123.09px", borderRadius: "20px" }} onClick={editBusinessHandler} className='success'>
 						+ New user
 					</button>
 				</div>

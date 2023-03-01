@@ -58,6 +58,14 @@ const SignUp = () => {
 		overrides: {
 			MuiRadio: {
 				colorSecondary: {
+
+
+					padding: 0,
+
+					width: 20,
+					height: 20,
+					marginLeft: 32,
+					marginRight: 25,
 					'&$checked': {
 						color: 'green',
 					},
@@ -141,7 +149,7 @@ const SignUp = () => {
 				</div>
 			</div>
 			<div className={styles.sub}>
-				<div className={styles.mt1}>
+				<div className={styles.mt}>
 					<p className={styles.signinAnchor} onClick={handleSignin}>
 						<span className={styles.subP}>Already have an account? </span>
 						Log in
