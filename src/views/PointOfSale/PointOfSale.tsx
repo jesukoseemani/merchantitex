@@ -12,17 +12,48 @@ export type PosTabStateType = 'requests' | 'deployed';
 
 export const useTabBtnStyles = makeStyles({
   root: {
+    " .MuiTabs-indicator ": {
+      border: "2px solid red"
+    },
     '& .Mui-selected': {
-      color: '#27AE60',
+      // color: '#27AE60',
+
+      position: "relative",
+
+      "& ::after": {
+        border: "2px solid red",
+        content: "",
+        position: "absolute",
+        width: "10px",
+        bottom: 0,
+        height: "10px",
+
+
+      }
+
     },
     '& .MuiTabs-indicator': {
       backgroundColor: '#27AE60',
-      height: '3px'
+      height: '1px',
+      width: "10px"
     },
     '& .MuiButtonBase-root': {
       fontSize: '1rem',
       fontWeight: '400',
-    }
+
+
+    },
+    '& .css-z7wd5-MuiButtonBase-root-MuiTab-root.Mui-selected': {
+      color: "#27AE60",
+      fontFamily: "Avenir",
+
+    },
+    ' .makeStyles-root-339 .MuiTabs-indicator ': {
+      height: "3px",
+      width: "10px"
+
+    },
+    root: { width: '60%', margin: 'auto' },
   }
 })
 
@@ -36,35 +67,38 @@ const PointOfSale = () => {
     setValue(newValue);
   };
 
+
+
+
   return (
-    
 
-      <div className={styles.container}>
-        <PosModal isOpen={isModalOpen} handleClose={() => setIsModalOpen(false)} />
-        {/* <NavBar title="Point Of Sale"/> */}
-        <div className={styles.pageWrapper}>
-          <Tabs
-            value={value} onChange={handleTabChange} aria-label="pos tabs"
-            className={tabBtnClasses.root}
-          >
-            <Tab label="Requests" value='requests' />
-            <Tab label="Deployed" value='deployed' />
-          </Tabs>
 
-          <RequestsTab
-            value={value}
-            index='requests'
-            openModal={() => setIsModalOpen(true)}
-            closeModal={() => setIsModalOpen(false)}
-          />
-          <DeployedTab
-            value={value}
-            index='deployed'
-            openModal={() => setIsModalOpen(true)}
-            closeModal={() => setIsModalOpen(false)}
-          />
-        </div>
+    <div className={styles.container}>
+      <PosModal isOpen={isModalOpen} handleClose={() => setIsModalOpen(false)} />
+      {/* <NavBar title="Point Of Sale"/> */}
+      <div className={styles.pageWrapper}>
+        <Tabs
+          value={value} onChange={handleTabChange} aria-label="pos tabs"
+          className={tabBtnClasses.root}
+        >
+          <Tab label="Requests" value='requests' />
+          <Tab label="Deployed" value='deployed' />
+        </Tabs>
+
+        <RequestsTab
+          value={value}
+          index='requests'
+          openModal={() => setIsModalOpen(true)}
+          closeModal={() => setIsModalOpen(false)}
+        />
+        <DeployedTab
+          value={value}
+          index='deployed'
+          openModal={() => setIsModalOpen(true)}
+          closeModal={() => setIsModalOpen(false)}
+        />
       </div>
+    </div>
   );
 };
 

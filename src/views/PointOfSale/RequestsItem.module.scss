@@ -37,8 +37,9 @@
 }
 
 .sectionOne {
-	padding: 0 2rem 2rem;
+	// padding: 0 2rem 0;
 	// border-bottom: 1px solid #e0e0e0;
+	margin-bottom: 8px;
 
 	&>div {
 		margin: 1.25rem 0;
@@ -71,7 +72,7 @@
 	border-radius: 20px;
 	padding: 10px;
 	background-color: #fff;
-	width: 95%;
+	width: 100%;
 	margin-inline: auto;
 
 	.statusBox {
@@ -149,7 +150,7 @@
 	padding: 2rem;
 	background-color: #fff;
 	border-radius: 10px;
-	width: 95%;
+	width: 100%;
 	max-width: 100%;
 	margin-inline: auto;
 	margin-top: 2rem;
@@ -188,7 +189,7 @@
 	padding: 2rem;
 	background-color: #fff;
 	border-radius: 10px;
-	width: 95%;
+	width: 100%;
 	max-width: 100%;
 	margin-inline: auto;
 	margin-top: 2rem;

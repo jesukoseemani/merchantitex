@@ -6,9 +6,11 @@
     height: 100%;
 
     .middle_container {
-        width: 841px;
+        width: 82%;
+
         max-width: 100%;
         margin-inline: auto;
+
 
 
 
@@ -28,7 +30,7 @@
             font-weight: 400;
             font-size: 16px;
             line-height: 24px;
-            margin-bottom: 56px;
+            margin-bottom: 60px;
             /* or 150% */
 
 
@@ -40,13 +42,13 @@
         }
 
         @media screen and (max-width:750px) {
-            width: 90%;
+            width: 100%;
             padding: 10px;
         }
     }
 
     @media screen and (max-width:900px) {
-        width: 90%;
+        width: 100%;
         padding: 10px;
         // border: 2px solid red;
         flex-direction: column;
@@ -56,22 +58,21 @@
 }
 
 .box {
-    width: 841px;
+    width: 100%;
     height: 274px;
-    left: 385px;
-    top: 321px;
+
 
     background: #FFFFFF;
     border: 1px solid #DFDFDF;
     border-radius: 20px;
-    margin: 0px auto;
-    // max-width: 100%;
-    // height: auto;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    // gap: 20px;
 
+    // gap: 20px;
+    svg {
+        margin: 0;
+    }
 
     &>div {
         height: 170px;
@@ -80,8 +81,8 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        width: 100%;
-        gap: 10px;
+        width: 280px;
+        gap: 5px;
 
         &:nth-of-type(3) {
             border: none;
@@ -89,6 +90,9 @@
 
         &>div {
             height: 40px;
+            border: #27AE60 solid red;
+
+
         }
 
         button {
@@ -103,7 +107,12 @@
             background: #27AE60;
             border-radius: 20px;
             height: 36px;
-            padding: 10px 30px;
+            width: 111px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px !important;
+
 
             color: #FFFFFF;
 
@@ -131,7 +140,7 @@
             padding: 5px;
             width: 40px;
             height: 40px;
-            border: 2ps solid red;
+            border: 2ps solid red !important;
 
             path {
 
@@ -159,5 +168,10 @@
             border: 1px solid #DFE7EF;
         }
 
+    }
+
+    @media screen and (max-width:750px) {
+        height: auto;
+        width: 100%;
     }
 }

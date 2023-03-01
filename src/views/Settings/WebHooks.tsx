@@ -161,7 +161,7 @@ const WebHooks = () => {
 						<Input placeholder="Enter a custom hook URL" />
 					</Box>
 				</div>
-				<Button onClick={webhookHandler} style={{ borderRadius: "20px" }} className='success'>
+				<Button onClick={webhookHandler} style={{ borderRadius: "20px", height: "39px" }} className='success'>
 					Save webhook settings
 				</Button>
 			</div>

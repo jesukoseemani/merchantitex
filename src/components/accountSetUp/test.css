@@ -1,8 +1,8 @@
-.onboarding_form_container{
+/* .onboarding_form_container {
   width: auto;
   min-width: 30rem;
 }
-.form__select_type{
+.form__select_type {
   color: #333;
   font-weight: 500;
   font-family: Avenir, "Arial, Helvetica, sans-serif";
@@ -58,7 +58,6 @@
   align-items: center;
   border: 1px solid rgba(224, 224, 224, 1);
   margin: 10px auto;
-  /* padding: 10px 10px 0px 10px; */
   border-radius: 4px;
   height: auto;
   min-height: 6rem;
@@ -75,7 +74,6 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* padding-left: 2rem; */
 }
 
 .form__radio-button {
@@ -139,7 +137,6 @@
 }
 
 .content {
-  /* padding: 0 2rem; */
   width: 100%;
   height: 100%;
   margin-left: 5rem;
@@ -170,9 +167,7 @@
   letter-spacing: 0em;
   color: rgba(139, 139, 139, 1);
 }
-/* .active {
-	border: 1px solid #27ae60;
-} */
+
 .notActive {
   border: 1px solid rgba(224, 224, 224, 1);
-}
+} */

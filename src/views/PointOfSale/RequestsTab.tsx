@@ -107,20 +107,23 @@ const RequestsTab = ({
 		label: any;
 		minWidth?: number;
 		align?: 'right' | 'left' | 'center';
+		padding?: number;
+		paddingLeft?: number;
+		paddingRight?: number;
 	}
 	const columns: Column[] = [
-		{ id: 'status', label: 'Delivery status', minWidth: 100 },
-		{ id: 'reqId', label: 'Request ID', minWidth: 100 },
-		{ id: 'added', label: 'Date requested', minWidth: 100, align: 'right' },
+		{ id: 'status', label: 'Delivery status', minWidth: 100, paddingLeft: 50 },
+		{ id: 'reqId', label: 'Request ID', minWidth: 100, },
+		{ id: 'added', label: 'Date requested', minWidth: 100, align: 'right', paddingRight: 50 },
 	];
 
 	const RequestRowTab = useCallback(
 		(reqId, status, added, qtyRequested, qtyAssigned, deliveryAddress) => ({
 			status:
 				status === 'Approved' ? (
-					<p className={styles.greenText}>{status}</p>
+					<p style={{ marginLeft: "30px" }} className={styles.greenText}>{status}</p>
 				) : (
-					<p className={styles.yellowText}>{status}</p>
+					<p style={{ marginLeft: "30px" }} className={styles.yellowText}>{status}</p>
 				),
 			reqId: <p className={styles.tableBodyText}>{reqId}</p>,
 			added: (

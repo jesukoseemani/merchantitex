@@ -12,6 +12,9 @@ import { useDispatch } from 'react-redux';
 import { serialize } from 'object-to-formdata';
 import { FetchProfileDetails } from '../../helpers/FetchProfileDetails'
 import ParentContainer from '../../components/ParentContainer/ParentContainer';
+import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
+import { InputLabel } from '@mui/material';
+
 
 const GeneralSettings = () => {
 	interface formTypes {
@@ -397,14 +400,25 @@ const GeneralSettings = () => {
 						placeholder='chargebackemail@email.com'
 					/>
 				</div>
-				<div className={Styles.formField}>
-					<Form.Input
-						fluid
-						name='businesslogo'
-						onChange={handleFileChange}
-						label='Business Logo'
-						type='file'
-					/>
+				<div className={Styles.formField} style={{ width: "465px", maxWidth: "100%" }}>
+					<InputLabel className={Styles.label}>Business Logo </InputLabel>
+					<Button variant="outlined" fullWidth component="label"
+						style={{
+							background: "#F6F9FD",
+							fontSize: "14px", color: "#4F4F4F",
+							height: 44,
+							border: "1px dashed #7A9CC4",
+							borderRadius: 4,
+							fontWeight: 300,
+							fontFamily: "Avenir",
+							textTransform: "inherit",
+							display: "flex",
+							justifyContent: "flex-start",
+							alignItems: "center"
+						}}>
+						<CloudUploadOutlinedIcon className={Styles.downloadIcon} />   choose file to upload
+						<input hidden accept="image/*" multiple type="file" />
+					</Button>
 				</div>
 			</div>
 		</div>

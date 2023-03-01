@@ -21,6 +21,9 @@ import { openModalAndSetContent } from '../../../redux/actions/modal/modalAction
 import { useDispatch } from 'react-redux';
 import SuccessModal from '../../../components/accountSetUp/business/SuccessModal';
 
+
+
+
 const BusinessSetup = () => {
     const steps = [
         {
@@ -61,9 +64,9 @@ const BusinessSetup = () => {
         dispatch(
             openModalAndSetContent({
                 modalStyles: {
-                    // padding: 0,
+                    padding: 0,
                     minWidth: 200,
-                    minHeight: 391,
+                    height: "493px",
                 },
 
                 modalContent: (
@@ -95,58 +98,52 @@ const BusinessSetup = () => {
 
 
     return (
-        <div className={Styles.container}>
+        <div className={Styles.container} style={{ height: "90" }}>
             <div className={Styles.title}>
                 <p>Set up business profile</p>
             </div>
 
+
+
+
+
             <Box >
-                <Grid container spacing={4} p={3} justifyContent="space-around" alignItems={"center"}>
+                <Grid container spacing={4} p={1} justifyContent="space-around" alignItems={"center"}>
                     <Grid item xs={12} md={4}>
                         <Box sx={{
                             borderRight: "1px solid #E0E0E0",
-                            height: "100%"
+                            height: "100%",
+                            padding: "0px 40px"
+
                         }}>
-                            <Stepper activeStep={activeStep} orientation="vertical" sx={{
+                            <Stepper nonLinear activeStep={activeStep} orientation="vertical" sx={{
                                 '.css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed': {
                                     color: "green"
                                 },
                                 '.css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root': {
                                     color: "#eee"
                                 },
-                            }}>
+
+                            }}
+
+                            >
                                 {steps.map((step, index) => (
                                     <Step key={step.label}>
                                         <StepLabel>
-                                            {step.label}
-                                            <Typography variant="body2">{step.description}</Typography>
+                                            <Box sx={{ marginLeft: "20px" }}>
+                                                <p className={Styles.stepLabel}>{step.label}</p>
+                                                <p className={Styles.stepDesc}>{step.description}</p>
+                                            </Box>
                                         </StepLabel>
                                         <StepConnector sx={{
                                             '.css-8t49rw-MuiStepConnector-line': {
-                                                height: 50
+                                                height: 40,
+
+
+
                                             }
                                         }} />
-                                        <StepContent>
-                                            <Typography>{step.description}</Typography>
-                                            <Box>
-                                                {/* <div> 
-                                                    <Button
-                                                        variant="contained"
-                                                        onClick={handleNext}
 
-                                                    >
-                                                        {index === steps.length - 1 ? 'Finish' : 'Continue'}
-                                                    </Button>
-                                                    <Button
-                                                        disabled={index === 0}
-                                                        onClick={handleBack}
-
-                                                    >
-                                                        Back
-                                                    </Button>
-                                                </div> */}
-                                            </Box>
-                                        </StepContent>
                                     </Step>
                                 ))}
                             </Stepper>
@@ -167,7 +164,6 @@ const BusinessSetup = () => {
 
                 </Grid>
             </Box>
-
         </div>
     )
 }

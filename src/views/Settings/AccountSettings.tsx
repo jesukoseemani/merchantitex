@@ -29,12 +29,12 @@ const WebHooks = () => {
 
     <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
       {/* <NavBar /> */}
-      <div className={Styles.container}>
+      <div className={Styles.container} style={{ width: "100%" }}>
         <div className={Styles.formHeader}>
           <div>
             <h2>Account preferences</h2>
           </div>
-          <button style={{ borderRadius: "20px", padding: "10px 20px" }} className="success">Save settings</button>
+          <button style={{ borderRadius: "20px", height: "39px", width: "131px" }} className="success">Save settings</button>
         </div>
         <div className={Styles.wrapper}>
           <div className={Styles.checkboxGrid}>

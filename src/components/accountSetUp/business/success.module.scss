@@ -4,32 +4,36 @@
     align-items: center;
     flex-direction: column;
 
+
+
     h2 {
         font-family: 'Avenir';
         font-style: normal;
-        font-weight: 900;
+        font-weight: 900 !important;
         font-size: 30px;
         line-height: 41px;
         text-align: center;
         width: 361px;
         height: 82px;
         color: #333333;
-        margin-bottom: 15px;
     }
 
     p {
-        // font-family: 'Avenir';
+        font-family: 'Avenir' !important;
         font-style: normal;
-        font-weight: 400;
+        font-weight: 400 !important;
         font-size: 16px;
         line-height: 25px;
         text-align: center;
         color: #333333;
         // border: 2px solid red;
+        margin-top: 18px;
     }
 }
 
 .container {
-    padding-inline: 58px;
-    width: 500px;
+    padding: 53px 58px;
+    width: 540px;
+    height: 493px;
+
 }

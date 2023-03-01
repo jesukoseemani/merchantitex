@@ -1,5 +1,5 @@
 .container {
-	position: absolute;
+	// position: absolute;
 	width: 419px;
 	height: 564px;
 	left: 0px;
@@ -8,16 +8,18 @@
 	background: #FFFFFF;
 	box-shadow: -4px 4px 14px rgba(224, 224, 224, 0.69);
 	border-radius: 20px;
+	border: 2px solid red;
 
 }
 
 .header {
 	border-bottom: 1px solid rgba(224, 224, 224, 1);
 	width: 100%;
-	margin: 1.5rem 0;
+	// margin: 1.5rem 0;
 	color: rgba(130, 130, 130, 1);
-	padding-left: 30px;
-	padding-bottom: 1rem;
+	padding: 21px 50px;
+	margin-bottom: 27px;
+
 
 	h3 {
 		// padding: 0.7rem 1rem;
@@ -133,4 +135,27 @@
 	border-radius: 4px;
 	margin-top: 10px;
 	width: 100%;
+}
+
+.label {
+	padding: 0 !important;
+	font-family: 'Avenir' !important;
+	font-style: normal;
+	font-weight: 400 !important;
+	font-size: 14px;
+	line-height: 19px;
+
+	color: #333333;
+
+
+}
+
+.resolve {
+	font-family: 'Avenir';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 19px;
+	margin-bottom: 19px;
+	color: #333333;
 }

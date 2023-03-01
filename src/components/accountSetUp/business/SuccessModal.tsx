@@ -14,7 +14,9 @@ const SuccessModal = () => {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                flexDirection: "column"
+                flexDirection: "column",
+                // marginTop: "50px",
+                // marginBottom: "3px",
             }}>
                 <CheckCircleOutlinedIcon color='success' style={{
                     fontSize: "100px"

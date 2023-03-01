@@ -28,7 +28,7 @@ function IndividualUpdateSettings() {
 
 	return (
 		<div>
-			<AccountSetUp data={data} />
+			{/* <AccountSetUp data={data} /> */}
 		</div>
 	);
 }

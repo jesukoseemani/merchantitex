@@ -56,10 +56,11 @@ const ProfileSetup = () => {
         dispatch(
             openModalAndSetContent({
                 modalStyles: {
-                    // padding: 0,
-                    minWidth: 200,
-                    minHeight: 391,
+                    padding: 0,
+                    width: "540px",
+                    height: "493px",
                 },
+
 
                 modalContent: (
                     <div className='modalDiv'>
@@ -95,11 +96,12 @@ const ProfileSetup = () => {
             </div>
 
             <Box >
-                <Grid container spacing={4} p={3} justifyContent="space-around" alignItems={"center"}>
+                <Grid container spacing={4} p={1} justifyContent="space-around" alignItems={"center"}>
                     <Grid item xs={12} md={4}>
                         <Box sx={{
                             borderRight: "1px solid #E0E0E0",
-                            height: "100%"
+                            height: "100%",
+                            marginRight: "-45px"
                         }}>
                             <Stepper activeStep={activeStep} orientation="vertical" sx={{
                                 '.css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed': {
@@ -117,29 +119,12 @@ const ProfileSetup = () => {
                                         </StepLabel>
                                         <StepConnector sx={{
                                             '.css-8t49rw-MuiStepConnector-line': {
-                                                height: 50
+                                                height: 70
                                             }
                                         }} />
                                         <StepContent>
                                             <Typography>{step.description}</Typography>
-                                            <Box>
-                                                {/* <div> 
-                                                    <Button
-                                                        variant="contained"
-                                                        onClick={handleNext}
 
-                                                    >
-                                                        {index === steps.length - 1 ? 'Finish' : 'Continue'}
-                                                    </Button>
-                                                    <Button
-                                                        disabled={index === 0}
-                                                        onClick={handleBack}
-
-                                                    >
-                                                        Back
-                                                    </Button>
-                                                </div> */}
-                                            </Box>
                                         </StepContent>
                                     </Step>
                                 ))}

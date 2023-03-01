@@ -15,7 +15,7 @@
   // height: 100%;
   // border: 2px solid blue;
 
-  & > .userInfo {
+  &>.userInfo {
     padding-inline: 21px;
     width: 201px;
     height: 80px;
@@ -30,7 +30,7 @@
     justify-content: center;
     gap: 10px;
 
-    & > div {
+    &>div {
       p {
         color: $light_text;
         font-weight: 500;
@@ -175,8 +175,7 @@ input {
 }
 
 .toggleButton {
-  background: rgba(4, 25, 38, 0.1);
-  border: 0.7px solid #041926;
+
   border-radius: 17.5px;
   // width: 200px;
   // height: 35px;

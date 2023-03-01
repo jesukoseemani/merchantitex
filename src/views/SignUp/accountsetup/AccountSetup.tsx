@@ -19,8 +19,9 @@ const AccountSetup = () => {
             openModalAndSetContent({
                 modalStyles: {
                     padding: 0,
-                    minWidth: "95%",
-                    minHeight: "97vh",
+                    minWidth: "1165px",
+                    height: "649px",
+                    // maxWidth: "100%",
                     marginInline: "auto",
                     borderRadius: 20,
                 },
@@ -38,8 +39,8 @@ const AccountSetup = () => {
             openModalAndSetContent({
                 modalStyles: {
                     padding: 0,
-                    minWidth: "100px",
-                    minHeight: "100px",
+                    width: "400px",
+                    minHeight: "600px",
                     // minHeight: "97vh",
                     // marginInline: "auto",
                     borderRadius: 20,
@@ -58,9 +59,11 @@ const AccountSetup = () => {
             openModalAndSetContent({
                 modalStyles: {
                     padding: 0,
-                    minWidth: "95%",
-                    minHeight: "97vh",
+                    width: "1165px",
+                    maxWidth: "100%",
+                    height: "649px",
                     marginInline: "auto",
+
                     borderRadius: 20,
                 },
 

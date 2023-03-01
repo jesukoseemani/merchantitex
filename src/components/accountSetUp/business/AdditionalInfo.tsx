@@ -1,12 +1,13 @@
-import { Grid, Stack, TextField, InputLabel } from '@mui/material';
+import { Grid, Stack, TextField, InputLabel, Box, styled } from '@mui/material';
 import React from 'react'
-import MuiPhoneNumber from 'material-ui-phone-number-2';
+import MuiPhoneNumber from 'material-ui-phone-number';
 import Button from '../Button';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { State } from '../../../helpers/State';
 
+import styles from "../style.module.scss"
 
 interface Props {
     handleNext: () => void;
@@ -28,7 +29,15 @@ const AdditionalInfo = ({ handleBack, handleNext }: Props) => {
         setState(event.target.value);
     };
 
+    const StyledTextField = styled(TextField, {
+        name: "StyledTextField",
+    })({
 
+        "& .MuiInputBase-root": {
+            height: 44,
+            marginBottom: "22px",
+        }
+    });
 
     const priceList: priceProps[] = [
         {
@@ -53,82 +62,101 @@ const AdditionalInfo = ({ handleBack, handleNext }: Props) => {
         },
 
     ]
-
+    const handleOnChange = () => { }
     return (
-        <div>
-            <Grid container columnSpacing={6} justifyContent="space-between">
+
+
+
+        <Box sx={{ marginTop: "-3rem" }}>
+            <Grid container columnSpacing={4} justifyContent="flex-start">
 
                 <Grid item xs={12} sm={6} md={6}>
-                    <InputLabel>Business phone number</InputLabel>
-                    <MuiPhoneNumber variant='outlined' fullWidth defaultCountry={'us'} onChange={() => console.log("123")} />
+                    <InputLabel className={styles.label}>Business phone number</InputLabel>
+                    <MuiPhoneNumber variant='outlined' fullWidth defaultCountry={'us'} onChange={handleOnChange} sx={{
+                        ".css-x9mhkq-MuiInputBase-root-MuiOutlinedInput-root ": {
+                            height: "44px"
+                        }
+                    }} />
                 </Grid>
                 <Grid item xs={12} sm={6} md={6}>
-                    <InputLabel>Support Email Address</InputLabel>
+                    <InputLabel className={styles.label}>Support Email Address</InputLabel>
 
-                    <TextField variant='outlined' fullWidth placeholder='Support Email Address' />
+                    <StyledTextField variant='outlined' fullWidth placeholder='Support Email Address' />
                 </Grid>
 
                 <Grid item xs={12} sm={6} md={6}>
-                    <InputLabel>Bussiness Address</InputLabel>
-                    <TextField variant='outlined' fullWidth placeholder='Bussiness Address' />
+                    <InputLabel className={styles.label}>Bussiness Address</InputLabel>
+                    <StyledTextField variant='outlined' fullWidth placeholder='Bussiness Address' />
                 </Grid>
                 <Grid item xs={12} sm={6} md={6}>
-                    <InputLabel>State</InputLabel>
-                    <FormControl fullWidth>
-                        <Select
-                            labelId="demo-simple-select-helper-label"
-                            id="demo-simple-select-helper"
-                            value={state}
-                            fullWidth
-                            onChange={() => console.log("1234")}
-                            placeholder="Select state"
-                        >
-                            <em>select state</em>
-                            <MenuItem value="">
-                                {/* <em>Select business category?</em> */}
-                            </MenuItem>
-                            {State?.map(({ name, code }) => (
-                                <MenuItem key={code} value={name}>{name}</MenuItem>
-                            ))}
+                    <InputLabel className={styles.label}>State</InputLabel>
+                    <Select
+                        sx={{
 
-                        </Select>
-                    </FormControl>
+                            height: 44,
+                        }}
+                        fullWidth
+                    >
+                        {State?.map(({ name, code }) => (
+                            <MenuItem key={code} value={name}>{name}</MenuItem>
+                        ))}
+                    </Select>
                 </Grid>
                 <Grid item xs={12} sm={6} md={6}>
-                    <InputLabel>City</InputLabel>
-                    <TextField variant='outlined' fullWidth placeholder='City' />
+                    <InputLabel className={styles.label}>City</InputLabel>
+                    <StyledTextField variant='outlined' fullWidth placeholder='City' />
                 </Grid>
                 <Grid item xs={12} sm={6} md={6}>
-                    <InputLabel>What is your estimated monthly income </InputLabel>
-                    <FormControl fullWidth>
-                        <Select
-                            labelId="demo-simple-select-helper-label"
-                            id="demo-simple-select-helper"
-                            value={price}
-                            fullWidth
+                    <InputLabel className={styles.label}>What is your estimated monthly income </InputLabel>
+                    <Select
+                        sx={{
 
-                            placeholder="Select state"
-                        >
-                            <em>select state</em>
-                            <MenuItem value="">
-                                {/* <em>Select business category?</em> */}
-                            </MenuItem>
-                            {priceList?.map(({ name, id }) => (
-                                <MenuItem key={id} value={name} onChange={() => setPrice(name)}>{name}</MenuItem>
-                            ))}
-
-                        </Select>
-                    </FormControl>
+                            height: 44,
+                        }}
+                        fullWidth
+                    >
+                        {priceList?.map(({ name, id }) => (
+                            <MenuItem key={id} value={name}>{name}</MenuItem>
+                        ))}
+                    </Select>
                 </Grid>
 
 
-                <Stack direction="row" spacing={3} justifyContent={"flex-end"} alignItems={"flex-end"} sx={{ width: "100%", marginTop: 10 }}>
-                    <Button backgroundColor='transparent' color='#333' border='1px solid green' onClick={handleBack}>Previous</Button>
-                    <Button onClick={handleNext}>continue</Button>
+                <Stack direction="row" gap={"24px"} justifyContent={"flex-end"} alignItems={"flex-end"} sx={{ width: "100%", marginTop: "150px" }}>
+                    <button style={{
+                        backgroundColor: 'transparent',
+                        color: '#333',
+                        border: '1px solid green',
+                        height: "44px",
+                        width: '146px',
+                        fontSize: "16px",
+                        fontWeight: 800,
+                        borderRadius: '20px',
+                        cursor: 'pointer',
+
+                        fontFamily: 'Avenir',
+
+                    }} onClick={handleBack}>Previous</button>
+                    <button
+                        style={{
+                            backgroundColor: '#27AE60',
+                            height: "44px",
+                            width: '146px',
+                            color: '#fff',
+                            border: 'none',
+                            fontSize: "16px",
+                            fontWeight: 800,
+                            borderRadius: '20px',
+                            cursor: 'pointer',
+
+                            fontFamily: 'Avenir',
+                        }}
+
+                        onClick={handleNext}>continue</button>
                 </Stack>
             </Grid>
 
-        </div>
+        </Box>
     )
 }
 

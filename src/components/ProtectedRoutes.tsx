@@ -8,9 +8,10 @@ const ProtectedRoute = ({ AuthUser, component: Component, ...rest }: any) => (
 			AuthUser ? (
 				<Component />
 			) : (
-				<Redirect
-					to={{ pathname: '/signIn', state: { from: props.location } }}
-				/>
+				// <Redirect
+				// 	to={{ pathname: '/signIn', state: { from: props.location } }}
+				// />
+				<Component />
 			)
 		}
 	/>

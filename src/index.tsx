@@ -15,11 +15,16 @@ import { store, persistor } from './redux/storeConfig/store';
 import { PersistGate } from 'redux-persist/integration/react';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import Loader from './components/Loader';
+import { ThemeProvider } from '@mui/material';
+import theme from './components/theme/Theme';
 ReactDOM.render(
 	<React.StrictMode>
 		<Provider store={store}>
 			<PersistGate loading={<Loader />} persistor={persistor}>
-				<App />
+				<ThemeProvider theme={theme}>
+
+					<App />
+				</ThemeProvider>
 			</PersistGate>
 		</Provider>
 	</React.StrictMode>,

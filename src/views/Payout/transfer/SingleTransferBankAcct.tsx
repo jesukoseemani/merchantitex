@@ -43,7 +43,7 @@ const SingleTransferBankAcct = () => {
         );
     }
     return (
-        <Box sx={{ height: "650px", width: "400px" }} className={Styles.container}>
+        <Box sx={{ minHeight: "650px", width: "400px" }} className={Styles.container}>
             <Box className={Styles.title}><h2>Single transfer</h2></Box>
 
 

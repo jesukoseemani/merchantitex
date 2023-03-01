@@ -1,8 +1,15 @@
-import { Grid, TextField, InputLabel, Stack, Button, FormHelperText, Box } from '@mui/material'
-import Buttons from '../Button';
-import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
-import ExpandCircleDownOutlinedIcon from '@mui/icons-material/ExpandCircleDownOutlined';
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import { Grid, TextField, InputLabel, Stack, Button, FormHelperText, Box, styled } from '@mui/material'
+import styles from "../style.module.scss"
+import AddIcon from "../../../assets/images/add.svg"
+import AngleDown from "../../../assets/images/arrowDown.png"
+import { ReactSVG } from 'react-svg';
+import { useState } from 'react';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import DirectorForm from './DirectorForm';
 
 
 interface Props {
@@ -12,76 +19,117 @@ interface Props {
 }
 
 const DirectorInfo = ({ handleBack, handleNext }: Props) => {
+
+
+
+    const [formCounter, setFormCounters] = useState(1)
+    const handleShowForm = () => {
+        setFormCounters((prev) => prev + 1)
+
+    }
+
+
+    const [directorForm, setDirectorForm] = useState([<DirectorForm formCounter={formCounter} />])
+
     const handleOnChange = () => { }
     return (
-        <Box sx={{ color: "#222" }}>
+        <Box sx={{ color: "#222", ".css-x0dsna-MuiGrid-root>.MuiGrid-item": { padding: 0, } }}>
 
 
-            <Grid container columnGap={0} justifyContent={"flex-start"} alignItems="center">
-                <Grid item xs={2.8}><Box>First Director’s Information</Box></Grid>
-                <Grid item xs={8.2}><Box sx={{
-                    width: "100%",
-                    borderBottom: "1px dashed  #E0E0E0"
-                }}></Box></Grid>
-                <Grid item xs={1}><ExpandCircleDownOutlinedIcon /></Grid>
-            </Grid>
-            <Grid container columnSpacing={6} justifyContent="space-between">
+            {/* 
+            <Grid container
+                columnGap={0}
+                justifyContent={"flex-start"}
+                alignItems="center" spacing={0}
+                sx={{ marginTop: "-1.8rem", marginBottom: "5px" }}>
 
-                <Grid item xs={12} sm={6} md={6}>
-                    <InputLabel>Director's full name</InputLabel>
-                    <TextField variant='outlined' fullWidth placeholder="Director 's fullname" />
+
+                <Grid item xs={3.5}><Box><span className={styles.directorInfo}>First Director’s Information</span></Box></Grid>
+                <Grid item xs={7.5}><Box
+                    sx={{
+                        width: "100%",
+                        borderBottom: "1px dashed  #E0E0E0"
+                    }}></Box>
+
                 </Grid>
-                <Grid item xs={12} sm={6} md={6}>
-                    <InputLabel>Director's eail address</InputLabel>
-                    <TextField variant='outlined' fullWidth placeholder="Director's eail address" />
-                </Grid>
+                <Grid item xs={1}> <img src={AngleDown} alt={"arrow down"} style={{ cursor: "pointer" }} /> </Grid>
+            </Grid> */}
 
-                <Grid item xs={12} sm={6} md={6}>
-                    <InputLabel>Director's BVN</InputLabel>
-                    <TextField variant='outlined' fullWidth placeholder="Director's BVN" />
-                </Grid>
-                <Grid item xs={12} sm={6} md={6}>
-                    <InputLabel>Director's phone number</InputLabel>
-                    <TextField variant='outlined' fullWidth placeholder="Director's phone number" />
-                </Grid>
 
-                <Grid item xs={12} sm={6} md={6}>
-                    <InputLabel>Director's Address</InputLabel>
-                    <TextField variant='outlined' fullWidth placeholder="Director's ddress" />
-                </Grid>
-                <Grid item xs={12} sm={6} md={6}>
-                    <InputLabel>Upload an ID </InputLabel>
 
-                    <Button variant="outlined" fullWidth component="label"
-                        style={{
-                            background: "#F6F9FD",
-                            fontSize: "14px", color: "#4F4F4F",
-                            height: 49,
-                            border: "1px dashed #7A9CC4",
-                            borderRadius: 4,
-                            fontWeight: 300,
-                            fontFamily: "Avenir",
-                            textTransform: "inherit"
+
+
+            <Box sx={{ overflow: "auto", marginTop: "-20px" }}>
+
+
+
+                {[...Array(formCounter)].map((_, i) => <DirectorForm key={i} formCounter={formCounter} />)}
+
+
+
+
+
+                <Grid container
+                    justifyContent={"flex-start"}
+                    alignItems="center"
+                    mt={2} spacing={0}>
+                    <Grid item xs={4.3}>
+                        <Box sx={{
+                            width: "100%",
+                            borderBottom: "1px dashed  #E0E0E0"
                         }}>
-                        <CloudUploadOutlinedIcon />   choose file to upload
-                        <input hidden accept="image/*" multiple type="file" />
-                    </Button>
-                    <FormHelperText id="component-helper-text" sx={{ display: "flex", alignItems: "center", justifyContent: "flex-start", color: "#8B8B8B", fontFamily: "Avenir", fontSize: "12px", }}>
-                        <ErrorOutlineIcon /> <span style={{ marginLeft: "-22px" }}>Only PDF, JPG and PNG are the accepted file formats</span>
-                    </FormHelperText>
+
+                        </Box>
+                    </Grid>
+                    <Grid item xs={3.4} onClick={handleShowForm} >
+                        <Box
+                            sx={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "5px", justifyContent: "center"
+                            }}><ReactSVG src={AddIcon} style={{ cursor: "ponter" }} /> <p className={styles.addBtn}>Add another director</p></Box></Grid>
+                    <Grid item xs={4.3}><Box sx={{
+                        width: "100%",
+                        borderBottom: "1px dashed  #E0E0E0"
+                    }}></Box></Grid>
                 </Grid>
+                <Stack direction="row" gap={"24px"} justifyContent={"flex-end"} alignItems={"flex-end"} sx={{ width: "100%", marginTop: "40px" }}>
+                    <button style={{
+                        backgroundColor: 'transparent',
+                        color: '#333',
+                        border: '1px solid green',
+                        height: "44px",
+                        width: '146px',
+                        fontSize: "16px",
+                        fontWeight: 800,
+                        borderRadius: '20px',
+                        cursor: 'pointer',
 
+                        fontFamily: 'Avenir',
 
-                <Grid item xs={12} sm={6} md={6}></Grid>
-                <br />
-                <Stack direction="row" spacing={3} justifyContent={"flex-end"} alignItems={"flex-end"} sx={{ width: "100%", marginTop: 10 }}>
-                    <Buttons backgroundColor='transparent' color='#333' border='1px solid green' onClick={handleBack}>Previous</Buttons>
-                    <Buttons onClick={handleNext}>continue</Buttons>
+                    }} onClick={handleBack}>Previous</button>
+                    <button
+                        style={{
+                            backgroundColor: '#27AE60',
+                            height: "44px",
+                            width: '146px',
+                            color: '#fff',
+                            border: 'none',
+                            fontSize: "16px",
+                            fontWeight: 800,
+                            borderRadius: '20px',
+                            cursor: 'pointer',
+
+                            fontFamily: 'Avenir',
+                        }}
+
+                        onClick={handleNext}>continue</button>
                 </Stack>
+            </Box>
 
-            </Grid>
 
-        </Box>
+
+        </Box >
     )
 }
 
