@@ -5,16 +5,20 @@ import {
 	Box,
 	IconButton,
 	OutlinedInput,
+	Grid,
+	InputLabel,
+	FormHelperText,
 } from '@mui/material';
 import { makeStyles } from '@material-ui/styles';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 import styles from './PaymentLinks.module.scss';
-
+import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 interface DonationLinkModalProps {
 	isOpen: boolean;
 	handleClose: () => void;
 }
+
 
 const useStyles = makeStyles({
 	root: {
@@ -39,18 +43,20 @@ const useStyles = makeStyles({
 			display: 'flex',
 			justifyContent: 'space-between',
 			alignItems: 'center',
-			padding: '0rem 2rem',
+			padding: '0.3rem 3.45rem',
 			'& .MuiIconButton-root': {
+				// border: "2px solid red",
 				padding: '6px',
-				marginBottom: '3px',
 			},
 			'& p': {
 				color: '#828282',
 				fontSize: '1.125rem',
 				fontWeight: '400',
+				paddingBottom: "0.5rem"
 			},
 		},
 		'& hr': {
+			marginTop: '8px',
 			background: '#E0E0E0',
 		},
 		'& > div:nth-child(4)': {
@@ -58,43 +64,7 @@ const useStyles = makeStyles({
 			marginTop: '1.5rem',
 		},
 	},
-	formBox: {
-		display: 'grid',
-		'& label': {
-			color: '#333',
-			fontWeight: '400',
-			fontSize: '.875rem',
-		},
-		'& .subText': {
-			color: '#828282',
-			fontWeight: '400',
-			fontSize: '.75rem',
-			marginTop: '.5rem',
-		},
-		'& input, & textarea, & .MuiSelect-select': {
-			background: 'white',
-			borderRadius: '4px',
-			marginTop: '.2rem',
-			padding: '.75rem',
-			fontSize: '.875rem',
-			resize: 'none',
-			'&::placeholder': {
-				color: '#B9B9B9',
-			},
-		},
-		'& textarea': {
-			padding: '0rem',
-		},
-		'& .MuiOutlinedInput-root': {
-			// border: '1px solid red',
-			// maxHeight: '50px'
-		},
-		'& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button':
-		{
-			WebkitAppearance: 'none',
-			margin: '0',
-		},
-	},
+
 	formBtn: {
 		color: 'white',
 		fontWeight: 700,
@@ -147,11 +117,43 @@ const useStyles = makeStyles({
 			'&::placeholder': {
 				color: '#B9B9B9',
 			},
+			'& .MuiOutlinedInput-root': {
+				// border: '1px solid red',
+				// maxHeight: '50px'
+			},
+			'& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button':
+			{
+				border: "2px solid red",
+				WebkitAppearance: 'none',
+				margin: '0',
+			},
 		},
 	},
+	downloadIcon: {
+		marginRight: "10px",
+	},
+	helperText: {
+		marginTop: "10px",
+		fontFamily: 'Avenir',
+		fontStyle: "normal",
+		fontWeight: 400,
+		fontSize: "12px",
+		lineHeight: "16px",
+		color: " #828282"
+	},
+	label: {
+		fontFamily: 'Avenir',
+		fontStyle: "normal",
+		fontWeight: 400,
+		fontSize: "14px",
+		lineHeight: "19px",
+		color: "#333333",
+	}
 });
 
 const DonationLinkModal = ({ isOpen, handleClose }: DonationLinkModalProps) => {
+
+
 	const classes = useStyles();
 
 	const [pageName, setPageName] = useState<string>('');
@@ -188,22 +190,40 @@ const DonationLinkModal = ({ isOpen, handleClose }: DonationLinkModalProps) => {
 					</IconButton>
 				</div>
 				<hr />
-				<div className={styles.donationModalContainer}>
-					<div>
-						<div className={classes.formBox}>
-							<label htmlFor='pageName'>Page name</label>
+
+				<Box sx={{ padding: "23px 50px" }}>
+
+					<Grid container spacing={3} rowGap={0} justifyContent="space-between">
+						<Grid item xs={12} md={6} >
+							<InputLabel className={classes.label}>Page name</InputLabel>
 							<OutlinedInput
 								placeholder='Food Bank'
 								value={pageName}
+								fullWidth
+
 								onChange={(e) => setPageName(e.target.value)}
+								sx={{ height: "44px" }}
 							/>
-						</div>
-						<div className={classes.formBox}>
-							<label htmlFor='amount'>Amount</label>
+						</Grid>
+						<Grid item xs={12} md={6}>
+							<InputLabel className={classes.label}>Donation website</InputLabel>
+							<OutlinedInput
+								placeholder='Your website'
+								value={website}
+								onChange={(e) => setWebsite(e.target.value)}
+								fullWidth
+								sx={{ height: "44px" }}
+							/>
+
+						</Grid>
+						<Grid item xs={12} md={6}>
+							<InputLabel className={classes.label}>Amount</InputLabel>
 							<OutlinedInput
 								placeholder='0.00'
 								value={amt}
 								type='number'
+								fullWidth
+								sx={{ height: "44px" }}
 								onChange={(e) => setAmt(Number(e.target.value))}
 								startAdornment={
 									<div className={classes.suffix}>
@@ -211,58 +231,77 @@ const DonationLinkModal = ({ isOpen, handleClose }: DonationLinkModalProps) => {
 									</div>
 								}
 							/>
-							<p className='subText'>
+
+							<FormHelperText className={classes.helperText}>
 								Leave empty to allow customers enter desired amount
-							</p>
-						</div>
-						<div className={classes.formBox}>
-							<label htmlFor='amount'>Description</label>
-							<OutlinedInput
-								placeholder='email@email.com'
-								rows={3}
-								multiline
-								value={desc}
-								onChange={(e) => setDesc(e.target.value)}
-							/>
-						</div>
-					</div>
-					<div>
-						<div className={classes.formBox}>
-							<label htmlFor='website'>Donation website</label>
-							<OutlinedInput
-								placeholder='Your website'
-								value={website}
-								onChange={(e) => setWebsite(e.target.value)}
-							/>
-						</div>
-						<div className={classes.formBox}>
-							<label htmlFor='phoneNum'>Donation phone number</label>
+							</FormHelperText>
+						</Grid>
+						<Grid item xs={12} md={6} >
+							<InputLabel className={classes.label} htmlFor='phoneNum'>Donation phone number</InputLabel>
 							<OutlinedInput
 								placeholder='+23490902323'
 								value={phoneNum}
+								fullWidth
 								onChange={(e) => setPhoneNum(e.target.value)}
+								sx={{ height: "44px" }}
 							/>
-							<p className='subText'>
+							<FormHelperText className={classes.helperText}>
 								This is the phone number which donors can reach you on
-							</p>
-						</div>
-						<div className={classes.fileBox}>
-							<label>Upload a featured image</label>
-							<input type='file' id='img' name='img' accept='image/*' />
-							<p className='subText'>
+							</FormHelperText>
+						</Grid>
+						<Grid item xs={12} md={6} >
+							<InputLabel className={classes.label}>Description</InputLabel>
+							<OutlinedInput
+								placeholder='email@email.com'
+								value={pageName}
+								fullWidth
+								multiline
+								rows={4}
+
+								onChange={(e) => setPageName(e.target.value)}
+
+							/>
+						</Grid>
+						<Grid item xs={12} md={6} >
+							<InputLabel className={classes.label}>Upload a featured image</InputLabel>
+
+
+							<Button variant="outlined" fullWidth component="label"
+								style={{
+									background: "#F6F9FD",
+									fontSize: "14px", color: "#4F4F4F",
+									height: 44,
+									border: "1px dashed #7A9CC4",
+									borderRadius: 4,
+									fontWeight: 300,
+									fontFamily: "Avenir",
+									textTransform: "inherit"
+								}}>
+								<CloudUploadOutlinedIcon className={classes.downloadIcon} />   choose file to upload
+								<input hidden accept="image/*" multiple type="file" />
+							</Button>
+							<FormHelperText id="component-helper-text" className={classes.helperText}>
 								This image will be displayed on the social platforms where the
 								link is shared.
-							</p>
-						</div>
-						<div>
-							<Button style={{ borderRadius: "20px" }} fullWidth className={classes.formBtn}>
-								Create link
-							</Button>
-						</div>
-					</div>
-				</div>
+							</FormHelperText>
+
+						</Grid>
+						<Grid item xs={12} md={6}></Grid>
+
+						<Grid item xs={12} md={6} justifyContent={"flex-end"} alignItems="flex-end" >
+							<Box sx={{ marginTop: "-2rem" }}>
+								<Button style={{ borderRadius: "20px", height: "44px" }} fullWidth className={classes.formBtn}>
+									Create link
+								</Button>
+							</Box>
+						</Grid>
+					</Grid>
+				</Box>
+
+
+
 			</div>
-		</Modal>
+		</Modal >
 	);
 };
 

@@ -21,13 +21,16 @@ import { GetLinksRes, LinkItem } from '../../types/PaymentlinkTypes';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { ReactComponent as ExtLinkIcon } from '../../assets/images/ext-link.svg';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 
 const useModalBtnStyles = makeStyles({
 	root: {
 		display: 'flex',
 		justifyContent: 'flex-end',
-		padding: '1rem 1.5rem 0',
+		// padding: '1rem 1.5rem 0',
+		marginTop: "20px",
 		gap: '1.25rem',
+		height: "32px",
 		'& .MuiButton-root': {
 			fontFamily: `'Avenir', sans-serif`,
 			fontWeight: '500',
@@ -36,7 +39,7 @@ const useModalBtnStyles = makeStyles({
 			background: '#E0E0E0',
 			borderRadius: '3px',
 			textTransform: 'none',
-			padding: '.5rem 1rem',
+			// padding: '.5rem 1rem',
 		},
 		'& .MuiButton-root:nth-child(2)': {
 			color: 'white',
@@ -56,7 +59,8 @@ const LinksView = ({ openLinkModal }: LinksViewProps) => {
 		root: {
 			fontFamily: `'Avenir', sans-serif`,
 			display: 'flex',
-			gap: '1rem',
+			gap: '10px',
+
 			[theme.breakpoints.down('sm')]: {
 				flexDirection: 'column',
 			},
@@ -68,6 +72,8 @@ const LinksView = ({ openLinkModal }: LinksViewProps) => {
 				fontWeight: '400',
 				alignItem: 'center',
 				display: 'flex',
+				height: "32px"
+
 			},
 			'& .MuiButtonBase-root:nth-child(1)': {
 				backgroundColor: '#E0E0E0',
@@ -120,9 +126,10 @@ const LinksView = ({ openLinkModal }: LinksViewProps) => {
 		minWidth?: number;
 		maxWidth?: number;
 		align?: 'right' | 'left' | 'center';
+		paddingLeft?: number
 	}
 	const columns: Column[] = [
-		{ id: 'name', label: 'Link name', minWidth: 100 },
+		{ id: 'name', label: 'Link name', minWidth: 100, paddingLeft: 39 },
 		{ id: 'amt', label: 'Amount', minWidth: 100 },
 		{ id: 'linkType', label: 'Link type', minWidth: 100 },
 		{ id: 'url', label: 'Link URL', minWidth: 100 },
@@ -133,7 +140,7 @@ const LinksView = ({ openLinkModal }: LinksViewProps) => {
 
 	const LinkRowTab = useCallback(
 		(name, amt, linkType, url, added, id, desc) => ({
-			name: <p className={styles.tableBodyText}>{name}</p>,
+			name: <p style={{ paddingLeft: "20px" }} className={styles.tableBodyText}>{name}</p>,
 			amt: (
 				<p className={styles.tableBodyText}>
 					<span className={styles.tableBodySpan}>NGN </span>
@@ -149,9 +156,9 @@ const LinksView = ({ openLinkModal }: LinksViewProps) => {
 							sx={{ color: '#2F80ED', fontSize: '.85rem', mt: '6px' }}
 						/>
 					</div>
-					<div>
+					<div className={styles.copyLink}>
 						<ExtLinkIcon
-							style={{ color: '#2F80ED', fontSize: '1rem' }}
+
 						/>
 					</div>
 				</div>
@@ -274,7 +281,7 @@ const LinksView = ({ openLinkModal }: LinksViewProps) => {
 				</div>
 				<div className={btnClasses.root}>
 					<Button style={{ borderRadius: "20px" }} onClick={() => setIsFilterModalOpen(true)}>
-						All payment links <ArrowDropDownIcon />
+						<FilterAltOutlinedIcon />Filter by:
 					</Button>
 					<Button style={{ borderRadius: "20px" }} onClick={openLinkModal}>+ New payment link</Button>
 				</div>

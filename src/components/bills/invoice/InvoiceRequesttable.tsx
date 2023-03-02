@@ -129,7 +129,7 @@ const InvoiceRequesttable = () => {
                     </span>
                 </p>
             ),
-            // id: <p>{id}</p>,
+            id: <p>{id}</p>,
         }),
         []
     );
@@ -184,6 +184,7 @@ const InvoiceRequesttable = () => {
     useEffect(() => {
         getInvoiceRequest();
     }, [pageNumber, rowsPerPage]);
+    console.log(history)
     return (
         <div>
             <CustomClickTable
@@ -193,10 +194,12 @@ const InvoiceRequesttable = () => {
                 changePage={changePage}
                 limit={limit}
                 clickable
-                link='/airtime/requests'
+                link='/bills/invoice/details'
                 identifier='id'
                 rowsData={history}
             />
+
+
         </div>
     );
 };

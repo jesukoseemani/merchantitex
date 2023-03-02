@@ -53,7 +53,8 @@ const useStyles = makeStyles({
 		left: '50%',
 		transform: 'translate(-50%, -50%)',
 		fontFamily: `'Avenir', sans-serif`,
-		padding: '1rem 0 2rem',
+		padding: '0rem 21px 2rem',
+
 		'& > div:nth-child(1)': {
 			display: 'flex',
 			justifyContent: 'space-between',
@@ -66,11 +67,16 @@ const useStyles = makeStyles({
 			'& p': {
 				color: '#828282',
 				fontSize: '1.125rem',
-				fontWeight: '400',
+				fontWeight: '500',
+				padding: "25px 0",
+				fontFamily: 'Avenir',
+				fontStyle: "normal",
+				lineHeight: " 25px",
 			},
 		},
 		'& hr': {
 			background: '#E0E0E0',
+			marginBottom: "2px"
 		},
 		'& > div:nth-child(3)': {
 			display: 'grid',
@@ -84,10 +90,12 @@ const useStyles = makeStyles({
 	},
 	formBox: {
 		display: 'grid',
+
 		'& label': {
 			color: '#333',
 			fontWeight: '400',
 			fontSize: '.875rem',
+			fontFamily: 'Avenir',
 		},
 		'& input, & textarea, & .MuiSelect-select': {
 			background: 'white',
@@ -110,6 +118,7 @@ const useStyles = makeStyles({
 		},
 	},
 	formBtn: {
+		fontFamily: 'Avenir',
 		color: 'white',
 		fontWeight: 700,
 		fontSize: '1rem',
@@ -117,6 +126,7 @@ const useStyles = makeStyles({
 		padding: '.5rem',
 		borderRadius: '.25rem',
 		textTransform: 'none',
+		height: "44px",
 		'&:hover': {
 			opacity: '.75',
 			backgroundColor: '#27AE60',
@@ -158,6 +168,16 @@ const useStyles = makeStyles({
 		display: 'grid',
 		gridGap: '1rem',
 	},
+	helperText: {
+		fontSize: '0.75rem',
+		fontWeight: 500,
+		fontFamily: 'Avenir',
+		marginTop: "10px",
+		marginBottom: "1px",
+		fontStyle: "normal",
+		lineHeight: "16px",
+		color: "#828282",
+	}
 });
 
 const SingleLinkModal = ({ isOpen, handleClose }: SingleLinkModalProps) => {
@@ -211,7 +231,8 @@ const SingleLinkModal = ({ isOpen, handleClose }: SingleLinkModalProps) => {
 					</IconButton>
 				</div>
 				<hr />
-				<div>
+
+				<Box>
 					<div className={classes.formBox}>
 						<label htmlFor='linkName'>Link name</label>
 						<OutlinedInput
@@ -233,6 +254,7 @@ const SingleLinkModal = ({ isOpen, handleClose }: SingleLinkModalProps) => {
 								</div>
 							}
 						/>
+						<span className={classes.helperText}>Leave empty to allow customers enter desired amount</span>
 					</div>
 					<div className={classes.formBox}>
 						<label htmlFor='amount'>Description</label>
@@ -326,7 +348,7 @@ const SingleLinkModal = ({ isOpen, handleClose }: SingleLinkModalProps) => {
 							</div>
 						</div>
 					) : null}
-				</div>
+				</Box>
 				<div>
 					<Button style={{ borderRadius: "20px" }} fullWidth className={classes.formBtn}>
 						Create link

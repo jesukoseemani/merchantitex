@@ -24,17 +24,17 @@ const Invoice = () => {
         );
     }
     return (
-        <Box px={5}>
-            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <Box sx={{ marginTop: "1.7rem" }}>
+            <Stack direction={"row"} justifyContent="space-between" alignItems={"center"} spacing={2}>
                 <h2 className={Styles.headerTitle}>30 Invoices Created</h2>
 
-            </Box>
-            <Stack direction={"row"} justifyContent="flex-end" alignItems={"center"} spacing={2}>
-                <button className={Styles.outlinedBtn}>All invoice</button>
-                <button className={Styles.containedBtn} onClick={handleCreateInvoice}>+ Create invoice</button>
+                <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "10px" }}>
+                    <button className={Styles.outlinedBtn}>All invoice</button>
+                    <button className={Styles.containedBtn} onClick={handleCreateInvoice}>+ Create invoice</button>
+                </Box>
             </Stack>
 
-            <Box sx={{ marginTop: 2 }}>
+            <Box sx={{ marginTop: "1rem" }}>
                 <InvoiceRequesttable />
             </Box>
         </Box>

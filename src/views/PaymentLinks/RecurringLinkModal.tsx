@@ -54,12 +54,13 @@ const useStyles = makeStyles({
 		left: '50%',
 		transform: 'translate(-50%, -50%)',
 		fontFamily: `'Avenir', sans-serif`,
-		padding: '1rem 0 2rem',
+
+
 		'& > div:nth-child(1)': {
 			display: 'flex',
 			justifyContent: 'space-between',
 			alignItems: 'center',
-			padding: '0rem 2rem',
+			padding: '1.4rem 3.58rem',
 			'& .MuiIconButton-root': {
 				padding: '6px',
 				marginBottom: '3px',
@@ -76,7 +77,6 @@ const useStyles = makeStyles({
 		'& > div:nth-child(3)': {
 			display: 'grid',
 			gridGap: '1rem',
-			padding: '1rem 2rem',
 		},
 		'& > div:nth-child(4)': {
 			padding: '0rem 2rem',
@@ -85,6 +85,7 @@ const useStyles = makeStyles({
 	},
 	formBox: {
 		display: 'grid',
+		paddingInline: "3.55rem !important",
 		'& label': {
 			color: '#333',
 			fontWeight: '400',
@@ -111,6 +112,8 @@ const useStyles = makeStyles({
 		},
 	},
 	formBtn: {
+
+		fontFamily: 'Avenir',
 		color: 'white',
 		fontWeight: 700,
 		fontSize: '1rem',
@@ -118,6 +121,7 @@ const useStyles = makeStyles({
 		padding: '.5rem',
 		borderRadius: '.25rem',
 		textTransform: 'none',
+		height: "44px",
 		'&:hover': {
 			opacity: '.75',
 			backgroundColor: '#27AE60',
@@ -142,6 +146,11 @@ const useStyles = makeStyles({
 	addBtn: {
 		color: '#27ae60',
 		cursor: 'pointer',
+		padding: " 0.55rem 3.5rem !important",
+		fontFamily: 'Avenir',
+		lineHeight: "22px",
+		fontWeight: 400,
+		fontSize: '1rem',
 		'&:hover': {
 			opacity: '.75',
 		},
@@ -151,6 +160,8 @@ const useStyles = makeStyles({
 		cursor: 'pointer',
 		display: 'flex',
 		alignItems: 'center',
+		borderBottom: "1px solid #E0E0E0",
+		padding: " 0.55rem 3.5rem !important",
 		'&:hover': {
 			opacity: '.75',
 		},
@@ -159,6 +170,15 @@ const useStyles = makeStyles({
 		display: 'grid',
 		gridGap: '1rem',
 	},
+	headerTitle: {
+		padding: "2rem",
+
+	},
+	form_container: {
+		// padding: '1rem 2rem',
+
+
+	}
 });
 
 const RecurringLinkModal = ({
@@ -210,16 +230,16 @@ const RecurringLinkModal = ({
 				timeout: 500,
 			}}>
 			<div className={classes.root}>
-				<div>
+				<Box>
 					<p>Create a subscription link</p>
 					<IconButton
 						aria-label='close payment link modal'
 						onClick={handleClose}>
 						<CloseIcon />
 					</IconButton>
-				</div>
+				</Box>
 				<hr />
-				<div>
+				<div className={classes.form_container}>
 					<div className={classes.formBox}>
 						<label htmlFor='linkName'>Link name</label>
 						<OutlinedInput
@@ -278,11 +298,12 @@ const RecurringLinkModal = ({
 					</div>
 					<div>
 						{isAddOpen ? (
-							<div
+							<Box sx={{}}
 								className={classes.removeBtn}
 								onClick={() => setIsAddOpen(false)}>
 								Additional details <ArrowDropUp />
-							</div>
+
+							</Box>
 						) : (
 							<div
 								className={classes.addBtn}
@@ -358,11 +379,11 @@ const RecurringLinkModal = ({
 							</div>
 						</div>
 					) : null}
-				</div>
-				<div>
-					<Button style={{ borderRadius: "20px" }} fullWidth className={classes.formBtn}>
-						Create link
-					</Button>
+					<Box sx={{ paddingInline: "3rem", marginBottom: "37px" }}>
+						<Button style={{ borderRadius: "20px" }} fullWidth className={classes.formBtn}>
+							Create link
+						</Button>
+					</Box>
 				</div>
 			</div>
 		</Modal>

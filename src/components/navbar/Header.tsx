@@ -25,7 +25,7 @@ interface toggleBtn {
 }
 
 const Header = ({ toggle, setToggle }: toggleBtn) => {
-  const [alignment, setAlignment] = React.useState("test server");
+  const [alignment, setAlignment] = React.useState("live server");
   const handleAlignment = (
     event: React.MouseEvent<HTMLElement>,
     newAlignment: string

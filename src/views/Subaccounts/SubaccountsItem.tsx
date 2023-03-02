@@ -31,8 +31,10 @@ const useBtnStyles = makeStyles({
 		gap: '1rem',
 		'& .MuiButtonBase-root': {
 			borderRadius: '.25rem',
-			padding: '.25rem .75rem',
+			width: "58px",
+			height: "34px",
 			textTransform: 'none',
+			padding: " 7.5px 16px",
 			fontSize: '.875rem',
 			fontWeight: '400',
 			alignItem: 'center',
@@ -110,9 +112,9 @@ const SubaccountsItem = () => {
 	const columns: Column[] = [
 		{ id: 'amt', label: 'Amount', minWidth: 100 },
 		{ id: 'status', label: 'Status', minWidth: 100 },
-		{ id: 'txnType', label: 'Transaction Type', minWidth: 100 },
-		{ id: 'card', label: 'Card', minWidth: 100 },
-		{ id: 'bankName', label: 'Bank name', minWidth: 100 },
+		{ id: 'txnType', label: 'Customer ID', minWidth: 100 },
+		{ id: 'card', label: 'Subaccount’s share', minWidth: 100 },
+		{ id: 'bankName', label: 'Payment type', minWidth: 100 },
 		{ id: 'added', label: 'Date', minWidth: 100 },
 	];
 
@@ -123,7 +125,7 @@ const SubaccountsItem = () => {
 	};
 
 	const TransactionRowTab = useCallback(
-		(amt, status, txnType, card, bankName, added) => ({
+		(amt, status, acctId, card, PaymentType, added) => ({
 			amt: (
 				<p className={styles.tableBodyText}>
 					<span className={styles.tableBodySpan}>NGN </span>
@@ -135,9 +137,9 @@ const SubaccountsItem = () => {
 					{status}
 				</p>
 			),
-			txnType: <p className={styles.tableBodyCapital}>{txnType}</p>,
-			card: <p className={styles.tableBodyText}>{card}</p>,
-			bankName: <p className={styles.tableBodyText}>{bankName}</p>,
+			txnType: <p className={styles.tableBodyCapital}>{acctId}</p>,
+			card: <p className={styles.tableBodyText}>{amt}</p>,
+			bankName: <p className={styles.tableBodyText}>{PaymentType}</p>,
 			added: (
 				<p className={styles.tableBodyText}>
 					{moment(added).format('MMM D YYYY')}
@@ -158,9 +160,9 @@ const SubaccountsItem = () => {
 				TransactionRowTab(
 					each?.amt,
 					each?.status,
-					each?.txnType,
+					each?.acctId,
 					each?.card,
-					each?.bankName,
+					each?.PaymentType,
 					each?.added
 				)
 			)
@@ -252,7 +254,7 @@ const SubaccountsItem = () => {
 				<div className={styles.sectionOneWrapper}>
 					<div className={styles.sectionTwo}>
 						<div>
-							<p>{name}</p>
+							<p className={styles.name}>{name}</p>
 							<div></div>
 							<p>{acctId}</p>
 						</div>
@@ -290,7 +292,7 @@ const SubaccountsItem = () => {
 				</div>
 				{/* <hr /> */}
 				<div className={styles.sectionFour}>
-					<div>
+					<div className={styles.tabBar}>
 						<p
 							style={{ color: isOverview ? '#27ae60' : '#828282' }}
 							onClick={() => setIsOverview(true)}>
@@ -306,10 +308,10 @@ const SubaccountsItem = () => {
 						<Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
 							<h3>{isOverview ? 'Transactions' : 'Settlements'}</h3>
 							<Stack direction={"row"} spacing={2}>
-								<Button variant='contained' style={{ borderRadius: "20px", width: "180px", textTransform: "inherit" }}>All Transaction <ArrowDropDownOutlinedIcon sx={{ marginLeft: "10px" }} /></Button>
+								<Button variant='contained' className={styles.btn} style={{ borderRadius: "20px", padding: "7.5px 16px", height: "38px", width: "180px", textTransform: "inherit" }}>All Transaction <ArrowDropDownOutlinedIcon /></Button>
 
 
-								<Button variant='outlined' style={{ borderRadius: "20px", color: "#27ae60", textTransform: "inherit" }}>Download   <CloudUploadOutlinedIcon sx={{ marginLeft: "10px" }} /></Button>
+								<Button variant='outlined' className={styles.btn} style={{ borderRadius: "20px", height: "38px", border: "1px solid #27AE60", textTransform: "inherit" }}>Download   <CloudUploadOutlinedIcon sx={{ marginLeft: "10px" }} /></Button>
 							</Stack>
 						</Box>
 						<br />

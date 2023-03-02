@@ -10,7 +10,7 @@
 button {
     gap: 4px;
     // width: 140px;
-    height: 35px;
+    height: 44px;
     border-radius: 22px;
     padding: 7.5px 16px;
     background: #27AE60;
@@ -33,19 +33,20 @@ button {
 .status {
     width: 80px;
     height: 19px;
-    background: lighten(#27ae60, 20%);
+    background: rgba(39, 174, 96, 0.15);
     border-radius: 22px;
     font-weight: 500;
     font-size: 12px;
     line-height: 14px;
     text-align: center;
-    color: #ffffff;
+    color: #27AE60;
     padding: 2.5px 10px;
 }
 
 .pending {
     @extend .status;
-    background: #f2c94c;
+    background: rgba(242, 201, 76, 0.15);
+    color: #B99528;
     width: 100px !important;
 }
 
@@ -53,13 +54,13 @@ button {
 
 // create Invoice header
 .createInvoiceheader {
-    padding: 20px;
+    padding: 28px 50px;
     border-bottom: 1px solid #E0E0E0;
 
     h2 {
         font-family: 'Avenir';
         font-style: normal;
-        font-weight: 900;
+        font-weight: 900 !important;
         font-size: 20px;
         line-height: 27px;
         color: #828282;
@@ -122,12 +123,59 @@ button {
 
         button {
             // padding: 14px 20px;
+            height: 44px;
+            width: 180px;
+            font-family: 'Avenir';
+            font-style: normal;
         }
     }
 
 }
 
 
-// 7040368154
-// mohis
-// palm pay
+
+
+
+
+.downloadIcon {
+    margin-right: 4px;
+}
+
+
+.helperText {
+    margin-top: 10px;
+    font-family: 'Avenir';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: #828282
+}
+
+
+.label {
+    font-family: 'Avenir';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    color: #333333,
+}
+
+.btn {
+
+    gap: 4px;
+    width: 140px;
+    height: 44px;
+    border-radius: 22px;
+    padding: 7.5px 16px;
+    background: #27AE60;
+    color: #fff;
+    // width: 180px;
+    font-family: 'Avenir';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 16px;
+    line-height: 22px;
+
+}

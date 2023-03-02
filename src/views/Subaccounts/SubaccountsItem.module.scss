@@ -7,11 +7,11 @@
 	position: relative;
 
 	@media screen and (max-width: 850px) {
-		width: calc(100% - 73px);
+		width: 100%;
 	}
 
 	@media screen and (max-width: 600px) {
-		width: calc(100% - 57px);
+		width: 100%;
 	}
 
 	hr {
@@ -24,11 +24,11 @@
 }
 
 .spacedLine {
-	padding: 0 2rem;
+	// padding: 0 2rem;
 }
 
 .sectionOne {
-	padding: 0 2rem;
+	// padding: 0 2rem;
 
 	&>div:nth-child(1) {
 		margin: 1.25rem 0;
@@ -51,15 +51,25 @@
 .sectionOneWrapper {
 
 	background-color: #fff;
-	width: 95%;
+	width: 100%;
 	margin: 0px auto;
 	border-radius: 20px;
 	// padding: 10px;
+	height: 172px;
+
+	// border: 2px solid red;
+	@media screen and (max-width: 850px) {
+		height: auto;
+	}
+
+	@media screen and (max-width: 600px) {
+		height: auto;
+	}
 }
 
 .sectionTwo {
 	// margin: 1.25rem 2rem;
-	padding: 10px 0;
+	padding: 20px 5px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -80,10 +90,22 @@
 		color: #333;
 		font-size: 1.25rem;
 		padding: 5px 20px;
+		flex-flow: row wrap;
 
 		@media screen and (max-width: 450px) {
 			font-size: 1rem;
+			flex-direction: column;
 		}
+	}
+
+	.name {
+		font-family: 'Avenir' !important;
+		font-style: normal;
+		font-weight: 800 !important;
+		font-size: 20px;
+		line-height: 27px;
+
+		color: #333333;
 	}
 
 	&>div:first-of-type {
@@ -138,15 +160,25 @@
 		}
 
 		&>p:first-of-type {
-			color: #828282;
-			font-size: 0.75rem;
+			// border: 2px solid red;
+			margin-top: 10px;
+			font-family: 'Avenir';
+			font-style: normal;
 			font-weight: 400;
+			font-size: 12px;
+			line-height: 16px;
+			color: #828282;
+			margin-bottom: 5px;
 		}
 
 		&>p:last-of-type {
-			color: #333;
-			font-size: 0.875rem;
+
+			font-family: 'Avenir';
+			font-style: normal;
 			font-weight: 500;
+			font-size: 14px;
+			line-height: 14px;
+			color: #333333;
 		}
 	}
 
@@ -157,11 +189,13 @@
 }
 
 .sectionFour {
-	padding: 2rem;
+	// padding: 2rem;
+	margin-top: 1.8rem;
+	// border: 1px solid red;
 
 	&>div:first-of-type {
 		display: flex;
-		gap: 1rem;
+		gap: 4rem;
 
 		&>p {
 			font-weight: 500;
@@ -178,14 +212,21 @@
 		margin-top: 1.5rem;
 
 		h3 {
-			font-family: 'Avenir', sans-serif;
+			// font-family: 'Avenir', sans-serif;
+			font-family: 'Avenir';
+			font-style: normal;
+			font-weight: 400;
+			font-size: 20px;
+			line-height: 27px;
+
+			color: #333333;
+			;
 		}
 	}
 }
 
 .tableContainer {
-	margin-top: 1.5rem;
-	// padding: 0 2rem;
+	margin-top: -1rem;
 }
 
 .tableBodySpan {
@@ -201,25 +242,26 @@
 }
 
 .pendingText {
-	font-size: 0.875rem;
-	color: #12122c;
-	font-weight: 500;
-	cursor: pointer;
+	background: rgba(242, 201, 76, 0.15);
 	padding: 0.2rem 1rem;
-	background-color: #f2c94c;
-	border-radius: 2px;
+	font-family: 'Avenir';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 12px;
+	line-height: 16px;
 	text-align: center;
-	text-transform: capitalize;
-	width: 90%;
+
+	color: #B99528;
 }
 
 .wonText {
 	font-size: 0.875rem;
-	color: white;
+	color: #27AE60;
 	font-weight: 500;
 	cursor: pointer;
-	padding: 0.2rem 1rem;
-	background-color: #27ae60;
+	width: 80px;
+	height: 19px;
+	background: rgba(39, 174, 96, 0.15);
 	border-radius: 2px;
 	text-align: center;
 	text-transform: capitalize;
@@ -232,9 +274,43 @@
 	font-weight: 500;
 	cursor: pointer;
 	padding: 0.2rem 1rem;
-	background-color: #eb5757;
-	border-radius: 2px;
+	background: rgba(235, 87, 87, 0.15);
+
+	font-family: 'Avenir';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 12px;
+	line-height: 16px;
 	text-align: center;
-	text-transform: capitalize;
-	width: 90%;
+	color: #EB5757;
+}
+
+
+.tabBar {
+
+	// border: 2px solid red;
+	p {
+		font-family: 'Avenir';
+		font-style: normal;
+		font-weight: 400;
+		font-size: 14px;
+		line-height: 19px;
+		color: #27AE60;
+	}
+}
+
+
+svg {
+	margin: 0;
+}
+
+.btn {
+	font-family: 'Avenir';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 19px;
+	letter-spacing: 0.0024px;
+	margin-bottom: 14px;
+	color: #333333;
 }

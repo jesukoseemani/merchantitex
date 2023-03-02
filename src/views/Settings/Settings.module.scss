@@ -1,8 +1,9 @@
 .container {
-	width: 80%;
+	width: 100%;
 	height: auto;
 	// padding: 34px 40px;
 	margin-top: 32px;
+	border: 2px solid transparent;
 
 	&>div.formHeader:not(:first-child) {
 		margin-top: 66px;
@@ -76,6 +77,7 @@
 		width: 400px;
 		// margin-top: -5px !important;
 		max-width: 400px;
+		// border: 2px solid red;
 	}
 
 	&>div {

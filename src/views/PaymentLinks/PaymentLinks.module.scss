@@ -3,13 +3,14 @@
 	flex-direction: column;
 	// width: calc(100% - 269px);
 	position: relative;
+	width: 100%s;
 
 	@media screen and (max-width: 850px) {
-		width: calc(100% - 73px);
+		width: 100%;
 	}
 
 	@media screen and (max-width: 600px) {
-		width: calc(100% - 57px);
+		width: 100%;
 	}
 
 	&>hr {
@@ -18,7 +19,7 @@
 }
 
 .pageWrapper {
-	padding: 2rem;
+	// padding: 2rem;
 	margin-bottom: 4rem;
 }
 
@@ -73,13 +74,14 @@
 }
 
 .tableContainer {
-	margin-top: 1.5rem;
+	margin-top: 1.2rem;
 }
 
 .topContainer {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	margin-top: 1.5rem;
 
 	@media screen and (max-width: 570px) {
 		flex-direction: column;
@@ -194,5 +196,21 @@
 			font-size: 0.875rem;
 			margin-bottom: 0.5rem;
 		}
+	}
+}
+
+
+
+.copyLink {
+	svg {
+		path {
+			border: 2px solid red;
+			stroke: #2F80ED;
+
+
+		}
+
+
+
 	}
 }
