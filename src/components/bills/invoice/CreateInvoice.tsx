@@ -43,75 +43,82 @@ const CreateInvoice = () => {
                     <h2>  Create an Invoice</h2>
                 </Box>
 
-                <Grid container spacing={2} padding={5}>
-                    <Grid item xs={12} sm={12} md={6}>
-                        <InputLabel>Invoice Title</InputLabel>
-                        <StyledTextField fullWidth placeholder='123456789' />
+                <Box sx={{ marginTop: "38px" }}>
+                    <Grid container spacing={3} paddingX={"50px"} >
+                        <Grid item xs={12} sm={12} md={6}>
+                            <InputLabel className={Styles.label}>Invoice Title</InputLabel>
+                            <StyledTextField fullWidth placeholder='123456789' />
 
+                        </Grid>
+                        <Grid item xs={12} sm={12} md={6}>
+                            <InputLabel className={Styles.label}>Business Logo</InputLabel>
+                            <Button variant="outlined" fullWidth component="label"
+                                style={{
+
+                                    fontSize: "14px", color: "#4F4F4F",
+                                    height: 44,
+                                    border: "1px solid #E0E0E0",
+                                    borderRadius: 4,
+                                    fontFamily: "Avenir",
+                                    textTransform: "inherit",
+                                    display: "flex",
+                                    justifyContent: "flex-start",
+                                    paddingLeft: "10px",
+                                    gap: "0.8rem"
+                                }}>
+                                <CloudUploadOutlinedIcon className={Styles.downloadIcon} />   choose file to upload
+                                <input hidden accept="image/*" multiple type="file" />
+                            </Button>
+
+                        </Grid>
+                        <Grid item xs={12} sm={12} md={6}>
+                            <InputLabel className={Styles.label}>Customer name</InputLabel>
+                            <StyledTextField fullWidth placeholder='Roy philip' />
+
+                        </Grid>
+                        <Grid item xs={12} sm={12} md={6}>
+                            <InputLabel className={Styles.label}>Customer email Address</InputLabel>
+                            <StyledTextField fullWidth placeholder='Roy.philip@example.com' />
+
+                        </Grid>
+                        <Grid item xs={12} sm={12} md={6}>
+                            <InputLabel className={Styles.label}>Phone Number</InputLabel>
+                            <StyledTextField fullWidth placeholder='904567893' />
+
+                        </Grid>
+                        <Grid item xs={12} sm={12} md={6}>
+                            <InputLabel className={Styles.label}>Invoice Due Date</InputLabel>
+                            <StyledTextField fullWidth placeholder='12-09-2023' />
+
+                        </Grid>
+                        <Grid item xs={12} sm={12} md={12}>
+                            <InputLabel className={Styles.label}>Comment</InputLabel>
+                            <StyledTextField fullWidth placeholder='Enter comment' />
+
+                        </Grid>
                     </Grid>
-                    <Grid item xs={12} sm={12} md={6}>
-                        <InputLabel>Business Logo</InputLabel>
-                        <Button variant="outlined" fullWidth component="label"
-                            style={{
 
-                                fontSize: "14px", color: "#4F4F4F",
-                                height: 44,
-                                border: "1px solid #E0E0E0",
-                                borderRadius: 4,
-                                fontFamily: "Avenir",
-                                textTransform: "inherit"
-                            }}>
-                            <CloudUploadOutlinedIcon />   choose file to upload
-                            <input hidden accept="image/*" multiple type="file" />
-                        </Button>
+                </Box>
 
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={6}>
-                        <InputLabel>Customer name</InputLabel>
-                        <StyledTextField fullWidth placeholder='Roy philip' />
-
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={6}>
-                        <InputLabel>Customer email Address</InputLabel>
-                        <StyledTextField fullWidth placeholder='Roy.philip@example.com' />
-
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={6}>
-                        <InputLabel>Phone Number</InputLabel>
-                        <StyledTextField fullWidth placeholder='904567893' />
-
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={6}>
-                        <InputLabel>Invoice Due Date</InputLabel>
-                        <StyledTextField fullWidth placeholder='12-09-2023' />
-
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={12}>
-                        <InputLabel>Comment</InputLabel>
-                        <StyledTextField fullWidth placeholder='Enter comment' />
-
-                    </Grid>
-                </Grid>
-
-                <Stack className={Styles.puchaseHeader} direction={"row"} justifyContent="space-between" alignItems={"center"} borderBottom="1px solid #E0E0E0" paddingX={"45px"} paddingY={0}>
-                    <h2>Purchase item</h2>
-                    <p style={{ color: "#333" }}>NGN 0.00</p>
+                <Stack className={Styles.puchaseHeader} direction={"row"} justifyContent="space-between" alignItems={"center"} borderBottom="1px solid #E0E0E0" paddingX={"50px"} marginTop="3.5rem" paddingY={0}>
+                    <h2 style={{ paddingBottom: "10px" }}>Purchase item</h2>
+                    <p style={{ color: "#333", paddingBottom: "10px" }}>NGN 0.00</p>
                 </Stack>
 
-                <Grid container spacing={2} padding={5}>
+                <Grid container spacing={3} padding={"2rem"} px={6}>
                     <Grid item xs={12} sm={12} md={6} >
-                        <InputLabel>Item Description</InputLabel>
+                        <InputLabel className={Styles.label}>Item Description</InputLabel>
                         <StyledTextField fullWidth placeholder='Enter Decription' />
 
                     </Grid>
                     <Grid item xs={12} sm={12} md={6}>
-                        <InputLabel>Quantity</InputLabel>
+                        <InputLabel className={Styles.label}>Quantity</InputLabel>
                         <StyledTextField type={"number"} placeholder="2" fullWidth />
 
                     </Grid>
 
                     <Grid item xs={12} sm={12} md={6} >
-                        <InputLabel>Currency</InputLabel>
+                        <InputLabel className={Styles.label}>Currency</InputLabel>
                         <StyledTextField fullWidth placeholder='NGN' select sx={{ display: "block" }} InputProps={{
                             startAdornment: <InputAdornment position="start">NGN</InputAdornment>,
                         }}>
@@ -126,25 +133,25 @@ const CreateInvoice = () => {
 
                     </Grid>
                     <Grid item xs={12} sm={12} md={6}>
-                        <InputLabel>Unit Price</InputLabel>
+                        <InputLabel className={Styles.label}>Unit Price</InputLabel>
                         <StyledTextField fullWidth InputProps={{
                             startAdornment: <InputAdornment position="start">NGN</InputAdornment>,
                         }} />
 
                     </Grid>
                     <Grid item xs={12} sm={12} md={6}>
-                        <InputLabel>Tax</InputLabel>
+                        <InputLabel className={Styles.label}>Tax</InputLabel>
                         <StyledTextField type={"number"} placeholder="10%" fullWidth />
 
                     </Grid>
                     <Grid item xs={12} sm={12} md={6}>
-                        <InputLabel>Discount</InputLabel>
+                        <InputLabel className={Styles.label}>Discount</InputLabel>
                         <StyledTextField type={"number"} placeholder="10%" fullWidth />
 
                     </Grid>
                     <Grid item xs={12} sm={12} md={12} justifyContent={"flex-end"}>
                         <Box sx={{ display: "flex", justifyContent: "flex-end", alignItems: "flex-end", marginTop: "20px" }}>
-                            <button onClick={handleSubmitInvoice}>Create Invoice</button>
+                            <button className={Styles.btn} onClick={handleSubmitInvoice}>Create Invoice</button>
 
                         </Box>
                     </Grid>

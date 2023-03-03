@@ -38,13 +38,14 @@ export default function Modal() {
 			{modalOpened ? (
 				<div style={{ ...styles.main, left: 0 }} onClick={(e) => Close(e)}>
 					<div style={{ ...styles.messageBox, ...modalStyles }}>
+
 						<ClearOutlinedIcon
 							style={{
 								zIndex: 20,
 								cursor: 'pointer',
 								position: 'absolute',
 								top: '20px',
-								right: '20px',
+								right: '40px',
 							}}
 							onClick={(e: any) => Close(e)}
 							sx={{ color: 'rgba(0, 40, 65, 0.5)' }}
@@ -53,7 +54,7 @@ export default function Modal() {
 							onClick={(e) => {
 								e.stopPropagation();
 							}}>
-							{modalContent}
+							{modalContent && modalContent}
 						</div>
 					</div>
 				</div>

@@ -68,12 +68,14 @@ const useStyles = makeStyles({
 		left: '50%',
 		transform: 'translate(-50%, -50%)',
 		fontFamily: `'Avenir', sans-serif`,
-		padding: '3rem 2rem',
+		// padding: '3rem 2rem',
 		'& > h3': {
+			// border: "2px solid red",
 			fontSize: '1.5rem',
 			color: '#4F4F4F',
 			fontWeight: '300',
 			marginBottom: '1.5rem',
+			paddingLeft: "20px"
 		},
 		'& p:first-of-type': {
 			color: '#414141',
@@ -95,11 +97,14 @@ const useStyles = makeStyles({
 			borderRadius: '4px',
 			backgroundColor: '#27ae60',
 			color: 'white',
-			fontWeight: '700',
+			fontWeight: '900',
 			fontSize: '1rem',
 			marginTop: '2rem',
 			textTransform: 'none',
 			padding: '.75rem 1.5rem',
+			height: "44px",
+			fontFamily: 'Avenir',
+
 		},
 	},
 });
@@ -137,55 +142,63 @@ const LinkTypeModal = ({
 				timeout: 500,
 			}}>
 			<div className={classes.root}>
-				<h3>Payment link type</h3>
-				<RadioGroup
-					name='payment-link-types'
-					value={radioValue}
-					onChange={(e) => setRadioValue(e.target.value)}>
-					<Box
-						sx={{
-							display: 'grid',
-							gridTemplateRows: '3 1fr',
-							gridGap: '1rem',
-						}}>
-						<CustomFormControlLabel
-							value='single'
-							control={<Radio />}
-							label={
-								<>
-									<p>Single Charge</p>
-									<p>Enter your details to create an account</p>
-								</>
-							}
-						/>
-						<CustomFormControlLabel
-							value='recurring'
-							control={<Radio />}
-							label={
-								<>
-									<p>Recurring Charge</p>
-									<p>Enter your details to create an account</p>
-								</>
-							}
-						/>
-						<CustomFormControlLabel
-							value='donation'
-							control={<Radio />}
-							label={
-								<>
-									<p>Donation Link</p>
-									<p>Enter your details to create an account</p>
-								</>
-							}
-						/>
-					</Box>
-					<Button
-						style={{ borderRadius: "20px" }}
-						onClick={() => selectLinkType(radioValue)}
-						disabled={!radioValue}>
-						Continue
-					</Button>
-				</RadioGroup>
+				<Box sx={{ padding: "31px 50px", borderBottom: "1px solid #E0E0E0" }}>
+					<h3>Payment link type</h3>
+
+				</Box>
+				<Box sx={{ padding: "28px 29px" }}>
+
+					<RadioGroup
+						name='payment-link-types'
+						value={radioValue}
+						onChange={(e) => setRadioValue(e.target.value)}>
+						<Box
+							sx={{
+								display: 'grid',
+								gridTemplateRows: '3 1fr',
+								gridGap: '1rem',
+								paddingInline: "21px"
+							}}>
+							<CustomFormControlLabel
+								value='single'
+								control={<Radio />}
+								label={
+									<>
+										<p>Single Charge</p>
+										<p>Enter your details to create an account</p>
+									</>
+								}
+							/>
+							<CustomFormControlLabel
+								value='recurring'
+								control={<Radio />}
+								label={
+									<>
+										<p>Recurring Charge</p>
+										<p>Enter your details to create an account</p>
+									</>
+								}
+							/>
+							<CustomFormControlLabel
+								value='donation'
+								control={<Radio />}
+								label={
+									<>
+										<p>Donation Link</p>
+										<p>Enter your details to create an account</p>
+									</>
+								}
+							/>
+							<Button
+								style={{ borderRadius: "20px", }}
+								onClick={() => selectLinkType(radioValue)}
+								disabled={!radioValue}>
+								Continue
+							</Button>
+						</Box>
+					</RadioGroup>
+				</Box>
+
 			</div>
 		</Modal>
 	);

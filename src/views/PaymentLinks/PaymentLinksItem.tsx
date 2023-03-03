@@ -3,7 +3,7 @@ import styles from './PaymentLinksItem.module.scss';
 import NavBar from '../../components/navbar/NavBar';
 import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
-import { Button } from '@mui/material';
+import { Box, Button, Stack } from '@mui/material';
 import { makeStyles } from '@material-ui/styles';
 import CustomClickTable from '../../components/table/CustomClickTable';
 import { GetTransactionsRes, TransactionItem } from '../../types/CustomerTypes';
@@ -18,7 +18,10 @@ import moment from 'moment';
 import { LinkItem } from '../../types/PaymentlinkTypes';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { ReactComponent as ExtLinkIcon } from '../../assets/images/ext-link.svg';
-import ParentContainer from '../../components/ParentContainer/ParentContainer';
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
+import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
+
+
 
 const useBtnStyles = makeStyles({
 	root: {
@@ -81,7 +84,7 @@ const PaymentLinksItem = () => {
 
 	const formattedRowData: LinkItem = JSON.parse(rowData);
 
-	const { desc, name, amt, linkType, url, added } = formattedRowData;
+	const { desc, name, amt, linkType, url, added, website, img, frequency, chargeCount, phone } = formattedRowData;
 	interface Column {
 		id: 'amount' | 'email' | 'added' | 'paymentmethod' | 'code';
 		label: any;
@@ -191,13 +194,13 @@ const PaymentLinksItem = () => {
 				<div className={styles.sectionWrapper}>
 					<div className={styles.sectionTwo}>
 						<div>
-							<p>{name}</p>
+							<p className={styles.nameText}>{name}</p>
 							<p style={{ borderRadius: "20px" }}>Active</p>
 						</div>
 						<div className={btnClasses.root}>
-							<Button style={{ borderRadius: "20px", padding: "10px 20px" }}>Edit</Button>
-							<Button style={{ borderRadius: "20px", padding: "10px 20px" }}>Deactivate</Button>
-							<Button style={{ borderRadius: "20px", padding: "10px 20px" }}>Delete</Button>
+							<Button style={{ borderRadius: "20px", height: "34px" }}>Edit</Button>
+							<Button style={{ borderRadius: "20px", height: "34px" }}>Deactivate</Button>
+							<Button style={{ borderRadius: "20px", height: "34px" }}>Delete</Button>
 						</div>
 					</div>
 					<div className={styles.sectionThree}>
@@ -220,31 +223,66 @@ const PaymentLinksItem = () => {
 								<p>Amount</p>
 								<p>NGN {amt}</p>
 							</div>
+							{website && <div>
+								<p>Donation websites</p>
+								<Link to={website}> {website}</Link>
+							</div>}
+							{frequency && <div>
+								<p>Frequency</p>
+								<p> {frequency}</p>
+							</div>}
+							{chargeCount && <div>
+								<p>Charge count</p>
+								<p> {chargeCount}</p>
+							</div>}
+							{phone && <div>
+								<p>Contact phone number</p>
+								<p> {phone}</p>
+							</div>}
 						</div>
-						<div>
-							<p>Description</p>
-							<p>{desc}</p>
+
+						<div className={styles.box}>
+
+							<div className={styles.descBox}>
+								<p>Description</p>
+								<p>{desc}</p>
+							</div>
+
+							{img &&
+								<div className={styles.imgBox}>
+									<p>Image</p>
+									<img src={img} alt={img} width="117px" height={"55px"} />
+								</div>
+							}
 						</div>
 					</div>
-
 				</div>
-				<hr />
-				<div className={styles.sectionFour}>
-					<div>
+
+			</div>
+			{/* <hr /> */}
+			<div className={styles.sectionFour}>
+				<div>
+					<Stack direction={"row"} justifyContent="space-between" alignItems={"center"}>
 						<h3>Transactions</h3>
-						<div className={styles.tableContainer}>
-							<CustomClickTable
-								columns={columns}
-								rows={rows}
-								totalRows={totalRows}
-								changePage={changePage}
-								limit={limit}
-							/>
-						</div>
+						<Box className={styles.buttonGroup}>
+							<button> <FilterAltOutlinedIcon />filter by</button>
+							<button> <InsertDriveFileOutlinedIcon />Download</button>
+						</Box>
+
+					</Stack>
+					<div className={styles.tableContainer}>
+						<CustomClickTable
+							columns={columns}
+							rows={rows}
+							totalRows={totalRows}
+							changePage={changePage}
+							limit={limit}
+						/>
 					</div>
 				</div>
 			</div>
 		</div>
+
 
 	);
 };

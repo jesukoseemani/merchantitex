@@ -80,6 +80,7 @@ import BeneficiaryDetails from "../views/Payout/BeneficiaryDetails";
 import CustomersTab from "../views/Customers/CustomersTab";
 import BlacklistTab from "../views/Customers/BlacklistTab";
 import BlacklistDatatable from "../views/Customers/BlacklistDatatable";
+import InvoiceDetails from "../components/bills/invoice/InvoiceDetails";
 
 export default function AppRoutes() {
   // const { loadingState } = useSelector((state) => state?.loadingStateReducer);
@@ -485,6 +486,13 @@ export default function AppRoutes() {
               exact
               path="/bills/invoice"
               component={Invoice}
+
+            // AuthUser={loadingState}
+            />
+            <ProtectedRoute
+              exact
+              path="/bills/invoice/details/:id"
+              component={InvoiceDetails}
 
             // AuthUser={loadingState}
             />

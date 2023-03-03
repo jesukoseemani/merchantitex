@@ -1,7 +1,7 @@
 import styles from './Subaccounts.module.scss';
 import { useTheme } from '@mui/material/styles';
 import { makeStyles } from '@material-ui/styles';
-import { Button } from '@mui/material';
+import { Button, Stack } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import axios from 'axios';
@@ -177,14 +177,17 @@ const AcctView = ({ setIsModalOpen }: AcctViewProps) => {
 					</div>
 				</div>
 			</div>
-			<div className={styles.topContainer}>
+			{/* <div className={styles.topContainer}> */}
+			<Stack direction={"row"} justifyContent="space-between" alignItems={"center"} sx={{ marginTop: "25px" }}>
 				<div>
 					<p>{totalRows} Subaccounts</p>
 				</div>
 				<div className={btnClasses.root}>
 					<Button style={{ borderRadius: "20px" }} onClick={() => setIsModalOpen(true)}>+ New Subaccount</Button>
 				</div>
-			</div>
+
+			</Stack>
+			{/* </div> */}
 			<div className={styles.tableContainer}>
 				<CustomClickTable
 					columns={columns}

@@ -1,9 +1,9 @@
 export interface TransactionItem {
   amt: string;
   status: string;
-  txnType: string;
+  acctId: string;
   card: string;
-  bankName: string;
+  PaymentType: string;
   added: string;
   id: string;
 }

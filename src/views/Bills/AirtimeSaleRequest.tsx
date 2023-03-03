@@ -74,11 +74,10 @@ const AirtimeSaleRequest = () => {
           <div>
             <Link to="/bills">
               <div>
-                <ArrowLeftIcon />
-                <p>Back to Airtime</p>
+                <ArrowLeftIcon /><p>Back to Airtime</p>
               </div>
             </Link>
-            <h2 style={{ padding: "15px 5px", fontSize: "1.4rem" }}>
+            <h2 >
               NGN {FormatToCurrency(amount)}
             </h2>
           </div>

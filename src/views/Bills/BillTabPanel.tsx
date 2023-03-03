@@ -26,21 +26,33 @@ export default function BillTabPanel() {
         flexDirection: "column",
         width: "100%",
         marginInline: "auto",
+        marginTop: "27px"
       }}
     >
       {/* <NavBar title="Airtime and Bills" /> */}
-      <Box sx={{ width: "98%", marginInline: "auto", typography: "body1" }}>
-        <TabContext value={value}>
+      <Box sx={{ width: "100%", marginInline: "auto", typography: "body1" }}>
+        <TabContext value={value} >
           <Box sx={{ borderBottom: 0, borderColor: "divider" }}>
-            <TabList onChange={handleChange} aria-label="lab API tabs example">
+            <TabList onChange={handleChange} aria-label="lab API tabs example" sx={{
+              ".css-z7wd5-MuiButtonBase-root-MuiTab-root.Mui-selected": {
+                color: "#27AE60",
+              },
+              ".css-1ae12jd-MuiTabs-indicator": {
+                background: "#27AE60",
+                width: "10px"
+              },
+
+
+            }} >
+
               <Tab label="airtime" value="1" />
               <Tab label="bills" value="2" />
             </TabList>
           </Box>
-          <TabPanel value="1">
+          <TabPanel value="1" sx={{ padding: 0, }}>
             <Airtime />
           </TabPanel>
-          <TabPanel value="2">
+          <TabPanel value="2" sx={{ padding: 0 }}>
             <Bills />
           </TabPanel>
         </TabContext>

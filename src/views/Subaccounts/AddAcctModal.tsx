@@ -22,6 +22,7 @@ const useStyles = makeStyles({
 		backgroundColor: 'white',
 		maxWidth: '410px',
 		minHeight: '500px',
+		maxHeight: "95vh",
 		overflowY: 'scroll',
 		width: '100%',
 		position: 'absolute',
@@ -29,12 +30,13 @@ const useStyles = makeStyles({
 		left: '50%',
 		transform: 'translate(-50%, -50%)',
 		fontFamily: `'Avenir', sans-serif`,
-		padding: '1rem 0 2rem',
+		// padding: '1rem 25px',
 		'& > div:nth-child(1)': {
 			display: 'flex',
 			justifyContent: 'space-between',
 			alignItems: 'center',
-			padding: '0rem 2rem',
+			padding: '1rem 4rem',
+			borderBottom: "1px solid #E0E0E0",
 			'& .MuiIconButton-root': {
 				padding: '6px',
 				marginBottom: '3px',
@@ -60,6 +62,7 @@ const useStyles = makeStyles({
 	},
 	formBox: {
 		display: 'grid',
+		paddingInline: "25px",
 
 		'& label': {
 			color: '#333',
@@ -91,7 +94,7 @@ const useStyles = makeStyles({
 		fontWeight: 700,
 		fontSize: '1rem',
 		backgroundColor: '#27AE60',
-		padding: '.5rem',
+		height: "44px",
 		borderRadius: '20px',
 		textTransform: 'none',
 		'&:hover': {
@@ -217,10 +220,13 @@ const AddAcctModal = ({ isOpen, handleClose }: AddAcctModalProps) => {
 						/>
 					</div>
 				</div>
-				<div>
-					<Button fullWidth className={classes.formBtn} onClick={closeModal}>
+				<div style={{ padding: '0rem 3.4rem', margin: "30px 0" }}>
+					<button style={{
+						height: "44px",
+						width: "100%",
+					}} className={classes.formBtn} onClick={closeModal}>
 						Create account
-					</Button>
+					</button>
 				</div>
 			</div>
 		</Modal>

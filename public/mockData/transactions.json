@@ -9,30 +9,31 @@
     { 
       "amt": "45,000.52", 
       "status": "successful" ,
-      "txnType": "debit", 
-      "card": "**** **** **** 5363",
+      "acctId": "debra.holt@example.com", 
+      "PaymentType": "Card",
       "bankName": "Access Bank",
       "added": "2022-03-28 14:43:38.0",
       "id": "1"
     },
     { 
-      "amt": "25,000.00", 
-      "status": "pending" ,
-      "txnType": "credit", 
-      "card": "**** **** **** 2323",
-      "bankName": "Access Bank",
-      "added": "2022-03-28 14:43:38.0",
-      "id": "1"
-    },
-    { 
-      "amt": "5,000.00", 
+      "amt": "45,000.52", 
       "status": "error" ,
-      "txnType": "debit", 
-      "card": "**** **** **** 8893",
+      "acctId": "debra.holt@example.com", 
+      "PaymentType": "Card",
       "bankName": "Access Bank",
       "added": "2022-03-28 14:43:38.0",
-      "id": "1"
+      "id": "2"
+    },
+    { 
+      "amt": "45,000.52", 
+      "status": "pending" ,
+      "acctId": "debra.holt@example.com", 
+      "PaymentType": "Card",
+      "bankName": "Access Bank",
+      "added": "2022-03-28 14:43:38.0",
+      "id": "3"
     }
+    
   ],
   "code": "00",
   "message": "Successful"

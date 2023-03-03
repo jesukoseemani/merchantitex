@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { openModalAndSetContent } from "../../redux/actions/modal/modalActions";
 import SingleAirtimePayment from "./SingleAirtimePayment";
 import { useHistory } from "react-router-dom";
+import { Box } from "@mui/material";
 
 const Airtime = () => {
   const dispatch = useDispatch();
@@ -66,7 +67,7 @@ const Airtime = () => {
   ];
 
   return (
-    <div>
+    <Box sx={{ width: "100%", marginTop: "22px" }}>
       <div className={Styles.airtime_header}>
         <div>
           {" "}
@@ -87,7 +88,7 @@ const Airtime = () => {
         beneficiary={airtime}
         data={data}
       />
-    </div>
+    </Box>
   );
 };
 

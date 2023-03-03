@@ -11,7 +11,7 @@
 		font-style: normal;
 		font-weight: 400;
 		font-size: 1.13rem;
-		line-height: 1.3rem;
+		line-height: 1.2rem;
 		color: #828282;
 	}
 }
@@ -22,16 +22,18 @@
 	background: #ffffff;
 	box-shadow: -4px 4px 14px rgba(224, 224, 224, 0.69);
 	border-radius: 20px;
-	// margin: 1rem;
-	min-height: 485px;
+	width: 419px;
+	height: 551px;
+	// padding-inline: 19px;
 
 	.airtime_form__body {
-		padding-inline: 2.1rem;
+		padding-inline: 3.6rem;
 		width: 100%;
+
 
 		form {
 			width: 100%;
-			margin-top: 1.7rem;
+			margin-top: 1.9rem;
 
 			label {
 				font-family: 'Avenir';
@@ -41,7 +43,8 @@
 				line-height: 1rem;
 				padding: 10px 0;
 				color: #414141;
-				// border: 2px solid red;
+
+
 
 
 			}
@@ -52,17 +55,19 @@
 			}
 
 			select,
-			input {
-				width: 100% !important;
-				height: 44px;
-				background: #ffffff;
-				border: 1px solid #dddd;
-				border-radius: 0.3rem;
-				// margin-top: 1.6rem;
-				padding-inline: 1rem;
-			}
 
-			button {
+			// input {
+			// 	border: 2px solid red;
+			// 	width: 100% !important;
+			// 	height: 44px;
+			// 	// background: #ffffff;
+			// 	border: 1px solid #dddd;
+			// 	border-radius: 0.3rem;
+			// 	// margin-top: 1.6rem;
+			// 	padding-inline: 1rem;
+			// }
+
+			.button {
 				background: #27ae60;
 				border-radius: 20px;
 				// margin-bottom: 1.4;
@@ -73,7 +78,7 @@
 				font-size: 1rem;
 				line-height: 1.2rem;
 				text-align: center;
-				height: 2.8em;
+				height: 44px;
 				margin-top: 2.5rem;
 				display: flex;
 				align-items: center;
@@ -89,9 +94,9 @@
 // bulk payment
 
 .bulk__payment__container {
-	width: 94%;
+	width: 100%;
 	margin-inline: auto;
-	// margin-top: 2.5rem;
+
 
 	h3 {
 		font-family: 'Avenir';
@@ -113,6 +118,8 @@
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
+	margin-top: 40px;
+	// background-color: red;
 
 	h4,
 	p {
@@ -121,10 +128,11 @@
 		font-family: 'Avenir';
 		font-style: normal;
 		font-weight: 400;
-		font-size: 0.9rem;
-		line-height: 1rem;
+		font-size: 14px;
+		line-height: 19.2px;
 
 		color: #4f4f4f;
+		// border: 2px solid red;
 	}
 
 	p {
@@ -135,13 +143,19 @@
 		color: #333333;
 		font-weight: 600;
 	}
+
+	button {
+		border: red 1px solid;
+	}
 }
 
 .upload_csv {
 	// padding-inline: 2.7rem;
-	width: 86%;
-	margin-inline: auto;
-	margin-top: 2.1rem;
+	// width: 86%;
+	padding-inline: 45px;
+	// border: #27AE60 1px solid;
+	margin-top: 2.5rem;
+
 
 	input {
 		display: none;
@@ -153,14 +167,36 @@
 		background: #ffffff;
 		border: 1px solid #dddddd;
 		border-radius: 0.3rem;
-		margin-top: 0.5rem;
+		margin-top: 0.3rem;
 		padding-inline: 1rem;
 		display: flex;
 		align-items: center;
 	}
 
+	h4 {
+		font-family: 'Avenir';
+		font-style: normal;
+		font-weight: 500;
+		font-size: 18px;
+		line-height: 25px;
+		/* identical to box height */
+
+
+		color: #4F4F4F;
+	}
+
+	p {
+		font-family: 'Avenir';
+		font-style: normal;
+		font-weight: 400;
+		font-size: 14px;
+		line-height: 19px;
+
+		color: #4F4F4F;
+	}
+
 	button {
-		margin-top: 1.9rem;
+		margin-top: 2.2rem;
 		background: #27ae60;
 		border-radius: 20px;
 		width: 100%;
@@ -169,18 +205,22 @@
 		font-weight: 700;
 		font-size: 1rem;
 		// line-height: 1.2rem;
-		height: 2.8em;
+		height: 44px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		color: #ffffff;
+	}
+
+	.downloadIcon {
+		margin-right: 10px;
 	}
 }
 
 .bulk__payment__input__container {
 	@extend .payment__input__container;
 	// background-color: #f8f8f8 !important;
-	min-height: 29.5rem !important;
+	height: 481px;
 	width: 100%;
 	box-shadow: none;
 	// display: none;
@@ -189,7 +229,7 @@
 // bulk__bill__payment__container
 
 .bulk__bill__payment__container {
-	width: 95%;
+	width: 100%;
 	height: 100%;
 	margin-inline: auto;
 	height: 35rem;
@@ -234,10 +274,10 @@
 		position: absolute;
 		width: 40px;
 		height: 40px;
-		content: "Or";
+		content: "or";
 		left: 50%;
 		top: 50%;
-		background-color: #fff;
+		background-color: #EFF3F8;
 		border-radius: 100%;
 		transform: translate(-50%, -50%);
 		display: flex;
@@ -308,26 +348,7 @@
 				padding-inline: 1rem;
 			}
 
-			button {
-				background: #27ae60;
-				border-radius: 20px;
-				// margin-bottom: 1.4;
-				width: 100%;
-				font-family: 'Avenir';
-				font-style: normal;
-				font-weight: 700;
-				font-size: 1rem;
-				line-height: 1.2rem;
-				text-align: center;
-				height: 2.8em;
-				margin-top: 1.5rem;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				color: #ffffff;
 
-
-			}
 		}
 	}
 
@@ -359,4 +380,75 @@
 		}
 
 	}
+}
+
+svg {
+	margin: 0;
+}
+
+
+
+.comfirmEntries {
+	.headerTitle {
+		font-family: 'Avenir';
+		font-style: normal;
+		font-weight: 400;
+		font-size: 20px;
+		line-height: 27px;
+
+		color: #333333;
+	}
+
+	.confirmBtn {
+		padding: 7.5px 16px;
+		width: 191px;
+		height: 35px;
+		font-family: 'Avenir';
+		font-style: normal;
+		font-weight: 400;
+		font-size: 14px;
+		line-height: 19px;
+		letter-spacing: 0.0024px;
+		background: #27AE60;
+		border-radius: 22px;
+
+		@media screen and (max-width: 768px) {
+			width: fit-content;
+		}
+	}
+}
+
+.btn_button {
+	background: #27ae60 !important;
+	border-radius: 20px !important;
+	// margin-bottom: 1.4;
+	width: 100%;
+	font-family: 'Avenir' !important;
+	font-style: normal !important;
+	font-weight: 700 !important;
+	font-size: 1rem !important;
+	line-height: 1.2rem !important;
+	text-align: center;
+	height: 44px !important;
+	// margin-top: 1rem;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #ffffff !important;
+
+
+}
+
+.label {
+	padding: 0 !important;
+	font-family: 'Avenir';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 19px;
+
+	color: #333333;
+
+
 }
