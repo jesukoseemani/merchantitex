@@ -35,7 +35,7 @@ export interface BillRequestItem {
   commission?: number;
 }
 
-export interface GetBillRequestsRes {
+export interface ConfirmEntryRequestItemGetBillRequestsRes {
   _metadata: {
     page: number;
     pagecount: number;
@@ -68,6 +68,30 @@ export interface GetBillEntryRequestsRes {
     links: [];
   };
   history: BillEntryRequestItem[];
+  //   requests: AirtimeRequestItem[];
+}
+// confirm airtirm entry request table
+export interface ConfirmEntryRequestItem {
+  id: string;
+  country: string;
+  phone: string;
+  amount: number;
+  frequency: string;
+  date?: string;
+  providerRef?: string;
+  transactionRef?: string;
+  billId?: number;
+  commission?: number;
+}
+
+export interface GetConfirmEntryRes {
+  _metadata: {
+    page: number;
+    pagecount: number;
+    totalcount: number;
+    links: [];
+  };
+  history: ConfirmEntryRequestItem[];
   //   requests: AirtimeRequestItem[];
 }
 

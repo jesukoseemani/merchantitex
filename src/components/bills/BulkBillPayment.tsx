@@ -25,7 +25,7 @@ const BulkBillPayment = () => {
       >
         {/* <NavBar /> */}
         <div className={Styles.bulk__bill__payment__container}>
-          <h3>Bulk airtime purchase</h3>
+          <h3 style={{ padding: "10px 0", marginTop: "38px", marginBottom: "30px" }}>Bulk airtime purchase</h3>
 
 
 
@@ -85,7 +85,7 @@ const BulkBillPayment = () => {
               </Box>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
-              <Box sx={{ width: "100%", height: "620px", borderRadius: "20px" }} bgcolor="#F8F8F8">
+              <Box bgcolor="#F8F8F8" width={"100%"}>
                 <div className={Styles.bill__form}>
                   <BillBulkManualForm />
                 </div>
@@ -104,6 +104,8 @@ const BulkBillPayment = () => {
           {/* bill payment entry */}
         </div>
       </div>
+
+
 
 
     </>

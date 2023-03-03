@@ -94,18 +94,18 @@ const AirtimeRequestTable = () => {
 		align?: 'right' | 'left' | 'center';
 	}
 	const columns: Column[] = [
-		{ id: 'country', label: 'Country', minWidth: 100 },
+		{ id: 'country', label: 'Country', minWidth: 150 },
 		{ id: 'recipient', label: 'Recipient', minWidth: 100 },
 		{ id: 'amount', label: 'Amount', minWidth: 100 },
 		{ id: 'network', label: 'Network', minWidth: 100 },
-		{ id: 'date', label: 'Date', minWidth: 100 },
+		{ id: 'date', label: 'Date', minWidth: 100, align: "center" },
 	];
 
 	const AirtimehistoryRowTab = useCallback(
 		(country, recipient, amount, network, date, id) => ({
 			country: (
 				<p className={styles.tableBodyText}>
-					<span className={styles.tableBodySpan}>NGN </span>
+					<span className={styles.tableBodySpan}> </span>
 					{country}
 				</p>
 			),
@@ -122,7 +122,7 @@ const AirtimeRequestTable = () => {
 			),
 			network: <p className={styles.tableBodyText}>{network}</p>,
 			date: (
-				<p className={styles.tableBodyText}>
+				<p style={{ textAlign: "right" }} className={styles.tableBodyText}>
 					{moment(date).format('MMM D YYYY')}
 					<span className={styles.tableBodySpan}>
 						{' '}
