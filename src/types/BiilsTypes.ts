@@ -35,6 +35,16 @@ export interface BillRequestItem {
   commission?: number;
 }
 
+export interface GetBillRequestsRes {
+  _metadata: {
+    page: number;
+    pagecount: number;
+    totalcount: number;
+    links: [];
+  };
+  history: BillRequestItem[];
+  //   requests: AirtimeRequestItem[];
+}
 export interface ConfirmEntryRequestItemGetBillRequestsRes {
   _metadata: {
     page: number;

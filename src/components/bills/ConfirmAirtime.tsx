@@ -47,7 +47,7 @@ const ConfirmAirtime = () => {
         { id: "country", label: "Country", minWidth: 100 },
         { id: "phone", label: "Phone number", minWidth: 100 },
         { id: "amount", label: "Amount", minWidth: 100 },
-        { id: "frequency", label: "How often do you want torecharge", minWidth: 100 },
+        { id: "frequency", label: "How often do you want to recharge", minWidth: 100 },
 
     ];
 
