@@ -1,14 +1,10 @@
 import {
   Button,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Box,
+
   Modal,
   OutlinedInput,
+  ButtonBase,
+  Box,
 } from "@mui/material";
 import { MouseEvent, useCallback, useEffect, useState } from "react";
 import NavBar from "../../components/navbar/NavBar";
@@ -25,6 +21,9 @@ import {
   closeLoader,
   openLoader,
 } from "../../redux/actions/loader/loaderActions";
+import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
+
 import axios from "axios";
 import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
 import CustomClickTable from "../../components/table/CustomClickTable";
@@ -47,11 +46,15 @@ const useBtnStyles = makeStyles({
     "& .MuiButtonBase-root:nth-child(1)": {
       backgroundColor: "#E0E0E0",
       color: "#333",
+      borderRadius: "20px",
+      height: "32px",
     },
     "& .MuiButtonBase-root:nth-child(2)": {
-      backgroundColor: "#27AE60",
-      color: "#FFF",
-      gap: ".5rem",
+      background: "transparent",
+      color: "#27AE60",
+      height: "32px",
+      border: "1px solid #27AE60",
+      borderRadius: "20px"
     },
     "& svg": {
       fontSize: "1rem",
@@ -118,12 +121,14 @@ const useModalBtnStyles = makeStyles({
       fontSize: ".875rem",
       color: "black",
       background: "#E0E0E0",
-      borderRadius: "3px",
       textTransform: "none",
+      borderRadius: "20px"
     },
     "& .MuiButton-root:nth-child(2)": {
       color: "white",
       background: "#27AE60",
+      borderRadius: "20px"
+
     },
   },
 });
@@ -176,7 +181,7 @@ const Settlements = () => {
   const columns: Column[] = [
     { id: "amt", label: "Amount", minWidth: 100 },
     { id: "status", label: "Status", minWidth: 100 },
-    { id: "destination", label: "Destination", minWidth: 100 },
+    { id: "destination", label: "Settlement account", minWidth: 100 },
     { id: "added", label: "Date", minWidth: 100, align: "right" },
   ];
 
@@ -256,89 +261,89 @@ const Settlements = () => {
   }, [pageNumber, rowsPerPage]);
 
   return (
- 
-      <div className={styles.container}>
-        <Modal
-          open={isFilterModalOpen}
-          onClose={() => setIsFilterModalOpen(false)}
-          aria-labelledby="settlements filter modal"
-        >
-          <div className={styles.filterModalContainer}>
-            <p>Filters</p>
-            <hr />
-            <div className={styles.modalContent}>
+
+    <div className={styles.container}>
+      <Modal
+        open={isFilterModalOpen}
+        onClose={() => setIsFilterModalOpen(false)}
+        aria-labelledby="settlements filter modal"
+      >
+        <div className={styles.filterModalContainer}>
+          <p>Filters</p>
+          <hr />
+          <div className={styles.modalContent}>
+            <div>
+              <p>Due date</p>
               <div>
-                <p>Due date</p>
-                <div>
-                  <p>Today</p>
-                  <p>Last 7 days</p>
-                  <p>30 days</p>
-                  <p>1 year</p>
-                </div>
-              </div>
-              <div>
-                <p>Custom date range</p>
-                <div>
-                  <div>Start date</div>
-                  <ArrowRightAltIcon />
-                  <div>End date</div>
-                </div>
-              </div>
-              <div>
-                <p>Withheld amount</p>
-                <OutlinedInput placeholder="NGN 0.00" size="small" fullWidth />
-              </div>
-              <div>
-                <p>Status</p>
-                <OutlinedInput
-                  placeholder="Choose status"
-                  size="small"
-                  fullWidth
-                />
+                <p>Today</p>
+                <p>Last 7 days</p>
+                <p>30 days</p>
+                <p>1 year</p>
               </div>
             </div>
-            <hr />
-            <div className={modalBtnClasses.root}>
-              <Button>Clear filter</Button>
-              <Button>Apply filter</Button>
+            <div>
+              <p>Custom date range</p>
+              <div>
+                <div>Start date</div>
+                <ArrowRightAltIcon />
+                <div>End date</div>
+              </div>
+            </div>
+            <div>
+              <p>Withheld amount</p>
+              <OutlinedInput placeholder="NGN 0.00" size="small" fullWidth />
+            </div>
+            <div>
+              <p>Status</p>
+              <OutlinedInput
+                placeholder="Choose status"
+                size="small"
+                fullWidth
+              />
             </div>
           </div>
-        </Modal>
-        {/* <NavBar name='Settlements' />
+          <hr />
+          <div className={modalBtnClasses.root}>
+            <Button>Clear filter</Button>
+            <Button>Apply filter</Button>
+          </div>
+        </div>
+      </Modal>
+      {/* <NavBar name='Settlements' />
       <hr /> */}
 
 
-        <div className={styles.pageWrapper}>
-          <div className={styles.historyTopContainer}>
+      <div className={styles.pageWrapper}>
+        <Box mb={2} className={styles.historyTopContainer}>
+          <div>
+            <h2>19 Settlements</h2>
+          </div>
+          <div className={btnClasses.root}>
             <div>
-              <h2>Settlements</h2>
-            </div>
-            <div className={btnClasses.root}>
-              <div>
-                <Button onClick={() => setIsFilterModalOpen(true)}>
-                  All <ArrowDropDownIcon />
-                </Button>
-              </div>
-              <Button>
-                Download <CloudUploadOutlinedIcon />
+              <Button onClick={() => setIsFilterModalOpen(true)}>
+                <FilterAltOutlinedIcon /> Filter by:
               </Button>
             </div>
+            <Button>
+              <InsertDriveFileOutlinedIcon /> Download
+            </Button>
           </div>
-          <div className={styles.tableContainer}>
-            <CustomClickTable
-              columns={columns}
-              rows={rows}
-              totalRows={totalRows}
-              changePage={changePage}
-              limit={limit}
-              clickable
-              link="/balance/settlements"
-              identifier="id"
-              rowsData={settlements}
-            />
-          </div>
+        </Box>
+        <div className={styles.tableContainer}>
+          <CustomClickTable
+            columns={columns}
+            rows={rows}
+            totalRows={totalRows}
+            changePage={changePage}
+            limit={limit}
+            clickable
+            link="/balance/settlements"
+            identifier="id"
+            rowsData={settlements}
+          />
         </div>
       </div>
+    </div>
 
   );
 };

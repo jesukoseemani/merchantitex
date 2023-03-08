@@ -4,7 +4,7 @@
 	width: 100%;
 	position: relative;
 
-	& > hr {
+	&>hr {
 		background-color: #e0e0e0;
 	}
 }
@@ -12,21 +12,23 @@
 .pageWrapper {
 	margin-bottom: 4rem;
 
-	& > hr {
+	&>hr {
 		background-color: #e0e0e0;
 	}
 }
 
 .sectionOne {
-	padding: 0 2rem;
+	// padding: 0 2rem;
 
-	& > div:nth-child(1) {
+	&>div:nth-child(1) {
 		margin: 1.25rem 0;
+
 		div {
 			display: flex;
 			align-items: center;
 			color: #828282;
-			& > p {
+
+			&>p {
 				color: #4f4f4f;
 				font-size: 0.875rem;
 				font-weight: 400;
@@ -34,18 +36,19 @@
 		}
 	}
 
-	& > div:nth-child(2) {
+	&>div:nth-child(2) {
 		display: flex;
 		align-items: center;
 		gap: 1.25rem;
 		margin-bottom: 1.5rem;
 
-		& > p:nth-child(1) {
+		&>p:nth-child(1) {
 			color: #333;
 			font-size: 1.5rem;
 			font-weight: 700;
 		}
-		& > p:nth-child(2) {
+
+		&>p:nth-child(2) {
 			color: white;
 			font-weight: 500;
 			font-size: 0.75rem;
@@ -57,7 +60,7 @@
 }
 
 .sectionTwo {
-	padding: 2rem 2rem 0;
+	padding: 2rem 0rem 0;
 	display: flex;
 	gap: 3rem;
 
@@ -75,7 +78,7 @@
 		grid-gap: 1rem;
 	}
 
-	& > div:nth-child(even) {
+	&>div:nth-child(even) {
 		margin: 0.5rem 0;
 		width: 1.5px;
 		background: #e0e0e0;
@@ -85,13 +88,15 @@
 		}
 	}
 
-	& > div:nth-child(odd) {
+	&>div:nth-child(odd) {
 		font-weight: 400;
 		font-size: 0.875rem;
-		& > p:nth-child(1) {
+
+		&>p:nth-child(1) {
 			color: #828282;
 		}
-		& > p:nth-child(2) {
+
+		&>p:nth-child(2) {
 			color: #333;
 			margin-top: 0.5rem;
 		}
@@ -99,14 +104,15 @@
 }
 
 .sectionThree {
-	padding: 4rem 2rem 0;
+	padding: 4rem 0rem 0;
 
 	@media screen and (max-width: 760px) {
 		padding: 3rem 6rem 0 2rem;
 	}
 
-	& > div:nth-child(1) {
+	&>div:nth-child(1) {
 		border-bottom: 1px solid #e0e0e0;
+
 		h3 {
 			font-family: 'Avenir', sans-serif;
 			color: #333;
@@ -115,7 +121,7 @@
 		}
 	}
 
-	& > div:nth-child(2) {
+	&>div:nth-child(2) {
 		display: flex;
 		gap: 3rem;
 		margin-top: 0.625rem;
@@ -130,13 +136,15 @@
 			grid-gap: 1rem;
 		}
 
-		& > div {
+		&>div {
 			font-weight: 400;
 			font-size: 0.875rem;
-			& > p:nth-child(1) {
+
+			&>p:nth-child(1) {
 				color: #828282;
 			}
-			& > p:nth-child(2) {
+
+			&>p:nth-child(2) {
 				color: #333;
 				margin-top: 0.5rem;
 			}
@@ -145,10 +153,11 @@
 }
 
 .sectionFour {
-	padding: 4rem 2rem 0;
+	padding: 4rem 0 0;
 
-	& > div:nth-child(1) {
+	&>div:nth-child(1) {
 		border-bottom: 1px solid #e0e0e0;
+
 		h3 {
 			font-family: 'Avenir', sans-serif;
 			color: #333;
@@ -177,42 +186,58 @@
 }
 
 .pendingText {
-	font-size: 0.875rem;
-	color: #12122c;
-	font-weight: 500;
-	cursor: pointer;
-	padding: 0.2rem 1rem;
-	background-color: #f2c94c;
-	border-radius: 2px;
+	background-color: #f2c94c !important;
+	color: #12122c !important;
+	font-family: "Avenir";
+	font-style: normal;
+	font-weight: 500 !important;
+	font-size: 12px !important;
+	line-height: 16px;
 	text-align: center;
-	text-transform: capitalize;
-	width: 90%;
+	background: rgba(242, 201, 76, 0.15) !important;
+	color: #b99528 !important;
+	height: 19px;
+	display: flex;
+	padding: 2px 15px !important;
+	border-radius: 20px !important;
+	justify-content: center;
+	align-items: center;
 }
 
 .wonText {
-	font-size: 0.875rem;
-	color: white;
-	font-weight: 500;
-	cursor: pointer;
-	padding: 0.2rem 1rem;
-	background-color: #219653;
-	border-radius: 2px;
+	font-family: "Avenir";
+	font-style: normal;
+	font-weight: 500 !important;
+	font-size: 12px !important;
+	line-height: 16px;
 	text-align: center;
-	text-transform: capitalize;
-	width: 90%;
+	background-color: rgba(39, 174, 96, 0.15) !important;
+	color: #27ae60 !important;
+	height: 19px;
+	display: flex;
+	padding: 2px 15px !important;
+	border-radius: 20px !important;
+	justify-content: center;
+	align-items: center;
 }
 
 .lostText {
-	font-size: 0.875rem;
-	color: white;
-	font-weight: 500;
-	cursor: pointer;
-	padding: 0.2rem 1rem;
-	background-color: #eb5757;
-	border-radius: 2px;
+	background-color: #f2c94c !important;
+	color: #12122c !important;
+	font-family: "Avenir";
+	font-style: normal;
+	font-weight: 500 !important;
+	font-size: 12px !important;
+	line-height: 16px;
 	text-align: center;
-	text-transform: capitalize;
-	width: 90%;
+	background: rgba(235, 87, 87, 0.15) !important;
+	color: #eb5757 !important;
+	height: 19px;
+	display: flex;
+	padding: 2px 15px !important;
+	border-radius: 20px !important;
+	justify-content: center;
+	align-items: center;
 }
 
 .tableContainer {

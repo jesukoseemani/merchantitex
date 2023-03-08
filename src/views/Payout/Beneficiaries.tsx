@@ -1,4 +1,4 @@
-import { IconButton, makeStyles } from "@material-ui/core";
+import { Box, IconButton, makeStyles } from "@material-ui/core";
 import React, { useEffect, useState, useCallback } from "react";
 
 import Styles from "./beneficiaries.module.scss";
@@ -346,8 +346,8 @@ function PendingApproval() {
         changePage={changePage}
       />
       <div className={Styles.tableContainer}>
-        <div className={Styles.tableHeader}>
-          <h2>Beneficiaries</h2>
+        <Box className={Styles.tableHeader}>
+          <h2> 19 Beneficiaries</h2>
           <div>
             <button onClick={() => setIsFilterModalOpen(true)}>
               Filter <ArrowDropDownOutlinedIcon />
@@ -359,7 +359,7 @@ function PendingApproval() {
               + Add new beneficiary
             </button>
           </div>
-        </div>
+        </Box>
 
         <div className={Styles.wrapper}>
           <CustomClickTable

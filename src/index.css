@@ -128,3 +128,56 @@ button.active {
   color: #27ae60 !important;
   border: 1px solid #27ae60 !important;
 }
+
+.success-status {
+  font-family: "Avenir";
+  font-style: normal;
+  font-weight: 500 !important;
+  font-size: 12px !important;
+  line-height: 16px;
+  text-align: center;
+  background-color: rgba(39, 174, 96, 0.15) !important;
+  color: #27ae60 !important;
+  height: 19px;
+  display: flex;
+  padding: 2px 15px !important;
+  border-radius: 20px !important;
+  justify-content: center;
+  align-items: center;
+}
+.warning-status {
+  background-color: #f2c94c !important;
+  color: #12122c !important;
+  font-family: "Avenir";
+  font-style: normal;
+  font-weight: 500 !important;
+  font-size: 12px !important;
+  line-height: 16px;
+  text-align: center;
+  background: rgba(242, 201, 76, 0.15) !important;
+  color: #b99528 !important;
+  height: 19px;
+  display: flex;
+  padding: 2px 15px !important;
+  border-radius: 20px !important;
+  justify-content: center;
+  align-items: center;
+}
+.danger-status {
+  background-color: #f2c94c !important;
+  color: #12122c !important;
+  font-family: "Avenir";
+  font-style: normal;
+  font-weight: 500 !important;
+  font-size: 12px !important;
+  line-height: 16px;
+  text-align: center;
+  background: rgba(235, 87, 87, 0.15) !important;
+  color: #eb5757 !important;
+  height: 19px;
+  display: flex;
+  padding: 2px 15px !important;
+  border-radius: 20px !important;
+  justify-content: center;
+  align-items: center;
+}

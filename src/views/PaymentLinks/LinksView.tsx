@@ -1,7 +1,7 @@
 import styles from './PaymentLinks.module.scss';
 import { useTheme } from '@mui/material/styles';
 import { makeStyles } from '@material-ui/styles';
-import { Button, Modal, OutlinedInput } from '@mui/material';
+import { Box, Button, Grid, Modal, OutlinedInput } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import axios from 'axios';
@@ -27,10 +27,10 @@ const useModalBtnStyles = makeStyles({
 	root: {
 		display: 'flex',
 		justifyContent: 'flex-end',
-		// padding: '1rem 1.5rem 0',
-		marginTop: "20px",
+		paddingInline: '50px',
+		marginTop: "30px",
 		gap: '1.25rem',
-		height: "32px",
+		height: "44px",
 		'& .MuiButton-root': {
 			fontFamily: `'Avenir', sans-serif`,
 			fontWeight: '500',
@@ -39,7 +39,7 @@ const useModalBtnStyles = makeStyles({
 			background: '#E0E0E0',
 			borderRadius: '3px',
 			textTransform: 'none',
-			// padding: '.5rem 1rem',
+			padding: '.5rem 1.7rem',
 		},
 		'& .MuiButton-root:nth-child(2)': {
 			color: 'white',
@@ -249,15 +249,25 @@ const LinksView = ({ openLinkModal }: LinksViewProps) => {
 						</div>
 						<div>
 							<p>Custom date range</p>
-							<div>
-								<div>Start date</div>
-								<ArrowRightAltIcon />
-								<div>End date</div>
-							</div>
+							<Box>
+								<Grid container justifyContent={"space-between"} alignItems="center">
+									<Grid item xs={5}>
+										<OutlinedInput placeholder='Start date' size='small' fullWidth sx={{ height: "44px" }} />
+									</Grid>
+									<Grid item xs={2} justifyContent="center" display={"flex"} alignItems="center"><ArrowRightAltIcon /></Grid>
+									<Grid item xs={5}>
+
+
+										<OutlinedInput placeholder='end date' size='small' fullWidth sx={{ height: "44px" }} />
+									</Grid>
+
+								</Grid>
+
+							</Box>
 						</div>
 						<div>
 							<p>Withheld amount</p>
-							<OutlinedInput placeholder='NGN 0.00' size='small' fullWidth />
+							<OutlinedInput placeholder='NGN 0.00' size='small' fullWidth sx={{ height: "44px" }} />
 						</div>
 						<div>
 							<p>Status</p>
@@ -265,6 +275,7 @@ const LinksView = ({ openLinkModal }: LinksViewProps) => {
 								placeholder='Choose status'
 								size='small'
 								fullWidth
+								sx={{ height: "44px" }}
 							/>
 						</div>
 					</div>

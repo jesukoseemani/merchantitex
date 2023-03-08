@@ -6,6 +6,8 @@ export interface TransactionItem {
   PaymentType: string;
   added: string;
   id: string;
+  txnType?: string;
+  bankName?: string;
 }
 
 export interface GetTransactionsRes {

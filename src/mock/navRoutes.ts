@@ -20,6 +20,8 @@ import PendingIcon from "../assets/images/pending.svg";
 import InvoiceIcon from "../assets/images/invoice-icon.svg";
 import LinkIcon from "../assets/images/paymentlink.svg";
 import BillIcon from "../assets/images/bills.svg";
+import SettlementIcon from "../assets/images/settlement.svg";
+import HistoryIcon from "../assets/images/balanceIcon.svg";
 
 // import { ReactSVG } from "react-svg";
 
@@ -78,19 +80,19 @@ export const navRoutes: NavProps[] = [
       {
         id: 6,
         title: "Balance",
-        icon: CustomerIcon,
-        link: "/customers",
+        icon: Balance,
+        link: "/balance",
       },
       {
-        id: 7,
-        title: "Balance History",
-        icon: CustomerIcon,
+        id: 10,
+        title: "Balance history",
+        icon: HistoryIcon,
         link: "/balance/balance_history",
       },
       {
         id: 8,
         title: "Settlements",
-        icon: CustomerIcon,
+        icon: SettlementIcon,
         link: "/balance/settlements",
       },
       {
@@ -106,7 +108,21 @@ export const navRoutes: NavProps[] = [
     title: "Customer",
     icon: Customer,
     link: "/customers",
-    submenu: false,
+    submenu: true,
+    nav: [
+      {
+        id: 12,
+        title: "Customer",
+        icon: CustomerIcon,
+        link: "/customers",
+      },
+      {
+        id: 13,
+        title: "Blacklist",
+        icon: BlacklistIcon,
+        link: "/blacklist",
+      },
+    ],
   },
   {
     id: 11,

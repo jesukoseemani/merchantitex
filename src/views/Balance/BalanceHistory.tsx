@@ -1,4 +1,4 @@
-import { Button, Modal, OutlinedInput } from '@mui/material';
+import { Box, Button, Modal, OutlinedInput } from '@mui/material';
 import { MouseEvent, useCallback, useEffect, useState } from 'react';
 import NavBar from '../../components/navbar/NavBar';
 import styles from './Balance.module.scss';
@@ -20,6 +20,9 @@ import axios from 'axios';
 import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
 import CustomClickTable from '../../components/table/CustomClickTable';
 import ParentContainer from '../../components/ParentContainer/ParentContainer';
+import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
+
 
 const useBtnStyles = makeStyles({
   root: {
@@ -38,11 +41,18 @@ const useBtnStyles = makeStyles({
     '& .MuiButtonBase-root:nth-child(1)': {
       backgroundColor: '#E0E0E0',
       color: '#333',
+      height: "32px",
+      borderRadius: "20px"
     },
     '& .MuiButtonBase-root:nth-child(2)': {
-      backgroundColor: '#27AE60',
-      color: '#FFF',
       gap: '.5rem',
+      borderRadius: "20px",
+      background: "transparent",
+      color: "#27AE60",
+      height: "32px",
+      border: "1px solid #27AE60"
+
+
     },
     '& svg': {
       fontSize: '1rem',
@@ -156,11 +166,11 @@ const BalanceHistory = () => {
     align?: 'right' | 'left' | 'center';
   }
   const columns: Column[] = [
-    { id: 'init', label: 'Initial balance', minWidth: 100 },
-    { id: 'amt', label: 'Transaction Amount', minWidth: 100 },
-    { id: 'after', label: 'Balance after', minWidth: 100 },
-    { id: 'details', label: 'Transaction details', minWidth: 100 },
-    { id: 'added', label: 'Due Date', minWidth: 100 },
+    { id: 'init', label: 'Previous balance', minWidth: 100 },
+    { id: 'amt', label: 'Transaction amount', minWidth: 100 },
+    { id: 'after', label: 'Current balance', minWidth: 100 },
+    { id: 'details', label: 'Details', minWidth: 100 },
+    { id: 'added', label: 'Date', minWidth: 100 },
   ];
 
   const BalanceHistoryRowTab = useCallback(
@@ -305,21 +315,21 @@ const BalanceHistory = () => {
 
 
       <div className={styles.pageWrapper}>
-        <div className={styles.historyTopContainer}>
+        <Box className={styles.historyTopContainer} mb={2}>
           <div>
-            <h2>Balance History</h2>
+            <h2 className={styles.history__title}>19 balance logs</h2>
           </div>
           <div className={btnClasses.root}>
             <div>
               <Button onClick={() => setIsFilterModalOpen(true)}>
-                All <ArrowDropDownIcon />
+                <FilterAltOutlinedIcon /> Filter by:
               </Button>
             </div>
             <Button>
-              Download <CloudUploadOutlinedIcon />
+              <InsertDriveFileOutlinedIcon /> Download
             </Button>
           </div>
-        </div>
+        </Box>
         <div className={styles.tableContainer}>
           <CustomClickTable
             columns={columns}

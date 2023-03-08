@@ -48,13 +48,14 @@ const BlacklistDatatable = () => {
 		label: any;
 		minWidth?: number;
 		align?: 'right' | 'left' | 'center';
+
 	}
 	const columns: Column[] = [
-		{ id: 'name', label: 'Name', minWidth: 100 },
-		{ id: 'email', label: 'Email', minWidth: 100 },
-		{ id: 'phone', label: 'Phone Numbers', minWidth: 100 },
-		{ id: 'added', label: 'Date Added', minWidth: 100, align: 'right' },
-		{ id: 'actions', label: 'Actions', minWidth: 100, align: 'right' },
+		{ id: 'name', label: 'Name', minWidth: 150 },
+		{ id: 'email', label: 'Email', minWidth: 150 },
+		{ id: 'phone', label: 'Phone Numbers', minWidth: 150 },
+		{ id: 'added', label: 'Date Added', minWidth: 150, align: 'left' },
+		{ id: 'actions', label: 'Actions', minWidth: 100, align: 'left' },
 	];
 
 	const handleBLacklist = () => {
@@ -155,7 +156,7 @@ const BlacklistDatatable = () => {
 
 
 	return (
-		<Box px={7} py={8}>
+		<Box py={"27px"}>
 
 
 			<Box>
@@ -168,7 +169,7 @@ const BlacklistDatatable = () => {
 					</Box>
 				</Stack>
 			</Box>
-			<div className={styles.tableContainer} style={{ position: 'relative', marginTop: "2rem" }}>
+			<div className={styles.tableContainer} style={{ position: 'relative', marginTop: "17px" }}>
 				<CustomClickTable
 					columns={columns}
 					rows={rows}

@@ -208,7 +208,7 @@ const SettlementItem = () => {
           </div>
           <div>
             <p>NGN 33,983.92</p>
-            <p>Successful</p>
+            <p className="success-status">Successful</p>
           </div>
         </div>
         <hr />

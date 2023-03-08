@@ -114,8 +114,10 @@ export interface BillInvoiceRequestItem {
   status: string;
   email: string;
   added?: string;
+  phone?: string;
+  url?: string;
   providerRef?: string;
-  transactionRef?: string;
+  transRef?: string;
   billId?: number;
   commission?: number;
 }

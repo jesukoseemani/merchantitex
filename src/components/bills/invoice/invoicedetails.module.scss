@@ -1,0 +1,362 @@
+.sectionOne {
+    margin-left: -10px !important;
+    margin-top: 20px;
+
+    p {
+        font-family: 'Avenir';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 19px;
+        color: #4F4F4F;
+    }
+
+    svg {
+        margin: 0;
+        color: #4F4F4F;
+    }
+}
+
+
+.sectionTwo {
+    width: 100%;
+    height: 197px;
+    background: #FFFFFF;
+    margin-top: 20px;
+    border-radius: 20px;
+
+    @media screen and (max-width:750px) {
+        height: auto;
+    }
+
+
+    .Stack__container {
+        padding: 21px 25px;
+
+        border: 1px solid #EFF3F8;
+        width: 100%;
+
+        @media screen and (max-width:750px) {
+            padding: 5px 25px !important;
+        }
+
+
+        .title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+
+            h2 {
+                font-family: 'Avenir';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 24px;
+                line-height: 33px;
+                color: #333333;
+            }
+
+            .sucessful {
+                background: rgba(39, 174, 96, 0.15);
+                border-radius: 10px;
+                font-family: 'Avenir';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 12px;
+                line-height: 16px;
+                text-align: center;
+                padding: 2.5px 10px;
+                gap: 10px;
+                color: #27AE60;
+            }
+
+            .pending {
+                @extend .sucessful;
+                background: rgba(242, 201, 76, 0.15);
+                color: #B99528;
+            }
+        }
+
+        .btn_group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+
+            button {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                // padding: 7.5px 16px;
+                gap: 8px;
+                width: fit-content;
+                height: 32px;
+                background: #27AE60;
+                border-radius: 20px;
+                font-size: 12px;
+                font-family: 'Avenir';
+                font-style: normal;
+                font-weight: 900;
+                // line-height: 16px;
+
+
+                &:nth-of-type(1) {
+                    background: #EB5757;
+                    font-size: 14px;
+                }
+
+                &:nth-of-type(2) {
+                    background-color: #fff;
+                    border: 1px solid #27AE60;
+                    color: #095B2C;
+
+                    svg {
+                        color: #095B2C;
+                    }
+                }
+            }
+        }
+
+    }
+
+    .listItem {
+        padding: 25px 37px;
+        height: 100px;
+        // display: flex;
+        // justify-content: space-between;
+        // align-items: center;
+
+
+        p {
+            font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 19px;
+            color: #828282;
+            // border: 2px solid red;
+        }
+
+        span {
+            font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 19px;
+            margin-top: 6px;
+            color: #333333;
+        }
+
+        @media screen and (max-width:750px) {
+            height: auto;
+            border: 1px solid red;
+            padding: 25px;
+
+
+        }
+
+    }
+}
+
+
+
+.sectionThree {
+    margin-top: 22px;
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    background-color: #fff;
+
+    .title {
+
+        border-bottom: 1px solid #EFF3F8;
+        padding: 20px 25px;
+
+        h2 {
+            font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 25px;
+            color: #333333;
+        }
+    }
+
+    .headerTitle {
+        // padding-top: 22px;
+        padding-bottom: 7px;
+
+        h2 {
+            font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 19px;
+            letter-spacing: 0.0024px;
+            color: #828282;
+
+        }
+
+        svg {
+            path {
+                stroke: #2F80ED;
+            }
+        }
+
+
+    }
+}
+
+
+.sectionFour {
+    margin-top: 27px;
+    width: 100%;
+    height: 368px;
+    background: #FFFFFF;
+    border-radius: 20px;
+
+    @media screen and (max-width:750px) {
+        height: auto;
+
+
+
+    }
+
+
+    .title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        border-bottom: 1px solid #EFF3F8;
+        padding: 21px 25px;
+
+        h2 {
+            font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 25px;
+            color: #333333;
+        }
+    }
+
+    .invoicetable {
+        padding-inline: 21px;
+        margin-top: 10px;
+
+
+        p {
+            font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 19px;
+            color: #333333;
+            // margin-bottom: 30px;
+            // padding-top: 10px;
+            // border-bottom: 1px solid #828282;
+        }
+    }
+
+    .lastBox {
+        padding-top: 15px;
+
+        p {
+            margin-bottom: 5px;
+        }
+
+        @media screen and (max-width:750px) {
+            width: 100%;
+            margin: 0;
+
+
+        }
+
+
+    }
+
+    .invoice__left {
+        width: 50%;
+
+
+        &>div {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            border-bottom: 1px solid #EFF3F8;
+            align-items: center;
+            padding: 20px 0;
+            line-height: 19px;
+            color: #333333;
+            text-align: left;
+
+
+            & p:nth-of-type(2) {
+                width: 140px;
+            }
+
+        }
+
+        @media screen and (max-width:750px) {
+            height: auto;
+            width: 100%;
+
+
+        }
+
+    }
+
+}
+
+
+.sendInvoice_title {
+    border-bottom: 1px solid #E0E0E0;
+    padding: 20px 40px;
+
+    h2 {
+        font-family: 'Avenir';
+        font-style: normal;
+        font-weight: 900;
+        font-size: 18px;
+        line-height: 25px;
+        color: #000000;
+    }
+}
+
+.invoiceDesc {
+    padding: 31px 40px;
+
+    p {
+        font-family: 'Avenir';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+
+        color: #4F4F4F;
+    }
+}
+
+.invoice__btn__group {
+    padding: 19px 40px;
+
+    button {
+        background: #27AE60;
+        border-radius: 20px;
+        height: 44px;
+        width: 157.16px;
+        font-family: 'Avenir';
+        font-style: normal;
+        font-weight: 900;
+        font-size: 16px;
+        line-height: 22px;
+        gap: 15.84px;
+    }
+
+    & button:nth-of-type(1) {
+        background-color: #fff;
+        color: #095B2C;
+        border: 1px solid #27AE60;
+    }
+}

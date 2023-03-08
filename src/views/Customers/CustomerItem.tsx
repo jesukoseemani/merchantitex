@@ -83,7 +83,7 @@ const CustomerItem = () => {
       amount: <p className={styles.tableBodyText}>NGN{amount} </p>,
       status: (
         <span
-          className={status === "Successful" ? styles.status : styles.pending}
+          className={status === "Successful" ? "success-status" : "warning-status"}
         >
           {" "}
           {status}
@@ -179,7 +179,6 @@ const CustomerItem = () => {
 
     <div className={styles.container}>
 
-      <hr />
       <div className={styles.pageWrapper}>
         <div className={styles.sectionOne}>
           <div>

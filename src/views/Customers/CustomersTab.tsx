@@ -128,6 +128,7 @@ const CustomersTab = ({ value, index }: any) => {
 					</span>
 				</p>
 			),
+
 			actions: (
 				<Stack
 					direction={'row'}
@@ -228,7 +229,7 @@ const CustomersTab = ({ value, index }: any) => {
 	};
 	return (
 
-		<Box px={7} py={8}>
+		<Box mt={"27px"}>
 
 
 			<Box>
@@ -249,9 +250,10 @@ const CustomersTab = ({ value, index }: any) => {
 					totalRows={totalRows}
 					changePage={changePage}
 					limit={limit}
-				// clickable
-				// link="/customers"
-				// identifier="email"
+					clickable
+					link="/customers/3"
+					// identifier={"id"}
+					identifier="email"
 				// rowsData={customers}
 				/>
 			</div>
