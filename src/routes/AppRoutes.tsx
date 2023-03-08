@@ -81,6 +81,7 @@ import CustomersTab from "../views/Customers/CustomersTab";
 import BlacklistTab from "../views/Customers/BlacklistTab";
 import BlacklistDatatable from "../views/Customers/BlacklistDatatable";
 import InvoiceDetails from "../components/bills/invoice/InvoiceDetails";
+import TransferHistory from "../views/Payout/transfer/TransferHistory";
 
 export default function AppRoutes() {
   // const { loadingState } = useSelector((state) => state?.loadingStateReducer);
@@ -312,6 +313,12 @@ export default function AppRoutes() {
               exact
               path="/payout/transfer/entries"
               component={BulkTransferEntry}
+            // AuthUser={loadingState}
+            />
+            <ProtectedRoute
+              exact
+              path="/payout/transfer/history"
+              component={TransferHistory}
             // AuthUser={loadingState}
             />
             <ProtectedRoute

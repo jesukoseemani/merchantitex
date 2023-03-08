@@ -10,11 +10,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { makeStyles } from "@material-ui/core/styles";
 import { ReactComponent as ArrowRightIcon } from "../../assets/images/arrowRight.svg";
-import axios from "axios";
-import {
-  closeLoader,
-  openLoader,
-} from "../../redux/actions/loader/loaderActions";
+
 import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
 import { useDispatch } from "react-redux";
 
@@ -90,18 +86,18 @@ export default function TransfersTable() {
     (amount: number, status: string, receipient: string, date: any) => ({
       amount: (
         <div className={Styles.amount}>
-          <span>NGN</span>
-          <h2>{amount}</h2>
+          <span>NGN {amount}</span>
+          {/* <h2></h2> */}
         </div>
       ),
       status: (
         <Label
           className={
             status?.toLowerCase() == "successful"
-              ? "success"
+              ? "success-status"
               : status?.toLowerCase() == "error"
-                ? "danger"
-                : "warning"
+                ? "danger-status"
+                : "warning-status"
           }
         >
           <p style={{ borderRadius: "20px" }}> {status}</p>
@@ -110,8 +106,8 @@ export default function TransfersTable() {
       receipient,
       date: (
         <div className={Styles.date}>
-          <h2>{date.format}</h2>
-          <span>{date.time}</span>
+          <p>{date.format}{date.time}</p>
+          {/* <span></span> */}
         </div>
       ),
     }),
@@ -212,3 +208,4 @@ export default function TransfersTable() {
     </div>
   );
 }
+

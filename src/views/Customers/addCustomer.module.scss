@@ -6,7 +6,7 @@
   justify-content: flex-start;
 
   h3 {
-    padding-left: 2.5rem;
+    padding: 27px 50px;
     font-family: "Avenir";
     font-style: normal;
     font-weight: 500;
@@ -31,7 +31,7 @@
   overflow-y: auto;
 
   .airtime_form__body {
-    padding-inline: 2.1rem;
+    padding: 0px 50px;
     width: 100%;
 
     form {
@@ -46,6 +46,8 @@
         line-height: 1rem;
         line-height: 19px;
         color: #414141;
+        // border: 2px solid red;
+
 
         span {
           border: 2px solid red;
@@ -63,15 +65,16 @@
         background: #ffffff;
         border: 1px solid #dddddd;
         border-radius: 0.3rem;
-        margin-top: 1.2rem;
+        margin-top: 5px;
         padding-inline: 1rem;
+        margin-bottom: 4px;
       }
 
       button {
         background: #27ae60;
         border-radius: 20px;
         margin-bottom: 2.4;
-        margin-top: 0.5rem;
+        margin-top: 10px;
         width: 100%;
         font-family: "Avenir";
         font-style: normal;
@@ -79,7 +82,7 @@
         font-size: 1rem;
         line-height: 1.2rem;
         text-align: center;
-        height: 2.8em;
+        height: 44px;
 
         color: #ffffff;
       }

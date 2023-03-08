@@ -1,0 +1,181 @@
+.container {
+    .header__titles {
+        border-bottom: 1px solid #E0E0E0;
+        padding: 27px 50px !important;
+
+        h2 {
+            font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 900;
+            font-size: 18px;
+            line-height: 25px;
+            color: #000000;
+        }
+    }
+
+    .description {
+        border: 2px solid;
+        padding: 27px 50px;
+
+
+        p {
+            font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 22px;
+            color: #8D8D8D;
+        }
+    }
+
+    .form {
+        padding-inline: 50px;
+
+        .label {
+            font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 19px;
+            color: #333333;
+        }
+
+        .btn__group {
+            margin-top: 33px;
+
+            button {
+                background: #27AE60;
+                border: 1.28183px solid #27AE60;
+                border-radius: 20px;
+                height: 30.76px;
+                font-family: 'Avenir';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 26px;
+
+                display: flex;
+                align-items: center;
+                text-align: center;
+
+                color: #FFFFFF;
+            }
+
+            & button:nth-of-type(1) {
+                background-color: #fff;
+                color: #27AE60;
+                padding-inline: 20px;
+            }
+        }
+    }
+}
+
+
+
+// fund
+.fund__container {
+    .fund__header {
+        border-bottom: 1px solid #E0E0E0;
+        padding: 22px 50px;
+
+        h2 {
+            font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 900;
+            font-size: 18px;
+            line-height: 25px;
+            color: #000000;
+        }
+    }
+
+    .fund__desc {
+        padding-inline: 50px;
+
+        p {
+            font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 19px;
+            width: 90%;
+            color: #8D8D8D;
+        }
+    }
+
+    .fund__reciept {
+        padding: 28px 50px;
+
+        h2 {
+            font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            color: #000000;
+        }
+    }
+
+    .fund__form {
+        margin-top: 11px;
+
+        &>div {
+            border-bottom: 1px solid #E0E0E0;
+            display: flex;
+            align-items: center;
+            gap: 71px;
+            margin-top: 10px;
+            padding-bottom: 4px;
+
+
+            p {
+                font-family: 'Avenir';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 21px;
+                color: #797979;
+            }
+
+            & p:nth-of-type(1) {
+                width: 120px;
+            }
+
+            & p:nth-of-type(2) {
+                display: flex;
+                align-items: center;
+                width: 200px;
+                gap: 12.25px;
+                color: #2F2F2F;
+
+
+                svg {
+                    path {
+                        stroke: #2F80ED;
+                    }
+                }
+            }
+
+        }
+    }
+
+    .fund__form2 {
+        @extend .fund__form;
+        margin-top: 53px;
+    }
+
+    .fund__cta {
+        margin-top: 64.02px;
+
+        button {
+            width: 100%;
+            height: 44px;
+            font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 900;
+            font-size: 16px;
+            line-height: 22px;
+            text-align: center;
+
+            color: #FFFFFF;
+        }
+    }
+}

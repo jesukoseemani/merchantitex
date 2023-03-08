@@ -14,10 +14,10 @@ const BulkTransferAccount = () => {
 
 
     const submitBulk = () => {
-        // history.push("/bulk-transfer-entries")
+        history.push("/payout/transfer/history")
 
         dispatch(closeModal())
-        console.log(history)
+
 
     }
     return (
@@ -62,8 +62,8 @@ const BulkTransferAccount = () => {
                         </Button>
 
 
-                        <Link href='/payout/transfer/entries'>
-                            <button onClick={submitBulk}>Submit</button>
+                        <Link href='/payout/transfer/history'>
+                            <button onClick={submitBulk}>Continue</button>
                         </Link>
                     </Grid>
                 </Grid>
