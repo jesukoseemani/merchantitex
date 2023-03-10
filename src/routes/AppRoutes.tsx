@@ -207,12 +207,12 @@ export default function AppRoutes() {
               component={Transactions}
             // AuthUser={loadingState}
             />
-            <ProtectedRoute
+            {/* <ProtectedRoute
               exact
               path="/transactions"
               component={Transactions}
               AuthUser={AccountSetUp}
-            />
+            /> */}
             <ProtectedRoute
               exact
               path="/transactions/list"

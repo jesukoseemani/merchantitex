@@ -179,10 +179,10 @@ const Settlements = () => {
     align?: "right" | "left" | "center";
   }
   const columns: Column[] = [
-    { id: "amt", label: "Amount", minWidth: 100 },
+    { id: "amt", label: "Amount", minWidth: 150 },
     { id: "status", label: "Status", minWidth: 100 },
-    { id: "destination", label: "Settlement account", minWidth: 100 },
-    { id: "added", label: "Date", minWidth: 100, align: "right" },
+    { id: "destination", label: "Settlement account", minWidth: 150 },
+    { id: "added", label: "Date", minWidth: 100, },
   ];
 
   const SettlementRowTab = useCallback(

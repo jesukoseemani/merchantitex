@@ -42,7 +42,8 @@ const useBtnStyles = makeStyles({
       backgroundColor: '#E0E0E0',
       color: '#333',
       height: "32px",
-      borderRadius: "20px"
+      borderRadius: "20px",
+
     },
     '& .MuiButtonBase-root:nth-child(2)': {
       gap: '.5rem',
@@ -110,7 +111,7 @@ const useModalBtnStyles = makeStyles({
   root: {
     display: 'flex',
     justifyContent: 'flex-end',
-    padding: '1rem 1.5rem 0',
+    padding: '3rem 3.3rem 0',
     gap: '1.25rem',
     '& .MuiButton-root': {
       fontFamily: `'Avenir', sans-serif`,
@@ -118,8 +119,9 @@ const useModalBtnStyles = makeStyles({
       fontSize: '.875rem',
       color: 'black',
       background: '#E0E0E0',
-      borderRadius: '3px',
+      borderRadius: '20px',
       textTransform: 'none',
+      width: "100px"
     },
     '& .MuiButton-root:nth-child(2)': {
       color: 'white',
@@ -274,9 +276,9 @@ const BalanceHistory = () => {
           <p>Filters</p>
           <hr />
           <div className={styles.modalContent}>
-            <div>
+            <div className={styles.dates}>
               <p>Due date</p>
-              <div>
+              <div >
                 <p>Today</p>
                 <p>Last 7 days</p>
                 <p>30 days</p>
@@ -293,7 +295,7 @@ const BalanceHistory = () => {
             </div>
             <div>
               <p>Withheld amount</p>
-              <OutlinedInput placeholder="NGN 0.00" size="small" fullWidth />
+              <OutlinedInput placeholder="NGN 0.00" size="small" fullWidth sx={{ height: "44px" }} />
             </div>
             <div>
               <p>Status</p>
@@ -301,6 +303,7 @@ const BalanceHistory = () => {
                 placeholder="Choose status"
                 size="small"
                 fullWidth
+                sx={{ height: "44px" }}
               />
             </div>
           </div>

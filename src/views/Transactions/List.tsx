@@ -24,7 +24,11 @@ import { useHistory } from 'react-router-dom';
 import { subDays } from 'date-fns';
 import { CSVLink } from 'react-csv';
 import FilterModal from '../../components/FilterModal';
-import ParentContainer from '../../components/ParentContainer/ParentContainer';
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
+import InsertDriveFileOutlined from '@mui/icons-material/InsertDriveFileOutlined';
+import { Box, Stack } from '@mui/material';
+import { GetTransactionRes, TransactionItem } from '../../types/Transaction';
+import CustomClickTable from '../../components/table/CustomClickTable';
 
 export default function TransactionsList() {
 	const [download, setDownload] = useState([]);
@@ -126,9 +130,9 @@ export default function TransactionsList() {
 	const [payment, setPayment] = useState('');
 	const [event, setEvent] = useState('');
 
-	const [transactions, setTransactions] = useState<TransactionsProps[]>([]);
+	const [transactions, setTransactions] = useState<TransactionItem[]>([]);
 	const [count, setCounter] = useState(null);
-	const [rows, setRows] = useState<TransactionsProps[]>([]);
+	const [rows, setRows] = useState<TransactionItem[]>([]);
 	const [showNoTransaction, setShowNoTransaction] = useState(false);
 	const [isFilterModalOpen, setIsFilterModalOpen] = useState<boolean>(false);
 	const [query, setquery] = useState(false);
@@ -182,47 +186,81 @@ export default function TransactionsList() {
 
 	const dispatch = useDispatch();
 
-	const getTransactions = () => {
+	// const getTransactions = () => {
+	// 	dispatch(openLoader());
+	// 	axios
+	// 		.get(
+	// 			`/merchant/transactions?perpage=${rowsPerPage}&page=${pageNumber}&fromdate=${fromDate}&todate=${toDate}&transaction_reference=${ref}&responsecode=${status}&paymentmethod=${payment}`
+	// 		)
+	// 		.then((res: any) => {
+	// 			const {
+	// 				transactions,
+	// 				_metadata: { totalcount },
+	// 			} = res?.data;
+	// 			setTotalRows(totalcount);
+
+	// 			if (totalcount <= 0) {
+	// 				setShowNoTransaction(true);
+	// 			} else {
+	// 				setShowNoTransaction(false);
+	// 			}
+	// 			setTransactions(transactions);
+	// 			setCounter(totalcount);
+	// 			setBearer(false);
+	// 			dispatch(closeLoader());
+	// 		})
+	// 		.catch((err) => {
+	// 			console.log(err);
+	// 			dispatch(closeLoader());
+	// 			dispatch(
+	// 				openToastAndSetContent({
+	// 					// toastContent: "Login Failed",
+	// 					toastContent: err?.response?.data?.message,
+
+	// 					toastStyles: {
+	// 						backgroundColor: 'red',
+	// 					},
+	// 				})
+	// 			);
+	// 		})
+	// 		.finally(() => {
+	// 			setIsFilterModalOpen(false);
+	// 		});
+	// };
+
+	const getTransactions = async () => {
 		dispatch(openLoader());
-		axios
-			.get(
-				`/merchant/transactions?perpage=${rowsPerPage}&page=${pageNumber}&fromdate=${fromDate}&todate=${toDate}&transaction_reference=${ref}&responsecode=${status}&paymentmethod=${payment}`
-			)
-			.then((res: any) => {
-				const {
-					transactions,
-					_metadata: { totalcount },
-				} = res?.data;
-				setTotalRows(totalcount);
 
-				if (totalcount <= 0) {
-					setShowNoTransaction(true);
-				} else {
-					setShowNoTransaction(false);
-				}
+		try {
+			const res = await axios.get<GetTransactionRes>(
+				'/mockData/transactionrequest.json',
+				{ baseURL: '' }
+			);
+			const { transactions, _metadata } = res?.data;
+			console.log(history);
+			if (history.length) {
 				setTransactions(transactions);
-				setCounter(totalcount);
-				setBearer(false);
-				dispatch(closeLoader());
-			})
-			.catch((err) => {
-				console.log(err);
-				dispatch(closeLoader());
-				dispatch(
-					openToastAndSetContent({
-						// toastContent: "Login Failed",
-						toastContent: err?.response?.data?.message,
-
-						toastStyles: {
-							backgroundColor: 'red',
-						},
-					})
-				);
-			})
-			.finally(() => {
-				setIsFilterModalOpen(false);
-			});
+				setTotalRows(_metadata?.totalcount);
+			}
+			dispatch(closeLoader());
+		} catch (err) {
+			console.log(err);
+			dispatch(closeLoader());
+			dispatch(
+				openToastAndSetContent({
+					toastContent: 'Failed to get items',
+					toastStyles: {
+						backgroundColor: 'red',
+					},
+				})
+			);
+		}
 	};
+
+	useEffect(() => {
+		getTransactions();
+	}, [pageNumber, rowsPerPage]);
+
 
 	const loadTransaction = (reference: string) => {
 		history.push(`/transaction/${reference}`);
@@ -236,7 +274,7 @@ export default function TransactionsList() {
 		setReset(true);
 	};
 	interface Column {
-		id: 'amount' | 'status' | 'id' | 'payment_type' | 'date';
+		id: 'amount' | 'status' | 'acctId' | 'payment_type' | 'date';
 		label: any;
 		minWidth?: number;
 		align?: 'right' | 'left' | 'center';
@@ -244,53 +282,67 @@ export default function TransactionsList() {
 	const columns: Column[] = [
 		{ id: 'amount', label: 'Amount', minWidth: 100 },
 		{ id: 'status', label: 'Status', minWidth: 100 },
-		{ id: 'id', label: 'Customer ID', minWidth: 100 },
+		{ id: 'acctId', label: 'Customer ID', minWidth: 100 },
 		{ id: 'payment_type', label: 'Payment type', minWidth: 100 },
-		{ id: 'date', label: 'Date', align: 'center', minWidth: 100 },
+		{ id: 'date', label: 'Date', minWidth: 100 },
 	];
+
+
+	const statusFormatObj: { [key: string]: string } = {
+		successful: "wonText",
+		failed: "lostText",
+		pending: "pendingText",
+	};
+
 	const LoanRowTab = useCallback(
-		(order, code, source, transaction) => ({
+		(amt, status, PaymentType, acctId, added, id) => ({
 			amount: (
 				<div
-					onClick={() => loadTransaction(transaction?.merchantreference)}
+					// onClick={() => loadTransaction(transaction?.merchantreference)}
 					className={Styles.amount}>
-					<span>{order?.currency}</span>
-					<h2>{FormatToCurrency?.(order?.amount)}</h2>
+					<p>NGN{amt}</p>
+					{/* <h2>{FormatToCurrency?.(amt)}</h2> */}
 				</div>
 			),
 			status: (
-				<Label
-					onClick={() => loadTransaction(transaction?.merchantreference)}
-					className={
-						code === '00' ? 'success' : code === '09' ? 'danger' : 'warning'
-					}>
-					{code === '00' ? 'Successful' : code === '09' ? 'Failed' : 'Pending'}
-				</Label>
+				// <Label
+				// 	// onClick={() => loadTransaction(transaction?.merchantreference)}
+				// 	className={
+				// 		code === '00' ? 'success' : code === '09' ? 'danger' : 'warning'
+				// 	}>
+				// 	{code === '00' ? 'Successful' : code === '09' ? 'Failed' : 'Pending'}
+				// </Label>
+
+				<p className={Styles[statusFormatObj[status] || "pendingText"]} >{status}</p>
 			),
-			id: (
-				<div onClick={() => loadTransaction(transaction?.merchantreference)}>
-					{source?.customer?.email}
-				</div>
+			acctId: (
+				// <div onClick={() => loadTransaction(transaction?.merchantreference)}>
+				<p>{acctId}</p>
+				// </div>
 			),
 			payment_type: (
-				<div onClick={() => loadTransaction(transaction?.merchantreference)}>
-					{transaction?.paymentmethod?.[0]?.toUpperCase() +
-						transaction?.paymentmethod?.slice(1)}
-				</div>
+				// <div onClick={() => loadTransaction(transaction?.merchantreference)}>
+				// 	{transaction?.paymentmethod?.[0]?.toUpperCase() +
+				// 		transaction?.paymentmethod?.slice(1)}
+				// </div>
+				<p>{PaymentType}</p>
 			),
 			date: (
-				<div onClick={() => loadTransaction(transaction?.merchantreference)}>
-					{moment(transaction?.added)?.format('LL')}
-				</div>
+				<p>	{moment(added)?.format('LL')}</p>
+				// <div onClick={() => loadTransaction(transaction?.merchantreference)}>
+				// 	{moment(transaction?.added)?.format('LL')}
+				// </div>
 			),
+			id: <p>{id}</p>
+
 		}),
 		[]
 	);
 	useEffect(() => {
 		const newRowOptions: any[] = [];
-		transactions?.map((each: TransactionsProps) =>
+		transactions?.map((each: TransactionItem) =>
 			newRowOptions.push(
-				LoanRowTab(each?.order, each?.code, each?.source, each?.transaction)
+				LoanRowTab(each.amt, each.status, each.PaymentType, each.acctId, each.added, each.id)
 			)
 		);
 		setRows(newRowOptions);
@@ -331,48 +383,44 @@ export default function TransactionsList() {
 				changePage={changePage}
 			/>
 			<div className={Styles.wrapper}>
-				{transactions.length > 0 ? (
-					<div className={Styles.header}>
-						<h2>{count ?? 0} transactions</h2>
-						<div>
+				{/* {transactions.length > 0 ? ( */}
+				<div className={Styles.transaction__btn}>
+
+					<Stack direction={"row"} justifyContent={"space-between"} flexWrap="wrap">
+						<Box>
+							<h2>{transactions?.length ?? 0} transactions</h2>
+						</Box>
+						<Box className={Styles.right__btn}>
 							<Button onClick={() => setIsFilterModalOpen(true)}>
-								All transactions
-								<ArrowDropDownIcon />
+								<FilterAltOutlinedIcon />	Filter by:
+
 							</Button>
-							{/* <Button className={Styles.primary}>Download</Button> */}
 							<CSVLink
 								data={download}
 								filename={'transactionmerchant.csv'}
 								className={Styles.button_business_button}>
+								<InsertDriveFileOutlined />
 								Download &nbsp;
-								<CloudDownloadOutlinedIcon />
 							</CSVLink>
-						</div>
-					</div>
-				) : (
-					<div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-						<button
-							className={Styles.button_business_button}
-							onClick={() => setIsFilterModalOpen(true)}>
-							All transactions
-							<ArrowDropDownIcon />
-						</button>
-					</div>
-				)}
+						</Box>
+
+					</Stack>
+				</div>
+
 
 				{showNoTransaction && (
-					<>
+					<Box className={Styles.empty__tranasction}>
 						<div
 							style={{ display: `${query ? 'none' : 'flex'}` }}
 							className={Styles.containerNew}>
-							<div className={Styles.header}>
+							<Box className={Styles.header}>
 								<h2>You don’t have any transactions, yet.</h2>
 								<p>
 									But, you can change that. Your customers might be looking for
 									ways to pay, so go ahead and create a payment link or send
 									them an invoice to be able to pay you.
 								</p>
-							</div>
+							</Box>
 							<div
 								className={Styles.panel}
 							// onClick={() => history.push('/transactions/list')}
@@ -396,17 +444,21 @@ export default function TransactionsList() {
 							className={Styles.header}>
 							<p>THERE IS NO DATA FOR THIS QUERY</p>
 						</div>
-					</>
+					</Box>
 				)}
 
 				{!showNoTransaction && (
-					<OperantTable
+					<CustomClickTable
 						columns={columns}
 						rows={rows}
 						totalRows={totalRows}
 						changePage={changePage}
 						limit={limit}
-						reset={reset}
+						// reset={reset}
+						link="/transaction"
+						clickable
+						identifier={"id"}
+						rowsData={transactions}
 					/>
 				)}
 			</div>
