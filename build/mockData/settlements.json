@@ -1,0 +1,54 @@
+{
+  "_metadata": {
+    "pagecount": 1,
+    "totalcount": 3,
+    "page": 1,
+    "links": []
+  },
+  "settlements": [
+    {
+      "amt": "45,000.52",
+      "status": "successful",
+      "destination": "Unachukwu Roy | GTBank | 0373336569",
+      "added": "2022-03-28 14:43:38.0",
+      "id": "1"
+    },
+    {
+      "amt": "5,000.00",
+      "status": "pending",
+      "destination": "Unachukwu Roy | GTBank | 0373336569",
+      "added": "2022-03-28 14:43:38.0",
+      "id": "2"
+    },
+    {
+      "amt": "2,000.22",
+      "status": "error",
+      "destination": "Unachukwu Roy | GTBank | 0373336569",
+      "added": "2022-03-28 14:43:38.0",
+      "id": "3"
+    },
+    {
+      "amt": "45,000.52",
+      "status": "successful",
+      "destination": "Unachukwu Roy | GTBank | 0373336569",
+      "added": "2022-03-28 14:43:38.0",
+      "id": "1"
+    },
+    {
+      "amt": "5,000.00",
+      "status": "pending",
+      "destination": "Unachukwu Roy | GTBank | 0373336569",
+      "added": "2022-03-28 14:43:38.0",
+      "id": "2"
+    },
+    {
+      "amt": "2,000.22",
+      "status": "error",
+      "destination": "Unachukwu Roy | GTBank | 0373336569",
+      "added": "2022-03-28 14:43:38.0",
+      "id": "3"
+    }
+  ],
+  "code": "00",
+  "message": "Successful"
+}

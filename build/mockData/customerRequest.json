@@ -1,0 +1,66 @@
+{
+  "_metadata": {
+    "pagecount": 1,
+    "totalcount": 5,
+    "page": 1,
+    "links": []
+  },
+  "customers": [
+    {
+      "id": "1",
+      "firstname": "Nigeria",
+      "lastname": "Nigeria",
+      "phone": 2348021907867,
+      "email": "abc@gmail.com",
+      "added": "2022-03-28 14:43:38.0",
+      "transNum": 80,
+      "total": 233444
+    },
+    {
+      "id": "1",
+      "firstname": "Pep Mason",
+      "lastname": "Nigeria",
+      "phone": 2348021907867,
+      "email": "abc@gmail.com",
+
+      "added": "2022-03-28 14:43:38.0",
+      "transNum": 80,
+      "total": 233444
+    },
+    {
+      "id": "1",
+      "firstname": "francis",
+      "lastname": "Mount",
+      "phone": 2348021907867,
+      "email": "abc@gmail.com",
+
+      "added": "2022-03-28 14:43:38.0",
+      "transNum": 80,
+      "total": 233444
+    },
+    {
+      "id": "1",
+      "firstname": "Vicky",
+      "lastname": "Voral",
+      "phone": 2348021907867,
+      "email": "abc@gmail.com",
+
+      "added": "2022-03-28 14:43:38.0",
+      "transNum": 80,
+      "total": 233444
+    },
+    {
+      "id": "1",
+      "firstname": "David",
+      "lastname": "Samson",
+      "phone": 2348021907867,
+      "email": "abc@gmail.com",
+
+      "added": "2022-03-28 14:43:38.0",
+      "transNum": 180,
+      "total": 37890
+    }
+  ],
+  "code": "00",
+  "message": "Successful"
+}
