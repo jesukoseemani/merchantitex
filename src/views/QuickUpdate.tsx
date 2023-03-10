@@ -61,7 +61,7 @@ const QuickUpdate = () => {
 
 	return (
 		<div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-			<AccountSetUp data={data} />
+			<AccountSetUp />
 		</div>
 	);
 };
