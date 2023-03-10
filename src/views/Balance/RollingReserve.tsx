@@ -1,24 +1,17 @@
 import {
   Button,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
   Box,
   Modal,
   Input,
   OutlinedInput,
+  Stack,
+  Grid,
 } from "@mui/material";
 import { MouseEvent, useCallback, useEffect, useState } from "react";
-import NavBar from "../../components/navbar/NavBar";
 import styles from "./Balance.module.scss";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
 import { makeStyles } from "@material-ui/styles";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {
   GetRollingReservesRes,
   RollingReserveItem,
@@ -28,11 +21,14 @@ import {
   closeLoader,
   openLoader,
 } from "../../redux/actions/loader/loaderActions";
+import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
+
 import axios from "axios";
 import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
 import { useDispatch } from "react-redux";
 import CustomClickTable from "../../components/table/CustomClickTable";
-import ParentContainer from "../../components/ParentContainer/ParentContainer";
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 const useBtnStyles = makeStyles({
   root: {
@@ -51,11 +47,15 @@ const useBtnStyles = makeStyles({
     "& .MuiButtonBase-root:nth-child(1)": {
       backgroundColor: "#E0E0E0",
       color: "#333",
+      borderRadius: "20px",
+      height: "32px",
     },
     "& .MuiButtonBase-root:nth-child(2)": {
-      backgroundColor: "#27AE60",
-      color: "#FFF",
-      gap: ".5rem",
+      background: "transparent",
+      color: "#27AE60",
+      height: "32px",
+      border: "1px solid #27AE60",
+      borderRadius: "20px"
     },
     "& svg": {
       fontSize: "1rem",
@@ -66,6 +66,7 @@ const useBtnStyles = makeStyles({
 const useTableStyles = makeStyles({
   root: {
     marginTop: "1rem",
+
     "& .MuiTableRow-head": {
       fontSize: ".875rem",
       padding: "1rem",
@@ -114,21 +115,29 @@ const useModalBtnStyles = makeStyles({
   root: {
     display: "flex",
     justifyContent: "flex-end",
-    padding: "1rem 1.5rem 0",
+    padding: "1rem 1.5rem 0rem",
     gap: "1.25rem",
+    // border: "2px solid red",
+    marginInline: "24px",
+    marginTop: "10px",
     "& .MuiButton-root": {
       fontFamily: `'Avenir', sans-serif`,
       fontWeight: "500",
       fontSize: ".875rem",
+
       color: "black",
       background: "#E0E0E0",
-      borderRadius: "3px",
+      borderRadius: "20px",
       textTransform: "none",
       padding: ".5rem 1rem",
+      height: 40,
+      width: 120
     },
     "& .MuiButton-root:nth-child(2)": {
       color: "white",
       background: "#27AE60",
+      borderRadius: "20px",
+
     },
   },
 });
@@ -172,45 +181,51 @@ const RollingReserve = () => {
     pending: "pendingText",
   };
   interface Column {
-    id: "amt" | "status" | "added" | "witheldAmt" | "dueDate";
+    id: "amt" | "Month" | "added" | "settlementAmt" | 'rolling' | "dueDate";
     label: any;
     minWidth?: number;
     align?: "right" | "left" | "center";
   }
   const columns: Column[] = [
-    { id: "amt", label: "Settlement Amount", minWidth: 100 },
-    { id: "status", label: "Status", minWidth: 100 },
+    { id: "amt", label: "Monthly transaction amount", minWidth: 100 },
+    { id: "Month", label: "Month", minWidth: 100 },
     { id: "added", label: "Settlement Date", minWidth: 100 },
-    { id: "witheldAmt", label: "Witheld amount", minWidth: 100 },
-    { id: "dueDate", label: "Due date", minWidth: 100 },
+    { id: "settlementAmt", label: "Settlement amount", minWidth: 100 },
+    { id: "rolling", label: "Rolling reserve", minWidth: 100 },
+    { id: "dueDate", label: "Date withheld", minWidth: 100 },
   ];
 
   const ReserveRowTab = useCallback(
-    (amt, status, added, witheldAmt, dueDate, id) => ({
+    (monthlyamt, month, settlementDate, settlementAmt, rollingReserve, id, dueDate) => ({
       amt: (
         <p className={styles.tableBodyText}>
           <span className={styles.tableBodySpan}>NGN </span>
-          {amt}
+          {monthlyamt}
         </p>
       ),
-      status: (
-        <p className={styles[statusFormatObj[status] || "pendingText"]}>
-          {status}
+      Month: (
+        <p className={styles.tableBodyText}>
+          {month}
+        </p>
+      ),
+      rolling: (
+        <p className={styles.tableBodyText}>
+          {rollingReserve}
         </p>
       ),
       added: (
         <p className={styles.tableBodyText}>
-          {moment(added).format("MMM D YYYY")}
+          {moment(settlementDate).format("MMM D YYYY")}
           <span className={styles.tableBodySpan}>
             {" "}
-            {moment(added).format("h:mm A")}
+            {moment(settlementDate).format("h:mm A")}
           </span>
         </p>
       ),
-      witheldAmt: (
+      settlementAmt: (
         <p className={styles.tableBodyText}>
           <span className={styles.tableBodySpan}>NGN </span>
-          {witheldAmt}
+          {settlementAmt}
         </p>
       ),
       dueDate: (
@@ -232,10 +247,11 @@ const RollingReserve = () => {
     reserves?.map((each: RollingReserveItem) =>
       newRowOptions.push(
         ReserveRowTab(
-          each?.amt,
-          each?.status,
-          each?.added,
-          each?.witheldAmt,
+          each?.monthlyamt,
+          each?.month,
+          each?.settlementDate,
+          each?.settlementAmt,
+          each?.rollingReserve,
           each?.dueDate,
           each?.id
         )
@@ -288,7 +304,7 @@ const RollingReserve = () => {
           <p>Filters</p>
           <hr />
           <div className={styles.modalContent}>
-            <div>
+            <div className={styles.dates}>
               <p>Due date</p>
               <div>
                 <p>Today</p>
@@ -300,14 +316,26 @@ const RollingReserve = () => {
             <div>
               <p>Custom date range</p>
               <div>
-                <div>Start date</div>
+                <OutlinedInput
+                  placeholder="Choose status"
+                  size="small"
+                  type="date"
+                  fullWidth
+                  sx={{ height: "44px" }}
+                />
                 <ArrowRightAltIcon />
-                <div>End date</div>
+                <OutlinedInput
+                  placeholder="Choose status"
+                  size="small"
+                  type="date"
+                  fullWidth
+                  sx={{ height: "44px" }}
+                />
               </div>
             </div>
             <div>
               <p>Withheld amount</p>
-              <OutlinedInput placeholder="NGN 0.00" size="small" fullWidth />
+              <OutlinedInput placeholder="NGN 0.00" size="small" fullWidth sx={{ height: "44px" }} />
             </div>
             <div>
               <p>Status</p>
@@ -315,34 +343,57 @@ const RollingReserve = () => {
                 placeholder="Choose status"
                 size="small"
                 fullWidth
+                sx={{ height: "44px" }}
               />
             </div>
           </div>
           <hr />
-          <div className={modalBtnClasses.root}>
+          <Box className={modalBtnClasses.root} px={3}>
             <Button>Clear filter</Button>
             <Button>Apply filter</Button>
-          </div>
+          </Box>
         </div>
       </Modal>
 
-      <hr />
+
+      <Box className={styles.rolling__reserve__top__box} mb={"26px"}>
+
+        <Grid container justifyContent={"space-between"} alignItems="center" flexWrap={"wrap"}>
+          <Grid item xs={12} sm={12} md={4} spacing={2}>
+            <Box className={styles.left__box}>
+              <p>Rolling reserve balance (USD)</p>
+              <h3>NGN 300,000.00</h3>
+              <Link to="/">View USD chargeback history</Link>
+            </Box>
+          </Grid>
+
+
+          <Grid item xs={12} sm={12} md={1} sx={{ display: { xs: "none", sm: "none", md: "block" } }}><Box sx={{ borderRight: "1px solid #E0E0E0", height: "40px" }}></Box></Grid>
+
+          <Grid item xs={12} sm={12} md={4}>
+            <Box className={styles.right__box}>
+              <ErrorOutlineIcon />  <p>The rolling reserve is 10% of a merchant’s monthly transaction volume. The rolling reserve is applied to International transactions only.</p>
+            </Box></Grid>
+        </Grid>
+
+
+      </Box>
       <div className={styles.pageWrapper}>
-        <div className={styles.historyTopContainer}>
+        <Box mb={2} className={styles.historyTopContainer}>
           <div>
-            <h2>Rolling reserve</h2>
+            <h2>19 Settlements</h2>
           </div>
           <div className={btnClasses.root}>
             <div>
               <Button onClick={() => setIsFilterModalOpen(true)}>
-                All <ArrowDropDownIcon />
+                <FilterAltOutlinedIcon /> Filter by:
               </Button>
             </div>
             <Button>
-              Download <CloudUploadOutlinedIcon />
+              <InsertDriveFileOutlinedIcon /> Download
             </Button>
           </div>
-        </div>
+        </Box>
         <div className={styles.tableContainer}>
           <CustomClickTable
             columns={columns}

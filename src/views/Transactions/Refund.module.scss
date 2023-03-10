@@ -4,13 +4,13 @@
   width: 100%;
   position: relative;
 
-  & > hr {
+  &>hr {
     background-color: #E0E0E0;
   }
 }
 
 .pageWrapper {
-  padding: 2rem;
+  // padding: 2rem;
   margin-bottom: 4rem;
 }
 
@@ -32,8 +32,8 @@
     gap: .75rem;
   }
 
-  & > div {
-    & > p {
+  &>div {
+    &>p {
       color: #333;
       font-size: 1.25rem;
     }

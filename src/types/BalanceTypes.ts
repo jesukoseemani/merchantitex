@@ -1,7 +1,7 @@
 export interface WalletItem {
-  currency: string,
-  ledgerbalance: string,
-  availablebalance: string
+  currency: string;
+  ledgerbalance: string;
+  availablebalance: string;
 }
 
 export interface BalanceHistoryItem {
@@ -15,23 +15,23 @@ export interface BalanceHistoryItem {
 
 export interface GetBalanceHistoryRes {
   _metadata: {
-    page: number,
-    pagecount: number,
-    totalcount: number,
-    links: []
-  },
-  history: BalanceHistoryItem[]
+    page: number;
+    pagecount: number;
+    totalcount: number;
+    links: [];
+  };
+  history: BalanceHistoryItem[];
 }
 
 export interface GetWalletsRes {
   _metadata: {
-    pagecount: number,
-    totalcount: number,
-    links: []
-  },
-  wallets: WalletItem[],
-  code: string,
-  message: string
+    pagecount: number;
+    totalcount: number;
+    links: [];
+  };
+  wallets: WalletItem[];
+  code: string;
+  message: string;
 }
 
 export interface SettlementItem {
@@ -44,29 +44,31 @@ export interface SettlementItem {
 
 export interface GetSettlementsRes {
   _metadata: {
-    page: number,
-    pagecount: number,
-    totalcount: number,
-    links: []
-  },
-  settlements: SettlementItem[]
+    page: number;
+    pagecount: number;
+    totalcount: number;
+    links: [];
+  };
+  settlements: SettlementItem[];
 }
 
 export interface RollingReserveItem {
-  amt: string;
-  status: string;
-  added: string;
-  witheldAmt: string;
+  monthlyamt: string;
+  month: string;
+  // added: string;
+  settlementDate: string;
+  settlementAmt: string;
+  rollingReserve: string;
   dueDate: string;
-  id: string;
+  id?: string;
 }
 
 export interface GetRollingReservesRes {
   _metadata: {
-    page: number,
-    pagecount: number,
-    totalcount: number,
-    links: []
-  },
-  reserves: RollingReserveItem[]
+    page: number;
+    pagecount: number;
+    totalcount: number;
+    links: [];
+  };
+  reserves: RollingReserveItem[];
 }

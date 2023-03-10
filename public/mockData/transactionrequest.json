@@ -1,0 +1,84 @@
+{
+  "_metadata": {
+    "pagecount": 1,
+    "totalcount": 3,
+    "page": 1,
+    "links": []
+  },
+  "transactions": [
+    {
+      "amt": "45,000.52",
+      "status": "successful",
+      "acctId": "debra.holt@example.com",
+      "PaymentType": "Card",
+      "added": "2022-03-28 14:43:38.0",
+      "id": "1",
+      "cardType": "Visa",
+      "cardNumber": "**** **** **** 12384",
+      "reference": "ITEX-ab95cf961f454669a4",
+      "transfee": "NGN 7,748.12"
+    },
+    {
+      "amt": "45,000.52",
+      "status": "failed",
+      "acctId": "tim.jennings@example.com",
+      "PaymentType": "Card",
+      "added": "2022-03-28 14:43:38.0",
+      "id": "2",
+      "cardType": "Master",
+      "cardNumber": "**** **** **** 12384",
+      "reference": "ITEX-ab95cf961f454669a4",
+      "transfee": "NGN 10,748.12"
+    },
+    {
+      "amt": "45,000.52",
+      "status": "pending",
+      "acctId": "kenzi.lawson@example.com",
+      "PaymentType": "Card",
+      "added": "2022-03-28 14:43:38.0",
+      "id": "3",
+      "cardType": "Verve",
+      "cardNumber": "**** **** **** 12384",
+      "reference": "ITEX-ab95cf961f454669a4",
+      "transfee": "NGN 17,748.12"
+    },
+    {
+      "amt": "45,000.52",
+      "status": "successful",
+      "acctId": "debra.holt@example.com",
+      "PaymentType": "Card",
+      "added": "2022-03-28 14:43:38.0",
+      "id": "4",
+      "cardType": "Visa",
+      "cardNumber": "**** **** **** 12384",
+      "reference": "ITEX-ab95cf961f454669a4",
+      "transfee": "NGN 27,748.12"
+    },
+    {
+      "amt": "45,000.52",
+      "status": "failed",
+      "acctId": "tim.jennings@example.com",
+      "PaymentType": "Card",
+      "added": "2022-03-28 14:43:38.0",
+      "id": "5",
+      "cardType": "Master",
+      "cardNumber": "**** **** **** 12384",
+      "reference": "ITEX-ab95cf961f454669a4",
+      "transfee": "NGN 13,748.12"
+    },
+    {
+      "amt": "45,000.52",
+      "status": "pending",
+      "acctId": "kenzi.lawson@example.com",
+      "PaymentType": "Card",
+      "added": "2022-03-28 14:43:38.0",
+      "id": "6",
+      "cardType": "Verve",
+      "cardNumber": "**** **** **** 12384",
+      "reference": "ITEX-ab95cf961f454669a4",
+      "transfee": "NGN 90,748.12"
+    }
+  ],
+  "code": "00",
+  "message": "Successful"
+}

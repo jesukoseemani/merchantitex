@@ -6,34 +6,33 @@
     "links": []
   },
   "transactions": [
-    { 
-      "amt": "45,000.52", 
-      "status": "successful" ,
-      "acctId": "debra.holt@example.com", 
+    {
+      "amt": "45,000.52",
+      "status": "successful",
+      "acctId": "debra.holt@example.com",
       "PaymentType": "Card",
       "bankName": "Access Bank",
       "added": "2022-03-28 14:43:38.0",
       "id": "1"
     },
-    { 
-      "amt": "45,000.52", 
-      "status": "error" ,
-      "acctId": "debra.holt@example.com", 
+    {
+      "amt": "45,000.52",
+      "status": "error",
+      "acctId": "debra.holt@example.com",
       "PaymentType": "Card",
       "bankName": "Access Bank",
       "added": "2022-03-28 14:43:38.0",
       "id": "2"
     },
-    { 
-      "amt": "45,000.52", 
-      "status": "pending" ,
-      "acctId": "debra.holt@example.com", 
+    {
+      "amt": "45,000.52",
+      "status": "pending",
+      "acctId": "debra.holt@example.com",
       "PaymentType": "Card",
       "bankName": "Access Bank",
       "added": "2022-03-28 14:43:38.0",
       "id": "3"
     }
-    
   ],
   "code": "00",
   "message": "Successful"

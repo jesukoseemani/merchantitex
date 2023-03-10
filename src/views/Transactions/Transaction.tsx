@@ -7,7 +7,7 @@ import { ReactComponent as CopyIcon } from "../../assets/images/copyColor.svg";
 import { ReactComponent as CheckIcon } from "../../assets/images/circle-check.svg";
 import { ReactComponent as CheckColorIcon } from "../../assets/images/circle-check-color.svg";
 import { IconButton } from "@material-ui/core";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
 import axios from "axios";
@@ -20,12 +20,26 @@ import moment from "moment";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import FormatToCurrency from "../../helpers/NumberToCurrency";
 import ParentContainer from "../../components/ParentContainer/ParentContainer";
+import { TransactionItem } from "../../types/Transaction";
+import { Box } from "@mui/material";
 
 export default function Transaction() {
 	let { id } = useParams<{ id: string }>();
 	const [transaction, setTransaction] = useState<any>({});
-
+	const location = useLocation<{ rowData: string }>();
 	const history = useHistory();
+	if (!location.state.rowData) {
+		history.replace("/bills/invoice");
+	}
+
+	const { rowData } = location.state;
+
+	const formattedRowData: TransactionItem = JSON.parse(rowData);
+
+	const {
+		amt, PaymentType, acctId, status, added, cardType,
+		cardNumber, reference, transfee } = formattedRowData;
+
 	const dispatch = useDispatch();
 
 	const getTransactions = () => {
@@ -51,40 +65,40 @@ export default function Transaction() {
 		getTransactions();
 	}, [id]);
 
-	const status = "successful";
-	const { amount, currency } = transaction?.order ?? "";
-	const { added, reference } = transaction?.transaction ?? "";
-	const { email, card } = transaction?.source?.customer ?? "";
+	// const status = "successful";
+	// const { amount, currency } = transaction?.order ?? "";
+	// const { added, reference } = transaction?.transaction ?? "";
+
+	// const { email, card } = transaction?.source?.customer ?? "";
+
+	const statusFormatObj: { [key: string]: string } = {
+		successful: "wonText",
+		failed: "lostText",
+		pending: "pendingText",
+	};
 	return (
 
-			<div className={Styles.container}>
-				{/* <NavBar /> */}
-				<div className={Styles.header}>
-					<span onClick={() => history.push('/transactions/list')}>
-						<ArrowLeftIcon />
-						Back to transactions
-					</span>
-					<div>
-						<div>
-							<h2>{`${currency ?? ''}${FormatToCurrency?.(amount) ?? 0}`}</h2>
-							<Label
-								className={
-									transaction?.code === '00'
-										? 'success'
-										: transaction?.code === '09'
-											? 'danger'
-											: 'warning'
-								}>
-								{transaction?.code === '00'
-									? 'Successful'
-									: transaction?.code === '09'
-										? 'Failed'
-										: 'Pending'}
-							</Label>
-						</div>
-						<Button>Refund customer</Button>
+		<div className={Styles.container}>
+			{/* <NavBar /> */}
+			<div className={Styles.header}>
+				<span onClick={() => history.push('/transactions/list')} style={{
+					display: "flex",
+					alignItems: "center"
+				}}>
+					<ArrowLeftIcon />
+					Back to transactions
+				</span>
+			</div>
+			<Box className={Styles.sectionOne}>
+				<div className={Styles.headerTitle}>
+					<div className={Styles.amt_box}>
+						<h2>NGN{amt ?? 0}</h2>
+
+						<Label className={Styles[statusFormatObj[status] || "pendingText"]}>{status}</Label>
 					</div>
+					<Button className={Styles.refundBtn}>Refund customer</Button>
 				</div>
+
 				<div className={Styles.customerDetails}>
 					<div>
 						<div>
@@ -95,33 +109,35 @@ export default function Transaction() {
 					<div>
 						<div>
 							<span>Customer</span>
-							<h2>{email}</h2>
+							<h2>{acctId}</h2>
 						</div>
 					</div>
 					<div>
 						<div>
 							<span>Card type</span>
-							<h2>{card?.type}</h2>
+							<h2>{cardType}</h2>
 						</div>
 					</div>
 					<div>
 						<div>
 							<span>Card number</span>
-							<h2>{card?.number}</h2>
+							<h2>{cardNumber}</h2>
 						</div>
 					</div>
-					<div className={Styles.cta}>
-						<Button>
-							Blacklist customer <CancelIcon />
-						</Button>
-					</div>
+
 				</div>
-				<div className={Styles.title}>
+
+			</Box>
+
+			<Box className={Styles.sectionOne}>
+
+
+				<div className={Styles.headerTitle}>
 					<h2>Payment information</h2>
 				</div>
 				<div className={Styles.customerDetails}>
 					<div>
-						<div>
+						<Box >
 							<span>Payment reference</span>
 							<h2>
 								{reference}
@@ -129,12 +145,12 @@ export default function Transaction() {
 									<CopyIcon />
 								</IconButton>
 							</h2>
-						</div>
+						</Box>
 					</div>
 					<div>
 						<div>
 							<span>Transaction Fee</span>
-							<h2>0</h2>
+							<h2>{transfee ?? 0}</h2>
 						</div>
 					</div>
 					<div>
@@ -156,7 +172,10 @@ export default function Transaction() {
 						</div>
 					</div>
 				</div>
-				<div className={Styles.title}>
+			</Box>
+
+			<Box className={Styles.sectionOne}>
+				<div className={Styles.last__section__header}>
 					<h2>Transaction timeline</h2>
 					<div>
 						<h2 className={Styles.success}>1 min 05secs</h2>
@@ -167,6 +186,8 @@ export default function Transaction() {
 						<span>While making payment</span>
 					</div>
 				</div>
+
+
 				<div className={Styles.paymentStage}>
 					<div>
 						<CheckIcon />
@@ -186,8 +207,10 @@ export default function Transaction() {
 							</p>
 						</div>
 					</div>
+					<Link to='/'>Show breakdown</Link>
 				</div>
-				<Link to='/'>Show breakdown</Link>
-			</div>
+
+			</Box>
+		</div>
 	);
 }
