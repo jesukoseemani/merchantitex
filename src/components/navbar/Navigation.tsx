@@ -83,7 +83,7 @@ export default function Navigation(props: Props) {
                         aria-label="open drawer"
                         edge="start"
                         onClick={handleDrawerToggle}
-                        sx={{ mr: 2, display: { md: 'none !important' } }}
+                        sx={{ mr: 2, display: { md: 'none !important' }, }}
                         disableRipple
 
                     >
@@ -130,7 +130,7 @@ export default function Navigation(props: Props) {
             </Box>
             <Box
                 component="main"
-                sx={{ width: { xs: "100%", md: `calc(100% - ${drawerWidth}px)` } }}
+                sx={{ width: { xs: "100%", md: `calc(100% - ${drawerWidth}px)` }, }}
             >
                 <Toolbar />
                 <Box sx={{ paddingInline: { xs: "20px", md: "38px" }, background: "#EFF3F8", }}>

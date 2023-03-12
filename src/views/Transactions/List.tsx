@@ -142,6 +142,8 @@ export default function TransactionsList() {
 	const [totalRows, setTotalRows] = useState<number>(0);
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 	const [reset, setReset] = useState<boolean>(false);
+
+
 	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
 		setAnchorEl(event.currentTarget);
 	};
