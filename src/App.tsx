@@ -11,7 +11,7 @@ function App() {
     <>
       <AppRoutes />
       <Toast />
-      <Loader />
+      {/* <Loader /> */}
       <Modal />
     </>
   );

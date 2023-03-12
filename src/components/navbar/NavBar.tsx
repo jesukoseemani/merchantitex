@@ -5,8 +5,8 @@ import { Button, IconButton } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import ArrowDown from "../../assets/images/arrowDown.svg";
 import ArrowLeft from "../../assets/images/arrowLeft.svg";
-import { navRoutes } from "../../mock/navRoutes";
 import { ReactSVG } from "react-svg";
+import { navRoutes } from "../../mock/navRoutes";
 import { useHistory, useLocation } from "react-router-dom";
 import { changeNewNavbar } from "../../redux/actions/navbarNew/navbarNewActions";
 import useLocalStorage from "../../helpers/useLocalStorage";
@@ -86,7 +86,7 @@ const NavBar = () => {
               >
                 {/* <img src={icon} alt={name} /> */}
 
-                <ReactSVG src={item?.icon} />
+                <ReactSVG src={item?.icon} className={ Styles.linkIcon} />
                 {item?.title}
                 <div className={item?.link === pathname ? Styles.replaced_yen : Styles.replaced_not}>
                   <ActiveStateImg />

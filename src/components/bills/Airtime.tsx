@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Styles from "./airtime.module.scss";
 import AirtimeRequestTable from "./AirtimeRequestTable";
 import BeneficiaryMenu from "../../views/Payout/BeneficiaryMenu";
@@ -7,6 +7,7 @@ import { openModalAndSetContent } from "../../redux/actions/modal/modalActions";
 import SingleAirtimePayment from "./SingleAirtimePayment";
 import { useHistory } from "react-router-dom";
 import { Box } from "@mui/material";
+import CustomModal from "../customs/CustomModal";
 
 const Airtime = () => {
   const dispatch = useDispatch();
@@ -28,26 +29,33 @@ const Airtime = () => {
   const handleCloseMenu = () => {
     setAirtime(null);
   };
-  const handleClose = () => {
+  const handleClosed = () => {
     setAnchorEl(null);
   };
+  const [openModal, setOpenModal] = useState(false)
+  const handleOpen = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
 
-  const singleFunc = () => {
-    dispatch(
-      openModalAndSetContent({
-        modalStyles: {
-          padding: 0,
-          borderRadius: 20,
-          boxShadow: "-4px 4px 14px rgba(224, 224, 224, 0.69)",
-        },
-        modalContent: (
-          <div className="modalDiv">
-            <SingleAirtimePayment />
-          </div>
-        ),
-      })
-    );
-  };
+
+  // const singleFunc = () => {
+  //   handleOpen()
+  //   //   dispatch(
+  //   //     openModalAndSetContent({
+  //   //       modalStyles: {
+  //   //         padding: 0,
+  //   //         borderRadius: 20,
+  //   //         boxShadow: "-4px 4px 14px rgba(224, 224, 224, 0.69)",
+  //   //       },
+  //   //       modalContent: (
+  //   //         <div className="modalDiv">
+  //   // <SingleAirtimePayment />
+  //   //         </div>
+  //   //       ),
+  //   //     })
+  //   //   );
+
+
+  // };
 
   const bulkfunc = () => {
     history.push("/airtime/bulk-payment");
@@ -57,7 +65,7 @@ const Airtime = () => {
     {
       id: 1,
       name: "Single bill payment",
-      func: singleFunc,
+      func: handleOpen,
     },
     {
       id: 2,
@@ -68,6 +76,19 @@ const Airtime = () => {
 
   return (
     <Box sx={{ width: "100%", marginTop: "22px" }}>
+
+      <Box>
+        <CustomModal
+          title="Buy Airtime"
+          isOpen={openModal}
+          handleClose={handleCloseModal}
+          close={() => setOpenModal(false)}>
+
+          <SingleAirtimePayment />
+        </CustomModal >
+
+      </Box>
+
       <div className={Styles.airtime_header}>
         <div>
           {" "}

@@ -1,0 +1,63 @@
+.titleText {
+    font-family: 'Avenir';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 18px;
+    line-height: 25px;
+    color: #000000;
+}
+
+
+form {
+    width: 100%;
+    // margin-top: 1.9rem;
+    overflow: auto;
+    max-height: 85vh;
+    // border: 1px solid red;
+    z-index: 99;
+
+
+    label {
+        font-family: 'Avenir';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 0.9rem;
+        line-height: 1rem;
+        padding: 10px 0;
+        color: #414141;
+
+
+
+
+    }
+
+    &>div {
+        margin-top: 2rem;
+
+    }
+
+    select,
+
+
+    button {
+        background: #27ae60;
+        border-radius: 20px;
+        // margin-bottom: 1.4;
+        width: 100%;
+        font-family: 'Avenir';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 1rem;
+        line-height: 1.2rem;
+        text-align: center;
+        height: 44px;
+        margin-top: 16px;
+        margin-bottom: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff;
+
+
+    }
+}

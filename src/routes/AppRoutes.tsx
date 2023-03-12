@@ -82,6 +82,7 @@ import BlacklistTab from "../views/Customers/BlacklistTab";
 import BlacklistDatatable from "../views/Customers/BlacklistDatatable";
 import InvoiceDetails from "../components/bills/invoice/InvoiceDetails";
 import TransferHistory from "../views/Payout/transfer/TransferHistory";
+import Navigation from "../components/navbar/Navigation";
 
 export default function AppRoutes() {
   // const { loadingState } = useSelector((state) => state?.loadingStateReducer);
@@ -184,7 +185,8 @@ export default function AppRoutes() {
           <ResetPassword />
         </Route>
 
-        <ParentContainer>
+
+        <Navigation>
 
           <>
             <ProtectedRoute
@@ -574,7 +576,7 @@ export default function AppRoutes() {
           <Route exact path="/test/home">
             <AccountSetup />
           </Route>
-        </ParentContainer>
+        </Navigation>
       </Switch>
     </Router >
   );

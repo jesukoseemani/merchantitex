@@ -1,4 +1,4 @@
-import { Backdrop, Box, Button, Fade, IconButton, Modal } from '@mui/material';
+import { Backdrop, Box, Button, Fade, IconButton, Modal, OutlinedInput } from '@mui/material';
 import { makeStyles } from "@material-ui/styles";
 import CloseIcon from '@mui/icons-material/Close';
 import { Dispatch, SetStateAction, useState } from 'react';
@@ -23,13 +23,19 @@ const SingleRefundModal = ({ isOpen, handleClose, setRefundLogged }: SingleRefun
       width: '100%',
       backgroundColor: 'white',
       boxShadow: '-4px 4px 14px rgba(224, 224, 224, 0.69)',
-      borderRadius: '6px',
-      padding: '1rem 0 2rem',
+      borderRadius: '20px',
+      paddingBottom: "20px",
       '& > div:nth-child(1)': {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: '0rem 2rem',
+        padding: '16px 50px',
+        fontSize: '18px',
+        fontFamily: 'Avenir',
+        fontStyle: "normal",
+        fontWeight: '900',
+        lineHeight: "25px",
+        color: "#000",
         '& .MuiIconButton-root': {
           padding: '6px'
         },
@@ -40,26 +46,34 @@ const SingleRefundModal = ({ isOpen, handleClose, setRefundLogged }: SingleRefun
       '& > div:nth-child(3)': {
         display: 'grid',
         gridGap: '1rem',
-        padding: '0rem 2rem',
+        padding: '0rem 50px',
       },
       '& > div:nth-child(4)': {
-        padding: '0rem 2rem',
+        padding: '0rem 50px',
         marginTop: '1.5rem'
       }
+    },
+    form: {
+
+      marginTop: "20px",
     },
     formBox: {
       display: 'grid',
       '& label': {
         color: '#333',
         fontWeight: '400',
-        fontSize: '.875rem'
+        fontSize: '.875rem',
+        fontFamily: 'Avenir',
+        fontStyle: "normal",
+        lineHeight: "19px",
       },
       '& input, & textarea': {
         background: 'white',
-        border: '1px solid #ddd',
+        // border: '1px solid #ddd',
         borderRadius: '4px',
         marginTop: '.2rem',
-        padding: '.75rem',
+        // padding: '.75rem',
+        height: "11px",
         fontSize: '.875rem',
         resize: 'none',
         '&::placeholder': {
@@ -69,12 +83,18 @@ const SingleRefundModal = ({ isOpen, handleClose, setRefundLogged }: SingleRefun
     },
     formBtn: {
       color: 'white',
-      fontWeight: 700,
+      fontWeight: 900,
+      lineHeight: "22px",
       fontSize: '1rem',
       backgroundColor: '#27AE60',
-      padding: '.5rem',
-      borderRadius: '.25rem',
+      height: '44px',
+      borderRadius: '20px',
       textTransform: 'none',
+      cursor: "pointer",
+      fontFamily: 'Avenir',
+      fontStyle: "normal",
+      marginTop: "19px",
+
       '&:hover': {
         opacity: '.75',
         backgroundColor: '#27AE60'
@@ -93,7 +113,7 @@ const SingleRefundModal = ({ isOpen, handleClose, setRefundLogged }: SingleRefun
   const [desc, setDesc] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
 
-  const postRefund = async() => {
+  const postRefund = async () => {
     dispatch(openLoader());
     setLoading(true);
     try {
@@ -102,13 +122,13 @@ const SingleRefundModal = ({ isOpen, handleClose, setRefundLogged }: SingleRefun
         url: '/transaction/refund',
         data: {
           transaction: {
-            merchantreference: ref  
+            merchantreference: ref
             // merchantreference: "tx-YvD4Yr2mebQdn2pvsClRJGFiJ"
           },
           order: {
             amount: `${amt}`,
             description: desc,
-            currency: "NGN" 
+            currency: "NGN"
           }
         }
       })
@@ -160,29 +180,29 @@ const SingleRefundModal = ({ isOpen, handleClose, setRefundLogged }: SingleRefun
             </IconButton>
           </div>
           <hr />
-          <div>
+          <div className={classes.form}>
             <div className={classes.formBox}>
               <label htmlFor='amount'>Amount</label>
-              <input 
+              <OutlinedInput
                 placeholder='100.00' value={amt} type='number'
                 onChange={(e) => setAmt(Number(e.target.value))}
               />
             </div>
             <div className={classes.formBox}>
               <label htmlFor='amount'>Transaction reference</label>
-              <input placeholder='12345678' value={ref} onChange={(e) => setRef(e.target.value)} />
+              <OutlinedInput placeholder='12345678' value={ref} onChange={(e) => setRef(e.target.value)} />
             </div>
             <div className={classes.formBox}>
               <label htmlFor='amount'>Refund destination</label>
-              <input value='Payment source - 5 to 15 days' disabled />
+              <OutlinedInput value='Payment source - 5 to 15 days' disabled />
             </div>
             <div className={classes.formBox}>
               <label htmlFor='amount'>Reason for refund</label>
-              <textarea placeholder='Items out of stock' rows={5} value={desc} onChange={(e) => setDesc(e.target.value)} />
+              <OutlinedInput placeholder='Items out of stock' multiline rows={5} value={desc} onChange={(e) => setDesc(e.target.value)} />
             </div>
           </div>
           <div>
-            <Button 
+            <Button
               fullWidth className={classes.formBtn}
               disabled={!amt || !desc || !ref || loading}
               onClick={postRefund}

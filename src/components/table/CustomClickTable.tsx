@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 	container: {
 		maxHeight: '70vh',
 		maxWidth: '100%',
-		borderRadius: "20px"
+		borderRadius: "20px 20px 0px 0px"
 	}
 });
 
