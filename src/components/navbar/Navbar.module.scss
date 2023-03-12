@@ -73,7 +73,6 @@
 
     svg {
 
-
       margin-left: 19px;
     }
   }
@@ -87,8 +86,13 @@
 }
 
 nav {
-  width: 100%;
+  // // width: 100%;
   // border: 2px solid red;
+
+  // @media screen and (max-width:700px) {
+  //   display: none !important;
+  // }
+
   // margin-top: 1rem;
 
   li {
@@ -98,13 +102,16 @@ nav {
     font-size: 16px;
     line-height: 45px;
     font-family: "Avenir";
-    gap: 20px;
+    // gap: 10px;
     color: $light;
     cursor: pointer;
     // gap: 20px;
     display: flex;
     padding-inline: 20px;
 
+    .linkIcon {
+      width: 30px;
+    }
 
     &:hover,
     &.active {
@@ -116,20 +123,25 @@ nav {
       // border-top-left-radius: 6px;
       // border-bottom-left-radius: 6px;
 
-      path {
-        stroke: $secondary;
+      svg {
+        path {
+          stroke: $secondary;
+        }
       }
+    }
+  }
+
+  svg {
+    margin-right: 20px;
+
+    path {
+      stroke: #fff;
     }
   }
 }
 
-svg {
-  margin-right: 25px;
 
-  path {
-    stroke: #fff;
-  }
-}
+
 
 .replaced_not {
   display: none;
@@ -146,11 +158,13 @@ svg {
 // header
 .header__box {
   // height: 100%;
-  background-color: $body;
+  // background-color: $body;
   overflow: hidden;
   height: 100%;
   display: flex;
   align-items: center;
+  width: 100%;
+  // border: 1px solid;
 
 
   svg {
@@ -162,17 +176,18 @@ svg {
   height: 4.7rem;
   // border: 2px solid red;
 
+
 }
 
-input {
-  width: 433px;
-  height: 35px;
+// input {
+//   width: 433px;
+//   height: 35px;
 
-  background: #fbfbfb;
-  border: 1px solid #dddddd;
-  border-radius: 10px;
-  // border: 2px solid blue;
-}
+//   background: #fbfbfb;
+//   border: 1px solid #dddddd;
+//   border-radius: 10px;
+//   // border: 2px solid blue;
+// }
 
 .toggleButton {
 
@@ -221,7 +236,7 @@ input {
   position: relative;
 
   input {
-    padding-left: 55px;
+    padding-left: 10px;
   }
 
   svg {

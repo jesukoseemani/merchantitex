@@ -1,17 +1,16 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import NavBar from '../../components/navbar/NavBar';
 import styles from './Refund.module.scss';
 import { useTheme } from '@mui/material/styles';
 import { makeStyles } from '@material-ui/styles';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { Button, Menu, MenuItem } from '@mui/material';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { Box, Button, Menu, MenuItem } from '@mui/material';
+import InsertDriveFileOutlined from '@mui/icons-material/InsertDriveFileOutlined';
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import {
 	DownloadRefundsRes,
-	GetRefundsRes,
-	RefundItem,
+	// GetRefundsRes,
+	// RefundItem,
 } from '../../types/RefundTypes';
 import {
 	closeLoader,
@@ -20,12 +19,15 @@ import {
 import axios from 'axios';
 import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
 import moment from 'moment';
-import OperantTable from '../../components/table/OperantTable';
 import SingleRefundModal from './SingleRefundModal';
 import FilterModal from './FilterModal';
 import BulkRefundModal from './BulkRefundModal';
 import CustomClickTable from '../../components/table/CustomClickTable';
-import ParentContainer from '../../components/ParentContainer/ParentContainer';
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
+import { GetRefundRes, RefundItem } from '../../types/Transaction';
+
+
+
 
 const Refund = () => {
 	const [isSingleModalOpen, setIsSingleModalOpen] = useState<boolean>(false);
@@ -65,21 +67,30 @@ const Refund = () => {
 			display: 'flex',
 			gap: '1rem',
 			[theme.breakpoints.down('sm')]: {
-				flexDirection: 'column',
+				// flexDirection: 'column',
+				marginTop: "10px"
 			},
 			'& .MuiButtonBase-root': {
-				borderRadius: '.25rem',
+				borderRadius: '20px',
 				padding: '.5rem 1rem',
+				height: "32px",
 				textTransform: 'none',
 				fontSize: '.875rem',
 				fontWeight: '400',
 				alignItem: 'center',
 				display: 'flex',
 			},
-			'& .MuiButtonBase-root:nth-child(1), & .MuiButtonBase-root:nth-child(2)':
+			'& .MuiButtonBase-root:nth-child(1)':
 			{
 				backgroundColor: '#E0E0E0',
 				color: '#333',
+			},
+
+			'& .MuiButtonBase-root:nth-child(2)':
+			{
+				backgroundColor: 'transparent',
+				color: '#095B2C',
+				border: "1px solid #27AE60",
 			},
 			'& .MuiButtonBase-root:nth-child(3)': {
 				backgroundColor: '#27AE60',
@@ -114,36 +125,38 @@ const Refund = () => {
 	};
 
 	const getRefunds = async () => {
-		dispatch(openLoader());
-		const filterKeys = Object.keys(filters);
-		const filterValues = Object.values(filters);
-		let filterString = '';
+		// dispatch(openLoader());
+		// const filterKeys = Object.keys(filters);
+		// const filterValues = Object.values(filters);
+		// let filterString = '';
 
-		if (dateInterval) {
-			let fromDate = '';
+		// if (dateInterval) {
+		// 	let fromDate = '';
 
-			if (dateInterval === 'year') {
-				fromDate = moment().subtract(1, 'years').format('YYYY-MM-DD');
-			} else {
-				fromDate = moment()
-					.subtract(Number(dateInterval), 'days')
-					.format('YYYY-MM-DD');
-			}
+		// 	if (dateInterval === 'year') {
+		// 		fromDate = moment().subtract(1, 'years').format('YYYY-MM-DD');
+		// 	} else {
+		// 		fromDate = moment()
+		// 			.subtract(Number(dateInterval), 'days')
+		// 			.format('YYYY-MM-DD');
+		// 	}
 
-			filterString = `&todate=${fixedToDate}&fromdate=${fromDate}`;
-		}
+		// 	filterString = `&todate=${fixedToDate}&fromdate=${fromDate}`;
+		// }
 
-		filterKeys.forEach((keyString, index) => {
-			if (filterValues[index] === '') return;
-			filterString += `&${keyString}=${filterValues[index]}`;
-		});
+		// filterKeys.forEach((keyString, index) => {
+		// 	if (filterValues[index] === '') return;
+		// 	filterString += `&${keyString}=${filterValues[index]}`;
+		// });
 
 		try {
-			const res = await axios.get<GetRefundsRes>(
-				`/admin/refunds?page=${pageNumber}&perpage=${rowsPerPage}${filterString}`
+			const res = await axios.get<GetRefundRes>(
+				'/mockData/transactionrequest.json',
+				{ baseURL: '' }
 			);
 			const { transactions, _metadata } = res?.data;
-			if (transactions.length) {
+			console.log(history);
+			if (history.length) {
 				setRefunds(transactions);
 				setTotalRows(_metadata?.totalcount);
 			}
@@ -153,7 +166,7 @@ const Refund = () => {
 			dispatch(closeLoader());
 			dispatch(
 				openToastAndSetContent({
-					toastContent: 'Failed to get transactions',
+					toastContent: 'Failed to get items',
 					toastStyles: {
 						backgroundColor: 'red',
 					},
@@ -188,7 +201,7 @@ const Refund = () => {
 	};
 
 	interface Column {
-		id: 'amount' | 'code' | 'email' | 'linkingreference' | 'added';
+		id: 'amount' | 'status' | 'email' | 'linkingreference' | 'added';
 		label: any;
 		minWidth?: number;
 		align?: 'right' | 'left' | 'center';
@@ -196,35 +209,36 @@ const Refund = () => {
 
 	const columns: Column[] = [
 		{ id: 'amount', label: 'Amount', minWidth: 100 },
-		{ id: 'code', label: 'Status', minWidth: 100 },
-		{ id: 'email', label: 'Customer ID', minWidth: 100 },
+		{ id: 'status', label: 'Status', minWidth: 100 },
+		{ id: 'email', label: 'Email address', minWidth: 100 },
 		{ id: 'linkingreference', label: 'Transaction reference', minWidth: 100 },
 		{ id: 'added', label: 'Date', minWidth: 100 },
 	];
 
-	const formatStatus = (val: string) => {
-		if (val === '00') {
-			return <p className={styles.successText}>Successful</p>;
-		} else if (val === '09') {
-			return <p className={styles.failText}>Failed</p>;
-		} else {
-			return <p className={styles.pendingText}>Pending</p>;
-		}
+	const statusFormatObj: { [key: string]: string } = {
+		successful: "wonText",
+		failed: "lostText",
+		pending: "pendingText",
 	};
 
+
 	const RefundRowTab = useCallback(
-		(amount, code, email, linkingreference, added) => ({
-			amount: <p className={styles.tableBodyText}>NGN{amount}</p>,
-			code: formatStatus(code),
-			email: <p className={styles.tableBodyText}>{email}</p>,
+		(amt, status, reference, acctId, added, id) => ({
+			amount: <p className={styles.tableBodyText}>NGN{amt}</p>,
+			// code: formatStatus(code),
+			email: <p className={styles.tableBodyText}>{acctId}</p>,
+			status: (
+				<p className={styles[statusFormatObj[status] || "pendingText"]} >{status}</p>
+			),
 			linkingreference: (
-				<p className={styles.tableBodyText}>{linkingreference}</p>
+				<p className={styles.tableBodyText}>{reference}</p>
 			),
 			added: (
 				<p className={styles.tableBodyText}>
 					{moment(added).format('MMM D YYYY h:mm A')}
 				</p>
 			),
+			id: <p>{id}</p>
 		}),
 		[]
 	);
@@ -248,11 +262,12 @@ const Refund = () => {
 		refunds?.map((each: RefundItem) =>
 			newRowOptions.push(
 				RefundRowTab(
-					each?.order.amount,
-					each?.code,
-					each?.source.customer.email,
-					each?.transaction.linkingreference,
-					each?.transaction.added
+					each?.amt,
+					each?.status,
+					each?.reference,
+					each?.acctId,
+					each?.added,
+					each?.id,
 				)
 			)
 		);
@@ -261,86 +276,96 @@ const Refund = () => {
 
 	return (
 
-			<div className={styles.container}>
-				<FilterModal
-					isOpen={isFilterModalOpen}
-					handleClose={() => setIsFilterModalOpen(false)}
-					filters={filters}
-					setFilters={setFilters}
-					setFiltersApplied={setFiltersApplied}
-					fixedToDate={fixedToDate}
-					dateInterval={dateInterval}
-					setDateInterval={setDateInterval}
-				/>
-				<SingleRefundModal
-					isOpen={isSingleModalOpen}
-					handleClose={() => setIsSingleModalOpen(false)}
-					setRefundLogged={setRefundLogged}
-				/>
-				<BulkRefundModal
-					isOpen={isBulkModalOpen}
-					handleClose={() => setIsBulkModalOpen(false)}
-					setRefundLogged={setRefundLogged}
-				/>
+		<div className={styles.container}>
+			<FilterModal
+				isOpen={isFilterModalOpen}
+				handleClose={() => setIsFilterModalOpen(false)}
+				filters={filters}
+				setFilters={setFilters}
+				setFiltersApplied={setFiltersApplied}
+				fixedToDate={fixedToDate}
+				dateInterval={dateInterval}
+				setDateInterval={setDateInterval}
+			/>
+			<SingleRefundModal
+				isOpen={isSingleModalOpen}
+				handleClose={() => setIsSingleModalOpen(false)}
+				setRefundLogged={setRefundLogged}
+			/>
+			<BulkRefundModal
+				isOpen={isBulkModalOpen}
+				handleClose={() => setIsBulkModalOpen(false)}
+				setRefundLogged={setRefundLogged}
+			/>
 
-				<div className={styles.pageWrapper}>
-					<div className={styles.historyTopContainer}>
-						<div>
-							<p>{totalRows} Refunds</p>
-						</div>
-						<div className={btnClasses.root}>
-							<Button onClick={() => setIsFilterModalOpen(true)}>
-								All refunds <ArrowDropDownIcon />
-							</Button>
-							<Button onClick={() => downloadRefunds()}>
-								Download <CloudUploadOutlinedIcon />
-							</Button>
-							<Button
-								id='log-refund-button'
-								aria-controls={open ? 'refund-menu' : undefined}
-								aria-haspopup='true'
-								aria-expanded={open ? 'true' : undefined}
-								onClick={handleMenuClick}>
-								+ Log a refund
-							</Button>
-							<Menu
-								id='refund-menu'
-								anchorEl={anchorEl}
-								open={open}
-								onClose={handleMenuClose}
-								MenuListProps={{
-									'aria-labelledby': 'log-refund-button',
-								}}
-								PaperProps={{
-									style: {
-										maxWidth: '150px',
-										padding: '.25rem',
-									},
-								}}>
-								<MenuItem onClick={openSingleModal}>
-									<p style={{ padding: '.4rem' }}>Log a Single refund</p>
-								</MenuItem>
-								<MenuItem onClick={openBulkModal}>
-									<p style={{ padding: '.4rem' }}>Log Bulk refunds</p>
-								</MenuItem>
-							</Menu>
-						</div>
+			<div className={styles.pageWrapper}>
+				<div className={styles.historyTopContainer}>
+					<div>
+						<p>{refunds?.length} Refunds</p>
 					</div>
-					<div className={styles.tableContainer}>
-						<CustomClickTable
-							columns={columns}
-							rows={rows}
-							totalRows={totalRows}
-							changePage={changePage}
-							limit={limit}
-							clickable
-							link='/transactions/refund'
-							identifier='linkingreference'
-							rowsData={refunds}
-						/>
+					<div className={btnClasses.root}>
+						<Button onClick={() => setIsFilterModalOpen(true)}>
+							<FilterAltOutlinedIcon />Filter by:
+						</Button>
+						<Button onClick={() => downloadRefunds()}>
+							<InsertDriveFileOutlined />Download
+						</Button>
+						<Button
+							id='log-refund-button'
+							aria-controls={open ? 'refund-menu' : undefined}
+							aria-haspopup='true'
+							aria-expanded={open ? 'true' : undefined}
+							onClick={handleMenuClick}>
+							+ Log a refund
+						</Button>
+						<Menu
+							id='refund-menu'
+							anchorEl={anchorEl}
+							open={open}
+							onClose={handleMenuClose}
+							MenuListProps={{
+								'aria-labelledby': 'log-refund-button',
+							}}
+							PaperProps={{
+								style: {
+									maxWidth: '150px',
+									borderRadius: "10px",
+									padding: '.25rem',
+									height: "110px",
+									fontFamily: 'Avenir',
+									fontStyle: "normalize",
+									fontWeight: 400,
+									fontSize: "15px",
+									lineHeight: "20px",
+									color: " #4A4A4A",
+
+								},
+							}}>
+
+							<MenuItem onClick={openSingleModal}>
+								<p style={{ padding: '.4rem' }}>Log a Single refund</p>
+							</MenuItem>
+							<MenuItem onClick={openBulkModal}>
+								<p style={{ padding: '.4rem' }}>Log Bulk refunds</p>
+							</MenuItem>
+						</Menu>
 					</div>
 				</div>
+				<div className={styles.tableContainer}>
+					<CustomClickTable
+						columns={columns}
+						rows={rows}
+						totalRows={totalRows}
+						changePage={changePage}
+						limit={limit}
+						// clickable
+						// link='/transactions/refund'
+						// identifier='linkingreference'
+						rowsData={refunds}
+					/>
+				</div>
 			</div>
+		</div>
 	);
 };
 

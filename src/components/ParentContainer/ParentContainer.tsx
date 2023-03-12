@@ -18,6 +18,7 @@ interface toggleBtn {
 
 export default function ParentContainer({ children }: headerProps) {
   const [toggle, setToggle] = useState(false)
+  console.log(toggle)
   return (
     <div className={styles.parent}>
       <div className={toggle ? styles.showToggge : styles.sidebars}>
@@ -28,7 +29,7 @@ export default function ParentContainer({ children }: headerProps) {
 
       <div className={styles.main__container}>
         <div className={styles.header}>
-          <Header toggle={toggle} setToggle={setToggle} />
+          {/* <Header toggle={toggle} setToggle={setToggle} /> */}
         </div>
         <div className={styles.main}>
           {children}

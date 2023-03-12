@@ -331,11 +331,11 @@ svg {
 	h2 {
 		font-family: 'Avenir';
 		font-style: normal;
-		font-weight: 500;
+		font-weight: 500 !important;
 		font-size: 18px;
 		line-height: 25px;
 		color: #333333;
-		padding: 5px 60px;
+		padding: 5px 0px;
 		margin-top: 30px;
 	}
 

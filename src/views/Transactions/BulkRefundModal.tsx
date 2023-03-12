@@ -19,13 +19,19 @@ const useModalStyles = makeStyles({
     width: '100%',
     backgroundColor: 'white',
     boxShadow: '-4px 4px 14px rgba(224, 224, 224, 0.69)',
-    borderRadius: '6px',
-    padding: '1rem 0 2rem',
+    borderRadius: '20px',
+    paddingBottom: '30px',
     '& > div:nth-child(1)': {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      padding: '0rem 2rem',
+      padding: '16px 50px',
+      fontSize: '18px',
+      fontFamily: 'Avenir',
+      fontStyle: "normal",
+      fontWeight: '900',
+      lineHeight: "25px",
+      color: "#000",
       '& .MuiIconButton-root': {
         padding: '6px'
       },
@@ -34,22 +40,25 @@ const useModalStyles = makeStyles({
       background: '#E0E0E0'
     },
     '& > div:nth-child(3)': {
-      padding: '1.5rem 2rem',
+      padding: '1.5rem 50px',
     },
     '& > div:nth-child(5)': {
       borderBottom: '1px solid #E0E0E0',
-      margin: '1.5rem 2rem'
+      margin: '1.5rem 50px'
     },
     '& > div:nth-child(6)': {
-      padding: '0rem 2rem',
-      marginTop: '2rem'
+      padding: '10px 50px',
+      // margin: '1.5rem 50px'
     }
   },
   fileBox: {
     border: '1px solid #DDD',
-    borderRadius: '.25rem',
+    borderRadius: '10px',
     width: '100%',
     height: '250px',
+    padding: "0px 50px",
+    marginTop: "29px",
+    marginBottom: "3px",
     '& div': {
       display: 'flex',
       flexDirection: 'column',
@@ -65,23 +74,47 @@ const useModalStyles = makeStyles({
         padding: '.5rem 1rem',
         background: '#F9FBFF',
         border: '0.916667px dashed #BDBDBD',
-        borderRadius: '3.66667px'
+        // border: "1px solid red",
+        borderRadius: '3.66667px',
+        fontFamily: 'Avenir',
+        fontStyle: "normal",
+        lineHeight: "18px",
+        marginBottom: "6.36px"
       },
       '& p:last-of-type': {
         color: '#828282',
-        fontSize: '.625rem',
-        fontWeight: '400'
+        fontWeight: '400',
+        fontFamily: 'Avenir',
+        fontStyle: "normal",
+        lineHeight: "14px",
+        fontSize: '10px',
       },
+
+      '& svg': {
+        height: "25px",
+        width: "28px",
+        marginBottom: "14.3px",
+
+        "& path": {
+          stroke: "#4F4F4F"
+        }
+      }
     }
   },
   formBtn: {
     color: 'white',
-    fontWeight: 700,
+    fontWeight: 900,
+    lineHeight: "22px",
     fontSize: '1rem',
     backgroundColor: '#27AE60',
-    padding: '.5rem',
-    borderRadius: '.25rem',
+    height: '44px',
+    borderRadius: '20px',
+    width: "100%",
     textTransform: 'none',
+    cursor: "pointer",
+    fontFamily: 'Avenir',
+    fontStyle: "normal",
+    marginTop: "19px",
     '&:hover': {
       opacity: '.75',
       backgroundColor: '#27AE60'
@@ -94,12 +127,15 @@ const useModalStyles = makeStyles({
     display: 'flex',
     alignItems: 'center',
     gap: '1rem',
-    padding: '0rem 2rem',
+    justifyContent: "center",
     cursor: 'pointer',
     '& p': {
       color: '#4F4F4F',
       fontWeight: '400',
-      fontSize: '.85rem'
+      fontFamily: 'Avenir',
+      fontStyle: "normal",
+      lineHeight: "16px",
+      fontSize: '12px',
     },
     '& svg': {
       fontSize: '1.25rem',
@@ -133,9 +169,9 @@ const BulkRefundModal = ({ isOpen, handleClose, setRefundLogged }: BulkRefundMod
   const [loading, setLoading] = useState<boolean>(false);
 
   const onDrop = useCallback((acceptedFiles, fileRejections) => {
-    if(acceptedFiles.length) {
+    if (acceptedFiles.length) {
       console.log(acceptedFiles[0]);
-  
+
       setFile(acceptedFiles[0]);
       setFileErr('');
     } else {
@@ -144,7 +180,7 @@ const BulkRefundModal = ({ isOpen, handleClose, setRefundLogged }: BulkRefundMod
     }
   }, []);
 
-  const postRefund = async() => {
+  const postRefund = async () => {
     dispatch(openLoader());
     setLoading(true);
     const formData = new FormData();
@@ -185,8 +221,8 @@ const BulkRefundModal = ({ isOpen, handleClose, setRefundLogged }: BulkRefundMod
     }
   }
 
-  const {getRootProps, getInputProps, isDragActive, acceptedFiles, fileRejections} = useDropzone({
-    onDrop, 
+  const { getRootProps, getInputProps, isDragActive, acceptedFiles, fileRejections } = useDropzone({
+    onDrop,
     maxFiles: 1,
     accept: 'text/csv'
   })
@@ -237,7 +273,7 @@ const BulkRefundModal = ({ isOpen, handleClose, setRefundLogged }: BulkRefundMod
           <div>
           </div>
           <div>
-            <Button 
+            <Button
               fullWidth className={classes.formBtn}
               disabled={!file || loading}
               onClick={postRefund}

@@ -1,4 +1,4 @@
-import { Box, Stack, Button } from "@mui/material";
+import { Box, Stack, Button, styled, Grid, InputLabel, Select, TextField } from "@mui/material";
 import React from "react";
 import { countryListAllIsoData } from "../../helpers/Countries";
 
@@ -39,77 +39,128 @@ const SingleBillPayment = () => {
       name: "comapact minus",
     },
   ];
+
+
+
+  const StyledTextField = styled(TextField, {
+    name: "StyledTextField",
+  })({
+
+    "& .MuiInputBase-root": {
+      height: 44,
+      marginBottom: "18px",
+      padding: 0,
+    }
+  });
+
+  const handleOnChange = () => { }
   return (
     <div
-      className={Styles.single_payment__input__container}
 
     >
-      <div className={Styles.form__title}>
-        <h3>Bill Payment</h3>
-      </div>
+      <form>
+        <Box >
+          <label htmlFor="category">Category</label>
+          {/* <Stack direction={"row"} spacing={1} justifyContent="space-between" alignItems={"center"}> */}
+          <Box
+            sx={{ display: "flex", alignItems: "center" }}
 
-      <div className={Styles.single_bill_bulk_form__body}>
-        <form>
-          <div className={Styles.category}>
-            <label htmlFor="category">Category</label>
-            <Stack direction={"row"} spacing={1} justifyContent="space-between" alignItems={"center"}>
-              <span id="electricity">Electricity</span>
-              <span id={"cable tv"}>Cable Tv</span>
-              <span id="internet">internet</span>
-              <span id="others">Others</span>
-            </Stack>
-          </div>
-          <div className="country">
-            <label htmlFor="country">Country</label>
-            <select name="country" id="country">
-              {countryListAllIsoData?.map((x) => (
-                <option key={x?.code} value={x?.name}>
-                  {x?.name}
-                </option>
+            className={Styles.category}>
+            <span id="electricity">Electricity</span>
+            <span id={"cable tv"}>Cable Tv</span>
+            <span id="internet">internet</span>
+            <span id="others">Others</span>
+          </Box>
+          {/* </Stack> */}
+        </Box>
+        <Grid container>
+          <Grid item xs={12}>
+            <InputLabel htmlFor="country" className={Styles.label}>Country</InputLabel>
+            <Select
+              sx={{ height: 44, marginBottom: "18px", }}
+              fullWidth
+            // value={country}
+
+            >
+              {/* <Box> */}
+              {countryListAllIsoData?.map(({ name, code }) => (
+                <option style={{ paddingLeft: "10px" }} onChange={handleOnChange} key={code} value={name}>{name}</option>
               ))}
-            </select>
-          </div>
-          <div className="bill">
-            <label htmlFor="Bills">Bills</label>
-            <select name="bill" id="bill">
-              <option value="">Select bills</option>
-              {bills?.map((x) => (
-                <option key={x?.id} value={x?.name}>
-                  {x?.name}
-                </option>
+              {/* </Box> */}
+            </Select>
+          </Grid>
+          <Grid item xs={12}>
+            <InputLabel htmlFor="country" className={Styles.label}>Bills</InputLabel>
+            <Select
+              sx={{ height: 44, marginBottom: "18px", }}
+              fullWidth
+            // value={country}
+
+            >
+              {/* <Box> */}
+              {bills?.map(({ name, id }) => (
+                <option style={{ paddingLeft: "10px" }} onChange={handleOnChange} key={id} value={name}>{name}</option>
               ))}
-            </select>
-          </div>
-          <div className="paymentId">
-            <label htmlFor="paymentId">Bill payment ID</label>
-            <input
-              type="text"
+              {/* </Box> */}
+            </Select>
+          </Grid>
+          <Grid item xs={12}>
+            <InputLabel htmlFor="country" className={Styles.label}>Bill payment ID</InputLabel>
+            <StyledTextField type="text"
               placeholder="1336578903"
               id="paymentId"
-              name="paymentId"
-            />
-          </div>
-          <div className="package">
-            <label htmlFor="packages">Packages</label>
-            <select name="package" id="package">
-              <option value="">Select packages</option>
-              {packages?.map((x) => (
-                <option key={x?.id} value={x?.name}>
-                  {x?.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="Amount">
-            <label htmlFor="amount">Amount</label>
-            <input type="number" placeholder="0.01" name="phone" />
-          </div>
+              fullWidth
+              name="paymentId" />
 
-          <div className="submit">
-            <button style={{ borderRadius: "20px" }} type="submit">Comfirm Purchase</button>
-          </div>
-        </form>
-      </div>
+
+          </Grid>
+
+
+
+          <Grid item xs={12}>
+            <InputLabel htmlFor="country" className={Styles.label}>Packages</InputLabel>
+            <Select
+              sx={{ height: 44, marginBottom: "18px", }}
+              fullWidth
+            // value={country}
+
+            >
+              {/* <Box> */}
+              <option value="">Select packages</option>
+              {packages?.map(({ name, id }) => (
+                <option style={{ paddingLeft: "10px" }} onChange={handleOnChange} key={id} value={name}>{name}</option>
+              ))}
+              {/* </Box> */}
+            </Select>
+          </Grid>
+
+
+          <Grid item xs={12}>
+            <InputLabel htmlFor="country" className={Styles.label}>Amount</InputLabel>
+            <StyledTextField type="number"
+              placeholder="0.01"
+              id="paymentId"
+              fullWidth
+              name="phone" />
+
+
+          </Grid>
+          <Grid item xs={12}>
+
+            <button style={{ borderRadius: "20px", width: "100%" }} type="submit">Comfirm Purchase</button>
+          </Grid>
+
+
+
+        </Grid>
+
+
+
+
+      </form>
+
+
+
     </div>
   );
 };

@@ -1,6 +1,5 @@
-import { Grid, IconButton, TextField, Typography } from "@material-ui/core";
 
-import { Box, Container, Stack } from "@mui/material";
+import { Box, Container, InputAdornment, OutlinedInput, Grid, IconButton, TextField, Typography, Stack } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
@@ -15,6 +14,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import UserMenu from "../menu/userMenu";
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import { useSelector } from "react-redux";
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 
 
 
@@ -24,7 +24,7 @@ interface toggleBtn {
 
 }
 
-const Header = ({ toggle, setToggle }: toggleBtn) => {
+const Header = () => {
   const [alignment, setAlignment] = React.useState("live server");
   const handleAlignment = (
     event: React.MouseEvent<HTMLElement>,
@@ -46,10 +46,7 @@ const Header = ({ toggle, setToggle }: toggleBtn) => {
   }, [active]);
 
 
-  const title = pathname.split('/').at(-1)
-  const handleToggle = () => {
-    setToggle((prev) => !prev)
-  }
+
 
 
   const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
@@ -144,9 +141,32 @@ const Header = ({ toggle, setToggle }: toggleBtn) => {
           <Stack direction={"row"} spacing={{ xs: 0, md: 5 }}>
             <Box sx={{ display: { xs: "none", md: "block" } }}><h2 className={Styles.title}>{navbarRoute}</h2></Box>
             <Grid item xs={10} md={8} className={Styles.input__box}>
-              <input placeholder="Search" />
 
-              <ReactSVG src={SearchIcon} />
+              <OutlinedInput
+                fullWidth
+
+
+                startAdornment={
+                  <InputAdornment position="start">
+                    <IconButton
+                      aria-label="search icon"
+                      placeholder="Search"
+
+                      edge="start"
+                    >
+                      <SearchOutlinedIcon />
+                    </IconButton>
+                  </InputAdornment>
+                }
+
+                sx={{
+                  background: " #FBFBFB",
+                  border: " 1px solid #DDDDDD",
+                  borderRadius: "10px",
+                  height: "35px",
+                  outline: "none"
+                }}
+              />
             </Grid>
           </Stack>
         </Grid>
@@ -188,12 +208,7 @@ const Header = ({ toggle, setToggle }: toggleBtn) => {
             </StyledToggleButtonGroup>
 
             <UserMenu />
-            <Box sx={{ display: { md: "none", }, marginLeft: "2rem" }}>
-              <IconButton onClick={() => handleToggle}>
-                <MenuOutlinedIcon sx={{ fontSize: "40px" }} />
-              </IconButton>
 
-            </Box>
           </Stack>
         </Grid>
       </Grid>
