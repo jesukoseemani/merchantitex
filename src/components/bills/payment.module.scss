@@ -353,33 +353,7 @@
 	}
 
 
-	.category {
-		span {
-			padding: 6px 11px;
-			// gap: 10px;
-			// width: 90px;
-			height: 32px;
-			background: #FFFFFF;
-			border: 1px solid #DDDDDD;
-			border-radius: 10px;
-			color: #828282;
-			font-family: 'Avenir';
-			font-style: normal;
-			font-weight: 400;
-			font-size: 14px;
-			// line-height: 20px;
-			text-align: center;
-			cursor: pointer;
-			letter-spacing: 0.00312px;
 
-
-			&:hover {
-				color: #27AE60;
-				border: 1px solid #27AE60;
-			}
-		}
-
-	}
 }
 
 svg {
@@ -450,5 +424,49 @@ svg {
 
 	color: #333333;
 
+
+}
+
+
+
+.category {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 5px;
+	margin-top: 10px;
+	border: 1px solid red;
+	margin-bottom: 10px;
+
+
+	span {
+		// padding: 4px 8px;
+		// gap: 10px;
+		// width: 90px;
+		height: 32px;
+		box-sizing: border-box;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 95px;
+		align-items: center;
+		background: #FFFFFF;
+		border: 1px solid #DDDDDD !important;
+		border-radius: 10px;
+		color: #828282;
+		font-family: 'Avenir';
+		font-style: normal;
+		font-weight: 400;
+		font-size: 12px;
+		// line-height: 20px;
+		text-align: center;
+		cursor: pointer;
+
+
+		&:hover {
+			color: #27AE60;
+			border: 1px solid #27AE60;
+		}
+	}
 
 }

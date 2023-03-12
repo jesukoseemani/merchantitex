@@ -52,33 +52,34 @@
 
 }
 
-.sidebars {
+// .sidebars {
 
-  background-color: $dark;
-  max-height: 100vh;
-  height: 100vh;
-  overflow-y: auto;
-  transition: transform .5s ease;
+//   background-color: $dark;
+//   max-height: 100vh;
+//   height: 100vh;
+//   overflow-y: auto;
+//   transition: transform .5s ease;
 
-  @media screen and (max-width:1000px) {
-
-
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    z-index: 9999;
-    transform: translateX(-100%);
-    height: calc(100vh - 70px);
-    transition: transform .5s ease;
+//   @media screen and (max-width:1000px) {
 
 
-  }
-}
+//     position: absolute;
+//     bottom: 0;
+//     right: 0;
+//     left: 0;
+//     z-index: 9999;
+//     width: 50%;
+//     transform: translateX(-80%);
+//     // height: calc(100vh - 70px);
+//     // transition: transform .5s ease;
+
+//   }
+// }
 
 .showToggge {
   // @extend .sidebars;
-  transform: translateX(10%) !important;
+  transform: translateX(0%) !important;
   display: none !important;
   transition: transform .5s ease;
+  bottom: 0;
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Styles from "./airtime.module.scss";
 import AirtimeRequestTable from "./AirtimeRequestTable";
 import BeneficiaryMenu from "../../views/Payout/BeneficiaryMenu";
@@ -8,6 +8,8 @@ import SingleAirtimePayment from "./SingleAirtimePayment";
 import { useHistory } from "react-router-dom";
 import BillsRequestTable from "./BillsRequestTable";
 import SingleBillPayment from "./SingleBillPayment";
+import { Box } from "@mui/material";
+import CustomModal from "../customs/CustomModal";
 
 const Bills = () => {
   const dispatch = useDispatch();
@@ -22,6 +24,10 @@ const Bills = () => {
 
   const [bill, setBill] = React.useState<null | HTMLElement>(null);
   const openBill = Boolean(bill);
+  const [openModal, setOpenModal] = useState(false)
+  const handleOpenBill = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
+
 
   const handleClickBill = (event: React.MouseEvent<HTMLButtonElement>) => {
     setBill(event.currentTarget);
@@ -33,22 +39,22 @@ const Bills = () => {
     setAnchorEl(null);
   };
 
-  const singleFunc = () => {
-    dispatch(
-      openModalAndSetContent({
-        modalStyles: {
-          padding: 0,
-          borderRadius: "0.5rem",
-          boxShadow: "-4px 4px 14px rgba(224, 224, 224, 0.69)",
-        },
-        modalContent: (
-          <div className="modalDiv">
-            <SingleBillPayment />
-          </div>
-        ),
-      })
-    );
-  };
+  // const singleFunc = () => {
+  //   dispatch(
+  //     openModalAndSetContent({
+  //       modalStyles: {
+  //         padding: 0,
+  //         borderRadius: "0.5rem",
+  //         boxShadow: "-4px 4px 14px rgba(224, 224, 224, 0.69)",
+  //       },
+  //       modalContent: (
+  //         <div className="modalDiv">
+  //           <SingleBillPayment />
+  //         </div>
+  //       ),
+  //     })
+  //   );
+  // };
 
   const bulkfunc = () => {
     history.push("/bill/bulk-payment");
@@ -58,7 +64,7 @@ const Bills = () => {
     {
       id: 1,
       name: "Single bill payment",
-      func: singleFunc,
+      func: handleOpenBill,
     },
     {
       id: 2,
@@ -75,10 +81,21 @@ const Bills = () => {
           <h3> 4 Bill Payment</h3>
         </div>
         <div>
-          <button  onClick={handleClickBill}>Make Bill payment</button>
+          <button onClick={handleClickBill}>Make Bill payment</button>
         </div>
       </div>
 
+      <Box>
+        <CustomModal
+          title="Bill Payment"
+          isOpen={openModal}
+          handleClose={handleCloseModal}
+          close={() => setOpenModal(false)}>
+
+          <SingleBillPayment />
+        </CustomModal >
+
+      </Box>
       <div>
         <BillsRequestTable />
       </div>
