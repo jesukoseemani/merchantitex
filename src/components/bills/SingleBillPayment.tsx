@@ -59,7 +59,7 @@ const SingleBillPayment = () => {
 
     >
       <form>
-        <Box >
+        <Box mb={"3px"}>
           <label htmlFor="category">Category</label>
           {/* <Stack direction={"row"} spacing={1} justifyContent="space-between" alignItems={"center"}> */}
           <Box

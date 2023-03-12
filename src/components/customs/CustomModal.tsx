@@ -14,7 +14,7 @@ const style = {
     width: 400,
     bgcolor: '#fff',
     boxShadow: 24,
-    borderRadius: "20px",
+    borderRadius: "20px !important",
     maxHeight: "95vh",
 
 };
@@ -49,9 +49,11 @@ export default function CustomModal({ children, isOpen, handleClose, close, titl
                         display="flex"
                         flexDirection="row"
                         width={"100%"}
-                        zIndex="9999"
+                        zIndex="9999 !important"
                         alignItems="center"
                         justifyContent="space-between"
+                        bgcolor="#fff"
+                        borderRadius={"20px 20px 0 0px"}
                         borderBottom={"1px solid #E0E0E0"}
                     >
                         <h2 className={styles.titleText}>{title}</h2>
