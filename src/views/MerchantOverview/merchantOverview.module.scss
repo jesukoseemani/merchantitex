@@ -16,7 +16,7 @@
   width: 100%;
   height: auto;
   min-height: 320px;
-  background: #fbfefd;
+  background: #fff;
   border: 1px solid #f2f2f2;
   border-radius: 4px;
 
@@ -33,6 +33,7 @@
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #f2f2f2;
+  margin-bottom: 10px;
 
   &>h2 {
     font-size: 16px;
@@ -44,24 +45,50 @@
 
   &>.listItem {
     height: auto;
-    min-height: 80px;
+    min-height: 70px;
     width: 100%;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     align-items: center;
+
+
+
+    &>div {
+      h2 {
+        font-family: 'Avenir';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+        letter-spacing: -0.154px;
+        color: #333333;
+
+      }
+
+      &>span {
+        // margin-bottom: 4px;
+        font-family: 'Avenir';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 20px;
+        letter-spacing: -0.132px;
+        color: #828282;
+      }
+    }
+
   }
 
   &>.listItem:not(:last-child) {
     border-bottom: 1px solid #f2f2f2;
+
 
     &>div {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
 
-      &>span {
-        margin-bottom: 4px;
-      }
+
     }
   }
 }
@@ -73,28 +100,53 @@
   grid-template-columns: 200px 1fr;
   align-items: center;
   padding: 0 30px;
+  // border: 1px solid red;
 
   &>div:first-child {
     &>h2 {
       margin-top: 15px;
+      font-family: 'Avenir';
       font-style: normal;
-      font-weight: bold;
+      font-weight: 800;
       font-size: 22px;
       line-height: 21px;
       letter-spacing: -0.272307px;
-      color: #0f1747;
+      color: #0F1747;
+    }
+
+    span {
+      font-family: 'Avenir';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 21px;
+      letter-spacing: -0.136153px;
+      color: #7F7F8F;
     }
   }
 
   &>div:last-child {
     &>h2 {
+      font-family: 'Avenir';
       font-style: normal;
-      font-weight: bold;
+      font-weight: 800;
       font-size: 22px;
       line-height: 21px;
       letter-spacing: -0.272307px;
-      color: #0f1747;
+      color: #0F1747;
     }
+
+
+    span {
+      font-family: 'Avenir';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 21px;
+      letter-spacing: -0.136153px;
+      color: #7F7F8F;
+    }
+
 
     &>div:not(:first-child) {
       margin-top: 20px;
@@ -119,7 +171,9 @@
         }
 
         &>div {
-          margin-right: 6px;
+          margin-right: 10px;
+
+
         }
       }
 
@@ -127,15 +181,42 @@
         & .status {
           background-color: #406a99;
         }
+
+
       }
 
       &:last-child {
         & .status {
           background-color: #56ccf2;
         }
+
+      }
+
+      h2 {
+        font-family: 'Avenir';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 21px;
+        letter-spacing: -0.20423px;
+        color: #333333;
+      }
+
+      span {
+        margin-left: 1.5rem;
+        font-family: 'Avenir';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 21px;
+        letter-spacing: -0.136153px;
+
+        color: #828282;
       }
     }
   }
+
+
 }
 
 .weekDaysContainer {
@@ -153,10 +234,12 @@
     grid-gap: 20px;
 
     &>p {
+      font-family: 'Avenir';
       font-style: normal;
-      font-weight: normal;
+      font-weight: 400;
       font-size: 12px;
       line-height: 12px;
+      letter-spacing: 0.00206293px;
       color: #828282;
     }
 
@@ -214,24 +297,40 @@
 }
 
 .transactionContainer {
-  width: 95%;
+  width: 100%;
   margin-right: auto;
   counter-reset: item;
   list-style: none;
+  padding-inline: 23px;
 
   &>li {
     counter-increment: item;
-    margin-top: 20px;
+    margin-top: 38px;
+    // margin-right: 3rem;
+    display: flex;
+    gap: 13px;
+    align-items: flex-start;
 
     &::before {
       content: counter(item);
-      margin-right: 10px;
+      // margin-right: 13px;
       background: #eb5757;
       border-radius: 2px;
       color: white;
-      width: 1.2em;
+      height: 18px;
+      width: 30px;
       text-align: center;
       display: inline-block;
+    }
+
+    p {
+      font-family: 'Avenir';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 18px;
+      margin-top: -3px;
+      color: #4F4F4F;
     }
   }
 }
@@ -257,6 +356,7 @@
 }
 
 .successBar {
+  background-color: transparent !important;
   max-height: 22px;
   width: 100%;
 
@@ -268,12 +368,16 @@
 }
 
 .dangerBar {
+  background-color: transparent !important;
+
   &>div {
     background: rgba(235, 87, 87, 0.71) !important;
   }
 }
 
 .primaryBar {
+  background-color: transparent !important;
+
   &>div {
     background: rgba(86, 204, 242, 0.69) !important;
   }
@@ -294,4 +398,13 @@ ol {
     line-height: 18px;
     color: #4f4f4f;
   }
+}
+
+
+.banks__customer {
+  margin-left: 50px;
+}
+
+.percentage {
+  background-color: transparent !important;
 }

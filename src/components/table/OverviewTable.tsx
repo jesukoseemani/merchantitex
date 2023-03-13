@@ -119,13 +119,13 @@ export default function OverviewTable({
         </div>
       </Menu>
       <div className={Styles.header}>
-        <div>
+        <div className={Styles.overview__header}>
           <h2>{title}</h2>
           <span>{subTitle}</span>
         </div>
-        <IconButton onClick={handleClick}>
+        {/* <IconButton onClick={handleClick}>
           <FilterListIcon />
-        </IconButton>
+        </IconButton> */}
       </div>
       <div className={Styles.tableContent}>{children}</div>
     </div>
