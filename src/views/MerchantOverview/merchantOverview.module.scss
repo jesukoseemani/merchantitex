@@ -1,13 +1,17 @@
 .container {
   margin-bottom: 100px;
+  width: 100%;
+  padding: 0;
 }
+
 .tableWrapper {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  width: 95%;
+  width: 100%;
   margin: 20px auto auto;
   grid-gap: 20px;
 }
+
 .tableContainer {
   width: 100%;
   height: auto;
@@ -15,25 +19,30 @@
   background: #fbfefd;
   border: 1px solid #f2f2f2;
   border-radius: 4px;
-  & > div:nth-child(2) {
+
+  &>div:nth-child(2) {
     margin-top: 34px;
   }
 }
+
 .header {
   height: 68px;
   width: 100%;
-  padding: 30px 20px 20px;
+  // padding: 30px 20px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #f2f2f2;
-  & > h2 {
+
+  &>h2 {
     font-size: 16px;
   }
 }
+
 .listWrapper {
   padding: 5px 25px;
-  & > .listItem {
+
+  &>.listItem {
     height: auto;
     min-height: 80px;
     width: 100%;
@@ -41,18 +50,22 @@
     grid-template-columns: repeat(2, 1fr);
     align-items: center;
   }
-  & > .listItem:not(:last-child) {
+
+  &>.listItem:not(:last-child) {
     border-bottom: 1px solid #f2f2f2;
-    & > div {
+
+    &>div {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      & > span {
+
+      &>span {
         margin-bottom: 4px;
       }
     }
   }
 }
+
 .deviceContainer {
   width: 100%;
   height: 100%;
@@ -60,8 +73,9 @@
   grid-template-columns: 200px 1fr;
   align-items: center;
   padding: 0 30px;
-  & > div:first-child {
-    & > h2 {
+
+  &>div:first-child {
+    &>h2 {
       margin-top: 15px;
       font-style: normal;
       font-weight: bold;
@@ -71,8 +85,9 @@
       color: #0f1747;
     }
   }
-  & > div:last-child {
-    & > h2 {
+
+  &>div:last-child {
+    &>h2 {
       font-style: normal;
       font-weight: bold;
       font-size: 22px;
@@ -80,32 +95,40 @@
       letter-spacing: -0.272307px;
       color: #0f1747;
     }
-    & > div:not(:first-child) {
+
+    &>div:not(:first-child) {
       margin-top: 20px;
     }
-    & > .listStatus {
+
+    &>.listStatus {
       display: flex;
       align-items: center;
-      & > p {
+
+      &>p {
         margin-left: 4px;
       }
     }
-    & > div {
-      & > div {
+
+    &>div {
+      &>div {
         display: flex;
         align-items: center;
-        & > div:first-child {
+
+        &>div:first-child {
           background-color: #27ae60;
         }
-        & > div {
+
+        &>div {
           margin-right: 6px;
         }
       }
+
       &:nth-child(2) {
         & .status {
           background-color: #406a99;
         }
       }
+
       &:last-child {
         & .status {
           background-color: #56ccf2;
@@ -114,6 +137,7 @@
     }
   }
 }
+
 .weekDaysContainer {
   height: 100%;
   width: 100%;
@@ -121,29 +145,35 @@
   grid-auto-rows: 20px;
   grid-row-gap: 10px;
   padding: 20px 23px;
-  & > div {
+
+  &>div {
     display: grid;
     grid-template-columns: 60px 1fr;
     align-items: center;
     grid-gap: 20px;
-    & > p {
+
+    &>p {
       font-style: normal;
       font-weight: normal;
       font-size: 12px;
       line-height: 12px;
       color: #828282;
     }
-    & > div {
+
+    &>div {
       max-height: 14px;
-      & > div {
+
+      &>div {
         max-height: 14px;
         background: rgba(111, 207, 151, 0.65) !important;
       }
+
       margin: 0 !important;
       width: 100%;
     }
   }
 }
+
 .paymentContainer {
   height: 100%;
   width: 100%;
@@ -151,13 +181,15 @@
   flex-direction: column;
   grid-auto-rows: 20px;
   padding: 20px 20px;
-  & > div {
+
+  &>div {
     display: flex;
     align-items: flex-start;
     justify-content: center;
     flex-direction: column;
     margin-bottom: 14px;
-    & > p {
+
+    &>p {
       font-style: normal;
       font-weight: normal;
       font-size: 12px;
@@ -165,26 +197,32 @@
       color: #828282;
       margin-bottom: 6px;
     }
-    & > div {
-      & > div {
+
+    &>div {
+      &>div {
         max-height: 22px;
-        & > div {
+
+        &>div {
           color: #333333 !important;
         }
       }
+
       margin: 0 !important;
       width: 100%;
     }
   }
 }
+
 .transactionContainer {
   width: 95%;
   margin-right: auto;
   counter-reset: item;
   list-style: none;
-  & > li {
+
+  &>li {
     counter-increment: item;
     margin-top: 20px;
+
     &::before {
       content: counter(item);
       margin-right: 10px;
@@ -197,47 +235,58 @@
     }
   }
 }
+
 .puppleStatus {
   background-color: #bb6bd9 !important;
 }
+
 .orangeStatus {
   background-color: #ff9c72 !important;
 }
+
 .dangerStatus {
   background-color: #eb5757 !important;
 }
+
 .successsStatus {
   background-color: #6fcf97 !important;
 }
+
 .skyBlueStatus {
   background-color: #56ccf2;
 }
+
 .successBar {
   max-height: 22px;
   width: 100%;
-  & > div {
+
+  &>div {
     max-height: 22px;
     width: 100%;
     background: rgba(111, 207, 151, 0.71) !important;
   }
 }
+
 .dangerBar {
-  & > div {
+  &>div {
     background: rgba(235, 87, 87, 0.71) !important;
   }
 }
+
 .primaryBar {
-  & > div {
+  &>div {
     background: rgba(86, 204, 242, 0.69) !important;
   }
 }
+
 .status {
   width: 10px;
   height: 10px;
   border-radius: 10px;
 }
+
 ol {
-  & > li {
+  &>li {
     font-family: Inter;
     font-style: normal;
     font-weight: normal;

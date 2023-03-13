@@ -6,6 +6,7 @@ import {
   OutlinedInput,
   Stack,
   Grid,
+  IconButton,
 } from "@mui/material";
 import { MouseEvent, useCallback, useEffect, useState } from "react";
 import styles from "./Balance.module.scss";
@@ -23,7 +24,7 @@ import {
 } from "../../redux/actions/loader/loaderActions";
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
-
+import CloseOutlined from "@mui/icons-material/CloseOutlined";
 import axios from "axios";
 import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
 import { useDispatch } from "react-redux";
@@ -118,27 +119,33 @@ const useModalBtnStyles = makeStyles({
     padding: "1rem 1.5rem 0rem",
     gap: "1.25rem",
     // border: "2px solid red",
-    marginInline: "24px",
-    marginTop: "10px",
-    "& .MuiButton-root": {
+    // marginInline: "24px",
+    '& .MuiButton-root': {
       fontFamily: `'Avenir', sans-serif`,
-      fontWeight: "500",
-      fontSize: ".875rem",
-
-      color: "black",
-      background: "#E0E0E0",
-      borderRadius: "20px",
-      textTransform: "none",
-      padding: ".5rem 1rem",
-      height: 40,
-      width: 120
+      fontWeight: '500',
+      fontSize: '.875rem',
+      color: 'black',
+      background: '#E0E0E0',
+      borderRadius: '20px',
+      textTransform: 'none',
+      padding: '.35rem .85rem',
+      marginBottom: "1rem",
+      marginTop: "2rem"
     },
-    "& .MuiButton-root:nth-child(2)": {
-      color: "white",
-      background: "#27AE60",
-      borderRadius: "20px",
-
+    '& .MuiButton-root:nth-child(2)': {
+      color: 'white',
+      background: '#27AE60',
     },
+    '& .MuiButton-root:nth-child(1)': {
+      // color: 'white',
+      background: 'transparent',
+      border: "1px solid #095B2C",
+      color: "#095B2C",
+    },
+  },
+  selected: {
+    border: '1px solid #27ae60 !important',
+    color: '#27ae60 !important',
   },
 });
 
@@ -301,7 +308,12 @@ const RollingReserve = () => {
         aria-labelledby="balance history filter modal"
       >
         <div className={styles.filterModalContainer}>
-          <p>Filters</p>
+          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 22px" }}>
+            <h2>Filters</h2>
+            <IconButton onClick={() => setIsFilterModalOpen(false)}>
+              <CloseOutlined />
+            </IconButton>
+          </Box>
           <hr />
           <div className={styles.modalContent}>
             <div className={styles.dates}>
@@ -316,34 +328,27 @@ const RollingReserve = () => {
             <div>
               <p>Custom date range</p>
               <div>
-                <OutlinedInput
-                  placeholder="Choose status"
-                  size="small"
-                  type="date"
-                  fullWidth
-                  sx={{ height: "44px" }}
+                <input
+                  placeholder="Start date"
+
+
                 />
                 <ArrowRightAltIcon />
-                <OutlinedInput
-                  placeholder="Choose status"
-                  size="small"
-                  type="date"
-                  fullWidth
-                  sx={{ height: "44px" }}
+                <input
+                  placeholder="End Date"
+
                 />
               </div>
             </div>
             <div>
               <p>Withheld amount</p>
-              <OutlinedInput placeholder="NGN 0.00" size="small" fullWidth sx={{ height: "44px" }} />
+              <input placeholder="NGN 0.00" />
             </div>
             <div>
               <p>Status</p>
-              <OutlinedInput
+              <input
                 placeholder="Choose status"
-                size="small"
-                fullWidth
-                sx={{ height: "44px" }}
+
               />
             </div>
           </div>

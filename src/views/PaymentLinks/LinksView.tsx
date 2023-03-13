@@ -1,7 +1,7 @@
 import styles from './PaymentLinks.module.scss';
 import { useTheme } from '@mui/material/styles';
 import { makeStyles } from '@material-ui/styles';
-import { Box, Button, Grid, Modal, OutlinedInput } from '@mui/material';
+import { Box, Button, Grid, IconButton, Modal, OutlinedInput } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import axios from 'axios';
@@ -15,7 +15,7 @@ import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import OperantTable from '../../components/table/OperantTable';
 import moment from 'moment';
-import { CustomerItem, GetCustomersRes } from '../../types/CustomerTypes';
+import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import CustomClickTable from '../../components/table/CustomClickTable';
 import { GetLinksRes, LinkItem } from '../../types/PaymentlinkTypes';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
@@ -27,7 +27,7 @@ const useModalBtnStyles = makeStyles({
 	root: {
 		display: 'flex',
 		justifyContent: 'flex-end',
-		paddingInline: '50px',
+		paddingInline: '30px',
 		marginTop: "30px",
 		gap: '1.25rem',
 		height: "44px",
@@ -37,14 +37,27 @@ const useModalBtnStyles = makeStyles({
 			fontSize: '.875rem',
 			color: 'black',
 			background: '#E0E0E0',
-			borderRadius: '3px',
+			borderRadius: '20px',
 			textTransform: 'none',
-			padding: '.5rem 1.7rem',
+			padding: '.35rem .85rem',
+			marginBottom: "2rem"
 		},
 		'& .MuiButton-root:nth-child(2)': {
 			color: 'white',
 			background: '#27AE60',
 		},
+		'& .MuiButton-root:nth-child(1)': {
+			// color: 'white',
+			background: 'transparent',
+			border: "1px solid #095B2C",
+			color: "#095B2C",
+		},
+	},
+	selected: {
+		border: '1px solid #27ae60 !important',
+		color: '#27ae60 !important',
+
+
 	},
 });
 
@@ -235,7 +248,12 @@ const LinksView = ({ openLinkModal }: LinksViewProps) => {
 				onClose={() => setIsFilterModalOpen(false)}
 				aria-labelledby='chargebacks filter modal'>
 				<div className={styles.filterModalContainer}>
-					<p>Filters</p>
+					<Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 22px" }}>
+						<h2>Filters</h2>
+						<IconButton onClick={() => setIsFilterModalOpen(false)}>
+							<CloseOutlined />
+						</IconButton>
+					</Box>
 					<hr />
 					<div className={styles.modalContent}>
 						<div>
@@ -252,13 +270,13 @@ const LinksView = ({ openLinkModal }: LinksViewProps) => {
 							<Box>
 								<Grid container justifyContent={"space-between"} alignItems="center">
 									<Grid item xs={5}>
-										<OutlinedInput placeholder='Start date' size='small' fullWidth sx={{ height: "44px" }} />
+										<input placeholder='Start date' />
 									</Grid>
 									<Grid item xs={2} justifyContent="center" display={"flex"} alignItems="center"><ArrowRightAltIcon /></Grid>
 									<Grid item xs={5}>
 
 
-										<OutlinedInput placeholder='end date' size='small' fullWidth sx={{ height: "44px" }} />
+										<input placeholder='end date' />
 									</Grid>
 
 								</Grid>
@@ -267,15 +285,13 @@ const LinksView = ({ openLinkModal }: LinksViewProps) => {
 						</div>
 						<div>
 							<p>Withheld amount</p>
-							<OutlinedInput placeholder='NGN 0.00' size='small' fullWidth sx={{ height: "44px" }} />
+							<input placeholder='NGN 0.00' />
 						</div>
 						<div>
 							<p>Status</p>
-							<OutlinedInput
+							<input
 								placeholder='Choose status'
-								size='small'
-								fullWidth
-								sx={{ height: "44px" }}
+
 							/>
 						</div>
 					</div>

@@ -1,6 +1,7 @@
-import { Backdrop, Button, Modal } from '@mui/material';
+import { Backdrop, Box, Button, IconButton, Modal, Select } from '@mui/material';
 import styles from './FilterModal.module.scss';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
+import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import { makeStyles } from '@material-ui/styles';
 
 const useModalBtnStyles = makeStyles({
@@ -10,19 +11,30 @@ const useModalBtnStyles = makeStyles({
 		padding: '1rem 1.5rem 1.5rem',
 		gap: '1.25rem',
 		'& .MuiButton-root': {
-			borderRadius: "20px",
 			fontFamily: `'Avenir', sans-serif`,
 			fontWeight: '500',
 			fontSize: '.875rem',
 			color: 'black',
 			background: '#E0E0E0',
+			borderRadius: '20px',
 			textTransform: 'none',
-			padding: '.35rem 1rem',
+			padding: '.35rem .85rem',
 		},
 		'& .MuiButton-root:nth-child(2)': {
 			color: 'white',
 			background: '#27AE60',
 		},
+		'& .MuiButton-root:nth-child(1)': {
+			// color: 'white',
+			background: 'transparent',
+			border: "1px solid #095B2C",
+			color: "#095B2C",
+		},
+	},
+	selected: {
+		border: '1px solid #27ae60 !important',
+		color: '#27ae60 !important',
+
 	},
 });
 
@@ -109,7 +121,12 @@ const FilterModal = ({
 				timeout: 500,
 			}}>
 			<div className={styles.filterModalContainer}>
-				<p>Filters</p>
+				<Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 22px" }}>
+					<h2>Filters</h2>
+					<IconButton onClick={handleClose}>
+						<CloseOutlined />
+					</IconButton>
+				</Box>
 				<hr />
 				<div className={styles.modalContent}>
 					<div>
@@ -155,10 +172,21 @@ const FilterModal = ({
 					</div>
 					<div>
 						<p>Custom date range</p>
+
 						<div>
-							<input type='date' onChange={fromDateHandler} />
+							<input
+								type='text'
+								// value={fromdate}
+								onChange={fromDateHandler}
+								placeholder="Start date"
+							/>
 							<ArrowRightAltIcon />
-							<input type='date' onChange={toDateHandler} />
+							<input
+								type='text'
+								// value={todate}
+								onChange={toDateHandler}
+								placeholder="End date"
+							/>
 						</div>
 					</div>
 
@@ -180,7 +208,10 @@ const FilterModal = ({
 					{name !== 'transaction' ? (
 						<div>
 							<p>Status</p>
-							<select
+							<Select
+								fullWidth
+
+								sx={{ height: "32px" }}
 								value={status}
 								name='status'
 								id='status'
@@ -191,12 +222,15 @@ const FilterModal = ({
 								<option value='APPROVED'>APPROVED</option>
 								<option value='PENDING_REVIEW'>PENDING</option>
 								<option value='DECLINED'>DECLINED</option>
-							</select>
+							</Select>
 						</div>
 					) : (
 						<div>
 							<p>Status</p>
-							<select
+							<Select
+								fullWidth
+
+								sx={{ height: "32px" }}
 								value={status}
 								name='status'
 								id='status'
@@ -207,13 +241,15 @@ const FilterModal = ({
 								<option value='00'>Successful</option>
 								<option value='09'>Failed</option>
 								<option value='78'>Pending</option>
-							</select>
+							</Select>
 						</div>
 					)}
 
 					<div>
 						<p>Payment type</p>
-						<select
+						<Select
+							fullWidth
+							sx={{ height: "32px" }}
 							value={payment}
 							name='payment_type'
 							id='payment_type'
@@ -226,7 +262,7 @@ const FilterModal = ({
 							<option value='account'>Account</option>
 							<option value='bank_transfer'>Bank Transfers</option>
 							<option value='payvice'>Payvice</option>
-						</select>
+						</Select>
 					</div>
 				</div>
 				<hr />

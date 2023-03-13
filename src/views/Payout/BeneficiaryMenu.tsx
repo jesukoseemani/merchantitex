@@ -2,7 +2,7 @@ import * as React from "react";
 import Menu from "@mui/material/Menu";
 import Styles from "./beneficiaries.module.scss";
 import { createStyles, makeStyles } from "@material-ui/styles";
-import { SxProps } from "@mui/material";
+import { Box, SxProps } from "@mui/material";
 import { Theme } from "@mui/system";
 
 interface MenuProps {
@@ -57,9 +57,11 @@ export default function BeneficiaryMenu({
     >
       <div className={Styles.menu__container} style={style}>
         {data.map(({ id, name, func }) => (
-          <div key={id} onClick={() => trigerFunction(func)}>
+          <Box
+            style={{ borderBottom: "1px solid #EBEBEB" }}
+            key={id} onClick={() => trigerFunction(func)}>
             {name}
-          </div>
+          </Box>
         ))}
       </div>
     </Menu>

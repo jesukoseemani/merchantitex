@@ -1,6 +1,7 @@
-import { Backdrop, Button, Modal } from '@mui/material';
+import { Backdrop, Box, Button, IconButton, Modal, Select } from '@mui/material';
 import styles from './FilterModal.module.scss';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
+import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import { makeStyles } from '@material-ui/styles';
 import { Dispatch, SetStateAction } from 'react';
 
@@ -16,13 +17,19 @@ const useModalBtnStyles = makeStyles({
 			fontSize: '.875rem',
 			color: 'black',
 			background: '#E0E0E0',
-			borderRadius: '3px',
+			borderRadius: '20px',
 			textTransform: 'none',
 			padding: '.35rem .85rem',
 		},
 		'& .MuiButton-root:nth-child(2)': {
 			color: 'white',
 			background: '#27AE60',
+		},
+		'& .MuiButton-root:nth-child(1)': {
+			// color: 'white',
+			background: 'transparent',
+			border: "1px solid #095B2C",
+			color: "#095B2C",
 		},
 	},
 	selected: {
@@ -100,7 +107,12 @@ const FilterModal = ({
 				timeout: 500,
 			}}>
 			<div className={styles.filterModalContainer}>
-				<p>Filters</p>
+				<Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 22px" }}>
+					<h2>Filters</h2>
+					<IconButton onClick={handleClose}>
+						<CloseOutlined />
+					</IconButton>
+				</Box>
 				<hr />
 				<div className={styles.modalContent}>
 					<div>
@@ -136,15 +148,17 @@ const FilterModal = ({
 						<p>Custom date range</p>
 						<div>
 							<input
-								type='date'
+								type='text'
 								value={fromdate}
 								onChange={(e) => setFromDate(e.target.value)}
+								placeholder="Start date"
 							/>
 							<ArrowRightAltIcon />
 							<input
-								type='date'
+								type='text'
 								value={todate}
 								onChange={(e) => setToDate(e.target.value)}
+								placeholder="End date"
 							/>
 						</div>
 					</div>
@@ -160,9 +174,11 @@ const FilterModal = ({
 					</div>
 					<div>
 						<p>Status</p>
-						<select
+						<Select
+							sx={{ height: "32px" }}
 							name='status'
 							id='status'
+							fullWidth
 							value={responsecode}
 							onChange={(e) =>
 								setFilters((prev) => ({
@@ -176,13 +192,15 @@ const FilterModal = ({
 							<option value='00'>Successful</option>
 							<option value='09'>Failed</option>
 							{/* <option value='01'>Pending</option> */}
-						</select>
+						</Select>
 					</div>
 					<div>
 						<p>Payment type</p>
-						<select
+						<Select
+							sx={{ height: "32px" }}
 							name='status'
 							id='status'
+							fullWidth
 							value={paymentmethod}
 							onChange={(e) =>
 								setFilters((prev) => ({
@@ -195,7 +213,7 @@ const FilterModal = ({
 							</option>
 							<option value='card'>Card</option>
 							<option value='ussd'>USSD</option>
-						</select>
+						</Select>
 					</div>
 				</div>
 				<hr />

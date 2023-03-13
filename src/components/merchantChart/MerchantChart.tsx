@@ -56,38 +56,38 @@ export default function MerchantChart() {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  // const data = [
-  //   {
-  //     name: "12:00 am",  
-  //     uv: 400,
-  //     pv: 240,
-  //     amt: 2400,
-  //   },
-  //   {
-  //     name: "03:00 AM",
-  //     uv: 3000,
-  //     pv: 198,
-  //     amt: 2210,
-  //   },
-  //   {
-  //     name: "06:00 AM",
-  //     uv: 2000,
-  //     pv: 9800,
-  //     amt: 2290,
-  //   },
-  //   {
-  //     name: "09:00 AM",
-  //     uv: 2780,
-  //     pv: 3908,
-  //     amt: 2000,
-  //   },
-  //   {
-  //     name: "12:00 Noon",
-  //     uv: 1890,
-  //     pv: 4800,
-  //     amt: 2181,
-  //   },
-  // ];
+  const data = [
+    {
+      name: "12:00 am",
+      uv: 400,
+      pv: 240,
+      amt: 2400,
+    },
+    {
+      name: "03:00 AM",
+      uv: 3000,
+      pv: 198,
+      amt: 2210,
+    },
+    {
+      name: "06:00 AM",
+      uv: 2000,
+      pv: 9800,
+      amt: 2290,
+    },
+    {
+      name: "09:00 AM",
+      uv: 2780,
+      pv: 3908,
+      amt: 2000,
+    },
+    {
+      name: "12:00 Noon",
+      uv: 1890,
+      pv: 4800,
+      amt: 2181,
+    },
+  ];
 
   const dayOfWeekAsString = (dayIndex: number) => {
     return (

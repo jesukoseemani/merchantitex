@@ -5,6 +5,7 @@ import {
   OutlinedInput,
   ButtonBase,
   Box,
+  IconButton,
 } from "@mui/material";
 import { MouseEvent, useCallback, useEffect, useState } from "react";
 import NavBar from "../../components/navbar/NavBar";
@@ -27,7 +28,7 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import axios from "axios";
 import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
 import CustomClickTable from "../../components/table/CustomClickTable";
-import ParentContainer from "../../components/ParentContainer/ParentContainer";
+import CloseOutlined from "@mui/icons-material/CloseOutlined";
 
 const useBtnStyles = makeStyles({
   root: {
@@ -115,21 +116,32 @@ const useModalBtnStyles = makeStyles({
     justifyContent: "flex-end",
     padding: "1rem 1.5rem 0",
     gap: "1.25rem",
-    "& .MuiButton-root": {
+    '& .MuiButton-root': {
       fontFamily: `'Avenir', sans-serif`,
-      fontWeight: "500",
-      fontSize: ".875rem",
-      color: "black",
-      background: "#E0E0E0",
-      textTransform: "none",
-      borderRadius: "20px"
+      fontWeight: '500',
+      fontSize: '.875rem',
+      color: 'black',
+      background: '#E0E0E0',
+      borderRadius: '20px',
+      textTransform: 'none',
+      padding: '.35rem .85rem',
+      marginBottom: "2rem"
     },
-    "& .MuiButton-root:nth-child(2)": {
-      color: "white",
-      background: "#27AE60",
-      borderRadius: "20px"
+    '& .MuiButton-root:nth-child(2)': {
+      color: 'white',
+      background: '#27AE60',
+    },
+    '& .MuiButton-root:nth-child(1)': {
+      // color: 'white',
+      background: 'transparent',
+      border: "1px solid #095B2C",
+      color: "#095B2C",
+    },
+  },
+  selected: {
+    border: '1px solid #27ae60 !important',
+    color: '#27ae60 !important',
 
-    },
   },
 });
 
@@ -269,7 +281,12 @@ const Settlements = () => {
         aria-labelledby="settlements filter modal"
       >
         <div className={styles.filterModalContainer}>
-          <p>Filters</p>
+          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 22px" }}>
+            <h2>Filters</h2>
+            <IconButton onClick={() => setIsFilterModalOpen(false)}>
+              <CloseOutlined />
+            </IconButton>
+          </Box>
           <hr />
           <div className={styles.modalContent}>
             <div>
@@ -291,14 +308,13 @@ const Settlements = () => {
             </div>
             <div>
               <p>Withheld amount</p>
-              <OutlinedInput placeholder="NGN 0.00" size="small" fullWidth />
+              <input placeholder="NGN 0.00" />
             </div>
             <div>
               <p>Status</p>
-              <OutlinedInput
+              <input
                 placeholder="Choose status"
-                size="small"
-                fullWidth
+
               />
             </div>
           </div>

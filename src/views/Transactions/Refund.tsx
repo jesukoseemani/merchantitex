@@ -25,6 +25,7 @@ import BulkRefundModal from './BulkRefundModal';
 import CustomClickTable from '../../components/table/CustomClickTable';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import { GetRefundRes, RefundItem } from '../../types/Transaction';
+import BeneficiaryMenu from '../Payout/BeneficiaryMenu';
 
 
 
@@ -53,13 +54,50 @@ const Refund = () => {
 		responsecode: '',
 	});
 
+	const theme = useTheme();
 	const [refundLogged, setRefundLogged] = useState<boolean>(false);
 	const [filtersApplied, setFiltersApplied] = useState<boolean>(false);
-
+	const [refundMenu, setRefundMenu] = React.useState<null | HTMLElement>(null);
 	const history = useHistory();
 	const dispatch = useDispatch();
 
-	const theme = useTheme();
+	// refund deopdown menu
+	const openRefundMenu = Boolean(refundMenu);
+
+	const handleClickRefundMenu = (
+		event: React.MouseEvent<HTMLButtonElement>
+	) => {
+		setRefundMenu(event.currentTarget);
+	};
+
+	const handleCloseMenu = () => {
+		setRefundMenu(null);
+	};
+	const openSingleModal = () => {
+		setIsSingleModalOpen(true);
+		handleMenuClose();
+	};
+
+	const openBulkModal = () => {
+		setIsBulkModalOpen(true);
+		handleMenuClose();
+	};
+
+	const data = [
+		{
+			id: 1,
+			name: "Log a Single refund",
+			func: openSingleModal,
+		},
+		{
+			id: 2,
+			name: "Log Bulk refunds",
+			func: openBulkModal,
+		},
+
+
+	];
+
 
 	const useBtnStyles = makeStyles({
 		root: {
@@ -243,15 +281,7 @@ const Refund = () => {
 		[]
 	);
 
-	const openSingleModal = () => {
-		setIsSingleModalOpen(true);
-		handleMenuClose();
-	};
 
-	const openBulkModal = () => {
-		setIsBulkModalOpen(true);
-		handleMenuClose();
-	};
 
 	useEffect(() => {
 		getRefunds();
@@ -315,40 +345,24 @@ const Refund = () => {
 							aria-controls={open ? 'refund-menu' : undefined}
 							aria-haspopup='true'
 							aria-expanded={open ? 'true' : undefined}
-							onClick={handleMenuClick}>
+							onClick={handleClickRefundMenu}>
 							+ Log a refund
 						</Button>
-						<Menu
-							id='refund-menu'
-							anchorEl={anchorEl}
-							open={open}
-							onClose={handleMenuClose}
-							MenuListProps={{
-								'aria-labelledby': 'log-refund-button',
+
+						<BeneficiaryMenu
+							openBeneficiary={openRefundMenu}
+							handleCloseMenu={handleCloseMenu}
+							beneficiary={refundMenu}
+							data={data}
+							style={{
+								width: "max-content",
+								borderRadius: "10px",
+								boxShadow: "0px 0px 0px rgba(63, 63, 68, 0.05), 0px 1px 3px rgba(63, 63, 68, 0.15)",
+								marginTop: "5px",
 							}}
-							PaperProps={{
-								style: {
-									maxWidth: '150px',
-									borderRadius: "10px",
-									padding: '.25rem',
-									height: "110px",
-									fontFamily: 'Avenir',
-									fontStyle: "normalize",
-									fontWeight: 400,
-									fontSize: "15px",
-									lineHeight: "20px",
-									color: " #4A4A4A",
 
-								},
-							}}>
+						/>
 
-							<MenuItem onClick={openSingleModal}>
-								<p style={{ padding: '.4rem' }}>Log a Single refund</p>
-							</MenuItem>
-							<MenuItem onClick={openBulkModal}>
-								<p style={{ padding: '.4rem' }}>Log Bulk refunds</p>
-							</MenuItem>
-						</Menu>
 					</div>
 				</div>
 				<div className={styles.tableContainer}>
