@@ -259,7 +259,7 @@ const NavBar = () => {
               >
                 {/* <img src={icon} alt={name} /> */}
 
-                <ReactSVG src={icon} />
+                <ReactSVG src={icon} className={Styles.linkIcon} />
                 {title}
                 <div className={link === pathname ? Styles.replaced_yen : Styles.replaced_not}>
                   <ActiveStateImg />

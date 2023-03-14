@@ -52,7 +52,24 @@ const theme = createTheme({
           background: "transparent"
         }
       }
-    }
+    },
+    MuiCheckbox: {
+      // colorSecondary: {
+      //   color: '#27AE60 !important',
+      //   '&$checked': {
+      //     color: '#27AE60',
+      //   },
+      // },
+      styleOverrides: {
+
+        root: {
+          color: "#27AE60",
+          '&.Mui-checked': {
+            color: "#27AE60",
+          },
+        }
+      }
+    },
   },
 
 

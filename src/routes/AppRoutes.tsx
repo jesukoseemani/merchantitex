@@ -83,6 +83,14 @@ import BlacklistDatatable from "../views/Customers/BlacklistDatatable";
 import InvoiceDetails from "../components/bills/invoice/InvoiceDetails";
 import TransferHistory from "../views/Payout/transfer/TransferHistory";
 import Navigation from "../components/navbar/Navigation";
+import Permission from "../views/Settings/Permission";
+import Administrator from "../components/permission/Administrator";
+import Operations from "../components/permission/Operations";
+import Support from "../components/permission/Support";
+import Developer from "../components/permission/Developer";
+import Viewers from "../components/permission/Viewers";
+
+
 
 export default function AppRoutes() {
   // const { loadingState } = useSelector((state) => state?.loadingStateReducer);
@@ -541,6 +549,42 @@ export default function AppRoutes() {
               exact
               path="/general_setting/users"
               component={Users}
+            // AuthUser={loadingState}
+            />
+            <ProtectedRoute
+              exact
+              path="/general_setting/permissions"
+              component={Permission}
+            // AuthUser={loadingState}
+            />
+            <ProtectedRoute
+              exact
+              path="/general_setting/permissions/administrator"
+              component={Administrator}
+            // AuthUser={loadingState}
+            />
+            <ProtectedRoute
+              exact
+              path="/general_setting/permissions/operations"
+              component={Operations}
+            // AuthUser={loadingState}
+            />
+            <ProtectedRoute
+              exact
+              path="/general_setting/permissions/support"
+              component={Support}
+            // AuthUser={loadingState}
+            />
+            <ProtectedRoute
+              exact
+              path="/general_setting/permissions/developer"
+              component={Developer}
+            // AuthUser={loadingState}
+            />
+            <ProtectedRoute
+              exact
+              path="/general_setting/permissions/viewers"
+              component={Viewers}
             // AuthUser={loadingState}
             />
 

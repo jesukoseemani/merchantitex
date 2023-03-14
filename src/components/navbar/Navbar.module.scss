@@ -112,9 +112,16 @@ nav {
     // gap: 20px;
     display: flex;
     padding-inline: 20px;
+    align-items: center;
 
     .linkIcon {
       width: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      // border: 1px solid red;
+      margin-right: 3px;
+      height: 40px;
     }
 
     &:hover,
@@ -133,15 +140,18 @@ nav {
         }
       }
     }
-  }
 
-  svg {
-    margin-right: 20px;
+    svg {
 
-    path {
-      stroke: #fff;
+      margin-right: 20px;
+
+      path {
+        stroke: #fff;
+      }
     }
   }
+
+
 }
 
 

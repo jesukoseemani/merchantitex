@@ -775,3 +775,68 @@
 		}
 	}
 }
+
+
+// .permisions{}
+.headerBox {
+	position: sticky;
+	top: 70px;
+
+	h2 {
+		font-family: 'Avenir';
+		font-style: normal;
+		font-weight: 900;
+		font-size: 20px;
+		line-height: 27px;
+		color: #333333;
+	}
+
+	button {
+		font-family: 'Avenir';
+		font-style: normal;
+		font-weight: 900;
+		font-size: 14.3448px;
+		line-height: 20px;
+		display: flex;
+		align-items: center;
+		text-align: center;
+		color: #FFFFFF;
+		cursor: pointer;
+		margin-bottom: 36px;
+	}
+}
+
+.sidebar {
+	border-left: 1px solid #D6D5D5;
+	border-radius: 6px;
+	position: sticky;
+	top: 150px;
+
+	li {
+		list-style: none;
+		font-family: 'Avenir';
+		font-style: normal;
+		font-weight: 400;
+		font-size: 14px;
+		line-height: 19px;
+		margin-bottom: 23px;
+		color: #2F3238;
+		position: relative;
+		margin-left: 2.5rem;
+		cursor: pointer;
+
+		&::before {
+			border: 1px solid #D6D5D5;
+			position: absolute;
+			content: "";
+			width: 30px;
+			left: -2.5rem;
+			top: 8px;
+			border-radius: 6px;
+
+		}
+
+	}
+
+
+}

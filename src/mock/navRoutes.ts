@@ -22,6 +22,7 @@ import LinkIcon from "../assets/images/paymentlink.svg";
 import BillIcon from "../assets/images/bills.svg";
 import SettlementIcon from "../assets/images/settlement.svg";
 import HistoryIcon from "../assets/images/balanceIcon.svg";
+import PermisionIcon from "../assets/images/permision.svg";
 
 // import { ReactSVG } from "react-svg";
 
@@ -227,6 +228,12 @@ export const navRoutes: NavProps[] = [
         title: "Users",
         icon: UserIcon,
         link: "/general_setting/users",
+      },
+      {
+        id: 29,
+        title: "Permissions",
+        icon: PermisionIcon,
+        link: "/general_setting/permissions",
       },
       {
         id: 26,

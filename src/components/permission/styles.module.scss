@@ -1,0 +1,120 @@
+.left__container {
+    border: 1px solid #D6D5D5;
+    border-radius: 5px;
+    height: auto;
+
+    .firstSection {
+        border-bottom: 1px solid #D6D5D5;
+        padding: 30px;
+
+        h2 {
+            font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 900;
+            font-size: 20px;
+            line-height: 27px;
+            color: #333333;
+            margin-bottom: 5px;
+        }
+
+        p {
+            font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 22px;
+            color: #828282;
+        }
+    }
+
+    .secondSection {
+        @extend .firstSection;
+        border: none;
+
+        h2 {
+            font-size: 16px;
+            line-height: 22px;
+        }
+
+        p {
+            font-size: 14px;
+            line-height: 19px;
+
+
+        }
+
+    }
+
+    .thirdSection {
+        @extend .firstSection;
+        border: none;
+        margin-top: -30px;
+
+
+
+
+        &>div {
+            h2 {
+                font-family: 'Avenir';
+                font-style: normal;
+                font-weight: 900;
+                font-size: 14px;
+                line-height: 19px;
+                color: #333333;
+                margin-bottom: 15px;
+
+            }
+
+            p {
+
+                font-size: 14px;
+                line-height: 20px;
+                color: #212B36;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                margin-left: -0.8rem;
+
+
+
+            }
+
+            margin-bottom: 30px;
+        }
+    }
+
+}
+
+.right__container {
+    border: 1px solid #D6D5D5;
+    border-radius: 5px;
+    height: auto;
+
+    .firstSection {
+        padding: 29px 34px;
+        border-bottom: 1px solid #D6D5D5;
+
+        h2 {
+            font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 900;
+            font-size: 16px;
+            line-height: 22px;
+            color: #333333;
+            margin-bottom: 6px;
+        }
+
+        p {
+            font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 19px;
+            color: #828282;
+        }
+    }
+
+    .sectionTwo {
+        padding: 7px 15px;
+    }
+}

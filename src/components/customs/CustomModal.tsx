@@ -32,7 +32,7 @@ export default function CustomModal({ children, isOpen, handleClose, close, titl
 
 
     return (
-        <div>
+        <div className={styles.customeModal}>
             {/* <Button onClick={handleOpen}>Open modal</Button> */}
             <Modal
                 open={isOpen}
