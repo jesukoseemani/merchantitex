@@ -9,7 +9,7 @@ import {
   Form,
   Select,
   Label,
-  Checkbox,
+
 } from "semantic-ui-react";
 import OperantTable from "../../components/table/OperantTable";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,6 +22,7 @@ import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
 import { IconButton } from "@material-ui/core";
 import CloseIcon from "@mui/icons-material/Close";
 import ParentContainer from "../../components/ParentContainer/ParentContainer";
+import { Box, Checkbox } from "@mui/material";
 
 
 const BankAccounts = () => {
@@ -204,25 +205,28 @@ const BankAccounts = () => {
         </div>
         <Form.Field className={Styles.inputWrapper}>
           <label>Country</label>
-          <Select placeholder="Select country" options={countryOptions} />
+          <Select placeholder="Select country" options={countryOptions} style={{ height: "44px" }} />
         </Form.Field>
         <Form.Field className={Styles.inputWrapper}>
           <label>Account currency</label>
-          <Select placeholder="Select currency" options={currencyOptions} />
+          <Select placeholder="Select currency" options={currencyOptions} style={{ height: "44px" }} />
         </Form.Field>
         <Form.Field className={Styles.inputWrapper}>
           <label>Bank name</label>
-          <Select placeholder="" options={bankData} />
+          <Select placeholder="" options={bankData} style={{ height: "44px" }} />
         </Form.Field>
         <Form.Field className={Styles.inputWrapper}>
           <label>Account number</label>
           <input placeholder="1234567890" />
         </Form.Field>
-        <p>Resolved Account name</p>
-        <Checkbox
+        <p className={Styles.resolved}>Resolved Account name</p>
+        {/* <Checkbox
           className={Styles.checkmark}
-          label="Make my profile visible"
-        />
+          label=""
+        /> */}
+
+
+        <h5 className={Styles.checkmark}><Checkbox />Make my profile visible</h5>
         <div className={Styles.modalFooter}>
           <Button style={{ borderRadius: "20px" }}>Continue</Button>
         </div>

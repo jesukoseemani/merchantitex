@@ -103,6 +103,7 @@
 				border: 1px solid #dddddd;
 				border-radius: 4px;
 				padding-left: 10px;
+				
 			}
 		}
 	}
@@ -233,7 +234,7 @@
 
 	&>.modalFooter {
 		padding: 0 40px;
-		margin-bottom: 24px;
+		margin-bottom: 25px;
 
 		&>button {
 			width: 100%;
@@ -463,20 +464,37 @@
 	margin: 0 2px;
 }
 
+.resolved {
+	font-family: 'Avenir';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 19px;
+	color: #828282;
+	margin-top: -16px;
+}
+
 .checkmark {
 	padding: 0 40px;
 	margin-bottom: 24px;
 	font-family: 'Avenir';
 	font-style: normal;
-	font-weight: normal;
+	font-weight: 400;
 	font-size: 14px;
-	line-height: 16px;
-	color: #4f4f4f;
+	line-height: 19px;
+	color: #4F4F4F;
+	margin-right: 10px;
+	// border: #27ae60 2px solid;
+	width: 100%;
+
+	svg {
+		margin-right: 10px;
+	}
 }
 
 .account_wrap {
 	// margin: 20px 50px;
-	border: 2px solid red;
+	// border: 2px solid red;
 }
 
 .account_h1 {
