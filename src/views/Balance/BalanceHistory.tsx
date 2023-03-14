@@ -112,7 +112,7 @@ const useModalBtnStyles = makeStyles({
   root: {
     display: 'flex',
     justifyContent: 'flex-end',
-    padding: '3rem 3.3rem 0',
+    padding: '3rem 2rem',
     gap: '1.25rem',
     '& .MuiButton-root': {
       fontFamily: `'Avenir', sans-serif`,
@@ -123,6 +123,7 @@ const useModalBtnStyles = makeStyles({
       borderRadius: '20px',
       textTransform: 'none',
       padding: '.35rem .85rem',
+      // marginBottom: "1rem"
     },
     '& .MuiButton-root:nth-child(2)': {
       color: 'white',

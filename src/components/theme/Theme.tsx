@@ -1,3 +1,4 @@
+import { borderRadius } from "@material-ui/system";
 import { createTheme, ThemeOptions } from "@mui/material/styles";
 const theme = createTheme({
   palette: {
@@ -10,6 +11,32 @@ const theme = createTheme({
     },
   },
   components: {
+    MuiMenu: {
+      styleOverrides: {
+
+        list: {
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "flex-start",
+          alignItems: "flex-start",
+          width: "100%",
+          // padding: "10px 20px",
+        },
+
+
+        paper: {
+          borderRadius: "20px",
+        },
+
+
+      }
+    },
+
+
+
+
+
+
 
 
     MuiAccordion: {

@@ -136,6 +136,8 @@ button {
 .menuContainer {
 	margin-left: -100px !important;
 
+
+
 	&>div:not(:last-child) {
 		border-bottom: 1px solid #f8f8f8 !important;
 	}
@@ -184,11 +186,11 @@ button {
 	min-width: 4rem;
 	min-height: 1rem;
 	margin-top: 3px;
-	// background-color: red;
+	border-radius: 20px !important;
 
 	&>div {
 		padding: 1.2rem;
-		border: 0.5px solid #EBEBEB;
+		// border: 0.5px solid #EBEBEB;
 		font-size: 14px;
 		// line-height: 2rem;
 		letter-spacing: 0.0024px;
@@ -202,8 +204,8 @@ button {
 		}
 
 		&:hover {
-			background-color: #cdcdcd;
-			color: #fff;
+			// background-color: #cdcdcd;
+			opacity: .8;
 			padding: 1.2rem;
 		}
 	}

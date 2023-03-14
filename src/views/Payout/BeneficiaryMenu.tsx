@@ -13,7 +13,7 @@ interface MenuProps {
   sx?: SxProps<Theme> | undefined;
   data: {
     id: number;
-    name: string;
+    name: string | any;
     func: () => void;
   }[];
 }
@@ -34,8 +34,9 @@ export default function BeneficiaryMenu({
     createStyles({
       list: {
         padding: 0,
-        borderRadius: 20,
-        boxShadow: "rgba(63, 63, 68, 0.05), 0px 1px 3px rgba(63, 63, 68, 0.15)"
+        borderRadius: "20px",
+        boxShadow: "rgba(63, 63, 68, 0.05), 0px 1px 3px rgba(63, 63, 68, 0.15)",
+
 
       },
     })
@@ -54,6 +55,7 @@ export default function BeneficiaryMenu({
       }}
       classes={{ list }}
       sx={sx}
+      className={Styles.beneficiary_box}
     >
       <div className={Styles.menu__container} style={style}>
         {data.map(({ id, name, func }) => (

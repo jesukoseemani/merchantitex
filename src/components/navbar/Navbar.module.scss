@@ -28,6 +28,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
     gap: 10px;
 
     &>div {
@@ -48,10 +49,12 @@
   }
 
   .userProfile__text {
+
     width: 140px;
 
     .userProfile__userName {
       display: flex;
+      align-items: flex-start;
 
 
     }
@@ -68,12 +71,13 @@
     p {
       display: flex;
 
-      align-items: center;
+      align-items: flex-start;
     }
 
     svg {
 
       margin-left: 19px;
+      cursor: pointer;
     }
   }
 
@@ -277,4 +281,73 @@ input {
   font-size: 24px;
   line-height: 33px;
   color: #041926;
+}
+
+
+.userMenuText {
+  font-family: 'Avenir';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  display: flex;
+  align-items: center;
+
+  color: #333333;
+}
+
+.userName__box {
+  h2 {
+    font-family: 'Avenir';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 28px;
+    display: flex;
+    align-items: center;
+    color: #333333;
+  }
+
+  p {
+    font-family: 'Avenir';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 10px;
+    color: #6B6B6B;
+  }
+}
+
+.menuBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  // border-radius: 20px;
+  width: 201px !important;
+
+  .menuItem {
+    padding: 8px 10px !important;
+    border-bottom: 0.6px solid #DFDFDF;
+    width: 201px !important;
+    margin: 0;
+
+    &:hover {
+      background-color: transparent !important;
+      opacity: .9;
+    }
+
+  }
+
+  .menuItems {
+    @extend .menuItem;
+    border: none;
+  }
+
+  .menuItemSearch {
+    padding: 18px 10px;
+    // width: 100%;
+    border: none;
+  }
+
 }

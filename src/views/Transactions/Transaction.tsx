@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
 import { Button, Label } from "semantic-ui-react";
-import NavBar from "../../components/navbar/NavBar";
 import Styles from "./transaction.module.scss";
-import { ReactComponent as CancelIcon } from "../../assets/images/cancel.svg";
 import { ReactComponent as CopyIcon } from "../../assets/images/copyColor.svg";
 import { ReactComponent as CheckIcon } from "../../assets/images/circle-check.svg";
 import { ReactComponent as CheckColorIcon } from "../../assets/images/circle-check-color.svg";
 import { IconButton } from "@material-ui/core";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import {
@@ -18,8 +15,7 @@ import {
 } from "../../redux/actions/loader/loaderActions";
 import moment from "moment";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
-import FormatToCurrency from "../../helpers/NumberToCurrency";
-import ParentContainer from "../../components/ParentContainer/ParentContainer";
+
 import { TransactionItem } from "../../types/Transaction";
 import { Box } from "@mui/material";
 

@@ -37,25 +37,6 @@ const Airtime = () => {
   const handleCloseModal = () => setOpenModal(false);
 
 
-  // const singleFunc = () => {
-  //   handleOpen()
-  //   //   dispatch(
-  //   //     openModalAndSetContent({
-  //   //       modalStyles: {
-  //   //         padding: 0,
-  //   //         borderRadius: 20,
-  //   //         boxShadow: "-4px 4px 14px rgba(224, 224, 224, 0.69)",
-  //   //       },
-  //   //       modalContent: (
-  //   //         <div className="modalDiv">
-  //   // <SingleAirtimePayment />
-  //   //         </div>
-  //   //       ),
-  //   //     })
-  //   //   );
-
-
-  // };
 
   const bulkfunc = () => {
     history.push("/airtime/bulk-payment");

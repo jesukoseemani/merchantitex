@@ -8,10 +8,33 @@ import Styles from "./merchantOverview.module.scss";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { Progress } from "semantic-ui-react";
 import { PieChart } from "react-minimal-pie-chart";
+import HelpCenter from "../../assets/images/helpCenter.svg"
+import { ReactSVG } from "react-svg";
+import { Box, Modal } from "@mui/material";
+import CustomModal from "../../components/customs/CustomModal";
+import Helpcenter from "../../components/merchantChart/Helpcenter";
 
 
+
+const style = {
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 290,
+  height: 314,
+  bgcolor: 'background.paper',
+  boxShadow: " 0px 3px 20px rgba(8, 15, 52, 0.16)",
+
+  borderRadius: "20px"
+};
 const MerchantOverview = () => {
   const [selected, setSelected] = useState<number | undefined>(0);
+
+  const [open, setOpen] = React.useState(false);
+  const handleHelpCenter = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
 
   return (
     <div
@@ -251,6 +274,35 @@ const MerchantOverview = () => {
             </div>
           </div>
         </OverviewTable>
+
+        <Box
+          sx={{
+            position: "fixed",
+            right: 0,
+            top: "50%",
+            transform: "translate(-50% -50%)",
+            cursor: "pointer"
+
+          }}
+
+
+        >
+          <ReactSVG src={HelpCenter} onClick={handleHelpCenter} />
+        </Box>
+        <Box>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <Helpcenter />
+            </Box>
+          </Modal>
+
+        </Box>
+
         <OverviewTable title="Success rate">
           <div className={Styles.deviceContainer}>
             <div>
