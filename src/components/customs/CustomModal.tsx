@@ -61,7 +61,8 @@ export default function CustomModal({ children, isOpen, handleClose, close, titl
                             <CloseOutlined />
                         </IconButton>
                     </Box>
-                    <Box
+                    <Box 
+                        className={styles.modal__btn}
                         p="22px 50px"
 
                         mt={"3rem"}

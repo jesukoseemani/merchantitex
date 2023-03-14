@@ -90,7 +90,7 @@ const SingleAirtimePayment = () => {
 
           </Grid>
           <Grid item xs={12}>
-            <button>Confirm Purchase</button>
+            <button type="submit">Confirm Purchase</button>
 
           </Grid>
 
