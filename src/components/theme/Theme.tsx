@@ -53,6 +53,8 @@ const theme = createTheme({
         }
       }
     },
+
+
     MuiCheckbox: {
       // colorSecondary: {
       //   color: '#27AE60 !important',
@@ -70,6 +72,63 @@ const theme = createTheme({
         }
       }
     },
+    MuiStepIcon: {
+      styleOverrides: {
+        root: {
+          color: "#B3B3B3",
+          '&.Mui-completed': {
+            color: "#27AE60",
+          },
+          '&.Mui-active': {
+            color: "#27AE60",
+          },
+        },
+
+      }
+    },
+    MuiSvgIcon: {
+      styleOverrides: {
+        root: {
+
+          '&.Mui-active': {
+            color: "#27AE60",
+          },
+
+        },
+
+
+      }
+    },
+    MuiStepConnector: {
+      styleOverrides: {
+        line: {
+          // border: "none"
+          height: "80px",
+
+        },
+        lineVertical: {
+          height: "90px",
+          marginTop: "-1rem",
+
+
+        },
+
+      }
+    },
+    MuiStepContent: {
+      styleOverrides: {
+        root: {
+          '&:last-child': {
+            border: "3px solid red",
+            display: "none"
+          }
+        }
+      }
+    },
+
+
+
+
   },
 
 

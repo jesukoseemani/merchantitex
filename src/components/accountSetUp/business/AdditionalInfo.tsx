@@ -67,7 +67,7 @@ const AdditionalInfo = ({ handleBack, handleNext }: Props) => {
 
 
 
-        <Box sx={{ marginTop: "-3rem" }}>
+        <Box sx={{ marginTop: "-1.1rem" }}>
             <Grid container columnSpacing={4} justifyContent="flex-start">
 
                 <Grid item xs={12} sm={6} md={6}>

@@ -31,9 +31,9 @@ const DirectorForm = ({ formCounter }: { formCounter: number }) => {
         <Box sx={{ marginTop: "-1.3rem", marginBottom: "20px", height: "100%" }}>
             <Accordion elevation={0} defaultExpanded={formCounter === 1 ? true : false}>
                 <AccordionSummary sx={{ width: "100%", boxShadow: "none", border: "none", }}>
-                    <Grid container columnGap={0} justifyContent={"flex-start"} alignItems="center" px={2} >
-                        <Grid item xs={3.5}><Box><span className={styles.directorInfo}>First Director’s Information</span></Box></Grid>
-                        <Grid item xs={7.5}><Box sx={{
+                    <Grid container columnGap={0} justifyContent={"flex-start"} alignItems="center" >
+                        <Grid item xs={4.3}><Box><span className={styles.directorInfo}>First Director’s Information</span></Box></Grid>
+                        <Grid item xs={6.7}><Box sx={{
                             width: "100%",
                             borderBottom: "1px dashed  #E0E0E0"
                         }}></Box></Grid>

@@ -275,33 +275,7 @@ const MerchantOverview = () => {
           </div>
         </OverviewTable>
 
-        <Box
-          sx={{
-            position: "fixed",
-            right: 0,
-            top: "50%",
-            transform: "translate(-50% -50%)",
-            cursor: "pointer"
 
-          }}
-
-
-        >
-          <ReactSVG src={HelpCenter} onClick={handleHelpCenter} />
-        </Box>
-        <Box>
-          <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box sx={style}>
-              <Helpcenter />
-            </Box>
-          </Modal>
-
-        </Box>
 
         <OverviewTable title="Success rate">
           <div className={Styles.deviceContainer}>
@@ -359,6 +333,34 @@ const MerchantOverview = () => {
             </li>
           </ol>
         </OverviewTable>
+
+        <Box
+          sx={{
+            position: "fixed",
+            right: 0,
+            top: "50%",
+            transform: "translate(-50% -50%)",
+            cursor: "pointer"
+
+          }}
+
+
+        >
+          <ReactSVG src={HelpCenter} onClick={handleHelpCenter} />
+        </Box>
+        <Box>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <Helpcenter />
+            </Box>
+          </Modal>
+
+        </Box>
       </div>
     </div>
 

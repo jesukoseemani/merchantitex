@@ -104,12 +104,13 @@ const ProfileSetup = () => {
                             marginRight: "-45px"
                         }}>
                             <Stepper activeStep={activeStep} orientation="vertical" sx={{
-                                '.css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed': {
-                                    color: "green"
-                                },
-                                '.css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root': {
-                                    color: "#eee"
-                                },
+                                // height: "70%",
+                                position: { md: "absolute" },
+                                top: "12%",
+
+
+
+
                             }}>
                                 {steps.map((step, index) => (
                                     <Step key={step.label}>
@@ -117,11 +118,7 @@ const ProfileSetup = () => {
                                             {step.label}
                                             <Typography variant="body2">{step.description}</Typography>
                                         </StepLabel>
-                                        <StepConnector sx={{
-                                            '.css-8t49rw-MuiStepConnector-line': {
-                                                height: 70
-                                            }
-                                        }} />
+
                                         <StepContent>
                                             <Typography>{step.description}</Typography>
 

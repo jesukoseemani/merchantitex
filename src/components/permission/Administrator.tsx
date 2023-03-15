@@ -150,7 +150,7 @@ const Administrator = () => {
                                             PK
                                         </Avatar>
                                     </ListItemAvatar>
-                                    <ListItemText primary="Philip Kachikwu" secondary="philipkachikwu@email.com" />
+                                    <ListItemText primary="Philip Kachikwu" secondary="philipkachikwu@email.com"  />
                                 </ListItem>
 
                             </List>

@@ -98,7 +98,7 @@ const BusinessSetup = () => {
 
 
     return (
-        <div className={Styles.container} style={{ height: "90" }}>
+        <div className={Styles.container}>
             <div className={Styles.title}>
                 <p>Set up business profile</p>
             </div>
@@ -108,41 +108,34 @@ const BusinessSetup = () => {
 
 
             <Box >
-                <Grid container spacing={4} p={1} justifyContent="space-around" alignItems={"center"}>
+                <Grid container spacing={4} justifyContent="space-around" flexWrap={"wrap"} alignItems={"center"}>
                     <Grid item xs={12} md={4}>
                         <Box sx={{
                             borderRight: "1px solid #E0E0E0",
-                            height: "100%",
-                            padding: "0px 40px"
+                            height: "450px",
+                            padding: "0px 20px",
+                            position: { md: "fixed" },
+                            top: "17%"
 
                         }}>
-                            <Stepper nonLinear activeStep={activeStep} orientation="vertical" sx={{
-                                '.css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed': {
-                                    color: "green"
-                                },
-                                '.css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root': {
-                                    color: "#eee"
-                                },
+                            <Stepper activeStep={activeStep} orientation="vertical"
 
-                            }}
+                            // sx={{
+                            //     ".css-wxvx37-MuiSvgIcon-root-MuiStepIcon-root.Mui-active": {
+                            //         color: "#27AE60"
+                            //     }
+                            // }}
 
                             >
                                 {steps.map((step, index) => (
-                                    <Step key={step.label}>
-                                        <StepLabel>
+                                    <Step key={index}>
+                                        <StepLabel >
                                             <Box sx={{ marginLeft: "20px" }}>
                                                 <p className={Styles.stepLabel}>{step.label}</p>
                                                 <p className={Styles.stepDesc}>{step.description}</p>
                                             </Box>
                                         </StepLabel>
-                                        <StepConnector sx={{
-                                            '.css-8t49rw-MuiStepConnector-line': {
-                                                height: 40,
 
-
-
-                                            }
-                                        }} />
 
                                     </Step>
                                 ))}
@@ -153,18 +146,18 @@ const BusinessSetup = () => {
                         </Box>
                     </Grid>
 
-                    <Grid item xs={12} md={7} >
+                    <Grid item xs={12} md={6} mt={3}>
 
 
                         <div className={Styles.formContainer}>
 
-                            <div> <SlideForm /></div>
+                            <div > <SlideForm /></div>
                         </div>
                     </Grid>
 
                 </Grid>
             </Box>
-        </div>
+        </div >
     )
 }
 

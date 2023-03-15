@@ -55,8 +55,8 @@ const Permission = ({ children }: PermissionProps) => {
 
             <Box>
 
-                <Grid container justifyContent={"space-between"} spacing={"43px"}>
-                    <Grid item xs={12} md={2}>
+                <Grid container justifyContent={"space-between"} flexWrap="wrap" spacing={"43px"}>
+                    <Grid item sm={4} xs={12} md={2}>
                         <Box className={styles.sidebar}>
                             <ul>
                                 {permisionData?.map(({ id, name, url }) => (
@@ -67,7 +67,7 @@ const Permission = ({ children }: PermissionProps) => {
                         </Box>
 
                     </Grid>
-                    <Grid item xs={12} md={10} >{children}</Grid>
+                    <Grid item xs={12} sm={8} md={10} >{children}</Grid>
                 </Grid>
             </Box>
         </Box>

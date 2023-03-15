@@ -19,7 +19,8 @@ const AccountSetup = () => {
             openModalAndSetContent({
                 modalStyles: {
                     padding: 0,
-                    minWidth: "1165px",
+                    width: "1165px",
+                    maxWidth: "100%",
                     height: "649px",
                     // maxWidth: "100%",
                     marginInline: "auto",
