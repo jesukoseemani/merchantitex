@@ -1,5 +1,5 @@
 import { Box, FormHelperText, InputLabel } from '@material-ui/core'
-import { Grid, MenuItem, Stack, TextField } from '@mui/material';
+import { Grid, MenuItem, Stack, OutlinedInput, TextField } from '@mui/material';
 import React, { useState } from 'react'
 import Styles from "./transferform.module.scss";
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
@@ -14,14 +14,6 @@ const SingleTransferBankAcct = () => {
     const dispatch = useDispatch()
 
 
-    const StyledTextField = styled(TextField, {
-        name: "StyledTextField",
-    })({
-
-        "& .MuiInputBase-root": {
-            height: 44
-        }
-    });
 
 
     const handleSubmit = () => {
@@ -30,8 +22,8 @@ const SingleTransferBankAcct = () => {
                 modalStyles: {
                     padding: 0,
                     borderRadius: "20px",
-                    width: "420px",
-                    height: "200px",
+                    width: "560.66px",
+                    height: "442px",
                     overflow: "hidden"
                 },
                 modalContent: (
@@ -43,42 +35,41 @@ const SingleTransferBankAcct = () => {
         );
     }
     return (
-        <Box sx={{ minHeight: "650px", width: "400px" }} className={Styles.container}>
-            <Box className={Styles.title}><h2>Single transfer</h2></Box>
+        <Box className={Styles.container}>
 
 
-            <Grid container p={3} px={6} spacing={3}>
-                <Grid item xs={12}>
+            <Grid container mt={'33px'}>
+                <Grid item xs={12} sx={{ marginBottom: "17px" }}>
                     <InputLabel>Balance to be debited</InputLabel>
-                    <StyledTextField select fullWidth>
+                    <TextField select fullWidth>
                         <MenuItem>1</MenuItem>
                         <MenuItem>2</MenuItem>
                         <MenuItem>3</MenuItem>
-                    </StyledTextField>
+                    </TextField>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} sx={{ marginBottom: "17px" }}>
                     <InputLabel>Transfer amount</InputLabel>
-                    <StyledTextField fullWidth placeholder='NGN 0.0' />
+                    <OutlinedInput fullWidth placeholder='NGN 0.0' />
 
 
                 </Grid>
 
-                <Grid item xs={12}>
+                <Grid item xs={12} sx={{ marginBottom: "17px" }}>
                     <InputLabel>Bank name</InputLabel>
-                    <StyledTextField fullWidth select value={bankAcct} >
+                    <TextField fullWidth select value={bankAcct} >
                         {banks?.map(({ id, name }) => (
-                            <Box sx={{ display: "flex", justifyContent: "center", padding: "10px", flexDirection: "column" }}>
-                                <MenuItem id={name} style={{ padding: "8px" }} key={id}>{name}</MenuItem>
+                            <Box sx={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
+                                <MenuItem id={name} key={id}>{name}</MenuItem>
 
                             </Box>
                         ))}
-                    </StyledTextField >
+                    </TextField >
 
 
                 </Grid>
                 <Grid item xs={12}>
                     <InputLabel>Bank Account no</InputLabel>
-                    <StyledTextField fullWidth placeholder='Bank Account no' />
+                    <OutlinedInput fullWidth placeholder='Bank Account no' />
 
 
 
@@ -91,17 +82,19 @@ const SingleTransferBankAcct = () => {
                     <p className={Styles.savebeneficiary}>+ Save as beneficiary</p>
                 </Stack>
             </Box>
-            <Grid container p={3} spacing={2} px={6}>
+            <Grid container spacing={2} mt={"75px"}>
                 <Grid item xs={12}>
                     <InputLabel>Transfer description (optional)</InputLabel>
-                    <StyledTextField fullWidth placeholder='Bank account' />
-                    <br />
+                    <OutlinedInput fullWidth placeholder='Bank account' />
+
                     <FormHelperText className={Styles.helperText}>
                         <ErrorOutlineIcon />You will be charged NGN 45  fee for this transaction
                     </FormHelperText>
                 </Grid>
                 <button onClick={handleSubmit}>Submit</button>
             </Grid>
+
+
 
         </Box>
     )

@@ -1,4 +1,4 @@
-import { Box, FormHelperText, Grid, InputLabel, MenuItem, Stack, TextField } from '@mui/material'
+import { Box, FormHelperText, Grid, InputLabel, MenuItem, OutlinedInput, Stack, TextField } from '@mui/material'
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 import Styles from "./transferform.module.scss"
@@ -10,14 +10,8 @@ import { styled } from '@mui/system';
 
 
 const SIngleTransferPayvice = () => {
-    const StyledTextField = styled(TextField, {
-        name: "StyledTextField",
-    })({
 
-        "& .MuiInputBase-root": {
-            height: 44
-        }
-    });
+
     const dispatch = useDispatch()
     const handleSubmit = () => {
         dispatch(
@@ -25,8 +19,8 @@ const SIngleTransferPayvice = () => {
                 modalStyles: {
                     padding: 0,
                     borderRadius: "20px",
-                    width: "420px",
-                    height: "200px",
+                    width: "560.66px",
+                    height: "442px",
                     overflow: "hidden"
                 },
                 modalContent: (
@@ -38,28 +32,28 @@ const SIngleTransferPayvice = () => {
         );
     }
     return (
-        <Box height={"641px"} className={Styles.container}>
-            <Box className={Styles.title}><h2>Single transfer</h2></Box>
+        <Box className={Styles.container}>
 
 
-            <Grid container p={3} px={6} spacing={3}>
+
+            <Grid container spacing={2} mt={'18px'}>
                 <Grid item xs={12}>
                     <InputLabel>Balance to be debited</InputLabel>
-                    <StyledTextField select fullWidth>
+                    <TextField select fullWidth>
                         <MenuItem>1</MenuItem>
                         <MenuItem>2</MenuItem>
                         <MenuItem>3</MenuItem>
-                    </StyledTextField>
+                    </TextField>
                 </Grid>
                 <Grid item xs={12}>
                     <InputLabel>Transfer amount</InputLabel>
-                    <StyledTextField fullWidth placeholder='NGN 0.0' />
+                    <OutlinedInput fullWidth placeholder='NGN 0.0' />
 
 
                 </Grid>
                 <Grid item xs={12}>
                     <InputLabel>Payvice Outlet ID</InputLabel>
-                    <StyledTextField fullWidth placeholder='Payvice Outlet ID' />
+                    <OutlinedInput fullWidth placeholder='Payvice Outlet ID' />
 
 
                 </Grid>
@@ -70,16 +64,18 @@ const SIngleTransferPayvice = () => {
                     {/* <p className={Styles.savebeneficiary}>+ Save as beneficiary</p> */}
                 </Stack>
             </Box>
-            <Grid container p={3} spacing={2} px={6}>
+            <Grid container spacing={2} mt={"68px"}>
                 <Grid item xs={12}>
                     <InputLabel>Transfer description (optional)</InputLabel>
-                    <StyledTextField fullWidth placeholder='Bank account' />
+                    <OutlinedInput fullWidth placeholder='Bank account' />
                     <br />
                     <FormHelperText className={Styles.helperText}>
                         <ErrorOutlineIcon />You will be charged NGN 45  fee for this transaction
                     </FormHelperText>
                 </Grid>
-                <button onClick={handleSubmit}>Submit</button>
+                <Box mt="9px" sx={{ width: "100%" }}>
+                    <button onClick={handleSubmit}>Submit</button>
+                </Box>
             </Grid>
 
         </Box>

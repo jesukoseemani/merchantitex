@@ -16,6 +16,7 @@ const style = {
     boxShadow: 24,
     borderRadius: "20px !important",
     maxHeight: "95vh",
+    zIndex: "999"
 
 
 };

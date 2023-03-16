@@ -1,5 +1,5 @@
 import { Box, Stack } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 import Styles from "./style.module.scss";
@@ -12,6 +12,7 @@ import SIngleTransferPayvice from './SIngleTransferPayvice';
 import SingleTransferItex from './SingleTransferItex';
 import BulkTransferAccount from './BulkTransferAccount';
 import { makeStyles } from '@material-ui/styles';
+import CustomModal from '../../../components/customs/CustomModal';
 
 const Listtransfer = () => {
 
@@ -32,12 +33,27 @@ const Listtransfer = () => {
     const [download, setDownload] = React.useState<null | HTMLElement>(null);
     const [singleTrans, setSingleTrans] = React.useState<any>(null);
 
+
+
     // please explain
     const [bulkTrans, setBulkTrans] = React.useState<any>(null);
     const openBeneficiary = Boolean(beneficiary);
     const openDownloadMenu = Boolean(download);
     const openSingleTransMenu = Boolean(singleTrans);
     const openBulkTransMenu = Boolean(bulkTrans);
+
+    const [openModal, setOpenModal] = useState(false)
+    const [openPayViceModal, setOpenPayViceModal] = useState(false)
+    const [openItexPayModal, setOpenItexPayModal] = useState(false)
+    const handleOpenSingleTransfer = () => setOpenModal(true);
+    const handleCloseModal = () => setOpenModal(false);
+
+    const handlePayviceAcct = () => setOpenPayViceModal(true);
+    const handleClosePayviceModal = () => setOpenPayViceModal(false);
+
+    const handleItexPayAcct = () => setOpenItexPayModal(true);
+    const handleCloseItexPayModal = () => setOpenItexPayModal(false);
+
 
     const handleClickBeneficiary = (
         event: React.MouseEvent<HTMLButtonElement>
@@ -79,71 +95,73 @@ const Listtransfer = () => {
 
     // single transfer dropdown
 
-    const handleBankAcct = () => {
-        dispatch(
-            openModalAndSetContent({
-                modalStyles: {
-                    padding: 0,
-                    borderRadius: "20px",
-                    // width: "419px",
-                    // minHeight: "650px",
-                    height: "auto",
-                    overflowY: "auto",
-                    overflow: "hidden",
-                },
-                modalContent: (
-                    <>
-                        <SingleTransferBankAcct />
-                    </>
-                ),
-            })
-        );
-    }
-    const handlePayviceAcct = () => {
-        dispatch(
-            openModalAndSetContent({
-                modalStyles: {
-                    padding: 0,
-                    borderRadius: "20px",
-                    width: "419px",
-                    // height: "641",
-                    // overflow: "hidden"
-                },
-                modalContent: (
-                    <>
-                        <SIngleTransferPayvice />
-                    </>
-                ),
-            })
-        );
-    }
-    const handleItexPayAcct = () => {
-        dispatch(
-            openModalAndSetContent({
-                modalStyles: {
-                    padding: 0,
-                    borderRadius: "20px",
-                    // width: "419px",
-                    // minHeight: "380px",
+    // const handleOpenSingleTransfer = () => {
+    //     dispatch(
+    //         openModalAndSetContent({
+    //             modalStyles: {
+    //                 padding: 0,
+    //                 borderRadius: "20px",
+    //                 // width: "419px",
+    //                 // minHeight: "650px",
+    //                 height: "auto",
+    //                 overflowY: "auto",
+    //                 overflow: "hidden",
+    //             },
+    //             modalContent: (
+    //                 <>
+    //                     <SingleTransferBankAcct />
+    //                 </>
+    //             ),
+    //         })
+    //     );
+    // }
 
-                    height: "641px",
-                    overflow: "hidden"
-                },
-                modalContent: (
-                    <>
-                        <SingleTransferItex />
-                    </>
-                ),
-            })
-        );
-    }
+
+    // const handlePayviceAcct = () => {
+    //     dispatch(
+    //         openModalAndSetContent({
+    //             modalStyles: {
+    //                 padding: 0,
+    //                 borderRadius: "20px",
+    //                 width: "419px",
+    //                 // height: "641",
+    //                 // overflow: "hidden"
+    //             },
+    //             modalContent: (
+    //                 <>
+    //                     <SIngleTransferPayvice />
+    //                 </>
+    //             ),
+    //         })
+    //     );
+    // }
+    // const handleItexPayAcct = () => {
+    //     dispatch(
+    //         openModalAndSetContent({
+    //             modalStyles: {
+    //                 padding: 0,
+    //                 borderRadius: "20px",
+    //                 // width: "419px",
+    //                 // minHeight: "380px",
+
+    //                 height: "641px",
+    //                 overflow: "hidden"
+    //             },
+    //             modalContent: (
+    //                 <>
+    //                 </>
+    //             ),
+    //         })
+    //         );
+    //     }
+
 
 
     const singleData = [
         {
             id: 1,
             name: "Bank Account",
-            func: handleBankAcct,
+            func: handleOpenSingleTransfer,
         },
         {
             id: 2,
@@ -304,6 +322,40 @@ const Listtransfer = () => {
 
             <Box sx={{ width: "100%", marginInline: "auto" }}>
                 <TransfersTable />
+            </Box>
+
+            <Box>
+                <CustomModal
+                    title="Single Transfer"
+                    isOpen={openModal}
+                    handleClose={handleCloseModal}
+                    close={() => setOpenModal(false)}>
+
+                    <SingleTransferBankAcct />
+                </CustomModal >
+
+            </Box>
+            <Box>
+                <CustomModal
+                    title="Single Transfer"
+                    isOpen={openPayViceModal}
+                    handleClose={handleClosePayviceModal}
+                    close={() => setOpenModal(false)}>
+
+                    <SIngleTransferPayvice />
+                </CustomModal >
+
+            </Box>
+            <Box>
+                <CustomModal
+                    title="Single Transfer"
+                    isOpen={openItexPayModal}
+                    handleClose={handleCloseItexPayModal}
+                    close={() => setOpenModal(false)}>
+
+                    <SingleTransferItex />
+                </CustomModal >
+
             </Box>
         </Box>
     )

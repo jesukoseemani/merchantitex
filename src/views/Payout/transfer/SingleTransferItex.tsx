@@ -11,24 +11,16 @@ const SingleTransferItex = () => {
     const dispatch = useDispatch()
 
 
-    const StyledTextField = styled(TextField, {
-        name: "StyledTextField",
-    })({
-
-        "& .MuiInputBase-root": {
-            height: 44
-        }
-    });
-
     const handleSubmit = () => {
         dispatch(
             openModalAndSetContent({
                 modalStyles: {
                     padding: 0,
                     borderRadius: "20px",
-                    width: "420px",
-                    height: "200px",
-                    overflow: "hidden"
+                    width: "560.66px",
+                    height: "442px",
+                    overflow: "hidden",
+                    zIndex: "999999"
                 },
                 modalContent: (
                     <>
@@ -39,28 +31,27 @@ const SingleTransferItex = () => {
         );
     }
     return (
-        <Box height={"641px"} className={Styles.container}>
-            <Box className={Styles.title}><h2>Single transfer</h2></Box>
+        <Box className={Styles.container}>
 
 
-            <Grid container p={3} px={6} spacing={3}>
+            <Grid container mt={'18px'} spacing={2}>
                 <Grid item xs={12}>
                     <InputLabel>Balance to be debited</InputLabel>
-                    <StyledTextField select fullWidth>
+                    <TextField select fullWidth>
                         <MenuItem>1</MenuItem>
                         <MenuItem>2</MenuItem>
                         <MenuItem>3</MenuItem>
-                    </StyledTextField>
+                    </TextField>
                 </Grid>
                 <Grid item xs={12}>
                     <InputLabel>Transfer amount</InputLabel>
-                    <StyledTextField fullWidth placeholder='NGN 0.0' />
+                    <TextField fullWidth placeholder='NGN 0.0' />
 
 
                 </Grid>
                 <Grid item xs={12}>
                     <InputLabel>Merchant ID</InputLabel>
-                    <StyledTextField fullWidth placeholder='Merchant ID' />
+                    <TextField fullWidth placeholder='Merchant ID' />
 
 
                 </Grid>
@@ -71,16 +62,18 @@ const SingleTransferItex = () => {
                     {/* <p className={Styles.savebeneficiary}>+ Save as beneficiary</p> */}
                 </Stack>
             </Box>
-            <Grid container p={3} spacing={2} px={6}>
+            <Grid container spacing={2} mt={"68px"}>
                 <Grid item xs={12}>
                     <InputLabel>Transfer description (optional)</InputLabel>
-                    <StyledTextField fullWidth placeholder='Bank account' />
+                    <TextField fullWidth placeholder='Bank account' />
                     <br />
                     <FormHelperText className={Styles.helperText}>
                         <ErrorOutlineIcon />You will be charged NGN 45  fee for this transaction
                     </FormHelperText>
                 </Grid>
-                <button onClick={handleSubmit}>Submit</button>
+                <Box mt="9px" sx={{ width: "100%" }}>
+                    <button onClick={handleSubmit}>Submit</button>
+                </Box>
             </Grid>
 
         </Box>
