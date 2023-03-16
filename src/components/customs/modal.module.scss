@@ -12,7 +12,8 @@
 .modal__btn {
 
     overflow: scroll !important;
-    height: 90vh !important;
+
+    max-height: 90vh !important;
 
 
     form {
