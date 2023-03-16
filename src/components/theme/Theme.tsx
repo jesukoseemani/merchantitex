@@ -146,12 +146,10 @@ const theme = createTheme({
       }
     },
 
-    MuiMenuItem: {
+    MuiPaper: {
       styleOverrides: {
         root: {
-          width: "100%",
-          padding: "10px",
-          border: "1px solid red"
+          borderRadius: "20px !important"
         }
       }
     },
