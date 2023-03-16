@@ -6,10 +6,11 @@ import Styles from "./success.module.scss"
 import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
 const SuccessModal = () => {
     return (
+
         <Box className={Styles.container}>
             <Box sx={{
 
-                height: "150px",
+                height: "160px",
                 marginInline: "auto",
                 display: "flex",
                 justifyContent: "center",

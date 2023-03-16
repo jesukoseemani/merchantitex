@@ -1,4 +1,4 @@
-import { Box, Grid, StepConnector, StepIcon, TextField } from '@mui/material'
+import { Box, Grid, IconButton, Modal, StepConnector, StepIcon, TextField } from '@mui/material'
 import React, { useState } from 'react'
 import Styles from "./businessSetup.module.scss"
 import Stepper from '@mui/material/Stepper';
@@ -20,11 +20,26 @@ import UploadDocument from '../../../components/accountSetUp/business/UploadDocu
 import { openModalAndSetContent } from '../../../redux/actions/modal/modalActions';
 import { useDispatch } from 'react-redux';
 import SuccessModal from '../../../components/accountSetUp/business/SuccessModal';
+import CloseOutlined from '@mui/icons-material/CloseOutlined';
 
 
 
 
 const BusinessSetup = () => {
+
+
+    const style = {
+        position: 'absolute' as 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: "540px",
+        height: "493px",
+        bgcolor: '#fff',
+        borderRadius: '20px',
+
+        // p: 4,
+    };
     const steps = [
         {
             label: 'Business Information',
@@ -49,6 +64,9 @@ const BusinessSetup = () => {
     const dispatch = useDispatch()
     const [activeStep, setActiveStep] = React.useState(0);
     const [step, setStep] = useState(1)
+    const [open, setOpen] = React.useState(false);
+    const handleSubmit = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -60,24 +78,7 @@ const BusinessSetup = () => {
         setStep((prev) => prev - 1)
     };
 
-    const handSubmit = () => {
-        dispatch(
-            openModalAndSetContent({
-                modalStyles: {
-                    padding: 0,
-                    minWidth: 200,
-                    height: "493px",
-                },
 
-                modalContent: (
-                    <div className='modalDiv'>
-                        <SuccessModal />
-                    </div>
-                ),
-            })
-        )
-
-    };
 
     const SlideForm = () => {
         switch (step) {
@@ -88,7 +89,7 @@ const BusinessSetup = () => {
             case 3:
                 return <DirectorInfo handleBack={handleBack} handleNext={handleNext} />
             case 4:
-                return <UploadDocument handleBack={handleBack} handleNext={handSubmit} />
+                return <UploadDocument handleBack={handleBack} handleNext={handleSubmit} />
 
 
             default:
@@ -157,6 +158,31 @@ const BusinessSetup = () => {
 
                 </Grid>
             </Box>
+
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    <Box
+                        // height="56px"
+                        py={"20px"}
+                        position="fixed"
+                        px="50px"
+                        right={0}
+
+
+                    >
+
+                        <IconButton onClick={handleClose}>
+                            <CloseOutlined />
+                        </IconButton>
+                    </Box>
+                    <SuccessModal />
+                </Box>
+            </Modal>
         </div >
     )
 }

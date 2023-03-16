@@ -75,7 +75,7 @@ export default function Navigation(props: Props) {
                     // background: "red"
 
                 }}
-                elevation={0.9}
+                elevation={1}
             >
                 <Toolbar sx={{ background: "#EFF3F8" }}>
                     <IconButton

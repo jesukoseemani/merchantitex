@@ -1,7 +1,9 @@
 import { Box, Grid, Stack } from '@mui/material'
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 import styles from "./Settings.module.scss"
+import AdminTree from "../../assets/images/admin.svg"
+import { ReactSVG } from 'react-svg'
 
 
 
@@ -11,6 +13,7 @@ interface PermissionProps {
 }
 const Permission = ({ children }: PermissionProps) => {
     const history = useHistory()
+    const [active, setActive] = useState(0)
     interface Props {
         id: string;
         name: string;
@@ -45,6 +48,19 @@ const Permission = ({ children }: PermissionProps) => {
             url: "/general_setting/permissions/viewers"
         }
     ]
+
+    const handleClick = (url: string, index: number) => {
+        history.push(url)
+        setActive(index)
+        console.log(index)
+
+    }
+
+    useEffect(() => {
+        setActive(0)
+        // return () => setActive
+    }, [])
+
     return (
         <Box>
             <Stack mt={"35px"} direction={"row"} justifyContent="space-between" alignItems={"center"} className={styles.headerBox}>
@@ -56,11 +72,12 @@ const Permission = ({ children }: PermissionProps) => {
             <Box>
 
                 <Grid container justifyContent={"space-between"} flexWrap="wrap" spacing={"43px"}>
-                    <Grid item sm={4} xs={12} md={2}>
+                    <Grid item xs={12} sm={4} md={2}>
                         <Box className={styles.sidebar}>
+                            <ReactSVG src={AdminTree} />
                             <ul>
-                                {permisionData?.map(({ id, name, url }) => (
-                                    <li key={id} onClick={() => history.push(url)}>{name}</li>
+                                {permisionData?.map(({ id, name, url }, index) => (
+                                    <li key={id} onClick={() => handleClick(url, index)} className={active === index && styles.active}>{name}</li>
                                 ))}
                             </ul>
 

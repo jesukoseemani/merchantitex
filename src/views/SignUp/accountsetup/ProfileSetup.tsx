@@ -1,4 +1,4 @@
-import { Box, Grid, StepConnector, StepIcon, TextField } from '@mui/material'
+import { Box, Grid, IconButton, Modal, StepConnector, StepIcon, TextField } from '@mui/material'
 import React, { useState } from 'react'
 import Styles from "./businessSetup.module.scss"
 import Stepper from '@mui/material/Stepper';
@@ -19,6 +19,21 @@ import SuccessModal from '../../../components/accountSetUp/business/SuccessModal
 import ProfileBusinessInfo from '../../../components/accountSetUp/profile/BusinessInfo';
 import ProfileAdditionalInfo from '../../../components/accountSetUp/profile/AdditionalInfo';
 import ProfileUploadDocument from '../../../components/accountSetUp/profile/UploadProfileInfo';
+import CloseOutlined from '@mui/icons-material/CloseOutlined';
+
+
+const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: "540px",
+    height: "493px",
+    bgcolor: '#fff',
+    borderRadius: '20px',
+
+    // p: 4,
+};
 
 const ProfileSetup = () => {
     const steps = [
@@ -41,6 +56,9 @@ const ProfileSetup = () => {
     const dispatch = useDispatch()
     const [activeStep, setActiveStep] = React.useState(0);
     const [step, setStep] = useState(1)
+    const [open, setOpen] = React.useState(false);
+    const handleSubmit = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -52,25 +70,7 @@ const ProfileSetup = () => {
         setStep((prev) => prev - 1)
     };
 
-    const handSubmit = () => {
-        dispatch(
-            openModalAndSetContent({
-                modalStyles: {
-                    padding: 0,
-                    width: "540px",
-                    height: "493px",
-                },
-
-
-                modalContent: (
-                    <div className='modalDiv'>
-                        <SuccessModal />
-                    </div>
-                ),
-            })
-        )
-
-    };
+   
 
     const SlideForm = () => {
         switch (step) {
@@ -80,7 +80,7 @@ const ProfileSetup = () => {
                 return <ProfileAdditionalInfo handleBack={handleBack} handleNext={handleNext} />
 
             case 3:
-                return <ProfileUploadDocument handleBack={handleBack} handleNext={handSubmit} />
+                return <ProfileUploadDocument handleBack={handleBack} handleNext={handleSubmit} />
 
 
             default:
@@ -142,7 +142,33 @@ const ProfileSetup = () => {
                     </Grid>
 
                 </Grid>
+
+
             </Box>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    <Box
+                        // height="56px"
+                        py={"20px"}
+                        position="fixed"
+                        px="50px"
+                        right={0}
+
+
+                    >
+
+                        <IconButton onClick={handleClose}>
+                            <CloseOutlined />
+                        </IconButton>
+                    </Box>
+                    <SuccessModal />
+                </Box>
+            </Modal>
 
         </div>
     )

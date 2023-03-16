@@ -32,7 +32,7 @@ export default function CustomModal({ children, isOpen, handleClose, close, titl
 
 
     return (
-        <div className={styles.customeModal}>
+        <div className={styles.customeModal} >
             {/* <Button onClick={handleOpen}>Open modal</Button> */}
             <Modal
                 open={isOpen}
@@ -61,7 +61,7 @@ export default function CustomModal({ children, isOpen, handleClose, close, titl
                             <CloseOutlined />
                         </IconButton>
                     </Box>
-                    <Box 
+                    <Box
                         className={styles.modal__btn}
                         p="22px 50px"
 

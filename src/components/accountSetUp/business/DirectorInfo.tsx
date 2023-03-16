@@ -73,7 +73,7 @@ const DirectorInfo = ({ handleBack, handleNext }: Props) => {
                     justifyContent={"flex-start"}
                     alignItems="center"
                     mt={2} spacing={0}>
-                    <Grid item xs={4.3}>
+                    <Grid item xs={3.3}>
                         <Box sx={{
                             width: "100%",
                             borderBottom: "1px dashed  #E0E0E0"
@@ -81,14 +81,14 @@ const DirectorInfo = ({ handleBack, handleNext }: Props) => {
 
                         </Box>
                     </Grid>
-                    <Grid item xs={3.4} onClick={handleShowForm} >
+                    <Grid item xs={5.4} onClick={handleShowForm} >
                         <Box
                             sx={{
                                 display: "flex",
                                 alignItems: "center",
                                 gap: "5px", justifyContent: "center"
                             }}><ReactSVG src={AddIcon} style={{ cursor: "ponter" }} /> <p className={styles.addBtn}>Add another director</p></Box></Grid>
-                    <Grid item xs={4.3}><Box sx={{
+                    <Grid item xs={3.3}><Box sx={{
                         width: "100%",
                         borderBottom: "1px dashed  #E0E0E0"
                     }}></Box></Grid>

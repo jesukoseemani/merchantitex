@@ -64,7 +64,7 @@ const AccountSetup = () => {
                     maxWidth: "100%",
                     height: "649px",
                     marginInline: "auto",
-
+                    maxHeight: "90vh",
                     borderRadius: 20,
                 },
 

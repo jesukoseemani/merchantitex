@@ -125,6 +125,43 @@ const Administrator = () => {
 
                             </Box>
 
+                            <Box>
+                                <h2>
+                                    Manage permissions
+                                </h2>
+                                <p><Checkbox />Can remove existing users</p>
+                                <p><Checkbox />Can change team member’s role</p>
+                                <p><Checkbox />Can create and edit custom roles</p>
+                                <p><Checkbox />Can add, edit and remove users</p>
+
+
+                            </Box>
+
+                            <Box>
+                                <h2>
+                                    Settings permissions
+                                </h2>
+                                <p><Checkbox />Can manage business preferences</p>
+                                <p><Checkbox />Can set who absorbs the transaction fees</p>
+                                <p><Checkbox />Can add, edit and remove settlement accounts</p>
+                                <p><Checkbox />Can view API keys</p>
+                                <p><Checkbox />Can generate new API keys</p>
+                                <p><Checkbox />Can view webhooks</p>
+                                <p><Checkbox />Can update and set webhook preferences</p>
+                                <p><Checkbox />Can resend webhooks</p>
+
+
+                            </Box>
+                            <Box>
+                                <h2>
+                                    Add new business permissions
+                                </h2>
+                                <p><Checkbox />Can add a new business</p>
+
+
+
+                            </Box>
+
                         </Box>
                     </Box>
                 </Grid>
@@ -142,16 +179,9 @@ const Administrator = () => {
                                             RU
                                         </Avatar>
                                     </ListItemAvatar>
-                                    <ListItemText primary="Roy Unachukwu" secondary="royunachukwu@email.com" />
+                                    <ListItemText primary="James Haliday" secondary="jameshaliday@example.com" />
                                 </ListItem>
-                                <ListItem>
-                                    <ListItemAvatar>
-                                        <Avatar sx={{ bgcolor: "#CD06C5", fontSize: "14px", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                            PK
-                                        </Avatar>
-                                    </ListItemAvatar>
-                                    <ListItemText primary="Philip Kachikwu" secondary="philipkachikwu@email.com"  />
-                                </ListItem>
+
 
                             </List>
                         </Box>

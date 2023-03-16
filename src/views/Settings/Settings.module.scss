@@ -103,7 +103,7 @@
 				border: 1px solid #dddddd;
 				border-radius: 4px;
 				padding-left: 10px;
-				
+
 			}
 		}
 	}
@@ -799,6 +799,8 @@
 .headerBox {
 	position: sticky;
 	top: 70px;
+	z-index: 999;
+
 
 	h2 {
 		font-family: 'Avenir';
@@ -822,13 +824,19 @@
 		cursor: pointer;
 		margin-bottom: 36px;
 	}
+
+	@media screen and (max-width:768px) {
+		position: relative;
+	}
 }
 
 .sidebar {
-	border-left: 1px solid #D6D5D5;
+	// border-left: 1px solid #D6D5D5;
 	border-radius: 6px;
 	position: sticky;
 	top: 150px;
+	display: flex;
+	gap: 5px;
 
 	li {
 		list-style: none;
@@ -837,21 +845,15 @@
 		font-weight: 400;
 		font-size: 14px;
 		line-height: 19px;
-		margin-bottom: 23px;
+		margin-bottom: 25px;
 		color: #2F3238;
 		position: relative;
-		margin-left: 2.5rem;
 		cursor: pointer;
+		margin-top: -3px;
 
-		&::before {
-			border: 1px solid #D6D5D5;
-			position: absolute;
-			content: "";
-			width: 30px;
-			left: -2.5rem;
-			top: 8px;
-			border-radius: 6px;
 
+		&.active {
+			color: #27ae60;
 		}
 
 	}

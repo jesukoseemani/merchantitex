@@ -11,8 +11,8 @@ const Operations = () => {
                 <Grid item xs={12} md={8} >
                     <Box className={styles.left__container}>
                         <Box className={styles.firstSection}>
-                            <h2>Administrator</h2>
-                            <p>Users with this role are able to control everything on the dashboard</p>
+                            <h2>Operations</h2>
+                            <p>Users with this role are allowed to control everything on the dashboard except from moving money out</p>
                         </Box>
                         <Box className={styles.secondSection}>
                             <h2>Role permissions</h2>
