@@ -1,4 +1,4 @@
-import { Backdrop, Box, Button, IconButton, Modal, Select } from '@mui/material';
+import { Backdrop, Box, Button, IconButton, MenuItem, Modal, Select } from '@mui/material';
 import styles from './FilterModal.module.scss';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
@@ -36,6 +36,10 @@ const useModalBtnStyles = makeStyles({
 		border: '1px solid #27ae60 !important',
 		color: '#27ae60 !important',
 	},
+	select: {
+		minHeight: "32px !important",
+		paddingLeft: "10px"
+	}
 });
 
 interface FilterInterface {
@@ -175,7 +179,7 @@ const FilterModal = ({
 					<div>
 						<p>Status</p>
 						<Select
-							sx={{ height: "32px" }}
+							className={classes.select}
 							name='status'
 							id='status'
 							fullWidth
@@ -186,18 +190,18 @@ const FilterModal = ({
 									responsecode: e.target.value,
 								}))
 							}>
-							<option value='' disabled hidden>
+							<MenuItem value='' disabled hidden>
 								Choose status
-							</option>
-							<option value='00'>Successful</option>
-							<option value='09'>Failed</option>
+							</MenuItem>
+							<MenuItem value='00'>Successful</MenuItem>
+							<MenuItem value='09'>Failed</MenuItem>
 							{/* <option value='01'>Pending</option> */}
 						</Select>
 					</div>
 					<div>
 						<p>Payment type</p>
 						<Select
-							sx={{ height: "32px" }}
+							className={classes.select}
 							name='status'
 							id='status'
 							fullWidth
@@ -208,11 +212,11 @@ const FilterModal = ({
 									paymentmethod: e.target.value,
 								}))
 							}>
-							<option value='' disabled hidden>
+							<MenuItem value='' disabled hidden>
 								Select payment type
-							</option>
-							<option value='card'>Card</option>
-							<option value='ussd'>USSD</option>
+							</MenuItem>
+							<MenuItem value='card'>Card</MenuItem>
+							<MenuItem value='ussd'>USSD</MenuItem>
 						</Select>
 					</div>
 				</div>

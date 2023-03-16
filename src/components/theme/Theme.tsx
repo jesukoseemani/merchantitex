@@ -119,12 +119,65 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           '&:last-child': {
-            border: "3px solid red",
             display: "none"
           }
         }
       }
     },
+
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          padding: "0 10px",
+          minHeight: 44
+        },
+        input: {
+          height: "44px",
+          padding: "0 !important"
+        },
+        inputMultiline: {
+          padding: "10px",
+          // minHeight: 54,
+        },
+
+
+
+
+      }
+    },
+
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          width: "100%",
+          padding: "10px",
+          border: "1px solid red"
+        }
+      }
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          padding: " 0!important",
+          fontFamily: 'Avenir',
+          fontStyle: "normal",
+          fontWeight: 400,
+          fontSize: "14px",
+          lineHeight: "19px",
+          color: "#333333",
+        }
+      }
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          height: 44,
+
+        },
+
+      }
+    }
+
 
 
 

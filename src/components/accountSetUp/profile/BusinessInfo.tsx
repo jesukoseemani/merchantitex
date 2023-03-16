@@ -31,19 +31,19 @@ const ProfileBusinessInfo = ({ handleNext }: Props) => {
     return (
         <Grid container columnSpacing={4} justifyContent="space-between">
 
-            <Grid item xs={12} sm={6} md={6}>
+            <Grid item xs={12} sm={6} md={6} mb="22px">
                 <InputLabel className={Styles.label}>Trading Name</InputLabel>
                 <StyledTextField variant='outlined' fullWidth placeholder='Trading Name' />
             </Grid>
-            <Grid item xs={12} sm={6} md={6}>
+            <Grid item xs={12} sm={6} md={6} mb="22px">
                 <InputLabel className={Styles.label}>Business name</InputLabel>
                 <StyledTextField variant='outlined' fullWidth placeholder='Business name' />
             </Grid>
-            <Grid item xs={12} sm={6} md={6}>
+            <Grid item xs={12} sm={6} md={6} mb="22px">
                 <InputLabel className={Styles.label}>Business Description</InputLabel>
                 <StyledTextField variant='outlined' fullWidth placeholder='Business Description' />
             </Grid>
-            <Grid item xs={12} sm={6} md={6}>
+            <Grid item xs={12} sm={6} md={6} mb="22px">
                 <InputLabel className={Styles.label}>What is your business category</InputLabel>
                 <Select
                     sx={{
@@ -58,18 +58,18 @@ const ProfileBusinessInfo = ({ handleNext }: Props) => {
                 </Select>
             </Grid>
 
-            <Grid item xs={12} sm={6} md={6}>
+            <Grid item xs={12} sm={6} md={6} mb="22px">
                 <InputLabel className={Styles.label}>Website url</InputLabel>
                 <StyledTextField variant='outlined' fullWidth placeholder='www.website.com' />
             </Grid>
 
-            <Grid item xs={12} sm={6} md={6}>
+            <Grid item xs={12} sm={6} md={6} mb="22px">
                 <InputLabel className={Styles.label}>Support email </InputLabel>
                 <StyledTextField variant='outlined' fullWidth placeholder='Support email ' />
             </Grid>
 
 
-            <Grid item xs={12} sm={6} md={6}>
+            <Grid item xs={12} sm={6} md={6} mb="22px">
                 <InputLabel className={Styles.label}>Support phone number</InputLabel>
                 <MuiPhoneNumber variant='outlined' fullWidth defaultCountry={'us'} onChange={handleOnChange} sx={{
                     ".css-x9mhkq-MuiInputBase-root-MuiOutlinedInput-root ": {
@@ -77,7 +77,7 @@ const ProfileBusinessInfo = ({ handleNext }: Props) => {
                     }
                 }} />
             </Grid>
-            <Grid item xs={12} sm={6} md={6}>
+            <Grid item xs={12} sm={6} md={6} mb="22px">
                 <InputLabel className={Styles.label}>Chargeback email</InputLabel>
                 <StyledTextField variant='outlined' fullWidth placeholder='Chargeback email' />
             </Grid>

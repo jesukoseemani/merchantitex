@@ -93,7 +93,7 @@ const DirectorInfo = ({ handleBack, handleNext }: Props) => {
                         borderBottom: "1px dashed  #E0E0E0"
                     }}></Box></Grid>
                 </Grid>
-                <Stack direction="row" gap={"24px"} justifyContent={"flex-end"} alignItems={"flex-end"} sx={{ width: "100%", marginTop: "40px" }}>
+                <Stack direction="row" gap={"24px"} justifyContent={"flex-end"} alignItems={"flex-end"} sx={{ width: "100%", marginTop: "30px" }}>
                     <button style={{
                         backgroundColor: 'transparent',
                         color: '#333',

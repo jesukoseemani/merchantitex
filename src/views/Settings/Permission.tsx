@@ -4,6 +4,9 @@ import { useHistory } from 'react-router'
 import styles from "./Settings.module.scss"
 import AdminTree from "../../assets/images/admin.svg"
 import { ReactSVG } from 'react-svg'
+import { Link, NavLink } from 'react-router-dom'
+import CustomModal from '../../components/customs/CustomModal'
+import AddCustomRole from '../../components/permission/AddCustomRole'
 
 
 
@@ -14,6 +17,10 @@ interface PermissionProps {
 const Permission = ({ children }: PermissionProps) => {
     const history = useHistory()
     const [active, setActive] = useState(0)
+    const [openModal, setOpenModal] = useState(false)
+    const handleCustomRole = () => setOpenModal(true);
+    const handleCloseModal = () => setOpenModal(false);
+
     interface Props {
         id: string;
         name: string;
@@ -49,23 +56,17 @@ const Permission = ({ children }: PermissionProps) => {
         }
     ]
 
-    const handleClick = (url: string, index: number) => {
-        history.push(url)
-        setActive(index)
-        console.log(index)
 
-    }
 
     useEffect(() => {
         setActive(0)
-        // return () => setActive
-    }, [])
+    }, [active])
 
     return (
         <Box>
             <Stack mt={"35px"} direction={"row"} justifyContent="space-between" alignItems={"center"} className={styles.headerBox}>
                 <h2>All roles</h2>
-                <button>+ Create a custom role</button>
+                <button onClick={handleCustomRole}> Create a custom role</button>
 
             </Stack>
 
@@ -76,8 +77,10 @@ const Permission = ({ children }: PermissionProps) => {
                         <Box className={styles.sidebar}>
                             <ReactSVG src={AdminTree} />
                             <ul>
-                                {permisionData?.map(({ id, name, url }, index) => (
-                                    <li key={id} onClick={() => handleClick(url, index)} className={active === index && styles.active}>{name}</li>
+                                {permisionData?.map(({ id, name, url }) => (
+                                    <li>
+                                        <NavLink to={url} key={id} activeClassName={styles.active}>{name}</NavLink>
+                                    </li>
                                 ))}
                             </ul>
 
@@ -86,6 +89,18 @@ const Permission = ({ children }: PermissionProps) => {
                     </Grid>
                     <Grid item xs={12} sm={8} md={10} >{children}</Grid>
                 </Grid>
+            </Box>
+
+            <Box>
+                <CustomModal
+                    title="Create a custom role"
+                    isOpen={openModal}
+                    handleClose={handleCloseModal}
+                    close={() => setOpenModal(false)}>
+
+                    <AddCustomRole />
+                </CustomModal >
+
             </Box>
         </Box>
     )

@@ -10,13 +10,16 @@
 
 
 .modal__btn {
+
+    border: 1px solid blue;
+    overflow: scroll !important;
+    height: 90vh !important;
+
+
     form {
         width: 100%;
         // margin-top: 1.9rem;
-        overflow: auto;
-        max-height: 90vh;
-        // border: 1px solid red;
-
+        // height: 90vh;
 
         label {
             font-family: 'Avenir';
@@ -64,4 +67,9 @@
 
     }
 
+}
+
+.customeModal {
+    width: 550px;
+    border: 1px solid red;
 }

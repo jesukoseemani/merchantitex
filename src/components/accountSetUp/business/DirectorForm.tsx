@@ -17,15 +17,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 const DirectorForm = ({ formCounter }: { formCounter: number }) => {
 
 
-    const StyledTextField = styled(TextField, {
-        name: "StyledTextField",
-    })({
 
-        "& .MuiInputBase-root": {
-            height: 44,
-            marginBottom: "22px",
-        }
-    });
     return (
 
         <Box sx={{ marginTop: "-1.3rem", marginBottom: "20px", height: "100%" }}>
@@ -51,29 +43,29 @@ const DirectorForm = ({ formCounter }: { formCounter: number }) => {
                             </Grid>
                             <Grid item xs={12}></Grid> */}
                             <br />
-                            <Grid item xs={12} sm={6} md={6}>
+                            <Grid item xs={12} sm={6} md={6} mb="22px">
                                 <InputLabel className={styles.label}>Director's full name</InputLabel>
-                                <StyledTextField variant='outlined' fullWidth placeholder="Director 's fullname" />
+                                <TextField variant='outlined' fullWidth placeholder="Director 's fullname" />
                             </Grid>
-                            <Grid item xs={12} sm={6} md={6}>
+                            <Grid item xs={12} sm={6} md={6} mb="22px">
                                 <InputLabel className={styles.label}>Director's eail address</InputLabel>
-                                <StyledTextField variant='outlined' fullWidth placeholder="Director's eail address" />
+                                <TextField variant='outlined' fullWidth placeholder="Director's eail address" />
                             </Grid>
 
-                            <Grid item xs={12} sm={6} md={6}>
+                            <Grid item xs={12} sm={6} md={6} mb="22px">
                                 <InputLabel className={styles.label}>Director's BVN</InputLabel>
-                                <StyledTextField variant='outlined' fullWidth placeholder="Director's BVN" />
+                                <TextField variant='outlined' fullWidth placeholder="Director's BVN" />
                             </Grid>
-                            <Grid item xs={12} sm={6} md={6}>
+                            <Grid item xs={12} sm={6} md={6} mb="22px">
                                 <InputLabel className={styles.label}>Director's phone number</InputLabel>
-                                <StyledTextField variant='outlined' fullWidth placeholder="Director's phone number" />
+                                <TextField variant='outlined' fullWidth placeholder="Director's phone number" />
                             </Grid>
 
-                            <Grid item xs={12} sm={6} md={6}>
+                            <Grid item xs={12} sm={6} md={6} mb="22px">
                                 <InputLabel className={styles.label}>Director's Address</InputLabel>
-                                <StyledTextField variant='outlined' fullWidth placeholder="Director's ddress" />
+                                <TextField variant='outlined' fullWidth placeholder="Director's ddress" />
                             </Grid>
-                            <Grid item xs={12} sm={6} md={6}>
+                            <Grid item xs={12} sm={6} md={6} mb="22px">
                                 <InputLabel className={styles.label}>Upload an ID </InputLabel>
 
                                 <Button variant="outlined" fullWidth component="label"

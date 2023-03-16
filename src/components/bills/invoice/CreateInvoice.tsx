@@ -10,14 +10,7 @@ import Success from './Success';
 const CreateInvoice = () => {
 
     const dispatch = useDispatch()
-    const StyledTextField = styled(TextField, {
-        name: "StyledTextField",
-    })({
 
-        "& .MuiInputBase-root": {
-            height: 44
-        }
-    });
 
 
     const handleSubmitInvoice = () => {
@@ -47,7 +40,7 @@ const CreateInvoice = () => {
                     <Grid container spacing={3} paddingX={"50px"} >
                         <Grid item xs={12} sm={12} md={6}>
                             <InputLabel className={Styles.label}>Invoice Title</InputLabel>
-                            <StyledTextField fullWidth placeholder='123456789' />
+                            <TextField fullWidth placeholder='123456789' />
 
                         </Grid>
                         <Grid item xs={12} sm={12} md={6}>
@@ -73,27 +66,27 @@ const CreateInvoice = () => {
                         </Grid>
                         <Grid item xs={12} sm={12} md={6}>
                             <InputLabel className={Styles.label}>Customer name</InputLabel>
-                            <StyledTextField fullWidth placeholder='Roy philip' />
+                            <TextField fullWidth placeholder='Roy philip' />
 
                         </Grid>
                         <Grid item xs={12} sm={12} md={6}>
                             <InputLabel className={Styles.label}>Customer email Address</InputLabel>
-                            <StyledTextField fullWidth placeholder='Roy.philip@example.com' />
+                            <TextField fullWidth placeholder='Roy.philip@example.com' />
 
                         </Grid>
                         <Grid item xs={12} sm={12} md={6}>
                             <InputLabel className={Styles.label}>Phone Number</InputLabel>
-                            <StyledTextField fullWidth placeholder='904567893' />
+                            <TextField fullWidth placeholder='904567893' />
 
                         </Grid>
                         <Grid item xs={12} sm={12} md={6}>
                             <InputLabel className={Styles.label}>Invoice Due Date</InputLabel>
-                            <StyledTextField fullWidth placeholder='12-09-2023' />
+                            <TextField fullWidth placeholder='12-09-2023' />
 
                         </Grid>
                         <Grid item xs={12} sm={12} md={12}>
                             <InputLabel className={Styles.label}>Comment</InputLabel>
-                            <StyledTextField fullWidth placeholder='Enter comment' />
+                            <TextField fullWidth placeholder='Enter comment' />
 
                         </Grid>
                     </Grid>
@@ -108,45 +101,45 @@ const CreateInvoice = () => {
                 <Grid container spacing={3} padding={"2rem"} px={6}>
                     <Grid item xs={12} sm={12} md={6} >
                         <InputLabel className={Styles.label}>Item Description</InputLabel>
-                        <StyledTextField fullWidth placeholder='Enter Decription' />
+                        <TextField fullWidth placeholder='Enter Decription' />
 
                     </Grid>
                     <Grid item xs={12} sm={12} md={6}>
                         <InputLabel className={Styles.label}>Quantity</InputLabel>
-                        <StyledTextField type={"number"} placeholder="2" fullWidth />
+                        <TextField type={"number"} placeholder="2" fullWidth />
 
                     </Grid>
 
                     <Grid item xs={12} sm={12} md={6} >
                         <InputLabel className={Styles.label}>Currency</InputLabel>
-                        <StyledTextField fullWidth placeholder='NGN' select sx={{ display: "block" }} InputProps={{
+                        <TextField fullWidth placeholder='NGN' select sx={{ display: "block" }} InputProps={{
                             startAdornment: <InputAdornment position="start">NGN</InputAdornment>,
                         }}>
-                            <Box sx={{ display: "flex", flexDirection: "column", }}>
-                                <MenuItem>10,000</MenuItem>
-                                <MenuItem>20,000</MenuItem>
-                                <MenuItem>30,000</MenuItem>
-                                <MenuItem>40,000</MenuItem>
-                                <MenuItem>50,000</MenuItem>
-                            </Box>
-                        </StyledTextField>
+
+                            <MenuItem>10,000</MenuItem>
+                            <MenuItem>20,000</MenuItem>
+                            <MenuItem>30,000</MenuItem>
+                            <MenuItem>40,000</MenuItem>
+                            <MenuItem>50,000</MenuItem>
+
+                        </TextField>
 
                     </Grid>
                     <Grid item xs={12} sm={12} md={6}>
                         <InputLabel className={Styles.label}>Unit Price</InputLabel>
-                        <StyledTextField fullWidth InputProps={{
+                        <TextField fullWidth InputProps={{
                             startAdornment: <InputAdornment position="start">NGN</InputAdornment>,
                         }} />
 
                     </Grid>
                     <Grid item xs={12} sm={12} md={6}>
                         <InputLabel className={Styles.label}>Tax</InputLabel>
-                        <StyledTextField type={"number"} placeholder="10%" fullWidth />
+                        <TextField type={"number"} placeholder="10%" fullWidth />
 
                     </Grid>
                     <Grid item xs={12} sm={12} md={6}>
                         <InputLabel className={Styles.label}>Discount</InputLabel>
-                        <StyledTextField type={"number"} placeholder="10%" fullWidth />
+                        <TextField type={"number"} placeholder="10%" fullWidth />
 
                     </Grid>
                     <Grid item xs={12} sm={12} md={12} justifyContent={"flex-end"}>

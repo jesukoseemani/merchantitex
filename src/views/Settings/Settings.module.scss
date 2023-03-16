@@ -840,21 +840,24 @@
 
 	li {
 		list-style: none;
-		font-family: 'Avenir';
-		font-style: normal;
-		font-weight: 400;
-		font-size: 14px;
-		line-height: 19px;
-		margin-bottom: 25px;
-		color: #2F3238;
 		position: relative;
 		cursor: pointer;
 		margin-top: -3px;
+		margin-bottom: 25px;
+		line-height: 19px;
 
+		a {
+			font-family: 'Avenir';
+			font-style: normal;
+			font-weight: 400;
+			font-size: 14px;
+			color: #2F3238;
 
-		&.active {
-			color: #27ae60;
+			&.active {
+				color: #27ae60;
+			}
 		}
+
 
 	}
 

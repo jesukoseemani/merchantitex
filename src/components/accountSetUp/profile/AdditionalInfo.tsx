@@ -1,4 +1,4 @@
-import { Grid, Stack, TextField, InputLabel, FormControl, FormHelperText, FormGroup, FormControlLabel } from '@mui/material';
+import { Grid, Stack, InputLabel, FormControl, FormHelperText, FormGroup, FormControlLabel, OutlinedInput } from '@mui/material';
 import React from 'react'
 import MuiPhoneNumber from 'material-ui-phone-number';
 import Button from '../Button';
@@ -27,15 +27,6 @@ const ProfileAdditionalInfo = ({ handleBack, handleNext }: Props) => {
     const handleOnChange = () => { }
 
 
-    const StyledTextField = styled(TextField, {
-        name: "StyledTextField",
-    })({
-
-        "& .MuiInputBase-root": {
-            height: 44,
-            marginBottom: "22px",
-        }
-    });
     const label = { inputProps: { 'aria-label': 'Size switch demo' } };
     const priceList: priceProps[] = [
         {
@@ -65,17 +56,17 @@ const ProfileAdditionalInfo = ({ handleBack, handleNext }: Props) => {
         <div>
             <Grid container columnSpacing={4} justifyContent="space-between">
 
-                <Grid item xs={12} sm={6} md={6}>
+                <Grid item xs={12} sm={6} md={6} mb="22px">
                     <InputLabel className={Styles.label}>Contact's firstname</InputLabel>
-                    <StyledTextField variant='outlined' fullWidth placeholder="Contact's firstname" />
+                    <OutlinedInput fullWidth placeholder="Contact's firstname" />
                 </Grid>
-                <Grid item xs={12} sm={6} md={6}>
+                <Grid item xs={12} sm={6} md={6} mb="22px">
                     <InputLabel className={Styles.label}>Contact's lastname</InputLabel>
-                    <StyledTextField variant='outlined' fullWidth placeholder="Contact's lastname" />
+                    <OutlinedInput fullWidth placeholder="Contact's lastname" />
                 </Grid>
-                <Grid item xs={12} sm={6} md={6}>
+                <Grid item xs={12} sm={6} md={6} mb="22px">
                     <InputLabel className={Styles.label}>Contact's address</InputLabel>
-                    <StyledTextField variant='outlined' fullWidth placeholder="Contact's address" />
+                    <OutlinedInput fullWidth placeholder="Contact's address" />
 
                     <FormHelperText id="component-helper-text"
 
@@ -90,11 +81,12 @@ const ProfileAdditionalInfo = ({ handleBack, handleNext }: Props) => {
                     </FormHelperText>
                 </Grid>
 
-                <Grid item xs={12} sm={6} md={6}>
+                <Grid item xs={12} sm={6} md={6} mb="22px">
                     <InputLabel className={Styles.label}>Contact phone number</InputLabel>
                     <MuiPhoneNumber variant='outlined' fullWidth defaultCountry={'us'} onChange={handleOnChange} sx={{
                         ".css-x9mhkq-MuiInputBase-root-MuiOutlinedInput-root ": {
-                            height: "44px"
+                            height: "44px",
+                            marginBottom: "22px"
                         }
                     }} />
                     <FormHelperText id="component-helper-text"
@@ -103,15 +95,16 @@ const ProfileAdditionalInfo = ({ handleBack, handleNext }: Props) => {
                             color: "#8B8B8B",
                             fontFamily: "Avenir",
                             fontSize: "12px",
+                            marginBottom: "10px"
                         }}>
 
 
                         <Switch checked={false}  {...label} defaultChecked size="small" />Same as Support phone number
                     </FormHelperText>
                 </Grid>
-                <Grid item xs={12} sm={6} md={6}>
+                <Grid item xs={12} sm={6} md={6} mb="22px">
                     <InputLabel>Contact email address</InputLabel>
-                    <StyledTextField variant='outlined' fullWidth placeholder='Contact email address' />
+                    <OutlinedInput fullWidth placeholder='Contact email address' />
                     <FormHelperText id="component-helper-text"
 
                         sx={{
@@ -126,12 +119,13 @@ const ProfileAdditionalInfo = ({ handleBack, handleNext }: Props) => {
                 </Grid>
 
 
-                <Grid item xs={12} sm={6} md={6}>
+                <Grid item xs={12} sm={6} md={6} mb="22px">
                     <InputLabel>What is your estimated monthly income </InputLabel>
                     <Select
                         sx={{
 
                             height: 44,
+                            marginBottom: "22px"
                         }}
                         fullWidth
                     >

@@ -70,7 +70,7 @@ const AdditionalInfo = ({ handleBack, handleNext }: Props) => {
         <Box sx={{ marginTop: "-1.1rem" }}>
             <Grid container columnSpacing={4} justifyContent="flex-start">
 
-                <Grid item xs={12} sm={6} md={6}>
+                <Grid item xs={12} sm={6} md={6} mb="22px">
                     <InputLabel className={styles.label}>Business phone number</InputLabel>
                     <MuiPhoneNumber variant='outlined' fullWidth defaultCountry={'us'} onChange={handleOnChange} sx={{
                         ".css-x9mhkq-MuiInputBase-root-MuiOutlinedInput-root ": {
@@ -78,23 +78,20 @@ const AdditionalInfo = ({ handleBack, handleNext }: Props) => {
                         }
                     }} />
                 </Grid>
-                <Grid item xs={12} sm={6} md={6}>
+                <Grid item xs={12} sm={6} md={6} mb="22px">
                     <InputLabel className={styles.label}>Support Email Address</InputLabel>
 
                     <StyledTextField variant='outlined' fullWidth placeholder='Support Email Address' />
                 </Grid>
 
-                <Grid item xs={12} sm={6} md={6}>
+                <Grid item xs={12} sm={6} md={6} mb="22px">
                     <InputLabel className={styles.label}>Bussiness Address</InputLabel>
                     <StyledTextField variant='outlined' fullWidth placeholder='Bussiness Address' />
                 </Grid>
-                <Grid item xs={12} sm={6} md={6}>
+                <Grid item xs={12} sm={6} md={6} mb="22px">
                     <InputLabel className={styles.label}>State</InputLabel>
                     <Select
-                        sx={{
 
-                            height: 44,
-                        }}
                         fullWidth
                     >
                         {State?.map(({ name, code }) => (
@@ -102,17 +99,14 @@ const AdditionalInfo = ({ handleBack, handleNext }: Props) => {
                         ))}
                     </Select>
                 </Grid>
-                <Grid item xs={12} sm={6} md={6}>
+                <Grid item xs={12} sm={6} md={6} mb="22px">
                     <InputLabel className={styles.label}>City</InputLabel>
                     <StyledTextField variant='outlined' fullWidth placeholder='City' />
                 </Grid>
-                <Grid item xs={12} sm={6} md={6}>
+                <Grid item xs={12} sm={6} md={6} mb="22px">
                     <InputLabel className={styles.label}>What is your estimated monthly income </InputLabel>
                     <Select
-                        sx={{
 
-                            height: 44,
-                        }}
                         fullWidth
                     >
                         {priceList?.map(({ name, id }) => (

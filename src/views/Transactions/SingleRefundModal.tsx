@@ -194,11 +194,11 @@ const SingleRefundModal = ({ isOpen, handleClose, setRefundLogged }: SingleRefun
             </div>
             <div className={classes.formBox}>
               <label htmlFor='amount'>Refund destination</label>
-              <OutlinedInput value='Payment source - 5 to 15 days' disabled />
+              <OutlinedInput value='Payment source - 5 to 15 days' />
             </div>
             <div className={classes.formBox}>
               <label htmlFor='amount'>Reason for refund</label>
-              <OutlinedInput placeholder='Items out of stock' multiline rows={5} value={desc} onChange={(e) => setDesc(e.target.value)} />
+              <OutlinedInput placeholder='Items out of stock' multiline rows={10} value={desc} onChange={(e) => setDesc(e.target.value)} />
             </div>
           </div>
           <div>

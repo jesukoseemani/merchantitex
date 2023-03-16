@@ -17,6 +17,7 @@ const style = {
     borderRadius: "20px !important",
     maxHeight: "95vh",
 
+
 };
 
 interface Props {
@@ -32,7 +33,7 @@ export default function CustomModal({ children, isOpen, handleClose, close, titl
 
 
     return (
-        <div className={styles.customeModal} >
+        <div>
             {/* <Button onClick={handleOpen}>Open modal</Button> */}
             <Modal
                 open={isOpen}
@@ -55,6 +56,7 @@ export default function CustomModal({ children, isOpen, handleClose, close, titl
                         bgcolor="#fff"
                         borderRadius={"20px 20px 0 0px"}
                         borderBottom={"1px solid #E0E0E0"}
+
                     >
                         <h2 className={styles.titleText}>{title}</h2>
                         <IconButton onClick={handleClose}>
@@ -62,11 +64,10 @@ export default function CustomModal({ children, isOpen, handleClose, close, titl
                         </IconButton>
                     </Box>
                     <Box
-                        className={styles.modal__btn}
                         p="22px 50px"
-
+                        className={styles.modal__btn}
                         mt={"3rem"}
-                        sx={{ overFlow: "stroll" }}
+                        sx={{ overFlow: "auto" }}
                     >{children}</Box>
                 </Box>
             </Modal>

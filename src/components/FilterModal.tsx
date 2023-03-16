@@ -1,4 +1,4 @@
-import { Backdrop, Box, Button, IconButton, Modal, Select } from '@mui/material';
+import { Backdrop, Box, Button, IconButton, MenuItem, Modal, Select } from '@mui/material';
 import styles from './FilterModal.module.scss';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
@@ -36,6 +36,10 @@ const useModalBtnStyles = makeStyles({
 		color: '#27ae60 !important',
 
 	},
+	select: {
+		minHeight: "32px !important",
+		paddingLeft: "10px"
+	}
 });
 
 interface FilterModalProps {
@@ -210,18 +214,17 @@ const FilterModal = ({
 							<p>Status</p>
 							<Select
 								fullWidth
-
-								sx={{ height: "32px" }}
+								className={classes.select}
 								value={status}
 								name='status'
 								id='status'
 								onChange={statusHandler}>
-								<option value='' disabled selected hidden>
+								<MenuItem value='' disabled selected hidden>
 									Choose status
-								</option>
-								<option value='APPROVED'>APPROVED</option>
-								<option value='PENDING_REVIEW'>PENDING</option>
-								<option value='DECLINED'>DECLINED</option>
+								</MenuItem>
+								<MenuItem value='APPROVED'>APPROVED</MenuItem>
+								<MenuItem value='PENDING_REVIEW'>PENDING</MenuItem>
+								<MenuItem value='DECLINED'>DECLINED</MenuItem>
 							</Select>
 						</div>
 					) : (
@@ -230,7 +233,7 @@ const FilterModal = ({
 							<Select
 								fullWidth
 
-								sx={{ height: "32px" }}
+								className={classes.select}
 								value={status}
 								name='status'
 								id='status'
@@ -249,19 +252,20 @@ const FilterModal = ({
 						<p>Payment type</p>
 						<Select
 							fullWidth
-							sx={{ height: "32px" }}
+
 							value={payment}
 							name='payment_type'
 							id='payment_type'
+							className={classes.select}
 							onChange={paymentHandler}>
-							<option value='' disabled selected hidden>
+							<MenuItem value='' disabled selected hidden>
 								Select payment type
-							</option>
-							<option value='card'>Card</option>
-							<option value='ussd'>USSD</option>
-							<option value='account'>Account</option>
-							<option value='bank_transfer'>Bank Transfers</option>
-							<option value='payvice'>Payvice</option>
+							</MenuItem>
+							<MenuItem value='card'>Card</MenuItem>
+							<MenuItem value='ussd'>USSD</MenuItem>
+							<MenuItem value='account'>Account</MenuItem>
+							<MenuItem value='bank_transfer'>Bank Transfers</MenuItem>
+							<MenuItem value='payvice'>Payvice</MenuItem>
 						</Select>
 					</div>
 				</div>
