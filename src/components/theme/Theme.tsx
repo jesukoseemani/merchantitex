@@ -24,14 +24,24 @@ const theme = createTheme({
         },
 
 
-        paper: {
-          // borderRadius: "20px",
-        },
+
 
 
       }
     },
 
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          borderRadius: 0,
+          background: "red !important",
+          '& .MuiPaper': {
+            background: "green"
+          }
+        },
+
+      }
+    },
 
 
 
@@ -56,12 +66,7 @@ const theme = createTheme({
 
 
     MuiCheckbox: {
-      // colorSecondary: {
-      //   color: '#27AE60 !important',
-      //   '&$checked': {
-      //     color: '#27AE60',
-      //   },
-      // },
+
       styleOverrides: {
 
         root: {
@@ -179,7 +184,7 @@ const theme = createTheme({
           height: 44,
 
         },
-        
+
 
       }
     }

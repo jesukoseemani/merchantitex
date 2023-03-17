@@ -17,11 +17,11 @@ const SingleAirtimePayment = () => {
   //   }
   // });
 
-  const [country, setCountry] = useState(null)
+  const [country, setCountry] = useState<string>("choose country")
 
   const handleNumber = () => { }
-  const handleOnChange = (e: React.FormEvent<HTMLOptionElement>) => {
-    // setCountry(name)
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCountry(e.target.value)
   }
   return (
     <div>
@@ -30,20 +30,23 @@ const SingleAirtimePayment = () => {
 
         <Grid container>
           <Grid item xs={12}>
-            <InputLabel htmlFor="country" className={Styles.label}>Country</InputLabel>
-            <Select
+            <InputLabel
+              htmlFor="country" className={Styles.label}>Country</InputLabel>
+            <TextField
+              select
               sx={{ height: 44, marginBottom: "18px", }}
               fullWidth
               value={country}
-            // onChange={handleOnChange}
+              onChange={handleOnChange}
 
             >
               {/* <Box> */}
+              <MenuItem>Please choose country</MenuItem>
               {countryListAllIsoData?.map(({ name, code }) => (
                 <MenuItem key={code} value={name}>{name}</MenuItem>
               ))}
               {/* </Box> */}
-            </Select>
+            </TextField>
 
           </Grid>
           <Grid item xs={12}>
@@ -80,13 +83,14 @@ const SingleAirtimePayment = () => {
           </Grid>
           <Grid item xs={12}>
             <InputLabel htmlFor="country" className={Styles.label}>How often do you want to recharge?</InputLabel>
-            <Select
+            <TextField
+              select
               sx={{ height: 44, marginBottom: "18px", }}
               fullWidth
             >
               <MenuItem value="1days">1 days</MenuItem>
               <MenuItem value="1days">1 weeks</MenuItem>
-            </Select>
+            </TextField>
 
 
 
