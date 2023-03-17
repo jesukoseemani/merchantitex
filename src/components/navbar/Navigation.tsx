@@ -108,7 +108,10 @@ export default function Navigation(props: Props) {
                     }}
                     sx={{
                         display: { xs: 'flex', sm: "flex", md: "none" },
-                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, background: "#041926" },
+                        '& .MuiDrawer-paper': {
+                            boxSizing: 'border-box', width: drawerWidth, background: "#041926",
+
+                        },
 
 
                     }}

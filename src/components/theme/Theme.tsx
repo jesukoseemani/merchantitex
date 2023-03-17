@@ -25,7 +25,7 @@ const theme = createTheme({
 
 
         paper: {
-          borderRadius: "20px",
+          // borderRadius: "20px",
         },
 
 
@@ -153,6 +153,13 @@ const theme = createTheme({
         }
       }
     },
+    MuiDrawer: {
+      styleOverrides: {
+        paper: {
+          borderRadius: "0px !important",
+        }
+      }
+    },
     MuiInputLabel: {
       styleOverrides: {
         root: {
@@ -172,6 +179,7 @@ const theme = createTheme({
           height: 44,
 
         },
+        
 
       }
     }

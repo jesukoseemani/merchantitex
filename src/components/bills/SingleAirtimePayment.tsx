@@ -1,4 +1,4 @@
-import { Box, Button, Grid, InputLabel, Select, styled, TextField } from "@mui/material";
+import { Box, Button, Grid, InputLabel, Select, styled, TextField, MenuItem } from "@mui/material";
 import MuiPhoneNumber from "material-ui-phone-number";
 import React, { useState } from "react";
 import { countryListAllIsoData } from "../../helpers/Countries";
@@ -6,16 +6,16 @@ import { countryListAllIsoData } from "../../helpers/Countries";
 import Styles from "./payment.module.scss";
 
 const SingleAirtimePayment = () => {
-  const StyledTextField = styled(TextField, {
-    name: "StyledTextField",
-  })({
+  // const TextField = styled(TextField, {
+  //   name: "TextField",
+  // })({
 
-    "& .MuiInputBase-root": {
-      height: 44,
-      marginBottom: "18px",
-      padding: 0,
-    }
-  });
+  //   "& .MuiInputBase-root": {
+  //     height: 44,
+  //     marginBottom: "18px",
+  //     padding: 0,
+  //   }
+  // });
 
   const [country, setCountry] = useState(null)
 
@@ -35,11 +35,12 @@ const SingleAirtimePayment = () => {
               sx={{ height: 44, marginBottom: "18px", }}
               fullWidth
               value={country}
+            // onChange={handleOnChange}
 
             >
               {/* <Box> */}
               {countryListAllIsoData?.map(({ name, code }) => (
-                <option style={{ paddingLeft: "10px" }} onChange={handleOnChange} key={code} value={name}>{name}</option>
+                <MenuItem key={code} value={name}>{name}</MenuItem>
               ))}
               {/* </Box> */}
             </Select>
@@ -62,13 +63,14 @@ const SingleAirtimePayment = () => {
 
           <Grid item xs={12}>
             <InputLabel htmlFor="amount" className={Styles.label}>Amount</InputLabel>
-            <StyledTextField
+            <TextField
               name='accountnumber'
-              placeholder='Account Number'
+              placeholder='Amount'
               variant='outlined'
 
               size='small'
               fullWidth
+              sx={{ marginBottom: "18px", }}
 
             // sx={{
             //   ".css-1n4twyu-MuiInputBase-input-MuiOutlinedInput-input": { padding: 0 }
@@ -82,8 +84,8 @@ const SingleAirtimePayment = () => {
               sx={{ height: 44, marginBottom: "18px", }}
               fullWidth
             >
-              <option value="1days">1 days</option>
-              <option value="1days">1 weeks</option>
+              <MenuItem value="1days">1 days</MenuItem>
+              <MenuItem value="1days">1 weeks</MenuItem>
             </Select>
 
 
