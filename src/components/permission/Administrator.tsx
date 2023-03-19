@@ -6,7 +6,7 @@ import styles from "./styles.module.scss"
 const Administrator = () => {
     return (
         <Permission>
-            <Grid container columnSpacing={"43px"}>
+            <Grid container columnSpacing={{ xs: "20px", md: "43px" }}>
                 <Grid item xs={12} md={7} >
                     <Box className={styles.left__container}>
                         <Box className={styles.firstSection}>

@@ -261,9 +261,9 @@ const Users = () => {
 			openModalAndSetContent({
 				modalStyles: {
 					padding: 0,
-					maxWidth: '539px',
+					width: '539px',
 					// minHeight: '450px',
-					width: '100%',
+					maxWidth: '100%',
 					maxHeight: '400px',
 					overflow: "auto",
 					borderRadius: "20px"

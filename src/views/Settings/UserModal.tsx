@@ -149,7 +149,10 @@ function UserModal({
 											fontFamily: 'Avenir',
 											fontStyle: "normal",
 											fontWeight: 800,
-											fontSize: 16
+											fontSize: 16,
+											display: "flex",
+											justifyContent: "center",
+											alignItems: "center"
 										}}
 										type='submit'
 										color='primary'>

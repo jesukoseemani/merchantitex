@@ -64,7 +64,7 @@ const Permission = ({ children }: PermissionProps) => {
 
     return (
         <Box>
-            <Stack mt={"35px"} direction={"row"} justifyContent="space-between" alignItems={"center"} className={styles.headerBox}>
+            <Stack mt={{ sm: "20px", md: "35px" }} direction={"row"} justifyContent="space-between" alignItems={"center"} className={styles.headerBox}>
                 <h2>All roles</h2>
                 <button onClick={handleCustomRole}> Create a custom role</button>
 
@@ -72,7 +72,7 @@ const Permission = ({ children }: PermissionProps) => {
 
             <Box>
 
-                <Grid container justifyContent={"space-between"} flexWrap="wrap" spacing={"30px"}>
+                <Grid container justifyContent={"space-between"} flexWrap="wrap" spacing={{ xs: "10px", md: "30px" }}>
                     <Grid item xs={12} sm={4} md={2.5}>
                         <Box className={styles.sidebar}>
                             <ReactSVG src={AdminTree} />
@@ -87,7 +87,7 @@ const Permission = ({ children }: PermissionProps) => {
                         </Box>
 
                     </Grid>
-                    <Grid item xs={12} sm={8} md={9.5} >{children}</Grid>
+                    <Grid item xs={12} sm={8} md={9.5} mt={{ xs: "10rem" }}>{children}</Grid>
                 </Grid>
             </Box>
 
