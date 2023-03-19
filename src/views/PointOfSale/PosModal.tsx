@@ -112,6 +112,9 @@ const useStyles = makeStyles({
 		borderRadius: '.25rem',
 		textTransform: 'none',
 		marginTop: "20px",
+		display: "fléx",
+		justifyContent:"center",
+		alignItems:"center",
 		'&:hover': {
 			opacity: '.75',
 			backgroundColor: '#27AE60',

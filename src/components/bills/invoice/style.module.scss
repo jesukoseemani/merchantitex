@@ -17,6 +17,9 @@ button {
     color: #fff;
     font-weight: 400;
     font-size: 14px;
+    @media screen and (max-width:500px) {
+        margin-top: 1rem;
+    }
 }
 
 .outlinedBtn {

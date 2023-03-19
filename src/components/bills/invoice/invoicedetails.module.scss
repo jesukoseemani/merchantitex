@@ -35,6 +35,7 @@
 
         border: 1px solid #EFF3F8;
         width: 100%;
+        // border: 2px solid red;
 
         @media screen and (max-width:750px) {
             padding: 5px 25px !important;
@@ -75,21 +76,29 @@
                 background: rgba(242, 201, 76, 0.15);
                 color: #B99528;
             }
+
+            @media screen and (max-width:768px) {
+                gap: 30px;
+
+            }
+
         }
 
         .btn_group {
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             gap: 10px;
+            flex-flow: row wrap;
 
             button {
                 display: flex;
                 flex-direction: row;
                 align-items: center;
+                flex-flow: row wrap;
                 // padding: 7.5px 16px;
                 gap: 8px;
-                width: fit-content;
+                width: max-content;
                 height: 32px;
                 background: #27AE60;
                 border-radius: 20px;
@@ -112,10 +121,19 @@
 
                     svg {
                         color: #095B2C;
+                        margin: 0 !important;
                     }
                 }
             }
+
+            // border: #27AE60 2px solid;
+
+            @media screen and (max-width:768px) {
+                // border: 1px solid red;
+                width: 100% !important;
+            }
         }
+
 
     }
 
@@ -149,8 +167,11 @@
 
         @media screen and (max-width:750px) {
             height: auto;
-            border: 1px solid red;
             padding: 25px;
+
+            p {
+                margin-bottom: 15px;
+            }
 
 
         }

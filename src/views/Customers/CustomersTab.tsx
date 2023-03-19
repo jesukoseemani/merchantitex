@@ -83,11 +83,11 @@ const CustomersTab = ({ value, index }: any) => {
 		align?: 'right' | 'left' | 'center';
 	}
 	const columns: Column[] = [
-		{ id: 'name', label: 'Name', minWidth: 100 },
-		{ id: 'email', label: 'Email', minWidth: 100 },
-		{ id: 'phone', label: 'Phone Numbers', minWidth: 100 },
-		{ id: 'added', label: 'Date Added', minWidth: 100, align: 'right' },
-		{ id: 'actions', label: 'Actions', minWidth: 100, align: 'right' },
+		{ id: 'name', label: 'Name', minWidth: 150 },
+		{ id: 'email', label: 'Email', minWidth: 150 },
+		{ id: 'phone', label: 'Phone Numbers', minWidth: 150 },
+		{ id: 'added', label: 'Date Added', minWidth: 150, align: 'left' },
+		{ id: 'actions', label: 'Actions', minWidth: 250, align: 'right' },
 	];
 
 	const handleBLacklist = () => {
@@ -233,7 +233,7 @@ const CustomersTab = ({ value, index }: any) => {
 
 
 			<Box>
-				<Stack direction={"row"} justifyContent="space-between" gap={3}>
+				<Stack direction={"row"} flexWrap="wrap" justifyContent="space-between" gap={3}>
 					<h2>19 transfers</h2>
 					<Box className={styles.headerBox}>
 						<button><FilterAltOutlinedIcon />Filter by:</button>

@@ -340,7 +340,8 @@ const MerchantOverview = () => {
             right: 0,
             top: "50%",
             transform: "translate(-50% -50%)",
-            cursor: "pointer"
+            cursor: "pointer",
+            
 
           }}
 

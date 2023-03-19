@@ -40,11 +40,11 @@ function BenefiacialRecentTrans() {
         align?: "right" | "left" | "center";
     }
     const columns: Column[] = [
-        { id: "amount", label: "Amount", minWidth: 100 },
-        { id: "status", label: "Status", minWidth: 100 },
-        { id: "bankName", label: "Bank name", minWidth: 100 },
-        { id: "bankAccount", label: "Bank account", minWidth: 100 },
-        { id: "date", label: "Date", minWidth: 100 },
+        { id: "amount", label: "Amount", minWidth: 150 },
+        { id: "status", label: "Status", minWidth: 150 },
+        { id: "bankName", label: "Bank name", minWidth: 150 },
+        { id: "bankAccount", label: "Bank account", minWidth: 150 },
+        { id: "date", label: "Date", minWidth: 200 },
     ];
     const LoanRowTab = useCallback(
         (amount, status, bankName, acctNo, date, id) => ({

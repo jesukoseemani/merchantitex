@@ -5,13 +5,6 @@
 	width: 100%;
 	position: relative;
 
-	@media screen and (max-width: 850px) {
-		width: calc(100% - 73px);
-	}
-
-	@media screen and (max-width: 600px) {
-		width: calc(100% - 57px);
-	}
 
 	&>hr {
 		background-color: #e0e0e0;
@@ -55,41 +48,34 @@
 }
 
 
-
 .greenText,
-.yellowText {
-	font-size: 12px;
-	color: white;
+.yellowText,
+.redText {
+	background: rgba(39, 174, 96, 0.15);
+	font-family: 'Roboto';
+	font-style: normal;
 	font-weight: 500;
-	cursor: pointer;
-	padding: 3px 1rem;
-	background: rgba(39, 174, 96, 0.2);
-	border-radius: 20px;
+	font-size: 12px;
+	line-height: 14px;
 	text-align: center;
-	text-transform: capitalize;
-	width: 100px;
 	color: #27AE60;
-	// margin-left: 30px;
-
-	@media screen and (max-width: 1100px) {
-		width: 80%;
-	}
+	width: 80px;
+	height: 19px;
+	border-radius: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
+
 .yellowText {
-	background: rgba(242, 201, 76, 0.2);
 	color: #B99528;
+	background: rgba(242, 201, 76, 0.15);
 }
 
 .redText {
-	font-size: 0.875rem;
-	color: white;
-	font-weight: 500;
-	cursor: pointer;
-	padding: 0.2rem 1rem;
-	background-color: #eb5757;
-	border-radius: 20px;
-	text-align: center;
-	text-transform: capitalize;
-	width: 70%;
+
+
+	background: rgba(235, 87, 87, 0.15);
+	color: #EB5757;
 }

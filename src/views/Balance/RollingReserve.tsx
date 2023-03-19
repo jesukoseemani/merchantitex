@@ -36,6 +36,8 @@ const useBtnStyles = makeStyles({
     fontFamily: `'Avenir', sans-serif`,
     display: "flex",
     gap: "1rem",
+    flexWrap: "wrap",
+    border: "3px solid transparent",
     "& .MuiButtonBase-root": {
       borderRadius: ".25rem",
       padding: ".5rem 1rem",

@@ -12,7 +12,7 @@ import { closeLoader, openLoader } from '../../redux/actions/loader/loaderAction
 import axios from 'axios';
 import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
 import ParentContainer from '../../components/ParentContainer/ParentContainer';
-import { Box } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import { Button } from '@material-ui/core';
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 
@@ -109,7 +109,7 @@ const DeployedItem = () => {
   const getTransactions = async () => {
     dispatch(openLoader());
     try {
-      const res = await axios.get<GetTransactionsRes>('/mockData/transactions.json', { baseURL: '' });
+      const res = await axios.get<GetTransactionsRes>('/mockData/deployrequest.json', { baseURL: '' });
       const { transactions, _metadata } = res?.data;
       if (transactions.length) {
         setTxns(transactions)
@@ -159,38 +159,46 @@ const DeployedItem = () => {
           </div>
           {/* <hr /> */}
           <div className={styles.sectionTwo}>
+            <Grid container alignItems={"center"}>
+              <Grid xs={6} sm={4} md={3}>
+                <div className={styles.tableOne}>
+                  <span>Bank name</span>
+                  <p>{bankName}</p>
 
-            <div className={styles.tableOne}>
-              <p>Bank name</p>
-              <p>{bankName}</p>
-            </div>
-            <div>
-              <p>Terminal ID</p>
-              <p>{terminalId}</p>
-            </div>
-            <div>
-              <p>Transactions volume</p>
-              <p>{txnVolume}</p>
-            </div>
-            <div>
-              <p>Transactions value</p>
-              <p>{txnValue}</p>
-              <div>
+                </div>
 
-              </div>
-            </div>
+              </Grid>
+              <Grid xs={6} sm={4} md={3}>
+                <div>
+                  <span>Terminal ID</span>
+                  <p>{terminalId}</p>
+
+                </div>
+
+              </Grid>
+              <Grid xs={6} sm={4} md={3}>
+                <div>
+                  <span>Transactions volume</span>
+                  <p>{txnVolume}</p>
+
+                </div>
+
+              </Grid>
+              <Grid xs={6} sm={4} md={3}>
+                <div>
+
+                  <span>Transactions volume</span>
+                  <p>{txnValue}</p>
+                </div>
+              </Grid>
+            </Grid>
+
           </div>
-
         </div>
         <div className={styles.sectionThree}>
-          <Box sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center"
-
-          }}>
+          <Box className={styles.headerTitle}>
             <h3>{totalRows} Transactions</h3>
-            <Button style={{ border: "1px solid #095B2C", color: "#095B2C" }} variant='outlined'><InsertDriveFileOutlinedIcon /> Download</Button>
+            <button><InsertDriveFileOutlinedIcon /> Download</button>
           </Box>
           <div className={styles.tableContainer}>
             <CustomClickTable

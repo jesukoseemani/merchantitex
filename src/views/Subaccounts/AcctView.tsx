@@ -1,7 +1,7 @@
 import styles from './Subaccounts.module.scss';
 import { useTheme } from '@mui/material/styles';
 import { makeStyles } from '@material-ui/styles';
-import { Button, Stack } from '@mui/material';
+import { Box, Button, Grid, Stack } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import axios from 'axios';
@@ -22,6 +22,7 @@ import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import CustomClickTable from '../../components/table/CustomClickTable';
 import { GetSubAcctsRes, SubAcctItem } from '../../types/SubaccountTypes';
+import { Container } from '../SignUp/SignUpElements';
 
 const useBtnStyles = makeStyles({
 	root: {
@@ -160,27 +161,30 @@ const AcctView = ({ setIsModalOpen }: AcctViewProps) => {
 
 	return (
 		<>
-			<div className={styles.acctContainer}>
-				<p>{totalRows} Subaccounts</p>
-				<div>
-					<div>
+			<Box>
+				<Grid container justifyContent={"center"} alignItems={"center"} className={styles.sectionOneBox} px={"42px"}>
+					<Grid xs={12} sm={6} md={3}>
+						<p>{totalRows} Subaccounts</p>
+					</Grid>
+					<Grid item xs={12} sm={6} md={3}>
 						<p>Total commission earned</p>
 						<p>NGN {earned}</p>
-					</div>
-					<div>
+					</Grid>
+					<Grid item xs={12} sm={6} md={3}>
 						<p>Total commission PAID</p>
 						<p>NGN {paid}</p>
-					</div>
-					<div>
+					</Grid>
+					<Grid item xs={12} sm={6} md={3}>
 						<p>Total transactions value</p>
 						<p>{value}</p>
-					</div>
-				</div>
-			</div>
+					</Grid>
+				</Grid>
+
+			</Box>
 			{/* <div className={styles.topContainer}> */}
 			<Stack direction={"row"} justifyContent="space-between" alignItems={"center"} sx={{ marginTop: "25px" }}>
 				<div>
-					<p>{totalRows} Subaccounts</p>
+					<p className={styles.subAcctText}>{totalRows} Subaccounts</p>
 				</div>
 				<div className={btnClasses.root}>
 					<Button style={{ borderRadius: "20px" }} onClick={() => setIsModalOpen(true)}>+ New Subaccount</Button>

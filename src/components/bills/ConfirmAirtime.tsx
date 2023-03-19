@@ -46,8 +46,8 @@ const ConfirmAirtime = () => {
     const columns: Column[] = [
         { id: "country", label: "Country", minWidth: 100 },
         { id: "phone", label: "Phone number", minWidth: 100 },
-        { id: "amount", label: "Amount", minWidth: 100 },
-        { id: "frequency", label: "How often do you want to recharge", minWidth: 100 },
+        { id: "amount", label: "Amount", minWidth: 150 },
+        { id: "frequency", label: "How often do you want to recharge", minWidth: 150 },
 
     ];
 
@@ -138,9 +138,9 @@ const ConfirmAirtime = () => {
     const handleClickAirtime = () => { }
     return (
         <Box my={"50px"} className={Styles.comfirmEntries}>
-            <Stack direction={"row"} justifyContent={"space-between"} alignItems="center">
+            <Stack direction={"row"} justifyContent={"space-between"} flexWrap="wrap" alignItems="center">
                 {" "}
-                <h3 className={Styles.headerTitle}>1 Airtime purchase entries</h3>
+                <h3 className={Styles.headerTitle}>{history?.length ?? 0} Airtime purchase entries</h3>
 
                 <button className={Styles.confirmBtn} onClick={handleClickAirtime}>Confirm airtime purchase</button>
 

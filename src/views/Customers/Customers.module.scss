@@ -161,6 +161,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    width: max-content;
     height: 32px;
     padding: 0.5rem 1rem;
     font-family: 'Avenir';
@@ -186,5 +187,10 @@
     svg {
       margin: 0;
     }
+  }
+
+  @media screen and (max-width:768px) {
+    gap: 10px;
+    margin-top: -20px;
   }
 }

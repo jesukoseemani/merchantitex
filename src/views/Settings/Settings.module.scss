@@ -492,10 +492,10 @@
 	}
 }
 
-.account_wrap {
-	// margin: 20px 50px;
-	// border: 2px solid red;
-}
+// .account_wrap {
+// 	// margin: 20px 50px;
+// 	// border: 2px solid red;
+// }
 
 .account_h1 {
 	font-family: 'Avenir';
@@ -837,12 +837,15 @@
 	top: 150px;
 	display: flex;
 	gap: 5px;
+	@media screen and (max-width:768px){
+		position: relative;
+	}
 
 	li {
 		list-style: none;
 		position: relative;
 		cursor: pointer;
-		margin-top: -3px;
+		margin-top: -3.5px;
 		margin-bottom: 25px;
 		line-height: 19px;
 
@@ -862,4 +865,14 @@
 	}
 
 
+}
+
+.helperText {
+	font-family: 'Avenir';
+	font-style: italic;
+	font-weight: 400;
+	font-size: 12px;
+	line-height: 16px;
+
+	color: #828282;
 }

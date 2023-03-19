@@ -97,6 +97,9 @@ const useStyles = makeStyles({
 		height: "44px",
 		borderRadius: '20px',
 		textTransform: 'none',
+		display: "flex",
+		justifyContent: "center",
+		alignItems: "center",
 		'&:hover': {
 			opacity: '.75',
 			backgroundColor: '#27AE60',
@@ -224,6 +227,7 @@ const AddAcctModal = ({ isOpen, handleClose }: AddAcctModalProps) => {
 					<button style={{
 						height: "44px",
 						width: "100%",
+						textAlign: "center"
 					}} className={classes.formBtn} onClick={closeModal}>
 						Create account
 					</button>

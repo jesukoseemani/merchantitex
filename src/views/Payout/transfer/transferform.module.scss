@@ -66,6 +66,9 @@
         // padding: 10px 20px;
         height: 44px;
         // margin-top: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
     }
 }
@@ -88,7 +91,7 @@ label {
     }
 
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items:center;
 }
 
@@ -146,6 +149,9 @@ label {
         padding: 10px 20px;
         height: 44px;
         margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
     }
 }
@@ -224,7 +230,9 @@ label {
                 font-size: 16px;
                 line-height: 22px;
                 text-align: center;
-
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 color: #FFFFFF;
             }
         }

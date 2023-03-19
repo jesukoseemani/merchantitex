@@ -72,13 +72,13 @@ const Permission = ({ children }: PermissionProps) => {
 
             <Box>
 
-                <Grid container justifyContent={"space-between"} flexWrap="wrap" spacing={"43px"}>
-                    <Grid item xs={12} sm={4} md={2}>
+                <Grid container justifyContent={"space-between"} flexWrap="wrap" spacing={"30px"}>
+                    <Grid item xs={12} sm={4} md={2.5}>
                         <Box className={styles.sidebar}>
                             <ReactSVG src={AdminTree} />
                             <ul>
-                                {permisionData?.map(({ id, name, url }) => (
-                                    <li>
+                                {permisionData?.map(({ id, name, url }, index) => (
+                                    <li onClick={() => setActive(index)}>
                                         <NavLink to={url} key={id} activeClassName={styles.active}>{name}</NavLink>
                                     </li>
                                 ))}
@@ -87,7 +87,7 @@ const Permission = ({ children }: PermissionProps) => {
                         </Box>
 
                     </Grid>
-                    <Grid item xs={12} sm={8} md={10} >{children}</Grid>
+                    <Grid item xs={12} sm={8} md={9.5} >{children}</Grid>
                 </Grid>
             </Box>
 

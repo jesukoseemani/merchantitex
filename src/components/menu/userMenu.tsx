@@ -90,6 +90,8 @@ export default function UserMenu() {
 			alignItems: 'flex-start',
 			justifyContent: 'center',
 			padding: '1rem .5rem',
+			width: 170,
+			borderRadius: 20
 		},
 		primary: {
 			fontSize: '212px',
@@ -113,6 +115,7 @@ export default function UserMenu() {
 			padding: '18px 10px',
 			margin: '0px',
 			borderRadius: '8px !important',
+
 			'&:hover': {
 				background: '#eee !important',
 			},
@@ -120,6 +123,7 @@ export default function UserMenu() {
 		selectedItem: {
 			background: 'rgba(255, 255, 255, 0.12)',
 		},
+
 	});
 	const classes = useStyles();
 
@@ -141,25 +145,7 @@ export default function UserMenu() {
 	// 	setChecked(!checked);
 	// };
 
-	const SwitchToggle = () => {
-		return (
-			<div className={Styles.switchtoggle}>
-				{/* <Switch
-					checked={checked}
-					onChange={handleChecked}
-					offColor='#d80a0a'
-					height={24}
-					width={48}
-					uncheckedIcon={false}
-					checkedIcon={false}
-					onColor='#19943C'
-				/> */}
-				{/* <p className={Styles.switchtoggle_p}>{checked ? 'Live' : 'Test'}</p> */}
 
-				<Switch />
-			</div>
-		);
-	};
 	return (
 		<div className={Styles.menuContainer}>
 
@@ -184,10 +170,11 @@ export default function UserMenu() {
 					}}
 					onClick={handleClose}>
 					<div className={Styles.userdetails}>
-						<div className={Styles.username}>
-							{user?.firstname} {user?.lastname}
-						</div>
-						<div className={Styles.usermail}>{user?.email}</div>
+						<h2 className={Styles.username}>
+							{/* {user?.firstname} {user?.lastname} */}
+							Reece James
+						</h2>
+						<div className={Styles.usermail}>james@gmail.com</div>
 					</div>
 				</MenuItem>
 				<MenuItem

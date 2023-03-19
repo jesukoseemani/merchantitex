@@ -191,7 +191,7 @@ const PendingApproval = () => {
       <div className={Styles.tableContainer}>
         <Box>
           <Box>
-            <Stack direction={"row"} justifyContent="space-between" gap={3}>
+            <Stack direction={"row"} justifyContent="space-between" flexWrap={"wrap"} gap={3}>
               <h2>19 pending transfers</h2>
               <Box className={Styles.headerBox}>
                 <button><FilterAltOutlinedIcon />Filter by:</button>

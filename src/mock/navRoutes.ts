@@ -233,7 +233,7 @@ export const navRoutes: NavProps[] = [
         id: 29,
         title: "Permissions",
         icon: PermisionIcon,
-        link: "/general_setting/permissions",
+        link: "/general_setting/permissions/administrator",
       },
       {
         id: 26,

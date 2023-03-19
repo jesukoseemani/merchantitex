@@ -3,7 +3,7 @@ import styles from './SubaccountsItem.module.scss';
 import NavBar from '../../components/navbar/NavBar';
 import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
-import { Stack } from '@mui/material';
+import { Stack, Tab, Tabs } from '@mui/material';
 import { makeStyles } from '@material-ui/styles';
 import CustomClickTable from '../../components/table/CustomClickTable';
 import {
@@ -24,6 +24,15 @@ import ParentContainer from '../../components/ParentContainer/ParentContainer';
 import { Box, Button } from '@material-ui/core';
 import ArrowDropDownOutlinedIcon from '@mui/icons-material/ArrowDropDownOutlined';
 import SettlementAccount from './SettlementAccount';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
+import OverView from './OverView';
+
+
+
+
+
 const useBtnStyles = makeStyles({
 	root: {
 		fontFamily: `'Avenir', sans-serif`,
@@ -78,7 +87,7 @@ const SubaccountsItem = () => {
 	const [isOverview, setIsOverview] = useState<boolean>(true);
 	const [earned, setEarned] = useState<string>('0');
 	const [paid, setPaid] = useState<string>('0');
-	const [value, setValue] = useState<string>('0');
+	// const [value, setValue] = useState<string>('0');
 
 	const [txns, setTxns] = useState<TransactionItem[]>([]);
 	const [rows, setRows] = useState<TransactionItem[]>([]);
@@ -86,6 +95,16 @@ const SubaccountsItem = () => {
 	const [rowsPerPage, setRowsPerPage] = useState<number>(5);
 	const [totalRows, setTotalRows] = useState<number>(0);
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+	const [tabValue, setTabValue] = useState('1');
+	// const [value, setValue] = useState(0)
+
+
+
+	const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+		setTabValue(newValue);
+
+	};
+
 	const open = Boolean(anchorEl);
 
 	const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
@@ -212,7 +231,7 @@ const SubaccountsItem = () => {
 			if (subaccounts.length) {
 				setPaid(paid);
 				setEarned(earned);
-				setValue(value);
+				// setValue(value);
 			}
 			dispatch(closeLoader());
 		} catch (err) {
@@ -233,11 +252,15 @@ const SubaccountsItem = () => {
 		getSubAccts();
 	}, []);
 
+
+	// useEffect(() => {
+	// 	setValue("1")
+	// }, [value])
+
 	return (
 
 		<div className={styles.container}>
 			{/* <NavBar name='Subaccounts' /> */}
-			<hr />
 			<div className={styles.pageWrapper}>
 				<div className={styles.sectionOne}>
 					<div>
@@ -285,14 +308,14 @@ const SubaccountsItem = () => {
 						</div>
 						<div>
 							<p>Subaccount's share</p>
-							<p>{acctShare}</p>
+							{/* <p>{acctShare}</p> */}
 						</div>
 					</div>
 
 				</div>
 				{/* <hr /> */}
-				<div className={styles.sectionFour}>
-					<div className={styles.tabBar}>
+				<div className={styles.sectionFou}>
+					{/* <div className={styles.tabBar}>
 						<p
 							style={{ color: isOverview ? '#27ae60' : '#828282' }}
 							onClick={() => setIsOverview(true)}>
@@ -303,30 +326,63 @@ const SubaccountsItem = () => {
 							onClick={() => setIsOverview(false)}>
 							SETTLEMENTS
 						</p>
-					</div>
-					<div>
-						<Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-							<h3>{isOverview ? 'Transactions' : 'Settlements'}</h3>
-							<Stack direction={"row"} spacing={2}>
-								<Button variant='contained' className={styles.btn} style={{ borderRadius: "20px", padding: "7.5px 16px", height: "38px", width: "180px", textTransform: "inherit" }}>All Transaction <ArrowDropDownOutlinedIcon /></Button>
+					</div> */}
+
+					<Box sx={{ width: "100%" }}>
+						<TabContext value={tabValue} >
+							<Box sx={{ borderBottom: 0, borderColor: "divider" }} mt={"26px"}>
+								<TabList onChange={handleChange} aria-label="lab API tabs example" sx={{
+									".css-z7wd5-MuiButtonBase-root-MuiTab-root.Mui-selected": {
+										color: "#27AE60",
+									},
+									".css-1ae12jd-MuiTabs-indicator": {
+										background: "#27AE60",
+										width: "10px"
+									},
 
 
-								<Button variant='outlined' className={styles.btn} style={{ borderRadius: "20px", height: "38px", border: "1px solid #27AE60", textTransform: "inherit" }}>Download   <CloudUploadOutlinedIcon sx={{ marginLeft: "10px" }} /></Button>
-							</Stack>
-						</Box>
-						<br />
+								}} >
+
+									<Tab label="Overview" value="1" />
+									<Tab label="Settlement" value="2" />
+								</TabList>
+							</Box>
 
 
-						{isOverview ? <div className={styles.tableContainer}>
-							<CustomClickTable
-								columns={columns}
-								rows={rows}
-								totalRows={totalRows}
-								changePage={changePage}
-								limit={limit}
-							/>
-						</div> : <SettlementAccount />}
-					</div>
+
+
+
+							<TabPanel value="1" sx={{ padding: 0, }}>
+								<Box  sx={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", alignItems: "center" }} mt={"22px"} mb={"17px"}>
+									<h2 className={styles.btnHeaderTitle}>{txns?.length ?? 0} Transactions</h2>
+									<Stack direction={"row"} alignItems="center" justifyContent={"center"} mb={"14px"} gap="21px" className={styles.btn__group}>
+										<button>All Transaction <ArrowDropDownOutlinedIcon /></button>
+										<button>Download <CloudUploadOutlinedIcon /></button>
+									</Stack>
+								</Box>
+								<Box className={styles.tableContainer}>
+									<CustomClickTable
+										columns={columns}
+										rows={rows}
+										totalRows={totalRows}
+										changePage={changePage}
+										limit={limit}
+									/>
+								</Box>
+								{/* <OverView /> */}
+							</TabPanel>
+							<TabPanel value="2" sx={{ padding: 0 }}>
+								<SettlementAccount />
+							</TabPanel>
+						</TabContext>
+
+
+
+
+
+					</Box>
+
+
 				</div>
 			</div>
 		</div>

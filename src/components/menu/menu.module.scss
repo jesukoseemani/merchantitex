@@ -32,16 +32,32 @@
 }
 
 .account>div:last-child {
-	font-family: Inter;
+	font-family: "Avenir";
 	font-style: normal;
 	font-weight: 500;
 	font-size: 14px;
+	line-height: 30px;
+	color: rgba(0, 40, 65, 0.8);
+}
+
+.userdetails {
+	width: 100%;
+
+}
+
+.username {
+	font-family: "Avenir";
+	color: #000;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 16px;
 	line-height: 140%;
 	color: rgba(0, 40, 65, 0.8);
 }
 
-.username {
-	font-family: Inter;
+.usermail {
+	font-family: "Avenir";
+	color: #333;
 	font-style: normal;
 	font-weight: 500;
 	font-size: 14px;

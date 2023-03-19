@@ -3,6 +3,7 @@
     justify-content: flex-end;
     align-items: center;
     gap: 10px;
+    flex-flow: row wrap;
 
     button {
 
@@ -26,5 +27,9 @@
         svg {
             margin: 0;
         }
+    }
+
+    @media screen and (max-width:768px) {
+        justify-content: flex-start;
     }
 }

@@ -26,6 +26,10 @@
 			margin: 0;
 		}
 	}
+		 @media screen and (max-width:768px) {
+		 	gap: 10px;
+		 	margin-top: -20px;
+		 }
 }
 
 .ActionBtn {

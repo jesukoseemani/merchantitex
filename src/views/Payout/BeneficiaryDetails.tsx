@@ -69,12 +69,13 @@ const BeneficiaryDetails = () => {
 
                 <Box className={Styles.sectionOne} >
                     <Stack direction={"row"} p={3} justifyContent="space-between" alignItems={"center"} borderBottom="1px solid #EFF3F8" >
+
                         <Box className={Styles.sectionHeader}>
                             <h2>{name}</h2>
                             {/* <span>Pending approval</span> */}
-                        </Box>
-                        <Box>
-                            <button onClick={handleRemove} className={Styles.btn}>Remove beneficiary</button>
+                            <Box>
+                                <button onClick={handleRemove} className={Styles.btn}>Remove beneficiary</button>
+                            </Box>
                         </Box>
                     </Stack>
                     <Grid container p={3} className={Styles.sectionTwo}>

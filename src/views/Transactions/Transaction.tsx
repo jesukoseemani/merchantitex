@@ -4,7 +4,6 @@ import Styles from "./transaction.module.scss";
 import { ReactComponent as CopyIcon } from "../../assets/images/copyColor.svg";
 import { ReactComponent as CheckIcon } from "../../assets/images/circle-check.svg";
 import { ReactComponent as CheckColorIcon } from "../../assets/images/circle-check-color.svg";
-import { IconButton } from "@material-ui/core";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
@@ -17,7 +16,7 @@ import moment from "moment";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 
 import { TransactionItem } from "../../types/Transaction";
-import { Box } from "@mui/material";
+import { Box, Grid, IconButton } from "@mui/material";
 
 export default function Transaction() {
 	let { id } = useParams<{ id: string }>();
@@ -125,15 +124,15 @@ export default function Transaction() {
 
 			</Box>
 
-			<Box className={Styles.sectionOne}>
+			<Box className={Styles.sectionTwo} >
 
 
 				<div className={Styles.headerTitle}>
 					<h2>Payment information</h2>
 				</div>
-				<div className={Styles.customerDetails}>
-					<div>
-						<Box >
+				<Box className={Styles.containerBox}>
+					<Grid container spacing={2} justifyContent="flex-start" alignItems={"center"}>
+						<Grid item xs={12} sm={4} md={3.4}>
 							<span>Payment reference</span>
 							<h2>
 								{reference}
@@ -141,33 +140,26 @@ export default function Transaction() {
 									<CopyIcon />
 								</IconButton>
 							</h2>
-						</Box>
-					</div>
-					<div>
-						<div>
+						</Grid>
+						<Grid item xs={12} sm={4} md={1.8}>
 							<span>Transaction Fee</span>
 							<h2>{transfee ?? 0}</h2>
-						</div>
-					</div>
-					<div>
-						<div>
+						</Grid>
+						<Grid item xs={12} sm={4} md={1.8}>
 							<span>Country/Region</span>
 							<h2>Lagos, Nigeria</h2>
-						</div>
-					</div>
-					<div>
-						<div>
+						</Grid>
+						<Grid item xs={12} sm={4} md={1.8}>
 							<span>Bank name</span>
 							<h2>Access Bank</h2>
-						</div>
-					</div>
-					<div>
-						<div>
+						</Grid>
+						<Grid item xs={12} sm={4} md={3.2}>
 							<span>ITEX Reference</span>
 							<h2>ITEX-ab95cf961f454669a4</h2>
-						</div>
-					</div>
-				</div>
+						</Grid>
+					</Grid>
+
+				</Box>
 			</Box>
 
 			<Box className={Styles.sectionOne}>

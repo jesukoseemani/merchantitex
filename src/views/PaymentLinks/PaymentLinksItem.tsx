@@ -262,8 +262,8 @@ const PaymentLinksItem = () => {
 			{/* <hr /> */}
 			<div className={styles.sectionFour}>
 				<div>
-					<Stack direction={"row"} justifyContent="space-between" alignItems={"center"}>
-						<h3>Transactions</h3>
+					<Stack direction={"row"} spacing={1} justifyContent="space-between" flexWrap={"wrap"} alignItems={"center"}>
+						<h3>30 Transactions</h3>
 						<Box className={styles.buttonGroup}>
 							<button> <FilterAltOutlinedIcon />filter by</button>
 							<button> <InsertDriveFileOutlinedIcon />Download</button>

@@ -1,3 +1,4 @@
+import { Box, Stack } from '@mui/material';
 import axios from 'axios';
 import moment from 'moment';
 import React, { useCallback, useEffect, useState } from 'react'
@@ -11,6 +12,10 @@ import { GetTransactionSettltementItemRes, TransactionItem, TransactionSettlteme
 import { GetSettSubAcctsRes, GetSubAcctsRes, SubAcctItem } from '../../types/SubaccountTypes';
 import { useTabBtnStyles } from '../PointOfSale/PointOfSale';
 import styles from './SubaccountsItem.module.scss';
+import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
+import ArrowDropDownOutlinedIcon from '@mui/icons-material/ArrowDropDownOutlined';
+
+
 const SettlementAccount = () => {
 
     const btnClasses = useTabBtnStyles();
@@ -191,6 +196,13 @@ const SettlementAccount = () => {
 
     return (
         <div>
+            <Box sx={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", alignItems: "center" }} mt={"22px"} mb={"17px"}>
+                <h2 className={styles.btnHeaderTitle}>{txns?.length ?? 0} Settlements</h2>
+                <Stack direction={"row"} alignItems="center" justifyContent={"center"} mb={"14px"} gap="21px" className={styles.btn__group}>
+                    <button>All Transaction <ArrowDropDownOutlinedIcon /></button>
+                    <button>Download <CloudUploadOutlinedIcon /></button>
+                </Stack>
+            </Box>
             <CustomClickTable
                 columns={columns}
                 rows={rows}

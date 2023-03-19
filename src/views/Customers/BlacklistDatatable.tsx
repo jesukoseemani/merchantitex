@@ -55,7 +55,7 @@ const BlacklistDatatable = () => {
 		{ id: 'email', label: 'Email', minWidth: 150 },
 		{ id: 'phone', label: 'Phone Numbers', minWidth: 150 },
 		{ id: 'added', label: 'Date Added', minWidth: 150, align: 'left' },
-		{ id: 'actions', label: 'Actions', minWidth: 100, align: 'left' },
+		{ id: 'actions', label: 'Actions', minWidth: 150, align: 'left' },
 	];
 
 	const handleBLacklist = () => {
@@ -160,7 +160,7 @@ const BlacklistDatatable = () => {
 
 
 			<Box>
-				<Stack direction={"row"} justifyContent="space-between" gap={3}>
+				<Stack direction={"row"} flexWrap="wrap" justifyContent="space-between" gap={3}>
 					<h2>{transactions?.length} blacklisted customers</h2>
 					<Box className={styles.headerBox}>
 						<button><FilterAltOutlinedIcon />Filter by:</button>

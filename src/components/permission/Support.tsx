@@ -6,7 +6,7 @@ const Support = () => {
     return (
         <Permission>
             <Grid container columnSpacing={"43px"}>
-                <Grid item xs={12} md={8} >
+                <Grid item xs={12} md={7} >
                     <Box className={styles.left__container}>
                         <Box className={styles.firstSection}>
                             <h2>Customer support</h2>
@@ -123,7 +123,7 @@ const Support = () => {
                         </Box>
                     </Box>
                 </Grid>
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={5}>
                     <Box className={styles.right__container}>
                         <Box className={styles.firstSection}>
                             <h2>Users with this role</h2>

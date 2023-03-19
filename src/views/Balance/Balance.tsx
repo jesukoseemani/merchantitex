@@ -79,7 +79,7 @@ const Balance = () => {
       openModalAndSetContent({
         modalStyles: {
           padding: 0,
-          height: "347px",
+          height: "385px",
           width: "550px",
           maxWidth: "97%",
           borderRadius: '20px',
@@ -98,7 +98,7 @@ const Balance = () => {
       openModalAndSetContent({
         modalStyles: {
           padding: 0,
-          height: "347px",
+          height: "385",
           width: "550px",
           maxWidth: "97%",
           borderRadius: '20px',
@@ -181,7 +181,7 @@ const Balance = () => {
         <Stack direction={"row"} justifyContent={"space-between"} alignItems="center" flexWrap={"wrap"}>
           <h2>NGN Balance</h2>
 
-          <Stack direction={"row"} spacing={1.3} flexWrap="wrap">
+          <Stack direction={"row"} alignItems="center" columnGap={"10px"} flexWrap="wrap">
             <button onClick={handleSetNGNLimit}>Set low limits</button>
             <button onClick={handleFundAcct}>Fund balance</button>
           </Stack>
@@ -190,7 +190,7 @@ const Balance = () => {
 
       </Box>
       <Box className={styles.balance__body}>
-        <Stack direction={"row"} justifyContent="space-between" alignItems={"center"}>
+        <Stack direction={"row"} justifyContent="space-between" flexWrap={"wrap"} alignItems={"center"}>
           <Stack>
             <p>Collection balance</p>
             <p>Payout balance</p>

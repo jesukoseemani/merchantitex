@@ -136,11 +136,14 @@ const Header = () => {
 
 
       {/* <Container> */}
-      <Grid container justifyContent="space-between" alignItems="center">
-        <Grid item xs={7} md={8} px={2}>
-          <Stack direction={"row"} spacing={{ xs: 0, md: 5 }}>
+      <Grid container justifyContent="space-between" alignItems="center" spacing={3}>
+        <Grid item xs={7} md={6}>
+
+          <Box className={Styles.left__header}>
             <Box sx={{ display: { xs: "none", md: "block" } }}><h2 className={Styles.title}>{navbarRoute}</h2></Box>
-            <Grid item xs={10} md={8} className={Styles.input__box}>
+            {/* </Grid> */}
+
+            <Box className={Styles.input__box}>
 
               <OutlinedInput
                 fullWidth
@@ -161,14 +164,18 @@ const Header = () => {
 
                 sx={{
                   background: " #FBFBFB",
-                  border: " 1px solid #DDDDDD",
+                  // border: " 1px solid #f00 !important",
                   borderRadius: "10px",
                   height: "35px",
-                  outline: "none"
+                  outline: "none",
+
                 }}
               />
-            </Grid>
-          </Stack>
+            </Box>
+
+          </Box>
+          {/* </Grid> */}
+          {/* </Stack> */}
         </Grid>
         <Grid item xs={5} md={4}>
           <Stack direction={"row"} justifyContent="flex-end" alignItems={"center"} >

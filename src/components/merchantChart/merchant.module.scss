@@ -9,6 +9,11 @@
 
 .chart {
   padding: 20px 30px;
+
+  @media screen and (max-width:768px) {
+    padding: 5px;
+    width: 100%;
+  }
 }
 
 .chartHeader {
@@ -19,6 +24,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-flow: row wrap;
+
+  @media screen and (max-width:768px) {
+    height: auto;
+    align-items: flex-start;
+    padding: 20px;
+  }
 
 
   & button.btnDivider {
@@ -53,10 +65,13 @@
   }
 
   &>.btnGroupWrapper {
+    // border: 2px solid red;
     display: flex;
     align-items: center;
-    justify-content: right;
+    justify-content: flex-end;
     background: #F8F8F8;
+    flex-flow: row wrap;
+    // border: #eb5757 3px solid;
 
     &>button:last-child {
       margin-left: 30px !important;
@@ -78,6 +93,17 @@
         letter-spacing: 0.00321686px;
 
         color: #4F4F4F;
+      }
+    }
+
+    @media screen and (max-width:768px) {
+      justify-content: flex-start;
+      gap: 10px;
+      margin-top: 10px;
+      background-color: transparent;
+
+      &>button:last-child {
+        margin-left: 0px !important;
       }
     }
   }
@@ -102,6 +128,7 @@
       flex-direction: column;
       align-items: flex-start;
       justify-content: center;
+      // flex-flow: row wrap;
 
       span {
         font-family: 'Avenir';
@@ -123,6 +150,17 @@
 
       }
 
+    }
+
+    @media screen and (max-width:768px) {
+      grid-template-columns: 1fr;
+      height: auto;
+      padding: 0;
+
+      &>.header {
+        padding: 0;
+        grid-template-columns: 1fr;
+      }
     }
 
   }
@@ -185,6 +223,12 @@
 
     &>.summary:last-child {
       justify-content: flex-end;
+    }
+
+    @media screen and (max-width:768px) {
+      grid-template-rows: 1fr;
+      // padding: 0 20px;
+      grid-column: 1/-1;
     }
   }
 }

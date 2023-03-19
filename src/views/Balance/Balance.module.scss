@@ -152,6 +152,13 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	flex-flow: row wrap;
+
+	@media screen and (max-width:768px) {
+		& div:nth-of-type(2) {
+			margin-top: 1rem;
+		}
+	}
 
 }
 

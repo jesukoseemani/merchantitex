@@ -32,13 +32,7 @@ const theme = createTheme({
 
     MuiMenuItem: {
       styleOverrides: {
-        root: {
-          borderRadius: 0,
-          background: "red !important",
-          '& .MuiPaper': {
-            background: "green"
-          }
-        },
+        //  root
 
       }
     },
@@ -73,7 +67,32 @@ const theme = createTheme({
           color: "#27AE60",
           '&.Mui-checked': {
             color: "#27AE60",
+            bacakground: "red"
           },
+        }
+      }
+    },
+    MuiRadio: {
+
+      styleOverrides: {
+
+        root: {
+          color: "#27AE60",
+          '&.Mui-checked': {
+            color: "#27AE60",
+          },
+        }
+      }
+    },
+    MuiFormLabel: {
+      styleOverrides: {
+        root: {
+          fontFamily: 'Avenir',
+          fontStyle: "normal",
+          fontWeight: 400,
+          fontSize: "16px",
+          lineHeight: "22px",
+          color: "#828282",
         }
       }
     },
@@ -187,9 +206,44 @@ const theme = createTheme({
 
 
       }
-    }
+    },
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          fontFamily: 'Avenir',
+          fontStyle: "normal",
+          fontWeight: 400,
+          fontSize: "16px",
+          lineHeight: "22px",
+          color: "#4F4F4F",
+          textTransform: 'capitalize',
+          '&.Mui-selected': {
+            color: "#27AE60"
+          },
 
 
+        }
+      }
+    },
+
+
+
+    MuiTabs: {
+      styleOverrides: {
+        root: { postion: "relative" },
+        indicator: {
+          width: "35px !important",
+          margin: "0px 2.2rem !important",
+          backgroundColor: "#27AE60",
+          // marginTop: "-3rem !important",
+        },
+        flexContainer: {
+          gap: "35px !important"
+        }
+
+
+      }
+    },
 
 
 

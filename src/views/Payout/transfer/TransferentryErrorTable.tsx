@@ -224,7 +224,7 @@ const TransferentryErrorTable = () => {
     return (
         <>
             <Box mt={"28px"} className={styles.tableHeader}>
-                <Stack direction={"row"} justifyContent="space-between" alignItems={"center"}>
+                <Stack direction={"row"} justifyContent="space-between" flexWrap={"wrap"} alignItems={"center"}>
                     <h2>227 entries with errors</h2>
                     <Stack direction={"row"} spacing={2}>
                         <button><InsertDriveFileOutlinedIcon /> Download</button>

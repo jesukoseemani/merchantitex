@@ -3,7 +3,7 @@
 	flex-direction: column;
 	// width: calc(100% - 269px);
 	position: relative;
-	width: 100%s;
+	width: 100%;
 
 	@media screen and (max-width: 850px) {
 		width: 100%;
@@ -52,13 +52,10 @@
 		cursor: pointer;
 	}
 
-	&>div:last-of-type {
-		svg {
-			width: 0.85rem;
-			height: 0.85rem;
-			top: 0.25rem;
-			position: relative;
-		}
+
+	svg {
+		height: 20px !important;
+		width: 20px !important;
 	}
 }
 
@@ -81,7 +78,7 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin-top: 1.5rem;
+	margin-top: 2rem;
 
 	@media screen and (max-width: 570px) {
 		flex-direction: column;
@@ -286,20 +283,4 @@
 	// 		border: 1px solid red;
 	// 	}
 	// }
-}
-
-
-
-.copyLink {
-	svg {
-		path {
-			border: 2px solid red;
-			stroke: #2F80ED;
-
-
-		}
-
-
-
-	}
 }

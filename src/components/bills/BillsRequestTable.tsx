@@ -90,11 +90,11 @@ const BillsRequestTable = () => {
     align?: "right" | "left" | "center";
   }
   const columns: Column[] = [
-    { id: "country", label: "Country", minWidth: 100 },
-    { id: "bill", label: "Bill", minWidth: 100 },
-    { id: "amount", label: "Amount", minWidth: 100 },
-    { id: "packages", label: "Packages", minWidth: 100 },
-    { id: "date", label: "Date", minWidth: 100 },
+    { id: "country", label: "Country", minWidth: 150 },
+    { id: "bill", label: "Bill", minWidth: 150 },
+    { id: "amount", label: "Amount", minWidth: 150 },
+    { id: "packages", label: "Packages", minWidth: 150 },
+    { id: "date", label: "Date", minWidth: 200 },
   ];
 
   const billhistoryRowTab = useCallback(

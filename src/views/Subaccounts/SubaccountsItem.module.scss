@@ -74,11 +74,11 @@
 	justify-content: space-between;
 	align-items: center;
 	border-bottom: 1px solid #e0e0e0;
-
+	flex-flow: row wrap;
 
 	@media screen and (max-width: 600px) {
 
-		flex-direction: column;
+		// flex-direction: column;
 		align-items: flex-start;
 		gap: 1rem;
 	}
@@ -94,7 +94,7 @@
 
 		@media screen and (max-width: 450px) {
 			font-size: 1rem;
-			flex-direction: column;
+			// flex-direction: column;
 		}
 	}
 
@@ -172,7 +172,7 @@
 		}
 
 		&>p:last-of-type {
-
+			display: none;
 			font-family: 'Avenir';
 			font-style: normal;
 			font-weight: 500;
@@ -312,5 +312,46 @@ svg {
 	line-height: 19px;
 	letter-spacing: 0.0024px;
 	margin-bottom: 14px;
+	color: #333333;
+}
+
+.btn__group {
+
+
+
+	button {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		// padding: 7.5px 16px;
+		align-items: center;
+		// gap: 4px;
+		height: 34px;
+		color: #333333;
+		background: #E0E0E0;
+		border-radius: 20px;
+		font-family: 'Avenir';
+		font-style: normal;
+		font-weight: 400;
+		font-size: 14px;
+		line-height: 19px;
+		letter-spacing: 0.0024px;
+		border: 1px solid #E0E0E0;
+	}
+
+	& button:nth-of-type(2) {
+		background-color: transparent;
+		border: #27AE60 1px solid;
+		color: #27AE60;
+	}
+}
+
+.btnHeaderTitle {
+	font-family: 'Avenir';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 27px;
+
 	color: #333333;
 }

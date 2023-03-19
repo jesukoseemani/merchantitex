@@ -10,6 +10,12 @@
   width: 100%;
   margin: 20px auto auto;
   grid-gap: 20px;
+
+  @media screen and (max-width:768px) {
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+    height: auto;
+  }
 }
 
 .tableContainer {
@@ -162,6 +168,11 @@
     }
 
     &>div {
+      @media screen and (max-width:768px) {
+        margin-left: -40px;
+
+      }
+
       &>div {
         display: flex;
         align-items: center;
@@ -216,6 +227,11 @@
     }
   }
 
+  @media screen and (max-width:768px) {
+    // grid-template-columns: 1fr;
+    padding: 0 20px;
+    height: auto;
+  }
 
 }
 

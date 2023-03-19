@@ -95,10 +95,10 @@ const AirtimeRequestTable = () => {
 	}
 	const columns: Column[] = [
 		{ id: 'country', label: 'Country', minWidth: 150 },
-		{ id: 'recipient', label: 'Recipient', minWidth: 100 },
-		{ id: 'amount', label: 'Amount', minWidth: 100 },
-		{ id: 'network', label: 'Network', minWidth: 100 },
-		{ id: 'date', label: 'Date', minWidth: 100, align: "center" },
+		{ id: 'recipient', label: 'Recipient', minWidth: 150 },
+		{ id: 'amount', label: 'Amount', minWidth: 150 },
+		{ id: 'network', label: 'Network', minWidth: 150 },
+		{ id: 'date', label: 'Date', minWidth: 200, align: "left" },
 	];
 
 	const AirtimehistoryRowTab = useCallback(

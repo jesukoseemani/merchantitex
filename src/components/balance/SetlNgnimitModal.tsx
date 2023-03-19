@@ -14,7 +14,7 @@ const SetlNgnimitModal = () => {
                 <InputLabel className={styles.label}>Enter a low limit</InputLabel>
                 <OutlinedInput fullWidth placeholder='NGN0.00' sx={{ height: "44px", paddingLeft: "20px" }} />
                 <Box className={styles.btn__group}>
-                    <Stack direction={"row"} justifyContent="flex-end" spacing={2} alignItems={"centetr"}>
+                    <Stack direction={"row"} justifyContent="flex-end" gap={2} alignItems={"centetr"}>
                         <button>Cancel</button>
                         <button>Set low limit</button>
                     </Stack>

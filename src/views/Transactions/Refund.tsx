@@ -104,9 +104,10 @@ const Refund = () => {
 			fontFamily: `'Avenir', sans-serif`,
 			display: 'flex',
 			gap: '1rem',
+			flexWrap: "wrap",
 			[theme.breakpoints.down('sm')]: {
 				// flexDirection: 'column',
-				marginTop: "10px"
+				marginTop: "20px"
 			},
 			'& .MuiButtonBase-root': {
 				borderRadius: '20px',

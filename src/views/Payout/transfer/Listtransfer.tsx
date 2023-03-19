@@ -265,7 +265,7 @@ const Listtransfer = () => {
 
         <Box>
             <Box>
-                <Stack direction={"row"} justifyContent="space-between" gap={"5px"}>
+                <Stack direction={"row"} justifyContent="space-between" gap={"5px"} flexWrap="wrap">
                     <h2>19 transfers</h2>
                     <Box className={Styles.headerBox}>
                         <button><FilterAltOutlinedIcon />Filter by:</button>

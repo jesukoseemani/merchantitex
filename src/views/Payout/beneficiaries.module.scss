@@ -32,6 +32,7 @@ button {
 		&>div {
 			display: flex;
 			align-items: center;
+			flex-flow: row wrap;
 
 			&>button {
 				padding: 8px 16px;
@@ -63,10 +64,15 @@ button {
 					color: #ffff;
 				}
 
+				@media screen and (max-width:768px) {
+					margin-top: 1rem;
+				}
+
 				&:nth-of-type(2) {
 					background: transparent;
 					color: #27ae60;
 					border: 1px solid #27ae60;
+
 				}
 
 
@@ -257,6 +263,9 @@ svg {
 
 			display: flex;
 			align-items: center;
+			flex-flow: row wrap;
+			width: 100%;
+			justify-content: space-between;
 			gap: 10px;
 
 			h2 {
@@ -281,6 +290,10 @@ svg {
 				width: 118px;
 				height: 19px;
 				color: #B99528;
+			}
+
+			@media screen and (max-width:768px) {
+				gap: 5px;
 			}
 
 		}
@@ -422,5 +435,12 @@ svg {
 			line-height: 26px;
 			font-weight: 500px;
 		}
+	}
+}
+
+.wrapper {
+
+	@media screen and (max-width:768px) {
+		margin-top: 2rem;
 	}
 }

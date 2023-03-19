@@ -180,11 +180,11 @@ const BalanceHistory = () => {
     align?: 'right' | 'left' | 'center';
   }
   const columns: Column[] = [
-    { id: 'init', label: 'Previous balance', minWidth: 100 },
-    { id: 'amt', label: 'Transaction amount', minWidth: 100 },
-    { id: 'after', label: 'Current balance', minWidth: 100 },
-    { id: 'details', label: 'Details', minWidth: 100 },
-    { id: 'added', label: 'Date', minWidth: 100 },
+    { id: 'init', label: 'Previous balance', minWidth: 150 },
+    { id: 'amt', label: 'Transaction amount', minWidth: 150 },
+    { id: 'after', label: 'Current balance', minWidth: 150 },
+    { id: 'details', label: 'Details', minWidth: 150 },
+    { id: 'added', label: 'Date', minWidth: 150 },
   ];
 
   const BalanceHistoryRowTab = useCallback(
@@ -335,7 +335,7 @@ const BalanceHistory = () => {
       <div className={styles.pageWrapper}>
         <Box className={styles.historyTopContainer} mb={2}>
           <div>
-            <h2 className={styles.history__title}>19 balance logs</h2>
+            <h2 className={styles.history__title}>{history?.length ?? 0} balance logs</h2>
           </div>
           <div className={btnClasses.root}>
             <div>

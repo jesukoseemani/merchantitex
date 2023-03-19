@@ -22,6 +22,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { ReactComponent as ExtLinkIcon } from '../../assets/images/ext-link.svg';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 const useModalBtnStyles = makeStyles({
 	root: {
@@ -75,7 +76,8 @@ const LinksView = ({ openLinkModal }: LinksViewProps) => {
 			gap: '10px',
 
 			[theme.breakpoints.down('sm')]: {
-				flexDirection: 'column',
+				// flexDirection: 'column',
+				flexWrap: "wrap",
 			},
 			'& .MuiButtonBase-root': {
 				borderRadius: '.25rem',
@@ -170,8 +172,8 @@ const LinksView = ({ openLinkModal }: LinksViewProps) => {
 						/>
 					</div>
 					<div className={styles.copyLink}>
-						<ExtLinkIcon
 
+						<OpenInNewIcon sx={{ color: '#2F80ED', fontSize: 'large', mt: '6px' }}
 						/>
 					</div>
 				</div>

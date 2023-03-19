@@ -25,10 +25,10 @@ const Invoice = () => {
     }
     return (
         <Box sx={{ marginTop: "1.7rem" }}>
-            <Stack direction={"row"} justifyContent="space-between" alignItems={"center"} spacing={2}>
+            <Stack direction={"row"} justifyContent="space-between" flexWrap={"wrap"} alignItems={"center"} spacing={2}>
                 <h2 className={Styles.headerTitle}>30 Invoices Created</h2>
 
-                <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "10px" }}>
+                <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "10px", marginTop: { xs: "30px" } }} >
                     <button className={Styles.outlinedBtn}>All invoice</button>
                     <button className={Styles.containedBtn} onClick={handleCreateInvoice}>+ Create invoice</button>
                 </Box>
