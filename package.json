@@ -78,7 +78,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "format": "lint-stage",
-    "push": "git push origin dev && git push merchy dev"
+    "push": "git push origin dev && git push personal dev"
   },
   "eslintConfig": {
     "extends": [
