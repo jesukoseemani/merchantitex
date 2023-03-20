@@ -11,12 +11,14 @@ interface propTypes {
   title: string;
   subTitle?: string;
   children?: React.ReactNode;
+  style?: React.CSSProperties;
 }
 
 export default function OverviewTable({
   title,
   children,
   subTitle,
+  style
 }: propTypes) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -75,7 +77,7 @@ export default function OverviewTable({
   ];
 
   return (
-    <div className={Styles.container}>
+    <div className={Styles.container} style={style}>
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}

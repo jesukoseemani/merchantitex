@@ -392,7 +392,6 @@ function PendingApproval() {
         beneficiary={beneficiary}
         data={data}
         style={{ width: "13rem", }}
-        sx={{ border: "2px solid green" }}
       />
 
       {/* download */}

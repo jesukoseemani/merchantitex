@@ -247,11 +247,11 @@ const Refund = () => {
 	}
 
 	const columns: Column[] = [
-		{ id: 'amount', label: 'Amount', minWidth: 100 },
-		{ id: 'status', label: 'Status', minWidth: 100 },
+		{ id: 'amount', label: 'Amount', minWidth: 80 },
+		{ id: 'status', label: 'Status', minWidth: 70 },
 		{ id: 'email', label: 'Email address', minWidth: 100 },
-		{ id: 'linkingreference', label: 'Transaction reference', minWidth: 100 },
-		{ id: 'added', label: 'Date', minWidth: 100 },
+		{ id: 'linkingreference', label: 'Transaction reference', minWidth: 250 },
+		{ id: 'added', label: 'Date', minWidth: 170 },
 	];
 
 	const statusFormatObj: { [key: string]: string } = {

@@ -7,6 +7,7 @@ export interface CustomerItem {
   transNum: number;
   total: number;
   added?: string;
+  id?: string;
 }
 
 export interface GetCustomersRes {

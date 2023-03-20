@@ -9,15 +9,14 @@ import {
 	Table,
 	TableBody,
 	TableCell,
-} from '@material-ui/core';
+} from '@mui/material';
 import { useHistory } from 'react-router-dom';
-console.log("123")
-console.log("123")
-console.log("123")
 const useStyles = makeStyles({
 	root: {
 		width: '100%',
-		borderRadius: "20px"
+		borderRadius: "20px",
+
+
 	},
 	container: {
 		maxHeight: '70vh',
@@ -103,28 +102,27 @@ export default function CustomClickTable({
 			<TableContainer className={classes.container}>
 				<Table stickyHeader aria-label='sticky table'>
 					<TableHead>
-						<TableRow>
+						<TableRow style={{
+							padding: "15px 0px !important",
+
+						}}>
 							{columns.map((column, index) => (
 								<TableCell
 									key={index}
 									align={column.align}
 									style={{
-										fontFamily: 'Avenir',
-										fontStyle: "normal",
-										fontWeight: 500,
-										fontSize: "14px",
-										lineHeight: "19px",
-										letterSpacing: "0.0024px",
-										color: "#333333",
+
 										background: "#F4F6F8",
-										padding: column.padding,
 										paddingLeft: column.paddingLeft,
 										paddingRight: column.paddingRight,
 
 										minWidth: column.minWidth, maxWidth: column.maxWidth
 									}}
 								>
-									{column.label}
+									<h2>
+
+										{column.label}
+									</h2>
 								</TableCell>
 							))}
 						</TableRow>
@@ -139,7 +137,20 @@ export default function CustomClickTable({
 									{columns.map((column, secondIndex) => {
 										const value = row[column.id];
 										return (
-											<TableCell key={secondIndex} align={column.align} style={{ maxWidth: column.maxWidth }}>
+											<TableCell key={secondIndex} align={column.align}
+												sx={{
+
+													'&:first-child': {
+														paddingLeft: "38px",
+													},
+													'&:last-child': {
+														paddingRight: "38px"
+
+													},
+
+													// padding: "16.5px 39px"
+												}}
+												style={{ maxWidth: column.maxWidth, }}>
 												{value}
 											</TableCell>
 										);
@@ -157,7 +168,8 @@ export default function CustomClickTable({
 				page={page}
 				onPageChange={handleChangePage}
 				onRowsPerPageChange={handleChangeRowsPerPage}
+				style={{  paddingLeft: "18px" }}
 			/>
-		</Paper>
+		</Paper >
 	);
 }

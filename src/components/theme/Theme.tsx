@@ -245,8 +245,27 @@ const theme = createTheme({
       }
     },
 
+    MuiTableCell: {
+      styleOverrides: {
+        stickyHeader: {
+          padding: "16.5px",
+          '&:first-child': {
+            paddingLeft: "38px"
+          },
+          '& h2': {
+            // color: "red !important",
+            fontFamily: "Avenir !important",
+            fontStyle: "normal !important",
+            fontWeight: "500 !important",
+            fontSize: "14px !important",
+            lineHeight: "19px",
+            letterSpacing: "0.0024px",
+            color: "#000 !important",
 
-
+          }
+        }
+      }
+    }
   },
 
 

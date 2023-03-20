@@ -280,13 +280,14 @@ export default function TransactionsList() {
 		label: any;
 		minWidth?: number;
 		align?: 'right' | 'left' | 'center';
+
 	}
 	const columns: Column[] = [
 		{ id: 'amount', label: 'Amount', minWidth: 100 },
 		{ id: 'status', label: 'Status', minWidth: 100 },
-		{ id: 'acctId', label: 'Customer ID', minWidth: 100 },
-		{ id: 'payment_type', label: 'Payment type', minWidth: 100 },
-		{ id: 'date', label: 'Date', minWidth: 100 },
+		{ id: 'acctId', label: 'Email address', minWidth: 200 },
+		{ id: 'payment_type', label: 'Payment type', minWidth: 150 },
+		{ id: 'date', label: 'Date', minWidth: 150 },
 	];
 
 
@@ -302,7 +303,10 @@ export default function TransactionsList() {
 				<div
 					// onClick={() => loadTransaction(transaction?.merchantreference)}
 					className={Styles.amount}>
-					<p>NGN{amt}</p>
+					<h2>
+						<span
+							style={{ color: "#828282", paddingRight: "1px" }}
+						>NGN</span>{amt}</h2>
 					{/* <h2>{FormatToCurrency?.(amt)}</h2> */}
 				</div>
 			),

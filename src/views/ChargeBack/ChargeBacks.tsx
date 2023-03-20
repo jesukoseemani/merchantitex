@@ -15,61 +15,97 @@ import {
 import styles from './ChargeBacks.module.scss';
 import moment from 'moment';
 import CustomClickTable from '../../components/table/CustomClickTable';
-import { Button, Modal, OutlinedInput } from '@mui/material';
+import { Box, Button, Grid, IconButton, Modal, OutlinedInput } from '@mui/material';
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { useTheme } from '@mui/material/styles';
 import { makeStyles } from '@material-ui/styles';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import ParentContainer from '../../components/ParentContainer/ParentContainer';
+import CloseOutlined from '@mui/icons-material/CloseOutlined';
 
-const useBtnStyles = makeStyles({
-	root: {
-		fontFamily: `'Avenir', sans-serif`,
-		display: 'flex',
-		gap: '1rem',
-		'& .MuiButtonBase-root': {
-			borderRadius: '.25rem',
-			padding: '.5rem 1rem',
-			textTransform: 'none',
-			fontSize: '.875rem',
-			fontWeight: '400',
-			alignItem: 'center',
-			display: 'flex',
-			backgroundColor: '#E0E0E0',
-			color: '#333',
-		},
-		'& svg': {
-			fontSize: '1rem',
-			marginLeft: '.25rem',
-		},
-	},
-});
+
 
 const useModalBtnStyles = makeStyles({
 	root: {
 		display: 'flex',
 		justifyContent: 'flex-end',
-		padding: '1rem 1.5rem 0',
+		paddingInline: '30px',
+		marginTop: "30px",
 		gap: '1.25rem',
+		height: "44px",
 		'& .MuiButton-root': {
 			fontFamily: `'Avenir', sans-serif`,
 			fontWeight: '500',
 			fontSize: '.875rem',
 			color: 'black',
 			background: '#E0E0E0',
-			borderRadius: '3px',
+			borderRadius: '20px',
 			textTransform: 'none',
-			padding: '.5rem 1rem',
+			padding: '.35rem .85rem',
+			marginBottom: "2rem"
 		},
 		'& .MuiButton-root:nth-child(2)': {
 			color: 'white',
 			background: '#27AE60',
 		},
+		'& .MuiButton-root:nth-child(1)': {
+			// color: 'white',
+			background: 'transparent',
+			border: "1px solid #095B2C",
+			color: "#095B2C",
+		},
+	},
+	selected: {
+		border: '1px solid #27ae60 !important',
+		color: '#27ae60 !important',
+
+
 	},
 });
 
+
 const ChargeBacks = () => {
+	const theme = useTheme();
+
+	const useBtnStyles = makeStyles({
+		root: {
+			fontFamily: `'Avenir', sans-serif`,
+			display: 'flex',
+			gap: '10px',
+
+			[theme.breakpoints.down('sm')]: {
+				// flexDirection: 'column',
+				flexWrap: "wrap",
+			},
+			'& .MuiButtonBase-root': {
+				borderRadius: '.25rem',
+				padding: '.5rem 1rem',
+				textTransform: 'none',
+				fontSize: '.875rem',
+				fontWeight: '400',
+				alignItem: 'center',
+				display: 'flex',
+				height: "32px"
+
+			},
+			'& .MuiButtonBase-root:nth-child(1)': {
+				backgroundColor: '#E0E0E0',
+				color: '#333',
+			},
+			'& .MuiButtonBase-root:nth-child(2)': {
+				backgroundColor: '#27AE60',
+				color: '#FFF',
+				gap: '.5rem',
+			},
+			'& svg': {
+				fontSize: '1rem',
+				marginLeft: '.25rem',
+			},
+		},
+	});
+
+
 	const btnClasses = useBtnStyles();
 	const modalBtnClasses = useModalBtnStyles();
 
@@ -238,7 +274,12 @@ const ChargeBacks = () => {
 				onClose={() => setIsFilterModalOpen(false)}
 				aria-labelledby='chargebacks filter modal'>
 				<div className={styles.filterModalContainer}>
-					<p>Filters</p>
+					<Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 22px" }}>
+						<h2>Filters</h2>
+						<IconButton onClick={() => setIsFilterModalOpen(false)}>
+							<CloseOutlined />
+						</IconButton>
+					</Box>
 					<hr />
 					<div className={styles.modalContent}>
 						<div>
@@ -252,29 +293,38 @@ const ChargeBacks = () => {
 						</div>
 						<div>
 							<p>Custom date range</p>
-							<div>
-								<div>Start date</div>
-								<ArrowRightAltIcon />
-								<div>End date</div>
-							</div>
+							<Box>
+								<Grid container justifyContent={"space-between"} alignItems="center">
+									<Grid item xs={5}>
+										<input placeholder='Start date' />
+									</Grid>
+									<Grid item xs={2} justifyContent="center" display={"flex"} alignItems="center"><ArrowRightAltIcon /></Grid>
+									<Grid item xs={5}>
+
+
+										<input placeholder='end date' />
+									</Grid>
+
+								</Grid>
+
+							</Box>
 						</div>
 						<div>
 							<p>Withheld amount</p>
-							<OutlinedInput placeholder='NGN 0.00' size='small' fullWidth />
+							<input placeholder='NGN 0.00' />
 						</div>
 						<div>
 							<p>Status</p>
-							<OutlinedInput
+							<input
 								placeholder='Choose status'
-								size='small'
-								fullWidth
+
 							/>
 						</div>
 					</div>
 					<hr />
 					<div className={modalBtnClasses.root}>
-						<Button>Clear filter</Button>
-						<Button>Apply filter</Button>
+						<Button style={{ borderRadius: "20px" }}>Clear filter</Button>
+						<Button style={{ borderRadius: "20px" }}>Apply filter</Button>
 					</div>
 				</div>
 			</Modal>

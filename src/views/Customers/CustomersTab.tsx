@@ -87,7 +87,7 @@ const CustomersTab = ({ value, index }: any) => {
 		{ id: 'email', label: 'Email', minWidth: 150 },
 		{ id: 'phone', label: 'Phone Numbers', minWidth: 150 },
 		{ id: 'added', label: 'Date Added', minWidth: 150, align: 'left' },
-		{ id: 'actions', label: 'Actions', minWidth: 250, align: 'right' },
+		{ id: 'actions', label: 'Actions', minWidth: 100 },
 	];
 
 	const handleBLacklist = () => {
@@ -110,7 +110,7 @@ const CustomersTab = ({ value, index }: any) => {
 	};
 
 	const CustomerRowTab = useCallback(
-		(firstname, lastname, email, added, phone, transNum, total) => ({
+		(firstname, lastname, email, added, phone, transNum, total, id) => ({
 			name: (
 				<p className={styles.tableBodyText}>
 					<span className={styles.capitalText}>{firstname}</span>{' '}
@@ -129,32 +129,38 @@ const CustomersTab = ({ value, index }: any) => {
 				</p>
 			),
 
+			// id: <p> {email}</p>,
 			actions: (
-				<Stack
-					direction={'row'}
-					spacing={2}
-					justifyContent='flex-end'
-					className={styles.ActionBtn}>
-					<button
-						onClick={() =>
-							history.push({
-								pathname: `/customers/${email}`,
-								state: {
-									firstname,
-									lastname,
-									email,
-									added,
-									phone,
-									transNum,
-									total,
-								},
-							})
-						}>
-						View Details
-					</button>
-					<button onClick={handleBLacklist}>BlackList</button>
-				</Stack>
+				<p style={{ color: "red" }} onClick={handleBLacklist}>BlackList</p>
+				// <Stack
+				// 	direction={'row'}
+				// 	spacing={2}
+				// 	justifyContent='flex-end'
+				// 	className={styles.ActionBtn}>
+
+				// 	<button
+				// 		onClick={() =>
+				// 			history.push({
+				// 				// pathname: `/customers/${email}`,
+				// 				state: {
+				// 					firstname,
+				// 					lastname,
+				// 					email,
+				// 					added,
+				// 					phone,
+				// 					transNum,
+				// 					total,
+				// 					id,
+				// 				},
+				// 			})
+				// 		}
+				// 	// style={{ border: "9px solid green", position: "absolute" }}
+				// 	>
+				// 		View Details
+				// 	</button>
+				// </Stack>
 			),
+
 		}),
 		[]
 	);
@@ -170,7 +176,8 @@ const CustomersTab = ({ value, index }: any) => {
 					each?.added,
 					each?.phone,
 					each?.total,
-					each?.transNum
+					each?.transNum,
+					each?.id,
 				)
 			)
 		);
@@ -229,7 +236,7 @@ const CustomersTab = ({ value, index }: any) => {
 	};
 	return (
 
-		<Box mt={"27px"}>
+		<Box mt={"31px"}>
 
 
 			<Box>
@@ -251,10 +258,9 @@ const CustomersTab = ({ value, index }: any) => {
 					changePage={changePage}
 					limit={limit}
 					clickable
-					link="/customers/3"
-					// identifier={"id"}
-					identifier="email"
-				// rowsData={customers}
+					link="/customers"
+					identifier={"email"}
+					rowsData={customers}
 				/>
 			</div>
 		</Box>

@@ -19,6 +19,8 @@ import { useCallback, useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import Addtoblacklist from "./Addtoblacklist";
 import { openModalAndSetContent } from "../../redux/actions/modal/modalActions";
+import { CustomerItem as Customer } from '../../types/CustomerTypes';
+
 
 
 interface customerProps {
@@ -30,21 +32,24 @@ interface customerProps {
   total: number;
 }
 const CustomerItem = () => {
-  const { state } = useLocation();
+  // const { state } = useLocation();
+  const location = useLocation<{ rowData: string }>();
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const { id } = useParams<{ id: string }>();
-  console.log("state", state);
-  // if (!location?.state?.rowData) {
-  //   history.replace("/customers");
-  // }
+  const { slug } = useParams<{ slug: string }>();
 
-  // console.log(lo);
+  if (!location.state.rowData) {
+    history.replace('/customers');
+  }
 
-  // const formattedRowData = JSON.parse(rowData);
+  const { rowData } = location.state;
+
+  const formattedRowData: Customer = JSON.parse(rowData);
+
+  // const { desc, name, amt, linkType, url, added, website, img, frequency, chargeCount, phone } = formattedRowData;
   // transNum, total
-  const { firstname, lastname, email, phone, total, transNum }: any = state;
+  const { firstname, lastname, email, phone, total, transNum } = formattedRowData;
 
   const [totalAmt, setTotalAmt] = useState<number>(0);
   const [transactions, setTransactions] = useState<RecentCustomerItem[]>([]);
@@ -109,7 +114,7 @@ const CustomerItem = () => {
     dispatch(openLoader());
     try {
       const res = await axios.get<GetRecentCustomerRes>(
-        `/mockData/recentcustomerinfo.json?customerId=${id}`,
+        `/mockData/recentcustomerinfo.json?customerId=${email}`,
         { baseURL: "" }
       );
       const { transactions, _metadata } = res?.data;
