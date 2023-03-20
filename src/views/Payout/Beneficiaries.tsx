@@ -232,7 +232,9 @@ function PendingApproval() {
           width: "419px",
           maxWidth: "97%",
           height: "498px",
-          overflow: "hidden"
+          overflow: "hidden",
+
+
         },
         modalContent: (
           <>
@@ -251,7 +253,8 @@ function PendingApproval() {
           width: "419px",
           maxWidth: "97%",
           height: "408px",
-          overflow: "hidden"
+          overflow: "hidden",
+
         },
         modalContent: (
           <>
@@ -270,7 +273,9 @@ function PendingApproval() {
           width: "419px",
           maxWidth: "97%",
           height: "408px",
-          overflow: "hidden"
+          overflow: "hidden",
+
+
         },
         modalContent: (
           <>

@@ -15,7 +15,7 @@ const PayviceForm = () => {
             <Box className={Styles.formBody}>
                 <div>
                     <InputLabel>Country</InputLabel>
-                    <TextField fullWidth defaultValue={"Nigeriaa"} value={country} select onChange={(e) => setCountry(e.target.value)}>
+                    <TextField fullWidth value={country} select onChange={(e) => setCountry(e.target.value)}>
 
                         {countryListAllIsoData?.map(({ code, name }) => (
                             <option value={name} key={code} style={{ padding: '10px' }}>{name}</option>

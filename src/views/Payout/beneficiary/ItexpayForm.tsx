@@ -9,7 +9,7 @@ const ItexpayForm = () => {
     return (
         <Box className={Styles.container}>
             <Box className={Styles.formHeader}>
-                <h2>Add a Payvice beneficiary</h2>
+                <h2>Add ITEX Pay beneficiary</h2>
             </Box>
 
             <Box className={Styles.formBody}>

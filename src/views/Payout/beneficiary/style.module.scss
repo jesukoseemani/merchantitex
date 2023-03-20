@@ -1,5 +1,10 @@
 .container {
     // padding-inline: 50px;
+    // border: 2px solid red;
+    // height: 458px;
+    background-color: #FFFFFF;
+    // min-height: 402px;
+    border-radius: 20px;
 }
 
 .formHeader {
@@ -19,11 +24,11 @@
 
 .formBody {
     padding-inline: 50px;
-    margin-top: 20px;
+    margin-top: 27px;
 
     &>div {
         // border: 2px solid red;
-        margin-top: 15px;
+        margin-top: 22px;
     }
 
     p {
@@ -53,5 +58,6 @@
         text-align: center;
         margin: 5px;
         color: #FFFFFF;
+        // margin-bottom: 42pxß;
     }
 }
