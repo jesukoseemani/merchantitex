@@ -115,7 +115,7 @@
 .menuContainer {
 	margin-left: -100px !important;
 	border-radius: 20px;
-	border: 2px solid red;
+	// border: 2px solid red;
 
 	&>div:not(:last-child) {
 		border-bottom: 1px solid #f8f8f8 !important;
@@ -223,7 +223,7 @@
 			align-items: center;
 			gap: 10px;
 			flex-flow: row wrap;
-			border: 1px solid red;
+			// border: 1px solid red;
 
 			h2 {
 				font-family: 'Avenir';
@@ -276,6 +276,7 @@
 
 
 	.sectionTwo {
+		width: 100%;
 
 		span {
 			font-family: 'Avenir';
@@ -331,7 +332,7 @@
 		}
 	}
 
-	@media screen and (max-width:768px) {
+	@media screen and (max-width:1000px) {
 		// border: #095B2C 2px solid;
 		height: auto;
 	}

@@ -75,7 +75,7 @@ const Pendingdetails = () => {
                         <p>Payment information</p>
                     </Box>
                     <Grid container columnGap={7} p={3} className={Styles.sectionTwo}>
-                        <Grid item xs={12} sm={6} md={2}>
+                        <Grid item xs={12} sm={6} md={3}>
                             <span>Narration</span>
                             <p>Money for transportation</p>
                         </Grid>
