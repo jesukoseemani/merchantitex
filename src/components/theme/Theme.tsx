@@ -65,11 +65,21 @@ const theme = createTheme({
 
         root: {
           color: "#27AE60",
+          // bacakground: "red !important",÷
+
           '&.Mui-checked': {
-            color: "#27AE60",
-            bacakground: "red"
+            color: "transparent",
+            '& svg': {
+              '& path': {
+
+                stroke: "#27AE60",
+                strokeWidth: "1px"
+
+              }
+            }
           },
-        }
+        },
+
       }
     },
     MuiRadio: {

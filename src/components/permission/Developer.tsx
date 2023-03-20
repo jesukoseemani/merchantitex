@@ -21,14 +21,14 @@ const Developer = () => {
                                 <h2>
                                     Transactions permissions
                                 </h2>
-                                <p><Checkbox /> Can view transactions</p>
-                                <p><Checkbox /> Can view refunds</p>
+                                <p><Checkbox defaultChecked /> Can view transactions</p>
+                                <p><Checkbox defaultChecked /> Can view refunds</p>
                             </Box>
                             <Box>
                                 <h2>
                                     Customers permissions
                                 </h2>
-                                <p><Checkbox />Can view customers</p>
+                                <p><Checkbox defaultChecked />Can view customers</p>
 
                             </Box>
 
@@ -37,11 +37,11 @@ const Developer = () => {
                                     Settings permissions
                                 </h2>
 
-                                <p><Checkbox />Can view API keys</p>
-                                <p><Checkbox />Can generate new API keys</p>
-                                <p><Checkbox />Can view webhooks</p>
-                                <p><Checkbox />Can update and set webhook preferences</p>
-                                <p><Checkbox />Can resend webhooks</p>
+                                <p><Checkbox defaultChecked />Can view API keys</p>
+                                <p><Checkbox defaultChecked />Can generate new API keys</p>
+                                <p><Checkbox defaultChecked />Can view webhooks</p>
+                                <p><Checkbox defaultChecked />Can update and set webhook preferences</p>
+                                <p><Checkbox defaultChecked />Can resend webhooks</p>
 
 
                             </Box>

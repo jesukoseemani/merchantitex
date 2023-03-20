@@ -1,4 +1,4 @@
-import { Avatar, Box, Checkbox, Grid, List, ListItem, ListItemAvatar, ListItemText } from '@mui/material'
+import { Avatar, Box, Checkbox,  Grid, List, ListItem, ListItemAvatar, ListItemText } from '@mui/material'
 import React from 'react'
 import Permission from '../../views/Settings/Permission'
 import styles from "./styles.module.scss"
@@ -22,41 +22,41 @@ const Administrator = () => {
                                 <h2>
                                     Transactions permissions
                                 </h2>
-                                <p><Checkbox /> Can view transactions</p>
-                                <p><Checkbox /> Can view refunds</p>
-                                <p><Checkbox /> Can log refunds</p>
+                                <p><Checkbox defaultChecked /> Can view transactions</p>
+                                <p><Checkbox defaultChecked /> Can view refunds</p>
+                                <p><Checkbox defaultChecked /> Can log refunds</p>
                             </Box>
                             <Box>
                                 <h2>
                                     Customers permissions
                                 </h2>
-                                <p><Checkbox />Can view customers</p>
-                                <p><Checkbox /> Can add new customers</p>
-                                <p><Checkbox />Can edit customers</p>
-                                <p><Checkbox />Can blacklist customers</p>
+                                <p><Checkbox defaultChecked />Can view customers</p>
+                                <p><Checkbox defaultChecked /> Can add new customers</p>
+                                <p><Checkbox defaultChecked />Can edit customers</p>
+                                <p><Checkbox defaultChecked />Can blacklist customers</p>
                             </Box>
 
                             <Box>
                                 <h2>
                                     Balances permissions
                                 </h2>
-                                <p><Checkbox />Can view balances</p>
-                                <p><Checkbox />Can fund balances</p>
-                                <p><Checkbox />Can view settlements</p>
-                                <p><Checkbox />Can view balance history</p>
+                                <p><Checkbox defaultChecked />Can view balances</p>
+                                <p><Checkbox defaultChecked />Can fund balances</p>
+                                <p><Checkbox defaultChecked />Can view settlements</p>
+                                <p><Checkbox defaultChecked />Can view balance history</p>
                             </Box>
 
                             <Box>
                                 <h2>
                                     Transfers permissions
                                 </h2>
-                                <p><Checkbox />Can view transfers</p>
-                                <p><Checkbox />Can make transfers</p>
-                                <p><Checkbox />Can approve/disapprove pending transfers</p>
-                                <p><Checkbox />Can approve/disapprove bulk transfers</p>
-                                <p><Checkbox />Can view beneficiaries</p>
-                                <p><Checkbox />Can add beneficiaries</p>
-                                <p><Checkbox />Can remove beneficiaries</p>
+                                <p><Checkbox defaultChecked />Can view transfers</p>
+                                <p><Checkbox defaultChecked />Can make transfers</p>
+                                <p><Checkbox defaultChecked />Can approve/disapprove pending transfers</p>
+                                <p><Checkbox defaultChecked />Can approve/disapprove bulk transfers</p>
+                                <p><Checkbox defaultChecked />Can view beneficiaries</p>
+                                <p><Checkbox defaultChecked />Can add beneficiaries</p>
+                                <p><Checkbox defaultChecked />Can remove beneficiaries</p>
                             </Box>
 
 
@@ -64,18 +64,18 @@ const Administrator = () => {
                                 <h2>
                                     Subaccounts permissions
                                 </h2>
-                                <p><Checkbox />Can view subaccounts</p>
-                                <p><Checkbox />Can add subaccounts</p>
-                                <p><Checkbox />Can edit subaccounts</p>
+                                <p><Checkbox defaultChecked />Can view subaccounts</p>
+                                <p><Checkbox defaultChecked />Can add subaccounts</p>
+                                <p><Checkbox defaultChecked />Can edit subaccounts</p>
 
                             </Box>
                             <Box>
                                 <h2>
                                     Chargebacks permissions
                                 </h2>
-                                <p><Checkbox />Can view chargebacks</p>
-                                <p><Checkbox />Can view chargebacks</p>
-                                <p><Checkbox />Can view chargebacks</p>
+                                <p><Checkbox defaultChecked />Can view chargebacks</p>
+                                <p><Checkbox defaultChecked />Can view chargebacks</p>
+                                <p><Checkbox defaultChecked />Can view chargebacks</p>
 
                             </Box>
 
@@ -83,10 +83,10 @@ const Administrator = () => {
                                 <h2>
                                     Airtime & Bills permissions
                                 </h2>
-                                <p><Checkbox />Can view airtime</p>
-                                <p><Checkbox />Can view bills</p>
-                                <p><Checkbox />Can buy airtime and bills</p>
-                                <p><Checkbox />Can buy bulk airtime and bills</p>
+                                <p><Checkbox defaultChecked />Can view airtime</p>
+                                <p><Checkbox defaultChecked />Can view bills</p>
+                                <p><Checkbox defaultChecked />Can buy airtime and bills</p>
+                                <p><Checkbox defaultChecked />Can buy bulk airtime and bills</p>
 
                             </Box>
 
@@ -94,9 +94,9 @@ const Administrator = () => {
                                 <h2>
                                     Payment link permissions
                                 </h2>
-                                <p><Checkbox />Can view payment links</p>
-                                <p><Checkbox />Can create and edit payment links</p>
-                                <p><Checkbox />Can delete payment links</p>
+                                <p><Checkbox defaultChecked />Can view payment links</p>
+                                <p><Checkbox defaultChecked />Can create and edit payment links</p>
+                                <p><Checkbox defaultChecked />Can delete payment links</p>
 
 
                             </Box>
@@ -106,9 +106,9 @@ const Administrator = () => {
                                 <h2>
                                     Invoices permissions
                                 </h2>
-                                <p><Checkbox />Can view invoices</p>
-                                <p><Checkbox />Can create, edit and delete invoices</p>
-                                <p><Checkbox />Can finalize and send invoices</p>
+                                <p><Checkbox defaultChecked />Can view invoices</p>
+                                <p><Checkbox defaultChecked />Can create, edit and delete invoices</p>
+                                <p><Checkbox defaultChecked />Can finalize and send invoices</p>
 
 
                             </Box>
@@ -117,10 +117,10 @@ const Administrator = () => {
                                 <h2>
                                     Payment plan permissions
                                 </h2>
-                                <p><Checkbox />Can view payment plans</p>
-                                <p><Checkbox />Can create and edit payment plans</p>
-                                <p><Checkbox />Can view recurring payments</p>
-                                <p><Checkbox />Can activate or deactivate subscription</p>
+                                <p><Checkbox defaultChecked />Can view payment plans</p>
+                                <p><Checkbox defaultChecked />Can create and edit payment plans</p>
+                                <p><Checkbox defaultChecked />Can view recurring payments</p>
+                                <p><Checkbox defaultChecked />Can activate or deactivate subscription</p>
 
 
                             </Box>
@@ -129,10 +129,10 @@ const Administrator = () => {
                                 <h2>
                                     Manage permissions
                                 </h2>
-                                <p><Checkbox />Can remove existing users</p>
-                                <p><Checkbox />Can change team member’s role</p>
-                                <p><Checkbox />Can create and edit custom roles</p>
-                                <p><Checkbox />Can add, edit and remove users</p>
+                                <p><Checkbox defaultChecked />Can remove existing users</p>
+                                <p><Checkbox defaultChecked />Can change team member’s role</p>
+                                <p><Checkbox defaultChecked />Can create and edit custom roles</p>
+                                <p><Checkbox defaultChecked />Can add, edit and remove users</p>
 
 
                             </Box>
@@ -141,14 +141,14 @@ const Administrator = () => {
                                 <h2>
                                     Settings permissions
                                 </h2>
-                                <p><Checkbox />Can manage business preferences</p>
-                                <p><Checkbox />Can set who absorbs the transaction fees</p>
-                                <p><Checkbox />Can add, edit and remove settlement accounts</p>
-                                <p><Checkbox />Can view API keys</p>
-                                <p><Checkbox />Can generate new API keys</p>
-                                <p><Checkbox />Can view webhooks</p>
-                                <p><Checkbox />Can update and set webhook preferences</p>
-                                <p><Checkbox />Can resend webhooks</p>
+                                <p><Checkbox defaultChecked />Can manage business preferences</p>
+                                <p><Checkbox defaultChecked />Can set who absorbs the transaction fees</p>
+                                <p><Checkbox defaultChecked />Can add, edit and remove settlement accounts</p>
+                                <p><Checkbox defaultChecked />Can view API keys</p>
+                                <p><Checkbox defaultChecked />Can generate new API keys</p>
+                                <p><Checkbox defaultChecked />Can view webhooks</p>
+                                <p><Checkbox defaultChecked />Can update and set webhook preferences</p>
+                                <p><Checkbox defaultChecked />Can resend webhooks</p>
 
 
                             </Box>
@@ -156,7 +156,7 @@ const Administrator = () => {
                                 <h2>
                                     Add new business permissions
                                 </h2>
-                                <p><Checkbox />Can add a new business</p>
+                                <p><Checkbox defaultChecked />Can add a new business</p>
 
 
 
