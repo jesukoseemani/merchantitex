@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 		backgroundColor: 'white',
 		maxWidth: '410px',
 		minHeight: '500px',
-		maxHeight: "95vh",
+		maxHeight: "98vh",
 		overflowY: 'scroll',
 		width: '100%',
 		position: 'absolute',

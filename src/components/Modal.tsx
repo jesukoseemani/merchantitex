@@ -41,14 +41,14 @@ export default function Modal() {
 
 						<ClearOutlinedIcon
 							style={{
-								zIndex: 20,
+								zIndex: 99999,
 								cursor: 'pointer',
 								position: 'absolute',
 								top: '20px',
 								right: '40px',
 							}}
 							onClick={(e: any) => Close(e)}
-							sx={{ color: 'rgba(0, 40, 65, 0.5)' }}
+							sx={{ color: 'rgba(0, 40, 65, 0.5)', position: "sticky", top: 10 }}
 						/>
 						<div
 							onClick={(e) => {

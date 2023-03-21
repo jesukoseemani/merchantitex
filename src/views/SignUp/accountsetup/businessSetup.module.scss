@@ -5,6 +5,7 @@
     border-radius: 20px;
     // overflow: hidden;
     margin: 0px auto;
+    position: relative;
 
 
     .title {
@@ -13,6 +14,13 @@
         align-items: center;
         padding: 27px 50px;
         border-bottom: 1px solid #E0E0E0;
+        background-color: #fff;
+        position: sticky;
+        width: 100%;
+        top: 0px;
+        // inset: 0;
+        z-index: 9999;
+        // border: 2px solid red;
 
 
 

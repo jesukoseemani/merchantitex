@@ -117,8 +117,8 @@ const LoginPasswordReset = () => {
           <div className={styles.sub}>
             <p>
               <span className={styles.subP}>
-                <a className={styles.signinAnchor}>
-                  <span className={styles.desc}>Remember your password? </span>
+                <a className={styles.signinAnchor} onClick={() => history.push("/signin")}>
+                  <span className={styles.desc} >Remember your password? </span>
                   Back to Login
                 </a>
               </span>
