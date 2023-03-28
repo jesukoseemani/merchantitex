@@ -8,7 +8,7 @@
   "transactions": [
     {
       "amt": "45,000.52",
-      "status": "successful",
+      "status": "Successful",
       "txnType": "debra.holt@example.com",
       "PaymentType": "Card",
       "bankName": "Access Bank",
@@ -18,7 +18,7 @@
     },
     {
       "amt": "45,000.52",
-      "status": "error",
+      "status": "Error",
       "txnType": "debra.holt@example.com",
       "PaymentType": "Card",
       "bankName": "Access Bank",
@@ -29,7 +29,7 @@
     },
     {
       "amt": "45,000.52",
-      "status": "pending",
+      "status": "Pending",
       "txnType": "debra.holt@example.com",
       "PaymentType": "Card",
       "bankName": "Access Bank",

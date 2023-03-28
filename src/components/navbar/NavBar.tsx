@@ -27,7 +27,7 @@ const NavBar = () => {
   const business = useSelector((state) => state?.meReducer?.me?.business);
 
   const { pathname } = useLocation();
-  const [active, setActive] = React.useState(0);
+  const [active, setActive] = React.useState<string | number>(0);
   const [routes, setRoutes] = useState<any[]>(navRoutes);
   const [isNested, setIsNested] = useLocalStorage('isNested', false);
   const [nav, setNav] = useLocalStorage('nav', []);
@@ -64,10 +64,10 @@ const NavBar = () => {
   const changeHandler = (item: any) => {
     if (item.submenu) {
       setIsNested(true)
-      dispatch(changeNewNavbar(item.title))
+      // dispatch(changeNewNavbar(item.title))
       setMenuTitle(item.title)
       setNav(item.nav)
-      history.push(item.link)
+      // history.push(item.link)
     } else {
       history.push(item.link)
       dispatch(changeNewNavbar(item.title))
@@ -77,6 +77,7 @@ const NavBar = () => {
 
   const subChangeHandler = (link: string, title: string) => {
     dispatch(changeNewNavbar(title))
+    setActive(link)
     history.push(link)
   }
 
@@ -99,75 +100,8 @@ const NavBar = () => {
 
 
 
-  // const data = [
-  //   {
-  //     id: 1,
-  //     name: <Box>
-  //       <OutlinedInput
-  //         fullWidth
-  //         sx={{
-  //           height: "31px", width: "181px",
-  //           background: " #FBFBFB",
-  //           border: "1px solid #DFE0E0",
-  //           display: showUserInfo ? "flex" : "none"
-
-  //         }}
-  //         placeholder="Search"
 
 
-  //         startAdornment={
-  //           <InputAdornment position="start">
-  //             <IconButton
-  //               aria-label="search icon"
-
-  //               edge="start"
-  //             >
-  //               <SearchOutlinedIcon />
-  //             </IconButton>
-  //           </InputAdornment>
-  //         }
-  //       />
-  //     </Box>,
-  //     func: handleSearch,
-  //   },
-
-  //   {
-  //     id: 5,
-  // name: <Box className={Styles.userName__box} sx={{ display: showUserInfo ? "block" : "none" }}>
-  //   <h2>James</h2>
-  //   <p>Merchant ID: 123456789</p>
-
-  // </Box>,
-  //     func: addNewBusiness,
-  //   },
-  //   {
-  //     id: 4,
-  //     name: <p className={Styles.userMenuText}>Add new business</p>,
-  //     func: addNewBusiness,
-  //   },
-  //   {
-  //     id: 2,
-  //     name: <Box sx={{ display: "flex" }}>
-  //       <p className={Styles.userMenuText}>Read documentation</p>
-  //       <IconButton>
-  //         <CopyIcon />
-  //       </IconButton>
-  //     </Box>,
-  //     func: handleDocumentation,
-  //   },
-
-  //   {
-  //     id: 3,
-  //     name: <Box sx={{ display: "flex" }}>
-  //       <p className={Styles.userMenuText}> MID: 123456789</p>
-  //       <IconButton>
-  //         <CopyIcon />
-  //       </IconButton>
-  //     </Box>,
-
-  //     func: copyId,
-  //   },
-  // ];
   const handleCloseMenu = () => {
     setUserMenu(null);
   };

@@ -130,7 +130,13 @@ const BusinessSetup = () => {
                             >
                                 {steps.map((step, index) => (
                                     <Step key={index}>
-                                        <StepLabel >
+                                        <StepLabel icon={<ReactSVG src={index < activeStep || index === activeStep ? ColorcheckIcon : CheckIcon}
+                                        />} sx={{
+                                            '& svg': {
+                                                width: "20px",
+                                                height: "20px"
+                                            }
+                                        }}>
                                             <Box sx={{ marginLeft: "20px" }}>
                                                 <p className={Styles.stepLabel}>{step.label}</p>
                                                 <p className={Styles.stepDesc}>{step.description}</p>

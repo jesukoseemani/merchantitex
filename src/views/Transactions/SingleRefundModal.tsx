@@ -71,6 +71,8 @@ const SingleRefundModal = ({ isOpen, handleClose, setRefundLogged }: SingleRefun
         background: 'white',
         // border: '1px solid #ddd',
         borderRadius: '4px',
+        fontFamily: 'Avenir',
+
         marginTop: '.2rem',
         // padding: '.75rem',
         height: "11px",

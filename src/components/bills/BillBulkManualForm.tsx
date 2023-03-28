@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { countryListAllIsoData } from "../../helpers/Countries";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import Styles from "./payment.module.scss";
-import { Box, Button, Grid, InputLabel, Select, styled, TextField } from "@mui/material";
+import { Box, Button, Grid, InputLabel, MenuItem, Select, styled, TextField } from "@mui/material";
 
 interface BillProps {
   id: string;
@@ -41,16 +41,7 @@ const BillBulkManualForm = () => {
   ];
 
 
-  const StyledTextField = styled(TextField, {
-    name: "StyledTextField",
-  })({
 
-    "& .MuiInputBase-root": {
-      height: 44,
-      marginBottom: "18px",
-      padding: 0,
-    }
-  });
 
   const [country, setCountry] = useState("")
   return (
@@ -70,32 +61,36 @@ const BillBulkManualForm = () => {
           <Grid container>
             <Grid item xs={12}>
               <InputLabel htmlFor="country" className={Styles.label}>Country</InputLabel>
-              <Select
-                sx={{ height: 44, marginBottom: "18px", }}
+              <TextField
+                select
+                sx={{ marginBottom: "18px", }}
                 fullWidth
                 value={country}
-                onChange={(e) => setCountry(e.target.value)} style={{ paddingLeft: "10px" }}
+                onChange={(e) => setCountry(e.target.value)}
               >
                 {/* <Box> */}
                 {countryListAllIsoData?.map(({ name, code }) => (
-                  <option key={code} value={name}>{name}</option>
+                  <MenuItem key={code} value={name}>{name}</MenuItem>
                 ))}
                 {/* </Box> */}
-              </Select>
+              </TextField>
 
             </Grid>
             <Grid item xs={12}>
-              <InputLabel htmlFor="country" className={Styles.label}>Bills</InputLabel>
-              <Select
-                sx={{ height: 44, marginBottom: "18px", }}
+              <InputLabel htmlFor="country" className={Styles.label}
+
+              >Bills</InputLabel>
+              <TextField
+                select
+                sx={{ marginBottom: "18px", }}
                 fullWidth
               >
                 {/* <Box> */}
                 {bills?.map(({ name, id }) => (
-                  <option style={{ paddingLeft: "10px" }} key={id} value={name}>{name}</option>
+                  <MenuItem key={id} value={name}>{name}</MenuItem>
                 ))}
                 {/* </Box> */}
-              </Select>
+              </TextField>
 
             </Grid>
 
@@ -104,24 +99,23 @@ const BillBulkManualForm = () => {
             <Grid item xs={12}>
 
               <InputLabel htmlFor="amount" className={Styles.label}>Bill payment ID</InputLabel>
-              <StyledTextField
+              <TextField
                 name='billpayment'
                 placeholder='1336578903'
                 variant='outlined'
 
                 size='small'
                 fullWidth
+                sx={{ marginBottom: "18px", }}
 
-              // sx={{
-              //   ".css-1n4twyu-MuiInputBase-input-MuiOutlinedInput-input": { padding: 0 }
-              // }}
+
               />
 
             </Grid>
             <Grid item xs={12}>
               <Box className="Amount" sx={{ padding: 0 }}>
                 <InputLabel htmlFor="amount" className={Styles.label}>Amount</InputLabel>
-                <StyledTextField
+                <TextField
                   name='accountnumber'
                   placeholder='Account Number'
                   variant='outlined'
@@ -129,27 +123,26 @@ const BillBulkManualForm = () => {
                   size='small'
                   fullWidth
 
-                // sx={{
-                //   ".css-1n4twyu-MuiInputBase-input-MuiOutlinedInput-input": { padding: 0 }
-                // }}
-                />
+                  sx={{ marginBottom: "18px", }} />
+
               </Box>
 
             </Grid>
             <Grid item xs={12}>
               <InputLabel htmlFor="country" className={Styles.label}>Packages</InputLabel>
-              <Select
+              <TextField
+                select
                 sx={{ height: 44, marginBottom: "18px", }}
                 fullWidth
               >
-                <option value="">Select packages</option>
+                <MenuItem value="">Select packages</MenuItem>
                 {packages?.map((x) => (
-                  <option key={x?.id} value={x?.name}>
+                  <MenuItem key={x?.id} value={x?.name}>
                     {x?.name}
-                  </option>
+                  </MenuItem>
                 ))}
 
-              </Select>
+              </TextField>
 
             </Grid>
           </Grid>

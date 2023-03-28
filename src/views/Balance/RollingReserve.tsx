@@ -408,7 +408,7 @@ const RollingReserve = () => {
             totalRows={totalRows}
             changePage={changePage}
             limit={limit}
-            clickable
+            // clickable
             link="/balance/rolling_reserve"
             identifier="id"
             rowsData={reserves}

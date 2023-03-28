@@ -150,7 +150,7 @@
 	&>div:not(:first-child) {
 		display: flex;
 		justify-content: center;
-		border-left: 1px solid #e0e0e0;
+		border-left: 1px solid #EFF3F8;
 		// border: 1px solid red;
 	}
 
@@ -348,6 +348,15 @@
 		flex-flow: row wrap;
 
 
+		p {
+			font-family: 'Avenir';
+			font-style: normal;
+			font-weight: 500;
+			font-size: 24px;
+			line-height: 33px;
+
+			color: #333333;
+		}
 	}
 
 	svg {
@@ -399,6 +408,7 @@
 	justify-content: center;
 	align-items: center;
 	width: 80px;
+	text-transform: capitalize !important;
 }
 
 
@@ -417,11 +427,13 @@
 	border-radius: 20px !important;
 	justify-content: center;
 	align-items: center;
+	text-transform: capitalize !important;
 	width: 80px;
 }
 
 .lostText {
 	background-color: #f2c94c !important;
+	text-transform: capitalize !important;
 	color: #12122c !important;
 	font-family: "Avenir";
 	font-style: normal;
@@ -486,7 +498,7 @@
 			font-weight: 500;
 			font-size: 14px;
 			line-height: 19px;
-
+			text-transform: capitalize;
 			color: #219653;
 		}
 
@@ -496,7 +508,7 @@
 			font-weight: 500;
 			font-size: 14px;
 			line-height: 19px;
-
+			text-transform: capitalize;
 			color: #EB5757;
 		}
 	}
@@ -505,7 +517,7 @@
 }
 
 .paymentStage {
-	padding: 22px 32px;
+	padding: 1px 12px;
 
 	svg {
 		width: 20px;
@@ -518,22 +530,59 @@
 
 	}
 
-	h2 {
+
+
+	.steplabel {
+		h2 {
+
+			font-family: 'Avenir';
+			font-style: normal;
+			font-weight: 400;
+			font-size: 16px;
+			line-height: 22px;
+			/* identical to box height */
+			color: #333333;
+			margin-top: 20px;
+		}
+
+		p {
+			font-family: 'Avenir';
+			font-style: normal;
+			font-weight: 400;
+			font-size: 12px;
+			line-height: 16px;
+			color: #333333;
+		}
+
+		span {
+			color: #828282;
+		}
+	}
+}
+
+
+.timeline {
+	font-family: 'Avenir';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 18px;
+	line-height: 25px;
+	color: #333333;
+}
+
+.link {
+	padding: 10px 32px;
+	margin-top: -26px !important;
+	margin-bottom: 1rem !important;
+
+	a {
 		font-family: 'Avenir';
 		font-style: normal;
 		font-weight: 400;
 		font-size: 16px;
 		line-height: 22px;
 		/* identical to box height */
-		color: #333333;
+		color: #2F80ED;
 	}
 
-	p {
-		font-family: 'Avenir';
-		font-style: normal;
-		font-weight: 400;
-		font-size: 12px;
-		line-height: 16px;
-		color: #333333;
-	}
 }

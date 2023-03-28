@@ -3,7 +3,7 @@ import Styles from "./invoicedetails.module.scss"
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 import { Link, useHistory, useLocation, useParams } from 'react-router-dom'
-import CopyIcon from "../../../assets/images/copy.svg"
+import CopyIcon from "../../../assets/images/copyColor.svg"
 import LinkIcon from "../../../assets/images/ext-link.svg"
 import { ReactSVG } from 'react-svg';
 import { BillInvoiceRequestItem } from '../../../types/BiilsTypes';
@@ -116,7 +116,7 @@ const InvoiceDetails = () => {
                             <ListItem>
                                 <ListItemAvatar>
                                     <Avatar>
-                                        JH
+                                        DT
                                     </Avatar>
                                 </ListItemAvatar>
                                 <ListItemText primary={name} secondary={email} />
@@ -125,7 +125,18 @@ const InvoiceDetails = () => {
                         </List>
                     </Grid>
                     <Grid item xs={12} sm={6} md={4}><h2>Invoice URL</h2>
-                        <Box sx={{ display: "flex", alignItems: "center", padding: 0 }}>
+                        <Box sx={{
+                            display: "flex", alignItems: "center", padding: 0,
+                            '& svg': {
+                                width: "20px",
+                                height: "20px",
+                                '& path': {
+                                    stroke: "#2F80ED",
+
+                                }
+                            }
+
+                        }}>
                             <Link to={`${url}${id}`}>
                                 {url + id}
                             </Link>

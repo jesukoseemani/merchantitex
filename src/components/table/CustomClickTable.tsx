@@ -112,7 +112,7 @@ export default function CustomClickTable({
 									align={column.align}
 									style={{
 
-										background: "#F4F6F8",
+										background: "#eee",
 										paddingLeft: column.paddingLeft,
 										paddingRight: column.paddingRight,
 
@@ -168,7 +168,7 @@ export default function CustomClickTable({
 				page={page}
 				onPageChange={handleChangePage}
 				onRowsPerPageChange={handleChangeRowsPerPage}
-				style={{  paddingLeft: "18px" }}
+				style={{ paddingLeft: "18px" }}
 			/>
 		</Paper >
 	);

@@ -194,7 +194,7 @@ export default function AppRoutes() {
         </Route>
 
 
-        <Navigation>
+        <Navigation title="">
 
           <>
             <ProtectedRoute

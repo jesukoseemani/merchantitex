@@ -3,6 +3,7 @@ import { Button, Label } from "semantic-ui-react";
 import Styles from "./transaction.module.scss";
 import { ReactComponent as CopyIcon } from "../../assets/images/copyColor.svg";
 import { ReactComponent as CheckIcon } from "../../assets/images/circle-check.svg";
+import { ReactComponent as VisaIcon } from "../../assets/images/visa.svg";
 import { ReactComponent as CheckColorIcon } from "../../assets/images/circle-check-color.svg";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
@@ -17,10 +18,19 @@ import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 
 import { TransactionItem } from "../../types/Transaction";
 import { Box, Grid, IconButton } from "@mui/material";
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
 
 export default function Transaction() {
+
+
+
+
 	let { id } = useParams<{ id: string }>();
 	const [transaction, setTransaction] = useState<any>({});
+	const [activeStep, setActiveStep] = useState(0);
+
 	const location = useLocation<{ rowData: string }>();
 	const history = useHistory();
 	if (!location.state.rowData) {
@@ -87,7 +97,7 @@ export default function Transaction() {
 			<Box className={Styles.sectionOne}>
 				<div className={Styles.headerTitle}>
 					<div className={Styles.amt_box}>
-						<h2>NGN{amt ?? 0}</h2>
+						<p>NGN{amt ?? 0}</p>
 
 						<Label className={Styles[statusFormatObj[status] || "pendingText"]}>{status}</Label>
 					</div>
@@ -110,7 +120,7 @@ export default function Transaction() {
 					<div>
 						<div>
 							<span>Card type</span>
-							<h2>{cardType}</h2>
+							<h2>{<VisaIcon />}</h2>
 						</div>
 					</div>
 					<div>
@@ -142,7 +152,7 @@ export default function Transaction() {
 							</h2>
 						</Grid>
 						<Grid item xs={12} sm={4} md={1.8}>
-							<span>Transaction Fee</span>
+							<span className={Styles.timeline}>Transaction Fee</span>
 							<h2>{transfee ?? 0}</h2>
 						</Grid>
 						<Grid item xs={12} sm={4} md={1.8}>
@@ -177,8 +187,9 @@ export default function Transaction() {
 
 
 				<div className={Styles.paymentStage}>
-					<div>
-						<CheckIcon />
+					{/* <div>
+						<CheckColorIcon />
+
 						<div>
 							<h2>Payment started</h2>
 							<p>
@@ -193,9 +204,39 @@ export default function Transaction() {
 							<p>
 								Aug 13 2020 <span>2:21 PM</span>
 							</p>
-						</div>
+						</div> */}
+
+
+
+
+					<Box className={Styles.paymentStage}>
+						<Stepper activeStep={2} orientation="vertical" sx={{
+							".css-iprrf9-MuiStepConnector-line": {
+								height: "70px",
+								marginTop: "-30px"
+							}
+						}}>
+							<Step >
+								<StepLabel className={Styles.steplabel} icon={<CheckColorIcon />} optional={<p>
+									Aug 13 2020 <span>2:21 PM</span>
+								</p>}>
+									<h2>Payment started</h2>
+								</StepLabel>
+							</Step>
+							<Step sx={{ marginTop: "-30px" }}>
+								<StepLabel className={Styles.steplabel} icon={<CheckColorIcon />} optional={<p>
+									Aug 13 2020 <span>2:21 PM</span>
+								</p>}>
+									<h2>Payment Completed</h2>
+								</StepLabel>
+							</Step>
+						</Stepper>
+					</Box>
+					<div className={Styles.link}>
+
+						<Link to='/'>Show breakdown</Link>
 					</div>
-					<Link to='/'>Show breakdown</Link>
+					{/* </div> */}
 				</div>
 
 			</Box>

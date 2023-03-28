@@ -96,6 +96,28 @@
 			margin-top: 20px;
 		}
 	}
+
+	span {
+		font-family: 'Avenir';
+		font-style: normal;
+		font-weight: 400;
+		font-size: 12px;
+		line-height: 20px;
+		display: flex;
+		align-items: center;
+
+		color: #828282;
+	}
+
+	h2 {
+		font-family: 'Avenir';
+		font-style: normal;
+		font-weight: 500;
+		font-size: 17.6667px;
+		line-height: 18px;
+		color: #333333;
+		margin-top: 2.31px;
+	}
 }
 
 .tableContainer {

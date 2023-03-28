@@ -12,6 +12,14 @@
         align-items: center;
         justify-content: center;
         height: 32px;
+        font-family: 'Avenir';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 14px;
+        /* identical to box height, or 117% */
+
+
 
         &:nth-of-type(1) {
             background: #E0E0E0;
@@ -32,4 +40,14 @@
     @media screen and (max-width:768px) {
         justify-content: flex-start;
     }
+}
+
+.transfertitle {
+    font-family: 'Avenir';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 27px;
+
+    color: #333333;
 }

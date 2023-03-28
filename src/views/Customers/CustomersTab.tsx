@@ -131,7 +131,7 @@ const CustomersTab = ({ value, index }: any) => {
 
 			// id: <p> {email}</p>,
 			actions: (
-				<p style={{ color: "red" }} onClick={handleBLacklist}>BlackList</p>
+				<p style={{ color: "red" }} onClick={handleBLacklist}>Blacklist</p>
 				// <Stack
 				// 	direction={'row'}
 				// 	spacing={2}

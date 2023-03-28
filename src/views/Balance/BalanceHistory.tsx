@@ -355,7 +355,7 @@ const BalanceHistory = () => {
             totalRows={totalRows}
             changePage={changePage}
             limit={limit}
-            clickable
+            // clickable
             link="/balance/balance_history"
             identifier="id"
             rowsData={history}

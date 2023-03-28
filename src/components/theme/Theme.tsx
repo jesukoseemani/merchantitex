@@ -167,7 +167,8 @@ const theme = createTheme({
         },
         input: {
           height: "44px",
-          padding: "0 !important"
+          padding: "0 !important",
+          // border: "1px solid #DDDDDD÷÷"
         },
         inputMultiline: {
           padding: "10px",
@@ -272,8 +273,18 @@ const theme = createTheme({
             letterSpacing: "0.0024px",
             color: "#000 !important",
 
+
+          }
+        },
+        body: {
+          borderBottom: "1px solid #EFF3F8",
+          background: "#fff",
+          cursor: "pointer",
+          '&:hover': {
+            opacity: "0.7"
           }
         }
+
       }
     }
   },

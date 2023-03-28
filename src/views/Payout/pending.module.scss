@@ -3,6 +3,15 @@
 	margin-top: 2.3rem;
 	border: 0px solid transparent;
 
+	.title {
+		font-family: 'Avenir';
+		font-style: normal;
+		font-weight: 400;
+		font-size: 20px;
+		line-height: 27px;
+		color: #333;
+	}
+
 	.tableHeader {
 		width: 100%;
 		height: 50px;
@@ -11,14 +20,7 @@
 		align-items: center;
 		margin-bottom: 16px;
 
-		&>h2 {
-			font-family: Avenir;
-			font-style: normal;
-			font-weight: normal;
-			font-size: 20px;
-			line-height: 23px;
-			color: #333333;
-		}
+
 
 		&>div {
 			display: flex;

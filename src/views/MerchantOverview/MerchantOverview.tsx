@@ -338,7 +338,7 @@ const MerchantOverview = () => {
           sx={{
             position: "fixed",
             right: 0,
-            top: "50%",
+            bottom: "10%",
             transform: "translate(-50% -50%)",
             cursor: "pointer",
 

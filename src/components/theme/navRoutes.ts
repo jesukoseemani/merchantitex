@@ -40,7 +40,7 @@ interface NavProps {
     link: string;
   }[];
 }
-export const navRoutes: NavProps[] = [
+export const Avenirtes: NavProps[] = [
   {
     id: "1",
     title: "Home",

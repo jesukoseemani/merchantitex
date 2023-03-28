@@ -70,7 +70,7 @@ const ProfileSetup = () => {
         setStep((prev) => prev - 1)
     };
 
-   
+
 
     const SlideForm = () => {
         switch (step) {
@@ -114,15 +114,20 @@ const ProfileSetup = () => {
                             }}>
                                 {steps.map((step, index) => (
                                     <Step key={step.label}>
-                                        <StepLabel>
-                                            {step.label}
-                                            <Typography variant="body2">{step.description}</Typography>
+                                        <StepLabel icon={<ReactSVG src={index < activeStep || index === activeStep ? ColorcheckIcon : CheckIcon}
+                                        />} sx={{
+                                            '& svg': {
+                                                width: "20px",
+                                                height: "20px"
+                                            }
+                                        }}>
+                                            <Box sx={{ marginLeft: "20px" }}>
+                                                <p className={Styles.stepLabel}>{step.label}</p>
+                                                <p className={Styles.stepDesc}>{step.description}</p>
+                                            </Box>
                                         </StepLabel>
 
-                                        <StepContent>
-                                            <Typography>{step.description}</Typography>
 
-                                        </StepContent>
                                     </Step>
                                 ))}
                             </Stepper>

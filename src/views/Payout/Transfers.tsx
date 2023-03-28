@@ -24,13 +24,13 @@ const Transfers = () => {
       <div className={Styles.panel}>
         <div>
           <div>
-            <span>Available balance:</span>
+            <span>Payout balance:</span>
             <h2>NGN 2,345,678.00</h2>
           </div>
         </div>
         <div>
           <div>
-            <span>Total transfers:</span>
+            <span>Total transfer value:</span>
             <h2>NGN 2,345,678.00</h2>
           </div>
         </div>

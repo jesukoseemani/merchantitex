@@ -263,7 +263,10 @@ const Refund = () => {
 
 	const RefundRowTab = useCallback(
 		(amt, status, reference, acctId, added, id) => ({
-			amount: <p className={styles.tableBodyText}>NGN{amt}</p>,
+			amount: <div className={styles.amount}>					<h2>
+				<span
+					style={{ color: "#828282", paddingRight: "1px" }}
+				>NGN</span>{amt}</h2></div>,
 			// code: formatStatus(code),
 			email: <p className={styles.tableBodyText}>{acctId}</p>,
 			status: (

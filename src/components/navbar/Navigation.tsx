@@ -37,7 +37,8 @@ interface Props {
      * You won't need it on your project.
      */
     window?: () => Window;
-    children?: React.ReactNode
+    children?: React.ReactNode,
+    title: string
 
 }
 
@@ -89,7 +90,7 @@ export default function Navigation(props: Props) {
                     >
                         <MenuIcon fontSize='large' />
                     </IconButton>
-                    <Header />
+                    <Header title={props.title} />
                 </Toolbar>
             </AppBar>
             <Box

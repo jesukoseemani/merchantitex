@@ -1,5 +1,5 @@
 
-import { Box, Container, InputAdornment, OutlinedInput, Grid, IconButton, TextField, Typography, Stack } from "@mui/material";
+import { Box, Container, InputAdornment, OutlinedInput, Grid, IconButton, TextField, Typography, Stack, FormControl } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
@@ -18,13 +18,12 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 
 
 
-interface toggleBtn {
-  setToggle: React.Dispatch<React.SetStateAction<boolean>>;
-  toggle: boolean
+interface Props {
+  title: string
 
 }
 
-const Header = () => {
+const Header = ({ title }: Props) => {
   const [alignment, setAlignment] = React.useState("live server");
   const handleAlignment = (
     event: React.MouseEvent<HTMLElement>,
@@ -63,7 +62,9 @@ const Header = () => {
       lineHeight: 13.66,
       fontSize: 10,
       padding: "10px",
+      textTransform: "inherit",
       backgroundColor: alignment === "test server" ? "rgba(206, 165, 40, 0.1)" : "rgba(4, 25, 38, 0.1)",
+      border: alignment === "test server" ? "0.7px solid #CEA528" : "0.7px solid #041926",
       // border: alignment === "test server" ? "0.7px solid #CEA528" : "0.7px solid #041926",
 
 
@@ -80,7 +81,7 @@ const Header = () => {
         lineHight: "14px",
         border: "none",
         "&.Mui-selected": {
-          color: "white",
+          color: "#fff",
           backgroundColor: "#041926",
           borderRadius: "20px",
           width: 190,
@@ -96,7 +97,7 @@ const Header = () => {
         border: "none",
 
         "&.Mui-selected": {
-          color: "white",
+          color: "#fff",
           backgroundColor: "#CEA528",
           borderRadius: "20px",
           width: 190,
@@ -106,7 +107,6 @@ const Header = () => {
           fontFamily: 'Avenir',
           fontStyle: "normal",
           fontWeight: 500,
-
           lineHight: "14px",
 
         },
@@ -137,47 +137,40 @@ const Header = () => {
 
       {/* <Container> */}
       <Grid container justifyContent="space-between" alignItems="center" spacing={3}>
-        <Grid item xs={7} md={6}>
+        <Grid item xs={7} md={5.5}>
 
           <Box className={Styles.left__header}>
-            <Box sx={{ display: { xs: "none", md: "block" } }}><h2 className={Styles.title}>{navbarRoute}</h2></Box>
+            <Box sx={{ display: { xs: "none", md: "block" } }}><h2 className={Styles.title}>{title ? title : navbarRoute}</h2></Box>
             {/* </Grid> */}
 
             <Box className={Styles.input__box}>
 
-              <OutlinedInput
-                fullWidth
 
 
-                startAdornment={
-                  <InputAdornment position="start">
-                    <IconButton
-                      aria-label="search icon"
-                      placeholder="Search"
+              <FormControl fullWidth sx={{ m: 1, }}>
+                <OutlinedInput
+                  id="outlined-adornment-amount"
+                  placeholder="Search"
+                  startAdornment={<InputAdornment position="start"> <SearchOutlinedIcon /></InputAdornment>}
+                  sx={{
+                    background: " #FBFBFB",
+                    border: "0.3px solid #DDDDDD",
+                    borderRadius: "10px",
+                    height: "35px",
+                    outline: "none",
+                    paddingLeft: "40px !important"
 
-                      edge="start"
-                    >
-                      <SearchOutlinedIcon />
-                    </IconButton>
-                  </InputAdornment>
-                }
+                  }}
+                />
+              </FormControl>
 
-                sx={{
-                  background: " #FBFBFB",
-                  // border: " 1px solid #f00 !important",
-                  borderRadius: "10px",
-                  height: "35px",
-                  outline: "none",
-
-                }}
-              />
             </Box>
 
           </Box>
           {/* </Grid> */}
           {/* </Stack> */}
         </Grid>
-        <Grid item xs={5} md={4}>
+        <Grid item xs={5} md={2}>
           <Stack direction={"row"} justifyContent="flex-end" alignItems={"center"} >
             <StyledToggleButtonGroup
               size="small"

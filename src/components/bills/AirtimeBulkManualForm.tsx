@@ -1,26 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { countryListAllIsoData } from "../../helpers/Countries";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import Styles from "./payment.module.scss";
 import { Button, } from "@material-ui/core";
 import { styled } from "@mui/system";
-import { Box, TextField, InputLabel, Select, Grid } from "@mui/material";
+import { Box, TextField, InputLabel, MenuItem,  Grid } from "@mui/material";
 import MuiPhoneNumber from "material-ui-phone-number";
-import { MenuItem } from "semantic-ui-react";
 import { ErrorMessage } from "formik";
 
 const BulkManualForm = () => {
+  const [country, setCountry] = useState("")
 
-  const StyledTextField = styled(TextField, {
-    name: "StyledTextField",
-  })({
-
-    "& .MuiInputBase-root": {
-      height: 44,
-      marginBottom: "18px",
-      padding: 0,
-    }
-  });
   const handleOnChange = () => { }
   return (
     <div className={Styles.bulk__payment__input__container}>
@@ -34,16 +24,19 @@ const BulkManualForm = () => {
           <Grid container>
             <Grid item xs={12}>
               <InputLabel htmlFor="country" className={Styles.label}>Country</InputLabel>
-              <Select
-                sx={{ height: 44, marginBottom: "18px", }}
+              <TextField
+                select
+                sx={{ marginBottom: "18px", }}
                 fullWidth
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}
               >
                 {/* <Box> */}
                 {countryListAllIsoData?.map(({ name, code }) => (
-                  <option style={{ paddingLeft: "10px" }} key={code} value={name}>{name}</option>
+                  <MenuItem style={{ paddingLeft: "10px" }} key={code} value={name}>{name}</MenuItem>
                 ))}
                 {/* </Box> */}
-              </Select>
+              </TextField>
 
             </Grid>
             <Grid item xs={12}>
@@ -67,7 +60,7 @@ const BulkManualForm = () => {
           </div>
           <Box className="Amount" sx={{ padding: 0 }}>
             <InputLabel htmlFor="amount" className={Styles.label}>Amount</InputLabel>
-            <StyledTextField
+            <TextField
               name='accountnumber'
               placeholder='Account Number'
               variant='outlined'

@@ -608,14 +608,18 @@
 
 
 
-// balnane
+// balance
 .balance__container {
 	background: #F9F9F9;
 	border: 1px solid #DFDFDF;
 	border-radius: 20px;
 	width: 894px;
 	height: 404px;
-	padding: 51px 47px;
+	// padding: 51px 47px;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	padding: 0 47px;
 
 	@media screen and (max-width:768px) {
 		width: 100%;
@@ -629,7 +633,8 @@
 
 	.balance__header {
 		border-bottom: 1px solid #E0E0E0;
-		padding-bottom: 10px;
+		padding-bottom: 11px;
+		// padding-top: 11px;
 
 		h2 {
 			font-family: 'Avenir';
@@ -657,7 +662,7 @@
 
 		& button:nth-of-type(1),
 		&.outline_btn {
-			background-color: #fff;
+			background-color: transparent;
 			// border: ;
 			color: #095B2C;
 			line-height: 19px;
@@ -682,7 +687,19 @@
 .balance__header_two {
 	margin-top: 51.58px;
 	border-bottom: 1px solid #E0E0E0;
-	padding-bottom: 10px;
+	// padding-bottom: 10px;
+	padding-bottom: 11px;
+	// padding-top: 11px;
+
+	h2 {
+		font-family: 'Avenir';
+		font-style: normal;
+		font-weight: 800 !important;
+		font-size: 22px;
+		line-height: 30px;
+		color: #333333;
+
+	}
 
 	button {
 		font-family: 'Avenir';
@@ -695,7 +712,7 @@
 		text-align: center;
 		height: 30.76px;
 		color: #095B2C;
-		background-color: #fff;
+		background-color: transparent;
 		line-height: 19px;
 		border: 1.28183px solid #27AE60;
 	}

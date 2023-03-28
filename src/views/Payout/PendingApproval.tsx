@@ -192,7 +192,7 @@ const PendingApproval = () => {
         <Box>
           <Box>
             <Stack direction={"row"} justifyContent="space-between" flexWrap={"wrap"} gap={3}>
-              <h2>19 pending transfers</h2>
+              <h2 className={Styles.title}>19 pending transfers</h2>
               <Box className={Styles.headerBox}>
                 <button><FilterAltOutlinedIcon />Filter by:</button>
                 <button onClick={handleOpenDownloadMenu}> <InsertDriveFileOutlinedIcon />Download</button>

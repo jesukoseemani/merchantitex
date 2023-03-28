@@ -76,7 +76,7 @@ const BulkAirtimePayment = () => {
               </Box>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
-              <Box sx={{ width: "100%", height: "481px", borderRadius: "20px" }} bgcolor="white">
+              <Box sx={{ width: "100%", height: "481px", borderRadius: "20px", bgcolor:"#F0F0F0"}} >
                 <div className="bill__form">
                   <BulkManualForm />
                 </div>

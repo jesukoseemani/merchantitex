@@ -85,7 +85,7 @@ const BulkBillPayment = () => {
               </Box>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
-              <Box bgcolor="#F8F8F8" width={"100%"} borderRadius="20px">
+              <Box width={"100%"} borderRadius="20px">
                 <div className={Styles.bill__form}>
                   <BillBulkManualForm />
                 </div>
@@ -94,9 +94,9 @@ const BulkBillPayment = () => {
 
 
             <Grid item xs={12}>
-              <div>
+              <Box>
                 <BillPaymentEntry />
-              </div>
+              </Box>
             </Grid>
           </Grid>
 

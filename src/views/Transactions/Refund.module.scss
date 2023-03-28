@@ -71,6 +71,7 @@
   justify-content: center;
   align-items: center;
   width: 80px;
+  text-transform: capitalize;
 }
 
 
@@ -90,6 +91,7 @@
   justify-content: center;
   align-items: center;
   width: 80px;
+  text-transform: capitalize;
 }
 
 .lostText {
@@ -110,9 +112,38 @@
   justify-content: center;
   align-items: center;
   width: 80px;
+  text-transform: capitalize;
 }
 
 .capitalize {
   text-transform: capitalize;
   color: #333;
+}
+
+.amount {
+  display: flex;
+  align-items: center;
+  // justify-content: center;
+  // border: 2px solid red;
+  gap: 1px;
+
+
+  &>h2 {
+    font-family: 'Avenir';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 14px;
+    line-height: 19px;
+    color: #333333;
+
+    span {
+      font-family: 'Avenir';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 19px;
+      color: #828282;
+      margin-right: 2px;
+    }
+  }
 }

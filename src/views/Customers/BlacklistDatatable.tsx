@@ -99,7 +99,7 @@ const BlacklistDatatable = () => {
 			),
 			actions: (
 				<button onClick={handleBLacklist} className={styles.ActionBtn}>
-					Removes from BlackList
+					Remove from Blacklist
 				</button>
 			),
 		}),
@@ -161,9 +161,9 @@ const BlacklistDatatable = () => {
 
 			<Box>
 				<Stack direction={"row"} flexWrap="wrap" justifyContent="space-between" gap={3}>
-					<h2>{transactions?.length} blacklisted customers</h2>
+					<h2 className={styles.blacklistHeader}>{transactions?.length} blacklisted customers</h2>
 					<Box className={styles.headerBox}>
-						<button><FilterAltOutlinedIcon />Filter by:</button>
+						<button ><FilterAltOutlinedIcon />Filter by:</button>
 						<button> <InsertDriveFileOutlinedIcon />Download</button>
 
 					</Box>

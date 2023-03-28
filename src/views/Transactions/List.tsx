@@ -334,7 +334,7 @@ export default function TransactionsList() {
 				<p>{PaymentType}</p>
 			),
 			date: (
-				<p>	{moment(added)?.format('LL')}</p>
+				<p>	{added}</p>
 				// <div onClick={() => loadTransaction(transaction?.merchantreference)}>
 				// 	{moment(transaction?.added)?.format('LL')}
 				// </div>
