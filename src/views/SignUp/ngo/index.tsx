@@ -1,5 +1,5 @@
 import { Grid, InputLabel, Typography, Button, TextField, MenuItem } from '@mui/material';
-import styles from './style.module.scss';
+import styles from '../IndividualSignUp/style.module.scss';
 import Logo from '../../../assets/images/white_bg_logo.svg';
 
 import { ReactSVG } from "react-svg";
@@ -23,10 +23,10 @@ import { styled } from '@mui/system';
 import { Box } from '@mui/material';
 import MuiPhoneNumber from 'material-ui-phone-number';
 import { useEffect, useState } from 'react';
-import { ValidateIndividual } from '../../../components/validation/OnboadingValidate';
+import { ValidateNgo } from '../../../components/validation/OnboadingValidate';
 import CustomSelect from '../../../components/customs/CustomSelect';
 import CustomCategory from '../../../components/customs/CustomCategory';
-import ReactCountryFlag from "react-country-flag"
+
 
 const createAccount = [
 	{
@@ -61,26 +61,16 @@ interface Props {
 	fullname: string
 }
 
-
-interface countryProp {
-	id: number;
-	country: string;
-	currencyCode: number;
-	currencyIso: string;
-	countryIso: string;
-	dialCode: string;
-
-
-}
-const IndividualSignUp = () => {
+const NgoSignUp = () => {
 	const [phone, setPhone] = useState<unknown>()
-	const [country, setCountry] = useState<any>()
+	const [country, setCountry] = useState([])
 	const [businessCategory, setBusinessCategory] = useState([])
 
 	const handleOnChange = (value: any) => {
 		setPhone(value)
 		console.log(phone)
 	}
+
 
 
 	useEffect(() => {
@@ -176,21 +166,20 @@ const IndividualSignUp = () => {
 				firstname: "",
 				lastname: "",
 				email: "",
-				businessname: "",
+				organizationName: "",
 				phonenumber: "",
 				password: "",
-				businessCategoryId: "",
 				countryid: "",
 
 			}}
-			validationSchema={ValidateIndividual}
-			onSubmit={async ({ firstname, businessCategoryId, businessname, countryid, email, lastname, password, phonenumber }) => {
-
+			validationSchema={ValidateNgo}
+			onSubmit={async ({ firstname, organizationName, countryid, email, lastname, password, phonenumber }) => {
+				console.log({ firstname, organizationName, countryid, email, lastname, password, phonenumber })
 				try {
 					dispatch(closeLoader());
 					const { data } = await axios.post<Props>("/auth/register", {
 
-						"accounttype": "individual",
+						"accounttype": "ngo",
 						"firstname": firstname,
 						"lastname": lastname,
 						"email": email,
@@ -198,9 +187,12 @@ const IndividualSignUp = () => {
 						"password": password,
 						"countryid": countryid,
 						"business": {
-							"businessName": businessname,
-							"businessCategoryId": businessCategoryId
+							"businessName": organizationName,
+
 						}
+
+
+
 
 
 					})
@@ -210,7 +202,9 @@ const IndividualSignUp = () => {
 						history.push(`/email_verification/${data?.email}`)
 					} else {
 
+						console.log(data, "dataerrr")
 					}
+					console.log(data, "data");
 
 				} catch (error: any) {
 					dispatch(closeLoader());
@@ -231,7 +225,7 @@ const IndividualSignUp = () => {
 			}}
 		>
 			{(props) => (
-				<div className={styles.signupContainer}>
+				<div className={styles.signupContainer} style={{ height: "530px" }}>
 					<div className={styles.logo}>
 						<ReactSVG src={Logo} onClick={() => history.push('/signin')} />
 					</div>
@@ -293,56 +287,25 @@ const IndividualSignUp = () => {
 												}
 											/> */}
 
+											<Field
+												as={TextField}
+												helperText={
+													<ErrorMessage name="phonenumber">
+														{(msg) => <span style={{ color: "red" }}>{msg}</span>}
+													</ErrorMessage>
+												}
+												name="phonenumber"
+												placeholder="phonenumber"
+												// margin="normal"
+												type="text"
+												size="small"
+												fullWidth
+											// defaultValue={id}
 
-											<Grid container>
-												{/* <Grid item xs={4}>
-													<TextField select fullWidth>
-														{country?.map((x: countryProp) => (
-															<Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 10px", width: "100%" }}>
-																<MenuItem key={x?.id} defaultValue={x?.dialCode}>
-
-																	<ReactCountryFlag
-																		className="emojiFlag"
-																		countryCode={x?.countryIso}
-																		style={{
-																			fontSize: '2em',
-																			lineHeight: '2em',
-																		}}
-																		svg
-																		defaultValue={x?.countryIso}
-																	/>{x?.dialCode}
-
-																</MenuItem>
-
-															</Box>
-
-														))}
-													</TextField>
-												</Grid> */}
-												<Grid item xs={12}>
-													<Field
-														as={TextField}
-														helperText={
-															<ErrorMessage name="phonenumber">
-																{(msg) => <span style={{ color: "red" }}>{msg}</span>}
-															</ErrorMessage>
-														}
-														value={country?.dialCode}
-														name="phonenumber"
-														placeholder="phonenumber"
-														// margin="normal"
-														type="text"
-														size="small"
-														fullWidth
-													// defaultValue={id}
-
-													/>
-												</Grid>
-											</Grid>
-
+											/>
 										</Grid>
 
-										{country?.id}
+
 
 										<Grid item xs={12} md={5.6} mb="18px">
 											<InputLabel>
@@ -367,16 +330,16 @@ const IndividualSignUp = () => {
 										</Grid>
 										<Grid item xs={12} md={5.6} mb="18px">
 											<InputLabel>
-												<span className={styles.formTitle}>Trading/Business name</span>
+												<span className={styles.formTitle}>Organization name</span>
 											</InputLabel>
 											<Field
 												as={TextField}
 												helperText={
-													<ErrorMessage name='businessname'>
+													<ErrorMessage name='organizationName'>
 														{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
 													</ErrorMessage>
 												}
-												name='businessname'
+												name='organizationName'
 												variant='outlined'
 
 												type='text'
@@ -403,24 +366,7 @@ const IndividualSignUp = () => {
 
 											/>
 										</Grid>
-										<Grid item xs={12} md={5.6} mb="18px">
-											<InputLabel>
-												<span className={styles.formTitle}>Business category</span>
-											</InputLabel>
-											<Field
-												as={CustomCategory}
-												helperText={
-													<ErrorMessage name='businessCategoryId'>
-														{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
-													</ErrorMessage>
-												}
-												name='businessCategoryId'
 
-												options={businessCategory}
-
-
-											/>
-										</Grid>
 										<Grid item xs={12} md={5.6} >
 											<InputLabel>
 												<span className={styles.formTitle}>Email</span>
@@ -441,6 +387,7 @@ const IndividualSignUp = () => {
 
 											/>
 										</Grid>
+
 										<Grid item xs={12} md={5.6} >
 											<InputLabel>
 												<span className={styles.formTitle}>Password</span>
@@ -462,8 +409,10 @@ const IndividualSignUp = () => {
 											/>
 
 										</Grid>
+										{/* <Grid item xs={12} md={5.6} ></Grid> */}
+
 										{/* <InputLabel className={styles.mt}></InputLabel> */}
-										<Grid item xs={12} md={5.6}></Grid>
+										{/* <Grid item xs={12} md={5.6}></Grid> */}
 										<Grid item xs={12} md={5.6} mt={"30px"}>
 											<button
 												style={{
@@ -478,6 +427,7 @@ const IndividualSignUp = () => {
 													cursor: 'pointer',
 													margin: "16px 0px ",
 													fontFamily: 'Avenir',
+													marginTop: "3px"
 												}}
 												type='submit'
 												color='primary'>
@@ -487,7 +437,7 @@ const IndividualSignUp = () => {
 										</Grid>
 
 										<Grid item xs={12} md={5.6}></Grid>
-										<Grid item xs={12} md={5.6}>
+										<Grid item xs={12} md={5.6} mb={5}>
 											<p className={styles.formSub}>
 												By clicking the “Create account” button, you agree to have read and accept the terms and conditions in the <a href="#">ITEX’s Terms of Use, Merchant Service Agreement and Privacy Policy</a>
 											</p>
@@ -518,4 +468,4 @@ const IndividualSignUp = () => {
 	);
 };
 
-export default IndividualSignUp;
+export default NgoSignUp;

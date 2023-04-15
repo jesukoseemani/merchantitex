@@ -26,26 +26,18 @@ const SignIn = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 
-	interface ResponseData {
+	interface Props {
 		email: string;
 		password: string;
 	}
 
-	useEffect(() => {
-		axios
-			.get(`/transaction/banks`)
-			.then((res) => {
-				dispatch(saveCountry(res.data));
-			})
-			.catch((err) => console.log(err));
-	}, [dispatch]);
+
 
 	const validate = Yup.object({
 		email: Yup.string()
 			.email('Email is invalid')
 			.required('Email Address is required'),
 		password: Yup.string()
-			.min(6, 'Password must be at least 6 charaters')
 			.required('Password is required'),
 	});
 
@@ -59,14 +51,18 @@ const SignIn = () => {
 			onSubmit={(values) => {
 				dispatch(openLoader());
 				axios
-					.post('/merchant/account/authenticate', {
-						user: [{ ...values }],
-					})
+					.post('/auth/authenticate', values)
 					.then((res: any) => {
+						console.log(res?.data)
 						dispatch(closeLoader());
-						dispatch(saveAuth(res.data));
-						dispatch(saveLoading(true));
-						dispatch(saveUserDetail(res?.data?.business?.user));
+						dispatch(saveAuth(res?.data));
+						if (res?.data?.code === "success") {
+							history.push('/');
+						} else {
+							history.push('/signin');
+						}
+						// dispatch(saveLoading(true));
+						dispatch(saveUserDetail(res?.data?.user));
 						dispatch(
 							openToastAndSetContent({
 								toastContent: 'Login Successful',
@@ -76,11 +72,11 @@ const SignIn = () => {
 							})
 						);
 
-						if (res.data.business.status === 'IN-REVIEW') {
-							history.push(`/quickupdate/${res.data.business.account.type}`);
-						} else {
-							history.push('/');
-						}
+						// if (res.data.business.status === 'IN-REVIEW') {
+						// 	history.push(`/quickupdate/${res.data.business.account.type}`);
+						// } else {
+						// 	history.push('/');
+						// }
 					})
 					.catch((err) => {
 						console.log(err);

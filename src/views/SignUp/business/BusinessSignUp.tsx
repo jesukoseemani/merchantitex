@@ -1,5 +1,5 @@
 import { Grid, InputLabel, Typography, Button, TextField, MenuItem } from '@mui/material';
-import styles from './style.module.scss';
+import styles from '../IndividualSignUp/style.module.scss';
 import Logo from '../../../assets/images/white_bg_logo.svg';
 
 import { ReactSVG } from "react-svg";
@@ -26,7 +26,7 @@ import { useEffect, useState } from 'react';
 import { ValidateIndividual } from '../../../components/validation/OnboadingValidate';
 import CustomSelect from '../../../components/customs/CustomSelect';
 import CustomCategory from '../../../components/customs/CustomCategory';
-import ReactCountryFlag from "react-country-flag"
+
 
 const createAccount = [
 	{
@@ -61,26 +61,16 @@ interface Props {
 	fullname: string
 }
 
-
-interface countryProp {
-	id: number;
-	country: string;
-	currencyCode: number;
-	currencyIso: string;
-	countryIso: string;
-	dialCode: string;
-
-
-}
-const IndividualSignUp = () => {
+const BusinessSignUp = () => {
 	const [phone, setPhone] = useState<unknown>()
-	const [country, setCountry] = useState<any>()
+	const [country, setCountry] = useState([])
 	const [businessCategory, setBusinessCategory] = useState([])
 
 	const handleOnChange = (value: any) => {
 		setPhone(value)
 		console.log(phone)
 	}
+
 
 
 	useEffect(() => {
@@ -190,7 +180,7 @@ const IndividualSignUp = () => {
 					dispatch(closeLoader());
 					const { data } = await axios.post<Props>("/auth/register", {
 
-						"accounttype": "individual",
+						"accounttype": "business",
 						"firstname": firstname,
 						"lastname": lastname,
 						"email": email,
@@ -293,56 +283,25 @@ const IndividualSignUp = () => {
 												}
 											/> */}
 
+											<Field
+												as={TextField}
+												helperText={
+													<ErrorMessage name="phonenumber">
+														{(msg) => <span style={{ color: "red" }}>{msg}</span>}
+													</ErrorMessage>
+												}
+												name="phonenumber"
+												placeholder="phonenumber"
+												// margin="normal"
+												type="text"
+												size="small"
+												fullWidth
+											// defaultValue={id}
 
-											<Grid container>
-												{/* <Grid item xs={4}>
-													<TextField select fullWidth>
-														{country?.map((x: countryProp) => (
-															<Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 10px", width: "100%" }}>
-																<MenuItem key={x?.id} defaultValue={x?.dialCode}>
-
-																	<ReactCountryFlag
-																		className="emojiFlag"
-																		countryCode={x?.countryIso}
-																		style={{
-																			fontSize: '2em',
-																			lineHeight: '2em',
-																		}}
-																		svg
-																		defaultValue={x?.countryIso}
-																	/>{x?.dialCode}
-
-																</MenuItem>
-
-															</Box>
-
-														))}
-													</TextField>
-												</Grid> */}
-												<Grid item xs={12}>
-													<Field
-														as={TextField}
-														helperText={
-															<ErrorMessage name="phonenumber">
-																{(msg) => <span style={{ color: "red" }}>{msg}</span>}
-															</ErrorMessage>
-														}
-														value={country?.dialCode}
-														name="phonenumber"
-														placeholder="phonenumber"
-														// margin="normal"
-														type="text"
-														size="small"
-														fullWidth
-													// defaultValue={id}
-
-													/>
-												</Grid>
-											</Grid>
-
+											/>
 										</Grid>
 
-										{country?.id}
+
 
 										<Grid item xs={12} md={5.6} mb="18px">
 											<InputLabel>
@@ -518,4 +477,4 @@ const IndividualSignUp = () => {
 	);
 };
 
-export default IndividualSignUp;
+export default BusinessSignUp;

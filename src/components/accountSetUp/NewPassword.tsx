@@ -5,20 +5,37 @@ import { ReactSVG } from "react-svg";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { styled } from "@mui/material";
+import { closeLoader } from '../../redux/actions/loader/loaderActions';
+import axios from "axios";
+import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
 
+
+
+
+interface ParamProp {
+  token: string;
+  email: string;
+}
+
+interface Props {
+  code: string;
+  message: string;
+  email: string;
+}
 const LoginPasswordReset = () => {
   const history = useHistory();
-
+  const dispatch = useDispatch()
+  const { token, email } = useParams<ParamProp>()
+  console.log(email, token)
   const validate = Yup.object({
     password: Yup.string()
-      .min(6, "Password must be at least 6 charaters")
+      // .min(6, "Password must be at least 6 charaters")
       .required("Password is required"),
 
     confirm_password: Yup.string()
-      .min(6, "Password must be at least 6 charaters")
-      .required("Please enter password again")
+      .oneOf([Yup.ref('password'),], 'Passwords must match')
   });
 
   const StyledTextField = styled(TextField, {
@@ -34,12 +51,65 @@ const LoginPasswordReset = () => {
   return (
     <Formik
       initialValues={{
-        email: "",
+        password: "",
+        confirm_password: ""
       }}
       validationSchema={validate}
-      onSubmit={(values) => {
-        console.log(values);
-        history.push("signin");
+      onSubmit={async ({ password }) => {
+
+
+        if (token && email) {
+          dispatch(
+            openToastAndSetContent({
+              toastContent: "no token found",
+              toastStyles: {
+                backgroundColor: 'red',
+              },
+            })
+          );
+        }
+        try {
+          dispatch(closeLoader());
+          const { data } = await axios.post<Props>("/auth/password/reset/complete", {
+
+            "email": email,
+            "token": token,
+            "password": password
+
+          })
+
+
+          if (data?.code === "success") {
+            dispatch(
+              openToastAndSetContent({
+                toastContent: data?.message,
+                toastStyles: {
+                  backgroundColor: 'green',
+                },
+              })
+            );
+            setTimeout(() => {
+              history.push("/signin")
+
+            }, 3000);
+          }
+
+        } catch (error: any) {
+          dispatch(closeLoader());
+
+          dispatch(
+            openToastAndSetContent({
+              toastContent: error.message,
+              toastStyles: {
+                backgroundColor: 'red',
+              },
+            })
+          );
+        }
+        // console.log(values, "values")
+
+
+
       }}
     >
       {(props) => (
@@ -61,7 +131,8 @@ const LoginPasswordReset = () => {
                 <InputLabel>
                   <span className={styles.formlabel}>New Password</span>
                 </InputLabel>
-                <StyledTextField
+                <Field
+                  as={TextField}
                   helperText={
                     <ErrorMessage name="password">
                       {(msg) => <span style={{ color: "red" }}>{msg}</span>}
@@ -79,7 +150,8 @@ const LoginPasswordReset = () => {
                 <InputLabel>
                   <span className={styles.formlabel}>Re-enter Password</span>
                 </InputLabel>
-                <StyledTextField
+                <Field
+                  as={TextField}
                   helperText={
                     <ErrorMessage name="confirm_password">
                       {(msg) => <span style={{ color: "red" }}>{msg}</span>}

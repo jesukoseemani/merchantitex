@@ -128,7 +128,7 @@ export default function UserMenu() {
 	const classes = useStyles();
 
 	const handleCloseAccount = () => {
-		history.push('/account');
+		history.push("/general_setting/account_settings")
 		setAnchorEl(null);
 	};
 
@@ -186,7 +186,7 @@ export default function UserMenu() {
 						<div>
 							<img src={SettingsIcon} alt='' />
 						</div>
-						<div className={Styles.accountDetail} onClick={() => history.push("/general_setting/account_settings")}>My Account</div>
+						<div className={Styles.accountDetail} >My Account</div>
 					</div>
 				</MenuItem>
 				<MenuItem

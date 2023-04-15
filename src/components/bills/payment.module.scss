@@ -227,14 +227,17 @@
 .bulk__payment__input__container {
 	@extend .payment__input__container;
 	// background-color: #f8f8f8 !important;
-	height: auto;
+	height: 100%;
 	width: 100%;
 	box-shadow: none;
 	// display: none;
-	background-color: red;
 }
 
 // bulk__bill__payment__container
+.bulk__airtime_payment__input__container {
+	@extend .bulk__payment__input__container;
+	height: 481px;
+}
 
 .bulk__bill__payment__container {
 	width: 100%;

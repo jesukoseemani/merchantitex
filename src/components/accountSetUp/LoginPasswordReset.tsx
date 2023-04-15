@@ -6,17 +6,17 @@ import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-const LoginPasswordReset = () => {  
+const LoginPasswordReset = () => {
   const history = useHistory();
 
   const validate = Yup.object({
     email: Yup.string()
       .email("Email is invalid")
-      .required("Email Address is required"),
+      .required('Email Address is required')
   });
 
   const handleLogin = () => {
-    history.push("signin");
+    history.push("/signin");
   };
 
   return (
@@ -27,7 +27,7 @@ const LoginPasswordReset = () => {
       validationSchema={validate}
       onSubmit={(values) => {
         console.log(values);
-        history.push("/signin");
+
       }}
     >
       {(props) => (

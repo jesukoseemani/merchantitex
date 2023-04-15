@@ -1,23 +1,31 @@
 const initialAuthState = {
   userDetails: {
     id: 0,
-    first_name: "",
-    last_name: "",
+    firstname: "",
+    middlename: "",
     mobile_number: "",
-    email_address: "",
-    status: "",
+    email: "",
+    phonenumber: "",
+    merchantaccountid: "",
+    verifstatus: false,
     avatar: null,
-    role: "",
+    role: {
+      id:0,
+      roleName:"",
+      description:"",
+    },
     address: "",
+    status: "",
+    country: "",
     city: null,
     state: null,
     password_tries: 0,
-    account_locked_until: null,
-    date_account_locked: null,
-    date_created: "",
-    password_expires_in: null,
-    pin_expires_in: null,
-    key: [],
+    createdat: "",
+    timezone: "",
+    lastlogin: "",
+    twofaSetup: false,
+    islivetoogle: false,
+    
   },
 };
 
@@ -27,7 +35,7 @@ export const userDetailReducer = (state = initialAuthState, action: any) => {
       return {
         ...state,
 
-        userDetails: { ...action.userDetails[0] },
+        userDetails: { ...action.userDetails },
       };
     }
 

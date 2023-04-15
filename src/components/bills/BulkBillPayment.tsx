@@ -93,16 +93,22 @@ const BulkBillPayment = () => {
             </Grid>
 
 
+          </Grid>
+
+
+          {/* bill payment entry */}
+        </div>
+
+        <Box mt={30}>
+          <Grid container>
+
             <Grid item xs={12}>
               <Box>
                 <BillPaymentEntry />
               </Box>
             </Grid>
           </Grid>
-
-
-          {/* bill payment entry */}
-        </div>
+        </Box>
       </div>
 
 

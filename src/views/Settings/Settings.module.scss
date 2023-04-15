@@ -694,7 +694,7 @@
 
 .modalDiv {
 
-	width: 550px;
+	// width: 550px;
 	max-width: 100%;
 	border-radius: 20px;
 	overflow-y: auto;
@@ -878,4 +878,13 @@
 	line-height: 16px;
 
 	color: #828282;
+}
+
+.outerbox {
+	width: 390px;
+	height: 100%;
+	border-radius: 8px;
+	padding: 20px;
+	margin: 20px;
+	cursor: pointer;
 }
