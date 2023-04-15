@@ -61,7 +61,7 @@
 	line-height: 33px;
 	/* identical to box height */
 
-
+	margin-top: 23px;
 	color: #406A99;
 }
 
@@ -71,9 +71,9 @@
 	font-weight: 300;
 	font-size: 16px;
 	line-height: 24px;
-	/* or 150% */
-
+	width: 82%;
 	text-align: center;
+	margin: 0px auto;
 
 	color: #333333;
 }
@@ -163,7 +163,29 @@
 }
 
 .emailVerificationDiv {
-	margin: 3rem auto;
+	margin: 21px auto;
+	height: 310px;
+
+}
+
+.resendText {
+	margin-top: -20px;
+	margin-bottom: 13px;
+
+	p {
+		font-family: 'Avenir';
+		font-style: normal;
+		font-weight: 500;
+		font-size: 16px;
+		line-height: 22px;
+		/* identical to box height */
+
+		cursor: pointer;
+		text-align: center;
+		text-decoration-line: underline;
+
+		color: #3055D6;
+	}
 }
 
 @media only screen and (min-device-width: 601px) and (max-device-width: 1024px) {

@@ -8,6 +8,7 @@ import { Checkbox, Radio, Box, FormGroup, FormControlLabel, FormControl, FormLab
 const WebHooks = () => {
 
   const [user, setUser] = useState("")
+  const [generate, setgenerate] = useState("")
   const countryList = [
     {
       key: 1,
@@ -28,6 +29,15 @@ const WebHooks = () => {
       flag: "us",
     },
   ];
+
+
+
+
+  // handle qrcode
+
+  const handleQrCOde = () => {
+
+  }
   return (
 
     <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
@@ -61,7 +71,7 @@ const WebHooks = () => {
                 </Grid>
                 <Grid item xs={12} sm={6} md={6} >
                   <FormGroup>
-                    <FormControlLabel control={<Checkbox defaultChecked />} label="Enable QR" />
+                    <FormControlLabel control={<Checkbox onChange={handleQrCOde} />} label="Enable QR" />
                     <FormControlLabel control={<Checkbox defaultChecked />} label="Enable PayAttitude" />
                     <FormControlLabel control={<Checkbox defaultChecked />} label="Enable Paga " />
                     <FormControlLabel control={<Checkbox defaultChecked />} label="Enable USSD" />

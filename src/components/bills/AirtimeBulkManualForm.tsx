@@ -4,7 +4,7 @@ import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import Styles from "./payment.module.scss";
 import { Button, } from "@material-ui/core";
 import { styled } from "@mui/system";
-import { Box, TextField, InputLabel, MenuItem,  Grid } from "@mui/material";
+import { Box, TextField, InputLabel, MenuItem, Grid } from "@mui/material";
 import MuiPhoneNumber from "material-ui-phone-number";
 import { ErrorMessage } from "formik";
 
@@ -13,7 +13,7 @@ const BulkManualForm = () => {
 
   const handleOnChange = () => { }
   return (
-    <div className={Styles.bulk__payment__input__container}>
+    <div className={Styles.bulk__airtime_payment__input__container}>
       <div className={Styles.form__title}>
         <h3>Input Details Manually</h3>
       </div>

@@ -14,6 +14,17 @@ import { FetchProfileDetails } from '../../helpers/FetchProfileDetails'
 import ParentContainer from '../../components/ParentContainer/ParentContainer';
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import { InputLabel } from '@mui/material';
+import { openModalAndSetContent, closeModal } from '../../redux/actions/modal/modalActions';
+// import QrCode from '../Profile/QrCode';
+import QRCode from 'react-qr-code';
+import { saveMe } from '../../redux/actions/me/meActions'
+
+interface QrProps {
+	code: string;
+	message: string;
+	qrcodeUrl: string
+
+}
 
 
 const GeneralSettings = () => {
@@ -234,6 +245,138 @@ const GeneralSettings = () => {
 		const { files } = e.target;
 		setBusiness((prevState) => ({ ...prevState, businesslogo: files[0] }));
 	};
+
+
+
+
+	// show 2fa box
+
+	const showQr = async () => {
+		dispatch(openLoader());
+		try {
+			const { data } = await axios.get<QrProps>(`/v1/profile/2fa/qrcode`);
+
+
+			if (data?.qrcodeUrl) {
+				dispatch(
+					openModalAndSetContent({
+						modalStyles: {
+							padding: "10px",
+							width: "350px !important",
+							borderRadius: "20px"
+
+						},
+						modalContent: (
+							<div className={Styles.modalDiv}>
+								{/* <BoxComponent data={data?.qrcodeUrl} /> */}
+
+								<div className={Styles.outerbox}>
+									<div
+										style={{
+											width: '100%',
+											// height: '400px',
+											border: '1px solid black',
+										}}>
+										{data ? (
+											<QRCode
+												style={{ height: 'auto', width: '100%' }}
+												value={data?.qrcodeUrl}
+											/>
+										) : (
+											'Something went wrong'
+										)}
+									</div>
+									<button
+										onClick={enabledHandler}
+										style={{
+											fontFamily: "Avenir",
+											textTransform: "inherit",
+											fontSize: "20px",
+											textAlign: 'center',
+											border: 'none',
+											height: "44px",
+											outline: 'none',
+											width: '100%',
+											color: '#FFFFFF',
+											padding: '13.39px 0',
+											borderRadius: '20px',
+											marginTop: '30px',
+											cursor: 'pointer',
+										}}>
+										Enable
+									</button>
+								</div>
+							</div>
+						),
+					})
+				);
+			}
+
+			// setQr(data.qrcodeUrl);
+			// console.log(data.qrcodeUrl, "PropsPropsPropsProps")
+			// editConfigHandler();
+			dispatch(closeLoader());
+		} catch (error: any) {
+			dispatch(closeLoader());
+			const { message } = error.response.data;
+			dispatch(
+				dispatch(
+					openToastAndSetContent({
+						toastContent: message,
+						toastStyles: {
+							backgroundColor: 'red',
+						},
+					})
+				)
+			);
+		}
+
+	}
+
+
+	const fetchUserDetails = async () => {
+		await axios
+			.get(`/v1/profile/me`)
+			.then((res) => {
+				console.log(res)
+				dispatch(saveMe(res.data));
+			})
+			.catch((err) => console.log(err));
+	};
+
+	const enabledHandler = async () => {
+		dispatch(openLoader());
+		try {
+			const { data } = await axios.get<any>(`/v1/profile/2fa/enable`);
+			dispatch(closeLoader());
+			dispatch(
+				openToastAndSetContent({
+					toastContent: data?.message,
+					toastStyles: {
+						backgroundColor: 'green',
+					},
+				})
+			);
+			fetchUserDetails();
+			dispatch(closeModal());
+		} catch (error: any) {
+			dispatch(closeLoader());
+			const { message } = error.response.data;
+			dispatch(
+				dispatch(
+					openToastAndSetContent({
+						toastContent: message,
+						toastStyles: {
+							backgroundColor: 'red',
+						},
+					})
+				)
+			);
+		}
+	};
+
+
+
 	return (
 
 
@@ -242,11 +385,16 @@ const GeneralSettings = () => {
 			{/* <NavBar  /> */}
 			<div className={Styles.container}>
 				<div className={Styles.formHeader}>
+					<p></p>
+					<Button className='success' style={{ borderRadius: "20px" }} onClick={showQr}>Generate 2FA</Button>
+				</div>
+				<div className={Styles.formHeader}>
 					<div>
 						<h2>Profile</h2>
 						<p>Personal information</p>
 					</div>
 					<Button
+
 						loading={loader}
 						className='success'
 						onClick={updateUserDetails}

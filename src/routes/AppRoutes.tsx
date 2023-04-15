@@ -31,7 +31,7 @@ import WebHooks from "../views/Settings/WebHooks";
 import BankAccounts from "../views/Settings/BankAccounts";
 import SignUp from "../views/SignUp/SignUpPage";
 import IndividualSignUp from "../views/SignUp/IndividualSignUp";
-import BusinessSignUp from "../views/SignUp/BusinessSignUp";
+import BusinessSignUp from "../views/SignUp/business/BusinessSignUp";
 import { Web } from "@material-ui/icons";
 import ProtectedRoute from "../components/ProtectedRoutes";
 import SignIn from "../views/SignIn/SignIn";
@@ -89,6 +89,7 @@ import Operations from "../components/permission/Operations";
 import Support from "../components/permission/Support";
 import Developer from "../components/permission/Developer";
 import Viewers from "../components/permission/Viewers";
+import NgoSignUp from "../views/SignUp/ngo";
 
 
 
@@ -104,7 +105,7 @@ export default function AppRoutes() {
 
   axios.defaults.headers.common.Authorization = `Bearer ${access_token}`;
   // axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
-  axios.defaults.baseURL = "https://staging.itex-pay.com/ipg/api/v1";
+  axios.defaults.baseURL = process.env.REACT_APP_ROOT_URL;
   console.log(process.env.REACT_APP_ROOT_URL);
   console.log(process.env.NODE_ENV);
   axios?.interceptors?.response?.use(
@@ -114,7 +115,7 @@ export default function AppRoutes() {
       return response;
     },
     (error) => {
-      const { message } = error.response.data;
+      const { message } = error?.response.data;
       if (error.response) {
         dispatch(
           openToastAndSetContent({
@@ -137,7 +138,7 @@ export default function AppRoutes() {
         );
       }
       // handle expired token
-      //|| error?.response?.status === 400
+      // || error?.response?.status === 400
       if (
         error?.response?.status === 401 ||
         message?.toLowerCase() === "login again"
@@ -169,24 +170,25 @@ export default function AppRoutes() {
         <Route exact path="/signup">
           <SignUp />
         </Route>
+
         <Route exact path="/account_type"></Route>
         <Route exact path="/business/signup">
           <BusinessSignUp />
         </Route>
         <Route exact path="/ngo/signup">
-          <BusinessSignUp />
+          <NgoSignUp />
         </Route>
         <Route exact path="/individual_signup">
           <IndividualSignUp />
         </Route>
 
-        <Route exact path="/forgotpassword">
+        {/* <Route exact path="/forgotpassword">
           <LoginPasswordReset />
-        </Route>
-        <Route exact path="/newpassword">
+        </Route> */}
+        <Route exact path={`/reset/password/:token/:email`}>
           <NewPassword />
         </Route>
-        <Route exact path="/email_verification">
+        <Route exact path="/email_verification/:email">
           <EmailVerification />
         </Route>
         <Route exact path="/reset/password">
@@ -201,21 +203,21 @@ export default function AppRoutes() {
               exact
               path="/"
               component={MerchantOverview}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
 
             {/* <ProtectedRoute
-							exact
-							path='/merchant_overview'
-							component={MerchantOverview}
-							AuthUser={loadingState}
-						/> */}
+              exact
+              path='/merchant_overview'
+              component={MerchantOverview}
+              AuthUser={loadingState}
+            /> */}
 
             <ProtectedRoute
               exact
               path="/transactions"
               component={Transactions}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             {/* <ProtectedRoute
               exact
@@ -227,392 +229,392 @@ export default function AppRoutes() {
               exact
               path="/transactions/list"
               component={TransactionsList}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
               path="/transaction/:id"
               component={Transaction}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
 
             <ProtectedRoute
               exact
               path="/transactions/refund"
               component={Refund}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
               path="/transactions/refund/:slug"
               component={RefundItem}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
 
             <ProtectedRoute
               exact
               path="/balance"
               component={Balance}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
 
             <ProtectedRoute
               exact
               path="/balance/balance_history"
               component={BalanceHistory}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
               path="/balance/balance_history/:slug"
               component={SettlementItem}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
               path="/balance/settlements"
               component={Settlements}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
               path="/balance/settlements/:slug"
               component={SettlementItem}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
 
             <ProtectedRoute
               exact
               path="/balance/rolling_reserve"
               component={RollingReserve}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
               path="/balance/rolling_reserve/:slug"
               component={RollingReserveItem}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
 
             <ProtectedRoute
               exact
               path="/customers"
               component={CustomersTab}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
               path="/blacklist"
               component={BlacklistDatatable}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
 
             <ProtectedRoute
               exact
               path="/customers/:slug"
               component={CustomerItem}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
               path="/payout/transfers"
               component={Transfers}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
               path="/payout/transfer/entries"
               component={BulkTransferEntry}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
               path="/payout/transfer/history"
               component={TransferHistory}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
               path="/payout/transfers/list"
               component={TransferTable}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
               path="/payout/beneficiaries"
               component={Beneficiaries}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
               path="/payout/beneficiaries/details/:id"
               component={BeneficiaryDetails}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
               path="/payout/pending_approval"
               component={PendingApproval}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
 
             <ProtectedRoute
               exact
               path="/payout/pending_approval/details/:id"
               component={Pendingdetails}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
 
             <ProtectedRoute
               exact
               path="/payout/funding_history"
               component={FundingHistory}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
 
             <ProtectedRoute
               path="/payout/transfer_balance"
               component={TransferBalance}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
 
             <ProtectedRoute
               exact
               path="/chargebacks"
               component={ChargeBacks}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
               path="/chargebacks/:slug"
               component={ChargeBacksItem}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
 
             <ProtectedRoute
               exact
               path="/chargeback/pending"
               component={Pending}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
 
             <ProtectedRoute
               path="/chargeback/awaiting_response"
               component={AwaitingResponse}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
 
             <ProtectedRoute
               exact
               path="/chargeback/won"
               component={Won}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
 
             <ProtectedRoute
               exact
               path="/chargeback/lost"
               component={Lost}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
               path="/chargeback/assessments"
               component={Assessments}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
               path="/chargeback/assessments/:slug"
               component={AssessmentsItem}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
 
             <ProtectedRoute
               exact
               path="/subaccounts"
               component={Subaccounts}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
               path="/subaccounts/:slug"
               component={SubaccountsItem}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
 
             <ProtectedRoute
               exact
               path="/payment_links"
               component={PaymentLinks}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
               path="/payment_links/:slug"
               component={PaymentLinksItem}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
 
             <ProtectedRoute
               exact
               path="/store"
               component={ItexStore}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
 
             <ProtectedRoute
               exact
               path="/point_of_sale"
               component={PointOfSale}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
               path="/point_of_sale/requests/:slug"
               component={RequestsItem}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
               path="/point_of_sale/deployed/:slug"
               component={DeployedItem}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
 
             <ProtectedRoute
               exact
               path="/point_of_sale/terminal_requests"
               component={TerminalRequests}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
 
             <ProtectedRoute
               exact
               path="/bills"
               component={BillTabPanel}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
               path="/airtime/requests/:slug"
               component={AirtimeSaleRequest}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
               path="/bills/invoice"
               component={Invoice}
 
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
               path="/bills/invoice/details/:id"
               component={InvoiceDetails}
 
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
               path="/bill/requests/:slug"
               component={BillSaleRequest}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
               path="/airtime/bulk-payment"
               component={BulkAirtimePayment}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
               path="/bill/bulk-payment"
               component={BulkBillPayment}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
               path="/general_setting"
               component={GeneralSettings}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
 
             <ProtectedRoute
               exact
               path="/general_setting/bank_accounts"
               component={BankAccounts}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
 
             <ProtectedRoute
               exact
               path="/general_setting/users"
               component={Users}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
               path="/general_setting/permissions"
               component={Permission}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
               path="/general_setting/permissions/administrator"
               component={Administrator}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
               path="/general_setting/permissions/operations"
               component={Operations}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
               path="/general_setting/permissions/support"
               component={Support}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
               path="/general_setting/permissions/developer"
               component={Developer}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
               path="/general_setting/permissions/viewers"
               component={Viewers}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
 
             <ProtectedRoute
               exact
               path="/general_setting/api"
               component={Api}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
 
             <ProtectedRoute
               exact
               path="/general_setting/web_hooks"
               component={WebHooks}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
 
             <ProtectedRoute
               exact
               path="/general_setting/account_settings"
               component={AccountSettings}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
               path="/quickupdate/:id"
               component={QuickUpdate}
-            // AuthUser={loadingState}
+              AuthUser={loadingState}
             />
 
 
