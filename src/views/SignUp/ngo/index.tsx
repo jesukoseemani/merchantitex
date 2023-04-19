@@ -211,7 +211,7 @@ const NgoSignUp = () => {
 
 					dispatch(
 						openToastAndSetContent({
-							toastContent: error.message,
+							toastContent: error?.response?.data?.message,
 							toastStyles: {
 								backgroundColor: 'red',
 							},

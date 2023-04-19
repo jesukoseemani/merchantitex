@@ -1,6 +1,5 @@
 import React from 'react';
 import Mark from '../assets/images/MarkDefault.svg';
-import AccountSetUp from '../components/accountSetUp/AccountSetUp';
 
 const BusinessUpdateSettings = () => {
 	// const data = [

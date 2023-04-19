@@ -71,7 +71,6 @@ import BillSaleRequest from "../views/Bills/BillSaleRequest";
 import BulkBillPayment from "../components/bills/BulkBillPayment";
 import NavHeader from "../components/navbarMenu/NavHeader";
 import ResetPassword from "../views/Reset/password/ResetPassword";
-import AccountSetUp from "../components/accountSetUp/AccountSetUp";
 import AccountSetup from "../views/SignUp/accountsetup/AccountSetup";
 import Invoice from "../components/bills/invoice/Invoice";
 import BulkTransferEntry from "../views/Payout/transfer/BulkTransferEntry";
@@ -616,12 +615,16 @@ export default function AppRoutes() {
               component={QuickUpdate}
               AuthUser={loadingState}
             />
+            <ProtectedRoute
+              exact
+              path="/setup"
+              component={AccountSetup}
+              AuthUser={loadingState}
+            />
 
 
           </>
-          <Route exact path="/test/home">
-            <AccountSetup />
-          </Route>
+
         </Navigation>
       </Switch>
     </Router >

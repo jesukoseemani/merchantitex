@@ -1,5 +1,5 @@
 import Mark from '../assets/images/MarkDefault.svg';
-import AccountSetUp from '../components/accountSetUp/AccountSetUp';
+// import AccountSetUp from '../components/accountSetUp/AccountSetUp';
 
 function IndividualUpdateSettings() {
 	const data = [

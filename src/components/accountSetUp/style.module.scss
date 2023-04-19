@@ -23,12 +23,8 @@
     color: #8B8B8B;
     margin-top: 15px !important;
 
-    svg {
-        margin: 0;
-        height: 20px;
-        height: 20px;
-    }
 }
+
 
 .downloadIcon {
     margin-right: 10px !important;
@@ -43,6 +39,16 @@
     display: flex;
 
     color: #828282;
+
+
+}
+
+.upload {
+    svg {
+        margin: 0;
+        height: 18px !important;
+        height: 18px !important;
+    }
 }
 
 .addBtn {

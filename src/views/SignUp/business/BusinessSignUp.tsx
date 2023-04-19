@@ -200,6 +200,7 @@ const BusinessSignUp = () => {
 						history.push(`/email_verification/${data?.email}`)
 					} else {
 
+						console.log(data, "dataerrr")
 					}
 
 				} catch (error: any) {
@@ -207,7 +208,7 @@ const BusinessSignUp = () => {
 
 					dispatch(
 						openToastAndSetContent({
-							toastContent: error.message,
+							toastContent: error?.response?.data?.message,
 							toastStyles: {
 								backgroundColor: 'red',
 							},

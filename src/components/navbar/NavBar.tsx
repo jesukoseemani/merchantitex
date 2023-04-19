@@ -13,6 +13,7 @@ import useLocalStorage from "../../helpers/useLocalStorage";
 import { ReactComponent as ActiveStateImg } from '../../assets/images/activeState.svg'
 import BeneficiaryMenu from "../../views/Payout/BeneficiaryMenu";
 import { ReactComponent as CopyIcon } from "../../assets/images/copyColor.svg";
+import SetupIcon from "../../assets/images/setupIcon.svg";
 import CustomModal from "../customs/CustomModal";
 import AddBusiness from "./AddBusiness";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
@@ -25,6 +26,7 @@ const style = {
 };
 const NavBar = () => {
   const business = useSelector((state) => state?.meReducer?.me?.business);
+  const { userDetails } = useSelector((state) => state?.userDetailReducer);
 
   const { pathname } = useLocation();
   const [active, setActive] = React.useState<string | number>(0);
@@ -131,7 +133,7 @@ const NavBar = () => {
         <div className={Styles.userProfile__text}>
           <Stack direction={"row"} alignItems="flex-start">
             <p>
-              James
+              {userDetails?.firstname}
             </p>
             <IconButton onClick={handleClick} style={{ marginTop: "-7px" }}>
               <ReactSVG src={ArrowDown} />
@@ -140,7 +142,7 @@ const NavBar = () => {
           </Stack>
 
 
-          <span>thejames@gmail.com</span>
+          <span>   {userDetails?.email}</span>
 
 
         </div>
@@ -164,22 +166,35 @@ const NavBar = () => {
 
         <nav>
           {/* {nextedRoutes?} */}
+          <li
+
+            onClick={() => history.push("/setup")}
+            className={Styles.setup}
+          >
+            {/* <img src={icon} alt={name} /> */}
+
+            <ReactSVG src={SetupIcon} className={Styles.linkIcon} />
+            Setup
+
+          </li>
 
           {!isNested && routes?.map((item) => {
             return (
-              <li
-                key={item?.id}
-                onClick={() => changeHandler(item)}
-                className={item?.link === pathname ? Styles.active : Styles.routes}
-              >
-                {/* <img src={icon} alt={name} /> */}
+              <>
+                <li
+                  key={item?.id}
+                  onClick={() => changeHandler(item)}
+                  className={item?.link === pathname ? Styles.active : Styles.routes}
+                >
+                  {/* <img src={icon} alt={name} /> */}
 
-                <ReactSVG src={item?.icon} className={Styles.linkIcon} />
-                {item?.title}
-                <div className={item?.link === pathname ? Styles.replaced_yen : Styles.replaced_not}>
-                  <ActiveStateImg />
-                </div>
-              </li>
+                  <ReactSVG src={item?.icon} className={Styles.linkIcon} />
+                  {item?.title}
+                  <div className={item?.link === pathname ? Styles.replaced_yen : Styles.replaced_not}>
+                    <ActiveStateImg />
+                  </div>
+                </li>
+              </>
             );
           })}
 

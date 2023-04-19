@@ -20,9 +20,20 @@ import { saveUserDetail } from '../../redux/actions/userDetail/userDetailActions
 import { saveCountry } from '../../redux/actions/country/countryActions';
 // import { makeStyles } from '@material-ui/core';
 import { ReactSVG } from "react-svg";
-import { Box } from '@mui/material';
+import { Box, styled } from '@mui/material';
+import TwoFaAuth from './TwoFaAuth';
 
 const SignIn = () => {
+
+	const StyledTextField = styled(TextField, {
+		name: "StyledTextField",
+	})({
+
+		"& .MuiInputBase-root": {
+			height: 44,
+			// marginBottom: "18px",
+		}
+	});
 	const dispatch = useDispatch();
 	const history = useHistory();
 
@@ -57,20 +68,47 @@ const SignIn = () => {
 						dispatch(closeLoader());
 						dispatch(saveAuth(res?.data));
 						if (res?.data?.code === "success") {
-							history.push('/');
-						} else {
-							history.push('/signin');
+
+							if (res?.data?.twofa_token !== null) {
+								console.log(res?.data?.twofa_token);
+
+								dispatch(
+									openToastAndSetContent({
+										toastContent: res?.data?.message,
+										toastStyles: {
+											backgroundColor: 'green',
+										},
+									})
+								)
+
+								dispatch(
+									openModalAndSetContent({
+										modalStyles: {
+											// boxShadow: '-4px 4px 14px rgba(224, 224, 224, 0.69)',
+											backgroundColor: "transparent !important"
+										},
+										modalContent: (
+											<div className='modalDiv' >
+												<TwoFaAuth token={res?.data?.twofa_token} />
+											</div>
+										),
+									})
+								);
+							} else {
+								history.push('/');
+								dispatch(saveUserDetail(res?.data?.user));
+								dispatch(
+									openToastAndSetContent({
+										toastContent: 'Login Successful',
+										toastStyles: {
+											backgroundColor: 'green',
+										},
+									})
+								);
+							}
 						}
 						// dispatch(saveLoading(true));
-						dispatch(saveUserDetail(res?.data?.user));
-						dispatch(
-							openToastAndSetContent({
-								toastContent: 'Login Successful',
-								toastStyles: {
-									backgroundColor: 'green',
-								},
-							})
-						);
+
 
 						// if (res.data.business.status === 'IN-REVIEW') {
 						// 	history.push(`/quickupdate/${res.data.business.account.type}`);
@@ -84,7 +122,7 @@ const SignIn = () => {
 						dispatch(saveLoading(false));
 						dispatch(
 							openToastAndSetContent({
-								toastContent: 'Login Failed',
+								toastContent: err?.response?.data?.message,
 								toastStyles: {
 									backgroundColor: 'red',
 								},
@@ -109,7 +147,7 @@ const SignIn = () => {
 											<span className={styles.formTitle}>Email Address</span>
 										</InputLabel>
 										<Field
-											as={TextField}
+											as={StyledTextField}
 											helperText={
 												<ErrorMessage name='email'>
 													{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
@@ -128,7 +166,7 @@ const SignIn = () => {
 											<span className={styles.formTitle}>Password</span>
 										</InputLabel>
 										<Field
-											as={TextField}
+											as={StyledTextField}
 											helperText={
 												<ErrorMessage name='password'>
 													{(msg) => <span style={{ color: 'red' }}>{msg}</span>}

@@ -1,4 +1,4 @@
-import { Grid, InputLabel, Typography, Button, TextField, MenuItem } from '@mui/material';
+import { Grid, InputLabel, Typography, Button, TextField, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import styles from './style.module.scss';
 import Logo from '../../../assets/images/white_bg_logo.svg';
 
@@ -22,11 +22,12 @@ import { openToastAndSetContent } from '../../../redux/actions/toast/toastAction
 import { styled } from '@mui/system';
 import { Box } from '@mui/material';
 import MuiPhoneNumber from 'material-ui-phone-number';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { ValidateIndividual } from '../../../components/validation/OnboadingValidate';
 import CustomSelect from '../../../components/customs/CustomSelect';
 import CustomCategory from '../../../components/customs/CustomCategory';
 import ReactCountryFlag from "react-country-flag"
+import CustomPhoneNumber from '../../../components/customs/CustomPhoneInput';
 
 const createAccount = [
 	{
@@ -75,12 +76,11 @@ interface countryProp {
 const IndividualSignUp = () => {
 	const [phone, setPhone] = useState<unknown>()
 	const [country, setCountry] = useState<any>()
+	const [defaultCountry, setDefaultCountry] = useState<any>()
 	const [businessCategory, setBusinessCategory] = useState([])
+	const [countryCode, setCountryCode] = useState("")
 
-	const handleOnChange = (value: any) => {
-		setPhone(value)
-		console.log(phone)
-	}
+
 
 
 	useEffect(() => {
@@ -90,7 +90,9 @@ const IndividualSignUp = () => {
 			try {
 
 				const { data } = await axios.get<any>("/resource/countries")
+				console.log(data)
 				setCountry(data?.countries)
+				setDefaultCountry(data?.defaultCountry)
 
 
 				dispatch(closeLoader());
@@ -156,7 +158,7 @@ const IndividualSignUp = () => {
 	}, [])
 
 
-	console.log(country)
+	console.log(defaultCountry?.countryIso.toLowerCase())
 
 	const dispatch = useDispatch();
 
@@ -181,10 +183,13 @@ const IndividualSignUp = () => {
 				password: "",
 				businessCategoryId: "",
 				countryid: "",
+				// countryIso: "",
 
 			}}
 			validationSchema={ValidateIndividual}
 			onSubmit={async ({ firstname, businessCategoryId, businessname, countryid, email, lastname, password, phonenumber }) => {
+				console.log({ phonenumber });
+
 
 				try {
 					dispatch(closeLoader());
@@ -217,20 +222,19 @@ const IndividualSignUp = () => {
 
 					dispatch(
 						openToastAndSetContent({
-							toastContent: error.message,
+							toastContent: error?.response?.data?.message,
 							toastStyles: {
 								backgroundColor: 'red',
 							},
 						})
 					);
 				}
-				// console.log(values, "values")
 
 
 
 			}}
 		>
-			{(props) => (
+			{(formikProps) => (
 				<div className={styles.signupContainer}>
 					<div className={styles.logo}>
 						<ReactSVG src={Logo} onClick={() => history.push('/signin')} />
@@ -284,42 +288,26 @@ const IndividualSignUp = () => {
 										</Grid>
 										<Grid item xs={12} md={5.6} mb="18px">
 											<InputLabel className={styles.formTitle}>Phone number</InputLabel>
-											{/* <MuiPhoneNumber variant='outlined' name='phonenumber'
-												fullWidth defaultCountry={'us'} value={phone} onChange={(e) => setPhone(e)}
-												helperText={
-													<ErrorMessage name='phonenumber'>
-														{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
-													</ErrorMessage>
-												}
-											/> */}
 
 
-											<Grid container>
-												{/* <Grid item xs={4}>
-													<TextField select fullWidth>
-														{country?.map((x: countryProp) => (
-															<Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 10px", width: "100%" }}>
-																<MenuItem key={x?.id} defaultValue={x?.dialCode}>
 
-																	<ReactCountryFlag
-																		className="emojiFlag"
-																		countryCode={x?.countryIso}
-																		style={{
-																			fontSize: '2em',
-																			lineHeight: '2em',
-																		}}
-																		svg
-																		defaultValue={x?.countryIso}
-																	/>{x?.dialCode}
+											<Grid container alignItems={"center"} justifyContent="center">
+												<Grid item xs={5}>
+													<Field
+														as={CustomPhoneNumber}
+														helperText={
+															<ErrorMessage name='countryIso'>
+																{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
+															</ErrorMessage>
+														}
+														name='countryIso'
 
-																</MenuItem>
+														options={country}
 
-															</Box>
 
-														))}
-													</TextField>
-												</Grid> */}
-												<Grid item xs={12}>
+													/>
+												</Grid>
+												<Grid item xs={7}>
 													<Field
 														as={TextField}
 														helperText={
@@ -327,22 +315,28 @@ const IndividualSignUp = () => {
 																{(msg) => <span style={{ color: "red" }}>{msg}</span>}
 															</ErrorMessage>
 														}
-														value={country?.dialCode}
 														name="phonenumber"
 														placeholder="phonenumber"
 														// margin="normal"
 														type="text"
 														size="small"
 														fullWidth
-													// defaultValue={id}
+														// defaultValue={id}
+														style={{ border: "1px solid #eee", marginLeft: "-0.13rem", marginTop: "-4px" }}
 
 													/>
+
+													{/* <MuiPhoneNumber
+														defaultCountry={defaultCountry?.countryIso.toLowerCase()}
+														// name="phonenumber"
+														onChange={e => formikProps.setFieldValue("phonenumber", e)}
+													/> */}
 												</Grid>
 											</Grid>
 
+
 										</Grid>
 
-										{country?.id}
 
 										<Grid item xs={12} md={5.6} mb="18px">
 											<InputLabel>
