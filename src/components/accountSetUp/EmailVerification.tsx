@@ -26,7 +26,7 @@ const EmailVerification = () => {
   const dispatch = useDispatch()
 
   const handleLogin = () => {
-    history.push("/test/home");
+    history.push("/signin");
   };
 
   console.log(email)

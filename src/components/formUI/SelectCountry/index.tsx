@@ -39,9 +39,9 @@ const SelectWrapperCountry = ({ name, options, ...otherProps }: any) => {
 		<StyledTextField {...configSelect}>
 			{options?.map((item: any, i: any) => {
 				return (
-					<MenuItem key={i} value={item.bankcode}>
+					<MenuItem key={i} value={item.id}>
 						{/* {options[item]} */}
-						{item.bankname}
+						{item.bank}
 					</MenuItem>
 				);
 			})}
