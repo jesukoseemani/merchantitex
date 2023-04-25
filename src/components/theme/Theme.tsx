@@ -215,6 +215,10 @@ const theme = createTheme({
 
         root: {
           minHeight: 44,
+          '& textarea': {
+            padding: "10px !important",
+          }
+
 
         },
 

@@ -80,7 +80,7 @@ const AccountSetup = () => {
                     marginInline: "auto",
                     borderRadius: 20,
                 },
-
+                modalTitle: "Set up business profile",
                 modalContent: (
                     <div className='modalDiv'>
                         <BusinessSetup />
@@ -100,6 +100,7 @@ const AccountSetup = () => {
                     // marginInline: "auto",
                     borderRadius: 20,
                 },
+                modalTitle: "Add a bank account",
 
                 modalContent: (
                     <div className='modalDiv'>

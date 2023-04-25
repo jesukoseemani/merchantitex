@@ -64,16 +64,8 @@ const WebHooks = () => {
 				}
 
 			}}>
-				<TabContext value={value} >
-					<Box mb={"42px"}>
-						<TabList onChange={handleChange} aria-label="lab API tabs example">
-							<Tab label="Test Webhook" value="1" />
-							<Tab label="Live Webhook" value="2" />
-						</TabList>
-					</Box>
-					<TabPanel value="1"><TestHooks /></TabPanel>
-					<TabPanel value="2"><LiveHook /></TabPanel>
-				</TabContext>
+
+				<TestHooks />
 			</Box>
 
 

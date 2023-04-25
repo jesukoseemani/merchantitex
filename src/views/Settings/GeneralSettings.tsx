@@ -8,7 +8,7 @@ import {
 	openLoader,
 } from '../../redux/actions/loader/loaderActions';
 import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { serialize } from 'object-to-formdata';
 import { FetchProfileDetails } from '../../helpers/FetchProfileDetails'
 import ParentContainer from '../../components/ParentContainer/ParentContainer';
@@ -18,6 +18,7 @@ import { openModalAndSetContent, closeModal } from '../../redux/actions/modal/mo
 // import QrCode from '../Profile/QrCode';
 import QRCode from 'react-qr-code';
 import { saveMe } from '../../redux/actions/me/meActions'
+import Navigation from '../../components/navbar/Navigation';
 
 interface QrProps {
 	code: string;
@@ -59,8 +60,10 @@ const GeneralSettings = () => {
 
 	const [loader, setLoader] = useState(false);
 	const [form, setForm] = useState<formTypes>(formInit);
-	const [business, setBusiness] = useState(businessInit);
+	// const [business, setBusiness] = useState(businessInit);
+	const { me } = useSelector(state => state?.meReducer)
 
+	const { user, business } = me
 	const dispatch = useDispatch();
 	// user profile update
 	const updateUserDetails = async () => {
@@ -168,50 +171,50 @@ const GeneralSettings = () => {
 		}
 	};
 
-	const getUserDetails = async () => {
-		try {
-			const res: { data: any } = await axios.get(`/merchant/account/me`);
-			setForm(res?.data?.business?.user?.[0]);
-			setBusiness({
-				tradingname: res?.data?.business?.tradingname,
-				email: res?.data?.business?.email,
-				phonenumber: res?.data?.business?.phonenumber,
-				chargebackemail: res?.data?.business?.meta[3].value,
-				supportemail: res?.data?.business?.meta[2].value,
-				country: '',
-				registeredaddress: res?.data?.business?.address[0] || '',
-				supportphonenumber: res?.data?.business?.phonenumber,
-				businesslogo: '',
-			});
-		} catch (error: any) {
-			if (error.response) {
-				const { message } = error.response.data;
-				dispatch(
-					openToastAndSetContent({
-						toastContent: message,
-						toastStyles: {
-							backgroundColor: 'red',
-						},
-					})
-				);
-			} else if (error.request) {
-				console.log('sorry, there was an error');
-			} else {
-				dispatch(
-					openToastAndSetContent({
-						toastContent: error.message,
-						toastStyles: {
-							backgroundColor: 'red',
-						},
-					})
-				);
-			}
-		}
-	};
+	// const getUserDetails = async () => {
+	// 	try {
+	// 		const res: { data: any } = await axios.get(`/v1/profile/me`);
+	// 		setForm(res?.data?.business?.user?.[0]);
+	// 		setBusiness({
+	// 			tradingname: res?.data?.business?.tradingname,
+	// 			email: res?.data?.business?.email,
+	// 			phonenumber: res?.data?.business?.phonenumber,
+	// 			chargebackemail: res?.data?.business?.meta[3].value,
+	// 			supportemail: res?.data?.business?.meta[2].value,
+	// 			country: '',
+	// 			registeredaddress: res?.data?.business?.address[0] || '',
+	// 			supportphonenumber: res?.data?.business?.phonenumber,
+	// 			businesslogo: '',
+	// 		});
+	// 	} catch (error: any) {
+	// 		if (error.response) {
+	// 			const { message } = error.response.data;
+	// 			dispatch(
+	// 				openToastAndSetContent({
+	// 					toastContent: message,
+	// 					toastStyles: {
+	// 						backgroundColor: 'red',
+	// 					},
+	// 				})
+	// 			);
+	// 		} else if (error.request) {
+	// 			console.log('sorry, there was an error');
+	// 		} else {
+	// 			dispatch(
+	// 				openToastAndSetContent({
+	// 					toastContent: error.message,
+	// 					toastStyles: {
+	// 						backgroundColor: 'red',
+	// 					},
+	// 				})
+	// 			);
+	// 		}
+	// 	}
+	// };
 
-	useEffect(() => {
-		getUserDetails();
-	}, []);
+	// useEffect(() => {
+	// 	getUserDetails();
+	// }, []);
 
 	const countryList = [
 		{
@@ -237,14 +240,14 @@ const GeneralSettings = () => {
 		const { name, value } = e.target;
 		setForm((prevState) => ({ ...prevState, [name]: value }));
 	};
-	const handleBizChange = (e: any) => {
-		const { name, value } = e.target;
-		setBusiness((prevState) => ({ ...prevState, [name]: value }));
-	};
-	const handleFileChange = (e: any) => {
-		const { files } = e.target;
-		setBusiness((prevState) => ({ ...prevState, businesslogo: files[0] }));
-	};
+	// const handleBizChange = (e: any) => {
+	// 	const { name, value } = e.target;
+	// 	setBusiness((prevState) => ({ ...prevState, [name]: value }));
+	// };
+	// const handleFileChange = (e: any) => {
+	// 	const { files } = e.target;
+	// 	setBusiness((prevState) => ({ ...prevState, businesslogo: files[0] }));
+	// };
 
 
 
@@ -334,15 +337,27 @@ const GeneralSettings = () => {
 	}
 
 
+	useEffect(() => {
+		fetchUserDetails()
+
+
+	}, [])
+
+
 	const fetchUserDetails = async () => {
 		await axios
 			.get(`/v1/profile/me`)
 			.then((res) => {
-				console.log(res)
+				console.log(res, "res")
 				dispatch(saveMe(res.data));
 			})
 			.catch((err) => console.log(err));
 	};
+
+
+
+
+
 
 	const enabledHandler = async () => {
 		dispatch(openLoader());
@@ -376,9 +391,63 @@ const GeneralSettings = () => {
 	};
 
 
+	// handle password change
+
+	interface passwordProp {
+		code: string;
+		message: string;
+	}
+	const [passInput, setPassInput] = useState({
+		currentPassword: "",
+		password: ""
+	})
+
+	const handleChangePass = (e: any) => {
+		setPassInput({ ...passInput, [e.target.name]: e.target.value })
+	}
+	console.log(passInput)
+	const handlePassWordChange = async () => {
+		try {
+			const { data } = await axios.post<passwordProp>("/v1/profile/password/change", passInput)
+			console.log(data)
+			if (data?.code === "success") {
+				setPassInput({
+					currentPassword: "",
+					password: ""
+				})
+				dispatch(
+					dispatch(
+						openToastAndSetContent({
+							toastContent: data?.message,
+							toastStyles: {
+								backgroundColor: 'green',
+							},
+						})
+					)
+				);
+			}
+		} catch (error: any) {
+			dispatch(closeLoader());
+			const { message } = error.response.data;
+			dispatch(
+				dispatch(
+					openToastAndSetContent({
+						toastContent: message,
+						toastStyles: {
+							backgroundColor: 'red',
+						},
+					})
+				)
+			);
+		}
+		setPassInput({
+			currentPassword: "",
+			password: ""
+		})
+	}
+
 
 	return (
-
 
 
 		<div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
@@ -409,14 +478,14 @@ const GeneralSettings = () => {
 						fluid
 						name='firstname'
 						onChange={handleChange}
-						value={form.firstname}
+						defaultValue={user?.firstname}
 						label='First name'
 						placeholder='John'
 					/>
 					<Form.Input
 						fluid
 						name='lastname'
-						value={form.lastname}
+						defaultValue={user?.lastname}
 						onChange={handleChange}
 						label='Last name'
 						placeholder='Doe'
@@ -426,7 +495,7 @@ const GeneralSettings = () => {
 					<Form.Input
 						fluid
 						name='email'
-						value={form.email}
+						value={user?.email}
 						onChange={handleChange}
 						label='Email address'
 						placeholder='email@email.com'
@@ -434,7 +503,7 @@ const GeneralSettings = () => {
 					<Form.Input
 						fluid
 						name='phonenumber'
-						value={form.phonenumber}
+						defaultValue={user?.phonenumber}
 						onChange={handleChange}
 						label='Phone number'
 						placeholder='+234 000 000 0000'
@@ -445,24 +514,27 @@ const GeneralSettings = () => {
 						<h2>Password</h2>
 						<p>Personal information</p>
 					</div>
-					<Button className='success' style={{ borderRadius: "20px" }}>Save changes</Button>
+					<Button onClick={handlePassWordChange} className='success' style={{ borderRadius: "20px" }}>Save changes</Button>
 				</div>
+
 				<div className={Styles.formField}>
 					<Form.Input
 						fluid
-						name='slot1'
+						name='currentPassword'
 						label='Current password'
-						onChange={handleChange}
+						onChange={handleChangePass}
 						placeholder='***********'
 						type='password'
+						value={passInput?.currentPassword}
 					/>
 					<Form.Input
 						fluid
-						name='slot1'
+						name='password'
 						label='New password'
-						onChange={handleChange}
+						onChange={handleChangePass}
 						placeholder='***********'
 						type='password'
+						value={passInput?.password}
 					/>
 				</div>
 				<div className={Styles.formHeader}>
@@ -474,21 +546,23 @@ const GeneralSettings = () => {
 						Save changes
 					</Button>
 				</div>
+
+
 				<div className={Styles.formField}>
 					<Form.Input
 						fluid
 						name='tradingname'
 						label='Business name'
-						onChange={handleBizChange}
-						value={business?.tradingname}
+						// onChange={handleBizChange}
+						defaultValue={business?.tradingname}
 						placeholder='Your company ltd.'
 					/>
 					<Form.Input
 						fluid
 						name='email'
-						value={business?.email}
+						defaultValue={business?.email}
 						label='Business email'
-						onChange={handleBizChange}
+						// onChange={handleBizChange}
 						placeholder='supportemail@email.com'
 					/>
 				</div>
@@ -496,8 +570,8 @@ const GeneralSettings = () => {
 					<Form.Input
 						fluid
 						name='phonenumber'
-						value={business.phonenumber}
-						onChange={handleBizChange}
+						defaultValue={business?.phonenumber}
+						// onChange={handleBizChange}
 						label='Business phone number'
 						placeholder='+234 000 000 0000'
 					/>
@@ -505,7 +579,7 @@ const GeneralSettings = () => {
 						fluid
 						name='street'
 						value={business?.registeredaddress}
-						onChange={handleBizChange}
+						// onChange={handleBizChange}
 						label='Address'
 						placeholder='41 James street, lekki'
 					/>
@@ -515,7 +589,7 @@ const GeneralSettings = () => {
 						fluid
 						name='supportemail'
 						value={business?.supportemail}
-						onChange={handleBizChange}
+						// onChange={handleBizChange}
 						label='Support email'
 						placeholder='support@yourcompany.com'
 					/>
@@ -523,7 +597,7 @@ const GeneralSettings = () => {
 						fluid
 						name='supportphonenumber'
 						value={business?.supportphonenumber}
-						onChange={handleBizChange}
+						// onChange={handleBizChange}
 						label='Support Phone'
 						placeholder='+234 000 000 0000'
 					/>
@@ -534,7 +608,7 @@ const GeneralSettings = () => {
 						search
 						name='country'
 						value={business?.country}
-						onChange={handleBizChange}
+						// onChange={handleBizChange}
 						label='Country'
 						options={countryList}
 						placeholder='Select country'
@@ -543,7 +617,7 @@ const GeneralSettings = () => {
 						fluid
 						name='chargebackemail'
 						value={business?.chargebackemail}
-						onChange={handleBizChange}
+						// onChange={handleBizChange}
 						label='Chargeback email'
 						placeholder='chargebackemail@email.com'
 					/>

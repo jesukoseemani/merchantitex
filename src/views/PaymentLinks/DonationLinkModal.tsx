@@ -8,12 +8,35 @@ import {
 	Grid,
 	InputLabel,
 	FormHelperText,
+	InputAdornment,
 } from '@mui/material';
 import { makeStyles } from '@material-ui/styles';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 import styles from './PaymentLinks.module.scss';
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
+import { Formik, Field, ErrorMessage, Form } from "formik";
+import { paymentDonation } from '../../components/validation/payment/paymentValidation';
+import { TextField } from '@mui/material';
+import axios from 'axios';
+import { openLoader, closeLoader } from '../../redux/actions/loader/loaderActions';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
+import CustomCurrency from '../../components/formUI/SelectCountry/CustomCurrency';
+import useCustomUpload from '../../components/hooks/CustomUpload';
+import useCurrency from '../../components/hooks/Usecurrency';
+import useCountry from '../../components/hooks/UseCountry';
+import CustomInputField from '../../components/customs/CustomInputField';
+import CustomInputDropdown from '../../components/customs/CustomInputDropdown';
+
+
+interface Props {
+	code: string;
+	message: string;
+}
+
+
 interface DonationLinkModalProps {
 	isOpen: boolean;
 	handleClose: () => void;
@@ -27,7 +50,7 @@ const useStyles = makeStyles({
 		borderRadius: '20px',
 		backgroundColor: 'white',
 		maxWidth: '786px',
-		maxHeight: '515px',
+		maxHeight: '95vh',
 		overflowY: 'scroll',
 		width: '100%',
 		position: 'absolute',
@@ -153,7 +176,7 @@ const useStyles = makeStyles({
 
 const DonationLinkModal = ({ isOpen, handleClose }: DonationLinkModalProps) => {
 
-
+	const dispatch = useDispatch()
 	const classes = useStyles();
 
 	const [pageName, setPageName] = useState<string>('');
@@ -161,6 +184,7 @@ const DonationLinkModal = ({ isOpen, handleClose }: DonationLinkModalProps) => {
 	const [desc, setDesc] = useState<string>('');
 	const [website, setWebsite] = useState<string>('');
 	const [phoneNum, setPhoneNum] = useState<string>('');
+
 
 	const closeModal = () => {
 		setPageName('');
@@ -171,137 +195,202 @@ const DonationLinkModal = ({ isOpen, handleClose }: DonationLinkModalProps) => {
 		handleClose();
 	};
 
+
+
+	const [loading, imgUrl, handleUpload] = useCustomUpload()
+	const [currencyList, loadingCurrency, currencyId] = useCurrency()
+	const [loadingCountry, countryCode, countryList, countryId] = useCountry()
+
+
 	return (
-		<Modal
-			open={isOpen}
-			onClose={closeModal}
-			closeAfterTransition
-			BackdropComponent={Backdrop}
-			BackdropProps={{
-				timeout: 500,
+		<Formik
+			initialValues={{
+				linkName: '',
+				amount: '',
+				donationWebsite: '',
+				description: '',
+				donationContact: '',
+				currencyid: '',
+				redirectUrl: '',
+				otp: '',
+				pageImage: ''
+
+			}}
+			validationSchema={paymentDonation}
+			onSubmit={async ({ linkName, amount, currencyid, redirectUrl, description, donationWebsite, donationContact, otp }, { resetForm }) => {
+				dispatch(openLoader());
+
+				try {
+					const { data } = await axios.post<Props>('/v1/payment/create/link', {
+
+						linkName,
+						linkType: "donation",
+						currencyid,
+						amount,
+						redirectUrl,
+						description,
+						donation: {
+							donationWebsite,
+							donationContact,
+							pageImage: imgUrl
+						},
+						otp
+					})
+					if (data?.code === "success") {
+						dispatch(
+							openToastAndSetContent({
+								toastContent: data?.message,
+								toastStyles: {
+									backgroundColor: "green",
+								},
+							})
+						)
+
+						dispatch(closeLoader());
+						dispatch(closeModal())
+						resetForm()
+					}
+				} catch (error: any) {
+					dispatch(closeLoader());
+					const { message } = error?.response.data;
+					dispatch(
+						dispatch(
+							openToastAndSetContent({
+								toastContent: message,
+								toastStyles: {
+									backgroundColor: "red",
+								},
+							})
+						)
+					);
+				} finally {
+					dispatch(closeLoader());
+				}
+
 			}}>
-			<div className={classes.root}>
-				<div>
-					<p>Create a donation link</p>
-					<IconButton
-						aria-label='close donation link modal'
-						onClick={handleClose}>
-						<CloseIcon />
-					</IconButton>
-				</div>
-				<hr />
-
-				<Box sx={{ padding: "23px 50px" }}>
-
-					<Grid container spacing={3} rowGap={0} justifyContent="space-between">
-						<Grid item xs={12} md={6} >
-							<InputLabel className={classes.label}>Page name</InputLabel>
-							<OutlinedInput
-								placeholder='Food Bank'
-								value={pageName}
-								fullWidth
-
-								onChange={(e) => setPageName(e.target.value)}
-								sx={{ height: "44px" }}
-							/>
-						</Grid>
-						<Grid item xs={12} md={6}>
-							<InputLabel className={classes.label}>Donation website</InputLabel>
-							<OutlinedInput
-								placeholder='Your website'
-								value={website}
-								onChange={(e) => setWebsite(e.target.value)}
-								fullWidth
-								sx={{ height: "44px" }}
-							/>
-
-						</Grid>
-						<Grid item xs={12} md={6}>
-							<InputLabel className={classes.label}>Amount</InputLabel>
-							<OutlinedInput
-								placeholder='0.00'
-								value={amt}
-								type='number'
-								fullWidth
-								sx={{ height: "44px" }}
-								onChange={(e) => setAmt(Number(e.target.value))}
-								startAdornment={
-									<div className={classes.suffix}>
-										<p>NGN</p>
-									</div>
-								}
-							/>
-
-							<FormHelperText className={classes.helperText}>
-								Leave empty to allow customers enter desired amount
-							</FormHelperText>
-						</Grid>
-						<Grid item xs={12} md={6} >
-							<InputLabel className={classes.label} htmlFor='phoneNum'>Donation phone number</InputLabel>
-							<OutlinedInput
-								placeholder='+23490902323'
-								value={phoneNum}
-								fullWidth
-								onChange={(e) => setPhoneNum(e.target.value)}
-								sx={{ height: "44px" }}
-							/>
-							<FormHelperText className={classes.helperText}>
-								This is the phone number which donors can reach you on
-							</FormHelperText>
-						</Grid>
-						<Grid item xs={12} md={6} >
-							<InputLabel className={classes.label}>Description</InputLabel>
-							<OutlinedInput
-								placeholder='email@email.com'
-								value={pageName}
-								fullWidth
-								multiline
-								rows={4}
-
-								onChange={(e) => setPageName(e.target.value)}
-
-							/>
-						</Grid>
-						<Grid item xs={12} md={6} >
-							<InputLabel className={classes.label}>Upload a featured image</InputLabel>
+			{(props) => (
+				<Modal
+					open={isOpen}
+					onClose={closeModal}
+					closeAfterTransition
+					BackdropComponent={Backdrop}
+					BackdropProps={{
+						timeout: 500,
+					}}>
+					<div className={classes.root}>
+						<div className={styles.headerTitle}>
+							<p>Create a donation link</p>
+							<IconButton
+								aria-label='close donation link modal'
+								onClick={handleClose}>
+								<CloseIcon />
+							</IconButton>
+						</div>
 
 
-							<Button variant="outlined" fullWidth component="label"
-								style={{
-									background: "#F6F9FD",
-									fontSize: "14px", color: "#4F4F4F",
-									height: 44,
-									border: "1px dashed #7A9CC4",
-									borderRadius: 4,
-									fontWeight: 300,
-									fontFamily: "Avenir",
-									textTransform: "inherit"
-								}}>
-								<CloudUploadOutlinedIcon className={classes.downloadIcon} />   choose file to upload
-								<input hidden accept="image/*" multiple type="file" />
-							</Button>
-							<FormHelperText id="component-helper-text" className={classes.helperText}>
-								This image will be displayed on the social platforms where the
-								link is shared.
-							</FormHelperText>
+						<Box sx={{ padding: "23px 50px" }}>
 
-						</Grid>
-						<Grid item xs={12} md={6}></Grid>
+							<Form>
 
-						<Grid item xs={12} md={6} justifyContent={"flex-end"} alignItems="flex-end" >
-							<Box sx={{ marginTop: "-2rem" }}>
-								<Button style={{ borderRadius: "20px", height: "44px" }} fullWidth className={classes.formBtn}>
-									Create link
-								</Button>
-							</Box>
-						</Grid>
-					</Grid>
-				</Box>
+								<Grid container spacing={3} rowGap={0} justifyContent="space-between">
+									<Grid item xs={12} md={6} >
+
+										<CustomInputField as={TextField} label={"Page name"} placeholder='Food Bank' name='linkName' />
+									</Grid>
+
+									<Grid item xs={12} md={6}>
+										<CustomInputField as={TextField} label={"Donation website"} placeholder='https://donation.com' name='donationWebsite' />
+
+									</Grid>
+									<Grid item xs={12} md={6}>
+										<CustomInputField as={TextField} label={"Redirect after payment"} placeholder='https://redirect.com' name='redirectUrl' />
+
+
+									</Grid>
+									<Grid item xs={12} md={6} alignItems="center">
+
+										<CustomInputDropdown as={TextField} label={"Amount"} placeholder='amount' name='amount' position="start" adornmentName='currencyid'
+											adornmentOptions={currencyList} adornmentType={CustomCurrency}
+										/>
 
 
 
-			</div>
-		</Modal >
+
+
+										<FormHelperText className={classes.helperText}>
+											Leave empty to allow customers enter desired amount
+										</FormHelperText>
+									</Grid>
+
+
+
+									<Grid item xs={12} md={6}>
+
+										<CustomInputField as={TextField} label={"Description"} placeholder='description' name='description'
+											multiline={true} rows={5}
+										/>
+									</Grid>
+
+									<Grid item xs={12} md={6}>
+										<Grid container>
+
+											<Grid item xs={12} >
+
+												<CustomInputField as={TextField} label={"Donation phone number"} placeholder='+23490902323' name='donationContact' />
+												<FormHelperText className={classes.helperText}>
+													This is the phone number which donors can reach you on
+												</FormHelperText>
+											</Grid>
+
+											<Grid item xs={12} mt={3.5} mb={3.5}>
+												<InputLabel className={classes.label}>Upload a featured image</InputLabel>
+
+
+												<Button variant="outlined" fullWidth component="label"
+													style={{
+														background: "#F6F9FD",
+														fontSize: "14px", color: "#4F4F4F",
+														height: 44,
+														border: "1px dashed #7A9CC4",
+														borderRadius: 4,
+														fontWeight: 300,
+														fontFamily: "Avenir",
+														textTransform: "inherit"
+													}}>
+													<CloudUploadOutlinedIcon className={classes.downloadIcon} />   choose file to upload
+													<input hidden accept="image/jpeg,image/jpg,image/png,application/pdf,image/JPEG image/PNG,image/JPG" onChange={handleUpload} type="file" />
+												</Button>
+												<FormHelperText id="component-helper-text" className={classes.helperText}>
+													This image will be displayed on the social platforms where the
+													link is shared.
+												</FormHelperText>
+											</Grid>
+										</Grid>
+									</Grid>
+									<Grid item xs={12} md={6} alignItems="cemter" mt={-4}>
+
+										<CustomInputField as={TextField} label={"Otp"} placeholder='otp' name='otp' />
+									</Grid>
+									<Grid item xs={12} md={6} justifyContent={"flex-end"} alignItems="flex-end" >
+										<Box>
+											<Button type="submit" style={{ borderRadius: "20px", height: "44px" }} fullWidth className={classes.formBtn}>
+												{loading ? "uploading ...." : "Create link"}
+											</Button>
+										</Box>
+
+									</Grid>
+
+								</Grid>
+							</Form>
+						</Box>
+
+
+
+					</div>
+				</Modal >
+			)}
+		</Formik>
+
 	);
 };
 

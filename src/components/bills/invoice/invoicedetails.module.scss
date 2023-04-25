@@ -234,9 +234,10 @@
 .sectionFour {
     margin-top: 27px;
     width: 100%;
-    height: 368px;
+    height: auto;
     background: #FFFFFF;
     border-radius: 20px;
+
 
     @media screen and (max-width:750px) {
         height: auto;

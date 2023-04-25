@@ -2,19 +2,24 @@ import { CSSProperties, ReactNode } from "react";
 import { CLOSE_MODAL, OPEN_AND_SET_MODAL_CONTENT } from "../../actions/constants";
 
 interface ModalActionInterface {
-  type:string;
+  type: string;
   modalContent: ReactNode;
-  modalStyles: CSSProperties
+  modalStyles: CSSProperties,
+  modalTitle: string,
 }
 
 interface ModalInterface {
   modalOpened: boolean;
   modalContent: ReactNode;
-  modalStyles: CSSProperties
+  modalStyles: CSSProperties,
+  modalTitle: string,
+
 }
 
 const initialModalState: ModalInterface = {
   modalContent: "",
+  modalTitle: "",
+
   modalStyles: {
     fontWeight: 800,
     color: 'white'
@@ -32,7 +37,8 @@ const modalReducer = (state = initialModalState, action: ModalActionInterface) =
         ...state,
         modalOpened: true,
         modalContent: action.modalContent,
-        modalStyles: {...state.modalStyles,...action.modalStyles},
+        modalTitle: action.modalTitle,
+        modalStyles: { ...state.modalStyles, ...action.modalStyles },
       };
     }
     default: {

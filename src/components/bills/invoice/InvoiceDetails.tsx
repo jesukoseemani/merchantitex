@@ -10,6 +10,11 @@ import { BillInvoiceRequestItem } from '../../../types/BiilsTypes';
 import { useDispatch } from 'react-redux';
 import { openModalAndSetContent } from '../../../redux/actions/modal/modalActions';
 import SendInvoice from './SendInvoice';
+import axios from 'axios';
+import { closeLoader, openLoader } from '../../../redux/actions/loader/loaderActions';
+import { openToastAndSetContent } from '../../../redux/actions/toast/toastActions';
+import { useEffect, useState } from 'react';
+import DisableInvoice from './DisableInvoice';
 
 
 const InvoiceDetails = () => {
@@ -18,21 +23,12 @@ const InvoiceDetails = () => {
     const history = useHistory();
     const dispatch = useDispatch()
 
-
+    const [invoiceDetails, setInvoiceDetails] = useState<any>()
+    const [itemDetails, setItemDetails] = useState<any>()
 
     const { id } = useParams<{ id: string }>();
 
-    if (!location.state.rowData) {
-        history.replace("/bills/invoice");
-    }
 
-    const { rowData } = location.state;
-
-    const formattedRowData: BillInvoiceRequestItem = JSON.parse(rowData);
-
-    const {
-        amount, email, name, status, title, phone, added, billId, commission, url, transRef
-    } = formattedRowData;
 
 
     // send invoice
@@ -45,6 +41,7 @@ const InvoiceDetails = () => {
                     borderRadius: 20
                 },
 
+                modalTitle: "Send invoice",
                 modalContent: (
                     <div className='modalDiv'>
                         <SendInvoice />
@@ -53,6 +50,74 @@ const InvoiceDetails = () => {
             })
         );
     }
+
+
+
+
+    // if (!location.state.rowData) {
+    // 	history.replace('/payment_links');
+    // }
+
+
+
+
+
+    // fetch payment link by id
+
+    const getInvoiceDetails = async () => {
+        dispatch(openLoader());
+        try {
+            const { data } = await axios.get<any>(`/v1/payment/merchantinvoices/${id}`);
+
+            console.log(data?.items, "data");
+            if (data) {
+                setInvoiceDetails(data);
+                setItemDetails(data?.items)
+
+            }
+
+            dispatch(closeLoader());
+        } catch (err) {
+            console.log(err);
+            dispatch(closeLoader());
+            dispatch(
+                openToastAndSetContent({
+                    toastContent: 'Failed to get links',
+                    toastStyles: {
+                        backgroundColor: 'red',
+                    },
+                })
+            );
+        }
+    };
+
+    useEffect(() => {
+        getInvoiceDetails();
+
+        return () => setInvoiceDetails("")
+    }, [id]);
+
+
+
+    const handleDisableInvoice = () => {
+        dispatch(
+            openModalAndSetContent({
+                modalStyles: {
+                    padding: 0,
+                    borderRadius: 20
+                },
+
+                modalTitle: "Disable Invoice",
+                modalContent: (
+                    <div className='modalDiv'>
+                        <DisableInvoice id={id} />
+                    </div>
+                ),
+            })
+        );
+    }
+
+
     return (
         <Box>
 
@@ -71,32 +136,31 @@ const InvoiceDetails = () => {
             <Box className={Styles.sectionTwo}>
                 <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"} flexWrap="wrap" className={Styles.Stack__container}>
                     <Box className={Styles.title}>
-                        <h2>{amount}</h2>
-                        <span className={status === "Successful" ? Styles.sucessful : Styles.pending}>{status}</span>
+                        <h2>{invoiceDetails?.invoice?.currency} {invoiceDetails?.invoice?.totalAmount}</h2>
+                        <span className={invoiceDetails?.invoice?.status === "Successful" ? Styles.sucessful : Styles.pending}>{invoiceDetails?.invoice?.status}</span>
                     </Box>
                     <Box className={Styles.btn_group}>
-                        <button>Delete</button>
+                        <button onClick={handleDisableInvoice}>Disable</button>
                         <button><InsertDriveFileOutlinedIcon /> Download</button>
-                        <button onClick={handleSendInvoice}>Send invoice</button>
                     </Box>
                 </Stack>
                 <Box className={Styles.listItem} >
                     <Grid container alignItems="center" justifyContent={{ xs: "center", md: "space-between" }}>
                         <Grid item xs={12} sm={6} md={3}>
                             <p>Invoice title</p>
-                            <span>{title}</span>
+                            <span>{invoiceDetails?.invoice?.invoiceName}</span>
                         </Grid>
                         <Grid item xs={12} sm={6} md={3}>
                             <p>Customer name</p>
-                            <span>{name}</span>
+                            <span>{invoiceDetails?.invoice?.customer?.firstname} {invoiceDetails?.invoice?.customer?.lastname}</span>
                         </Grid>
                         <Grid item xs={12} sm={6} md={3}>
                             <p>Customer Email</p>
-                            <span>{email}</span>
+                            <span>{invoiceDetails?.invoice?.customer?.email}</span>
                         </Grid>
                         <Grid item xs={12} sm={6} md={3}>
                             <p>Phone number</p>
-                            <span>{phone}</span>
+                            <span>{invoiceDetails?.invoice?.customer?.phone}</span>
                         </Grid >
                     </Grid>
                 </Box>
@@ -115,11 +179,11 @@ const InvoiceDetails = () => {
                         }}>
                             <ListItem>
                                 <ListItemAvatar>
-                                    <Avatar>
-                                        DT
+                                    <Avatar src={invoiceDetails?.invoice?.businesslogo}>
+
                                     </Avatar>
                                 </ListItemAvatar>
-                                <ListItemText primary={name} secondary={email} />
+                                <ListItemText primary={`${invoiceDetails?.invoice?.user?.firstname} ${invoiceDetails?.invoice?.user?.lastname}`} secondary={invoiceDetails?.invoice?.user?.email} />
                             </ListItem>
 
                         </List>
@@ -137,9 +201,9 @@ const InvoiceDetails = () => {
                             }
 
                         }}>
-                            <Link to={`${url}${id}`}>
+                            {/* <Link to={`${url}${id}`}>
                                 {url + id}
-                            </Link>
+                            </Link> */}
                             <IconButton>
                                 <ReactSVG src={CopyIcon} />
                             </IconButton>
@@ -154,7 +218,7 @@ const InvoiceDetails = () => {
                     </Grid>
                     <Grid item xs={12} sm={6} md={3}>
                         <h2>Invoice reference</h2>
-                        <Box sx={{ padding: "10px" }}> <p>{transRef}</p></Box>
+                        <Box sx={{ padding: "10px" }}> <p>{invoiceDetails?.invoice?.paymentreference}</p></Box>
 
                     </Grid>
                 </Grid>
@@ -171,32 +235,41 @@ const InvoiceDetails = () => {
                     <Stack direction={"row"} flexWrap="wrap" spacing={10}>
                         <Stack className={Styles.invoice__left}>
 
-                            <div>
-                                <p>A new Devop ebook</p>
-                                <p>NGN {amount} x 1</p>
-                            </div>
+                            {invoiceDetails?.items?.map((x: any) => (
+                                <Box>
+                                    <div>
+                                        <p>{x?.itemName}</p>
+                                        <p>NGN {x?.price} x {x?.quantity}</p>
+                                    </div>
+
+                                    <div>
+                                        <p>Subtotal</p>
+                                        <p>{x?.subtotal}</p>
+
+                                    </div>
+
+                                </Box>
+
+                            ))}
 
                             <div>
                                 <p>Tax</p>
-                                <p>NGN 0.00</p>
+                                <p>{invoiceDetails?.invoice?.tax}</p>
 
                             </div>
 
                             <div>
                                 <p>Discount</p>
-                                <p>NGN 0.00</p>
+                                <p>{invoiceDetails?.invoice?.discount}</p>
 
                             </div>
 
-                            <div>
-                                <p>Subtotal</p>
-                                <p>NGN 45,000.52</p>
 
-                            </div>
+
                             <div>
 
                                 <p>Total</p>
-                                <p>NGN 45,000.52</p>
+                                <p>{invoiceDetails?.invoice?.totalAmount}</p>
                             </div>
                         </Stack>
 
@@ -206,10 +279,10 @@ const InvoiceDetails = () => {
 
                         <Stack className={Styles.lastBox}>
                             <p style={{ color: "#828282" }}>Date issued</p>
-                            <p>August 13th 2023 12:23:34</p>
+                            <p>{invoiceDetails?.invoice?.createdAt}</p>
                             <br />
                             <p style={{ color: "#828282" }}>Due date</p>
-                            <p>August 13th 2023 05:29:05</p>
+                            <p>{invoiceDetails?.invoice?.dueDate}</p>
 
                         </Stack>
                     </Stack>

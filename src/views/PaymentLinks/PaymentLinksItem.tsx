@@ -15,11 +15,13 @@ import {
 import axios from 'axios';
 import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
 import moment from 'moment';
-import { LinkItem } from '../../types/PaymentlinkTypes';
+import { GetLinksRes, LinkItem } from '../../types/PaymentlinkTypes';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { ReactComponent as ExtLinkIcon } from '../../assets/images/ext-link.svg';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
+import DisableInvoice from '../../components/bills/invoice/DisableInvoice';
+import { openModalAndSetContent } from '../../redux/actions/modal/modalActions';
 
 
 
@@ -57,6 +59,8 @@ const PaymentLinksItem = () => {
 	const [transactions, setTransactions] = useState<TransactionItem[]>([]);
 	const [rows, setRows] = useState<TransactionItem[]>([]);
 	const [pageNumber, setPageNumber] = useState<number>(1);
+	const [linkItem, setLinkItem] = useState<any>();
+
 	const [rowsPerPage, setRowsPerPage] = useState<number>(5);
 	const [totalRows, setTotalRows] = useState<number>(0);
 	const [totalAmt, setTotalAmt] = useState<number>(0);
@@ -74,17 +78,53 @@ const PaymentLinksItem = () => {
 	const history = useHistory();
 	const dispatch = useDispatch();
 
-	const { slug } = useParams<{ slug: string }>();
+	const { id } = useParams<{ id: string }>();
 
-	if (!location.state.rowData) {
-		history.replace('/payment_links');
-	}
+	// if (!location.state.rowData) {
+	// 	history.replace('/payment_links');
+	// }
 
-	const { rowData } = location.state;
 
-	const formattedRowData: LinkItem = JSON.parse(rowData);
 
-	const { desc, name, amt, linkType, url, added, website, img, frequency, chargeCount, phone } = formattedRowData;
+
+
+	// fetch payment link by id
+
+	const getPaymentLinkById = async () => {
+		dispatch(openLoader());
+		try {
+			const { data } = await axios.get<any>(`/v1/payment/paymentlinks/${id}`);
+
+			if (data?.paymentlink) {
+				setLinkItem(data?.paymentlink);
+			}
+			dispatch(closeLoader());
+		} catch (err) {
+			console.log(err);
+			dispatch(closeLoader());
+			dispatch(
+				openToastAndSetContent({
+					toastContent: 'Failed to get links',
+					toastStyles: {
+						backgroundColor: 'red',
+					},
+				})
+			);
+		}
+	};
+
+	useEffect(() => {
+		getPaymentLinkById();
+
+		return () => setLinkItem("")
+	}, [id]);
+
+	console.log(linkItem, "linkitemsmsms");
+	console.log(typeof linkItem, "linkitemsmsms");
+
+
+
+	// const { linkName, amount, linkType, paymentUrl, added, website, pageImage, frequency, chargeCount, donationContact } = linkItem;
 	interface Column {
 		id: 'amount' | 'email' | 'added' | 'paymentmethod' | 'code';
 		label: any;
@@ -175,6 +215,31 @@ const PaymentLinksItem = () => {
 		setRows(newRowOptions);
 	}, [transactions, TransactionRowTab]);
 
+
+
+
+
+	const handleDisable = () => {
+		dispatch(
+			openModalAndSetContent({
+				modalStyles: {
+					padding: 0,
+					borderRadius: 20
+				},
+
+				modalTitle: "Disable Invoice",
+				modalContent: (
+					<div className='modalDiv'>
+						<DisableInvoice id={id} />
+					</div>
+				),
+			})
+		);
+	}
+
+
+
+
 	return (
 
 
@@ -194,12 +259,12 @@ const PaymentLinksItem = () => {
 				<div className={styles.sectionWrapper}>
 					<div className={styles.sectionTwo}>
 						<div>
-							<p className={styles.nameText}>{name}</p>
+							<p className={styles.nameText}>{linkItem?.linkName}</p>
 							<p style={{ borderRadius: "20px" }}>Active</p>
 						</div>
 						<div className={btnClasses.root}>
 							<Button style={{ borderRadius: "20px", height: "34px" }}>Edit</Button>
-							<Button style={{ borderRadius: "20px", height: "34px" }}>Deactivate</Button>
+							<Button onClick={handleDisable} style={{ borderRadius: "20px", height: "34px" }}>Disable</Button>
 							<Button style={{ borderRadius: "20px", height: "34px" }}>Delete</Button>
 						</div>
 					</div>
@@ -208,36 +273,36 @@ const PaymentLinksItem = () => {
 							<div>
 								<p>Payment Link URL</p>
 								<p>
-									{url} <ContentCopyIcon style={{ color: "#2F80ED", fontSize: "50px" }} fontSize={"large"} /> <ExtLinkIcon style={{ color: "#2F80ED" }} />
+									{linkItem?.paymentUrl} <ContentCopyIcon style={{ color: "#2F80ED", fontSize: "50px" }} fontSize={"large"} /> <ExtLinkIcon style={{ color: "#2F80ED" }} />
 								</p>
 							</div>
 							<div>
 								<p>Date created</p>
-								<p>{moment(added).format('MMM D YYYY h:mm A')}</p>
+								<p>{moment(linkItem?.added).format('MMM D YYYY h:mm A')}</p>
 							</div>
 							<div>
 								<p>Link type</p>
-								<p>{linkType}</p>
+								<p>{linkItem?.linkType}</p>
 							</div>
 							<div>
 								<p>Amount</p>
-								<p>NGN {amt}</p>
+								<p>NGN {linkItem?.amount}</p>
 							</div>
-							{website && <div>
+							{linkItem?.donationWebsite && <div>
 								<p>Donation websites</p>
-								<Link to={website}> {website}</Link>
+								<Link to={linkItem?.donationWebsite}> {linkItem?.donationWebsite}</Link>
 							</div>}
-							{frequency && <div>
-								<p>Frequency</p>
-								<p> {frequency}</p>
+							{linkItem?.redirectUrl && <div>
+								<p>RedirectUrl</p>
+								<p> {linkItem?.redirectUrl}</p>
 							</div>}
-							{chargeCount && <div>
+							{linkItem?.chargeCount && <div>
 								<p>Charge count</p>
-								<p> {chargeCount}</p>
+								<p> {linkItem?.chargeCount}</p>
 							</div>}
-							{phone && <div>
+							{linkItem?.donationContact && <div>
 								<p>Contact phone number</p>
-								<p> {phone}</p>
+								<p> {linkItem?.donationContact && linkItem?.donationContact}</p>
 							</div>}
 						</div>
 
@@ -245,13 +310,13 @@ const PaymentLinksItem = () => {
 
 							<div className={styles.descBox}>
 								<p>Description</p>
-								<p>{desc}</p>
+								<p>{linkItem?.description}</p>
 							</div>
 
-							{img &&
-								<div className={styles.imgBox}>
+							{linkItem?.pageImage &&
+								<div className={styles.img}>
 									<p>Image</p>
-									<img src={img} alt={img} width="117px" height={"55px"} />
+									<img src={linkItem?.pageImage} alt={linkItem?.linkItempageImage} width="117px" height={"55px"} />
 								</div>
 							}
 						</div>

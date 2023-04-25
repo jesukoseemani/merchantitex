@@ -36,12 +36,12 @@ const CustomCurrency = ({ name, options, ...otherProps }: any) => {
     }
 
     return (
-        <StyledTextField {...configSelect} placeholder="select bank">
+        <StyledTextField {...configSelect} placeholder="select bank" select>
             {options?.map((item: any, i: any) => {
                 return (
-                    <MenuItem key={i} value={item.currencyIso}>
+                    <MenuItem key={i} value={item.id}>
                         {/* {options[item]} */}
-                        {item.country}
+                        {item.currencyIso}
                     </MenuItem>
                 );
             })}

@@ -132,7 +132,7 @@ const LoginPasswordReset = () => {
                   <span className={styles.formlabel}>New Password</span>
                 </InputLabel>
                 <Field
-                  as={TextField}
+                  as={StyledTextField}
                   helperText={
                     <ErrorMessage name="password">
                       {(msg) => <span style={{ color: "red" }}>{msg}</span>}
@@ -151,7 +151,7 @@ const LoginPasswordReset = () => {
                   <span className={styles.formlabel}>Re-enter Password</span>
                 </InputLabel>
                 <Field
-                  as={TextField}
+                  as={StyledTextField}
                   helperText={
                     <ErrorMessage name="confirm_password">
                       {(msg) => <span style={{ color: "red" }}>{msg}</span>}

@@ -24,7 +24,7 @@ const Balance = () => {
   const getProfile = async () => {
     dispatch(openLoader());
     try {
-      const res: any = await axios.get(`/merchant/account/me`);
+      const res: any = await axios.get(`/v1/profile/me`);
       setAcct(
         res?.data?.business?.settlement?.account[0]?.accountnumber as string
       );
@@ -179,30 +179,30 @@ const Balance = () => {
     <Box className={styles.balance__container} mt="27px">
       {/* <Box > */}
 
-        <Box className={styles.balance__header}>
-          <Stack direction={"row"} justifyContent={"space-between"} alignItems="center" flexWrap={"wrap"}>
-            <h2>NGN Balance</h2>
+      <Box className={styles.balance__header}>
+        <Stack direction={"row"} justifyContent={"space-between"} alignItems="center" flexWrap={"wrap"}>
+          <h2>NGN Balance</h2>
 
-            <Stack direction={"row"} alignItems="center" columnGap={"10px"} flexWrap="wrap">
-              <button onClick={handleSetNGNLimit}>Set low limits</button>
-              <button onClick={handleFundAcct}>Fund balance</button>
-            </Stack>
-
+          <Stack direction={"row"} alignItems="center" columnGap={"10px"} flexWrap="wrap">
+            <button onClick={handleSetNGNLimit}>Set low limits</button>
+            <button onClick={handleFundAcct}>Fund balance</button>
           </Stack>
 
-        </Box>
-        <Box className={styles.balance__body}>
-          <Stack direction={"row"} justifyContent="space-between" flexWrap={"wrap"} alignItems={"center"}>
-            <Stack>
-              <p>Collection balance</p>
-              <p>Payout balance</p>
-            </Stack>
-            <Stack>
-              <p>NGN 40,000.04</p>
-              <p>NGN 40,000.04</p>
-            </Stack>
+        </Stack>
+
+      </Box>
+      <Box className={styles.balance__body}>
+        <Stack direction={"row"} justifyContent="space-between" flexWrap={"wrap"} alignItems={"center"}>
+          <Stack>
+            <p>Collection balance</p>
+            <p>Payout balance</p>
           </Stack>
-        </Box>
+          <Stack>
+            <p>NGN 40,000.04</p>
+            <p>NGN 40,000.04</p>
+          </Stack>
+        </Stack>
+      </Box>
 
       {/* </Box> */}
 
@@ -211,31 +211,31 @@ const Balance = () => {
 
 
 
-        <Box className={styles.balance__header_two}>
-          <Stack direction={"row"} justifyContent={"space-between"} alignItems="center" flexWrap={"wrap"}>
-            <h2>USD Balance</h2>
+      <Box className={styles.balance__header_two}>
+        <Stack direction={"row"} justifyContent={"space-between"} alignItems="center" flexWrap={"wrap"}>
+          <h2>USD Balance</h2>
 
-            <Stack direction={"row"} spacing={1.3}>
-              <button className={styles.outline_btn} onClick={handleUsdLimit}>Set low limits</button>
-
-            </Stack>
+          <Stack direction={"row"} spacing={1.3}>
+            <button className={styles.outline_btn} onClick={handleUsdLimit}>Set low limits</button>
 
           </Stack>
 
-        </Box>
-        <Box className={styles.balance__body}>
-          <Stack direction={"row"} justifyContent="space-between" alignItems={"center"}>
-            <Stack>
-              <p>Collection balance</p>
-              <p>Payout balance</p>
-            </Stack>
-            <Stack>
-              <p>USD 200.00</p>
-              <p>USD 200.00</p>
-            </Stack>
-          </Stack>
-        </Box>
+        </Stack>
+
       </Box>
+      <Box className={styles.balance__body}>
+        <Stack direction={"row"} justifyContent="space-between" alignItems={"center"}>
+          <Stack>
+            <p>Collection balance</p>
+            <p>Payout balance</p>
+          </Stack>
+          <Stack>
+            <p>USD 200.00</p>
+            <p>USD 200.00</p>
+          </Stack>
+        </Stack>
+      </Box>
+    </Box>
 
 
   );

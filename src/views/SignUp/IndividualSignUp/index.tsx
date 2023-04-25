@@ -28,6 +28,7 @@ import CustomSelect from '../../../components/customs/CustomSelect';
 import CustomCategory from '../../../components/customs/CustomCategory';
 import ReactCountryFlag from "react-country-flag"
 import CustomPhoneNumber from '../../../components/customs/CustomPhoneInput';
+import CustomInputField from '../../../components/customs/CustomInputField';
 
 const createAccount = [
 	{
@@ -77,7 +78,7 @@ const IndividualSignUp = () => {
 	const [phone, setPhone] = useState<unknown>()
 	const [country, setCountry] = useState<any>()
 	const [defaultCountry, setDefaultCountry] = useState<any>()
-	const [businessCategory, setBusinessCategory] = useState([])
+	const [businessCategory, setBusinessCategory] = useState<string | number>()
 	const [countryCode, setCountryCode] = useState("")
 
 
@@ -269,6 +270,7 @@ const IndividualSignUp = () => {
 											<InputLabel>
 												<span className={styles.formTitle}>Country</span>
 											</InputLabel>
+
 											<Field
 												as={CustomSelect}
 												helperText={
@@ -283,126 +285,38 @@ const IndividualSignUp = () => {
 
 											/>
 
-
-
 										</Grid>
 										<Grid item xs={12} md={5.6} mb="18px">
-											<InputLabel className={styles.formTitle}>Phone number</InputLabel>
 
+											<CustomPhoneNumber as={TextField} label={"Phone number"} placeholder="09069003426" name="phonenumber" />
 
-
-											<Grid container alignItems={"center"} justifyContent="center">
-												<Grid item xs={5}>
-													<Field
-														as={CustomPhoneNumber}
-														helperText={
-															<ErrorMessage name='countryIso'>
-																{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
-															</ErrorMessage>
-														}
-														name='countryIso'
-
-														options={country}
-
-
-													/>
-												</Grid>
-												<Grid item xs={7}>
-													<Field
-														as={TextField}
-														helperText={
-															<ErrorMessage name="phonenumber">
-																{(msg) => <span style={{ color: "red" }}>{msg}</span>}
-															</ErrorMessage>
-														}
-														name="phonenumber"
-														placeholder="phonenumber"
-														// margin="normal"
-														type="text"
-														size="small"
-														fullWidth
-														// defaultValue={id}
-														style={{ border: "1px solid #eee", marginLeft: "-0.13rem", marginTop: "-4px" }}
-
-													/>
-
-													{/* <MuiPhoneNumber
-														defaultCountry={defaultCountry?.countryIso.toLowerCase()}
-														// name="phonenumber"
-														onChange={e => formikProps.setFieldValue("phonenumber", e)}
-													/> */}
-												</Grid>
-											</Grid>
 
 
 										</Grid>
 
 
 										<Grid item xs={12} md={5.6} mb="18px">
-											<InputLabel>
-												<span className={styles.formTitle}>First name</span>
-											</InputLabel>
-											<Field
-												as={TextField}
-												helperText={
-													<ErrorMessage name="firstname">
-														{(msg) => <span style={{ color: "red" }}>{msg}</span>}
-													</ErrorMessage>
-												}
-												name="firstname"
-												placeholder="firstname"
-												// margin="normal"
-												type="text"
-												size="small"
-												fullWidth
-											// defaultValue={id}
 
-											/>
+											<CustomInputField label={"First name"} name="firstname" as={TextField} placeholder="First name" />
+
 										</Grid>
 										<Grid item xs={12} md={5.6} mb="18px">
-											<InputLabel>
-												<span className={styles.formTitle}>Trading/Business name</span>
-											</InputLabel>
-											<Field
-												as={TextField}
-												helperText={
-													<ErrorMessage name='businessname'>
-														{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
-													</ErrorMessage>
-												}
-												name='businessname'
-												variant='outlined'
 
-												type='text'
 
-												fullWidth
-											/>
+											<CustomInputField label={"Trading/Business name"} name="businessname" as={TextField} placeholder="businessname" />
+
 										</Grid>
 										<Grid item xs={12} md={5.6} mb="18px">
-											<InputLabel>
-												<span className={styles.formTitle}>Last name</span>
-											</InputLabel>
-											<Field
-												as={TextField}
 
+											<CustomInputField label={"Last name"} name="lastname" as={TextField} placeholder="lastname" />
 
-												helperText={
-													<ErrorMessage name='lastname'>
-														{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
-													</ErrorMessage>
-												}
-												name='lastname'
-												variant='outlined'
-												fullWidth
-
-											/>
 										</Grid>
 										<Grid item xs={12} md={5.6} mb="18px">
 											<InputLabel>
 												<span className={styles.formTitle}>Business category</span>
 											</InputLabel>
 											<Field
-												as={CustomCategory}
+												as={CustomSelect}
 												helperText={
 													<ErrorMessage name='businessCategoryId'>
 														{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
@@ -414,46 +328,17 @@ const IndividualSignUp = () => {
 
 
 											/>
+
+
 										</Grid>
 										<Grid item xs={12} md={5.6} >
-											<InputLabel>
-												<span className={styles.formTitle}>Email</span>
-											</InputLabel>
-											<Field
-												as={TextField}
-												helperText={
-													<ErrorMessage name='email'>
-														{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
-													</ErrorMessage>
-												}
-												name='email'
-												variant='outlined'
-												placeholder='Email'
-												type='email'
 
-												fullWidth
 
-											/>
+											<CustomInputField label={"Email"} name="email" as={TextField} placeholder="email" />
+
 										</Grid>
 										<Grid item xs={12} md={5.6} >
-											<InputLabel>
-												<span className={styles.formTitle}>Password</span>
-											</InputLabel>
-											<Field
-												as={TextField}
-												helperText={
-													<ErrorMessage name='password'>
-														{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
-													</ErrorMessage>
-												}
-												name='password'
-												variant='outlined'
-												placeholder='password'
-												type='password'
-
-												fullWidth
-
-											/>
+											<CustomInputField label={"Password"} name="password" as={TextField} placeholder="password" />
 
 										</Grid>
 										{/* <InputLabel className={styles.mt}></InputLabel> */}
