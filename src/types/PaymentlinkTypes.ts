@@ -10,16 +10,34 @@ export interface GetLinksRes {
 }
 
 export interface LinkItem {
-  name: string;
-  amt: string;
+
+  linkName: string;
+  amount: string;
   linkType: string;
-  url: string;
+  paymentUrl: string;
   added: string;
   id: string;
   desc: string;
   frequency?: string;
   website?: string;
+  donationWebsite?: string;
+  donationContact?: string;
+  description?: string;
+  subInterval?: number;
+  subChargeCount?: number;
+
   chargeCount?: number;
   phone?: string;
-  img?: string;
+  status?: string;
+  pageImage?: string;
+  redirectUrl?: string;
+
+  user?: {
+    id: number,
+    firstname: string,
+    lastname: string,
+    email: string,
+    role: string
+  },
+  transactions: [];
 }

@@ -41,7 +41,7 @@ const CustomSelect = ({ name, options, ...otherProps }: any) => {
                 return (
                     <MenuItem key={i} value={item.id}>
                         {/* {options[item]} */}
-                        {item?.country}
+                        {item?.country || item?.stateName || item?.categoryName || item?.roleName || item.bank || item?.time || item?.firstname}
 
                     </MenuItem>
                 );

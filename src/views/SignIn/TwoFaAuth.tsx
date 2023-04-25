@@ -20,6 +20,7 @@ import { saveCountry } from '../../redux/actions/country/countryActions';
 // import { makeStyles } from '@material-ui/core';
 import { ReactSVG } from "react-svg";
 import { Box } from '@mui/material';
+import { styled } from '@mui/material';
 
 
 
@@ -34,9 +35,17 @@ interface RequestProp {
     code: string;
     message: string
 }
-const TwoFaAuth = ({ token }: any) => {
+const TwoFaAuth = () => {
 
+    const StyledTextField = styled(TextField, {
+        name: "StyledTextField",
+    })({
 
+        "& .MuiInputBase-root": {
+            height: 44,
+            // marginBottom: "18px",
+        }
+    });
 
     const validate = Yup.object({
         otp: Yup.string()
@@ -45,7 +54,7 @@ const TwoFaAuth = ({ token }: any) => {
     });
     const dispatch = useDispatch()
     const history = useHistory()
-
+    const token = history?.location?.state
     return (
         <Formik
             initialValues={{
@@ -78,7 +87,8 @@ const TwoFaAuth = ({ token }: any) => {
                                 },
                             })
                         )
-                        window.location.href = "/"
+                        // window.location.href = "/"
+                        history.push("/")
                     }
 
                 } catch (err: any) {
@@ -97,56 +107,69 @@ const TwoFaAuth = ({ token }: any) => {
             }}
         >
             {(props) => (
-                <Form>
-                    <Box sx={{ width: "480px", height: "500px", background: "#475564" }}>
-                        <Box className={styles.otp__container}>
-                            <h5 className={styles.signinHeader}>Enter OTP to continue</h5>
-                            <div className={styles.formBody} style={{ marginTop: "3rem" }}>
-                                {/* <InputLabel> */}
-                                {/* <span className={styles.formTitle}>Otp</span> */}
-                                {/* </InputLabel> */}
-                                <Field
-                                    as={TextField}
-                                    helperText={
-                                        <ErrorMessage name='otp'>
-                                            {(msg) => <span style={{ color: 'red' }}>{msg}</span>}
-                                        </ErrorMessage>
-                                    }
-                                    name='otp'
-                                    variant='outlined'
-                                    placeholder='otp'
-                                    type='otp'
+                <div className={styles.signinContainer}>
+                    <div className={styles.logo}>
 
-                                    fullWidth
-
-                                />
+                        <ReactSVG src={Logo} />
+                    </div>
+                    <div className={styles.mt1}>
+                        <div className={styles.signinDiv} style={{ height: "300px" }}>
+                            <h5 className={styles.signinHeader}>Enter otp to continue</h5>
+                            <div className={styles.formBody}>
+                                <Form>
+                                    <Box py={3}>
 
 
-                                <button
-                                    style={{
-                                        backgroundColor: '#27AE60',
-                                        height: "44px",
-                                        width: '100%',
-                                        color: '#fff',
-                                        border: 'none',
-                                        fontSize: "16px",
-                                        fontWeight: 800,
-                                        borderRadius: '20px',
-                                        cursor: 'pointer',
-                                        margin: "16px 0px ",
-                                        fontFamily: 'Avenir',
-                                        marginTop: "22px"
-                                    }}
-                                    type='submit'
-                                    color='primary'>
-                                    Sign in
-                                </button>
+
+
+                                        <InputLabel style={{ marginTop: "17px" }}>
+                                            {/* <span className={styles.formTitle}>Password</span> */}
+                                        </InputLabel>
+                                        <Field
+                                            as={StyledTextField}
+                                            helperText={
+                                                <ErrorMessage name='otp'>
+                                                    {(msg) => <span style={{ color: 'red' }}>{msg}</span>}
+                                                </ErrorMessage>
+                                            }
+                                            name='otp'
+                                            variant='outlined'
+
+                                            type='number'
+
+                                            size='small'
+                                            fullWidth
+
+                                        />
+
+                                    </Box>
+
+                                    <button
+                                        style={{
+                                            backgroundColor: '#27AE60',
+                                            // padding: '1rem',
+                                            fontFamily: "Avenir Bold",
+                                            width: '100%',
+                                            color: '#fff',
+                                            border: 'none',
+                                            borderRadius: '20px',
+                                            cursor: 'pointer',
+                                            fontSize: "16px",
+                                            height: "44px",
+                                            fontWeight: "bold"
+                                        }}
+                                        type='submit'
+                                        color='primary'>
+                                        Continue
+                                    </button>
+
+                                </Form>
                             </div>
-                        </Box>
+                        </div>
+                    </div>
 
-                    </Box>
 
-                </Form>
+                </div>
 
             )}
         </Formik>

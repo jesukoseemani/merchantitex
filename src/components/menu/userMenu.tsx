@@ -33,7 +33,7 @@ export default function UserMenu() {
 
 	const getUserDetails = async () => {
 		try {
-			const res: { data: any } = await axios.get(`/merchant/account/me`);
+			const res: { data: any } = await axios.get(`/v1/profile/me`);
 			setUser(res?.data?.business?.user?.[0]);
 			console.log(res?.data?.business?.user?.[0]);
 		} catch (error: any) {

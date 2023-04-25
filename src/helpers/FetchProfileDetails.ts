@@ -3,7 +3,7 @@ import { saveMe } from '../redux/actions/me/meActions';
 
 export const FetchProfileDetails = () => async (dispatch: any) => {
 	axios
-		.get(`/merchant/account/me`)
+		.get(`/v1/profile/me`)
 		.then((res) => {
 			dispatch(saveMe(res.data));
 		})

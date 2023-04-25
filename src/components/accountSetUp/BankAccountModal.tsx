@@ -17,7 +17,7 @@ import * as Yup from 'yup';
 import { FetchProfileDetails } from '../../helpers/FetchProfileDetails';
 import { styled } from '@mui/system';
 import { Box, MenuItem, Select, FormHelperText, Stack } from '@mui/material';
-import CustomDropdown from '../customs/CustomDropdown';
+import CustomDropdown from '../customs/CustomInputDropdown';
 import CustomCurrency from '../formUI/SelectCountry/CustomCurrency';
 import WarningIcon from "../../assets/images/warningIcon.svg";
 import { ReactSVG } from 'react-svg';
@@ -118,9 +118,7 @@ const BankAccount = () => {
 
 	return (
 		<div style={{ width: '100%', maxWidth: '400px', overflow: 'hidden' }}>
-			<div className={styles.header}>
-				<h3>Add a bank account</h3>
-			</div>
+
 			<div style={{ width: '80%', margin: '0 auto', }}>
 				<Formik
 					initialValues={{
@@ -237,6 +235,7 @@ const BankAccount = () => {
 							});
 					}}>
 					{(props) => (
+
 						<Form>
 							<Grid container style={{ paddingInline: "10px" }}>
 								<Grid item xs={12}>

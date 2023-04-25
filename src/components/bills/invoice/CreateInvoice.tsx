@@ -1,157 +1,521 @@
-import { Box, Button, Grid, InputAdornment, InputLabel, MenuItem, Stack, TextField } from '@mui/material'
-import React from 'react'
+import { Box, Button, Grid, IconButton, InputAdornment, InputLabel, MenuItem, Stack, Table, TextField } from '@mui/material'
+import React, { useEffect, useState } from 'react'
 import Styles from "./style.module.scss"
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import { styled } from '@mui/system';
 import { useDispatch } from 'react-redux';
-import { openModalAndSetContent } from '../../../redux/actions/modal/modalActions';
+import { closeModal, openModalAndSetContent } from '../../../redux/actions/modal/modalActions';
 import Success from './Success';
+import { ErrorMessage, Field, FieldArray, Form, Formik } from 'formik';
+import { invoiceSchema, subscriptionSchema } from '../../validation/payment/paymentValidation';
+import axios from 'axios';
+import { openToastAndSetContent } from '../../../redux/actions/toast/toastActions';
+import { closeLoader, openLoader } from '../../../redux/actions/loader/loaderActions';
+import CustomInputField from '../../customs/CustomInputField';
+import useCurrency from '../../hooks/Usecurrency';
+import CustomCurrency from '../../formUI/SelectCountry/CustomCurrency';
+import useCustomUpload from '../../hooks/CustomUpload';
+import UseFetch from '../../hooks/UseFetch';
+import CustomerListDropDown from '../../customs/CustomerListDropDown';
+import CustomSelect from '../../customs/CustomSelect';
+import AddNewCustmerToList from './AddNewCustmerToList';
+import { CloseOutlined } from '@material-ui/icons';
+import { v4 as uuidv4 } from "uuid";
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import EditIcon from "../../../assets/images/editicon.svg"
+import DeleteIcon from "../../../assets/images/delete.svg"
+import { ReactSVG } from 'react-svg';
 
-const CreateInvoice = () => {
+
+
+interface Props {
+    code: string;
+    message: string;
+}
+
+
+interface ItemArray {
+    id?: string;
+    itemName: string;
+    price: number;
+    quantity: number;
+    subtotal: number;
+}
+
+const CreateInvoice = ({ fetchInvoice }: any) => {
+    const [loading, imgUrl, handleUpload] = useCustomUpload()
+    const [customer, setCustomer] = useState<any>([])
 
     const dispatch = useDispatch()
 
 
 
-    const handleSubmitInvoice = () => {
+    const [currencyList] = useCurrency()
+    useEffect(() => {
+        dispatch(openLoader());
+        const fetchCustomers = async () => {
+
+            try {
+
+                const { data } = await axios.get<any>("/v1/customer")
+                console.log(data)
+                setCustomer(data?.customers)
+
+                dispatch(closeLoader());
+
+            } catch (error: any) {
+                dispatch(closeLoader());
+                const { message } = error.response.data;
+                dispatch(
+                    dispatch(
+                        openToastAndSetContent({
+                            toastContent: message,
+                            toastStyles: {
+                                backgroundColor: "red",
+                            },
+                        })
+                    )
+                );
+            } finally {
+                dispatch(closeLoader());
+            }
+        }
+
+
+        fetchCustomers()
+    }, [])
+
+
+
+    const AddCustomer = () => {
         dispatch(
             openModalAndSetContent({
                 modalStyles: {
                     padding: 0,
-                    borderRadius: "20px",
-                    boxShadow: "-4px 4px 14px rgba(224, 224, 224, 0.69)",
+                    width: "419px",
+                    borderRadius: 20
                 },
+
+                modalTitle: "Add a new customer",
                 modalContent: (
-                    <div className="modalDiv">
-                        <Success />
+                    <div className='modalDiv'>
+                        <AddNewCustmerToList fetchInvoice={fetchInvoice} />
                     </div>
                 ),
             })
         );
     }
+
+
+
+
+    const [invoiceItem, setInvoiceItem] = useState<ItemArray>({
+
+        itemName: "",
+        quantity: 0,
+        price: 0,
+        subtotal: 0,
+    })
+    const [invoiceList, setInvoiceList] = useState<any>([])
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+        setInvoiceItem({ ...invoiceItem, [e.target.name]: e.target.value })
+
+    }
+
+
+    // console.log(invoiceItem);
+
+    let { itemName, price, quantity } = invoiceItem
+    const handleAddItem = () => {
+
+
+        let itemArray = {
+            itemName,
+            price,
+            quantity,
+            subtotal: price * quantity,
+            id: uuidv4()
+        }
+
+        // setInvoiceItem({
+        //     id: "",
+        //     itemName: "",
+        //     quantity: 0,
+        //     price: 0,
+        //     subtotal: 0,
+        // })
+        setInvoiceList((prev: any) => [...prev, itemArray])
+
+    }
+
+    console.log(invoiceList, "itemArray")
+
+    const DeleteItem = (id: string) => {
+
+        const filter = invoiceList.filter((item: any) => item?.id !== id)
+        setInvoiceList(filter)
+    }
+
+    const handleEdit = (id: string) => {
+        const edit = invoiceList.find((item: any) => item?.id === id)
+        setInvoiceItem(edit)
+        DeleteItem(id)
+
+
+    }
+
+    const disableBtn = () => {
+        if (itemName === "" && price <= 0 && quantity <= 0) {
+            return true
+        }
+    }
+
     return (
-        <Box>
-            <Box sx={{ width: "753px", maxWidth: "100%", height: "700px", borderRadius: "20px", }}>
-                <Box className={Styles.createInvoiceheader}>
-                    <h2>  Create an Invoice</h2>
-                </Box>
+        <Formik
+            initialValues={{
+                invoiceName: '',
+                totalAmount: '',
+                dueDate: '',
+                customerid: '',
+                currencyid: '',
 
-                <Box sx={{ marginTop: "38px" }}>
-                    <Grid container spacing={3} paddingX={"50px"} >
-                        <Grid item xs={12} sm={12} md={6}>
-                            <InputLabel className={Styles.label}>Invoice Title</InputLabel>
-                            <TextField fullWidth placeholder='123456789' />
+                comment: '',
+                otp: '',
+                tax: "",
+                discount: "",
+                items: invoiceList
 
-                        </Grid>
-                        <Grid item xs={12} sm={12} md={6}>
-                            <InputLabel className={Styles.label}>Business Logo</InputLabel>
-                            <Button variant="outlined" fullWidth component="label"
-                                style={{
+            }}
+            validationSchema={invoiceSchema}
+            onSubmit={async (values, { resetForm }) => {
+                dispatch(openLoader());
+                console.log(values);
 
-                                    fontSize: "14px", color: "#4F4F4F",
-                                    height: 44,
-                                    border: "1px solid #E0E0E0",
-                                    borderRadius: 4,
-                                    fontFamily: "Avenir",
-                                    textTransform: "inherit",
-                                    display: "flex",
-                                    justifyContent: "flex-start",
-                                    paddingLeft: "10px",
-                                    gap: "0.8rem"
-                                }}>
-                                <CloudUploadOutlinedIcon className={Styles.downloadIcon} />   choose file to upload
-                                <input hidden accept="image/*" multiple type="file" />
-                            </Button>
 
-                        </Grid>
-                        <Grid item xs={12} sm={12} md={6}>
-                            <InputLabel className={Styles.label}>Customer name</InputLabel>
-                            <TextField fullWidth placeholder='Roy philip' />
+                try {
+                    const { data } = await axios.post<Props>('/v1/payment/create/invoice', { ...values, businesslogo: imgUrl })
+                    if (data?.code === "success") {
+                        dispatch(
+                            openToastAndSetContent({
+                                toastContent: data?.message,
+                                toastStyles: {
+                                    backgroundColor: "green",
+                                },
+                            })
+                        )
 
-                        </Grid>
-                        <Grid item xs={12} sm={12} md={6}>
-                            <InputLabel className={Styles.label}>Customer email Address</InputLabel>
-                            <TextField fullWidth placeholder='Roy.philip@example.com' />
+                        resetForm()
+                        dispatch(closeLoader());
+                        dispatch(closeModal())
+                        fetchInvoice()
+                        dispatch(
+                            openModalAndSetContent({
+                                modalStyles: {
+                                    padding: 0,
+                                    width: "419px",
+                                    borderRadius: 20
+                                },
 
-                        </Grid>
-                        <Grid item xs={12} sm={12} md={6}>
-                            <InputLabel className={Styles.label}>Phone Number</InputLabel>
-                            <TextField fullWidth placeholder='904567893' />
+                                modalTitle: "Add a new customer",
+                                modalContent: (
+                                    <div className='modalDiv'>
+                                        <Success />
+                                    </div>
+                                ),
+                            })
+                        );
 
-                        </Grid>
-                        <Grid item xs={12} sm={12} md={6}>
-                            <InputLabel className={Styles.label}>Invoice Due Date</InputLabel>
-                            <TextField fullWidth placeholder='12-09-2023' />
+                    }
+                } catch (error: any) {
+                    dispatch(closeLoader());
+                    const { message } = error?.response.data;
+                    dispatch(
+                        dispatch(
+                            openToastAndSetContent({
+                                toastContent: message,
+                                toastStyles: {
+                                    backgroundColor: "red",
+                                },
+                            })
+                        )
+                    );
+                } finally {
+                    dispatch(closeLoader());
+                }
 
-                        </Grid>
-                        <Grid item xs={12} sm={12} md={12}>
-                            <InputLabel className={Styles.label}>Comment</InputLabel>
-                            <TextField fullWidth placeholder='Enter comment' />
+            }}>
 
-                        </Grid>
-                    </Grid>
 
-                </Box>
 
-                <Stack className={Styles.puchaseHeader} direction={"row"} justifyContent="space-between" alignItems={"center"} borderBottom="1px solid #E0E0E0" paddingX={"50px"} marginTop="3.5rem" paddingY={0}>
-                    <h2 style={{ paddingBottom: "10px" }}>Purchase item</h2>
-                    <p style={{ color: "#333", paddingBottom: "10px" }}>NGN 0.00</p>
-                </Stack>
+            {(itemForms) => (
+                <Form>
+                    <Box>
+                        <Box sx={{ width: "753px", maxWidth: "100%", height: "700px", borderRadius: "20px", }}>
 
-                <Grid container spacing={3} padding={"2rem"} px={6}>
-                    <Grid item xs={12} sm={12} md={6} >
-                        <InputLabel className={Styles.label}>Item Description</InputLabel>
-                        <TextField fullWidth placeholder='Enter Decription' />
 
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={6}>
-                        <InputLabel className={Styles.label}>Quantity</InputLabel>
-                        <TextField type={"number"} placeholder="2" fullWidth />
+                            <Box sx={{ marginTop: "38px" }}>
+                                <Grid container spacing={3} paddingX={"50px"} alignItems="center" >
+                                    <Grid item xs={12} sm={12} md={6}>
 
-                    </Grid>
+                                        <CustomInputField
+                                            as={TextField} label={"Invoice Title"} placeholder='Invoice Title' name='invoiceName' type='text' />
 
-                    <Grid item xs={12} sm={12} md={6} >
-                        <InputLabel className={Styles.label}>Currency</InputLabel>
-                        <TextField fullWidth placeholder='NGN' select sx={{ display: "block" }} InputProps={{
-                            startAdornment: <InputAdornment position="start">NGN</InputAdornment>,
-                        }}>
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={6}>
+                                        <InputLabel className={Styles.label}>Business Logo</InputLabel>
+                                        <Button variant="outlined" fullWidth component="label"
+                                            style={{
 
-                            <MenuItem>10,000</MenuItem>
-                            <MenuItem>20,000</MenuItem>
-                            <MenuItem>30,000</MenuItem>
-                            <MenuItem>40,000</MenuItem>
-                            <MenuItem>50,000</MenuItem>
+                                                fontSize: "14px", color: "#4F4F4F",
+                                                height: 44,
+                                                border: "1px solid #E0E0E0",
+                                                borderRadius: 4,
+                                                fontFamily: "Avenir",
+                                                textTransform: "inherit",
+                                                display: "flex",
+                                                justifyContent: "flex-start",
+                                                paddingLeft: "10px",
+                                                gap: "0.8rem"
+                                            }}>
+                                            <CloudUploadOutlinedIcon className={Styles.downloadIcon} />   choose file to upload
+                                            <input hidden accept="image/jpeg,image/jpg,image/png,application/pdf,image/JPEG image/PNG,image/JPG" onChange={handleUpload} type="file" />
+                                        </Button>
 
-                        </TextField>
+                                    </Grid>
 
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={6}>
-                        <InputLabel className={Styles.label}>Unit Price</InputLabel>
-                        <TextField fullWidth InputProps={{
-                            startAdornment: <InputAdornment position="start">NGN</InputAdornment>,
-                        }} />
 
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={6}>
-                        <InputLabel className={Styles.label}>Tax</InputLabel>
-                        <TextField type={"number"} placeholder="10%" fullWidth />
 
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={6}>
-                        <InputLabel className={Styles.label}>Discount</InputLabel>
-                        <TextField type={"number"} placeholder="10%" fullWidth />
+                                    <Grid item xs={12} sm={12} md={6}>
+                                        <InputLabel className={Styles.label}>Customer name</InputLabel>
+                                        <Field
+                                            as={CustomerListDropDown}
+                                            options={customer}
+                                            name='customerid'
+                                            helperText={
+                                                <ErrorMessage name={"customerid"}>
+                                                    {(msg) => <span style={{ color: "red" }}>{msg}</span>}
+                                                </ErrorMessage>
+                                            }
+                                            handleClick={AddCustomer}
 
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={12} justifyContent={"flex-end"}>
-                        <Box sx={{ display: "flex", justifyContent: "flex-end", alignItems: "flex-end", marginTop: "20px" }}>
-                            <button className={Styles.btn} onClick={handleSubmitInvoice}>Create Invoice</button>
+                                        />
 
+                                    </Grid>
+
+
+
+                                    <Grid item xs={12} sm={12} md={6}>
+
+                                        <CustomInputField
+                                            as={TextField} label={"Invoice Due Date"} placeholder='Invoice Due Date' name='dueDate' type='date' />
+                                    </Grid>
+
+
+                                    <Grid item xs={12} sm={12} md={6} >
+                                        <InputLabel className={Styles.label}>Currency</InputLabel>
+
+                                        <Field
+                                            as={CustomCurrency}
+                                            options={currencyList}
+                                            name='currencyid'
+                                            helperText={
+                                                <ErrorMessage name={"currencyid"}>
+                                                    {(msg) => <span style={{ color: "red" }}>{msg}</span>}
+                                                </ErrorMessage>
+                                            }
+
+                                        />
+                                    </Grid>
+
+                                    <Grid item xs={12} sm={12} md={6} mt={-2}>
+                                        <CustomInputField
+                                            as={TextField} label={"Comment"} placeholder='Enter comment' name='comment' type='text' />
+                                    </Grid>
+
+                                </Grid>
+
+                            </Box>
+
+                            <Stack className={Styles.puchaseHeader} direction={"row"} justifyContent="space-between" alignItems={"center"} borderBottom="1px solid #E0E0E0" paddingX={"50px"} marginTop="1rem" paddingY={0}>
+                                <h2 style={{ paddingBottom: "10px" }}>Purchase item</h2>
+                                <p style={{ color: "#333", paddingBottom: "10px" }}>NGN 0.00</p>
+                            </Stack>
+
+
+
+
+                            {invoiceList?.length > 0 && <Box p={5}>
+
+                                <TableContainer >
+                                    <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+                                        <TableHead>
+                                            <TableRow>
+
+                                                <TableCell >Item Name</TableCell>
+                                                <TableCell >Quantity</TableCell>
+                                                <TableCell >Price</TableCell>
+                                                <TableCell >Subtotal</TableCell>
+                                                <TableCell >Actions</TableCell>
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            {invoiceList?.map((row: any, i: any) => (
+                                                <TableRow
+                                                    key={i}
+                                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                >
+                                                    <TableCell component="th" scope="row">
+                                                        {row?.itemName}
+                                                    </TableCell>
+                                                    <TableCell >{row?.quantity}</TableCell>
+                                                    <TableCell >{row?.price}</TableCell>
+                                                    <TableCell >{row?.subtotal}</TableCell>
+                                                    <TableCell ><Box>
+                                                        <Stack direction={"row"} gap="10px">
+                                                            <IconButton><ReactSVG src={EditIcon} onClick={() => handleEdit(row?.id)} /></IconButton>
+                                                            <IconButton onClick={() => DeleteItem(row?.id)}><ReactSVG src={DeleteIcon} /></IconButton>
+                                                        </Stack>
+                                                    </Box>
+                                                    </TableCell>
+                                                </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>
+
+
+                            </Box>}
+                            <Grid container spacing={3} padding={"2rem"} px={6}>
+
+
+
+
+
+
+
+
+
+                                {/* Add item */}
+                                <Grid item xs={12} mt={2}>
+                                    <Grid container spacing={3} padding={"1rem"} >
+
+
+
+
+
+
+
+                                        <Grid item xs={12} sm={12} md={6} >
+
+
+                                            <InputLabel>Item Description</InputLabel>
+                                            <TextField
+                                                onChange={handleInputChange}
+                                                name="itemName"
+                                                value={invoiceItem?.itemName}
+                                                fullWidth
+
+
+
+                                            />
+
+                                        </Grid>
+                                        <Grid item xs={12} sm={12} md={6}>
+                                            <InputLabel>Quantity</InputLabel>
+
+                                            <TextField
+                                                onChange={handleInputChange}
+                                                name="quantity"
+                                                type={"number"}
+                                                value={invoiceItem?.quantity}
+                                                fullWidth
+
+
+
+
+                                            />
+                                        </Grid>
+
+
+                                        <Grid item xs={12} sm={12} md={6}>
+                                            <InputLabel>Unit price</InputLabel>
+                                            <TextField
+                                                onChange={handleInputChange}
+                                                name="price"
+                                                value={invoiceItem?.price}
+                                                type={"number"}
+                                                fullWidth
+
+
+                                            />
+
+                                        </Grid>
+
+                                    </Grid>
+                                    <button disabled={disableBtn()} type="button" onClick={handleAddItem} > + Add another item</button>
+
+                                </Grid>
+
+
+
+
+
+
+
+                                <Grid item xs={12} sm={12} md={6} >
+
+                                    <CustomInputField
+                                        as={TextField} label={"Tax"} placeholder='0.0' name='tax' type='number' />
+
+                                </Grid>
+                                <Grid item xs={12} sm={12} md={6}>
+                                    <CustomInputField
+                                        as={TextField} label={"discount"} placeholder='0.0' name='discount' type='number' />
+
+                                </Grid>
+
+
+                                <Grid item xs={12} sm={12} md={6}>
+                                    <CustomInputField as={TextField} label={"Total Amount"} placeholder='0.00' name='totalAmount' type='number' />
+
+
+                                </Grid>
+
+                                <Grid item xs={12} sm={12} md={6}>
+
+                                    <CustomInputField
+                                        as={TextField} label={"Otp"} placeholder='otp' name='otp' type='number' />
+                                </Grid>
+
+
+
+                                <Box>
+                                    <Box>
+                                        <h2>discount</h2>
+                                    </Box>
+                                </Box>
+
+
+
+                                <Grid item xs={12} sm={12} md={12} justifyContent={"flex-end"}>
+                                    <Box sx={{ display: "flex", justifyContent: "flex-end", alignItems: "flex-end", marginTop: "20px" }}>
+                                        <button type='submit' className={Styles.btn}>Create Invoice</button>
+
+                                    </Box>
+                                </Grid>
+
+                            </Grid>
                         </Box>
-                    </Grid>
-
-                </Grid>
-            </Box>
-        </Box>
+                    </Box>
+                </Form>
+            )
+            }
+        </Formik >
     )
 }
 

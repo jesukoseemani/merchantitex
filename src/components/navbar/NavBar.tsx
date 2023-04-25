@@ -26,7 +26,7 @@ const style = {
 };
 const NavBar = () => {
   const business = useSelector((state) => state?.meReducer?.me?.business);
-  const { userDetails } = useSelector((state) => state?.userDetailReducer);
+  const { auth } = useSelector((state) => state?.authReducer);
 
   const { pathname } = useLocation();
   const [active, setActive] = React.useState<string | number>(0);
@@ -133,7 +133,7 @@ const NavBar = () => {
         <div className={Styles.userProfile__text}>
           <Stack direction={"row"} alignItems="flex-start">
             <p>
-              {userDetails?.firstname}
+              {auth?.user?.firstname}
             </p>
             <IconButton onClick={handleClick} style={{ marginTop: "-7px" }}>
               <ReactSVG src={ArrowDown} />
@@ -142,7 +142,7 @@ const NavBar = () => {
           </Stack>
 
 
-          <span>   {userDetails?.email}</span>
+          <span>   {auth?.user?.email}</span>
 
 
         </div>
@@ -235,7 +235,7 @@ const NavBar = () => {
 
 
         >
-          <ClickAwayListener onClickAway={handleClose} sx={style}>
+          <ClickAwayListener onClickAway={handleClose} style={style}>
             <Box className={Styles.menuBox} >
 
               {showUserInfo &&

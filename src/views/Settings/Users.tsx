@@ -1,7 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import NavBar from '../../components/navbar/NavBar';
 import Styles from './Settings.module.scss';
-import { Button, Modal, Form } from 'semantic-ui-react';
 import OperantTable from '../../components/table/OperantTable';
 import { useDispatch } from 'react-redux';
 import {
@@ -11,22 +10,29 @@ import {
 import axios from 'axios';
 import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
 import { IconButton } from '@material-ui/core';
-import CloseIcon from '@mui/icons-material/Close';
 import {
 	openModalAndSetContent,
 	closeModal,
 } from '../../redux/actions/modal/modalActions';
-import UserModal from './UserModal';
+import UserModal from '../../redux/reducers/settings/user/UserModal';
 import ParentContainer from '../../components/ParentContainer/ParentContainer';
+import EditUserModal from '../../redux/reducers/settings/user/EditUserModal';
+import { Stack } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
+import { useHistory } from 'react-router-dom';
+
+
 
 const Users = () => {
 	interface UserProps {
-		// id: string;
-		fullname: string;
+		id: number;
+		phonenumber: string;
+		firstname: string;
+		lastname: string;
 		email: string;
 		added: string;
 		lastlogin: string;
-		position: string;
+		role: string;
 	}
 	const [rows, setRows] = useState<UserProps[]>([]);
 	const [change, setChange] = useState({ email: '', role: '' });
@@ -38,16 +44,10 @@ const Users = () => {
 	const open = Boolean(anchorEl);
 	const [openModal, setOpenModal] = useState(false);
 	const [active, setActive] = useState(false);
-	const [singleData, setSingleData] = useState<UserProps>({
-		// id: '',
-		fullname: '',
-		email: '',
-		added: '',
-		lastlogin: '',
-		position: '',
-	});
+
 
 	const dispatch = useDispatch();
+	const history = useHistory()
 
 	const handleChange = (e: any) => {
 		const { name, value } = e.target;
@@ -60,9 +60,11 @@ const Users = () => {
 	const getUsers = () => {
 		dispatch(openLoader());
 		axios
-			.get(`/merchant/users?page=${pageNumber}&perpage=${rowsPerPage}`)
+			.get(`/v1/users?page=${pageNumber}&perpage=${rowsPerPage}`)
 			.then((res: any) => {
+				console.log(res)
 				const { users, message, _metadata } = res?.data;
+
 				setTotalRows(_metadata?.totalcount);
 				setSettlement(users);
 				dispatch(closeLoader());
@@ -119,88 +121,62 @@ const Users = () => {
 		setRowsPerPage(value);
 	};
 
-	const inviteHandler = (values: { email: string; position: string }) => {
-		dispatch(openLoader());
-		setActive(true);
-
-		axios
-			.post('/merchant/users/invite', {
-				user: [values],
-			})
-
-			.then((res: any) => {
-				dispatch(closeLoader());
-
-				dispatch(
-					openToastAndSetContent({
-						toastContent: res.data.message,
-						toastStyles: {
-							backgroundColor: 'green',
-						},
-					})
-				);
-				dispatch(closeModal());
-			})
-
-			.catch((err) => {
-				dispatch(closeLoader());
-
-				dispatch(
-					openToastAndSetContent({
-						toastContent: err?.response?.data?.message,
-						toastStyles: {
-							backgroundColor: 'red',
-						},
-					})
-				);
-			});
-	};
-
 	interface Column {
-		id: 'name' | 'email_address' | 'role' | 'last_login' | 'action';
+		id: 'name' | 'email_address' | 'phone' | 'role' | 'last_login' | 'action';
 		label: any;
 		minWidth?: number;
 		align?: 'right' | 'left' | 'center';
 	}
 	const columns: Column[] = [
-		{ id: 'name', label: 'Name', minWidth: 100 },
-		{ id: 'email_address', label: 'Email address', minWidth: 100 },
-		{ id: 'role', label: 'Role', minWidth: 200 },
+		{ id: 'name', label: 'Name', minWidth: 160 },
+		{ id: 'email_address', label: 'Email address', minWidth: 130 },
+		{ id: 'phone', label: 'Phone number', minWidth: 100 },
+		{ id: 'role', label: 'Role', minWidth: 100 },
 		{ id: 'last_login', label: 'Last login', minWidth: 100 },
-		{ id: 'action', label: '', align: 'right', minWidth: 100 },
+		{ id: 'action', label: '', align: 'right', minWidth: 150 },
 	];
 	const LoanRowTab = useCallback(
 		(
-			fullname: string,
+			firstname: string,
 			email: string,
-			position: string,
+			role: string,
+			phonenumber: string,
 			lastlogin: string,
-			added: string
+			added: string,
+			lastname: string,
+			id: number
 		) => ({
-			name: (
-				<div>
-					{fullname.split(' ')[0]} {fullname.split(' ')[1]}
-				</div>
-			),
+			name: `${firstname} ${lastname}`,
 			email_address: email,
-			role: position || 'nil',
-			last_login: lastlogin.split(' ')[0],
+			phone: phonenumber || 'nill',
+			role: role || 'nil',
+			last_login: lastlogin || "nil",
 			action: (
-				<div>
+				<Stack direction={"row"}>
 					<IconButton
 						onClick={() =>
-							editHandler(fullname, email, lastlogin, position, added)
+							editHandler({ data: { firstname, email, phonenumber, id, lastlogin, lastname, added, role } })
 						}
 						className='action text-success'>
 						Change role
 					</IconButton>
 					<IconButton
-						onClick={() => deleteHandler()}
+						onClick={() => deleteHandler(id)}
 						className='action text-danger'>
 						Remove
 					</IconButton>
-				</div>
+
+					<IconButton
+						onClick={() => history.push({
+							pathname: "/user/activity",
+							state: { id }
+						})}
+						className='action text-success'>
+						Activities
+					</IconButton>
+				</Stack>
 			),
+			id
 		}),
 		[]
 	);
@@ -209,54 +185,45 @@ const Users = () => {
 		settlements?.map((each: UserProps) =>
 			newRowOptions.push(
 				LoanRowTab(
-					each.fullname,
+					each.lastname,
 					each.email,
-					each.position,
+					each.role,
+					each.phonenumber,
 					each.lastlogin,
-					each.added
+					each.added,
+					each.firstname,
+					each.id
+
 				)
 			)
 		);
 		setRows(newRowOptions);
 	}, [settlements, LoanRowTab]);
 
-	const editBusinessHandler = () => {
+	const AddNewUser = () => {
 		dispatch(
 			openModalAndSetContent({
 				modalStyles: {
 					padding: 0,
-					width: '550px',
-					minHeight: '700px',
+					// width: '550px',
+					// minHeight: 400,
 					maxWidth: '100%',
 					borderRadius: 20,
 					boxShadow: "-4px 4px 14px rgba(224, 224, 224, 0.69)",
 
 				},
+				modalTitle: "Add a new user",
 				modalContent: (
 					<div className={Styles.modalDiv}>
-						<UserModal onclick={inviteHandler} title='Add a new user' />
+						<UserModal key={"ii"} getUsers={getUsers} />
 					</div>
 				),
 			})
 		);
 	};
 
-	const editHandler = (
-		// id: string,
-		fullname: string,
-		email: string,
-		added: string,
-		lastlogin: string,
-		position: string
-	) => {
-		setSingleData({
-			// id,
-			fullname,
-			email,
-			added,
-			lastlogin,
-			position,
-		});
+	const editHandler = (data: any) => {
+
 		dispatch(
 			openModalAndSetContent({
 				modalStyles: {
@@ -264,34 +231,78 @@ const Users = () => {
 					width: '539px',
 					// minHeight: '450px',
 					maxWidth: '100%',
-					maxHeight: '400px',
+					minHeight: 400,
+
 					overflow: "auto",
 					borderRadius: "20px"
 				},
+				modalTitle: "Edit Bank Account",
 				modalContent: (
 					<div className={Styles.modalDiv}>
-						<UserModal title='Edit user' />
+						<EditUserModal data={data} getUsers={getUsers} />
 					</div>
 				),
 			})
 		);
 	};
 
-	const deleteHandler = () => {
+	const deleteHandler = (id: number) => {
+		const handleCancelModa = () => {
+			dispatch(closeModal())
+		}
+
+
+		// confirm delete
+		const comfirmDelete = async () => {
+			dispatch(openLoader());
+			try {
+				const del = await axios.delete(`/v1/users/${id}/delete`)
+				if (del) {
+					console.log(del);
+					dispatch(closeModal())
+					getUsers()
+
+
+				}
+				dispatch(closeLoader());
+
+			} catch (error: any) {
+				if (error) {
+					const { message } = error.response.data;
+					dispatch(closeLoader());
+					dispatch(closeModal())
+
+
+					dispatch(
+						openToastAndSetContent({
+							toastContent: message,
+							toastStyles: {
+								backgroundColor: 'red',
+							},
+						})
+					);
+				}
+			}
+		}
+
+
+
+
 		dispatch(
 			openModalAndSetContent({
 				modalStyles: {
 					padding: 0,
 					maxWidth: '653px',
-					height: '254px',
+					height: '254px !important',
 					width: '100%',
+
+
 					borderRadius: "20px"
 				},
+				modalTitle: "Remove user",
 				modalContent: (
 					<div className={Styles.modalDiv}>
-						<div className={Styles.account_wrap}>
-							<h1 className={Styles.account_h1}>Remove user</h1>
-						</div>
+
 
 						<div className={Styles.buttonModalwrap}>
 							<p className={Styles.removeModal_p}>
@@ -303,10 +314,13 @@ const Users = () => {
 							<div className={Styles.buttonModal}>
 								<button
 									style={{ background: '#E0E0E0', color: '#333333' }}
-									className={Styles.removeModal}>
+									className={Styles.removeModal}
+									onClick={handleCancelModa}
+								>
 									Cancel
+
 								</button>
-								<button className={Styles.removeModal}>Remove</button>
+								<button onClick={comfirmDelete} className={Styles.removeModal}>Remove</button>
 							</div>
 						</div>
 					</div>
@@ -324,7 +338,7 @@ const Users = () => {
 					<div>
 						<h2>Users</h2>
 					</div>
-					<button style={{ height: "39px", width: "123.09px", borderRadius: "20px" }} onClick={editBusinessHandler} className='success'>
+					<button style={{ height: "39px", width: "123.09px", borderRadius: "20px" }} onClick={AddNewUser} className='success'>
 						+ New user
 					</button>
 				</div>

@@ -1,0 +1,171 @@
+.container {
+    // position: absolute;
+    width: 419px;
+    height: 564px;
+    left: 0px;
+    top: 0px;
+
+    background: #FFFFFF;
+    box-shadow: -4px 4px 14px rgba(224, 224, 224, 0.69);
+    border-radius: 20px;
+    border: 2px solid red;
+
+}
+
+.header {
+    border-bottom: 1px solid rgba(224, 224, 224, 1);
+    width: 100%;
+    // margin: 1.5rem 0;
+    color: rgba(130, 130, 130, 1);
+    padding: 21px 50px;
+    margin-bottom: 27px;
+
+
+    h3 {
+        // padding: 0.7rem 1rem;
+        font-family: 'Avenir';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 25px;
+        /* identical to box height */
+
+
+        color: #828282;
+    }
+}
+
+.wrapper {
+    width: 90%;
+    margin: 0 auto 20px auto;
+}
+
+.selectWrapper {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding: 2rem;
+    border-radius: 4px;
+    margin: 0rem;
+    //border: 1px solid rgba(224, 224, 224, 1);
+    cursor: pointer;
+}
+
+.selectContent {
+    padding-left: 1rem;
+}
+
+.isActiveSelectWrapper {
+    // border : 1px solid #27AE60;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 2rem;
+    border-radius: 4px;
+    margin: 2rem;
+    cursor: pointer;
+}
+
+.selectHeader {
+    font-family: 'Avenir';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 19px;
+    letter-spacing: 0em;
+    color: rgba(65, 65, 65, 1);
+}
+
+.selectContent {
+    //   font-family: 'Avenir';
+    // font-size: 14px;
+    // font-style: normal;
+    // font-weight: 400;
+    // line-height: 18px;
+    // letter-spacing: 0em;
+    // color: rgba(139, 139, 139, 1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.controlGroup {
+    display: flex;
+    border: 1px solid rgba(224, 224, 224, 1);
+    margin: 10px;
+    padding: 25px;
+    position: relative;
+    width: 100%;
+}
+
+.selectedContent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99;
+}
+
+.active {
+    border: 1px solid #27ae60;
+}
+
+.wrapper_radio_steps {
+    width: 100%;
+    max-width: 650px;
+    height: 609px;
+    margin: 150px auto;
+    background-color: #ffffff;
+    padding: 0 30px;
+}
+
+.inputFile {
+    width: 316px;
+    height: 44px;
+
+    background: #27ae60;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+}
+
+.inputFileText {
+    border: 1px solid gray;
+    padding: 8px;
+    border-radius: 4px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.label {
+    padding: 0 !important;
+    font-family: 'Avenir' !important;
+    font-style: normal;
+    font-weight: 400 !important;
+    font-size: 14px;
+    line-height: 19px;
+
+    color: #333333;
+
+
+}
+
+.resolve {
+    font-family: 'Avenir';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    margin-bottom: 19px;
+    color: #333333;
+}
+
+p {
+    font-family: 'Avenir';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+
+    color: #4F4F4F;
+}

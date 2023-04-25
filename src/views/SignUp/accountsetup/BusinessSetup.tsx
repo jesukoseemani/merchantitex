@@ -100,12 +100,6 @@ const BusinessSetup = () => {
 
     return (
         <div className={Styles.container}>
-            <div className={Styles.title}>
-                <p>Set up business profile</p>
-            </div>
-
-
-
 
 
             <Box >

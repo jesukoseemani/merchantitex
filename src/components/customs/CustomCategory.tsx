@@ -41,7 +41,7 @@ const CustomCategory = ({ name, options, ...otherProps }: any) => {
                 return (
                     <MenuItem key={i} value={item.id}>
                         {/* {options[item]} */}
-                        {item?.categoryName}
+                        {item?.categoryName || item?.roleName}
                     </MenuItem>
                 );
             })}
