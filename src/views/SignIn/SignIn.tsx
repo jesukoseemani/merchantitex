@@ -104,10 +104,11 @@ const SignIn = () => {
 					.post('/auth/authenticate', values)
 					.then((res: any) => {
 						console.log(res?.data)
-						dispatch(closeLoader());
+						
 
 						if (res?.data?.code === "success") {
 							dispatch(saveAuth(res?.data));
+							dispatch(closeLoader());
 							history.push({
 								pathname: "/signin/2fa",
 								state: res?.data?.twofa_token
@@ -115,7 +116,7 @@ const SignIn = () => {
 
 							if (res?.data?.twofa_token !== null) {
 								console.log(res?.data?.twofa_token);
-
+								dispatch(closeLoader());
 								dispatch(
 									openToastAndSetContent({
 										toastContent: res?.data?.message,
@@ -129,6 +130,7 @@ const SignIn = () => {
 							} else {
 								history.push('/');
 								dispatch(saveUserDetail(res?.data?.user));
+								dispatch(closeLoader());
 								dispatch(
 									openToastAndSetContent({
 										toastContent: 'Login Successful',
