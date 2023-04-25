@@ -3,7 +3,7 @@ import styles from './Customers.module.scss';
 import { useTheme } from '@mui/material/styles';
 import { makeStyles } from '@material-ui/styles';
 import { Box, Button, Stack } from '@mui/material';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import React, { MouseEvent, useCallback, useEffect, useState } from 'react';
 import {
@@ -15,15 +15,16 @@ import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
 import moment from 'moment';
 import { CustomerItem, GetCustomersRes } from '../../types/CustomerTypes';
 import CustomClickTable from '../../components/table/CustomClickTable';
-import { openModalAndSetContent } from '../../redux/actions/modal/modalActions';
+import { closeModal, openModalAndSetContent } from '../../redux/actions/modal/modalActions';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 import AddNewCustomer from './AddNewCustomer';
 import Addtoblacklist from './Addtoblacklist';
+import { getBlacklistedCustomers, getCustomersService } from '../../services/customer';
+import { stripSearch } from '../../utils';
 
 const CustomersTab = ({ value, index }: any) => {
 	const theme = useTheme();
-
 	const useBtnStyles = makeStyles({
 		root: {
 			fontFamily: `'Avenir', sans-serif`,
@@ -57,6 +58,7 @@ const CustomersTab = ({ value, index }: any) => {
 		},
 	});
 
+
 	const btnClasses = useBtnStyles();
 
 	const dispatch = useDispatch();
@@ -66,7 +68,11 @@ const CustomersTab = ({ value, index }: any) => {
 	const [pageNumber, setPageNumber] = useState<number>(1);
 	const [rowsPerPage, setRowsPerPage] = useState<number>(5);
 	const [totalRows, setTotalRows] = useState<number>(0);
-	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+	const { search } = useLocation();
+
+	const addCallback = () => {
+		dispatch(closeModal());
+	}
 
 	const changePage = (value: number) => {
 		setPageNumber(value);
@@ -77,7 +83,7 @@ const CustomersTab = ({ value, index }: any) => {
 	};
 
 	interface Column {
-		id: 'name' | 'email' | 'phone' | 'added' | 'actions';
+		id: 'name' | 'email' | 'msisdn' | 'actions';
 		label: any;
 		minWidth?: number;
 		align?: 'right' | 'left' | 'center';
@@ -85,24 +91,23 @@ const CustomersTab = ({ value, index }: any) => {
 	const columns: Column[] = [
 		{ id: 'name', label: 'Name', minWidth: 150 },
 		{ id: 'email', label: 'Email', minWidth: 150 },
-		{ id: 'phone', label: 'Phone Numbers', minWidth: 150 },
-		{ id: 'added', label: 'Date Added', minWidth: 150, align: 'left' },
+		{ id: 'msisdn', label: 'MSISDN', minWidth: 150 },
 		{ id: 'actions', label: 'Actions', minWidth: 100 },
 	];
 
-	const handleBLacklist = () => {
+	const handleBLacklist = (id: string) => {
 		dispatch(
 			openModalAndSetContent({
 				modalStyles: {
 					padding: 0,
 					width: "653px",
-					height: "254px",
+					height: "340px",
 					borderRadius: '20px',
 					boxShadow: '-4px 4px 14px rgba(224, 224, 224, 0.69)',
 				},
 				modalContent: (
 					<div className='modalDiv'>
-						<Addtoblacklist />
+						<Addtoblacklist id={id} />
 					</div>
 				),
 			})
@@ -110,55 +115,19 @@ const CustomersTab = ({ value, index }: any) => {
 	};
 
 	const CustomerRowTab = useCallback(
-		(firstname, lastname, email, added, phone, transNum, total, id) => ({
+		(firstname, lastname, email, msisdn, id) => ({
 			name: (
 				<p className={styles.tableBodyText}>
 					<span className={styles.capitalText}>{firstname}</span>{' '}
 					<span className={styles.capitalText}>{lastname}</span>
 				</p>
 			),
+			id: <p className={styles.tableBodyText}>{id}</p>,
 			email: <p className={styles.tableBodyText}>{email}</p>,
-			phone: <p className={styles.tableBodyText}>{phone}</p>,
-			added: (
-				<p className={styles.tableBodyText}>
-					{moment(added).format('MMM D YYYY')}
-					<span className={styles.tableBodySpan}>
-						{' '}
-						{moment(added).format('h:mm A')}
-					</span>
-				</p>
-			),
+			msisdn: <p className={styles.tableBodyText}>{msisdn}</p>,
 
-			// id: <p> {email}</p>,
 			actions: (
-				<p style={{ color: "red" }} onClick={handleBLacklist}>Blacklist</p>
-				// <Stack
-				// 	direction={'row'}
-				// 	spacing={2}
-				// 	justifyContent='flex-end'
-				// 	className={styles.ActionBtn}>
-
-				// 	<button
-				// 		onClick={() =>
-				// 			history.push({
-				// 				// pathname: `/customers/${email}`,
-				// 				state: {
-				// 					firstname,
-				// 					lastname,
-				// 					email,
-				// 					added,
-				// 					phone,
-				// 					transNum,
-				// 					total,
-				// 					id,
-				// 				},
-				// 			})
-				// 		}
-				// 	// style={{ border: "9px solid green", position: "absolute" }}
-				// 	>
-				// 		View Details
-				// 	</button>
-				// </Stack>
+				<p style={{ color: "red" }} onClick={() => handleBLacklist(id)}>Blacklist</p>
 			),
 
 		}),
@@ -173,11 +142,8 @@ const CustomersTab = ({ value, index }: any) => {
 					each?.firstname,
 					each?.lastname,
 					each?.email,
-					each?.added,
-					each?.phone,
-					each?.total,
-					each?.transNum,
-					each?.id,
+					each?.msisdn,
+					each?.id
 				)
 			)
 		);
@@ -187,23 +153,16 @@ const CustomersTab = ({ value, index }: any) => {
 	const getCustomers = async () => {
 		dispatch(openLoader());
 		try {
-			const res = await axios.get<GetCustomersRes>(
-				'/mockData/customerRequest.json',
-				{ baseURL: '' }
-			);
-			console.log(res?.data);
-			const { customers, _metadata } = res?.data;
-			if (customers.length) {
-				setCustomers(customers);
-				setTotalRows(_metadata?.totalcount);
-			}
+			const res = await getCustomersService({ page: pageNumber, perpage: rowsPerPage, search: stripSearch(search) });
+			setCustomers(res?.customers || []);
+			setTotalRows(res?._metadata?.totalcount);
 			dispatch(closeLoader());
-		} catch (err) {
+		} catch (err: any) {
 			console.log(err);
 			dispatch(closeLoader());
 			dispatch(
 				openToastAndSetContent({
-					toastContent: 'Failed to get customers',
+					toastContent: err?.response?.data?.message || 'Failed to get customers',
 					toastStyles: {
 						backgroundColor: 'red',
 					},
@@ -214,7 +173,7 @@ const CustomersTab = ({ value, index }: any) => {
 
 	useEffect(() => {
 		getCustomers();
-	}, [pageNumber, rowsPerPage]);
+	}, [pageNumber, rowsPerPage, search]);
 
 	const AddCustomer = () => {
 		dispatch(
@@ -228,12 +187,13 @@ const CustomersTab = ({ value, index }: any) => {
 				},
 				modalContent: (
 					<div className='modalDiv'>
-						<AddNewCustomer />
+						<AddNewCustomer callback={addCallback} />
 					</div>
 				),
 			})
 		);
 	};
+
 	return (
 
 		<Box mt={"31px"}>
@@ -241,7 +201,7 @@ const CustomersTab = ({ value, index }: any) => {
 
 			<Box>
 				<Stack direction={"row"} flexWrap="wrap" justifyContent="space-between" gap={3}>
-					<h2>19 transfers</h2>
+					<h2>{totalRows} customers</h2>
 					<Box className={styles.headerBox}>
 						<button><FilterAltOutlinedIcon />Filter by:</button>
 						<button> <InsertDriveFileOutlinedIcon />Download</button>
@@ -259,7 +219,7 @@ const CustomersTab = ({ value, index }: any) => {
 					limit={limit}
 					clickable
 					link="/customers"
-					identifier={"email"}
+					identifier={"id"}
 					rowsData={customers}
 				/>
 			</div>

@@ -31,41 +31,6 @@ export default function UserMenu() {
 
 	const dispatch = useDispatch();
 
-	const getUserDetails = async () => {
-		try {
-			const res: { data: any } = await axios.get(`/merchant/account/me`);
-			setUser(res?.data?.business?.user?.[0]);
-			console.log(res?.data?.business?.user?.[0]);
-		} catch (error: any) {
-			if (error.response) {
-				const { message } = error.response.data;
-				dispatch(
-					openToastAndSetContent({
-						toastContent: message,
-						toastStyles: {
-							backgroundColor: 'red',
-						},
-					})
-				);
-			} else if (error.request) {
-				console.log('sorry, there was an error');
-			} else {
-				dispatch(
-					openToastAndSetContent({
-						toastContent: error.message,
-						toastStyles: {
-							backgroundColor: 'red',
-						},
-					})
-				);
-			}
-		}
-	};
-
-	useEffect(() => {
-		getUserDetails();
-	}, []);
-
 	const history = useHistory();
 
 	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {

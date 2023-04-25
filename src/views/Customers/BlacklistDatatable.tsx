@@ -21,6 +21,7 @@ import styles from './blacklist.module.scss';
 import RemoveBlacklist from './RemoveBlacklist';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
+import { getBlacklistedCustomers } from '../../services/customer';
 
 const BlacklistDatatable = () => {
 	const theme = useTheme();
@@ -125,6 +126,7 @@ const BlacklistDatatable = () => {
 	const getCustomers = async () => {
 		dispatch(openLoader());
 		try {
+			await getBlacklistedCustomers()
 			const res = await axios.get<GetBlacklistCustomerRes>(
 				'/mockData/blacklistcustomer.json',
 				{ baseURL: '' }

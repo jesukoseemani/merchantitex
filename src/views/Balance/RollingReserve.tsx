@@ -30,6 +30,7 @@ import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
 import { useDispatch } from "react-redux";
 import CustomClickTable from "../../components/table/CustomClickTable";
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import { getRollingReserve } from "../../services/rolling-reserve";
 
 const useBtnStyles = makeStyles({
   root: {
@@ -272,6 +273,7 @@ const RollingReserve = () => {
   const getRollingReserves = async () => {
     dispatch(openLoader());
     try {
+      await getRollingReserve()
       const res = await axios.get<GetRollingReservesRes>(
         "/mockData/rollingreserve.json",
         { baseURL: "" }

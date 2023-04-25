@@ -1,4 +1,4 @@
-import { Backdrop, Box, Button, Fade, IconButton, Modal, OutlinedInput } from '@mui/material';
+import { Backdrop, Box, Fade, IconButton, Modal, OutlinedInput, MenuItem, Select } from '@mui/material';
 import { makeStyles } from "@material-ui/styles";
 import CloseIcon from '@mui/icons-material/Close';
 import { Dispatch, SetStateAction, useState } from 'react';
@@ -6,6 +6,8 @@ import { useDispatch } from 'react-redux';
 import { closeLoader, openLoader } from "../../redux/actions/loader/loaderActions";
 import axios from "axios";
 import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
+import { initiateRefund } from '../../services/refund';
+import Button from '../../components/forms/Button';
 interface SingleRefundModalProps {
   isOpen: boolean;
   handleClose: () => void;
@@ -104,63 +106,91 @@ const SingleRefundModal = ({ isOpen, handleClose, setRefundLogged }: SingleRefun
       '&:disabled': {
         opacity: '.75'
       }
-    }
+    },
+    select: {}
   });
 
   const classes = useModalStyles();
   const dispatch = useDispatch();
 
-  const [amt, setAmt] = useState<number | undefined>(undefined);
+  const [amt, setAmt] = useState<string>('');
+  const [id, setId] = useState<string>('');
   const [ref, setRef] = useState<string>('');
+  const [type, setType] = useState<string>('');
   const [desc, setDesc] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
 
+  // const postRefund = async () => {
+  //   dispatch(openLoader());
+  //   setLoading(true);
+  //   try {
+  //     const res = await axios({
+  //       method: 'POST',
+  //       url: '/transaction/refund',
+  //       data: {
+  //         transaction: {
+  //           merchantreference: ref
+  //           // merchantreference: "tx-YvD4Yr2mebQdn2pvsClRJGFiJ"
+  //         },
+  //         order: {
+  //           amount: `${amt}`,
+  //           description: desc,
+  //           currency: "NGN"
+  //         }
+  //       }
+  //     })
+  //     dispatch(
+  //       openToastAndSetContent({
+  //         toastContent: "Refund logged",
+  //         toastStyles: {
+  //           backgroundColor: "green",
+  //         },
+  //       })
+  //     );
+  //     handleClose();
+  //     dispatch(closeLoader());
+  //     setRefundLogged(prev => !prev)
+  //     setLoading(false);
+  //     setAmt(undefined);
+  //     setRef('');
+  //     setDesc('');
+  //   } catch (err) {
+  //     console.log(err);
+  //     dispatch(closeLoader());
+  //     setLoading(false);
+  //     dispatch(
+  //       openToastAndSetContent({
+  //         toastContent: "Failed to log refund",
+  //         toastStyles: {
+  //           backgroundColor: "red"
+  //         },
+  //       })
+  //     );
+  //   }
+  // }
+
   const postRefund = async () => {
-    dispatch(openLoader());
     setLoading(true);
+
     try {
-      const res = await axios({
-        method: 'POST',
-        url: '/transaction/refund',
-        data: {
-          transaction: {
-            merchantreference: ref
-            // merchantreference: "tx-YvD4Yr2mebQdn2pvsClRJGFiJ"
-          },
-          order: {
-            amount: `${amt}`,
-            description: desc,
-            currency: "NGN"
-          }
-        }
+      await initiateRefund('TEST_IBK_025493581680005613942', {
+        amount: Number(amt || 0),
+        refundtype: type,
+        reason: desc,
+        otp: '1234'
       })
+
+    } catch (error: any) {
       dispatch(
         openToastAndSetContent({
-          toastContent: "Refund logged",
-          toastStyles: {
-            backgroundColor: "green",
-          },
-        })
-      );
-      handleClose();
-      dispatch(closeLoader());
-      setRefundLogged(prev => !prev)
-      setLoading(false);
-      setAmt(undefined);
-      setRef('');
-      setDesc('');
-    } catch (err) {
-      console.log(err);
-      dispatch(closeLoader());
-      setLoading(false);
-      dispatch(
-        openToastAndSetContent({
-          toastContent: "Failed to log refund",
+          toastContent: error?.response?.data?.message || "Failed to log a refund",
           toastStyles: {
             backgroundColor: "red"
           },
         })
       );
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -187,30 +217,46 @@ const SingleRefundModal = ({ isOpen, handleClose, setRefundLogged }: SingleRefun
               <label htmlFor='amount'>Amount</label>
               <OutlinedInput
                 placeholder='100.00' value={amt} type='number'
-                onChange={(e) => setAmt(Number(e.target.value))}
+                onChange={(e) => setAmt(e.target.value)}
               />
             </div>
             <div className={classes.formBox}>
-              <label htmlFor='amount'>Transaction reference</label>
-              <OutlinedInput placeholder='12345678' value={ref} onChange={(e) => setRef(e.target.value)} />
+              <label htmlFor='id'>Payment Id</label>
+              <OutlinedInput
+                placeholder='TEST_IBK_025493323680005613942' value={id}
+                name="id"
+                onChange={(e) => setId(e.target.value)}
+              />
             </div>
             <div className={classes.formBox}>
-              <label htmlFor='amount'>Refund destination</label>
-              <OutlinedInput value='Payment source - 5 to 15 days' />
+              <label htmlFor='id'>Refund Type</label>
+              <Select
+                fullWidth
+                className={classes.select}
+                value={type}
+                name='refunType'
+                id='refunType'
+                onChange={e => setType(e.target.value)}>
+                <MenuItem value='' disabled selected hidden>
+                  Choose status
+                </MenuItem>
+                <MenuItem value='partial'>PARTIAL</MenuItem>
+                <MenuItem value='full'>FULL</MenuItem>
+              </Select>
             </div>
             <div className={classes.formBox}>
-              <label htmlFor='amount'>Reason for refund</label>
-              <OutlinedInput placeholder='Items out of stock' multiline rows={10} value={desc} onChange={(e) => setDesc(e.target.value)} />
+              <label htmlFor='reason'>Reason for refund</label>
+              <OutlinedInput placeholder='reason' multiline rows={10} value={desc} onChange={(e) => setDesc(e.target.value)} />
             </div>
           </div>
           <div>
             <Button
               fullWidth className={classes.formBtn}
-              disabled={!amt || !desc || !ref || loading}
+              disabled={!amt || !desc || !id || !type || loading}
               onClick={postRefund}
-            >
-              Continue
-            </Button>
+              loading={loading}
+              text="Continue"
+            />
           </div>
         </Box>
       </Fade>

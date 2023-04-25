@@ -90,6 +90,8 @@ import Support from "../components/permission/Support";
 import Developer from "../components/permission/Developer";
 import Viewers from "../components/permission/Viewers";
 import NgoSignUp from "../views/SignUp/ngo";
+import Payout from "../views/Payout/Payout";
+import SinglePayout from "../views/Payout/SinglePayout";
 
 
 
@@ -375,6 +377,20 @@ export default function AppRoutes() {
             <ProtectedRoute
               path="/payout/transfer_balance"
               component={TransferBalance}
+              AuthUser={loadingState}
+            />
+
+            <ProtectedRoute
+              exact
+              path="/payout"
+              component={Payout}
+              AuthUser={loadingState}
+            />
+
+            <ProtectedRoute
+              exact
+              path="/payout/:id"
+              component={SinglePayout}
               AuthUser={loadingState}
             />
 

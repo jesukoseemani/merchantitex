@@ -126,32 +126,11 @@ export const navRoutes: NavProps[] = [
     ],
   },
   {
-    id: 11,
+    id: 12,
     title: "Payout",
-    icon: Payout,
-    link: "/payout/transfers",
-    submenu: true,
-
-    nav: [
-      {
-        id: 12,
-        title: "Transfers",
-        icon: TranIcon,
-        link: "/payout/transfers",
-      },
-      {
-        id: 13,
-        title: "Pending Aproval",
-        icon: PendingIcon,
-        link: "/payout/pending_approval",
-      },
-      {
-        id: 14,
-        title: "Beneficiaries",
-        icon: CalendaIcon,
-        link: "/payout/beneficiaries",
-      },
-    ],
+    icon: TranIcon,
+    link: "/payout",
+    submenu: false
   },
   {
     id: 15,

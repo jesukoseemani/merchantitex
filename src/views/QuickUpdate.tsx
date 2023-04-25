@@ -50,14 +50,6 @@ const QuickUpdate = () => {
 		}
 	}, [id]);
 
-	useEffect(() => {
-		axios
-			.get(`/merchant/account/me`)
-			.then((res) => {
-				dispatch(saveMe(res.data));
-			})
-			.catch((err) => console.log(err));
-	}, [dispatch]);
 
 	return (
 		<div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>

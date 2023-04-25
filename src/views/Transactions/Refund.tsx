@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import styles from './Refund.module.scss';
 import { useTheme } from '@mui/material/styles';
 import { makeStyles } from '@material-ui/styles';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Box, Button, Menu, MenuItem } from '@mui/material';
 import InsertDriveFileOutlined from '@mui/icons-material/InsertDriveFileOutlined';
@@ -24,8 +24,9 @@ import FilterModal from './FilterModal';
 import BulkRefundModal from './BulkRefundModal';
 import CustomClickTable from '../../components/table/CustomClickTable';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
-import { GetRefundRes, RefundItem } from '../../types/Transaction';
+import { RefundItem } from '../../types/RefundTypes';
 import BeneficiaryMenu from '../Payout/BeneficiaryMenu';
+import { getRefundsService } from '../../services/refund';
 
 
 
@@ -40,6 +41,7 @@ const Refund = () => {
 	const [rowsPerPage, setRowsPerPage] = useState<number>(5);
 	const [totalRows, setTotalRows] = useState<number>(0);
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+	const { search } = useLocation()
 
 	const currentDate = moment(new Date()).format('YYYY-MM-DD');
 
@@ -164,7 +166,7 @@ const Refund = () => {
 	};
 
 	const getRefunds = async () => {
-		// dispatch(openLoader());
+		dispatch(openLoader());
 		// const filterKeys = Object.keys(filters);
 		// const filterValues = Object.values(filters);
 		// let filterString = '';
@@ -189,16 +191,18 @@ const Refund = () => {
 		// });
 
 		try {
-			const res = await axios.get<GetRefundRes>(
-				'/mockData/transactionrequest.json',
-				{ baseURL: '' }
-			);
-			const { transactions, _metadata } = res?.data;
-			console.log(history);
-			if (history.length) {
-				setRefunds(transactions);
-				setTotalRows(_metadata?.totalcount);
-			}
+			const res = await getRefundsService({
+				page: pageNumber,
+				perpage: rowsPerPage,
+				search
+			});
+			console.log(res, 'res');
+			setRefunds(res?.refunds || []);
+			setTotalRows(res?._metadata?.totalcount || 0)
+			// if (history.length) {
+			// 	setRefunds(res?.transactions);
+			// 	setTotalRows(_metadata?.totalcount);
+			// }
 			dispatch(closeLoader());
 		} catch (err) {
 			console.log(err);
@@ -289,22 +293,22 @@ const Refund = () => {
 
 	useEffect(() => {
 		getRefunds();
-	}, [pageNumber, rowsPerPage, refundLogged, filtersApplied]);
+	}, [pageNumber, rowsPerPage, refundLogged, filtersApplied, search]);
 
 	useEffect(() => {
 		const newRowOptions: any[] = [];
-		refunds?.map((each: RefundItem) =>
-			newRowOptions.push(
-				RefundRowTab(
-					each?.amt,
-					each?.status,
-					each?.reference,
-					each?.acctId,
-					each?.added,
-					each?.id,
-				)
-			)
-		);
+		// refunds?.map((each: RefundItem) =>
+		// 	newRowOptions.push(
+		// 		RefundRowTab(
+		// 			each?.amt,
+		// 			each?.status,
+		// 			each?.reference,
+		// 			each?.acctId,
+		// 			each?.added,
+		// 			each?.id,
+		// 		)
+		// 	)
+		// );
 		setRows(newRowOptions);
 	}, [refunds, RefundRowTab]);
 
@@ -320,6 +324,13 @@ const Refund = () => {
 				fixedToDate={fixedToDate}
 				dateInterval={dateInterval}
 				setDateInterval={setDateInterval}
+			// setToDate={setToDate}
+			// setRef={setRef}
+			// setStatus={setStatus}
+			// setPayment={setPayment}
+			// eventDate={event}
+			// clearHandler={clearHandler}
+			// status={status}
 			/>
 			<SingleRefundModal
 				isOpen={isSingleModalOpen}

@@ -45,48 +45,8 @@ export default function EmptyTransfers() {
         open={openBankModel}
         className={Styles.modalContainer}
       >
-        {/* <div className={Styles.modalHeader}>
-          <h2>Single payout</h2>
-          <IconButton onClick={() => setOpenBankModel(false)}>
-            <CloseIcon />
-          </IconButton>
-        </div>
-        <Form.Field className={Styles.inputWrapper}>
-          <label>Balance to be debited</label>
-          <Select
-            placeholder="NGN balance - 123,456.78"
-            options={countryOptions}
-          />
-        </Form.Field>
-        <Form.Field className={Styles.inputWrapper}>
-          <label>Payout amount</label>
-          <input placeholder="NGN 0.0" />
-        </Form.Field>
-        <Form.Field className={Styles.inputWrapper}>
-          <label>Bank name</label>
-          <Select placeholder="Access bank" options={bankNameOptions} />
-        </Form.Field>
-        <Form.Field className={Styles.inputWrapper}>
-          <label>Account number</label>
-          <input placeholder="1234567890" />
-        </Form.Field>
-        <div className={Styles.inputDivider}>
-          <h2>James Holiday</h2>
-          <Link to="#">+ Add a new recipient</Link>
-        </div>
-        <Form.Field className={Styles.inputWrapper}>
-          <label>Payout desciption (optional)</label>
-          <input placeholder="Thank you" />
-        </Form.Field>
-        <p>
-          <InfoOutlinedIcon />
-          You will be charged <span> NGN45</span> fee for this transaction
-        </p>
-        <div className={Styles.modalFooter}>
-          <Button onClick={transferLink}>Submit</Button>
-        </div> */}
 
-        <SingleTransferBankAcct />
+        <SingleTransferBankAcct close={() => setOpenBankModel(false)} />
       </Modal>
     );
   };
@@ -239,34 +199,14 @@ export default function EmptyTransfers() {
       <ItexModalPayout />
       <BulkModalPayout />
       <div className={Styles.container}>
-        <h2>You have not made any transfers</h2>
+        <h2>You have not made any payouts</h2>
         <p>
-          But, you can change that. You can start by initiating your first to
-          either an ITEX merchant’s email address or to a bank account.
+          But, you can change that. You can start by initiating your first to a bank account.
         </p>
         <Button className="success">
-          <Dropdown text="Make a transfer" className="link item">
-            <Dropdown.Menu className={Styles.menuOptions}>
-              <Dropdown.Item>
-                <Dropdown text="Single payout">
-                  <Dropdown.Menu>
-                    <Dropdown.Item onClick={() => setOpenBankModel(true)}>
-                      Bank account
-                    </Dropdown.Item>
-                    <Dropdown.Item onClick={() => setOpenPayviceModel(true)}>
-                      Payvice
-                    </Dropdown.Item>
-                    <Dropdown.Item onClick={() => setOpenItexModel(true)}>
-                      ITEX Pay
-                    </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </Dropdown.Item>
-              <Dropdown.Item onClick={() => setOpenBulkModel(true)}>
-                Bulk payouts
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+          <Dropdown.Item onClick={() => setOpenItexModel(true)}>
+            Make a payout
+          </Dropdown.Item>
         </Button>
       </div>
     </>

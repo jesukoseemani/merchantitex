@@ -25,6 +25,8 @@ interface Props {
 
 const Header = ({ title }: Props) => {
   const [alignment, setAlignment] = React.useState("live server");
+  const [search, setSearch] = useState('');
+  const history = useHistory()
   const handleAlignment = (
     event: React.MouseEvent<HTMLElement>,
     newAlignment: string
@@ -44,8 +46,13 @@ const Header = ({ title }: Props) => {
     setActive(0);
   }, [active]);
 
+  useEffect(() => {
+    setSearch('')
+  }, [pathname])
 
-
+  useEffect(() => {
+    history.replace({ pathname, search })
+  }, [search])
 
 
   const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
@@ -151,6 +158,8 @@ const Header = ({ title }: Props) => {
                 <OutlinedInput
                   id="outlined-adornment-amount"
                   placeholder="Search"
+                  value={search}
+                  onChange={e => setSearch(e.target.value)}
                   startAdornment={<InputAdornment position="start"> <SearchOutlinedIcon /></InputAdornment>}
                   sx={{
                     background: " #FBFBFB",
