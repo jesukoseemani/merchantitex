@@ -1,50 +1,82 @@
 import { Avatar, Box, Checkbox, Grid, List, ListItem, ListItemAvatar, ListItemText } from '@mui/material'
-import styles from "./styles.module.scss"
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { closeLoader, openLoader } from '../../redux/actions/loader/loaderActions'
 import Permission from '../../views/Settings/Permission'
+import styles from "./styles.module.scss"
+import axios from 'axios';
+import { openToastAndSetContent } from '../../redux/actions/toast/toastActions'
+import { useParams } from 'react-router-dom';
 
 const Developer = () => {
+
+    const dispatch = useDispatch()
+    const { id } = useParams<{ id: string }>();
+
+    const [roles, setRoles] = useState<any>()
+
+    useEffect(() => {
+        dispatch(openLoader());
+        const fetchPermission = async () => {
+
+            try {
+
+                const { data } = await axios.get<any>(`/v1/setting/roles/${id}/properties`)
+                console.log(data)
+                setRoles(data?.modules)
+
+
+                dispatch(closeLoader());
+
+            } catch (error: any) {
+                dispatch(closeLoader());
+                const { message } = error.response.data;
+                dispatch(
+                    dispatch(
+                        openToastAndSetContent({
+                            toastContent: message,
+                            toastStyles: {
+                                backgroundColor: "red",
+                            },
+                        })
+                    )
+                );
+            } finally {
+                dispatch(closeLoader());
+            }
+        }
+
+
+        fetchPermission()
+    }, [])
     return (
         <Permission>
-            <Grid container columnSpacing={"43px"}>
+            <Grid container columnSpacing={{ xs: "20px", md: "43px" }}>
                 <Grid item xs={12} md={7} >
                     <Box className={styles.left__container}>
                         <Box className={styles.firstSection}>
-                            <h2>Developer</h2>
-                            <p>Users who hold this role have access to the permissions required to provide technical help</p>
+                            <h2>Owner</h2>
+                            <p>Users with this role are able to control everything on the dashboard</p>
                         </Box>
                         <Box className={styles.secondSection}>
                             <h2>Role permissions</h2>
                             <p>See the list of permissions that are available for this role</p>
                         </Box>
                         <Box className={styles.thirdSection}>
-                            <Box>
-                                <h2>
-                                    Transactions permissions
-                                </h2>
-                                <p><Checkbox defaultChecked /> Can view transactions</p>
-                                <p><Checkbox defaultChecked /> Can view refunds</p>
-                            </Box>
-                            <Box>
-                                <h2>
-                                    Customers permissions
-                                </h2>
-                                <p><Checkbox defaultChecked />Can view customers</p>
 
-                            </Box>
+                            {roles?.map((x: any) => (
+                                <Box key={x?.id}>
+                                    <h2>
+                                        {x?.category}
+                                    </h2>
+                                    {x?.modules?.map((module: any) => (
 
-                            <Box>
-                                <h2>
-                                    Settings permissions
-                                </h2>
-
-                                <p><Checkbox defaultChecked />Can view API keys</p>
-                                <p><Checkbox defaultChecked />Can generate new API keys</p>
-                                <p><Checkbox defaultChecked />Can view webhooks</p>
-                                <p><Checkbox defaultChecked />Can update and set webhook preferences</p>
-                                <p><Checkbox defaultChecked />Can resend webhooks</p>
+                                        <p key={x?.id}><Checkbox defaultChecked />{module?.description}</p>
+                                    ))}
 
 
-                            </Box>
+                                </Box>
+                            ))}
 
                         </Box>
                     </Box>
@@ -60,26 +92,19 @@ const Developer = () => {
                                 <ListItem>
                                     <ListItemAvatar>
                                         <Avatar sx={{ bgcolor: "#2684ED", fontSize: "14px", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                            RO
+                                            RU
                                         </Avatar>
                                     </ListItemAvatar>
-                                    <ListItemText primary="Raphael Olong" secondary="raphaelolong@email.com" />
+                                    <ListItemText primary="James Haliday" secondary="jameshaliday@example.com" />
                                 </ListItem>
-                                <ListItem>
-                                    <ListItemAvatar>
-                                        <Avatar sx={{ bgcolor: "#CD06C5", fontSize: "14px", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                            MA
-                                        </Avatar>
-                                    </ListItemAvatar>
-                                    <ListItemText primary="Matthew Alika" secondary="matthewalika@email.com" />
-                                </ListItem>
+
 
                             </List>
                         </Box>
                     </Box>
                 </Grid>
             </Grid>
-        </Permission>
+        </Permission >
     )
 }
 

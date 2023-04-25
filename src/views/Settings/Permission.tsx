@@ -7,9 +7,22 @@ import { ReactSVG } from 'react-svg'
 import { Link, NavLink } from 'react-router-dom'
 import CustomModal from '../../components/customs/CustomModal'
 import AddCustomRole from '../../components/permission/AddCustomRole'
+import { useDispatch } from 'react-redux';
+import { closeLoader, openLoader } from '../../redux/actions/loader/loaderActions'
+import axios from 'axios'
+import { openToastAndSetContent } from '../../redux/actions/toast/toastActions'
 
 
 
+
+interface Props {
+    roles: {
+        id: string;
+        decription: string;
+        roleName: string;
+    }[]
+
+}
 
 interface PermissionProps {
     children: ReactNode
@@ -20,46 +33,51 @@ const Permission = ({ children }: PermissionProps) => {
     const [openModal, setOpenModal] = useState(false)
     const handleCustomRole = () => setOpenModal(true);
     const handleCloseModal = () => setOpenModal(false);
+    const [roles, setRoles] = useState<any>()
+    const dispatch = useDispatch()
 
-    interface Props {
-        id: string;
-        name: string;
-        url: string;
+    useEffect(() => {
+        dispatch(openLoader());
+        const fetchPermission = async () => {
 
-    }
+            try {
 
-    const permisionData: Props[] = [
-        {
-            id: "1",
-            name: "Administrator",
-            url: "/general_setting/permissions/administrator"
-        },
-        {
-            id: "2",
-            name: "Operations",
-            url: "/general_setting/permissions/operations"
-        },
-        {
-            id: "3",
-            name: "Customer support",
-            url: "/general_setting/permissions/support"
-        },
-        {
-            id: "4",
-            name: "Developer",
-            url: "/general_setting/permissions/developer"
-        },
-        {
-            id: "5",
-            name: "Viewer",
-            url: "/general_setting/permissions/viewers"
+                const { data } = await axios.get<Props>("/v1/setting/roles")
+                console.log(data)
+                setRoles(data?.roles)
+
+
+                dispatch(closeLoader());
+
+            } catch (error: any) {
+                dispatch(closeLoader());
+                const { message } = error.response.data;
+                dispatch(
+                    dispatch(
+                        openToastAndSetContent({
+                            toastContent: message,
+                            toastStyles: {
+                                backgroundColor: "red",
+                            },
+                        })
+                    )
+                );
+            } finally {
+                dispatch(closeLoader());
+            }
         }
-    ]
+
+
+        fetchPermission()
+    }, [])
+
 
 
 
     useEffect(() => {
         setActive(0)
+        console.log(active);
+
     }, [active])
 
     return (
@@ -77,9 +95,9 @@ const Permission = ({ children }: PermissionProps) => {
                         <Box className={styles.sidebar}>
                             <ReactSVG src={AdminTree} />
                             <ul>
-                                {permisionData?.map(({ id, name, url }, index) => (
-                                    <li onClick={() => setActive(index)}>
-                                        <NavLink to={url} key={id} activeClassName={styles.active}>{name}</NavLink>
+                                {roles?.map((x: any, i: number) => (
+                                    <li onClick={() => setActive(x?.id)}>
+                                        <NavLink to={`/general_setting/permissions/${x?.roleName.toLowerCase()}/${x?.id}`} key={x?.id} activeClassName={styles.active}>{x?.roleName.toLowerCase()}</NavLink>
                                     </li>
                                 ))}
                             </ul>

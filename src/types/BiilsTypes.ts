@@ -108,11 +108,10 @@ export interface GetConfirmEntryRes {
 // bill invoices  entry request table
 export interface BillInvoiceRequestItem {
   id: string;
-  title: string;
-  name: string;
-  amount: number;
+
+  invoiceName: string;
+  totalAmount: number;
   status: string;
-  email: string;
   added?: string;
   phone?: string;
   url?: string;
@@ -120,6 +119,12 @@ export interface BillInvoiceRequestItem {
   transRef?: string;
   billId?: number;
   commission?: number;
+  customer: {
+    email: string;
+    firstname: string;
+    lastname: string;
+
+  }
 }
 
 export interface GetInvoiceRequestsRes {

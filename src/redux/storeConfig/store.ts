@@ -17,7 +17,8 @@ const persistConfig = {
 		'onboardStateReducer',
 		'countryReducer',
 		'navbarReducer',
-		'setupReducer'
+		'setupReducer',
+		"bankAcctReducer"
 	],
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);

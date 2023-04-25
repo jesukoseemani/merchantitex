@@ -7,13 +7,13 @@ const SendInvoice = () => {
         <Box sx={{
             width: "416px",
             height: "287px",
-            boxShadow: "0px 3px 20px rgba(0, 0, 0, 0.16)",
+            // boxShadow: "0px 3px 20px rgba(0, 0, 0, 0.16)",
             borderRadius: "20px"
         }}>
 
-            <Box className={Styles.sendInvoice_title}>
+            {/* <Box className={Styles.sendInvoice_title}>
                 <h2>Send invoice</h2>
-            </Box>
+            </Box> */}
 
             <Box className={Styles.invoiceDesc}>
                 <p>   Do you want to send this payment receipt to your customer (debra.holt@example.com)?</p>

@@ -331,12 +331,12 @@
 		margin-top: 10px;
 
 		&>span {
-			font-family: Avenir;
+			font-family: 'Avenir';
 			font-style: normal;
-			font-weight: normal;
+			font-weight: 400;
 			font-size: 16px;
-			line-height: 19px;
-			color: #4f4f4f;
+			line-height: 22px;
+			color: #4F4F4F;
 		}
 
 		&>svg {
@@ -504,6 +504,8 @@
 	font-size: 18px;
 	line-height: 21px;
 	/* identical to box height */
+	padding: 20px;
+	margin-top: 30px;
 
 	color: #828282;
 
@@ -512,7 +514,6 @@
 .removeModal {
 	margin-top: 40px;
 	width: 100%;
-	border: 2px solid red;
 
 
 
@@ -528,7 +529,7 @@
 }
 
 .buttonModalwrap {
-	margin: 40px 20px;
+	padding: 20px 40px;
 }
 
 .buttonModal {
@@ -724,11 +725,6 @@
 	padding-inline: 50px;
 	margin-bottom: 0;
 
-
-	.userContent {
-		margin-top: 49px;
-
-	}
 }
 
 .label {
@@ -887,4 +883,35 @@
 	padding: 20px;
 	margin: 20px;
 	cursor: pointer;
+}
+
+.success {
+	font-family: 'Avenir';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 12px !important;
+	line-height: 16px;
+	text-align: center !important;
+	background: #D6FFE7 !important;
+	border-radius: 20px !important;
+	color: #006629 !important;
+}
+
+.danger {
+	font-family: 'Avenir';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 19px;
+	text-transform: capitalize;
+	color: #EB5757;
+}
+
+
+::-webkit-scrollbar {
+	display: none;
+}
+
+.key {
+	color: red;
 }

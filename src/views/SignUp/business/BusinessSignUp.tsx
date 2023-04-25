@@ -26,6 +26,8 @@ import { useEffect, useState } from 'react';
 import { ValidateIndividual } from '../../../components/validation/OnboadingValidate';
 import CustomSelect from '../../../components/customs/CustomSelect';
 import CustomCategory from '../../../components/customs/CustomCategory';
+import CustomPhoneNumber from '../../../components/customs/CustomPhoneInput';
+import CustomInputField from '../../../components/customs/CustomInputField';
 
 
 const createAccount = [
@@ -274,94 +276,30 @@ const BusinessSignUp = () => {
 
 										</Grid>
 										<Grid item xs={12} md={5.6} mb="18px">
-											<InputLabel className={styles.formTitle}>Phone number</InputLabel>
-											{/* <MuiPhoneNumber variant='outlined' name='phonenumber'
-												fullWidth defaultCountry={'us'} value={phone} onChange={(e) => setPhone(e)}
-												helperText={
-													<ErrorMessage name='phonenumber'>
-														{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
-													</ErrorMessage>
-												}
-											/> */}
 
-											<Field
-												as={TextField}
-												helperText={
-													<ErrorMessage name="phonenumber">
-														{(msg) => <span style={{ color: "red" }}>{msg}</span>}
-													</ErrorMessage>
-												}
-												name="phonenumber"
-												placeholder="phonenumber"
-												// margin="normal"
-												type="text"
-												size="small"
-												fullWidth
-											// defaultValue={id}
+											<CustomPhoneNumber as={TextField} label={"Phone number"} placeholder="09069003426" name="phonenumber" />
 
-											/>
 										</Grid>
 
 
 
 										<Grid item xs={12} md={5.6} mb="18px">
-											<InputLabel>
-												<span className={styles.formTitle}>First name</span>
-											</InputLabel>
-											<Field
-												as={TextField}
-												helperText={
-													<ErrorMessage name="firstname">
-														{(msg) => <span style={{ color: "red" }}>{msg}</span>}
-													</ErrorMessage>
-												}
-												name="firstname"
-												placeholder="firstname"
-												// margin="normal"
-												type="text"
-												size="small"
-												fullWidth
-											// defaultValue={id}
+											<CustomInputField label={"First name"} name="firstname" as={TextField} placeholder="First name" />
 
-											/>
 										</Grid>
+
+
+
 										<Grid item xs={12} md={5.6} mb="18px">
-											<InputLabel>
-												<span className={styles.formTitle}>Trading/Business name</span>
-											</InputLabel>
-											<Field
-												as={TextField}
-												helperText={
-													<ErrorMessage name='businessname'>
-														{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
-													</ErrorMessage>
-												}
-												name='businessname'
-												variant='outlined'
+											<CustomInputField label={"Trading/Business name"} name="businessname" as={TextField} placeholder="businessname" />
 
-												type='text'
-
-												fullWidth
-											/>
 										</Grid>
+
+
+
 										<Grid item xs={12} md={5.6} mb="18px">
-											<InputLabel>
-												<span className={styles.formTitle}>Last name</span>
-											</InputLabel>
-											<Field
-												as={TextField}
+											<CustomInputField label={"Last name"} name="lastname" as={TextField} placeholder="lastname" />
 
-
-												helperText={
-													<ErrorMessage name='lastname'>
-														{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
-													</ErrorMessage>
-												}
-												name='lastname'
-												variant='outlined'
-												fullWidth
-
-											/>
 										</Grid>
 										<Grid item xs={12} md={5.6} mb="18px">
 											<InputLabel>
@@ -382,44 +320,13 @@ const BusinessSignUp = () => {
 											/>
 										</Grid>
 										<Grid item xs={12} md={5.6} >
-											<InputLabel>
-												<span className={styles.formTitle}>Email</span>
-											</InputLabel>
-											<Field
-												as={TextField}
-												helperText={
-													<ErrorMessage name='email'>
-														{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
-													</ErrorMessage>
-												}
-												name='email'
-												variant='outlined'
-												placeholder='Email'
-												type='email'
 
-												fullWidth
 
-											/>
+											<CustomInputField label={"Email"} name="email" as={TextField} placeholder="email" />
+
 										</Grid>
 										<Grid item xs={12} md={5.6} >
-											<InputLabel>
-												<span className={styles.formTitle}>Password</span>
-											</InputLabel>
-											<Field
-												as={TextField}
-												helperText={
-													<ErrorMessage name='password'>
-														{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
-													</ErrorMessage>
-												}
-												name='password'
-												variant='outlined'
-												placeholder='password'
-												type='password'
-
-												fullWidth
-
-											/>
+											<CustomInputField label={"Password"} name="password" as={TextField} placeholder="password" />
 
 										</Grid>
 										{/* <InputLabel className={styles.mt}></InputLabel> */}

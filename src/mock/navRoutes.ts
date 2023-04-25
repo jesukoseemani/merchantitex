@@ -231,9 +231,15 @@ export const navRoutes: NavProps[] = [
       },
       {
         id: 29,
+        title: "Payment method",
+        icon: BillIcon,
+        link: "/general_setting/paymentmethod",
+      },
+      {
+        id: 43,
         title: "Permissions",
         icon: PermisionIcon,
-        link: "/general_setting/permissions/administrator",
+        link: "/general_setting/permissions",
       },
       {
         id: 26,

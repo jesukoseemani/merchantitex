@@ -52,7 +52,7 @@ const QuickUpdate = () => {
 
 	useEffect(() => {
 		axios
-			.get(`/merchant/account/me`)
+			.get(`/v1/profile/me`)
 			.then((res) => {
 				dispatch(saveMe(res.data));
 			})

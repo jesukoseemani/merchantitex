@@ -16,27 +16,37 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import TextTruncate from 'react-text-truncate';
 import ParentContainer from '../../components/ParentContainer/ParentContainer';
 import { Box } from '@mui/material';
+import { closeModal } from '../../redux/actions/modal/modalActions';
+
+
+interface Props {
+	code: string;
+	message: string;
+}
 
 const Api = () => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const open = Boolean(anchorEl);
 	const [openModal, setOpenModal] = useState(false);
 	const { userDetails } = useSelector((state) => state?.userDetailReducer);
-
+	const [key, setKey] = useState<any>()
 	const dispatch = useDispatch();
 
-	const authKeys = () => {
+
+
+
+	const getKey = () => {
 		dispatch(openLoader());
-		axios
-			.post(`/transaction/authenticate`, {
-				publickey: userDetails?.key[0]?.publickey,
-				privatekey: userDetails?.key[0]?.privatekey,
-			})
+		axios.get<any>(`/v1/developer/api`)
 			.then((res: any) => {
-				const { customers, message } = res?.data;
+				console.log(res, 'KEYS');
+				const { keys } = res?.data;
+				// const { account } = business?.settlement;
+
+				setKey(keys);
 				dispatch(closeLoader());
 			})
-			.catch((error) => {
+			.catch((error: any) => {
 				dispatch(closeLoader());
 				if (error.response) {
 					const { message } = error.response.data;
@@ -44,35 +54,60 @@ const Api = () => {
 						openToastAndSetContent({
 							toastContent: message,
 							toastStyles: {
-								backgroundColor: 'red',
-							},
-						})
-					);
-				} else if (error.request) {
-					dispatch(
-						openToastAndSetContent({
-							toastContent: 'Error occured',
-							toastStyles: {
-								backgroundColor: 'red',
-							},
-						})
-					);
-				} else {
-					dispatch(
-						openToastAndSetContent({
-							toastContent: error.message,
-							toastStyles: {
-								backgroundColor: 'red',
+								backgroundColor: "red",
 							},
 						})
 					);
 				}
 			});
-	};
-
+	}
 	useEffect(() => {
-		authKeys();
-	}, []);
+		getKey()
+	}, [])
+
+
+	// generate key
+
+	const generateKey = async () => {
+		dispatch(openLoader());
+		try {
+			const { data } = await axios.post<Props>(`/v1/developer/api/generate`)
+			console.log(data);
+			if (data?.code === "success") {
+				dispatch(closeLoader());
+
+				setOpenModal(false)
+				dispatch(
+					openToastAndSetContent({
+						toastContent: data?.message,
+						toastStyles: {
+							backgroundColor: 'green',
+						},
+					})
+				);
+
+
+
+			}
+
+		} catch (error: any) {
+			if (error) {
+				const { message } = error.response.data;
+				dispatch(closeLoader());
+				setOpenModal(false)
+
+
+				dispatch(
+					openToastAndSetContent({
+						toastContent: message,
+						toastStyles: {
+							backgroundColor: 'red',
+						},
+					})
+				);
+			}
+		}
+	}
 
 	const APIModal = () => {
 		return (
@@ -83,7 +118,7 @@ const Api = () => {
 				className={Styles.modalContainer}>
 				<div className={Styles.modalHeader}>
 					<h2>Generate new API keys</h2>
-						<IconButton onClick={() => setOpenModal(false)}>
+					<IconButton onClick={() => setOpenModal(false)}>
 						<CloseIcon />
 					</IconButton>
 				</div>
@@ -97,12 +132,15 @@ const Api = () => {
 				<div className={Styles.modalFooter}>
 					<div className={Styles.btnGroup}>
 						<button style={{ padding: "10px 20px", borderRadius: "20px" }} onClick={() => setOpenModal(false)}>Cancel</button>
-						<button style={{ padding: "10px 20px", borderRadius: "20px" }} className='success'>Proceed</button>
+						<button onClick={generateKey} style={{ padding: "10px 20px", borderRadius: "20px" }} className='success'>Proceed</button>
 					</div>
 				</div>
 			</Modal>
 		);
 	};
+
+
+
 
 	return (
 
@@ -119,8 +157,8 @@ const Api = () => {
 					<div className={Styles.apiListContainer}>
 						<h3>Public key</h3>
 						<div>
-							<span>{userDetails?.key[0]?.publickey ?? '...'}</span>
-							<CopyToClipboard text={userDetails?.key[0]?.publickey ?? '...'}>
+							<span>{key?.publicApiKey}</span>
+							<CopyToClipboard text={key?.publicApiKey.substring(0, 50)}>
 								<IconButton>
 									<CopyIcon />
 								</IconButton>
@@ -130,8 +168,8 @@ const Api = () => {
 					<div className={Styles.apiListContainer}>
 						<h3>Secret key</h3>
 						<div>
-							<span>{userDetails?.key[0]?.privatekey ?? '...'}</span>
-							<CopyToClipboard text={userDetails?.key[0]?.privatekey ?? '...'}>
+							<span>{key?.privateApiKey}</span>
+							<CopyToClipboard text={key?.privateApiKey.substring(0, 50)}>
 								<IconButton>
 									<CopyIcon />
 								</IconButton>
@@ -139,16 +177,17 @@ const Api = () => {
 						</div>
 					</div>
 					<div className={Styles.apiListContainer}>
-						<h3>Encryption key</h3>
+						<h3>Encryption key </h3>
 						<div style={{ maxWidth: '250px', width: '100%' }}>
-							<TextTruncate
+							{/* <TextTruncate
 								line={1}
 								element='span'
 								truncateText='…'
-								text={userDetails?.key[0]?.encryptionkey ?? '...'}
-							/>
-							<CopyToClipboard
-								text={userDetails?.key[0]?.encryptionkey ?? '...'}>
+								text={key?.encryptedPublicApiKey}
+							/> */}
+							<span>{key?.encryptedPublicApiKey?.substring(0, 50)}</span>
+
+							<CopyToClipboard text={key?.encryptedPublicApiKey}>
 								<IconButton>
 									<CopyIcon />
 								</IconButton>

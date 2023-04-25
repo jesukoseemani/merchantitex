@@ -22,17 +22,36 @@ import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
 import { IconButton } from "@material-ui/core";
 import CloseIcon from "@mui/icons-material/Close";
 import ParentContainer from "../../components/ParentContainer/ParentContainer";
-import { Box, Checkbox } from "@mui/material";
+import { Box, Checkbox, Stack } from "@mui/material";
+import EditIcon from "../../assets/images/editicon.svg"
+import DeleteIcon from "../../assets/images/delete.svg"
+import { CircleFlag } from 'react-circle-flags'
+import { ReactSVG } from "react-svg";
+import { openModalAndSetContent } from "../../redux/actions/modal/modalActions";
+import AddBank from "./AddBank";
+import { fetchBankAcct } from "../../redux/actions/settings/BankAccount";
+import Navigation from "../../components/navbar/Navigation";
 
 
+interface TransactionsProps {
+  id?: number;
+  accountname: string;
+  accountnumber: number;
+  accounttype?: string;
+  createdat?: string;
+  swiftcode?: string;
+  sortcode?: string;
+  iban?: string;
+  merchantaccountid?: number;
+  merchantaccountsettlementaccountid?: number;
+  bank: string;
+  bankcode: number;
+  currency: string;
+  country: string;
+  status: string;
+
+}
 const BankAccounts = () => {
-  interface TransactionsProps {
-    accountname: string;
-    accountnumber: number;
-    bankname: string;
-    currency: string;
-    status: string;
-  }
   const [rows, setRows] = useState<TransactionsProps[]>([]);
   const [settlements, setSettlement] = useState<TransactionsProps[]>();
   const [pageNumber, setPageNumber] = useState<number>(1);
@@ -43,32 +62,28 @@ const BankAccounts = () => {
   const [openModal, setOpenModal] = useState(false);
 
   const dispatch = useDispatch();
-  const bankData = useSelector((state) => state?.countryReducer?.country.banks);
 
 
-  const countryOptions = [{ key: 1, value: "nigeria", text: "Nigeria" }];
-  const currencyOptions = [
-    { key: 1, value: "ngn", text: "NGN" },
-    { key: 2, value: "usd", text: "USD" },
-  ];
 
-  const bankOptions = [
-    { key: 1, value: "Access bank", text: "Access bank" },
-    { key: 2, value: "GTB", text: "GTBank" },
-  ];
+
+
+
+
 
   const getTransactions = () => {
     dispatch(openLoader());
     axios
-      .get(`/merchant/account/me?page=${pageNumber}&perpage=${rowsPerPage}`)
+      .get<any>(`/v1/setting/settlement/account?page=${pageNumber}&perpage=${rowsPerPage}`)
       .then((res: any) => {
-        const { business } = res?.data;
-        const { account } = business?.settlement;
-        setTotalRows(account?.length);
-        setSettlement(account);
+        const { accounts } = res?.data;
+        // const { account } = business?.settlement;
+        console.log(accounts, "accounts")
+        setTotalRows(accounts?.length);
+        setSettlement(accounts);
+        dispatch(fetchBankAcct(accounts))
         dispatch(closeLoader());
       })
-      .catch((error) => {
+      .catch((error: any) => {
         dispatch(closeLoader());
         if (error.response) {
           const { message } = error.response.data;
@@ -121,15 +136,12 @@ const BankAccounts = () => {
     setRowsPerPage(value);
   };
 
-  const paymentOption = [
-    { key: 1, value: "card", text: "Card" },
-    { key: 2, value: "transfer", text: "Transfer" },
-  ];
   interface Column {
     id:
-    | "account_name"
-    | "account_number"
-    | "bank_name"
+    | "accountnumber"
+    | "accountname"
+    | "bank"
+    | "country"
     | "currency"
     | "status"
     | "action";
@@ -138,39 +150,59 @@ const BankAccounts = () => {
     align?: "right" | "left" | "center";
   }
   const columns: Column[] = [
-    { id: "account_name", label: "Account name", minWidth: 100 },
-    { id: "account_number", label: "Account number", minWidth: 100 },
-    { id: "bank_name", label: "Bank name", minWidth: 200 },
+    { id: "accountname", label: "Beneficiary", minWidth: 200 },
+    { id: "accountnumber", label: "Account number", minWidth: 100 },
+    { id: "bank", label: "Beneficiary Bank", minWidth: 200 },
+    { id: "country", label: "Country", minWidth: 100 },
     { id: "currency", label: "Currency", minWidth: 100 },
-    { id: "status", label: "Status", minWidth: 100 },
+    { id: "status", label: "Ranking", minWidth: 100 },
     { id: "action", label: "Action", align: "right", minWidth: 100 },
   ];
-  const LoanRowTab = useCallback(
-    (
-      account_name: string,
-      account_number: number,
-      bank_name: string,
-      currency: string,
-      status: string
-    ) => ({
-      account_name,
-      account_number,
-      bank_name,
-      currency: 'NGN',
-      status: (
-        <Label
-          className={
-            status?.toLowerCase() === 'primary'
-              ? 'success'
-              : status?.toLowerCase() === 'new'
-                ? 'warning'
-                : 'danger'
-          }>
-          {status}
-        </Label>
-      ),
-      action: <IconButton className='action text-success'>Edit</IconButton>,
-    }),
+  const LoanRowTab = useCallback((
+    accountname?: string,
+    accountnumber?: number,
+    bank?: string,
+    country?: string,
+    currency?: string,
+    status?: string,
+    bankcode?: number,
+    id?: number,
+    merchantaccountsettlementaccountid?: number,
+    accounttype?: string,
+    createdat?: string,
+    swiftcode?: string,
+    sortcode?: string,
+    iban?: string,
+    merchantaccountid?: number,
+
+
+  ) => ({
+
+    accountname: accountname?.toLowerCase(),
+    accountnumber,
+    bank: bank?.toLowerCase(),
+    country: (<Box display={"flex"} alignItems={"center"} gap={1}><CircleFlag countryCode={`${country?.toLocaleLowerCase()}`} height="20" />{country}</Box>),
+    currency,
+    status: (
+      <Label
+        className={
+          status?.toLowerCase() === 'active'
+            ? Styles.success
+            : status?.toLowerCase() === 'inactive'
+              ? 'warning'
+              : 'danger'
+        }>
+        {status}
+      </Label>
+    ),
+    id,
+    bankcode,
+    action: (<Stack direction={"row"}>
+      <IconButton onClick={() => handleEditBAnk({ data: { id, accountnumber, currency, bank, accountname, country, bankcode } })}><ReactSVG src={EditIcon} /></IconButton>
+      <IconButton><ReactSVG src={DeleteIcon} /></IconButton>
+
+    </Stack>),
+  }),
     []
   );
   useEffect(() => {
@@ -180,71 +212,90 @@ const BankAccounts = () => {
         LoanRowTab(
           each.accountname,
           each.accountnumber,
-          each.bankname,
+          each.bank,
+          each.country,
           each.currency,
-          each.status
+          each.status,
+          each.bankcode,
+          each.id,
+          each.merchantaccountsettlementaccountid,
+          each.createdat,
+          each.sortcode,
+          each.accounttype,
+          each.iban,
+          // each.merchantaccountid
         )
       )
     );
     setRows(newRowOptions);
   }, [settlements, LoanRowTab]);
 
-  const AccountModal = () => {
-    return (
-      <Modal
-        onClose={() => setOpenModal(false)}
-        onOpen={() => setOpenModal(true)}
-        open={openModal}
-        className={Styles.modalContainer}
-      >
-        <div className={Styles.modalHeader}>
-          <h2>Add a bank account</h2>
-          <IconButton onClick={() => setOpenModal(false)}>
-            <CloseIcon />
-          </IconButton>
-        </div>
-        <Form.Field className={Styles.inputWrapper}>
-          <label>Country</label>
-          <Select placeholder="Select country" options={countryOptions} style={{ height: "44px" }} />
-        </Form.Field>
-        <Form.Field className={Styles.inputWrapper}>
-          <label>Account currency</label>
-          <Select placeholder="Select currency" options={currencyOptions} style={{ height: "44px" }} />
-        </Form.Field>
-        <Form.Field className={Styles.inputWrapper}>
-          <label>Bank name</label>
-          <Select placeholder="" options={bankData} style={{ height: "44px" }} />
-        </Form.Field>
-        <Form.Field className={Styles.inputWrapper}>
-          <label>Account number</label>
-          <input placeholder="1234567890" />
-        </Form.Field>
-        <p className={Styles.resolved}>Resolved Account name</p>
-        {/* <Checkbox
-          className={Styles.checkmark}
-          label=""
-        /> */}
 
 
-        <h5 className={Styles.checkmark}><Checkbox />Make my profile visible</h5>
-        <div className={Styles.modalFooter}>
-          <Button style={{ borderRadius: "20px" }}>Continue</Button>
-        </div>
-      </Modal>
+  const handleEditBAnk = (data: any) => {
+    dispatch(
+      openModalAndSetContent({
+        modalStyles: {
+          padding: 0,
+          borderRadius: 20,
+          minHeight: "600px"
+
+        },
+        modalTitle: 'Add/Edit Bank',
+        modalContent: (
+          <div className={Styles.modalDiv}>
+            <AddBank data={data} getTransactions={getTransactions} />
+          </div>
+        ),
+      })
     );
-  };
+  }
+  const showBankModal = (data: any) => {
+    dispatch(
+      openModalAndSetContent({
+        modalStyles: {
+          padding: 0,
+          borderRadius: 20,
+          minHeight: "600px"
+
+        },
+        modalTitle: 'Add/Edit Bank',
+        modalContent: (
+          <div className={Styles.modalDiv}>
+            <AddBank data="" title='Add/Edit Bank' getTransactions={getTransactions} />
+          </div>
+        ),
+      })
+    );
+  }
+
+
+
+
+
+  // const AccountModal = () => {
+  //   return (
+  //     // <Modal
+  //     //   onClose={() => setOpenModal(false)}
+  //     //   onOpen={() => setOpenModal(true)}
+  //     //   open={openModal}
+  //     //   className={Styles.modalContainer}
+  //     // >
+  //     //   <AddBank data="" title='Add/Edit Bank' getTransactions={getTransactions} />
+  //     // </Modal>
+  //   );
+  // };
 
   return (
-
     <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
-      <AccountModal />
+
 
       <div className={Styles.container}>
         <div className={Styles.formHeader}>
           <div>
-            <h2>Settlement bank accounts</h2>
+            <h2>{settlements?.length} Settlement bank accounts </h2>
           </div>
-          <Button style={{ borderRadius: "20px" }} onClick={() => setOpenModal(true)} className="success">
+          <Button style={{ borderRadius: "20px" }} onClick={showBankModal} className="success">
             + Add bank account
           </Button>
         </div>

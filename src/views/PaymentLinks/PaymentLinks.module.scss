@@ -284,3 +284,27 @@
 	// 	}
 	// }
 }
+
+
+
+.headerTitle {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid #E0E0E0;
+	padding: 20px 40px;
+	position: sticky;
+	top: -13px;
+	margin-bottom: 27px;
+	z-index: 9999 !important;
+	background: #fff;
+
+	h2 {
+		font-family: 'Avenir';
+		font-style: normal;
+		font-weight: 500;
+		font-size: 18px;
+		line-height: 20px;
+		color: #000000,
+	}
+}

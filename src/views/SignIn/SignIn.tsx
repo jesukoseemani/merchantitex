@@ -25,6 +25,45 @@ import TwoFaAuth from './TwoFaAuth';
 
 const SignIn = () => {
 
+
+
+	useEffect(() => {
+		dispatch(openLoader());
+		const fetchCountry = async () => {
+
+			try {
+
+				const { data } = await axios.get<any>("/resource/countries")
+				dispatch(saveCountry(data?.countries))
+
+
+				dispatch(closeLoader());
+
+			} catch (error: any) {
+				dispatch(closeLoader());
+				const { message } = error.response.data;
+				dispatch(
+					dispatch(
+						openToastAndSetContent({
+							toastContent: message,
+							toastStyles: {
+								backgroundColor: "red",
+							},
+						})
+					)
+				);
+			} finally {
+				dispatch(closeLoader());
+			}
+		}
+
+
+		fetchCountry()
+	}, [])
+
+
+
+
 	const StyledTextField = styled(TextField, {
 		name: "StyledTextField",
 	})({
@@ -66,8 +105,13 @@ const SignIn = () => {
 					.then((res: any) => {
 						console.log(res?.data)
 						dispatch(closeLoader());
-						dispatch(saveAuth(res?.data));
+
 						if (res?.data?.code === "success") {
+							dispatch(saveAuth(res?.data));
+							history.push({
+								pathname: "/signin/2fa",
+								state: res?.data?.twofa_token
+							})
 
 							if (res?.data?.twofa_token !== null) {
 								console.log(res?.data?.twofa_token);
@@ -81,19 +125,7 @@ const SignIn = () => {
 									})
 								)
 
-								dispatch(
-									openModalAndSetContent({
-										modalStyles: {
-											// boxShadow: '-4px 4px 14px rgba(224, 224, 224, 0.69)',
-											backgroundColor: "transparent !important"
-										},
-										modalContent: (
-											<div className='modalDiv' >
-												<TwoFaAuth token={res?.data?.twofa_token} />
-											</div>
-										),
-									})
-								);
+
 							} else {
 								history.push('/');
 								dispatch(saveUserDetail(res?.data?.user));
