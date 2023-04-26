@@ -14,8 +14,7 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
 import { makeStyles } from "@material-ui/styles";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
-import { useHistory } from "react-router-dom";
-import { GetSettlementsRes, SettlementItem } from "../../types/BalanceTypes";
+import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import moment from "moment";
 import {
@@ -29,6 +28,12 @@ import axios from "axios";
 import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
 import CustomClickTable from "../../components/table/CustomClickTable";
 import CloseOutlined from "@mui/icons-material/CloseOutlined";
+import { getDownloadedSettlements, getSettlementsService } from "../../services/settlement";
+import { Settlement } from "../../types/Settlement";
+import { getSettlementStatus } from "../../utils/status";
+import { stripSearch } from "../../utils";
+import useDownload from "../../hooks/useDownload";
+import { BASE_URL } from "../../config";
 
 const useBtnStyles = makeStyles({
   root: {
@@ -156,14 +161,18 @@ const Settlements = () => {
 
   const history = useHistory();
 
+  const { search } = useLocation();
+
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
-  const [settlements, setSettlements] = useState<SettlementItem[]>([]);
-  const [rows, setRows] = useState<SettlementItem[]>([]);
+  const [settlements, setSettlements] = useState<Settlement[]>([]);
+  const [rows, setRows] = useState<Settlement[]>([]);
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
   const [totalRows, setTotalRows] = useState<number>(0);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const { calDownload } = useDownload({ url: `${BASE_URL}/settlement/download`, filename: 'settlement' })
+
 
   const dispatch = useDispatch();
 
@@ -210,8 +219,8 @@ const Settlements = () => {
         </p>
       ),
       status: (
-        <p className={styles[statusFormatObj[status] || "pendingText"]}>
-          {status}
+        <p className={styles[statusFormatObj[getSettlementStatus(status)] || "pendingText"]}>
+          {getSettlementStatus(status)}
         </p>
       ),
       destination: <p className={styles.tableBodyText}>{destination}</p>,
@@ -231,14 +240,14 @@ const Settlements = () => {
 
   useEffect(() => {
     const newRowOptions: any[] = [];
-    settlements?.map((each: SettlementItem) =>
+    settlements?.map((each: Settlement) =>
       newRowOptions.push(
         SettlementRowTab(
-          each?.amt,
-          each?.status,
-          each?.destination,
-          each?.added,
-          each?.id
+          each?.chargeamount,
+          each?.responsecode,
+          each?.settlementaccountname,
+          each?.settlementdate,
+          each?.settlementid
         )
       )
     );
@@ -248,22 +257,20 @@ const Settlements = () => {
   const getSettlements = async () => {
     dispatch(openLoader());
     try {
-      const res = await axios.get<GetSettlementsRes>(
-        "/mockData/settlements.json",
-        { baseURL: "" }
-      );
-      const { settlements, _metadata } = res?.data;
-      if (settlements.length) {
-        setSettlements(settlements);
-        setTotalRows(_metadata?.totalcount);
-      }
+      const res = await getSettlementsService({
+        page: pageNumber,
+        perpage: rowsPerPage,
+        search: stripSearch(search)
+      });
+      setSettlements(res?.settlements || []);
+      setTotalRows(res?._metadata?.totalcount);
       dispatch(closeLoader());
-    } catch (err) {
+    } catch (err: any) {
       console.log(err);
       dispatch(closeLoader());
       dispatch(
         openToastAndSetContent({
-          toastContent: "Failed to get settlements",
+          toastContent: err?.response?.data?.message || "Failed to get settlements",
           toastStyles: {
             backgroundColor: "red",
           },
@@ -274,7 +281,7 @@ const Settlements = () => {
 
   useEffect(() => {
     getSettlements();
-  }, [pageNumber, rowsPerPage]);
+  }, [pageNumber, rowsPerPage, search]);
 
   return (
 
@@ -344,7 +351,7 @@ const Settlements = () => {
                 <FilterAltOutlinedIcon /> Filter by:
               </Button>
             </div>
-            <Button>
+            <Button onClick={calDownload}>
               <InsertDriveFileOutlinedIcon /> Download
             </Button>
           </div>

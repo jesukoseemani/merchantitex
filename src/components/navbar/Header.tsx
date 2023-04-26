@@ -27,7 +27,9 @@ interface Props {
 }
 
 const Header = ({ title }: Props) => {
-  const [alignment, setAlignment] = React.useState(false);
+  const [alignment, setAlignment] = React.useState("live server");
+  const [search, setSearch] = useState('');
+  const history = useHistory()
   const dispatch = useDispatch()
 
   const handleAlignment = async (
@@ -65,8 +67,13 @@ const Header = ({ title }: Props) => {
     setAlignment(userDetails?.islivetoogle);
   }, [alignment]);
 
+  useEffect(() => {
+    setSearch('')
+  }, [pathname])
 
-
+  useEffect(() => {
+    history.replace({ pathname, search })
+  }, [search])
 
 
   const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
@@ -172,6 +179,8 @@ const Header = ({ title }: Props) => {
                 <OutlinedInput
                   id="outlined-adornment-amount"
                   placeholder="Search"
+                  value={search}
+                  onChange={e => setSearch(e.target.value)}
                   startAdornment={<InputAdornment position="start"> <SearchOutlinedIcon /></InputAdornment>}
                   sx={{
                     background: " #FBFBFB",
