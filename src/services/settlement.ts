@@ -27,4 +27,9 @@ export const getSingleSettlement = async (settlementId: string): Promise<{ settl
     return data as { settlement: Settlement }
 }
 
+export const getSettlementAccounts = async (): Promise<{ accounts: any }> => {
+    const { data } = await axios.get('/v1/setting/settlement/account');
+    return data as any
+}
+
 

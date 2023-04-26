@@ -1,10 +1,11 @@
 import axios from "axios";
+import { PayoutRes } from "../types/Payout";
 import { RefundQuery, RefundsRes } from "../types/RefundTypes";
 import { stringify } from "../utils/stringify";
 
-export const getPayoutService = async (query?: Partial<RefundQuery>): Promise<RefundsRes> => {
+export const getPayoutService = async (query?: Partial<RefundQuery>): Promise<PayoutRes> => {
     const { data } = await axios.get(`/v1/payout${stringify(query!)}`);
-    return data as RefundsRes;
+    return data as PayoutRes;
 }
 
 export const getDownloadedPayout = async (query?: Partial<RefundQuery>) => {
