@@ -1,0 +1,1 @@
+export const BASE_URL = 'https://staging.itex-pay.com/ipgmerchant/api/v1'

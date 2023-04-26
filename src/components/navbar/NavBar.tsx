@@ -208,7 +208,6 @@ const NavBar = () => {
                 onClick={() => subChangeHandler(link, title)}
                 className={link === pathname ? Styles.active : Styles.routes}
               >
-                {/* <img src={icon} alt={name} /> */}
 
                 <ReactSVG src={icon} className={Styles.linkIcon} />
                 {title}

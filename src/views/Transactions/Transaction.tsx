@@ -16,11 +16,14 @@ import {
 import moment from "moment";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 
-import { TransactionItem } from "../../types/Transaction";
+import { TransactionResponse } from "../../types/Transaction";
 import { Box, Grid, IconButton } from "@mui/material";
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
+import { getTransactionStatus } from "../../utils/status";
+import { getTransactionByPaymentId } from "../../services/transaction";
+import { statusFormatObj } from "../../helpers";
 
 export default function Transaction() {
 
@@ -28,59 +31,28 @@ export default function Transaction() {
 
 
 	let { id } = useParams<{ id: string }>();
-	const [transaction, setTransaction] = useState<any>({});
+	const [transaction, setTransaction] = useState<TransactionResponse | null>(null);
 	const [activeStep, setActiveStep] = useState(0);
 
-	const location = useLocation<{ rowData: string }>();
 	const history = useHistory();
-	if (!location.state.rowData) {
-		history.replace("/bills/invoice");
-	}
-
-	const { rowData } = location.state;
-
-	const formattedRowData: TransactionItem = JSON.parse(rowData);
-
-	const {
-		amt, PaymentType, acctId, status, added, cardType,
-		cardNumber, reference, transfee } = formattedRowData;
 
 	const dispatch = useDispatch();
 
-	const getTransactions = () => {
-		dispatch(openLoader());
-		axios
-			.get(`/merchant/transactions?merchantreference=${id}`)
-			.then((res: any) => {
-				const {
-					transactions,
-					_metadata: { totalcount },
-				} = res?.data;
-				setTransaction(transactions[0]);
-				dispatch(closeLoader());
-			})
-			.catch((err) => {
-				console.log(err);
-				dispatch(closeLoader());
+	const getTransactions = async () => {
+		try {
+			const res = await getTransactionByPaymentId(id);
+			setTransaction(res || null)
+		} catch (error) {
 
-			});
+		}
 	};
 
 	useEffect(() => {
 		getTransactions();
 	}, [id]);
 
-	// const status = "successful";
-	// const { amount, currency } = transaction?.order ?? "";
-	// const { added, reference } = transaction?.transaction ?? "";
 
-	// const { email, card } = transaction?.source?.customer ?? "";
-
-	const statusFormatObj: { [key: string]: string } = {
-		successful: "wonText",
-		failed: "lostText",
-		pending: "pendingText",
-	};
+	if (!transaction) return null;
 	return (
 
 		<div className={Styles.container}>
@@ -97,9 +69,9 @@ export default function Transaction() {
 			<Box className={Styles.sectionOne}>
 				<div className={Styles.headerTitle}>
 					<div className={Styles.amt_box}>
-						<p>NGN{amt ?? 0}</p>
+						<p>NGN{transaction?.transaction?.amount ?? 0}</p>
 
-						<Label className={Styles[statusFormatObj[status] || "pendingText"]}>{status}</Label>
+						<Label className={Styles[statusFormatObj[getTransactionStatus(transaction?.transaction?.responsecode)!] || "pendingText"]}>{getTransactionStatus(transaction?.transaction?.responsecode!)! || ''}</Label>
 					</div>
 					<Button className={Styles.refundBtn}>Refund customer</Button>
 				</div>
@@ -108,25 +80,25 @@ export default function Transaction() {
 					<div>
 						<div>
 							<span>Date / Time</span>
-							<h2>{moment(added).format('LLL')}</h2>
+							<h2>{moment(transaction?.transaction?.timein).format('LLL')}</h2>
 						</div>
 					</div>
 					<div>
 						<div>
 							<span>Customer</span>
-							<h2>{acctId}</h2>
+							<h2>{transaction?.transaction?.customer?.customerid || ''}</h2>
 						</div>
 					</div>
 					<div>
 						<div>
 							<span>Card type</span>
-							<h2>{<VisaIcon />}</h2>
+							<h2>{transaction?.transaction?.chargetype}</h2>
 						</div>
 					</div>
 					<div>
 						<div>
 							<span>Card number</span>
-							<h2>{cardNumber}</h2>
+							<h2>{transaction?.transaction?.mask}</h2>
 						</div>
 					</div>
 
@@ -135,8 +107,6 @@ export default function Transaction() {
 			</Box>
 
 			<Box className={Styles.sectionTwo} >
-
-
 				<div className={Styles.headerTitle}>
 					<h2>Payment information</h2>
 				</div>
@@ -144,8 +114,8 @@ export default function Transaction() {
 					<Grid container spacing={2} justifyContent="flex-start" alignItems={"center"}>
 						<Grid item xs={12} sm={4} md={3.4}>
 							<span>Payment reference</span>
-							<h2>
-								{reference}
+							<h2 style={{ wordWrap: 'break-word' }}>
+								{transaction?.transaction?.paymentlinkreference}
 								<IconButton>
 									<CopyIcon />
 								</IconButton>
@@ -153,19 +123,19 @@ export default function Transaction() {
 						</Grid>
 						<Grid item xs={12} sm={4} md={1.8}>
 							<span className={Styles.timeline}>Transaction Fee</span>
-							<h2>{transfee ?? 0}</h2>
+							<h2>{transaction?.transaction?.fee || 0}</h2>
 						</Grid>
 						<Grid item xs={12} sm={4} md={1.8}>
 							<span>Country/Region</span>
-							<h2>Lagos, Nigeria</h2>
+							<h2>{transaction?.transaction?.paylocationcountry}</h2>
 						</Grid>
 						<Grid item xs={12} sm={4} md={1.8}>
 							<span>Bank name</span>
-							<h2>Access Bank</h2>
+							{/* <h2>Access Bank</h2> */}
 						</Grid>
 						<Grid item xs={12} sm={4} md={3.2}>
 							<span>ITEX Reference</span>
-							<h2>ITEX-ab95cf961f454669a4</h2>
+							<h2>{transaction?.transaction?.paymentid}</h2>
 						</Grid>
 					</Grid>
 

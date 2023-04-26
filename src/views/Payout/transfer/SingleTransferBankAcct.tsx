@@ -7,16 +7,22 @@ import { banks } from '../../../helpers/bankslists';
 import { useDispatch } from 'react-redux';
 import { openModalAndSetContent } from '../../../redux/actions/modal/modalActions';
 import Confirmation from './Confirmation';
-import { styled } from '@mui/system';
 
-const SingleTransferBankAcct = () => {
+const DATA = {
+    balance: '',
+    amount: '',
+    account: '',
+    description: ''
+}
+
+const SingleTransferBankAcct = ({ close }: { close: () => void }) => {
     const [bankAcct, setBankAcct] = useState(null)
-    const dispatch = useDispatch()
-
-
+    const dispatch = useDispatch();
+    const [form, setForm] = useState<typeof DATA>(DATA)
 
 
     const handleSubmit = () => {
+        close()
         dispatch(
             openModalAndSetContent({
                 modalStyles: {
@@ -28,7 +34,7 @@ const SingleTransferBankAcct = () => {
                 },
                 modalContent: (
                     <>
-                        <Confirmation />
+                        <Confirmation form={form} />
                     </>
                 ),
             })
@@ -48,14 +54,14 @@ const SingleTransferBankAcct = () => {
                     </TextField>
                 </Grid>
                 <Grid item xs={12} sx={{ marginBottom: "17px" }}>
-                    <InputLabel>Transfer amount</InputLabel>
+                    <InputLabel>Payment amount</InputLabel>
                     <OutlinedInput fullWidth placeholder='NGN 0.0' />
 
 
                 </Grid>
 
                 <Grid item xs={12} sx={{ marginBottom: "17px" }}>
-                    <InputLabel>Bank name</InputLabel>
+                    <InputLabel>Select Beneficiary account</InputLabel>
                     <TextField fullWidth select value={bankAcct} >
                         {banks?.map(({ id, name }) => (
                             <Box sx={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
@@ -67,31 +73,18 @@ const SingleTransferBankAcct = () => {
 
 
                 </Grid>
-                <Grid item xs={12}>
-                    <InputLabel>Bank Account no</InputLabel>
-                    <OutlinedInput fullWidth placeholder='Bank Account no' />
-
-
-
-                </Grid>
 
             </Grid>
-            <Box className={Styles.box2}>
-                <Stack direction={"row"} justifyContent="space-between" alignItems={"center"}>
-                    <p>James Holiday</p>
-                    <p className={Styles.savebeneficiary}>+ Save as beneficiary</p>
-                </Stack>
-            </Box>
-            <Grid container spacing={2} mt={"75px"}>
+            <Grid container spacing={2} >
                 <Grid item xs={12}>
-                    <InputLabel>Transfer description (optional)</InputLabel>
-                    <OutlinedInput fullWidth placeholder='Bank account' />
+                    <InputLabel>Payout description (optional)</InputLabel>
+                    <OutlinedInput fullWidth placeholder='Enter a description' />
 
-                    <FormHelperText className={Styles.helperText}>
-                        <ErrorOutlineIcon />You will be charged NGN 45  fee for this transaction
-                    </FormHelperText>
+                    <div className={Styles.helperText}>
+                        <ErrorOutlineIcon fontSize='large' /> <span className={Styles.small}>You will be charged NGN 45  fee for this transaction</span>
+                    </div>
                 </Grid>
-                <button onClick={handleSubmit}>Submit</button>
+                <button onClick={handleSubmit}>Continue</button>
             </Grid>
 
 

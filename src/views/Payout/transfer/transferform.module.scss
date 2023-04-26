@@ -208,7 +208,7 @@ label {
         }
 
         .confirmFooter {
-            margin-top: 126px;
+            margin-top: 50px;
 
             p {
                 font-family: 'Avenir';
@@ -235,6 +235,7 @@ label {
 
             button {
                 width: 100%;
+                background: #27AE60;
                 height: 44px;
                 font-family: 'Avenir';
                 font-style: normal;
@@ -249,4 +250,17 @@ label {
             }
         }
     }
+}
+
+.small {
+    font-size: 13px;
+    margin-left: 10px;
+}
+
+.mb {
+    margin-bottom: 30px;
+}
+
+.full {
+    width: 100%;
 }

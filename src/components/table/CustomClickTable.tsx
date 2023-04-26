@@ -97,6 +97,8 @@ export default function CustomClickTable({
 		return;
 	}
 
+	console.log(rows, 'rows')
+
 	return (
 		<Paper className={classes.root}>
 			<TableContainer className={classes.container}>

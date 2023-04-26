@@ -9,12 +9,17 @@ import EmptyTransfers from "../../components/emptyContent/EmptyTransfers";
 import TransfersTable from "../../components/table/TransfersTable";
 import ParentContainer from "../../components/ParentContainer/ParentContainer";
 import Listtransfer from "./transfer/Listtransfer";
+import { getPayoutService } from "../../services/payout";
 
 const Transfers = () => {
   // const { currency } = queryString.parse(location.search);
   const currency = "";
   const currencies = ["NGN", "USD", "EUR", "GBP"];
   const [isEmpty, setIsEmpty] = useState<boolean>(false);
+
+  useEffect(() => {
+    getPayoutService()
+  }, [])
   return (
 
     <div className={Styles.container}>
