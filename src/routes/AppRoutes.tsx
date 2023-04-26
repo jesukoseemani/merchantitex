@@ -205,7 +205,6 @@ export default function AppRoutes() {
 
 
         <Navigation title="">
-
           <>
             <ProtectedRoute
               exact

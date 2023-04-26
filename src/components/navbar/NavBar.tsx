@@ -27,6 +27,8 @@ const style = {
 const NavBar = () => {
   const business = useSelector((state) => state?.meReducer?.me?.business);
   const { auth } = useSelector((state) => state?.authReducer);
+  const { userDetails } = useSelector(state => state?.userDetailReducer)
+
 
   const { pathname } = useLocation();
   const [active, setActive] = React.useState<string | number>(0);
@@ -142,7 +144,7 @@ const NavBar = () => {
           </Stack>
 
 
-          <span>   {auth?.user?.email}</span>
+          <span>{auth?.user?.email}</span>
 
 
         </div>

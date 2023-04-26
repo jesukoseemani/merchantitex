@@ -160,45 +160,46 @@ const DirectorInfo = ({ handleBack, handleNext }: Props) => {
 
 
     const handleUpload = async (e: any) => {
-        try {
-            setImg(e.target.files[0])
+        // console.log(data, e.target.file[0])
+        // try {
+        //     setImg(e.target.files[0])
 
-            const formData = new FormData()
+        //     const formData = new FormData()
 
-            formData.append("file", img)
-            const { data } = await axios.post<any>("/v1/setup/doc/uploader", formData)
-            // console.log(data, e.target.file[0])
-
-
-            if (data) {
-
-                setImgUrl(data?.fileUrl)
-                setImg("")
-                console.log(imgUrl)
-            }
+        //     formData.append("file", img)
+        //     const { data } = await axios.post<any>("/v1/setup/doc/uploader", formData)
+        //     // console.log(data, e.target.file[0])
 
 
+        //     if (data) {
+
+        //         setImgUrl(data?.fileUrl)
+        //         setImg("")
+        //         console.log(imgUrl)
+        //     }
 
 
 
-            dispatch(closeLoader());
 
-        } catch (error: any) {
-            dispatch(closeLoader());
-            const { message } = error?.response.data;
-            dispatch(
-                dispatch(
-                    openToastAndSetContent({
-                        toastContent: message,
-                        toastStyles: {
-                            backgroundColor: "red",
-                        },
-                    })
-                )
-            );
-        } finally {
-            dispatch(closeLoader());
-        }
+
+        //     dispatch(closeLoader());
+
+        // } catch (error: any) {
+        //     dispatch(closeLoader());
+        //     const { message } = error?.response.data;
+        //     dispatch(
+        //         dispatch(
+        //             openToastAndSetContent({
+        //                 toastContent: message,
+        //                 toastStyles: {
+        //                     backgroundColor: "red",
+        //                 },
+        //             })
+        //         )
+        //     );
+        // } finally {
+        //     dispatch(closeLoader());
+        // }
     }
 
 
@@ -214,7 +215,6 @@ const DirectorInfo = ({ handleBack, handleNext }: Props) => {
                 validationSchema={ValidateUploads}
 
                 onSubmit={({ directors }, { setFieldValue }) => {
-                    let direct: any = []
                     // setFieldValue("")
                     // directors.map(({ docUrl, docNumber, address, bvn, email, docType, firstname, lastname, phonenumber }) => {
                     //     direct.push({
@@ -489,7 +489,28 @@ const DirectorInfo = ({ handleBack, handleNext }: Props) => {
                                                             textTransform: "inherit"
                                                         }}>
                                                         <CloudUploadOutlinedIcon fontSize='small' className={styles.downloadIcon} />   choose file to upload
-                                                        <input hidden accept="image/jpeg,image/jpg,image/png,application/pdf,image/JPEG image/PNG,image/JPG," onChange={handleUpload} multiple type="file" id='file' />
+                                                        {/* <input name={`directors.${i}.docUrl`} hidden accept="image/jpeg,image/jpg,image/png,application/pdf,image/JPEG image/PNG,image/JPG," onChange={handleUpload} multiple type="file" id='file' /> */}
+                                                        <div style={{ visibility: 'hidden' }}>
+                                                            <Field
+                                                                as={TextField}
+                                                                name={`directors.${i}.docUrl`}
+                                                                type="file"
+                                                                size="small"
+                                                                fullWidth
+                                                                hidden
+
+                                                                placeholder='Director’s docUrl'
+
+                                                                helperText={
+                                                                    <ErrorMessage name={`directors.${i}.docUrl`}>
+                                                                        {(msg) => <span style={{ color: "red" }}>{msg}</span>}
+                                                                    </ErrorMessage>
+
+                                                                }
+
+                                                            />
+                                                        </div>
+
 
 
                                                     </Button>
