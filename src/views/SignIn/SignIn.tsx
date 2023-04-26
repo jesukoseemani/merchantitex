@@ -34,10 +34,13 @@ const SignIn = () => {
 			try {
 
 				const { data } = await axios.get<any>("/resource/countries")
-				dispatch(saveCountry(data?.countries))
+				
+if(data){
+dispatch(saveCountry(data?.countries))	
+	dispatch(closeLoader());
+}
 
-
-				dispatch(closeLoader());
+				
 
 			} catch (error: any) {
 				dispatch(closeLoader());
