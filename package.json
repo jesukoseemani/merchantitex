@@ -28,6 +28,7 @@
     "eslint-config-react-app": "^6.0.0",
     "export-to-csv": "^0.2.1",
     "express": "^4.17.1",
+    "file-saver": "^2.0.5",
     "formik": "^2.2.9",
     "i": "^0.3.7",
     "jspdf": "^2.5.0",

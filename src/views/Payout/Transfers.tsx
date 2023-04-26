@@ -19,8 +19,6 @@ const Transfers = () => {
 
     <div className={Styles.container}>
 
-
-
       <div className={Styles.panel}>
         <div>
           <div>

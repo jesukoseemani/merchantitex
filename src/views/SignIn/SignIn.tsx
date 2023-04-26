@@ -105,10 +105,9 @@ const SignIn = () => {
 					.then((res: any) => {
 						console.log(res?.data)
 						
-
 						if (res?.data?.code === "success") {
 							dispatch(saveAuth(res?.data));
-							dispatch(closeLoader());
+							
 							history.push({
 								pathname: "/signin/2fa",
 								state: res?.data?.twofa_token

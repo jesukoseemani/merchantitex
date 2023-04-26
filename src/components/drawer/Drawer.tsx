@@ -45,6 +45,7 @@ import AppSettingsAltIcon from "@mui/icons-material/AppSettingsAlt";
 import ComponentListItem from "../drawerListItem/ComponentListItem";
 import AssessmentIcon from "@mui/icons-material/Assessment";
 import { ReactComponent as SettlementIcon } from "../../assets/images/settlement.svg";
+import { useSelector } from 'react-redux'
 
 const merchantOverview = [
   {
@@ -350,6 +351,8 @@ export default function MiniDrawer() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
   const [activeNav, setActiveNav] = React.useState(false);
+  const { userDetails } = useSelector(state => state?.userDetailReducer)
+
 
   const { pathname } = useLocation();
 

@@ -13,8 +13,11 @@ import Styles from "./Navbar.module.scss";
 import { useHistory, useLocation } from "react-router-dom";
 import UserMenu from "../menu/userMenu";
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import axios from "axios";
+import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
+import { FetchProfileDetails } from "../../helpers/FetchProfileDetails";
 
 
 
@@ -24,25 +27,43 @@ interface Props {
 }
 
 const Header = ({ title }: Props) => {
-  const [alignment, setAlignment] = React.useState("live server");
-  const handleAlignment = (
+  const [alignment, setAlignment] = React.useState(false);
+  const dispatch = useDispatch()
+
+  const handleAlignment = async (
     event: React.MouseEvent<HTMLElement>,
     newAlignment: string
   ) => {
-    if (newAlignment !== null) {
-      setAlignment(newAlignment);
+    try {
+
+      const data = await axios.get<any>("/v1/profile/env/toogle")
+      if (data.data.env !== null)
+        dispatch(FetchProfileDetails())
+    } catch (error: any) {
+      const { message } = error.response.data;
+
+      dispatch(
+        openToastAndSetContent({
+          toastContent: message,
+          toastStyles: {
+            backgroundColor: "red",
+          },
+        })
+      )
+
     }
   };
   const { pathname } = useLocation();
-  const [active, setActive] = React.useState(0);
+  const [active, setActive] = React.useState(false);
+  const { userDetails } = useSelector((state) => state?.userDetailReducer);
   const [activeLink, setActiveLink] = useState(null);
   const { navbarRoute } = useSelector((state) => state.navbarReducer);
 
 
 
   useEffect(() => {
-    setActive(0);
-  }, [active]);
+    setAlignment(userDetails?.islivetoogle);
+  }, [alignment]);
 
 
 
@@ -63,8 +84,8 @@ const Header = ({ title }: Props) => {
       fontSize: 10,
       padding: "10px",
       textTransform: "inherit",
-      backgroundColor: alignment === "test server" ? "rgba(206, 165, 40, 0.1)" : "rgba(4, 25, 38, 0.1)",
-      border: alignment === "test server" ? "0.7px solid #CEA528" : "0.7px solid #041926",
+      backgroundColor: !alignment ? "rgba(206, 165, 40, 0.1)" : "rgba(4, 25, 38, 0.1)",
+      border: !alignment ? "0.7px solid #CEA528" : "0.7px solid #041926",
       // border: alignment === "test server" ? "0.7px solid #CEA528" : "0.7px solid #041926",
 
 
@@ -189,18 +210,18 @@ const Header = ({ title }: Props) => {
                 className={Styles.toggleButton}
               >
                 <ToggleButton
-                  value="test server"
+                  value={false}
                   aria-label="left aligned"
-                  onClick={() => setActive(0)}
+                  onClick={() => setActive(false)}
 
                 >
                   Test Server
                 </ToggleButton>
                 <ToggleButton
-                  value="live server"
+                  value={true}
                   aria-label="right aligned"
 
-                  onClick={() => setActive(1)}
+                  onClick={() => setActive(true)}
                 >
                   Live Server
                 </ToggleButton>
