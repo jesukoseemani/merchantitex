@@ -234,6 +234,7 @@ const LinksView = ({ openLinkModal }: LinksViewProps) => {
 			if (paymentlinks.length) {
 				setLinks(paymentlinks);
 				setTotalRows(_metadata?.totalcount);
+				console.log(paymentlinks, "links")
 			}
 			dispatch(closeLoader());
 		} catch (err) {

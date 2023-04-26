@@ -14,7 +14,6 @@ import { closeLoader, openLoader } from '../../../redux/actions/loader/loaderAct
 import CustomInputField from '../../customs/CustomInputField';
 import useCurrency from '../../hooks/Usecurrency';
 import CustomCurrency from '../../formUI/SelectCountry/CustomCurrency';
-import useCustomUpload from '../../hooks/CustomUpload';
 import UseFetch from '../../hooks/UseFetch';
 import CustomerListDropDown from '../../customs/CustomerListDropDown';
 import CustomSelect from '../../customs/CustomSelect';
@@ -30,6 +29,7 @@ import EditIcon from "../../../assets/images/editicon.svg"
 import DeleteIcon from "../../../assets/images/delete.svg"
 import { ReactSVG } from 'react-svg';
 import { Divider } from '@material-ui/core';
+import useCustomUpload from '../../hooks/CustomUpload';
 
 
 
@@ -48,7 +48,7 @@ interface ItemArray {
 }
 
 const CreateInvoice = ({ fetchInvoice }: any) => {
-    const [loading, imgUrl, handleUpload] = useCustomUpload()
+    const { loading, imgUrl, handleUpload } = useCustomUpload()
     const [customer, setCustomer] = useState<any>([])
 
     const dispatch = useDispatch()
@@ -262,7 +262,7 @@ const CreateInvoice = ({ fetchInvoice }: any) => {
                                     borderRadius: 20
                                 },
 
-                                modalTitle: "Add a new customer",
+                                modalTitle: "",
                                 modalContent: (
                                     <div className='modalDiv'>
                                         <Success />
@@ -451,7 +451,7 @@ const CreateInvoice = ({ fetchInvoice }: any) => {
 
 
                             </Box>}
-                            <Grid container spacing={3} padding={"2rem"} px={6}>
+                            <Grid container spacing={3} px={6}>
 
 
 
@@ -513,7 +513,10 @@ const CreateInvoice = ({ fetchInvoice }: any) => {
                                         </Grid>
 
                                     </Grid>
-                                    <button className={Styles.addanother} disabled={disableBtn()} type="button" onClick={handleAddItem}> + Add another item</button>
+                                    <button style={{ background: 'transparent', color: "blue" }} className={Styles.addanother} disabled={disableBtn()} type="button" onClick={handleAddItem}>
+                                        {invoiceList?.length > 0 ? "+Add another item" : "+Add  item"}
+
+                                    </button>
 
                                 </Grid>
 
@@ -529,7 +532,7 @@ const CreateInvoice = ({ fetchInvoice }: any) => {
                                     <CustomInputField as={TextField} label={"Total Amount"} placeholder='0.00' name='totalAmount' type='number' />
                                 </Grid> */}
 
-                                <Grid item xs={12} sm={12} md={6}>
+                                <Grid item xs={12} sm={12}>
 
                                     <CustomInputField
                                         as={TextField} label={"Otp"} placeholder='otp' name='otp' type='number' />
