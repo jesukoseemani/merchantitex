@@ -614,12 +614,7 @@
 	border: 1px solid #DFDFDF;
 	border-radius: 20px;
 	width: 894px;
-	height: 404px;
-	// padding: 51px 47px;
-	display: flex;
-	justify-content: center;
-	flex-direction: column;
-	padding: 0 47px;
+	padding: 47px;
 
 	@media screen and (max-width:768px) {
 		width: 100%;

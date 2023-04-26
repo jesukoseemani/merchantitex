@@ -10,6 +10,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { makeStyles } from "@material-ui/core/styles";
 import { ReactComponent as ArrowRightIcon } from "../../assets/images/arrowRight.svg";
+import CustomClickTable from '../../components/table/CustomClickTable';
 
 import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
 import { useDispatch } from "react-redux";
@@ -122,6 +123,7 @@ export default function TransfersTable() {
     );
     setRows(newRowOptions);
   }, [transactions, LoanRowTab]);
+
   const useStyles = makeStyles({
     container: {
       width: "407px",
@@ -197,12 +199,17 @@ export default function TransfersTable() {
         </div>
       </Menu>
       <div className={Styles.wrapper}>
-        <OperantTable
+        <CustomClickTable
           columns={columns}
           rows={rows}
-          totalRows={totalRows}
+          totalRows={source?.length || 0}
           changePage={changePage}
           limit={limit}
+          // reset={reset}
+          link="/payout"
+          clickable
+          identifier="amount"
+          rowsData={transactions}
         />
       </div>
     </div>

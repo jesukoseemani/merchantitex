@@ -1,7 +1,8 @@
 import NavBar from "../../components/navbar/NavBar";
+// import Styles from "./transaction.module.scss";
 import styles from "./BalanceItem.module.scss";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/styles";
 import { Box } from "@mui/material";
 import {
@@ -19,6 +20,16 @@ import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
 import axios from "axios";
 import CustomClickTable from "../../components/table/CustomClickTable";
 import ParentContainer from "../../components/ParentContainer/ParentContainer";
+import {
+  getSettlementTransactions,
+  getSingleSettlement,
+} from "../../services/settlement";
+import { Settlement } from "../../types/Settlement";
+import { getSettlementStatus, getTransactionStatus } from "../../utils/status";
+import { capitalize } from "lodash";
+import { getBankName } from "../../utils";
+import { Transaction } from "../../types/Transaction";
+import { statusFormatObj } from "../../helpers";
 
 const useTableStyles = makeStyles({
   root: {
@@ -71,13 +82,17 @@ const SettlementItem = () => {
   const tableClasses = useTableStyles();
   const dispatch = useDispatch();
 
-  const [txns, setTxns] = useState<TransactionItem[]>([]);
-  const [rows, setRows] = useState<TransactionItem[]>([]);
+  const [txns, setTxns] = useState<Transaction[]>([]);
+  const [rows, setRows] = useState<Transaction[]>([]);
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
   const [totalRows, setTotalRows] = useState<number>(0);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [settlement, setSettlement] = useState<Settlement | null>(null);
   const open = Boolean(anchorEl);
+  console.log(settlement, "settlement");
+
+  const { slug } = useParams<{ slug: string }>();
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -95,7 +110,7 @@ const SettlementItem = () => {
   };
 
   interface Column {
-    id: "amt" | "status" | "txnType" | "card" | "bankName" | "added";
+    id: "amt" | "status" | "txnType" | "added";
     label: any;
     minWidth?: number;
     align?: "right" | "left" | "center";
@@ -104,19 +119,11 @@ const SettlementItem = () => {
     { id: "amt", label: "Amount", minWidth: 100 },
     { id: "status", label: "Status", minWidth: 100 },
     { id: "txnType", label: "Transaction Type", minWidth: 100 },
-    { id: "card", label: "Card", minWidth: 100 },
-    { id: "bankName", label: "Bank name", minWidth: 100 },
     { id: "added", label: "Date", minWidth: 100 },
   ];
 
-  const statusFormatObj: { [key: string]: string } = {
-    successful: "wonText",
-    error: "lostText",
-    pending: "pendingText",
-  };
-
   const TransactionRowTab = useCallback(
-    (amt, status, txnType, card, bankName, added) => ({
+    (amt, status, txnType, added) => ({
       amt: (
         <p className={styles.tableBodyText}>
           <span className={styles.tableBodySpan}>NGN </span>
@@ -124,13 +131,17 @@ const SettlementItem = () => {
         </p>
       ),
       status: (
-        <p className={styles[statusFormatObj[status] || "pendingText"]}>
-          {status}
+        <p
+          className={
+            styles[
+            statusFormatObj[getTransactionStatus(status)!] || "pendingText"
+            ]
+          }
+        >
+          {getTransactionStatus(status)}
         </p>
       ),
       txnType: <p className={styles.tableBodyCapital}>{txnType}</p>,
-      card: <p className={styles.tableBodyText}>{card}</p>,
-      bankName: <p className={styles.tableBodyText}>{bankName}</p>,
       added: (
         <p className={styles.tableBodyText}>
           {moment(added).format("MMM D YYYY")}
@@ -146,36 +157,31 @@ const SettlementItem = () => {
 
   useEffect(() => {
     const newRowOptions: any[] = [];
-    txns?.map((each: TransactionItem) =>
+    txns?.map((each: Transaction) =>
       newRowOptions.push(
         TransactionRowTab(
-          each?.amt,
-          each?.status,
-          each?.txnType,
-          each?.card,
-          each?.bankName,
-          each?.added
+          each?.amount,
+          each?.responsecode,
+          each?.chargetype,
+          each?.transactiontype
         )
       )
     );
     setRows(newRowOptions);
   }, [txns, TransactionRowTab]);
 
-  const getTransactions = async () => {
-    dispatch(openLoader());
+  useEffect(() => {
     try {
-      const res = await axios.get<GetTransactionsRes>(
-        "/mockData/transactions.json",
-        { baseURL: "" }
-      );
-      const { transactions, _metadata } = res?.data;
-      if (transactions.length) {
-        setTxns(transactions);
-        setTotalRows(_metadata?.totalcount);
-      }
-      dispatch(closeLoader());
-    } catch (err) {
-      console.log(err);
+      dispatch(openLoader());
+      (async () => {
+        const res = await getSettlementTransactions(slug);
+        if (res?.transactions?.length) {
+          setTxns(res?.transactions || []);
+          setTotalRows(res?._metadata?.totalcount);
+        }
+        dispatch(closeLoader());
+      })();
+    } catch (error) {
       dispatch(closeLoader());
       dispatch(
         openToastAndSetContent({
@@ -186,16 +192,33 @@ const SettlementItem = () => {
         })
       );
     }
-  };
-
-  useEffect(() => {
-    getTransactions();
   }, [pageNumber, rowsPerPage]);
 
+  useEffect(() => {
+    if (slug) {
+      try {
+        dispatch(openLoader());
+        (async () => {
+          const res = await getSingleSettlement(slug);
+          setSettlement(res?.settlement || {});
+          dispatch(closeLoader());
+        })();
+      } catch (error) {
+        dispatch(closeLoader());
+        dispatch(
+          openToastAndSetContent({
+            toastContent: "Failed to get settlement",
+            toastStyles: {
+              backgroundColor: "red",
+            },
+          })
+        );
+      }
+    }
+  }, [slug]);
+
   return (
-
     <div className={styles.container}>
-
       <div className={styles.pageWrapper}>
         <div className={styles.sectionOne}>
           <div>
@@ -206,62 +229,66 @@ const SettlementItem = () => {
               </div>
             </Link>
           </div>
-          <div>
-            <p>NGN 33,983.92</p>
-            <p className="success-status">Successful</p>
-          </div>
         </div>
-        <hr />
-        <div className={styles.sectionTwo}>
+
+        <div className={styles.sectionThree} style={{ marginBottom: "30px" }}>
           <div>
-            <p>Date paid</p>
-            <p>Jul 18, 2018 2:21 PM</p>
+            <div style={{ display: "flex", alignItems: "center", paddingBottom: "10px" }}>
+              <p style={{ marginRight: "10px" }}>NGN {settlement?.chargeamount || 0}</p>
+              <p
+                className={
+                  styles[
+                  statusFormatObj[
+                  getSettlementStatus(settlement?.responsecode!)!
+                  ] || "pendingText"
+                  ]
+                }
+              >
+                {capitalize(
+                  getSettlementStatus(settlement?.responsecode || "")
+                )}
+              </p>
+            </div>{" "}
           </div>
-          <div></div>
           <div>
-            <p>Settlement reference</p>
-            <p>ITEX-ab87dbsdbv989</p>
-          </div>
-          <div></div>
-          <div>
-            <p>Fees</p>
-            <p>NGN0.0</p>
-          </div>
-          <div></div>
-          <div>
-            <p>Reserve percentage</p>
-            <p>10%</p>
-          </div>
-          <div></div>
-          <div>
-            <p>Bank account details</p>
-            <p>123232344-GTBank</p>
+            <div>
+              <p>Date / Time </p>
+              <p>{settlement?.settlementdate || ''}</p>
+            </div>
+            <div>
+              <p>Settlement Destination</p>
+              <p>{`${settlement?.settlementaccountname || ''} | ${getBankName(settlement?.settlementbankcode || "")} | ${settlement?.settlementaccountnumber || ''}`}</p>
+            </div>
+            <div>
+              <p>Chargebacks</p>
+              <p>None</p>
+            </div>
+            <div>
+              <p>Refunds</p>
+              <p>None</p>
+            </div>
           </div>
         </div>
         <div className={styles.sectionThree}>
           <div>
-            <h3>Settlement information</h3>
+            <h3>Payment information</h3>
           </div>
           <div>
             <div>
-              <p>ITEX fees</p>
-              <p>iTEX-abcsdsjdosu</p>
+              <p>Payment reference</p>
+              <p>{settlement?.settlementid || ""}</p>
             </div>
             <div>
-              <p>Refunds</p>
-              <p>NGN0.0</p>
+              <p>Transaction Fee</p>
+              <p>NGN{settlement?.fee || 0}</p>
             </div>
             <div>
-              <p>ChargeBacks</p>
-              <p>NGN0.0</p>
+              <p>Country/Region</p>
+              <p>{settlement?.settlementcountry || ''}</p>
             </div>
             <div>
               <p>Bank name</p>
-              <p>GTBank</p>
-            </div>
-            <div>
-              <p>Rolling reserve</p>
-              <p>NGN0.0</p>
+              <p>{getBankName(settlement?.settlementbankcode || "")}</p>
             </div>
           </div>
         </div>
@@ -282,8 +309,6 @@ const SettlementItem = () => {
         </div>
       </div>
     </div>
-
-
   );
 };
 
