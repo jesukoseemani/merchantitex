@@ -22,6 +22,7 @@ import CustomCurrency from '../formUI/SelectCountry/CustomCurrency';
 import WarningIcon from "../../assets/images/warningIcon.svg";
 import { ReactSVG } from 'react-svg';
 import SuccessModal from './business/SuccessModal';
+import CustomInputField from '../customs/CustomInputField';
 
 
 
@@ -38,7 +39,7 @@ interface BankProps {
 
 }
 
-const BankAccount = () => {
+const BankAccount = ({ checkBusinessStatus }: any) => {
 	const dispatch = useDispatch();
 	const { auth } = useSelector(state => state?.authReducer)
 	const [bankList, setBankList] = useState<BankProps[]>()
@@ -80,6 +81,7 @@ const BankAccount = () => {
 				const { data } = await axios.get<any>(`resource/currencies`)
 				console.log(data, "currency")
 				setCurrencyList(data?.currencies)
+				checkBusinessStatus()
 
 			} catch (err: any) {
 				dispatch(closeLoader());
@@ -104,6 +106,8 @@ const BankAccount = () => {
 		accountNumber: Yup.string().required('Required'),
 		currency: Yup.string().required('Required'),
 		bvn: Yup.string().required('Required'),
+		otp: Yup.string().required('Required'),
+
 	});
 
 	const StyledTextField = styled(TextField, {
@@ -125,7 +129,8 @@ const BankAccount = () => {
 						bankid: '',
 						accountNumber: '',
 						bvn: '',
-						currency: ""
+						currency: "",
+						otp: ""
 					}}
 					validationSchema={validate}
 					onSubmit={(values, { resetForm }) => {
@@ -138,6 +143,7 @@ const BankAccount = () => {
 								bvn: values.bvn,
 								accountNumber: values.accountNumber,
 								bankid: values.bankid,
+
 
 							},
 							)
@@ -156,7 +162,8 @@ const BankAccount = () => {
 											bvn: values.bvn,
 											accountNumber: values.accountNumber,
 											bankid: values.bankid,
-											accountName: res?.data?.accountName
+											accountName: res?.data?.accountName,
+											otp: values.otp
 
 
 										}).then((resp: any) => {
@@ -300,6 +307,23 @@ const BankAccount = () => {
 										}
 										name='accountNumber'
 										placeholder='Account Number'
+										variant='outlined'
+
+										size='small'
+										fullWidth
+									/>
+								</Grid>
+								<Grid item xs={12}>
+									<InputLabel className={styles.label}>Otp</InputLabel>
+									<Field
+										as={StyledTextField}
+										helperText={
+											<ErrorMessage name='otp'>
+												{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
+											</ErrorMessage>
+										}
+										name='otp'
+										placeholder='Enter otp'
 										variant='outlined'
 
 										size='small'

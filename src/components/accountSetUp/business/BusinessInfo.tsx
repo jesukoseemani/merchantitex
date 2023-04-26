@@ -68,6 +68,9 @@ const BusinessInfo = ({ handleNext }: Props) => {
 
         fetchStates()
     }, [])
+
+
+    useSelector(state => state?.onboardStateReducer)
     return (
         <Formik
             initialValues={{
@@ -92,6 +95,9 @@ const BusinessInfo = ({ handleNext }: Props) => {
 
 
 
+
+
+
             {({ touched, errors, values }) => (
                 <Box sx={{ marginTop: "-10px" }}>
                     <Form method="post">
@@ -106,7 +112,7 @@ const BusinessInfo = ({ handleNext }: Props) => {
                                             {(msg) => <span style={{ color: "red" }}>{msg}</span>}
                                         </ErrorMessage>
                                     }
-                                    minRows={5} multiline
+                                    minRows={2} multiline
                                     name="businessDescription"
                                     placeholder="Enter your business description..."
 
@@ -128,7 +134,7 @@ const BusinessInfo = ({ handleNext }: Props) => {
                                             {(msg) => <span style={{ color: "red" }}>{msg}</span>}
                                         </ErrorMessage>
                                     }
-                                    minRows={5} multiline
+                                    minRows={2} multiline
                                     name="businessAddress"
 
                                     type="text"

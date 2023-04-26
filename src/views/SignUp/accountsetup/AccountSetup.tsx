@@ -26,42 +26,42 @@ const AccountSetup = () => {
     const [businessSetup, setBusinesSetup] = useState(false)
     const [settlementSetup, setSettlementSetup] = useState(false)
 
-    useEffect(() => {
+    const checkBusinessStatus = async () => {
 
-        const checkBusinessStatus = async () => {
-            try {
+        try {
 
-                const { data } = await axios.get<Props>("/v1/setup/business/status")
-                if (data?.isSettlementAccountSet) {
-                    setSettlementSetup(true)
+            const { data } = await axios.get<Props>("/v1/setup/business/status")
+            if (data?.isSettlementAccountSet) {
+                setSettlementSetup(true)
 
-                }
-                if (data?.isBusinessApproved) {
-                    setBusinesSetup(true)
-
-                }
-                console.log(data, "status")
-
-
-                dispatch(closeLoader());
-
-            } catch (error: any) {
-                dispatch(closeLoader());
-                const { message } = error.response.data;
-                dispatch(
-                    dispatch(
-                        openToastAndSetContent({
-                            toastContent: message,
-                            toastStyles: {
-                                backgroundColor: "red",
-                            },
-                        })
-                    )
-                );
-            } finally {
-                dispatch(closeLoader());
             }
+            if (data?.isBusinessApproved) {
+                setBusinesSetup(true)
+
+            }
+            console.log(data, "status")
+
+
+            dispatch(closeLoader());
+
+        } catch (error: any) {
+            dispatch(closeLoader());
+            const { message } = error.response.data;
+            dispatch(
+                dispatch(
+                    openToastAndSetContent({
+                        toastContent: message,
+                        toastStyles: {
+                            backgroundColor: "red",
+                        },
+                    })
+                )
+            );
+        } finally {
+            dispatch(closeLoader());
         }
+    }
+    useEffect(() => {
 
         checkBusinessStatus()
     }, [])
@@ -104,7 +104,7 @@ const AccountSetup = () => {
 
                 modalContent: (
                     <div className='modalDiv'>
-                        <BankAccount />
+                        <BankAccount checkBusinessStatus={checkBusinessStatus} />
                     </div>
                 ),
             })
@@ -133,6 +133,7 @@ const AccountSetup = () => {
     }
 
 
+
     return (
 
         <div className={Styles.container}>
@@ -144,7 +145,7 @@ const AccountSetup = () => {
                     <div>
                         <div> <ReactSVG src={ColorcheckIcon} /></div>
                         <div> <p>Personal Profile</p></div>
-                        <div onClick={handleProfileForm}> <button className={Styles.disable}>Continue</button></div>
+                        <div onClick={handleProfileForm}> <button disabled className={Styles.disable}>Continue</button></div>
 
                     </div>
 
@@ -162,7 +163,7 @@ const AccountSetup = () => {
                     <div>
                         <div> <ReactSVG src={settlementSetup ? ColorcheckIcon : CheckIcon} /></div>
                         <div>  <p>Add Bank Accounts</p></div>
-                        <div> <button onClick={handleBankAccount} className={settlementSetup && Styles.disable}>Continue</button></div>
+                        <div> <button onClick={handleBankAccount} disabled={settlementSetup} className={settlementSetup && Styles.disable}>Continue</button></div>
 
                     </div>
 
