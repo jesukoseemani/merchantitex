@@ -6,7 +6,7 @@ import { getDownloadedPayout, getPayoutService } from "../../services/payout";
 
 const Payout = () => {
 
-    const [isEmpty, setIsEmpty] = useState<boolean>(false);
+    const [isEmpty, setIsEmpty] = useState<boolean>(true);
 
     useEffect(() => {
         getPayoutService()
