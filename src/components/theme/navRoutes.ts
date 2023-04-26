@@ -233,7 +233,7 @@ export const Avenirtes: NavProps[] = [
         id: 29,
         title: "Permissions",
         icon: PermisionIcon,
-        link: "/general_setting/permissions/administrator",
+        link: "/general_setting/permissions",
       },
       {
         id: 26,

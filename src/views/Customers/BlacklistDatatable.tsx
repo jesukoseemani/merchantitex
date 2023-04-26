@@ -13,7 +13,7 @@ import {
 import { openModalAndSetContent } from '../../redux/actions/modal/modalActions';
 import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
 import {
-	BlacklistCustomerItem,
+	CustomerItem,
 	GetBlacklistCustomerRes,
 } from '../../types/CustomerTypes';
 import Addtoblacklist from './Addtoblacklist';
@@ -29,8 +29,8 @@ const BlacklistDatatable = () => {
 
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const [transactions, setTransactions] = useState<BlacklistCustomerItem[]>([]);
-	const [rows, setRows] = useState<BlacklistCustomerItem[]>([]);
+	const [transactions, setTransactions] = useState<CustomerItem[]>([]);
+	const [rows, setRows] = useState<CustomerItem[]>([]);
 	const [pageNumber, setPageNumber] = useState<number>(1);
 	const [rowsPerPage, setRowsPerPage] = useState<number>(5);
 	const [totalRows, setTotalRows] = useState<number>(0);
@@ -45,18 +45,16 @@ const BlacklistDatatable = () => {
 	};
 
 	interface Column {
-		id: 'name' | 'email' | 'phone' | 'added' | 'actions';
+		id: 'name' | 'email' | 'msisdn' | 'actions';
 		label: any;
 		minWidth?: number;
 		align?: 'right' | 'left' | 'center';
-
 	}
 	const columns: Column[] = [
 		{ id: 'name', label: 'Name', minWidth: 150 },
 		{ id: 'email', label: 'Email', minWidth: 150 },
-		{ id: 'phone', label: 'Phone Numbers', minWidth: 150 },
-		{ id: 'added', label: 'Date Added', minWidth: 150, align: 'left' },
-		{ id: 'actions', label: 'Actions', minWidth: 150, align: 'left' },
+		{ id: 'msisdn', label: 'MSISDN', minWidth: 150 },
+		{ id: 'actions', label: 'Actions', minWidth: 100 },
 	];
 
 	const handleBLacklist = () => {
@@ -80,43 +78,37 @@ const BlacklistDatatable = () => {
 	};
 
 	const CustomerRowTab = useCallback(
-		(firstname, lastname, email, added, phone) => ({
+		(firstname, lastname, email, msisdn, id) => ({
 			name: (
 				<p className={styles.tableBodyText}>
 					<span className={styles.capitalText}>{firstname}</span>{' '}
 					<span className={styles.capitalText}>{lastname}</span>
 				</p>
 			),
+			id: <p className={styles.tableBodyText}>{id}</p>,
 			email: <p className={styles.tableBodyText}>{email}</p>,
-			phone: <p className={styles.tableBodyText}>{phone}</p>,
-			added: (
-				<p className={styles.tableBodyText}>
-					{moment(added).format('MMM D YYYY')}
-					<span className={styles.tableBodySpan}>
-						{' '}
-						{moment(added).format('h:mm A')}
-					</span>
-				</p>
-			),
+			msisdn: <p className={styles.tableBodyText}>{msisdn}</p>,
+
 			actions: (
 				<button onClick={handleBLacklist} className={styles.ActionBtn}>
-					Remove from Blacklist
+					Remove
 				</button>
 			),
+
 		}),
 		[]
 	);
 
 	useEffect(() => {
 		const newRowOptions: any[] = [];
-		transactions?.map((each: BlacklistCustomerItem) =>
+		transactions?.map((each: CustomerItem) =>
 			newRowOptions.push(
 				CustomerRowTab(
 					each?.firstname,
 					each?.lastname,
 					each?.email,
-					each?.added,
-					each?.phone
+					each?.msisdn,
+					each?.id
 				)
 			)
 		);
@@ -126,17 +118,9 @@ const BlacklistDatatable = () => {
 	const getCustomers = async () => {
 		dispatch(openLoader());
 		try {
-			await getBlacklistedCustomers()
-			const res = await axios.get<GetBlacklistCustomerRes>(
-				'/mockData/blacklistcustomer.json',
-				{ baseURL: '' }
-			);
-			console.log(res?.data);
-			const { transactions, _metadata } = res?.data;
-			if (transactions.length) {
-				setTransactions(transactions);
-				setTotalRows(_metadata?.totalcount);
-			}
+			const res = await getBlacklistedCustomers();
+			setTransactions(res?.customers || []);
+			setTotalRows(res?._metadata?.totalcount || 0)
 			dispatch(closeLoader());
 		} catch (err) {
 			console.log(err);
@@ -166,7 +150,7 @@ const BlacklistDatatable = () => {
 					<h2 className={styles.blacklistHeader}>{transactions?.length} blacklisted customers</h2>
 					<Box className={styles.headerBox}>
 						<button ><FilterAltOutlinedIcon />Filter by:</button>
-						<button> <InsertDriveFileOutlinedIcon />Download</button>
+						{/* <button> <InsertDriveFileOutlinedIcon />Download</button> */}
 
 					</Box>
 				</Stack>

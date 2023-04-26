@@ -6,8 +6,14 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { State } from '../../../helpers/State';
+import { ErrorMessage, Field, Formik, Form, useFormik } from 'formik';
 
 import styles from "../style.module.scss"
+import { ValidateAdditionalInfo } from '../../validation/setup/Businesssetup';
+import SelectWrapper from '../../formUI/Select';
+import { saveAdditionalInfo } from '../../../redux/actions/setup';
+import { useDispatch } from 'react-redux';
+// import SelectWrapper from '../../formUI/Select';
 
 interface Props {
     handleNext: () => void;
@@ -22,22 +28,13 @@ interface priceProps {
 }
 const AdditionalInfo = ({ handleBack, handleNext }: Props) => {
     const [state, setState] = React.useState('');
-    const [price, setPrice] = React.useState("");
-
+    const dispatch = useDispatch()
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setState(event.target.value);
     };
 
-    const StyledTextField = styled(TextField, {
-        name: "StyledTextField",
-    })({
 
-        "& .MuiInputBase-root": {
-            height: 44,
-            marginBottom: "22px",
-        }
-    });
 
     const priceList: priceProps[] = [
         {
@@ -62,95 +59,203 @@ const AdditionalInfo = ({ handleBack, handleNext }: Props) => {
         },
 
     ]
-    const handleOnChange = () => { }
+
     return (
+        <>
+
+
+            <Formik
+                initialValues={{
+                    websiteUrl: "",
+                    supportPhone: "",
+                    chargebackEmail: "",
+                    supportEmail: "",
+                    contactemail: "",
+                    businessIncome: "",
+                }}
+                validationSchema={ValidateAdditionalInfo}
+
+                onSubmit={({ businessIncome, chargebackEmail, contactemail, supportEmail, supportPhone, websiteUrl }, { setFieldValue }) => {
+                    dispatch(saveAdditionalInfo({ businessIncome, chargebackEmail, contactemail, supportEmail, supportPhone, websiteUrl }));
+                    // console.log({ businessIncome, chargebackEmail,contactemail,supportEmail,supportPhone, websiteUrl})
+                    handleNext();
+                }}
+            >
 
 
 
-        <Box sx={{ marginTop: "-1.1rem" }}>
-            <Grid container columnSpacing={4} justifyContent="flex-start">
-
-                <Grid item xs={12} sm={6} md={6} mb="22px">
-                    <InputLabel className={styles.label}>Business phone number</InputLabel>
-                    <MuiPhoneNumber variant='outlined' fullWidth defaultCountry={'us'} onChange={handleOnChange} sx={{
-                        ".css-x9mhkq-MuiInputBase-root-MuiOutlinedInput-root ": {
-                            height: "44px"
-                        }
-                    }} />
-                </Grid>
-                <Grid item xs={12} sm={6} md={6} mb="22px">
-                    <InputLabel className={styles.label}>Support Email Address</InputLabel>
-
-                    <StyledTextField variant='outlined' fullWidth placeholder='Support Email Address' />
-                </Grid>
-
-                <Grid item xs={12} sm={6} md={6} mb="22px">
-                    <InputLabel className={styles.label}>Bussiness Address</InputLabel>
-                    <StyledTextField variant='outlined' fullWidth placeholder='Bussiness Address' />
-                </Grid>
-                <Grid item xs={12} sm={6} md={6} mb="22px">
-                    <InputLabel className={styles.label}>State</InputLabel>
-                    <Select
-
-                        fullWidth
-                    >
-                        {State?.map(({ name, code }) => (
-                            <MenuItem key={code} value={name}>{name}</MenuItem>
-                        ))}
-                    </Select>
-                </Grid>
-                <Grid item xs={12} sm={6} md={6} mb="22px">
-                    <InputLabel className={styles.label}>City</InputLabel>
-                    <StyledTextField variant='outlined' fullWidth placeholder='City' />
-                </Grid>
-                <Grid item xs={12} sm={6} md={6} mb="22px">
-                    <InputLabel className={styles.label}>What is your estimated monthly income </InputLabel>
-                    <Select
-
-                        fullWidth
-                    >
-                        {priceList?.map(({ name, id }) => (
-                            <MenuItem key={id} value={name}>{name}</MenuItem>
-                        ))}
-                    </Select>
-                </Grid>
 
 
-                <Stack direction="row" gap={"24px"} justifyContent={"flex-end"} alignItems={"flex-end"} sx={{ width: "100%", marginTop: "150px" }}>
-                    <button style={{
-                        backgroundColor: 'transparent',
-                        color: '#333',
-                        border: '1px solid green',
-                        height: "44px",
-                        width: '146px',
-                        fontSize: "16px",
-                        fontWeight: 800,
-                        borderRadius: '20px',
-                        cursor: 'pointer',
 
-                        fontFamily: 'Avenir',
+                {({ touched, errors, values }) => (
+                    <Box sx={{ marginTop: "-10px" }}>
+                        <Form method="post">
 
-                    }} onClick={handleBack}>Previous</button>
-                    <button
-                        style={{
-                            backgroundColor: '#27AE60',
-                            height: "44px",
-                            width: '146px',
-                            color: '#fff',
-                            border: 'none',
-                            fontSize: "16px",
-                            fontWeight: 800,
-                            borderRadius: '20px',
-                            cursor: 'pointer',
+                            <Grid container columnSpacing={4} justifyContent="space-between">
+                                <Grid item xs={12} sm={6} md={6} mb="22px">
+                                    <InputLabel className={styles.label}> Website URL (optional)</InputLabel>
+                                    <Field
+                                        as={TextField}
+                                        helperText={
+                                            <ErrorMessage name="websiteUrl">
+                                                {(msg) => <span style={{ color: "red" }}>{msg}</span>}
+                                            </ErrorMessage>
+                                        }
 
-                            fontFamily: 'Avenir',
-                        }}
+                                        name="websiteUrl"
+                                        placeholder="https://example.com"
 
-                        onClick={handleNext}>continue</button>
-                </Stack>
-            </Grid>
+                                        type="text"
+                                        size="small"
+                                        fullWidth
+                                    // error={touched?.businessAddress && errors?.businessAddress}
 
-        </Box>
+
+
+                                    />
+                                </Grid>
+                                <Grid item xs={12} sm={6} md={6} mb="22px">
+                                    <InputLabel className={styles.label}>Support Email Address</InputLabel>
+                                    <Field
+                                        as={TextField}
+                                        helperText={
+                                            <ErrorMessage name="supportEmail">
+                                                {(msg) => <span style={{ color: "red" }}>{msg}</span>}
+                                            </ErrorMessage>
+                                        }
+                                        name="supportEmail"
+                                        placeholder="Support Email Address"
+
+                                        type="text"
+                                        size="small"
+                                        fullWidth
+                                    // error={touched?.businessAddress && errors?.businessAddress}
+
+
+
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12} sm={6} md={6} mb="22px">
+                                    <InputLabel className={styles.label}>Support Phone Number</InputLabel>
+                                    <Field
+                                        as={TextField}
+                                        helperText={
+                                            <ErrorMessage name="supportPhone">
+                                                {(msg) => <span style={{ color: "red" }}>{msg}</span>}
+                                            </ErrorMessage>
+                                        }
+                                        fullWidth
+                                        placeholder='+2349069003426'
+                                        name="supportPhone"
+
+
+
+                                    />
+                                </Grid>
+                                <Grid item xs={12} sm={6} md={6} mb="22px">
+                                    <InputLabel className={styles.label}>Chargeback Email Address</InputLabel>
+                                    <Field
+                                        as={TextField}
+                                        helperText={
+                                            <ErrorMessage name="chargebackEmail">
+                                                {(msg) => <span style={{ color: "red" }}>{msg}</span>}
+                                            </ErrorMessage>
+                                        }
+                                        fullWidth
+                                        placeholder='Chargeback Email Address'
+                                        name="chargebackEmail"
+
+
+
+                                    />
+                                </Grid>
+                                <Grid item xs={12} sm={6} md={6} mb="22px">
+                                    <InputLabel className={styles.label}>Contact Email Address</InputLabel>
+                                    <Field
+                                        as={TextField}
+                                        helperText={
+                                            <ErrorMessage name="contactemail">
+                                                {(msg) => <span style={{ color: "red" }}>{msg}</span>}
+                                            </ErrorMessage>
+                                        }
+
+                                        name="contactemail"
+
+                                        type="text"
+                                        size="small"
+                                        fullWidth
+                                        // error={touched?.chargebackEmail && errors?.businessAddress}
+
+                                        placeholder='Contact Email Address'
+
+                                    />
+
+                                </Grid>
+                                <Grid item xs={12} sm={6} md={6} mb="22px">
+                                    <InputLabel className={styles.label}>What’s Your Estimated Monthly Income?</InputLabel>
+                                    <Field
+                                        as={SelectWrapper}
+                                        helperText={
+                                            <ErrorMessage name="businessIncome">
+                                                {(msg) => <span style={{ color: "red" }}>{msg}</span>}
+                                            </ErrorMessage>
+                                        }
+                                        fullWidth
+                                        placeholder='Enter city'
+                                        name="businessIncome"
+                                        options={priceList}
+
+                                    />
+
+
+
+                                </Grid>
+
+
+                                <Grid item xs={12} sm={6} md={6} mb="22px"></Grid>
+                                <br />
+                                <Stack direction="row" gap={"24px"} justifyContent={"flex-end"} alignItems={"flex-end"} sx={{ width: "100%", marginTop: 10 }}>
+                                    <button style={{
+                                        backgroundColor: 'transparent',
+                                        color: '#333',
+                                        border: '1px solid green',
+                                        height: "44px",
+                                        width: '146px',
+                                        fontSize: "16px",
+                                        fontWeight: 800,
+                                        borderRadius: '20px',
+                                        cursor: 'pointer',
+                                        margin: "9px 0px ",
+                                        fontFamily: 'Avenir',
+
+                                    }} onClick={handleBack}>Previous</button>
+                                    <button
+                                        style={{
+                                            backgroundColor: '#27AE60',
+                                            height: "44px",
+                                            width: '146px',
+                                            color: '#fff',
+                                            border: 'none',
+                                            fontSize: "16px",
+                                            fontWeight: 800,
+                                            borderRadius: '20px',
+                                            cursor: 'pointer',
+                                            margin: "9px 0px ",
+                                            fontFamily: 'Avenir',
+                                        }}
+
+                                        type="submit">Submit</button>
+                                </Stack>
+                            </Grid>
+                        </Form>
+                    </Box >
+
+                )}
+            </Formik >
+        </>
+
+
     )
 }
 

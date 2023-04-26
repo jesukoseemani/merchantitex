@@ -20,8 +20,10 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 import AddNewCustomer from './AddNewCustomer';
 import Addtoblacklist from './Addtoblacklist';
-import { getBlacklistedCustomers, getCustomersService } from '../../services/customer';
+import { getBlacklistedCustomers, getCustomersService, getDownloadedCustomers } from '../../services/customer';
 import { stripSearch } from '../../utils';
+import useDownload from '../../hooks/useDownload';
+import { BASE_URL } from '../../config';
 
 const CustomersTab = ({ value, index }: any) => {
 	const theme = useTheme();
@@ -57,6 +59,8 @@ const CustomersTab = ({ value, index }: any) => {
 			},
 		},
 	});
+
+	const { calDownload } = useDownload({ url: `${BASE_URL}/customer/download`, filename: 'customer' })
 
 
 	const btnClasses = useBtnStyles();
@@ -115,7 +119,7 @@ const CustomersTab = ({ value, index }: any) => {
 	};
 
 	const CustomerRowTab = useCallback(
-		(firstname, lastname, email, msisdn, id) => ({
+		(firstname, lastname, email, msisdn, isblacklisted, id) => ({
 			name: (
 				<p className={styles.tableBodyText}>
 					<span className={styles.capitalText}>{firstname}</span>{' '}
@@ -127,7 +131,7 @@ const CustomersTab = ({ value, index }: any) => {
 			msisdn: <p className={styles.tableBodyText}>{msisdn}</p>,
 
 			actions: (
-				<p style={{ color: "red" }} onClick={() => handleBLacklist(id)}>Blacklist</p>
+				isblacklisted ? <div></div> : <p style={{ color: "red" }} onClick={() => handleBLacklist(id)}>Blacklist</p>
 			),
 
 		}),
@@ -143,6 +147,7 @@ const CustomersTab = ({ value, index }: any) => {
 					each?.lastname,
 					each?.email,
 					each?.msisdn,
+					each.isblacklisted,
 					each?.id
 				)
 			)
@@ -204,7 +209,7 @@ const CustomersTab = ({ value, index }: any) => {
 					<h2>{totalRows} customers</h2>
 					<Box className={styles.headerBox}>
 						<button><FilterAltOutlinedIcon />Filter by:</button>
-						<button> <InsertDriveFileOutlinedIcon />Download</button>
+						<button onClick={calDownload}> <InsertDriveFileOutlinedIcon />Download</button>
 						<button onClick={AddCustomer}>+ Add customer</button>
 					</Box>
 				</Stack>

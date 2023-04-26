@@ -8,9 +8,9 @@ export const getCustomersService = async (query?: Partial<RefundQuery>): Promise
     return data as GetCustomersRes;
 }
 
-export const getBlacklistedCustomers = async (query?: Partial<RefundQuery>) => {
+export const getBlacklistedCustomers = async (query?: Partial<RefundQuery>): Promise<GetCustomersRes> => {
     const { data } = await axios.get(`/v1/customer/blacklisted${stringify(query!)}`);
-    return data
+    return data as GetCustomersRes;
 }
 
 export const getDownloadedCustomers = async (query?: Partial<RefundQuery>) => {

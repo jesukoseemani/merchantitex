@@ -1,7 +1,7 @@
 import styles from './PaymentLinks.module.scss';
 import { useTheme } from '@mui/material/styles';
 import { makeStyles } from '@material-ui/styles';
-import { Box, Button, Grid, IconButton, Modal, OutlinedInput } from '@mui/material';
+import { Box, Button, Grid, IconButton, Modal, OutlinedInput, TextField } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import axios from 'axios';
@@ -23,6 +23,11 @@ import { ReactComponent as ExtLinkIcon } from '../../assets/images/ext-link.svg'
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import CustomArray from '../../components/customs/CustomArray';
+import useCurrency from '../../components/hooks/Usecurrency';
+import useCountry from '../../components/hooks/UseCountry';
+import CustomPhoneNumber from '../../components/customs/CustomPhoneInput';
+import { ReactComponent as CopyIcon } from "../../assets/images/copyColor.svg"
 
 const useModalBtnStyles = makeStyles({
 	root: {
@@ -147,36 +152,44 @@ const LinksView = ({ openLinkModal }: LinksViewProps) => {
 		{ id: 'name', label: 'Link name', minWidth: 100, paddingLeft: 39 },
 		{ id: 'amt', label: 'Amount', minWidth: 100 },
 		{ id: 'linkType', label: 'Link type', minWidth: 100 },
-		{ id: 'url', label: 'Link URL', minWidth: 100 },
+		{ id: 'url', label: 'Link URL', minWidth: 170 },
 		// { id: "copy", label: "", maxWidth: 5 },
 		// { id: "send", label: "", maxWidth: 10 },
 		{ id: 'added', label: 'Date Created', minWidth: 100 },
 	];
 
 	const LinkRowTab = useCallback(
-		(name, amt, linkType, url, added, id, desc) => ({
-			name: <p style={{ paddingLeft: "20px" }} className={styles.tableBodyText}>{name}</p>,
+		(linkName, amount, linkType, paymentUrl, added, id, desc) => ({
+			name: <p className={styles.tableBodyText}>{linkName}</p>,
 			amt: (
 				<p className={styles.tableBodyText}>
 					<span className={styles.tableBodySpan}>NGN </span>
-					{amt}
+					{amount}
 				</p>
 			),
 			linkType: <p className={styles.tableBodyText}>{linkType}</p>,
 			url: (
-				<div className={styles.tableBodyFlex}>
-					<p className={styles.tableBodyText}>{url}</p>
-					<div onClick={(e) => e.preventDefault()}>
-						<ContentCopyIcon
-							sx={{ color: '#2F80ED', fontSize: '.85rem', mt: '6px' }}
-						/>
-					</div>
-					<div className={styles.copyLink}>
+				<Box className={styles.tableBodyFlex} sx={{ border: "12px solid transparent", position: "relative" }}>
+					<p className={styles.tableBodyText} style={{ marginRight: "3rem", marginLeft: "-1rem" }}>{paymentUrl?.substring(0, 20)}</p>
+					<Box sx={{ position: "absolute", right: 0, display: "flex", justifyContent: "center", alignItems: "center", gap: "5px" }}>
 
-						<OpenInNewIcon sx={{ color: '#2F80ED', fontSize: 'large', mt: '6px' }}
-						/>
-					</div>
-				</div>
+						<Box onClick={(e) => e.preventDefault()}>
+
+							<IconButton>
+
+								<CopyIcon />
+							</IconButton>
+
+						</Box>
+						<Box className={styles.copyLink}>
+							<IconButton>
+
+								<OpenInNewIcon sx={{ color: '#2F80ED', fontSize: 'large', mt: '6px' }}
+								/>
+							</IconButton>
+						</Box>
+					</Box>
+				</Box>
 			),
 			// copy: <div style={{ border: '1px solid red'}}><ContentCopyIcon sx={{ color: '#27ae60', fontSize: '.85rem', mt: '6px' }} /></div>,
 			// send: <div style={{ border: '1px solid red'}}><ExtLinkIcon /></div>,
@@ -200,10 +213,10 @@ const LinksView = ({ openLinkModal }: LinksViewProps) => {
 		links?.map((each: LinkItem) =>
 			newRowOptions.push(
 				LinkRowTab(
-					each?.name,
-					each?.amt,
+					each?.linkName,
+					each?.amount,
 					each?.linkType,
-					each?.url,
+					each?.paymentUrl,
 					each?.added,
 					each?.id,
 					each?.desc
@@ -216,9 +229,7 @@ const LinksView = ({ openLinkModal }: LinksViewProps) => {
 	const getPaymentLinks = async () => {
 		dispatch(openLoader());
 		try {
-			const res = await axios.get<GetLinksRes>('/mockData/paymentlinks.json', {
-				baseURL: '',
-			});
+			const res = await axios.get<GetLinksRes>('/v1/payment/paymentlinks');
 			const { paymentlinks, _metadata } = res?.data;
 			if (paymentlinks.length) {
 				setLinks(paymentlinks);
@@ -242,6 +253,8 @@ const LinksView = ({ openLinkModal }: LinksViewProps) => {
 	useEffect(() => {
 		getPaymentLinks();
 	}, [pageNumber, rowsPerPage]);
+
+
 
 	return (
 		<>
@@ -328,6 +341,8 @@ const LinksView = ({ openLinkModal }: LinksViewProps) => {
 					rowsData={links}
 				/>
 			</div>
+
+
 		</>
 	);
 };

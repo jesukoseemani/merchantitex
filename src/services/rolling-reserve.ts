@@ -8,6 +8,5 @@ export const getRollingReserve = async () => {
 
 export const getRollingReserveDownload = async (id: string) => {
     const { data } = await axios.get('/v1/rollingreserve/download');
-    console.log(data, 'data')
     return data;
 }

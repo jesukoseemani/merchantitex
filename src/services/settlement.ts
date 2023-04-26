@@ -7,8 +7,8 @@ export const getSettlementsService = async (query?: Partial<SettlementQuery>): P
     return data as SettlementResponse;
 }
 
-export const getDownloadedSettlements = async (query: Partial<SettlementQuery>) => {
-    const { data } = await axios.get(`/v1/settlement/download${stringify(query)}`);
+export const getDownloadedSettlements = async (query?: Partial<SettlementQuery>) => {
+    const { data } = await axios.get(`/v1/settlement/download${stringify(query!)}`);
     return data
 }
 

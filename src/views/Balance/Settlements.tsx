@@ -28,10 +28,12 @@ import axios from "axios";
 import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
 import CustomClickTable from "../../components/table/CustomClickTable";
 import CloseOutlined from "@mui/icons-material/CloseOutlined";
-import { getSettlementsService } from "../../services/settlement";
+import { getDownloadedSettlements, getSettlementsService } from "../../services/settlement";
 import { Settlement } from "../../types/Settlement";
 import { getSettlementStatus } from "../../utils/status";
 import { stripSearch } from "../../utils";
+import useDownload from "../../hooks/useDownload";
+import { BASE_URL } from "../../config";
 
 const useBtnStyles = makeStyles({
   root: {
@@ -169,6 +171,8 @@ const Settlements = () => {
   const [totalRows, setTotalRows] = useState<number>(0);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const { calDownload } = useDownload({ url: `${BASE_URL}/settlement/download`, filename: 'settlement' })
+
 
   const dispatch = useDispatch();
 
@@ -347,7 +351,7 @@ const Settlements = () => {
                 <FilterAltOutlinedIcon /> Filter by:
               </Button>
             </div>
-            <Button>
+            <Button onClick={calDownload}>
               <InsertDriveFileOutlinedIcon /> Download
             </Button>
           </div>

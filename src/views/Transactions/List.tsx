@@ -27,43 +27,20 @@ import FilterModal from '../../components/FilterModal';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import InsertDriveFileOutlined from '@mui/icons-material/InsertDriveFileOutlined';
 import { Box, Stack } from '@mui/material';
-import { TransactionRes, TransactionItem, Meta } from '../../types/Transaction';
+import { TransactionItem, Meta } from '../../types/Transaction';
 import CustomClickTable from '../../components/table/CustomClickTable';
-import { getDownloadedTransactions, getTransactionsService } from '../../services/transaction';
+import { getTransactionsService } from '../../services/transaction';
 import { getTransactionStatus } from '../../utils/status';
 import { stripEmpty } from '../../utils';
+import useDownload from '../../hooks/useDownload';
+import { BASE_URL } from '../../config';
 
 export default function TransactionsList() {
-	const [download, setDownload] = useState([]);
-	const [change, setChange] = useState(true);
+
+	const { calDownload } = useDownload({ url: `${BASE_URL}/transaction/download`, filename: 'transaction' })
 
 	const history = useHistory();
 	const { search } = useLocation()
-	// const { merchantcode } = useSelector(
-	// 	(state) => state?.meReducer?.me?.business
-	// );
-
-	useEffect(() => {
-		// axios
-		// 	.get(
-		// 		`https://staging.itex-pay.com/ipg/api/v1/merchant/transactions/download`
-		// 	)
-		// 	.then((res: any) => {
-		// 		setDownload(res.data);
-		// 	})
-		// 	.catch((err) => {
-		// 		console.log(err);
-		// 		dispatch(
-		// 			openToastAndSetContent({
-		// 				toastContent: 'No data founds',
-		// 				toastStyles: {
-		// 					backgroundColor: 'red',
-		// 				},
-		// 			})
-		// 		);
-		// 	});
-	}, []);
-
 
 	interface sortTypes {
 		dateCustom: string | number;
@@ -271,7 +248,6 @@ export default function TransactionsList() {
 				changePage={changePage}
 			/>
 			<div className={Styles.wrapper}>
-				{/* {transactions.length > 0 ? ( */}
 				<div className={Styles.transaction__btn}>
 
 					<Stack direction={"row"} justifyContent={"space-between"} flexWrap="wrap">
@@ -283,13 +259,9 @@ export default function TransactionsList() {
 								<FilterAltOutlinedIcon />	Filter by:
 
 							</Button>
-							<CSVLink
-								data={download}
-								filename={'transactionmerchant.csv'}
-								className={Styles.button_business_button}>
-								<InsertDriveFileOutlined />
-								Download &nbsp;
-							</CSVLink>
+							<Button onClick={calDownload}>
+								Download
+							</Button>
 						</Box>
 
 					</Stack>

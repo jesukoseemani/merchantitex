@@ -9,6 +9,12 @@ import { AirtimeRequestItem, BillInvoiceRequestItem, GetAirtimeRequestsRes, GetI
 import CustomClickTable from '../../table/CustomClickTable';
 import styles from "./style.module.scss"
 
+import { Box, Button, Stack } from '@mui/material'
+import { openModalAndSetContent } from '../../../redux/actions/modal/modalActions'
+import CreateInvoice from './CreateInvoice'
+
+
+
 const useModalBtnStyles = makeStyles({
     root: {
         display: 'flex',
@@ -97,17 +103,17 @@ const InvoiceRequesttable = () => {
 
 
     const InvoiceHistoryRowTab = useCallback(
-        (title, status, amount, name, added, email, id) => ({
+        (invoiceName, status, totalAmount, firstname, lastname, email, added, id) => ({
             title: (
                 <p className={styles.tableBodyText}>
                     <span className={styles.tableBodySpan}> </span>
-                    {title}
+                    {invoiceName}
                 </p>
             ),
             amount: (
                 <p className={styles.tableBodyText}>
                     <span className={styles.tableBodySpan}>NGN </span>
-                    {amount}
+                    {totalAmount}
                 </p>
             ),
             status: (
@@ -118,7 +124,7 @@ const InvoiceRequesttable = () => {
                     {status}
                 </span>
             ),
-            name: <p className={styles.tableBodyText}>{name}</p>,
+            name: <p className={styles.tableBodyText}>{`${firstname} ${lastname}`}</p>,
             email: <p className={styles.tableBodyText}>{email}</p>,
             date: (
                 <p className={styles.tableBodyText}>
@@ -138,12 +144,13 @@ const InvoiceRequesttable = () => {
         history?.map((each: BillInvoiceRequestItem) =>
             newRowOptions.push(
                 InvoiceHistoryRowTab(
-                    each?.title,
+                    each?.invoiceName,
                     each?.status,
-                    each?.amount,
-                    each?.name,
+                    each?.totalAmount,
+                    each?.customer.firstname,
+                    each?.customer.lastname,
+                    each?.customer.email,
                     each?.added,
-                    each?.email,
                     each?.id,
 
                 )
@@ -154,40 +161,74 @@ const InvoiceRequesttable = () => {
 
     const getInvoiceRequest = async () => {
         dispatch(openLoader());
-        console.log();
+
         try {
-            const res = await axios.get<GetInvoiceRequestsRes>(
-                '/mockData/invoicerequests.json',
-                { baseURL: '' }
-            );
-            const { history, _metadata } = res?.data;
-            console.log(res?.data);
-            if (history.length) {
-                setHistory(history);
-                setTotalRows(_metadata?.totalcount);
+            const { data } = await axios.get<any>("/v1/payment/merchantinvoices")
+
+            console.log(data);
+
+            if (data?.invoices) {
+                // const { invoices, _metadata } = invoiceList;
+                setHistory(data?.invoices);
+                setTotalRows(data?._metadata?.totalcount);
             }
             dispatch(closeLoader());
-        } catch (err) {
-            console.log(err);
+        } catch (error: any) {
             dispatch(closeLoader());
+            const { message } = error.response.data;
             dispatch(
-                openToastAndSetContent({
-                    toastContent: 'Failed to get items',
-                    toastStyles: {
-                        backgroundColor: 'red',
-                    },
-                })
+                dispatch(
+                    openToastAndSetContent({
+                        toastContent: message,
+                        toastStyles: {
+                            backgroundColor: "red",
+                        },
+                    })
+                )
             );
+        } finally {
+            dispatch(closeLoader());
         }
     };
 
     useEffect(() => {
         getInvoiceRequest();
     }, [pageNumber, rowsPerPage]);
-    console.log(history)
+
+
+
+
+
+    // create invoice
+    const handleCreateInvoice = () => {
+        dispatch(
+            openModalAndSetContent({
+                modalStyles: {
+                    padding: 0,
+                    borderRadius: "0.5rem",
+                    boxShadow: "-4px 4px 14px rgba(224, 224, 224, 0.69)",
+                },
+                modalTitle: "Create an Invoice",
+                modalContent: (
+                    <div className="modalDiv">
+                        <CreateInvoice fetchInvoice={getInvoiceRequest} />
+                    </div>
+                ),
+            })
+        );
+    }
     return (
-        <div>
-            <CustomClickTable
+        <Box sx={{ marginTop: "1.7rem" }}>
+            <Stack direction={"row"} justifyContent="space-between" flexWrap={"wrap"} alignItems={"center"} spacing={2}>
+                <h2 className={styles.headerTitle}>{history?.length} Invoices Created</h2>
+
+                <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "10px", marginTop: { xs: "30px" } }} >
+                    <button className={styles.outlinedBtn}>All invoice</button>
+                    <button className={styles.containedBtn} onClick={handleCreateInvoice}>+ Create invoice</button>
+                </Box>
+            </Stack>
+
+            <Box sx={{ marginTop: "1rem" }}> <CustomClickTable
                 columns={columns}
                 rows={rows}
                 totalRows={totalRows}
@@ -198,9 +239,9 @@ const InvoiceRequesttable = () => {
                 identifier='id'
                 rowsData={history}
             />
+            </Box>
+        </Box>
 
-
-        </div>
     );
 };
 

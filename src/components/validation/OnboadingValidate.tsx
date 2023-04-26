@@ -1,6 +1,7 @@
 import React from 'react'
 import * as Yup from 'yup';
-import "yup-phone";
+import "yup-phone-lite";
+import { countryCode } from '../../helpers/CountryCode';
 
 // validation
 
@@ -15,7 +16,7 @@ export const ValidateIndividual = Yup.object({
         .required('lastname Name is required'),
     businessname: Yup.string()
         .required('Trading/Business name is required'),
-    phonenumber: Yup.string().matches(phoneRegExp, 'Phone number is not valid'),
+    phonenumber: Yup.string().required("phone number is required").phone(countryCode, "Invalid phone no"),
     email: Yup.string()
         .email('Email is invalid')
         .required('Email Address is required'),
@@ -37,14 +38,15 @@ export const ValidateIndividual = Yup.object({
 
 
 export const ValidateNgo = Yup.object({
-    firstname: Yup.string(),
-    // .required('firstname Name is required'),
+    firstname: Yup.string()
+        .required('firstname Name is required'),
     lastname: Yup.string(),
     // .max(30, 'Must be 30 characters or less')
     // .required('lastname Name is required'),
     organizationName: Yup.string(),
     // .required('Trading/Business name is required'),
-    phonenumber: Yup.string(),
+    phonenumber: Yup.string().required("phone number is required").phone(countryCode, "Invalid phone no"),
+
     email: Yup.string()
         .email('Email is invalid'),
     // .required('Email Address is required'),

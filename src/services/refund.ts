@@ -1,18 +1,15 @@
 import axios from "axios";
 import queryString from 'query-string';
 import { RefundPayload, RefundQuery, RefundsRes } from "../types/RefundTypes";
+import { stringify } from "../utils/stringify";
 
 export const getRefundsService = async (query: Partial<RefundQuery>): Promise<RefundsRes> => {
-    const querystring = queryString.stringify(query)
-    const { data } = await axios.get(`/v1/refund?${querystring}`);
-    console.log(data, 'data')
+    const { data } = await axios.get(`/v1/refund${stringify(query)}`);
     return data as RefundsRes;
 }
 
-export const getDownloadedRefunds = async (query: Partial<RefundQuery>) => {
-    const querystring = queryString.stringify(query)
-    const { data } = await axios.get(`/v1/refund/download?${querystring}`);
-    console.log(data, 'data')
+export const getDownloadedRefunds = async (query?: Partial<RefundQuery>) => {
+    const { data } = await axios.get(`/v1/refund/download${stringify(query!)}`);
     return data
 }
 

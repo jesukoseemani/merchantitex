@@ -11,12 +11,16 @@ const TestHook = () => {
     const [url, setUrl] = useState('');
     const [SecreteHash, setSecreteHash] = useState('');
     const [value, setValue] = useState('1');
-    useEffect(() => {
+
+
+
+
+    const fetchWebhook = () => {
         axios
-            .get(`/merchant/account/webhook`)
+            .get<any>(`/v1/developer/webhook`)
             .then((res: any) => {
-                setUrl(res.data.url);
-                setSecreteHash(res?.data?.setSecreteHash)
+                setUrl(res?.data?.webhook?.url);
+                setSecreteHash(res?.data?.webhook?.secretKey)
                 console.log(res?.data)
             })
             .catch((err) => {
@@ -33,16 +37,27 @@ const TestHook = () => {
                     })
                 );
             });
+    }
+    useEffect(() => {
+        fetchWebhook()
     }, []);
 
     const dispatch = useDispatch();
     const webhookHandler = () => {
         dispatch(openLoader());
         axios
-            .post(`/merchant/account/webhook`, { url })
+            .post(`/v1/developer/webhook/update`, {
+                url,
+                secretKey: SecreteHash,
+                enableNotification: true
+
+
+            })
             .then((res: any) => {
                 console.log('heris:', res);
+
                 dispatch(closeLoader());
+                fetchWebhook()
                 dispatch(
                     openToastAndSetContent({
                         // toastContent: "Login Failed",
@@ -109,8 +124,8 @@ const TestHook = () => {
                                 type='Secrete Hash'
                                 // label='Secrete Hash'
                                 placeholder='Secrete hash'
-                                // value={SecreteHash}
-                                onChange={(e) => setUrl(e.target.value)}
+                                value={SecreteHash}
+                                onChange={(e) => setSecreteHash(e.target.value)}
                             />
 
 

@@ -197,6 +197,7 @@ const theme = createTheme({
     },
     MuiInputLabel: {
       styleOverrides: {
+
         root: {
           padding: " 0!important",
           fontFamily: 'Avenir',
@@ -208,12 +209,19 @@ const theme = createTheme({
         }
       }
     },
+
     MuiTextField: {
       styleOverrides: {
+
         root: {
-          height: 44,
+          minHeight: 44,
+          '& textarea': {
+            padding: "10px !important",
+          }
+
 
         },
+
 
 
       }

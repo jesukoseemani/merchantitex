@@ -3,17 +3,31 @@ import {
 	Button,
 	Modal,
 	IconButton,
-	OutlinedInput,
-	Select,
 	SelectChangeEvent,
 	Box,
-	Chip,
-	MenuItem,
+
 } from '@mui/material';
 import { makeStyles } from '@material-ui/styles';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 import { ArrowDropUp } from '@material-ui/icons';
+import { Formik, Form } from "formik";
+import { singleCharge } from '../../components/validation/payment/paymentValidation';
+import { TextField } from '@mui/material';
+import axios from 'axios';
+import { openLoader, closeLoader } from '../../redux/actions/loader/loaderActions';
+import { useDispatch } from 'react-redux';
+import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
+import CustomCurrency from '../../components/formUI/SelectCountry/CustomCurrency';
+import useCustomUpload from '../../components/hooks/CustomUpload';
+import useCurrency from '../../components/hooks/Usecurrency';
+import useCountry from '../../components/hooks/UseCountry';
+import CustomInputField from '../../components/customs/CustomInputField';
+import styles from './PaymentLinks.module.scss';
+
+import CustomInputDropdown from '../../components/customs/CustomInputDropdown';
+import CustomPhoneNumber from '../../components/customs/CustomPhoneInput';
+
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -31,7 +45,10 @@ interface SingleLinkModalProps {
 	handleClose: () => void;
 }
 
-const currencies = ['NGN', 'USD', 'EUR'];
+interface Props {
+	code: string;
+	message: string;
+}
 
 function getStyles(currency: string, selectedCurrency: readonly string[]) {
 	return {
@@ -90,6 +107,7 @@ const useStyles = makeStyles({
 	},
 	formBox: {
 		display: 'grid',
+		// paddingInline:
 
 		'& label': {
 			color: '#333',
@@ -211,151 +229,180 @@ const SingleLinkModal = ({ isOpen, handleClose }: SingleLinkModalProps) => {
 		setSelectedCurrency([]);
 		handleClose();
 	};
+	const dispatch = useDispatch()
+
+	const [currencyList] = useCurrency()
+
 
 	return (
-		<Modal
-			open={isOpen}
-			onClose={closeModal}
-			closeAfterTransition
-			BackdropComponent={Backdrop}
-			BackdropProps={{
-				timeout: 500,
-			}}>
-			<div className={classes.root}>
-				<div>
-					<p>Create a payment link</p>
-					<IconButton
-						aria-label='close payment link modal'
-						onClick={handleClose}>
-						<CloseIcon />
-					</IconButton>
-				</div>
-				<hr />
+		<Formik
+			initialValues={{
+				linkName: '',
+				amount: '',
+				redirectUrl: '',
+				description: '',
+				donationContact: '',
+				currencyid: '',
+				otp: '',
+				fieldname: ""
 
-				<Box>
-					<div className={classes.formBox}>
-						<label htmlFor='linkName'>Link name</label>
-						<OutlinedInput
-							placeholder='Food Bank'
-							value={linkName}
-							onChange={(e) => setLinkName(e.target.value)}
-						/>
-					</div>
-					<div className={classes.formBox}>
-						<label htmlFor='amount'>Amount</label>
-						<OutlinedInput
-							placeholder='0.00'
-							value={amt}
-							type='number'
-							onChange={(e) => setAmt(Number(e.target.value))}
-							startAdornment={
-								<div className={classes.suffix}>
-									<p>NGN</p>
+
+			}}
+			validationSchema={singleCharge}
+			onSubmit={async ({ linkName, amount, currencyid, description, fieldname, redirectUrl, otp }, { resetForm }) => {
+				dispatch(openLoader());
+
+				try {
+					const { data } = await axios.post<Props>('/v1/payment/create/link', {
+
+						linkName,
+						linkType: "single",
+						currencyid,
+						amount,
+						description,
+						redirectUrl,
+						otp,
+						"extraField": [
+							{
+								"label": fieldname
+							}]
+
+
+					})
+
+
+
+					if (data.code === "success") {
+						dispatch(
+							openToastAndSetContent({
+								toastContent: data?.message,
+								toastStyles: {
+									backgroundColor: "green",
+								},
+							})
+						)
+
+						dispatch(closeLoader());
+						dispatch(closeModal())
+						resetForm()
+					}
+
+
+				} catch (error: any) {
+					dispatch(closeLoader());
+					const { message } = error?.response.data;
+					dispatch(
+						openToastAndSetContent({
+							toastContent: message,
+							toastStyles: {
+								backgroundColor: "red",
+							},
+						})
+					);
+				} finally {
+					dispatch(closeLoader());
+				}
+
+			}}>
+			{(props) => (
+				<Modal
+					open={isOpen}
+					onClose={closeModal}
+					closeAfterTransition
+					BackdropComponent={Backdrop}
+					BackdropProps={{
+						timeout: 500,
+					}}>
+					<Form>
+						<div className={classes.root}>
+							<div className={styles.headerTitle}>
+								<p>Create a payment link</p>
+								<IconButton
+									aria-label='close payment link modal'
+									onClick={handleClose}>
+									<CloseIcon />
+								</IconButton>
+							</div>
+
+
+							<Box sx={{ paddingInline: "20px" }}>
+								<div className={classes.formBox} style={{ marginBottom: "18px" }}>
+									<CustomInputField
+										as={TextField} className="hh" label={"Link name"} placeholder='Food Bank' name='linkName' type='text' />
 								</div>
-							}
-						/>
-						<span className={classes.helperText}>Leave empty to allow customers enter desired amount</span>
-					</div>
-					<div className={classes.formBox}>
-						<label htmlFor='amount'>Description</label>
-						<OutlinedInput
-							placeholder='email@email.com'
-							rows={4}
-							multiline
-							value={desc}
-							onChange={(e) => setDesc(e.target.value)}
-						/>
-					</div>
-					<div>
-						{isAddOpen ? (
-							<div
-								className={classes.removeBtn}
-								onClick={() => setIsAddOpen(false)}>
-								Additional details <ArrowDropUp />
-							</div>
-						) : (
-							<div
-								className={classes.addBtn}
-								onClick={() => setIsAddOpen(true)}>
-								+ Add additional details
-							</div>
-						)}
-					</div>
-					{isAddOpen ? (
-						<div className={classes.addView}>
-							<div className={classes.formBox}>
-								<label htmlFor='customLink'>Custom Link</label>
-								<OutlinedInput
-									placeholder='Your link'
-									value={customLink}
-									onChange={(e) => setCustomLink(e.target.value)}
-									startAdornment={
-										<div className={classes.suffix}>
-											<p>itexpay.com/</p>
+								<div className={classes.formBox}>
+
+									<CustomInputDropdown as={TextField} label={"Amount"} placeholder='amount' name='amount' position="start" adornmentName='currencyid'
+										adornmentOptions={currencyList} adornmentType={CustomCurrency}
+									/>
+
+									<CustomPhoneNumber as={TextField} label={"phone number"} placeholder="09069003426" name="phone" />
+
+									<span className={classes.helperText}>Leave empty to allow customers enter desired amount</span>
+								</div>
+
+
+
+
+								<div className={classes.formBox}>
+
+
+									<CustomInputField as={TextField} label={"Description"} placeholder='description' multiline={true} name='description' rows={3} />
+
+
+								</div>
+								<div>
+									{isAddOpen ? (
+										<div
+											className={classes.removeBtn}
+											onClick={() => setIsAddOpen(false)}>
+											Additional details <ArrowDropUp />
 										</div>
-									}
-								/>
-							</div>
-							<div className={classes.formBox}>
-								<label htmlFor='currency'>Only accept these currencies</label>
-								<Select
-									labelId='demo-multiple-chip-label'
-									id='demo-multiple-chip'
-									multiple
-									value={selectedCurrency}
-									onChange={handleCurrencyChange}
-									input={
-										<OutlinedInput id='select-multiple-chip' label='Chip' />
-									}
-									renderValue={(selected) => (
-										<Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-											{selected.map((value) => (
-												<Chip key={value} label={value} />
-											))}
-										</Box>
+									) : (
+										<div
+											className={classes.addBtn}
+											onClick={() => setIsAddOpen(true)}>
+											+ Add additional details
+										</div>
 									)}
-									MenuProps={MenuProps}>
-									{currencies.map((currency) => (
-										<MenuItem
-											key={currency}
-											value={currency}
-											style={getStyles(currency, selectedCurrency)}>
-											{currency}
-										</MenuItem>
-									))}
-								</Select>
-							</div>
-							<div className={classes.formBox}>
-								<label htmlFor='redirect'>Redirect after payment</label>
-								<OutlinedInput
-									placeholder='https://itexpay.com'
-									value={redirect}
-									onChange={(e) => setRedirect(e.target.value)}
-								/>
-							</div>
-							<div className={classes.formBox}>
-								<label htmlFor='fieldName'>Collect extra information</label>
-								<OutlinedInput
-									placeholder='Enter field name'
-									value={fieldName}
-									onChange={(e) => setFieldName(e.target.value)}
-									startAdornment={
-										<div className={classes.suffix}>
-											<p>Field name</p>
+								</div>
+								{isAddOpen ? (
+									<div className={classes.addView}>
+
+
+										<div className={classes.formBox}>
+
+											<CustomInputField as={TextField} label={"Redirect after payment"} placeholder='https://donation.com' name='redirectUrl' />
+
+
 										</div>
-									}
-								/>
+										<div className={classes.formBox}>
+
+											<CustomInputField as={TextField} label={"RedCollect extra information"} placeholder='fieldname' name='fieldname' />
+
+
+										</div>
+										<div className={classes.formBox}>
+											<CustomInputField as={TextField} label={"Otp"} placeholder='otp' type='number' name='otp' />
+
+
+
+										</div>
+									</div>
+								) : null}
+							</Box>
+							<div>
+								<Button type='submit' style={{ borderRadius: "20px" }} fullWidth className={classes.formBtn}>
+									Create link
+								</Button>
 							</div>
+
 						</div>
-					) : null}
-				</Box>
-				<div>
-					<Button style={{ borderRadius: "20px" }} fullWidth className={classes.formBtn}>
-						Create link
-					</Button>
-				</div>
-			</div>
-		</Modal>
+					</Form>
+				</Modal>
+			)}
+		</Formik>
+
 	);
 };
 

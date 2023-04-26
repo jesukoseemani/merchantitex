@@ -20,9 +20,59 @@ import { saveUserDetail } from '../../redux/actions/userDetail/userDetailActions
 import { saveCountry } from '../../redux/actions/country/countryActions';
 // import { makeStyles } from '@material-ui/core';
 import { ReactSVG } from "react-svg";
-import { Box } from '@mui/material';
+import { Box, styled } from '@mui/material';
+import TwoFaAuth from './TwoFaAuth';
 
 const SignIn = () => {
+
+
+
+	useEffect(() => {
+		dispatch(openLoader());
+		const fetchCountry = async () => {
+
+			try {
+
+				const { data } = await axios.get<any>("/resource/countries")
+				dispatch(saveCountry(data?.countries))
+
+
+				dispatch(closeLoader());
+
+			} catch (error: any) {
+				dispatch(closeLoader());
+				const { message } = error.response.data;
+				dispatch(
+					dispatch(
+						openToastAndSetContent({
+							toastContent: message,
+							toastStyles: {
+								backgroundColor: "red",
+							},
+						})
+					)
+				);
+			} finally {
+				dispatch(closeLoader());
+			}
+		}
+
+
+		fetchCountry()
+	}, [])
+
+
+
+
+	const StyledTextField = styled(TextField, {
+		name: "StyledTextField",
+	})({
+
+		"& .MuiInputBase-root": {
+			height: 44,
+			// marginBottom: "18px",
+		}
+	});
 	const dispatch = useDispatch();
 	const history = useHistory();
 
@@ -54,23 +104,45 @@ const SignIn = () => {
 					.post('/auth/authenticate', values)
 					.then((res: any) => {
 						console.log(res?.data)
-						dispatch(closeLoader());
-						dispatch(saveAuth(res?.data));
+						
+
 						if (res?.data?.code === "success") {
-							history.push('/');
-						} else {
-							history.push('/signin');
+							dispatch(saveAuth(res?.data));
+							dispatch(closeLoader());
+							history.push({
+								pathname: "/signin/2fa",
+								state: res?.data?.twofa_token
+							})
+
+							if (res?.data?.twofa_token !== null) {
+								console.log(res?.data?.twofa_token);
+								dispatch(closeLoader());
+								dispatch(
+									openToastAndSetContent({
+										toastContent: res?.data?.message,
+										toastStyles: {
+											backgroundColor: 'green',
+										},
+									})
+								)
+
+
+							} else {
+								history.push('/');
+								dispatch(saveUserDetail(res?.data?.user));
+								dispatch(closeLoader());
+								dispatch(
+									openToastAndSetContent({
+										toastContent: 'Login Successful',
+										toastStyles: {
+											backgroundColor: 'green',
+										},
+									})
+								);
+							}
 						}
 						// dispatch(saveLoading(true));
-						dispatch(saveUserDetail(res?.data?.user));
-						dispatch(
-							openToastAndSetContent({
-								toastContent: 'Login Successful',
-								toastStyles: {
-									backgroundColor: 'green',
-								},
-							})
-						);
+
 
 						// if (res.data.business.status === 'IN-REVIEW') {
 						// 	history.push(`/quickupdate/${res.data.business.account.type}`);
@@ -84,7 +156,7 @@ const SignIn = () => {
 						dispatch(saveLoading(false));
 						dispatch(
 							openToastAndSetContent({
-								toastContent: 'Login Failed',
+								toastContent: err?.response?.data?.message,
 								toastStyles: {
 									backgroundColor: 'red',
 								},
@@ -109,7 +181,7 @@ const SignIn = () => {
 											<span className={styles.formTitle}>Email Address</span>
 										</InputLabel>
 										<Field
-											as={TextField}
+											as={StyledTextField}
 											helperText={
 												<ErrorMessage name='email'>
 													{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
@@ -128,7 +200,7 @@ const SignIn = () => {
 											<span className={styles.formTitle}>Password</span>
 										</InputLabel>
 										<Field
-											as={TextField}
+											as={StyledTextField}
 											helperText={
 												<ErrorMessage name='password'>
 													{(msg) => <span style={{ color: 'red' }}>{msg}</span>}

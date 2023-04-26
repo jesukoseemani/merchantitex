@@ -7,7 +7,7 @@ import IndividualUpdateSettings from '../components/IndividualUpdateSettings';
 import axios from 'axios';
 import { saveMe } from '../redux/actions/me/meActions';
 import { onboardMe } from '../redux/actions/onboarding/onboardingActions';
-import AccountSetUp from '../components/accountSetUp/AccountSetUp';
+// import AccountSetUp from '../components/accountSetUp/AccountSetUp';
 import { useParams } from 'react-router';
 import { dataBusiness, dataIndividual } from '../helpers/Quickdatahelper';
 
@@ -50,10 +50,18 @@ const QuickUpdate = () => {
 		}
 	}, [id]);
 
+	useEffect(() => {
+		axios
+			.get(`/v1/profile/me`)
+			.then((res) => {
+				dispatch(saveMe(res.data));
+			})
+			.catch((err) => console.log(err));
+	}, [dispatch]);
 
 	return (
 		<div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-			<AccountSetUp />
+			""
 		</div>
 	);
 };

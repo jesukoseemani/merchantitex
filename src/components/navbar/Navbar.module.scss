@@ -63,7 +63,7 @@
     span {
       font-style: normal;
       font-weight: 400;
-      font-size: 12px;
+      font-size: 10px;
       line-height: 10px;
       color: lighten($light_text, 2);
     }
@@ -98,6 +98,8 @@ nav {
   // }
 
   // margin-top: 1rem;
+
+  // margin-top: -rem;
 
   li {
     list-style: none;
@@ -155,7 +157,14 @@ nav {
 }
 
 
+.setup {
 
+  background: #EB5757;
+  border: 0.4px solid #EB5757;
+  color: #fff;
+  height: 34px;
+  margin-bottom: 15px;
+}
 
 .replaced_not {
   display: none;
@@ -283,7 +292,7 @@ input {
     color: #9ea2b2;
     text-transform: inherit;
 
-    
+
   }
 }
 

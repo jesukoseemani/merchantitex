@@ -16,6 +16,8 @@ import loadingStateReducer from './loadingState/index';
 import onboardStateReducer from './onboarding/index';
 import countryReducer from './country/index';
 import navbarReducer from './navbar/index';
+import setupReducer from './setup';
+import bankAcctReducer from "./settings/bankAccount"
 
 const rootReducer = combineReducers({
 	// customizer,
@@ -37,6 +39,8 @@ const rootReducer = combineReducers({
 	loader,
 	products,
 	navbarReducer,
+	setupReducer,
+	bankAcctReducer
 });
 
 export default rootReducer;

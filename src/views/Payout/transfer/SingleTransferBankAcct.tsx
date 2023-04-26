@@ -8,11 +8,17 @@ import { useDispatch } from 'react-redux';
 import { openModalAndSetContent } from '../../../redux/actions/modal/modalActions';
 import Confirmation from './Confirmation';
 
+const DATA = {
+    balance: '',
+    amount: '',
+    account: '',
+    description: ''
+}
+
 const SingleTransferBankAcct = ({ close }: { close: () => void }) => {
     const [bankAcct, setBankAcct] = useState(null)
-    const dispatch = useDispatch()
-
-
+    const dispatch = useDispatch();
+    const [form, setForm] = useState<typeof DATA>(DATA)
 
 
     const handleSubmit = () => {
@@ -28,7 +34,7 @@ const SingleTransferBankAcct = ({ close }: { close: () => void }) => {
                 },
                 modalContent: (
                     <>
-                        <Confirmation />
+                        <Confirmation form={form} />
                     </>
                 ),
             })

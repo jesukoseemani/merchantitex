@@ -71,7 +71,6 @@ import BillSaleRequest from "../views/Bills/BillSaleRequest";
 import BulkBillPayment from "../components/bills/BulkBillPayment";
 import NavHeader from "../components/navbarMenu/NavHeader";
 import ResetPassword from "../views/Reset/password/ResetPassword";
-import AccountSetUp from "../components/accountSetUp/AccountSetUp";
 import AccountSetup from "../views/SignUp/accountsetup/AccountSetup";
 import Invoice from "../components/bills/invoice/Invoice";
 import BulkTransferEntry from "../views/Payout/transfer/BulkTransferEntry";
@@ -88,10 +87,14 @@ import Administrator from "../components/permission/Administrator";
 import Operations from "../components/permission/Operations";
 import Support from "../components/permission/Support";
 import Developer from "../components/permission/Developer";
-import Viewers from "../components/permission/Viewers";
 import NgoSignUp from "../views/SignUp/ngo";
 import Payout from "../views/Payout/Payout";
 import SinglePayout from "../views/Payout/SinglePayout";
+import Owner from "../components/permission/Owner";
+import UsersPermission from "../components/permission/Users";
+import UserActivity from '../redux/reducers/settings/user/UserActivity';
+import PaymentMethod from "../views/Settings/payment/PaymentMethod";
+import TwoFaAuth from "../views/SignIn/TwoFaAuth";
 
 
 
@@ -168,6 +171,9 @@ export default function AppRoutes() {
       <Switch>
         <Route exact path="/signin">
           <SignIn />
+        </Route>
+        <Route exact path="/signin/2fa">
+          <TwoFaAuth />
         </Route>
         <Route exact path="/signup">
           <SignUp />
@@ -467,7 +473,7 @@ export default function AppRoutes() {
             />
             <ProtectedRoute
               exact
-              path="/payment_links/:slug"
+              path="/payment_links/:id"
               component={PaymentLinksItem}
               AuthUser={loadingState}
             />
@@ -551,6 +557,17 @@ export default function AppRoutes() {
             />
             <ProtectedRoute
               exact
+              path="/setup"
+              component={AccountSetup}
+              AuthUser={loadingState}
+            />
+
+
+          </>
+
+          <>
+            <ProtectedRoute
+              exact
               path="/general_setting"
               component={GeneralSettings}
               AuthUser={loadingState}
@@ -571,38 +588,50 @@ export default function AppRoutes() {
             />
             <ProtectedRoute
               exact
+              path="/user/activity"
+              component={UserActivity}
+              AuthUser={loadingState}
+            />
+            <ProtectedRoute
+              exact
               path="/general_setting/permissions"
               component={Permission}
               AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
-              path="/general_setting/permissions/administrator"
+              path="/general_setting/permissions/admin/:id"
               component={Administrator}
               AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
-              path="/general_setting/permissions/operations"
+              path="/general_setting/permissions/operations/:id"
               component={Operations}
               AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
-              path="/general_setting/permissions/support"
+              path="/general_setting/permissions/support/:id"
               component={Support}
               AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
-              path="/general_setting/permissions/developer"
+              path="/general_setting/permissions/developer/:id"
               component={Developer}
               AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
-              path="/general_setting/permissions/viewers"
-              component={Viewers}
+              path="/general_setting/permissions/user/:id"
+              component={UsersPermission}
+              AuthUser={loadingState}
+            />
+            <ProtectedRoute
+              exact
+              path="/general_setting/permissions/owner/:id"
+              component={Owner}
               AuthUser={loadingState}
             />
 
@@ -619,6 +648,12 @@ export default function AppRoutes() {
               component={WebHooks}
               AuthUser={loadingState}
             />
+            <ProtectedRoute
+              exact
+              path="/general_setting/paymentmethod"
+              component={PaymentMethod}
+              AuthUser={loadingState}
+            />
 
             <ProtectedRoute
               exact
@@ -633,12 +668,9 @@ export default function AppRoutes() {
               AuthUser={loadingState}
             />
 
-
           </>
-          <Route exact path="/test/home">
-            <AccountSetup />
-          </Route>
         </Navigation>
+
       </Switch>
     </Router >
   );

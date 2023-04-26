@@ -31,6 +31,8 @@ import { useDispatch } from "react-redux";
 import CustomClickTable from "../../components/table/CustomClickTable";
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { getRollingReserve } from "../../services/rolling-reserve";
+import useDownload from "../../hooks/useDownload";
+import { BASE_URL } from "../../config";
 
 const useBtnStyles = makeStyles({
   root: {
@@ -166,6 +168,9 @@ const RollingReserve = () => {
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
   const [totalRows, setTotalRows] = useState<number>(0);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  const { calDownload } = useDownload({ url: `${BASE_URL}/rollingreserve/download`, filename: 'rollingreserve' })
+
   const open = Boolean(anchorEl);
 
   const dispatch = useDispatch();
@@ -398,7 +403,7 @@ const RollingReserve = () => {
                 <FilterAltOutlinedIcon /> Filter by:
               </Button>
             </div>
-            <Button>
+            <Button onClick={calDownload}>
               <InsertDriveFileOutlinedIcon /> Download
             </Button>
           </div>

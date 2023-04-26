@@ -17,8 +17,9 @@ const SelectWrapperCountry = ({ name, options, ...otherProps }: any) => {
 	});
 
 	const handleChange = (evt: any) => {
-		const { value } = evt.target;
+		const { value, } = evt.target;
 		setFieldValue(name, value);
+
 	};
 
 	const configSelect = {
@@ -28,6 +29,7 @@ const SelectWrapperCountry = ({ name, options, ...otherProps }: any) => {
 		variant: 'outlined',
 		fullWidth: true,
 		onChange: handleChange,
+		defaultValue: ""
 	};
 
 	if (meta && meta.touched && meta.error) {
@@ -39,9 +41,9 @@ const SelectWrapperCountry = ({ name, options, ...otherProps }: any) => {
 		<StyledTextField {...configSelect}>
 			{options?.map((item: any, i: any) => {
 				return (
-					<MenuItem key={i} value={item.bankcode}>
+					<MenuItem key={i} value={item.id} >
 						{/* {options[item]} */}
-						{item.bankname}
+						{item.bank || item.country}
 					</MenuItem>
 				);
 			})}

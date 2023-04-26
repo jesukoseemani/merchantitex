@@ -174,7 +174,6 @@ const NgoSignUp = () => {
 			}}
 			validationSchema={ValidateNgo}
 			onSubmit={async ({ firstname, organizationName, countryid, email, lastname, password, phonenumber }) => {
-				console.log({ firstname, organizationName, countryid, email, lastname, password, phonenumber })
 				try {
 					dispatch(closeLoader());
 					const { data } = await axios.post<Props>("/auth/register", {
@@ -211,7 +210,7 @@ const NgoSignUp = () => {
 
 					dispatch(
 						openToastAndSetContent({
-							toastContent: error.message,
+							toastContent: error?.response?.data?.message,
 							toastStyles: {
 								backgroundColor: 'red',
 							},

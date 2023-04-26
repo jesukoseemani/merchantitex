@@ -1,4 +1,4 @@
-import { Grid, InputLabel, Typography, Button, TextField, MenuItem } from '@mui/material';
+import { Grid, InputLabel, Typography, Button, TextField, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import styles from './style.module.scss';
 import Logo from '../../../assets/images/white_bg_logo.svg';
 
@@ -22,11 +22,13 @@ import { openToastAndSetContent } from '../../../redux/actions/toast/toastAction
 import { styled } from '@mui/system';
 import { Box } from '@mui/material';
 import MuiPhoneNumber from 'material-ui-phone-number';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { ValidateIndividual } from '../../../components/validation/OnboadingValidate';
 import CustomSelect from '../../../components/customs/CustomSelect';
 import CustomCategory from '../../../components/customs/CustomCategory';
 import ReactCountryFlag from "react-country-flag"
+import CustomPhoneNumber from '../../../components/customs/CustomPhoneInput';
+import CustomInputField from '../../../components/customs/CustomInputField';
 
 const createAccount = [
 	{
@@ -75,12 +77,11 @@ interface countryProp {
 const IndividualSignUp = () => {
 	const [phone, setPhone] = useState<unknown>()
 	const [country, setCountry] = useState<any>()
-	const [businessCategory, setBusinessCategory] = useState([])
+	const [defaultCountry, setDefaultCountry] = useState<any>()
+	const [businessCategory, setBusinessCategory] = useState<string | number>()
+	const [countryCode, setCountryCode] = useState("")
 
-	const handleOnChange = (value: any) => {
-		setPhone(value)
-		console.log(phone)
-	}
+
 
 
 	useEffect(() => {
@@ -90,7 +91,9 @@ const IndividualSignUp = () => {
 			try {
 
 				const { data } = await axios.get<any>("/resource/countries")
+				console.log(data)
 				setCountry(data?.countries)
+				setDefaultCountry(data?.defaultCountry)
 
 
 				dispatch(closeLoader());
@@ -156,7 +159,7 @@ const IndividualSignUp = () => {
 	}, [])
 
 
-	console.log(country)
+	console.log(defaultCountry?.countryIso.toLowerCase())
 
 	const dispatch = useDispatch();
 
@@ -181,10 +184,13 @@ const IndividualSignUp = () => {
 				password: "",
 				businessCategoryId: "",
 				countryid: "",
+				// countryIso: "",
 
 			}}
 			validationSchema={ValidateIndividual}
 			onSubmit={async ({ firstname, businessCategoryId, businessname, countryid, email, lastname, password, phonenumber }) => {
+				console.log({ phonenumber });
+
 
 				try {
 					dispatch(closeLoader());
@@ -217,20 +223,19 @@ const IndividualSignUp = () => {
 
 					dispatch(
 						openToastAndSetContent({
-							toastContent: error.message,
+							toastContent: error?.response?.data?.message,
 							toastStyles: {
 								backgroundColor: 'red',
 							},
 						})
 					);
 				}
-				// console.log(values, "values")
 
 
 
 			}}
 		>
-			{(props) => (
+			{(formikProps) => (
 				<div className={styles.signupContainer}>
 					<div className={styles.logo}>
 						<ReactSVG src={Logo} onClick={() => history.push('/signin')} />
@@ -265,6 +270,7 @@ const IndividualSignUp = () => {
 											<InputLabel>
 												<span className={styles.formTitle}>Country</span>
 											</InputLabel>
+
 											<Field
 												as={CustomSelect}
 												helperText={
@@ -279,136 +285,38 @@ const IndividualSignUp = () => {
 
 											/>
 
+										</Grid>
+										<Grid item xs={12} md={5.6} mb="18px">
+
+											<CustomPhoneNumber as={TextField} label={"Phone number"} placeholder="09069003426" name="phonenumber" />
+
 
 
 										</Grid>
+
+
 										<Grid item xs={12} md={5.6} mb="18px">
-											<InputLabel className={styles.formTitle}>Phone number</InputLabel>
-											{/* <MuiPhoneNumber variant='outlined' name='phonenumber'
-												fullWidth defaultCountry={'us'} value={phone} onChange={(e) => setPhone(e)}
-												helperText={
-													<ErrorMessage name='phonenumber'>
-														{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
-													</ErrorMessage>
-												}
-											/> */}
 
-
-											<Grid container>
-												{/* <Grid item xs={4}>
-													<TextField select fullWidth>
-														{country?.map((x: countryProp) => (
-															<Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 10px", width: "100%" }}>
-																<MenuItem key={x?.id} defaultValue={x?.dialCode}>
-
-																	<ReactCountryFlag
-																		className="emojiFlag"
-																		countryCode={x?.countryIso}
-																		style={{
-																			fontSize: '2em',
-																			lineHeight: '2em',
-																		}}
-																		svg
-																		defaultValue={x?.countryIso}
-																	/>{x?.dialCode}
-
-																</MenuItem>
-
-															</Box>
-
-														))}
-													</TextField>
-												</Grid> */}
-												<Grid item xs={12}>
-													<Field
-														as={TextField}
-														helperText={
-															<ErrorMessage name="phonenumber">
-																{(msg) => <span style={{ color: "red" }}>{msg}</span>}
-															</ErrorMessage>
-														}
-														value={country?.dialCode}
-														name="phonenumber"
-														placeholder="phonenumber"
-														// margin="normal"
-														type="text"
-														size="small"
-														fullWidth
-													// defaultValue={id}
-
-													/>
-												</Grid>
-											</Grid>
+											<CustomInputField label={"First name"} name="firstname" as={TextField} placeholder="First name" />
 
 										</Grid>
-
-										{country?.id}
-
 										<Grid item xs={12} md={5.6} mb="18px">
-											<InputLabel>
-												<span className={styles.formTitle}>First name</span>
-											</InputLabel>
-											<Field
-												as={TextField}
-												helperText={
-													<ErrorMessage name="firstname">
-														{(msg) => <span style={{ color: "red" }}>{msg}</span>}
-													</ErrorMessage>
-												}
-												name="firstname"
-												placeholder="firstname"
-												// margin="normal"
-												type="text"
-												size="small"
-												fullWidth
-											// defaultValue={id}
 
-											/>
+
+											<CustomInputField label={"Trading/Business name"} name="businessname" as={TextField} placeholder="businessname" />
+
 										</Grid>
 										<Grid item xs={12} md={5.6} mb="18px">
-											<InputLabel>
-												<span className={styles.formTitle}>Trading/Business name</span>
-											</InputLabel>
-											<Field
-												as={TextField}
-												helperText={
-													<ErrorMessage name='businessname'>
-														{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
-													</ErrorMessage>
-												}
-												name='businessname'
-												variant='outlined'
 
-												type='text'
+											<CustomInputField label={"Last name"} name="lastname" as={TextField} placeholder="lastname" />
 
-												fullWidth
-											/>
-										</Grid>
-										<Grid item xs={12} md={5.6} mb="18px">
-											<InputLabel>
-												<span className={styles.formTitle}>Last name</span>
-											</InputLabel>
-											<Field
-												as={TextField}
-
-
-												helperText={
-													<ErrorMessage name='lastname'>
-														{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
-													</ErrorMessage>
-												}
-												name='lastname'
-												variant='outlined'
-												fullWidth
-
-											/>
 										</Grid>
 										<Grid item xs={12} md={5.6} mb="18px">
 											<InputLabel>
 												<span className={styles.formTitle}>Business category</span>
 											</InputLabel>
 											<Field
-												as={CustomCategory}
+												as={CustomSelect}
 												helperText={
 													<ErrorMessage name='businessCategoryId'>
 														{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
@@ -420,46 +328,17 @@ const IndividualSignUp = () => {
 
 
 											/>
+
+
 										</Grid>
 										<Grid item xs={12} md={5.6} >
-											<InputLabel>
-												<span className={styles.formTitle}>Email</span>
-											</InputLabel>
-											<Field
-												as={TextField}
-												helperText={
-													<ErrorMessage name='email'>
-														{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
-													</ErrorMessage>
-												}
-												name='email'
-												variant='outlined'
-												placeholder='Email'
-												type='email'
 
-												fullWidth
 
-											/>
+											<CustomInputField label={"Email"} name="email" as={TextField} placeholder="email" />
+
 										</Grid>
 										<Grid item xs={12} md={5.6} >
-											<InputLabel>
-												<span className={styles.formTitle}>Password</span>
-											</InputLabel>
-											<Field
-												as={TextField}
-												helperText={
-													<ErrorMessage name='password'>
-														{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
-													</ErrorMessage>
-												}
-												name='password'
-												variant='outlined'
-												placeholder='password'
-												type='password'
-
-												fullWidth
-
-											/>
+											<CustomInputField label={"Password"} name="password" as={TextField} placeholder="password" />
 
 										</Grid>
 										{/* <InputLabel className={styles.mt}></InputLabel> */}

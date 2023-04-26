@@ -17,6 +17,8 @@ const persistConfig = {
 		'onboardStateReducer',
 		'countryReducer',
 		'navbarReducer',
+		'setupReducer',
+		"bankAcctReducer"
 	],
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -25,14 +27,14 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 //Added this line so that App can run in browsers without Redux Dev tools in development mode
 // const composeEnhancers = (process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null) || compose;
 const composeEnhancers =
-  (typeof window !== "undefined" &&
-    (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
-  compose;
+	(typeof window !== "undefined" &&
+		(window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+	compose;
 
 const store = createStore(
-  persistedReducer,
-  {},
-  composeEnhancers(applyMiddleware(...middlewares))
+	persistedReducer,
+	{},
+	composeEnhancers(applyMiddleware(...middlewares))
 );
 const persistor = persistStore(store);
 

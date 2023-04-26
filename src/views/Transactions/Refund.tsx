@@ -26,7 +26,10 @@ import CustomClickTable from '../../components/table/CustomClickTable';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import { RefundItem } from '../../types/RefundTypes';
 import BeneficiaryMenu from '../Payout/BeneficiaryMenu';
-import { getRefundsService } from '../../services/refund';
+import { getDownloadedRefunds, getRefundsService } from '../../services/refund';
+import { stripSearch } from '../../utils';
+import useDownload from '../../hooks/useDownload';
+import { BASE_URL } from '../../config';
 
 
 
@@ -42,6 +45,7 @@ const Refund = () => {
 	const [totalRows, setTotalRows] = useState<number>(0);
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const { search } = useLocation()
+	const { calDownload } = useDownload({ url: `${BASE_URL}/refund/download`, filename: 'refund' })
 
 	const currentDate = moment(new Date()).format('YYYY-MM-DD');
 
@@ -194,9 +198,8 @@ const Refund = () => {
 			const res = await getRefundsService({
 				page: pageNumber,
 				perpage: rowsPerPage,
-				search
+				// search: stripSearch(search)
 			});
-			console.log(res, 'res');
 			setRefunds(res?.refunds || []);
 			setTotalRows(res?._metadata?.totalcount || 0)
 			// if (history.length) {
@@ -221,6 +224,7 @@ const Refund = () => {
 	const downloadRefunds = async () => {
 		dispatch(openLoader());
 		try {
+
 			const res = await axios.get<DownloadRefundsRes>(
 				`/admin/refunds/download`
 			);
@@ -229,6 +233,7 @@ const Refund = () => {
 				window.open(transaction.redirecturl, '_blank');
 			}
 			dispatch(closeLoader());
+			await getDownloadedRefunds()
 		} catch (err) {
 			console.log(err);
 			dispatch(closeLoader());
@@ -352,7 +357,7 @@ const Refund = () => {
 						<Button onClick={() => setIsFilterModalOpen(true)}>
 							<FilterAltOutlinedIcon />Filter by:
 						</Button>
-						<Button onClick={() => downloadRefunds()}>
+						<Button onClick={calDownload}>
 							<InsertDriveFileOutlined />Download
 						</Button>
 						<Button

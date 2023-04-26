@@ -43,7 +43,7 @@ interface Props {
 }
 
 export default function Navigation(props: Props) {
-    const { window, children } = props;
+    const { window, children, title } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const matches = useMediaQuery("(max-width:600px)");
 
@@ -90,7 +90,7 @@ export default function Navigation(props: Props) {
                     >
                         <MenuIcon fontSize='large' />
                     </IconButton>
-                    <Header title={props.title} />
+                    <Header title={title} />
                 </Toolbar>
             </AppBar>
             <Box
