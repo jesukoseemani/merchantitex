@@ -13,36 +13,66 @@ import {
 } from "semantic-ui-react";
 import CloseIcon from "@mui/icons-material/Close";
 import { IconButton } from "@material-ui/core";
-import { Link, useHistory } from "react-router-dom";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import CloudDownloadOutlinedIcon from "@mui/icons-material/CloudDownloadOutlined";
-import SingleTransferBankAcct from "../../views/Payout/transfer/SingleTransferBankAcct";
+import { useHistory } from "react-router-dom";
 import { openModalAndSetContent } from "../../redux/actions/modal/modalActions";
 import Confirmation from "../../views/Payout/transfer/Confirmation";
 import { useDispatch } from "react-redux";
+import { getBalance } from "../../services/balance";
+import { Balance } from "../../types/BalanceTypes";
+import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
+import { getSettlementAccounts } from "../../services/settlement";
+import FormatToCurrency from "../../helpers/NumberToCurrency";
+
+const DATA = {
+  balance: 0,
+  amount: 0,
+  account: 0,
+  description: ''
+}
 
 export default function EmptyTransfers() {
-  const history = useHistory();
   const dispatch = useDispatch();
+  const [balances, setBalances] = useState<Balance[]>([]);
+  const [accounts, setAccounts] = useState<any[]>([]);
 
-  const transferLink = () => {
-    history.push("/payout/transfers/list");
-  };
+  const formattedBalance = balances.map((b, i: number) => ({ key: i + 1, value: b.id, text: `${b.currency} balance - ${FormatToCurrency(b.availablebalance)}` }))
+  const formattedAccount = accounts.map((b, i: number) => ({ key: i + 1, value: b.id, text: `${b.accountname} - ${b.accountnumber}` }))
 
-  const [openBankModel, setOpenBankModel] = useState(false);
-  const [openPayviceModel, setOpenPayviceModel] = useState(false);
+
   const [openItexModel, setOpenItexModel] = useState(false);
-  const [openBulkModel, setOpenBulkModel] = useState(false);
-  const countryOptions = [
-    { key: 1, value: "NGN", text: "NGN balance - 123,456.78" },
-    { key: 2, value: "USD", text: "USD balance - 689,456.78" },
-  ];
-  const bankNameOptions = [
-    { key: 1, value: "NGN", text: "NGN balance - 123,456.78" },
-    { key: 2, value: "USD", text: "USD balance - 689,456.78" },
-  ];
+
+  useEffect(() => {
+    (
+      async () => {
+
+        try {
+          const [balanceRes, settlementRes] = await Promise.all([getBalance(), getSettlementAccounts()]);
+          setBalances(balanceRes?.balances || []);
+          setAccounts(settlementRes?.accounts || [])
+        } catch (error: any) {
+          dispatch(
+            openToastAndSetContent({
+              toastContent: error?.response?.data?.message || 'Failed to get balances',
+              toastStyles: {
+                backgroundColor: 'red',
+              },
+            })
+          );
+        }
+      }
+    )()
+  }, [])
 
   const ItexModalPayout = () => {
+    const [form, setForm] = useState(DATA)
+
+    const handleChange = (value: string, key: string) => {
+      setForm({
+        ...form,
+        [key]: value
+      })
+    }
+
     return (
       <Modal
         onClose={() => setOpenItexModel(false)}
@@ -51,7 +81,7 @@ export default function EmptyTransfers() {
         className={Styles.modalContainer}
       >
         <div className={Styles.modalHeader}>
-          <h2>Single payout</h2>
+          <h2>Make a payout</h2>
           <IconButton onClick={() => setOpenItexModel(false)}>
             <CloseIcon />
           </IconButton>
@@ -60,36 +90,37 @@ export default function EmptyTransfers() {
           <label>Balance to be debited</label>
           <Select
             placeholder="NGN balance - 123,456.78"
-            options={countryOptions}
+            options={formattedBalance}
+            onChange={(e: any, value: any) => handleChange(value.value, 'balance')}
           />
         </Form.Field>
         <Form.Field className={Styles.inputWrapper}>
           <label>Payout amount</label>
-          <input placeholder="NGN 0.0" />
+          <input placeholder="NGN 0.0" onChange={e => handleChange(e.target.value, 'amount')} />
         </Form.Field>
         <Form.Field className={Styles.inputWrapper}>
-          <label>Select beneficiary amount</label>
+          <label>Select beneficiary account</label>
           <Select
-            placeholder="123,456.78"
-            options={bankNameOptions}
-          />
-        </Form.Field>
+            placeholder="Select beneficiary account"
+            options={formattedAccount}
+            onChange={(e: any, value: any) => handleChange((value.value), 'account')}
+          />        </Form.Field>
         <Form.Field className={Styles.inputWrapper}>
           <label>Payout desciption (optional)</label>
-          <input placeholder="Thank you" />
+          <input placeholder="e.g Thank you" onChange={e => handleChange(e.target.value, 'description')} />
         </Form.Field>
-        <p>
+        {/* <p>
           <InfoOutlinedIcon />
           You will be charged <span> NGN45</span> fee for this transaction
-        </p>
+        </p> */}
         <div className={Styles.modalFooter}>
-          <Button onClick={handleSubmit}>Submit</Button>
+          <Button onClick={() => handleSubmit(form)} disabled={!form.balance || !form.amount || !form.account}>Submit</Button>
         </div>
       </Modal>
     );
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (form: typeof DATA) => {
     setOpenItexModel(false)
     dispatch(
       openModalAndSetContent({
@@ -102,7 +133,7 @@ export default function EmptyTransfers() {
         },
         modalContent: (
           <>
-            <Confirmation />
+            <Confirmation form={form} />
           </>
         ),
       })
@@ -117,8 +148,8 @@ export default function EmptyTransfers() {
         <p>
           But, you can change that. You can start by initiating your first to a bank account.
         </p>
-        <Button className="success">
-          <Dropdown.Item onClick={() => setOpenItexModel(true)}>
+        <Button className="success" onClick={() => setOpenItexModel(true)}>
+          <Dropdown.Item>
             Make a payout
           </Dropdown.Item>
         </Button>
