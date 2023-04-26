@@ -57,10 +57,10 @@ export const invoiceSchema = Yup.object({
     otp: Yup.number().required("otp is required"),
     dueDate: Yup.date().required("due date is required"),
     comment: Yup.string().required("comment is required"),
-   
+
 })
 export const DisableSchema = Yup.object({
-    otp: Yup.number().required("otp is Required"),
+
     action: Yup.string().required("otp is Required"),
 
 })

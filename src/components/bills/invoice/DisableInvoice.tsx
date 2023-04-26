@@ -41,7 +41,7 @@ const DisableInvoice = ({ id }: any) => {
             initialValues={{
 
                 action: '',
-                otp: '',
+
 
 
 
@@ -116,12 +116,7 @@ const DisableInvoice = ({ id }: any) => {
 
                             />
                         </Grid>
-                        <Grid item xs={12} sm={12} >
 
-                            <CustomInputField
-                                as={TextField} label={"Otp"} placeholder='otp' name='otp' type='text' />
-
-                        </Grid>
 
                         <Grid item xs={12} sm={12}>
 

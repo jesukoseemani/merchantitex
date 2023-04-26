@@ -21,7 +21,7 @@ const useCustomUpload = () => {
 
             const formData = new FormData()
 
-            formData.append("file", img)
+            formData.append("file", e.target.files[0])
             const { data } = await axios.post<any>("/v1/setup/doc/uploader", formData)
             // console.log(data, e.target.file[0])
 
@@ -43,6 +43,8 @@ const useCustomUpload = () => {
         } catch (error: any) {
             dispatch(closeLoader());
             setLoading(false)
+            setImg("")
+
             const { message } = error?.response.data;
             dispatch(
                 dispatch(
@@ -64,7 +66,7 @@ const useCustomUpload = () => {
 
 
 
-    return [loading, imgUrl, handleUpload]
+    return { loading, imgUrl, handleUpload } as const
 }
 
 export default useCustomUpload
