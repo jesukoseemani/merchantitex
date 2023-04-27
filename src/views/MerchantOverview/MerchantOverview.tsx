@@ -1,5 +1,5 @@
 import { IconButton } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import OverviewCard from "../../components/card/overviewCard/OverviewCard";
 import MerchantChart from "../../components/merchantChart/MerchantChart";
 import NavBar from "../../components/navbar/NavBar";
@@ -13,6 +13,9 @@ import { ReactSVG } from "react-svg";
 import { Box, Modal } from "@mui/material";
 import CustomModal from "../../components/customs/CustomModal";
 import Helpcenter from "../../components/merchantChart/Helpcenter";
+import { saveMe } from "../../redux/actions/me/meActions";
+import axios from "axios";
+import { useDispatch } from 'react-redux';
 
 
 
@@ -34,6 +37,24 @@ const MerchantOverview = () => {
   const [open, setOpen] = React.useState(false);
   const handleHelpCenter = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const dispatch = useDispatch()
+
+
+  const fetchUserDetails = async () => {
+    await axios
+      .get(`/v1/profile/me`)
+      .then((res: any) => {
+        dispatch(saveMe(res.data));
+      })
+      .catch((err) => console.log(err));
+  };
+
+
+
+  useEffect(() => {
+    fetchUserDetails()
+  }, [])
+
 
 
   return (

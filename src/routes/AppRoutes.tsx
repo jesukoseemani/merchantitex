@@ -93,6 +93,7 @@ import UsersPermission from "../components/permission/Users";
 import UserActivity from '../redux/reducers/settings/user/UserActivity';
 import PaymentMethod from "../views/Settings/payment/PaymentMethod";
 import TwoFaAuth from "../views/SignIn/TwoFaAuth";
+import TestForm from '../components/TestForm';
 
 
 
@@ -200,6 +201,9 @@ export default function AppRoutes() {
         <Route exact path="/reset/password">
           <ResetPassword />
         </Route>
+        <Route exact path="/testform">
+          <TestForm />
+        </Route>
 
 
         <Navigation title="">
@@ -210,6 +214,7 @@ export default function AppRoutes() {
               component={MerchantOverview}
               AuthUser={loadingState}
             />
+
 
             {/* <ProtectedRoute
               exact

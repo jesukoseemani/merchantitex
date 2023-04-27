@@ -18,7 +18,7 @@ import AdditionalInfo from '../../../components/accountSetUp/business/Additional
 import DirectorInfo from '../../../components/accountSetUp/business/DirectorInfo';
 import UploadDocument from '../../../components/accountSetUp/business/UploadDocument';
 import { openModalAndSetContent } from '../../../redux/actions/modal/modalActions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import SuccessModal from '../../../components/accountSetUp/business/SuccessModal';
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
 
@@ -65,7 +65,7 @@ const BusinessSetup = () => {
     const [activeStep, setActiveStep] = React.useState(0);
     const [step, setStep] = useState(1)
     const [open, setOpen] = React.useState(false);
-    const handleSubmit = () => setOpen(true);
+    // const handleSubmit = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     const handleNext = () => {
@@ -79,6 +79,8 @@ const BusinessSetup = () => {
     };
 
 
+    const { me } = useSelector(state => state?.meReducer)
+
 
     const SlideForm = () => {
         switch (step) {
@@ -89,7 +91,7 @@ const BusinessSetup = () => {
             case 3:
                 return <DirectorInfo handleBack={handleBack} handleNext={handleNext} />
             case 4:
-                return <UploadDocument handleBack={handleBack} handleNext={handleSubmit} />
+                return <UploadDocument handleBack={handleBack} />
 
 
             default:
@@ -159,7 +161,7 @@ const BusinessSetup = () => {
                 </Grid>
             </Box>
 
-            <Modal
+            {/* <Modal
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
@@ -182,7 +184,7 @@ const BusinessSetup = () => {
                     </Box>
                     <SuccessModal />
                 </Box>
-            </Modal>
+            </Modal> */}
         </div >
     )
 }
