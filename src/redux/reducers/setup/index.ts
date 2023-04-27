@@ -1,7 +1,48 @@
-import { SAVE_ADDITIONAL_INFO, SAVE_BUSINESS_INFO, SAVE_DIRECTOR_INFO } from "../../actions/constants";
+import { SAVE_ADDITIONAL_INFO, SAVE_BUSINESS_INFO, SAVE_DIRECTOR_INFO, SAVE_UPLOAD_DOC } from "../../actions/constants";
+
+const intialstate = {
+
+    businessInfo:
+    {
+        email: "",
+        city: "",
+        businessAddress: "",
+        businessDescription: "",
+        stateRegion: "",
+        phonenumber: "",
+    },
 
 
-export const setupReducer = (state = {}, action: any) => {
+    directors: [
+        {
+            firstname: "",
+            lastname: "",
+            phonenumber: "",
+            bvn: "",
+            email: "",
+            address: "",
+            docNumber: "",
+            docUrl: ""
+        }
+
+    ],
+    additionalDetails: {
+        websiteUrl: "",
+        supportPhone: "",
+        chargebackEmail: "",
+        supportEmail: "",
+        contactemail: "",
+        businessIncome: "",
+    },
+    documents: [{
+        docType: "",
+        docNumber: "",
+        docUrl: ""
+    }]
+
+}
+
+export const setupReducer = (state = intialstate, action: any) => {
     switch (action.type) {
         case SAVE_BUSINESS_INFO: {
             return {
@@ -21,7 +62,14 @@ export const setupReducer = (state = {}, action: any) => {
             return {
                 ...state,
 
-                directorDetails: { ...action.directorDetails },
+                directors: [...action.directorDetails],
+            };
+        }
+        case SAVE_UPLOAD_DOC: {
+            return {
+                ...state,
+
+                documents: [...action.uploadDOc],
             };
         }
 
