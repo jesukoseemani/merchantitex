@@ -20,90 +20,27 @@ import axios from 'axios';
 import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
 import FormatToCurrency from '../../helpers/NumberToCurrency';
 import moment from 'moment';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { subDays } from 'date-fns';
 import { CSVLink } from 'react-csv';
 import FilterModal from '../../components/FilterModal';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import InsertDriveFileOutlined from '@mui/icons-material/InsertDriveFileOutlined';
 import { Box, Stack } from '@mui/material';
-import { GetTransactionRes, TransactionItem } from '../../types/Transaction';
+import { TransactionItem, Meta } from '../../types/Transaction';
 import CustomClickTable from '../../components/table/CustomClickTable';
+import { getTransactionsService } from '../../services/transaction';
+import { getTransactionStatus } from '../../utils/status';
+import { stripEmpty } from '../../utils';
+import useDownload from '../../hooks/useDownload';
+import { BASE_URL } from '../../config';
 
 export default function TransactionsList() {
-	const [download, setDownload] = useState([]);
-	const [change, setChange] = useState(true);
+
+	const { calDownload } = useDownload({ url: `${BASE_URL}/transaction/download`, filename: 'transaction' })
 
 	const history = useHistory();
-	// const { merchantcode } = useSelector(
-	// 	(state) => state?.meReducer?.me?.business
-	// );
-
-	useEffect(() => {
-		axios
-			.get(
-				`https://staging.itex-pay.com/ipg/api/v1/merchant/transactions/download`
-			)
-			.then((res: any) => {
-				setDownload(res.data);
-			})
-			.catch((err) => {
-				console.log(err);
-				dispatch(
-					openToastAndSetContent({
-						toastContent: 'No data founds',
-						toastStyles: {
-							backgroundColor: 'red',
-						},
-					})
-				);
-			});
-	}, []);
-
-	interface TransactionsProps {
-		order: {
-			amount: number;
-			description: string;
-			currency: string;
-			country: string;
-			fee: {
-				merchantbearsfee: string;
-			};
-		};
-		code: string;
-		source: {
-			customer: {
-				firstname: string;
-				lastname: string;
-				email: string;
-				msisdn: string;
-				card: {
-					number: string;
-					first6: string;
-					last4: string;
-					type: string;
-				};
-				device: {
-					fingerprint?: string;
-					ip: string;
-				};
-				address: [];
-			};
-		};
-		transaction: {
-			merchantreference: string;
-			reference: string;
-			authoption: string;
-			paymentmethod: string;
-			added: string;
-			authcode: string;
-			acquirer: string;
-		};
-		date: {
-			format: string;
-			time: string;
-		};
-	}
+	const { search } = useLocation()
 
 	interface sortTypes {
 		dateCustom: string | number;
@@ -131,14 +68,14 @@ export default function TransactionsList() {
 	const [event, setEvent] = useState('');
 
 	const [transactions, setTransactions] = useState<TransactionItem[]>([]);
+	const [meta, setMeta] = useState<Meta | null>(null)
 	const [count, setCounter] = useState(null);
 	const [rows, setRows] = useState<TransactionItem[]>([]);
 	const [showNoTransaction, setShowNoTransaction] = useState(false);
 	const [isFilterModalOpen, setIsFilterModalOpen] = useState<boolean>(false);
 	const [query, setquery] = useState(false);
-	const [bearer, setBearer] = useState(false);
 	const [pageNumber, setPageNumber] = useState<number>(1);
-	const [rowsPerPage, setRowsPerPage] = useState<number>(10);
+	const [rowsPerPage, setRowsPerPage] = useState<number>(5);
 	const [totalRows, setTotalRows] = useState<number>(0);
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 	const [reset, setReset] = useState<boolean>(false);
@@ -173,7 +110,6 @@ export default function TransactionsList() {
 		setToDate('');
 		setStatus('');
 		setRef('');
-		setBearer(true);
 		setIsFilterModalOpen(false);
 	};
 
@@ -188,69 +124,27 @@ export default function TransactionsList() {
 
 	const dispatch = useDispatch();
 
-	// const getTransactions = () => {
-	// 	dispatch(openLoader());
-	// 	axios
-	// 		.get(
-	// 			`/merchant/transactions?perpage=${rowsPerPage}&page=${pageNumber}&fromdate=${fromDate}&todate=${toDate}&transaction_reference=${ref}&responsecode=${status}&paymentmethod=${payment}`
-	// 		)
-	// 		.then((res: any) => {
-	// 			const {
-	// 				transactions,
-	// 				_metadata: { totalcount },
-	// 			} = res?.data;
-	// 			setTotalRows(totalcount);
-
-	// 			if (totalcount <= 0) {
-	// 				setShowNoTransaction(true);
-	// 			} else {
-	// 				setShowNoTransaction(false);
-	// 			}
-	// 			setTransactions(transactions);
-	// 			setCounter(totalcount);
-	// 			setBearer(false);
-	// 			dispatch(closeLoader());
-	// 		})
-	// 		.catch((err) => {
-	// 			console.log(err);
-	// 			dispatch(closeLoader());
-	// 			dispatch(
-	// 				openToastAndSetContent({
-	// 					// toastContent: "Login Failed",
-	// 					toastContent: err?.response?.data?.message,
-
-	// 					toastStyles: {
-	// 						backgroundColor: 'red',
-	// 					},
-	// 				})
-	// 			);
-	// 		})
-	// 		.finally(() => {
-	// 			setIsFilterModalOpen(false);
-	// 		});
-	// };
-
 	const getTransactions = async () => {
 		dispatch(openLoader());
 
 		try {
-			const res = await axios.get<GetTransactionRes>(
-				'/mockData/transactionrequest.json',
-				{ baseURL: '' }
-			);
-			const { transactions, _metadata } = res?.data;
-			console.log(history);
-			if (history.length) {
-				setTransactions(transactions);
-				setTotalRows(_metadata?.totalcount);
-			}
-			dispatch(closeLoader());
-		} catch (err) {
-			console.log(err);
+			const data = await getTransactionsService(stripEmpty({
+				perpage: rowsPerPage,
+				page: pageNumber,
+				fromdate: fromDate,
+				todate: toDate,
+				reference: ref,
+				paymentmethod: payment,
+				search,
+				status
+			}));
+			setTransactions(data?.transactions || []);
+			setMeta(data?._metadata || {})
+		} catch (err: any) {
 			dispatch(closeLoader());
 			dispatch(
 				openToastAndSetContent({
-					toastContent: 'Failed to get items',
+					toastContent: err?.response?.data?.message || 'Failed to get transactions',
 					toastStyles: {
 						backgroundColor: 'red',
 					},
@@ -261,22 +155,18 @@ export default function TransactionsList() {
 
 	useEffect(() => {
 		getTransactions();
-	}, [pageNumber, rowsPerPage]);
-
+	}, [pageNumber, rowsPerPage, fromDate, toDate, ref, payment, status, search]);
 
 	const loadTransaction = (reference: string) => {
 		history.push(`/transaction/${reference}`);
 	};
 
-	useEffect(() => {
-		getTransactions();
-	}, [pageNumber, rowsPerPage, bearer]);
-
 	const modalFunc = () => {
+		setIsFilterModalOpen(false)
 		setReset(true);
 	};
 	interface Column {
-		id: 'amount' | 'status' | 'acctId' | 'payment_type' | 'date';
+		id: 'amount' | 'status' | 'email' | 'payment_type' | 'date';
 		label: any;
 		minWidth?: number;
 		align?: 'right' | 'left' | 'center';
@@ -285,7 +175,7 @@ export default function TransactionsList() {
 	const columns: Column[] = [
 		{ id: 'amount', label: 'Amount', minWidth: 100 },
 		{ id: 'status', label: 'Status', minWidth: 100 },
-		{ id: 'acctId', label: 'Email address', minWidth: 200 },
+		{ id: 'email', label: 'Email address', minWidth: 200 },
 		{ id: 'payment_type', label: 'Payment type', minWidth: 150 },
 		{ id: 'date', label: 'Date', minWidth: 150 },
 	];
@@ -298,7 +188,7 @@ export default function TransactionsList() {
 	};
 
 	const LoanRowTab = useCallback(
-		(amt, status, PaymentType, acctId, added, id) => ({
+		(amt, status, PaymentType, email, added, id) => ({
 			amount: (
 				<div
 					// onClick={() => loadTransaction(transaction?.merchantreference)}
@@ -306,38 +196,20 @@ export default function TransactionsList() {
 					<h2>
 						<span
 							style={{ color: "#828282", paddingRight: "1px" }}
-						>NGN</span>{amt}</h2>
-					{/* <h2>{FormatToCurrency?.(amt)}</h2> */}
+						>NGN</span>{amt || 0}</h2>
 				</div>
 			),
 			status: (
-				// <Label
-				// 	// onClick={() => loadTransaction(transaction?.merchantreference)}
-				// 	className={
-				// 		code === '00' ? 'success' : code === '09' ? 'danger' : 'warning'
-				// 	}>
-				// 	{code === '00' ? 'Successful' : code === '09' ? 'Failed' : 'Pending'}
-				// </Label>
-
 				<p className={Styles[statusFormatObj[status] || "pendingText"]} >{status}</p>
 			),
-			acctId: (
-				// <div onClick={() => loadTransaction(transaction?.merchantreference)}>
-				<p>{acctId}</p>
-				// </div>
+			email: (
+				<p>{email}</p>
 			),
 			payment_type: (
-				// <div onClick={() => loadTransaction(transaction?.merchantreference)}>
-				// 	{transaction?.paymentmethod?.[0]?.toUpperCase() +
-				// 		transaction?.paymentmethod?.slice(1)}
-				// </div>
 				<p>{PaymentType}</p>
 			),
 			date: (
 				<p>	{added}</p>
-				// <div onClick={() => loadTransaction(transaction?.merchantreference)}>
-				// 	{moment(transaction?.added)?.format('LL')}
-				// </div>
 			),
 			id: <p>{id}</p>
 
@@ -348,26 +220,14 @@ export default function TransactionsList() {
 		const newRowOptions: any[] = [];
 		transactions?.map((each: TransactionItem) =>
 			newRowOptions.push(
-				LoanRowTab(each.amt, each.status, each.PaymentType, each.acctId, each.added, each.id)
+				LoanRowTab(each.chargeamount, getTransactionStatus(each.responsecode), each.chargetype, each?.customer?.email, each.timein, each.paymentid)
 			)
 		);
+		console.log(newRowOptions, 'rows')
 		setRows(newRowOptions);
 	}, [transactions, LoanRowTab]);
-	const useStyles = makeStyles({
-		container: {
-			width: '407px',
-			height: 'auto',
-			minHeight: '571px',
-			background: '#ffffff',
-			border: '1px solid #d5dae1',
-			boxShadow: ' 0px 10px 10px rgba(219, 219, 219, 0.92)',
-			borderRadius: '3px',
-		},
-	});
+
 	return (
-
-
-
 		<div className={Styles.container}>
 			{/* <NavBar />  */}
 			<FilterModal
@@ -381,7 +241,6 @@ export default function TransactionsList() {
 				setPayment={setPayment}
 				eventDate={event}
 				clearHandler={clearHandler}
-				setBearer={setBearer}
 				status={status}
 				payment={payment}
 				name='transaction'
@@ -389,7 +248,6 @@ export default function TransactionsList() {
 				changePage={changePage}
 			/>
 			<div className={Styles.wrapper}>
-				{/* {transactions.length > 0 ? ( */}
 				<div className={Styles.transaction__btn}>
 
 					<Stack direction={"row"} justifyContent={"space-between"} flexWrap="wrap">
@@ -401,13 +259,9 @@ export default function TransactionsList() {
 								<FilterAltOutlinedIcon />	Filter by:
 
 							</Button>
-							<CSVLink
-								data={download}
-								filename={'transactionmerchant.csv'}
-								className={Styles.button_business_button}>
-								<InsertDriveFileOutlined />
-								Download &nbsp;
-							</CSVLink>
+							<Button onClick={calDownload}>
+								Download
+							</Button>
 						</Box>
 
 					</Stack>
@@ -457,13 +311,13 @@ export default function TransactionsList() {
 					<CustomClickTable
 						columns={columns}
 						rows={rows}
-						totalRows={totalRows}
+						totalRows={meta?.totalcount || 0}
 						changePage={changePage}
 						limit={limit}
 						// reset={reset}
 						link="/transaction"
 						clickable
-						identifier={"id"}
+						identifier="id"
 						rowsData={transactions}
 					/>
 				)}

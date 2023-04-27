@@ -72,3 +72,40 @@ export interface GetRollingReservesRes {
   };
   reserves: RollingReserveItem[];
 }
+
+
+export interface Balance {
+  availablebalance: number;
+  currency: string;
+  id: number;
+  ledgerbalance: number;
+  merchantaccountid: number;
+  reservebalance: number;
+  status: string;
+}
+
+export interface BalanceHistory {
+  id: number
+  merchantaccountid: number
+  balanceid: number
+  transactiontype: string
+  currency: string
+  amount: number
+  balancebefore: number
+  balanceafter: number
+  source: string
+  sourceid: string
+  status: string
+  createdat: string
+  updatedat?: string
+}
+
+export interface BalanceHistoryRes {
+  _metadata: {
+    page: number;
+    pagecount: number;
+    totalcount: number;
+    links: [];
+  };
+  balancehistory: BalanceHistory[];
+}
