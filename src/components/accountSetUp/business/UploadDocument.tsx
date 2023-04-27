@@ -148,7 +148,7 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
             dispatch(openLoader());
             const { data } = await axios.post<RequestProp>('/v1/setup/business/submit', {
 
-
+                // log(data)
 
                 businessDescription,
                 businessAddress,
@@ -178,21 +178,23 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
 
             dispatch(closeLoader());
 
-            if (data?.code === "success") {
-                console.log(data)
-                history.push("/")
+            // if (data?.code === "success") {
 
 
-                dispatch(
-                    openToastAndSetContent({
-                        toastContent: data?.message,
-                        toastStyles: {
-                            backgroundColor: 'green',
-                        },
-                    })
-                )
-                // window.location.href = "/"
-            }
+            dispatch(
+                openToastAndSetContent({
+                    toastContent: data?.message,
+                    toastStyles: {
+                        backgroundColor: 'green',
+                    },
+                })
+            )
+            console.log(data)
+
+            history.push("/")
+
+            // window.location.href = "/"
+            // }
 
         } catch (err: any) {
             dispatch(closeLoader());
