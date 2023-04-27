@@ -111,7 +111,7 @@ const CustomersTab = ({ value, index }: any) => {
 				},
 				modalContent: (
 					<div className='modalDiv'>
-						<Addtoblacklist id={id} />
+						<Addtoblacklist id={id} fn={getCustomers} />
 					</div>
 				),
 			})
@@ -192,7 +192,7 @@ const CustomersTab = ({ value, index }: any) => {
 				},
 				modalContent: (
 					<div className='modalDiv'>
-						<AddNewCustomer callback={addCallback} />
+						<AddNewCustomer callback={addCallback} fn={getCustomers}/>
 					</div>
 				),
 			})

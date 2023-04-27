@@ -12,7 +12,7 @@ const DATA = {
   msisdn: ''
 }
 
-const AddNewCustomer: FC<{ callback: () => void }> = ({ callback }) => {
+const AddNewCustomer: FC<{ callback: () => void; fn: () => void }> = ({ callback, fn }) => {
   const [form, setForm] = useState(DATA);
   const [loading, setLoading] = useState(false)
 
@@ -29,6 +29,7 @@ const AddNewCustomer: FC<{ callback: () => void }> = ({ callback }) => {
     setLoading(true)
     try {
       await addCustomer({ ...form, countryid: 3 })
+      fn()
       callback();
       dispatch(
         openToastAndSetContent({
