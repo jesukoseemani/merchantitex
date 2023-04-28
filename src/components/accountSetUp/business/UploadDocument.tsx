@@ -104,8 +104,8 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
 
     }
     const handleBusinesType = (e: any) => {
-        handleUpload(e),
-            setBizReq_type(imgUrl)
+        handleUpload(e)
+        setBizReq_type(imgUrl)
     }
     const handleProveDoc = (e: any) => {
 
