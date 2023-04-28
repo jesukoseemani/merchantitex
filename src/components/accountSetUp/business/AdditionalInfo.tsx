@@ -97,8 +97,8 @@ const AdditionalInfo = ({ handleBack, handleNext }: Props) => {
                     <Box sx={{ marginTop: "-10px" }}>
                         <Form method="post">
 
-                            <Grid container columnSpacing={4} justifyContent="space-between">
-                                <Grid item xs={12} sm={6} md={6} mb="22px">
+                            <Grid container columnSpacing={"55px"} justifyContent="space-between">
+                                <Grid item xs={12} sm={6} md={6} mb="14px">
                                     <InputLabel className={styles.label}> Website URL (optional)</InputLabel>
                                     <Field
                                         as={TextField}
@@ -120,7 +120,7 @@ const AdditionalInfo = ({ handleBack, handleNext }: Props) => {
 
                                     />
                                 </Grid>
-                                <Grid item xs={12} sm={6} md={6} mb="22px">
+                                <Grid item xs={12} sm={6} md={6} mb="14px">
                                     <InputLabel className={styles.label}>Support Email Address</InputLabel>
                                     <Field
                                         as={TextField}
@@ -142,7 +142,7 @@ const AdditionalInfo = ({ handleBack, handleNext }: Props) => {
                                     />
                                 </Grid>
 
-                                <Grid item xs={12} sm={6} md={6} mb="22px">
+                                <Grid item xs={12} sm={6} md={6} mb="14px">
                                     <InputLabel className={styles.label}>Support Phone Number</InputLabel>
                                     <Field
                                         as={TextField}
@@ -159,7 +159,7 @@ const AdditionalInfo = ({ handleBack, handleNext }: Props) => {
 
                                     />
                                 </Grid>
-                                <Grid item xs={12} sm={6} md={6} mb="22px">
+                                <Grid item xs={12} sm={6} md={6} mb="14px">
                                     <InputLabel className={styles.label}>Chargeback Email Address</InputLabel>
                                     <Field
                                         as={TextField}
@@ -176,7 +176,7 @@ const AdditionalInfo = ({ handleBack, handleNext }: Props) => {
 
                                     />
                                 </Grid>
-                                <Grid item xs={12} sm={6} md={6} mb="22px">
+                                <Grid item xs={12} sm={6} md={6} mb="14px">
                                     <InputLabel className={styles.label}>Contact Email Address</InputLabel>
                                     <Field
                                         as={TextField}
@@ -198,7 +198,7 @@ const AdditionalInfo = ({ handleBack, handleNext }: Props) => {
                                     />
 
                                 </Grid>
-                                <Grid item xs={12} sm={6} md={6} mb="22px">
+                                <Grid item xs={12} sm={6} md={6} mb="14px">
                                     <InputLabel className={styles.label}>What’s Your Estimated Monthly Income?</InputLabel>
                                     <Field
                                         as={SelectWrapper}
@@ -219,7 +219,7 @@ const AdditionalInfo = ({ handleBack, handleNext }: Props) => {
                                 </Grid>
 
 
-                                <Grid item xs={12} sm={6} md={6} mb="22px"></Grid>
+                                <Grid item xs={12} sm={6} md={6} mb="14px"></Grid>
                                 <br />
                                 <Stack direction="row" gap={"24px"} justifyContent={"flex-end"} alignItems={"flex-end"} sx={{ width: "100%", marginTop: 10 }}>
                                     <button style={{

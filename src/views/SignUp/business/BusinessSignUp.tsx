@@ -326,7 +326,7 @@ const BusinessSignUp = () => {
 
 										</Grid>
 										<Grid item xs={12} md={5.6} >
-											<CustomInputField label={"Password"} name="password" as={TextField} placeholder="password" />
+											<CustomInputField label={"Password"} type="password" name="password" as={TextField} placeholder="password" />
 
 										</Grid>
 										{/* <InputLabel className={styles.mt}></InputLabel> */}

@@ -1,4 +1,4 @@
-import { SAVE_ADDITIONAL_INFO, SAVE_BUSINESS_INFO, SAVE_DIRECTOR_INFO, SAVE_UPLOAD_DOC } from "../../actions/constants";
+import { SAVE_ADDITIONAL_INFO, SAVE_BUSINESS_INFO, SAVE_CONTACT_FORM, SAVE_DIRECTOR_INFO, SAVE_UPLOAD_DOC } from "../../actions/constants";
 
 const intialstate = {
 
@@ -38,7 +38,18 @@ const intialstate = {
         docType: "",
         docNumber: "",
         docUrl: ""
-    }]
+    }],
+
+    contactInfo: {
+        firstname: "",
+        lastname: "",
+        phonenumber: "",
+        bvn: "",
+        address: "",
+        docType: "",
+        docNumber: "",
+        docUrl: "",
+    }
 
 }
 
@@ -56,6 +67,13 @@ export const setupReducer = (state = intialstate, action: any) => {
                 ...state,
 
                 additionalDetails: { ...action.additionalDetails },
+            };
+        }
+        case SAVE_CONTACT_FORM: {
+            return {
+                ...state,
+
+                contactInfo: { ...action.contactInfo },
             };
         }
         case SAVE_DIRECTOR_INFO: {

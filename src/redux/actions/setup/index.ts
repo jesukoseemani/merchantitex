@@ -1,4 +1,4 @@
-import { SAVE_ADDITIONAL_INFO, SAVE_BUSINESS_INFO, SAVE_DIRECTOR_INFO, SAVE_UPLOAD_DOC } from "../constants";
+import { SAVE_ADDITIONAL_INFO, SAVE_BUSINESS_INFO, SAVE_CONTACT_FORM, SAVE_DIRECTOR_INFO, SAVE_UPLOAD_DOC } from "../constants";
 import { ReactNode } from "react";
 
 export const saveBusinessInfo = (businessDetails: any) => {
@@ -31,5 +31,14 @@ export const saveUploadDoc = (uploadDOc: any) => {
     return {
         type: SAVE_UPLOAD_DOC,
         uploadDOc,
+    };
+};
+export const saveContactform = (contactInfo: any) => {
+    console.log(contactInfo, "actions");
+
+
+    return {
+        type: SAVE_CONTACT_FORM,
+        contactInfo,
     };
 };

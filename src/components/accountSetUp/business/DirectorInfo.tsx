@@ -1,12 +1,8 @@
-import { Grid, TextField, InputLabel, Stack, Button, FormHelperText, Box, styled } from '@mui/material'
+import { Grid, TextField, InputLabel, Stack, Button, FormHelperText, MenuItem, Box, styled, Accordion, AccordionSummary, AccordionDetails, IconButton } from '@mui/material'
 import styles from "../style.module.scss"
-import AddIcon from "../../../assets/images/add.svg"
-import AngleDown from "../../../assets/images/arrowDown.png"
+import { ReactComponent as AngleDown } from "../../../assets/images/circle-arrowdown.svg"
 import { ReactSVG } from 'react-svg';
 import { useEffect, useState } from 'react';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { ErrorMessage } from 'formik';
@@ -23,6 +19,9 @@ import *  as Yup from "yup"
 import useCustomUpload from '../../hooks/CustomUpload';
 import { v4 as uuidv4 } from "uuid";
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import CustomUploadBtn from '../../customs/CustomUploadBtn';
+import { ReactComponent as AddIcon } from '../../../assets/images/plus.svg';
+
 
 interface Props {
     handleNext: () => void;
@@ -41,6 +40,13 @@ interface IdProps {
 
 const DirectorInfo = ({ handleBack, handleNext }: Props) => {
     const [presentIndex, setPresentIndex] = useState(0)
+    const [expanded, setExpanded] = useState<string | false>('panel1');
+    const handleChange =
+        (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
+            setExpanded(newExpanded ? panel : false);
+        };
+
+
     const [loading, setLoading] = useState(false)
     const [imgUrl, setImgUrl] = useState("")
 
@@ -54,7 +60,8 @@ const DirectorInfo = ({ handleBack, handleNext }: Props) => {
         email: "",
         address: "",
         docNumber: "",
-        docUrl: ""
+        docUrl: "",
+        docType: ""
     }])
 
 
@@ -168,7 +175,8 @@ const DirectorInfo = ({ handleBack, handleNext }: Props) => {
             email: "",
             address: "",
             docNumber: "",
-            docUrl: ""
+            docUrl: "",
+            docType: ""
         }])
 
     }
@@ -189,6 +197,12 @@ const DirectorInfo = ({ handleBack, handleNext }: Props) => {
     }
 
     console.log(input[0].phonenumber)
+
+    const AccordionStyle = {
+        '&:before': {
+            backgroundColor: 'transparent !important',
+        },
+    };
     return (
         <Box>
 
@@ -196,226 +210,208 @@ const DirectorInfo = ({ handleBack, handleNext }: Props) => {
             <form encType='multipart/form-data' method='post'>
 
                 <div>
-                    <h2>Add Director</h2>
 
 
                     <div>
 
                         {input?.map((form: any, index: number) => (
-                            <Grid key={index} container columnSpacing={4} justifyContent="space-between">
-                                <Grid item xs={12} sm={6} md={6} mb="22px">
+                            <Accordion disableGutters elevation={0} defaultExpanded={input?.length > 1 && true} sx={AccordionStyle}>
+                                {input?.length > 1 &&
 
-                                    <InputLabel className={styles.label}>Director’s First Name</InputLabel>
-                                    <TextField onChange={(e) => handleInputChange(index, e.target.name, e.target.value)}
-                                        name={"firstname"}
-                                        placeholder="Director’s First Name"
-                                        type="text"
-                                        size="small"
-                                        fullWidth
-                                        value={input[index].firstname}
+                                    <AccordionSummary
+                                        expandIcon={<AngleDown style={{ width: "20px", }} />}
+                                        aria-controls="panel1a-content"
+                                        id="panel1a-header"
+                                        style={{ display: "flex", gap: "10px", position: "relative", justifyContent: "center", border: "2px solid red !important" }}
 
-                                    />
-                                </Grid>
+                                    >
+                                        <Grid container>
 
+                                            <Grid item xs={12} mb="22px">
+                                                <Box sx={{ borderBottom: "1px dashed #E0E0E0", position: "relative", marginTop: "20px", }}>
+                                                    <p style={{ background: "#fff", paddingRight: "10px", position: "absolute", marginTop: "-0.5rem", fontWeight: "600" }}> Director’s Information {index + 1}</p>
+                                                </Box>
+                                            </Grid>
+                                        </Grid>
 
-                                <Grid item xs={12} sm={6} md={6} mb="22px">
-                                    <InputLabel className={styles.label}>Director’s last Name</InputLabel>
-                                    <TextField onChange={(e) => handleInputChange(index, e.target.name, e.target.value)}
+                                    </AccordionSummary>
+                                }
+                                <AccordionDetails>
 
-                                        name={"lastname"}
-                                        placeholder="Director’s last Name"
+                                    <Grid key={index} container columnSpacing={"55px"} justifyContent="space-between">
+                                        <Grid item xs={12} justifyContent="flex-end" sx={{ float: "right" }}>
+                                            {input?.length > 1 && <IconButton sx={{ background: "red", width: "20px", height: "20px" }} onClick={() => handleRemove(index)}><CloseOutlinedIcon style={{ fontSize: "12px", padding: "5px" }} /></IconButton>}
+                                        </Grid>
+                                        <Grid item xs={12} sm={6} md={6} mb="22px">
 
-                                        type="text"
-                                        size="small"
-                                        fullWidth
-                                        value={input[index].lastname}
+                                            <InputLabel className={styles.label}>Director’s First Name</InputLabel>
+                                            <TextField onChange={(e) => handleInputChange(index, e.target.name, e.target.value)}
+                                                name={"firstname"}
+                                                placeholder="Director’s First Name"
+                                                type="text"
+                                                size="small"
+                                                fullWidth
+                                                value={input[index].firstname}
 
-                                    // error={touched?.businessAddress && errors?.businessAddress}
+                                            />
+                                        </Grid>
 
 
+                                        <Grid item xs={12} sm={6} md={6} mb="22px">
+                                            <InputLabel className={styles.label}>Director’s last Name</InputLabel>
+                                            <TextField onChange={(e) => handleInputChange(index, e.target.name, e.target.value)}
 
-                                    />
+                                                name={"lastname"}
+                                                placeholder="Director’s last Name"
 
-                                </Grid>
+                                                type="text"
+                                                size="small"
+                                                fullWidth
+                                                value={input[index].lastname}
 
+                                            // error={touched?.businessAddress && errors?.businessAddress}
 
 
-                                <Grid item xs={12} sm={6} md={6} mb="22px">
-                                    <InputLabel className={styles.label}>Director’s BVN</InputLabel>
-                                    <TextField onChange={(e) => handleInputChange(index, e.target.name, e.target.value)}
 
+                                            />
 
-                                        fullWidth
-                                        placeholder='Enter Director’s BVN'
-                                        name={"bvn"}
-                                        value={input[index].bvn}
+                                        </Grid>
 
 
 
+                                        <Grid item xs={12} sm={6} md={6} mb="22px">
+                                            <InputLabel className={styles.label}>Director’s BVN</InputLabel>
+                                            <TextField onChange={(e) => handleInputChange(index, e.target.name, e.target.value)}
 
-                                    />
-                                </Grid>
 
+                                                fullWidth
+                                                placeholder='Enter Director’s BVN'
+                                                name={"bvn"}
+                                                value={input[index].bvn}
 
 
 
 
-                                <Grid item xs={12} sm={6} md={6} mb="22px">
-                                    <InputLabel className={styles.label}>Director’s phone number</InputLabel>
-                                    <TextField onChange={(e) => handleInputChange(index, e.target.name, e.target.value)}
+                                            />
+                                        </Grid>
 
-                                        fullWidth
-                                        placeholder='Director’s phone number'
-                                        name={"phonenumber"}
-                                        value={input[index].phonenumber}
 
-                                    />
 
-                                </Grid>
 
 
+                                        <Grid item xs={12} sm={6} md={6} mb="22px">
+                                            <InputLabel className={styles.label}>Director’s phone number</InputLabel>
+                                            <TextField onChange={(e) => handleInputChange(index, e.target.name, e.target.value)}
 
+                                                fullWidth
+                                                placeholder='Director’s phone number'
+                                                name={"phonenumber"}
+                                                value={input[index].phonenumber}
 
+                                            />
 
+                                        </Grid>
 
-                                <Grid item xs={12} sm={6} md={6} mb="22px">
-                                    <InputLabel className={styles.label}>Director’s Address</InputLabel>
-                                    <TextField onChange={(e) => handleInputChange(index, e.target.name, e.target.value)}
 
-                                        name={"address"}
-                                        type="text"
-                                        size="small"
-                                        fullWidth
 
-                                        value={input[index].address}
-                                        placeholder='Director’s Address'
 
 
-                                    />
 
-                                </Grid>
+                                        <Grid item xs={12} sm={6} md={6} mb="22px">
+                                            <InputLabel className={styles.label}>Director’s Address</InputLabel>
+                                            <TextField onChange={(e) => handleInputChange(index, e.target.name, e.target.value)}
 
-                                <Grid item xs={12} sm={6} md={6} mb="22px">
-                                    <InputLabel className={styles.label}>Director’s Email</InputLabel>
-                                    <TextField onChange={(e) => handleInputChange(index, e.target.name, e.target.value)}
+                                                name={"address"}
+                                                type="text"
+                                                size="small"
+                                                fullWidth
 
-                                        name={"email"}
-                                        type="email"
-                                        size="small"
-                                        fullWidth
-                                        value={input[index].email}
+                                                value={input[index].address}
+                                                placeholder='Director’s Address'
 
-                                        placeholder='Director’s Email'
 
+                                            />
 
-                                    />
+                                        </Grid>
+                                        <Grid item xs={12} sm={6} md={6} mb="22px">
+                                            <InputLabel className={styles.label}>Select an ID type</InputLabel>
+                                            <TextField select onChange={(e) => handleInputChange(index, e.target.name, e.target.value)}
+                                                value={input[index].docType}
 
-                                </Grid>
+                                                name={"docType"}
+                                                type="text"
+                                                size="small"
+                                                fullWidth
+                                            >
+                                                {idTypes?.map(({ id, name }) => (
+                                                    <MenuItem value={name} key={id}>{name}</MenuItem>
+                                                ))}
+                                            </TextField>
 
-                                <Grid item xs={12} sm={6} md={6} mb="22px">
-                                    <InputLabel className={styles.label}>Select an ID type</InputLabel>
-                                    {/* <TextField onChange={(e)=>handleInputChange(index,e.target.name, e.target.value)}
-                                    as={SelectWrapper}
 
+                                        </Grid>
+                                        <Grid item xs={12} sm={6} md={6} mb="22px">
+                                            <InputLabel className={styles.label}>Director’s Email</InputLabel>
+                                            <TextField onChange={(e) => handleInputChange(index, e.target.name, e.target.value)}
 
-                                    name={"docType"}
+                                                name={"email"}
+                                                type="email"
+                                                size="small"
+                                                fullWidth
+                                                value={input[index].email}
 
+                                                placeholder='Director’s Email'
 
-                                    type="text"
-                                    size="small"
-                                    fullWidth
-                                    // error={touched?.chargebackEmail && errors?.businessAddress}
-                                    options={idTypes}
 
-                                /> */}
+                                            />
 
+                                        </Grid>
 
-                                </Grid>
-                                {/* {director.lastname.}urß */}
 
-                                <Grid item xs={12} sm={6} md={6} mb="22px">
-                                    <InputLabel className={styles.label}>ID Document number</InputLabel>
-                                    <TextField onChange={(e) => handleInputChange(index, e.target.name, e.target.value)}
+                                        {/* {director.lastname.}urß */}
 
+                                        <Grid item xs={12} sm={6} md={6} mb="22px">
+                                            <InputLabel className={styles.label}>ID Document number</InputLabel>
+                                            <TextField onChange={(e) => handleInputChange(index, e.target.name, e.target.value)}
 
-                                        name={"docNumber"}
 
-                                        value={input[index].docNumber}
+                                                name={"docNumber"}
 
-                                        type="text"
-                                        size="small"
-                                        fullWidth
-                                        // error={touched?.chargebackEmail && errors?.businessAddress}
+                                                value={input[index].docNumber}
 
-                                        placeholder='1234567890'
+                                                type="text"
+                                                size="small"
+                                                fullWidth
+                                                // error={touched?.chargebackEmail && errors?.businessAddress}
 
+                                                placeholder='1234567890'
 
 
-                                    />
 
-                                </Grid>
+                                            />
 
+                                        </Grid>
 
 
 
+                                        <Grid item xs={12} sm={6} md={6} mb="22px" className={styles.upload}>
+                                            <CustomUploadBtn helperText='A valid NIN Slip, National ID Card, Permanent Voters Card, International Passport or Drivers License' onChange={(e) => {
+                                                setPresentIndex(index)
+                                                handleUpload(e)
+                                            }} label='Upload an ID' />
 
 
 
-                                <Grid item xs={12} sm={6} md={6} mb="22px" className={styles.upload}>
-                                    <InputLabel className={styles.label}>Upload an ID </InputLabel>
+                                        </Grid>
 
-                                    <Button variant="outlined" fullWidth component="label"
-                                        style={{
-                                            background: "#F6F9FD",
-                                            fontSize: "14px", color: "#4F4F4F",
-                                            height: 44,
-                                            border: "1px dashed #7A9CC4",
-                                            borderRadius: 4,
-                                            fontWeight: 300,
-                                            fontFamily: "Avenir",
-                                            textTransform: "inherit"
-                                        }}>
-                                        <CloudUploadOutlinedIcon fontSize='small' className={styles.downloadIcon} />   {loading ? "upload in progress" : "choose file to upload"}
-                                        <input name={"file"} hidden accept="image/jpeg,image/jpg,image/png,application/pdf,image/JPEG image/PNG,image/JPG," onChange={(e) => {
-                                            setPresentIndex(index)
-                                            handleUpload(e)
-                                        }} type="file" id='file' />
 
+                                    </Grid>
+                                </AccordionDetails>
+                            </Accordion>
 
 
 
-                                        {/* <span>{imgUrl && imgUrl}</span> */}
 
-
-
-                                    </Button>
-
-
-
-
-                                    <Stack direction={"row"} mt={1} alignItems="center" columnGap={1}>
-
-                                        <ReactSVG src={WarningIcon} />
-                                        <FormHelperText sx={{
-                                            fontFamily: 'Avenir',
-                                            fontStyle: "italic",
-                                            fontWeight: 400,
-                                            fontSize: "10px",
-                                            lineHeight: "16px",
-                                            color: "rgba(74, 82, 106, 0.990517)"
-                                        }}>
-                                            A valid NIN Slip, National ID Card, Permanent Voters Card, International Passport or Drivers License
-                                        </FormHelperText>
-                                    </Stack>
-
-
-
-                                </Grid>
-
-
-
-                                {input?.length > 1 && <button onClick={() => handleRemove(index)}><CloseOutlinedIcon /></button>}
-                            </Grid>
                         ))
                         }
 
@@ -425,8 +421,17 @@ const DirectorInfo = ({ handleBack, handleNext }: Props) => {
 
 
 
+                    <Stack sx={{ padding: "20px", position: "relative" }}>
+                        <Box sx={{ width: "100%, border", borderBottom: "0.5px dashed #E0E0E0", position: "relative", display: "flex", justifyContent: "center", alignItems: "center" }}>
 
-                    <Stack direction="row" mb={4} gap={"24px"} justifyContent={"flex-end"} alignItems={"flex-start"} sx={{ width: "100%", marginTop: "-5px" }}>
+                            <IconButton onClick={addNewdirector} style={{ position: "absolute", gap: "5px", padding: "10px", display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer", background: "#fff", color: "#333" }}><AddIcon /> Add new director</IconButton>
+                        </Box>
+                    </Stack>
+                    <Box>
+                        {/* <button onClick={addNewdirector}>Add new director</button> */}
+
+                    </Box>
+                    <Stack direction="row" mb={4} gap={"24px"} justifyContent={"flex-end"} alignItems={"flex-start"} sx={{ width: "100%", marginTop: 8 }}>
 
 
 
@@ -465,7 +470,6 @@ const DirectorInfo = ({ handleBack, handleNext }: Props) => {
 
                 </div>
             </form>
-            <button onClick={addNewdirector}>Add new director</button>
 
 
 

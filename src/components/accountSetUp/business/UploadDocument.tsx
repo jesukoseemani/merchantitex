@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Grid, TextField, InputLabel, Stack, Button, FormHelperText, Box, Select, MenuItem } from '@mui/material'
+import { Grid, TextField, InputLabel, Stack, Button, FormHelperText, Box, Select, MenuItem, Divider } from '@mui/material'
 import Buttons from '../Button';
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
@@ -12,6 +12,9 @@ import useCustomUpload from '../../hooks/CustomUpload';
 import { saveUploadDoc } from '../../../redux/actions/setup';
 import { saveLoading } from '../../../redux/actions/loadingState/loadingStateActions';
 import { useHistory } from 'react-router';
+import { openModalAndSetContent } from '../../../redux/actions/modal/modalActions';
+import SuccessModal from './SuccessModal';
+import CustomUploadBtn from '../../customs/CustomUploadBtn';
 
 interface Props {
     handleNext?: () => void;
@@ -21,7 +24,7 @@ interface Props {
 
 interface RequestProp {
     code: string;
-    message: string
+    message: string;
 }
 const UploadDocument = ({ handleBack, handleNext }: Props) => {
     const [loading, setLoading] = useState(false)
@@ -38,7 +41,7 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
 
     const [imgUrl, setImgUrl] = useState("")
 
-    const { additionalDetails, directors, businessInfo, documents } = useSelector(state => state?.setupReducer)
+    const { additionalDetails, contactInfo, directors, businessInfo, documents } = useSelector(state => state?.setupReducer)
 
 
 
@@ -136,9 +139,10 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
         handleBack()
     }
 
-    let { email, city, businessAddress, businessDescription, stateRegion, phonenumber } = businessInfo
+    let { email, city, businessAddress, businessDescription, stateRegion, } = businessInfo
     let { businessIncome, chargebackEmail, contactemail, supportEmail, supportPhone, websiteUrl } = additionalDetails
-    console.log(documents, "documents")
+    let { firstname, lastname, phonenumber, bvn, address, docType, docNumber, docUrl, } = contactInfo
+
 
 
     const handleSubmit = async (e: any) => {
@@ -148,7 +152,7 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
             dispatch(openLoader());
             const { data } = await axios.post<RequestProp>('/v1/setup/business/submit', {
 
-
+                // log(data)
 
                 businessDescription,
                 businessAddress,
@@ -159,13 +163,17 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
                 supportEmail,
                 supportPhone,
                 websiteUrl,
-                // "contactPerson": {
-                //     firstname: 'EMMANURL',
-                //     lastname: "Ayodeji",
-                //     address: "prince",
-                //     phonenumber,
-                //     email,
-                // },
+                "contactPerson": {
+                    firstname,
+                    lastname,
+                    address,
+                    phonenumber,
+                    bvn,
+                    docType,
+                    docNumber,
+                    docUrl
+
+                },
 
                 directors,
                 documents: fileArray,
@@ -179,18 +187,27 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
             dispatch(closeLoader());
 
             if (data?.code === "success") {
-                console.log(data)
-                history.push("/")
-
 
                 dispatch(
-                    openToastAndSetContent({
-                        toastContent: data?.message,
-                        toastStyles: {
-                            backgroundColor: 'green',
+                    openModalAndSetContent({
+                        modalStyles: {
+                            padding: 0,
+                            borderRadius: 20,
+                            width: "300px !important",
+                            height: "200px !important"
+
                         },
+
+                        modalTitle: "",
+                        modalContent: (
+                            <div className='modalDiv'>
+                                <SuccessModal />
+                            </div>
+                        ),
                     })
-                )
+                );
+                history.push("/")
+
                 // window.location.href = "/"
             }
 
@@ -210,78 +227,46 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
     return (
         <form onSubmit={handleSubmit} encType='multipart/form-data' method='post'>
             <Box sx={{ height: "550px", marginTop: "-1.6rem" }}>
-                <Grid container rowSpacing={3} columnSpacing={3} rowGap={2} justifyContent="space-between" alignItems={"flex-start"}>
+                <Grid container columnSpacing={"55px"} justifyContent="space-between" alignItems={"flex-start"}>
 
 
 
 
-                    <Grid item xs={12} sm={6} md={6}>
-                        <InputLabel className={Styles.label}>Business Registration Number </InputLabel>
+                    <Grid item xs={12} sm={6} md={6} mb="14px">
+                        <InputLabel className={Styles.label} >Business Registration Number </InputLabel>
                         <TextField name="biz_reg" onChange={(e) => setBizNo(e.target.value)} fullWidth placeholder='Enter Business Registration Number' />
 
                     </Grid>
 
 
 
-                    <Grid item xs={12} sm={6} md={6}>
-                        <InputLabel className={Styles.label}>Upload Business Registration Document </InputLabel>
+                    {/* <Grid item xs={12} sm={6} md={6} mb="14px"> */}
 
-                        <Button variant="outlined" fullWidth component="label"
-                            style={{
-                                background: "#F6F9FD",
-                                fontSize: "14px", color: "#4F4F4F",
-                                height: 44,
-                                border: "1px dashed #7A9CC4",
-                                borderRadius: 4,
-                                fontWeight: 300,
-                                fontFamily: "Avenir",
-                                textTransform: "inherit"
-                            }}
+                    <Grid item xs={12} sm={6} md={6} mb="14px">
+                        {/* {loading && "uploading......."}
+                            {imgUrl && imgUrl} */}
+                        <CustomUploadBtn helperText='Only PDF, JPG and PNG are the accepted file formats' label='Upload Business Registration Document' onChange={(e: any) => handleFileUploadRegDoc(e)} />
 
-                            onChange={(e: any) => handleFileUploadRegDoc(e)}
-                        >
-                            <CloudUploadOutlinedIcon className={Styles.downloadIcon} />   choose file to upload
-                            <input hidden accept="image/jpeg,image/jpg,image/png,application/pdf,image/JPEG image/PNG,image/JPG," multiple type="file" />
-                        </Button>
-                        <FormHelperText id="component-helper-text" className={Styles.helperText}>
-                            <ErrorOutlineIcon /> Only PDF, JPG and PNG are the accepted file formats
-                        </FormHelperText>
+
                     </Grid>
+
+
 
 
 
                     <br />
-                    <Grid item xs={12} sm={6} md={6}>
-                        <InputLabel className={Styles.label}>Upload Application for Business Registration</InputLabel>
+                    <Grid item xs={12} sm={6} md={6} mb="14px">
 
-                        <Button variant="outlined" fullWidth component="label"
-                            style={{
-                                background: "#F6F9FD",
-                                fontSize: "14px", color: "#4F4F4F",
-                                height: 44,
-                                border: "1px dashed #7A9CC4",
-                                borderRadius: 4,
-                                fontWeight: 300,
-                                fontFamily: "Avenir",
-                                textTransform: "inherit"
-                            }}
-                            onChange={(e: any) => handleBusinesType(e)}
-                        >
-                            <CloudUploadOutlinedIcon className={Styles.downloadIcon} />   choose file to upload
-                            <input hidden accept="image/jpeg,image/jpg,image/png,application/pdf,image/JPEG image/PNG,image/JPG," multiple type="file" />
-                        </Button>
+                        <CustomUploadBtn helperText='Only PDF, JPG and PNG are the accepted file formats' label='Upload Application for Business Registration' onChange={(e: any) => handleBusinesType(e)} />
 
-                        <FormHelperText id="component-helper-text" className={Styles.helperText}>
-                            <ErrorOutlineIcon /> Only PDF, JPG and PNG are the accepted file formats
-                        </FormHelperText>
                     </Grid>
 
 
+                    <Divider />
 
 
-
-                    <Grid item xs={12} md={12}>  <h2>Operating License</h2></Grid>
-                    <Grid item xs={12} sm={6} md={6}>
+                    <Grid item xs={12} md={12} mb="14px"  >  <h2 style={{ padding: "22px 0", fontWeight: "400", color: "#333", }} className={Styles.headerTitle}> Operating License</h2></Grid>
+                    <Grid item xs={12} sm={6} md={6} mb="14px">
                         <InputLabel className={Styles.label}>Reg No. for Operating License</InputLabel>
                         <TextField name="license" onChange={(e: any) => setLisenceNo(e.target.value)} fullWidth placeholder='Enter Business Registration Number' />
 
@@ -290,42 +275,23 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
 
 
 
-                    <Grid item xs={12} sm={6} md={6}>
-                        <Box sx={{ marginTop: "-1rem" }}>
-                            <span className={Styles.label}>Upload Operating License Document </span>
-                        </Box>
-
-                        <Button variant="outlined" fullWidth component="label"
-                            style={{
-                                background: "#F6F9FD",
-                                fontSize: "14px", color: "#4F4F4F",
-                                height: 44,
-                                border: "1px dashed #7A9CC4",
-                                borderRadius: 4,
-                                fontWeight: 300,
-                                fontFamily: "Avenir",
-                                textTransform: "inherit"
-                            }}>
-                            <CloudUploadOutlinedIcon className={Styles.downloadIcon} fontSize="small" />   choose file to upload
-                            <input hidden onChange={(e) => handleUploadLinsence(e)} accept="image/jpeg,image/jpg,image/png,application/pdf,image/JPEG image/PNG,image/JPG," multiple type="file" />
-                        </Button>
+                    <Grid item xs={12} sm={6} md={6} mb="14px">
 
 
-                        <FormHelperText id="component-helper-text" className={Styles.helperText}>
-                            <ErrorOutlineIcon /> Only PDF, JPG and PNG are the accepted file formats
-                        </FormHelperText>
+                        <CustomUploadBtn helperText='Only PDF, JPG and PNG are the accepted file formats' label='Upload Operating License Document ' onChange={(e) => handleUploadLinsence(e)} />
+
                     </Grid>
                     <br />
 
 
 
-                    <Grid item xs={12} md={12}>  <h2>Proof of Address</h2></Grid>
+                    <Grid item xs={12} md={12}>  <h2 style={{ padding: "22px 0", fontWeight: "400", color: "#333", borderTop: "0.5px solid #E0E0E0" }} className={Styles.headerTitle}>Proof of Address</h2></Grid>
 
 
 
-                    <Grid item>
+                    <Grid item xs={12} md={6} >
                         <InputLabel className={Styles.label}>Select a Proof of Address Type</InputLabel>
-                        <TextField fullWidth select value={proveDoc} onChange={(e: any) => setProveType(e.target.value)}>
+                        <TextField fullWidth select value={proveType} onChange={(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => setProveType(e.target.value)}>
                             <MenuItem value="waterbill">waterbill</MenuItem>
                             <MenuItem value="electricitybill">electricitybill</MenuItem>
                             <MenuItem value="wastebill">wastebill</MenuItem>
@@ -336,32 +302,17 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
 
 
                     <Grid item xs={12} sm={6} md={6}>
-                        <InputLabel className={Styles.label}></InputLabel>
 
-                        <Button variant="outlined" fullWidth component="label"
-                            style={{
-                                background: "#F6F9FD",
-                                fontSize: "14px", color: "#4F4F4F",
-                                height: 44,
-                                border: "1px dashed #7A9CC4",
-                                borderRadius: 4,
-                                fontWeight: 300,
-                                fontFamily: "Avenir",
-                                textTransform: "inherit"
-                            }}
-                            onChange={(e: any) => handleProveDoc(e)}>
-                            <CloudUploadOutlinedIcon className={Styles.downloadIcon} />   choose file to upload
-                            <input hidden accept="image/jpeg,image/jpg,image/png,application/pdf,image/JPEG image/PNG,image/JPG," multiple type="file" />
-                        </Button>
-                        <FormHelperText id="component-helper-text" sx={{ color: "blue", marginTop: "12px", cursor: "pointer", fontFamily: "Avenir", fontSize: "12px", }}>
-                            <span color='blue'> + Add another document</span>
-                        </FormHelperText>
+
+
+                        <CustomUploadBtn helperText='Only PDF, JPG and PNG are the accepted file formats' label='Upload a Proof of Address' onChange={(e: any) => handleProveDoc(e)} />
+
                     </Grid>
 
 
                     <Grid item xs={12} sm={12} md={12}></Grid>
                     <br />
-                    <Stack direction="row" gap={"24px"} justifyContent={"flex-end"} alignItems={"flex-end"} sx={{ width: "100%", marginTop: 10 }}>
+                    <Stack direction="row" gap={"24px"} justifyContent={"flex-end"} alignItems={"flex-end"} sx={{ width: "100%", marginTop: 4 }}>
                         <button style={{
                             backgroundColor: 'transparent',
                             color: '#333',
