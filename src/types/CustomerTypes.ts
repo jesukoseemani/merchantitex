@@ -6,6 +6,8 @@ export interface CustomerItem {
   phone: number;
   transNum: number;
   total: number;
+  isblacklisted: boolean;
+  addressline1: string;
   added?: string;
   id?: string;
 }
@@ -114,4 +116,26 @@ export interface GetTransactionsRes {
     links: [];
   };
   transactions: TransactionItem[];
+}
+
+
+export interface CustomerRes {
+  customer: Customer
+  transactions: any[]
+  code: string
+  message: string
+}
+
+export interface Customer {
+  id: any
+  merchantaccountid: number
+  identifier: any
+  email: string
+  firstname: string
+  lastname: string
+  msisdn: string
+  addressline1: any
+  country: string
+  isblacklisted: boolean
+  blacklistreason: any
 }

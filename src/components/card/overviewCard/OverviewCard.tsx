@@ -7,24 +7,8 @@ import {
 } from '../../../redux/actions/loader/loaderActions';
 import Styles from './overview.module.scss';
 
-export default function OverviewCard() {
-	const [abandoned, setAbandoned] = useState<number>(0);
-	const dispatch = useDispatch();
-	const abandonedTransact = () => {
-		dispatch(openLoader());
-		axios
-			.get(`/merchant/dashboard/abandoned`)
-			.then((res: any) => {
-				const { total } = res?.data;
-				setAbandoned(total);
-				dispatch(closeLoader());
-			})
-			.catch((err) => {});
-	};
+export default function OverviewCard({ abandoned }: { abandoned: number }) {
 
-	useEffect(() => {
-		abandonedTransact();
-	}, []);
 	return (
 		<div className={Styles.container}>
 			<div>

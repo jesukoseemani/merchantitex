@@ -13,130 +13,66 @@ import {
 } from "semantic-ui-react";
 import CloseIcon from "@mui/icons-material/Close";
 import { IconButton } from "@material-ui/core";
-import { Link, useHistory } from "react-router-dom";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import CloudDownloadOutlinedIcon from "@mui/icons-material/CloudDownloadOutlined";
-import SingleTransferBankAcct from "../../views/Payout/transfer/SingleTransferBankAcct";
+import { useHistory } from "react-router-dom";
+import { openModalAndSetContent } from "../../redux/actions/modal/modalActions";
+import Confirmation from "../../views/Payout/transfer/Confirmation";
+import { useDispatch } from "react-redux";
+import { getBalance } from "../../services/balance";
+import { Balance } from "../../types/BalanceTypes";
+import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
+import { getSettlementAccounts } from "../../services/settlement";
+import FormatToCurrency from "../../helpers/NumberToCurrency";
+
+const DATA = {
+  balance: 0,
+  amount: 0,
+  account: 0,
+  description: ''
+}
 
 export default function EmptyTransfers() {
-  const history = useHistory();
+  const dispatch = useDispatch();
+  const [balances, setBalances] = useState<Balance[]>([]);
+  const [accounts, setAccounts] = useState<any[]>([]);
 
-  const transferLink = () => {
-    history.push("/payout/transfers/list");
-  };
+  const formattedBalance = balances.map((b, i: number) => ({ key: i + 1, value: b.id, text: `${b.currency} balance - ${FormatToCurrency(b.availablebalance)}` }))
+  const formattedAccount = accounts.map((b, i: number) => ({ key: i + 1, value: b.id, text: `${b.accountname} - ${b.accountnumber}` }))
 
-  const [openBankModel, setOpenBankModel] = useState(false);
-  const [openPayviceModel, setOpenPayviceModel] = useState(false);
+
   const [openItexModel, setOpenItexModel] = useState(false);
-  const [openBulkModel, setOpenBulkModel] = useState(false);
-  const countryOptions = [
-    { key: 1, value: "NGN", text: "NGN balance - 123,456.78" },
-    { key: 2, value: "USD", text: "USD balance - 689,456.78" },
-  ];
-  const bankNameOptions = [
-    { key: 1, value: "NGN", text: "NGN balance - 123,456.78" },
-    { key: 2, value: "USD", text: "USD balance - 689,456.78" },
-  ];
-  const BankModalPayout = () => {
-    return (
-      <Modal
-        onClose={() => setOpenBankModel(false)}
-        onOpen={() => setOpenBankModel(true)}
-        open={openBankModel}
-        className={Styles.modalContainer}
-      >
-        {/* <div className={Styles.modalHeader}>
-          <h2>Single payout</h2>
-          <IconButton onClick={() => setOpenBankModel(false)}>
-            <CloseIcon />
-          </IconButton>
-        </div>
-        <Form.Field className={Styles.inputWrapper}>
-          <label>Balance to be debited</label>
-          <Select
-            placeholder="NGN balance - 123,456.78"
-            options={countryOptions}
-          />
-        </Form.Field>
-        <Form.Field className={Styles.inputWrapper}>
-          <label>Payout amount</label>
-          <input placeholder="NGN 0.0" />
-        </Form.Field>
-        <Form.Field className={Styles.inputWrapper}>
-          <label>Bank name</label>
-          <Select placeholder="Access bank" options={bankNameOptions} />
-        </Form.Field>
-        <Form.Field className={Styles.inputWrapper}>
-          <label>Account number</label>
-          <input placeholder="1234567890" />
-        </Form.Field>
-        <div className={Styles.inputDivider}>
-          <h2>James Holiday</h2>
-          <Link to="#">+ Add a new recipient</Link>
-        </div>
-        <Form.Field className={Styles.inputWrapper}>
-          <label>Payout desciption (optional)</label>
-          <input placeholder="Thank you" />
-        </Form.Field>
-        <p>
-          <InfoOutlinedIcon />
-          You will be charged <span> NGN45</span> fee for this transaction
-        </p>
-        <div className={Styles.modalFooter}>
-          <Button onClick={transferLink}>Submit</Button>
-        </div> */}
 
-        <SingleTransferBankAcct />
-      </Modal>
-    );
-  };
-  const PayviceModalPayout = () => {
-    return (
-      <Modal
-        onClose={() => setOpenPayviceModel(false)}
-        onOpen={() => setOpenPayviceModel(true)}
-        open={openPayviceModel}
-        className={Styles.modalContainer}
-      >
-        <div className={Styles.modalHeader}>
-          <h2>Single payout</h2>
-          <IconButton onClick={() => setOpenPayviceModel(false)}>
-            <CloseIcon />
-          </IconButton>
-        </div>
-        <Form.Field className={Styles.inputWrapper}>
-          <label>Balance to be debited</label>
-          <Select
-            placeholder="NGN balance - 123,456.78"
-            options={countryOptions}
-          />
-        </Form.Field>
-        <Form.Field className={Styles.inputWrapper}>
-          <label>Payout amount</label>
-          <input placeholder="NGN 0.0" />
-        </Form.Field>
-        <Form.Field className={Styles.inputWrapper}>
-          <label>ITEX Pay email</label>
-          <input placeholder="email@email.com" />
-        </Form.Field>
-        <div className={Styles.inputDivider}>
-          <h2>James Holiday</h2>
-        </div>
-        <Form.Field className={Styles.inputWrapper}>
-          <label>Payout desciption (optional)</label>
-          <input placeholder="Thank you" />
-        </Form.Field>
-        <p>
-          <InfoOutlinedIcon />
-          You will be charged <span> NGN45</span> fee for this transaction
-        </p>
-        <div className={Styles.modalFooter}>
-          <Button onClick={transferLink}>Submit</Button>
-        </div>
-      </Modal>
-    );
-  };
+  useEffect(() => {
+    (
+      async () => {
+
+        try {
+          const [balanceRes, settlementRes] = await Promise.all([getBalance(), getSettlementAccounts()]);
+          setBalances(balanceRes?.balances || []);
+          setAccounts(settlementRes?.accounts || [])
+        } catch (error: any) {
+          dispatch(
+            openToastAndSetContent({
+              toastContent: error?.response?.data?.message || 'Failed to get balances',
+              toastStyles: {
+                backgroundColor: 'red',
+              },
+            })
+          );
+        }
+      }
+    )()
+  }, [])
+
   const ItexModalPayout = () => {
+    const [form, setForm] = useState(DATA)
+
+    const handleChange = (value: string, key: string) => {
+      setForm({
+        ...form,
+        [key]: value
+      })
+    }
+
     return (
       <Modal
         onClose={() => setOpenItexModel(false)}
@@ -145,7 +81,7 @@ export default function EmptyTransfers() {
         className={Styles.modalContainer}
       >
         <div className={Styles.modalHeader}>
-          <h2>Single payout</h2>
+          <h2>Make a payout</h2>
           <IconButton onClick={() => setOpenItexModel(false)}>
             <CloseIcon />
           </IconButton>
@@ -154,119 +90,68 @@ export default function EmptyTransfers() {
           <label>Balance to be debited</label>
           <Select
             placeholder="NGN balance - 123,456.78"
-            options={countryOptions}
+            options={formattedBalance}
+            onChange={(e: any, value: any) => handleChange(value.value, 'balance')}
           />
         </Form.Field>
         <Form.Field className={Styles.inputWrapper}>
           <label>Payout amount</label>
-          <input placeholder="NGN 0.0" />
+          <input placeholder="NGN 0.0" onChange={e => handleChange(e.target.value, 'amount')} />
         </Form.Field>
         <Form.Field className={Styles.inputWrapper}>
-          <label>ITEX Pay email</label>
-          <input placeholder="email@email.com" />
-        </Form.Field>
-        <div className={Styles.inputDivider}>
-          <h2>James Holiday</h2>
-        </div>
+          <label>Select beneficiary account</label>
+          <Select
+            placeholder="Select beneficiary account"
+            options={formattedAccount}
+            onChange={(e: any, value: any) => handleChange((value.value), 'account')}
+          />        </Form.Field>
         <Form.Field className={Styles.inputWrapper}>
           <label>Payout desciption (optional)</label>
-          <input placeholder="Thank you" />
+          <input placeholder="e.g Thank you" onChange={e => handleChange(e.target.value, 'description')} />
         </Form.Field>
-        <p>
+        {/* <p>
           <InfoOutlinedIcon />
           You will be charged <span> NGN45</span> fee for this transaction
-        </p>
+        </p> */}
         <div className={Styles.modalFooter}>
-          <Button onClick={transferLink}>Submit</Button>
+          <Button onClick={() => handleSubmit(form)} disabled={!form.balance || !form.amount || !form.account}>Submit</Button>
         </div>
       </Modal>
     );
   };
-  const BulkModalPayout = () => {
-    return (
-      <Modal
-        onClose={() => setOpenBulkModel(false)}
-        onOpen={() => setOpenBulkModel(true)}
-        open={openBulkModel}
-        className={Styles.modalContainer}
-      >
-        <div className={Styles.modalHeader}>
-          <h2>Bulk transfers</h2>
-          <IconButton onClick={() => setOpenBulkModel(false)}>
-            <CloseIcon />
-          </IconButton>
-        </div>
-        <div className={Styles.inputDivider}>
-          <h2>File upload requirements</h2>
-        </div>
-        <div className={Styles.inputDesc}>
-          <p>Files must be CSV</p>
-          <p>
-            CSV file should contain <span>account number, bank, amount,</span>
-            and
-            <span>description</span> columns.
-          </p>
-          <span>
-            The order of the columns should be the same as the order in which
-            they are listed above with the first row header.
-          </span>
-        </div>
-        <Form.Field className={Styles.inputWrapper}>
-          <label>Balance to be debited</label>
-          <Select
-            placeholder="NGN balance - 123,456.78"
-            options={countryOptions}
-          />
-        </Form.Field>
-        <Form.Field className={Styles.inputWrapper}>
-          <label>Bulk payout CSV file</label>
-          <input type="file" placeholder="NGN 0.0" />
-        </Form.Field>
-        <div className={Styles.modalFooter}>
-          <Button onClick={transferLink}>Continue</Button>
-        </div>
-        <p className={Styles.modalNote}>
-          <CloudDownloadOutlinedIcon />
-          Download a sample bulk upload CSV file
-        </p>
-      </Modal>
+
+  const handleSubmit = (form: typeof DATA) => {
+    setOpenItexModel(false)
+    dispatch(
+      openModalAndSetContent({
+        modalStyles: {
+          padding: 0,
+          borderRadius: "20px",
+          width: "560.66px",
+          height: "442px",
+          overflow: "hidden"
+        },
+        modalContent: (
+          <>
+            <Confirmation form={form} />
+          </>
+        ),
+      })
     );
-  };
+  }
+
   return (
     <>
-      <BankModalPayout />
-      <PayviceModalPayout />
       <ItexModalPayout />
-      <BulkModalPayout />
       <div className={Styles.container}>
-        <h2>You have not made any transfers</h2>
+        <h2>You have not made any payouts</h2>
         <p>
-          But, you can change that. You can start by initiating your first to
-          either an ITEX merchant’s email address or to a bank account.
+          But, you can change that. You can start by initiating your first to a bank account.
         </p>
-        <Button className="success">
-          <Dropdown text="Make a transfer" className="link item">
-            <Dropdown.Menu className={Styles.menuOptions}>
-              <Dropdown.Item>
-                <Dropdown text="Single payout">
-                  <Dropdown.Menu>
-                    <Dropdown.Item onClick={() => setOpenBankModel(true)}>
-                      Bank account
-                    </Dropdown.Item>
-                    <Dropdown.Item onClick={() => setOpenPayviceModel(true)}>
-                      Payvice
-                    </Dropdown.Item>
-                    <Dropdown.Item onClick={() => setOpenItexModel(true)}>
-                      ITEX Pay
-                    </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </Dropdown.Item>
-              <Dropdown.Item onClick={() => setOpenBulkModel(true)}>
-                Bulk payouts
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+        <Button className="success" onClick={() => setOpenItexModel(true)}>
+          <Dropdown.Item>
+            Make a payout
+          </Dropdown.Item>
         </Button>
       </div>
     </>

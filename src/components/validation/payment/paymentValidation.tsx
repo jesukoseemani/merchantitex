@@ -5,7 +5,6 @@ import "yup-phone-lite"
 export const paymentDonation = Yup.object({
     linkName: Yup.string().required("link name is Required"),
     currencyid: Yup.number().required("currency is Required"),
-    otp: Yup.number().required("otp is required"),
     amount: Yup.number().required("Amount is required"),
     description: Yup.string().required("description is required"),
     donationWebsite: Yup.string().required("donationWebsite is required").url(),
@@ -17,7 +16,6 @@ export const paymentDonation = Yup.object({
 export const singleCharge = Yup.object({
     linkName: Yup.string().required("link name is Required"),
     currencyid: Yup.number().required("currency is Required"),
-    otp: Yup.number().required("otp is required"),
     amount: Yup.number().required("Amount is required"),
     description: Yup.string().required("description is required"),
     redirectUrl: Yup.string().required("donationWebsite is required").url(),
@@ -28,7 +26,6 @@ export const singleCharge = Yup.object({
 export const subscriptionSchema = Yup.object({
     linkName: Yup.string().required("link name is Required"),
     currencyid: Yup.number().required("currency is Required"),
-    otp: Yup.number().required("otp is required"),
     amount: Yup.number().required("Amount is required"),
     subChargeCount: Yup.number().required("Subcharge count is required"),
     description: Yup.string().required("description is required"),

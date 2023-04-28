@@ -89,10 +89,6 @@ const Customers = () => {
 				</TabContext>
 			</Box>
 		</div>
-
-
-		// <CustomersTab value={value} index="customers" />
-		// <BlacklistTab />
 	);
 };
 

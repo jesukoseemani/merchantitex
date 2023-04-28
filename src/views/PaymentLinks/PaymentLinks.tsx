@@ -11,6 +11,7 @@ import SingleLinkModal from "./SingleLinkModal";
 
 const PaymentLinks = () => {
   const [isEmpty, setIsEmpty] = useState<boolean>(false);
+  const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [isLinkModalOpen, setIsLinkModalOpen] = useState<boolean>(false);
   const [isSingleLinkModalOpen, setIsSingleLinkModalOpen] = useState<boolean>(false);
   const [isRecurringLinkModalOpen, setIsRecurringLinkModalOpen] = useState<boolean>(false);
@@ -32,29 +33,29 @@ const PaymentLinks = () => {
   }
 
   return (
-      <div className={styles.container}>
-        <LinkTypeModal
-          isOpen={isLinkModalOpen} handleClose={() => setIsLinkModalOpen(false)}
-          openDonationLinkModal={openDonationLinkModal}
-          openRecurringLinkModal={openRecurringLinkModal}
-          openSingleLinkModal={openSingleLinkModal}
-        />
-        <SingleLinkModal isOpen={isSingleLinkModalOpen} handleClose={() => setIsSingleLinkModalOpen(false)} />
-        <RecurringLinkModal isOpen={isRecurringLinkModalOpen} handleClose={() => setIsRecurringLinkModalOpen(false)} />
-        <DonationLinkModal isOpen={isDonationLinkModalOpen} handleClose={() => setIsDonationLinkModalOpen(false)} />
+    <div className={styles.container}>
+      <LinkTypeModal
+        isOpen={isLinkModalOpen} handleClose={() => setIsLinkModalOpen(false)}
+        openDonationLinkModal={openDonationLinkModal}
+        openRecurringLinkModal={openRecurringLinkModal}
+        openSingleLinkModal={openSingleLinkModal}
+      />
+      <SingleLinkModal isOpen={isSingleLinkModalOpen} handleClose={() => setIsSingleLinkModalOpen(false)} setIsUpdate={setIsUpdate} />
+      <RecurringLinkModal isOpen={isRecurringLinkModalOpen} handleClose={() => setIsRecurringLinkModalOpen(false)} setIsUpdate={setIsUpdate} />
+      <DonationLinkModal isOpen={isDonationLinkModalOpen} handleClose={() => setIsDonationLinkModalOpen(false)} setIsUpdate={setIsUpdate} />
 
 
-        <div className={styles.pageWrapper}>
-          {
-            isEmpty ? (
-              <EmptyView openLinkModal={() => setIsLinkModalOpen(true)} />
-            ) : (
-              <LinksView openLinkModal={() => setIsLinkModalOpen(true)} />
-            )
-          }
-        </div>
-
+      <div className={styles.pageWrapper}>
+        {
+          isEmpty ? (
+            <EmptyView openLinkModal={() => setIsLinkModalOpen(true)} />
+          ) : (
+            <LinksView openLinkModal={() => setIsLinkModalOpen(true)} isUpdate={isUpdate} setIsUpdate={setIsUpdate} />
+          )
+        }
       </div>
+
+    </div>
   );
 };
 
