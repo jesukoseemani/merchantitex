@@ -42,7 +42,7 @@ const DATA = {
 }
 
 const Listtransfer = ({ payout }: { payout?: PayoutRes }) => {
-    const { calDownload } = useDownload({ url: `${BASE_URL}/v1/payout/download`, filename: 'payout' })
+    const { calDownload } = useDownload({ url: `${BASE_URL}/payout/download`, filename: 'payout' })
 
     const useStyles = makeStyles({
         mui: {

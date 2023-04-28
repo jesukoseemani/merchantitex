@@ -30,6 +30,8 @@ import { getDownloadedRefunds, getRefundsService } from '../../services/refund';
 import { stripSearch } from '../../utils';
 import useDownload from '../../hooks/useDownload';
 import { BASE_URL } from '../../config';
+import { capitalize } from 'lodash';
+import FormatToCurrency from '../../helpers/NumberToCurrency';
 
 
 
@@ -171,48 +173,22 @@ const Refund = () => {
 
 	const getRefunds = async () => {
 		dispatch(openLoader());
-		// const filterKeys = Object.keys(filters);
-		// const filterValues = Object.values(filters);
-		// let filterString = '';
-
-		// if (dateInterval) {
-		// 	let fromDate = '';
-
-		// 	if (dateInterval === 'year') {
-		// 		fromDate = moment().subtract(1, 'years').format('YYYY-MM-DD');
-		// 	} else {
-		// 		fromDate = moment()
-		// 			.subtract(Number(dateInterval), 'days')
-		// 			.format('YYYY-MM-DD');
-		// 	}
-
-		// 	filterString = `&todate=${fixedToDate}&fromdate=${fromDate}`;
-		// }
-
-		// filterKeys.forEach((keyString, index) => {
-		// 	if (filterValues[index] === '') return;
-		// 	filterString += `&${keyString}=${filterValues[index]}`;
-		// });
 
 		try {
 			const res = await getRefundsService({
 				page: pageNumber,
 				perpage: rowsPerPage,
-				// search: stripSearch(search)
+				search: stripSearch(search),
+				...filters
 			});
 			setRefunds(res?.refunds || []);
 			setTotalRows(res?._metadata?.totalcount || 0)
-			// if (history.length) {
-			// 	setRefunds(res?.transactions);
-			// 	setTotalRows(_metadata?.totalcount);
-			// }
 			dispatch(closeLoader());
-		} catch (err) {
-			console.log(err);
+		} catch (err: any) {
 			dispatch(closeLoader());
 			dispatch(
 				openToastAndSetContent({
-					toastContent: 'Failed to get items',
+					toastContent: err?.response?.data?.message || 'Failed to get refunds',
 					toastStyles: {
 						backgroundColor: 'red',
 					},
@@ -249,7 +225,7 @@ const Refund = () => {
 	};
 
 	interface Column {
-		id: 'amount' | 'status' | 'email' | 'linkingreference' | 'added';
+		id: 'amount' | 'status' | 'type' | 'linkingreference' | 'added';
 		label: any;
 		minWidth?: number;
 		align?: 'right' | 'left' | 'center';
@@ -258,7 +234,7 @@ const Refund = () => {
 	const columns: Column[] = [
 		{ id: 'amount', label: 'Amount', minWidth: 80 },
 		{ id: 'status', label: 'Status', minWidth: 70 },
-		{ id: 'email', label: 'Email address', minWidth: 100 },
+		{ id: 'type', label: 'Refund type', minWidth: 100 },
 		{ id: 'linkingreference', label: 'Transaction reference', minWidth: 250 },
 		{ id: 'added', label: 'Date', minWidth: 170 },
 	];
@@ -271,13 +247,13 @@ const Refund = () => {
 
 
 	const RefundRowTab = useCallback(
-		(amt, status, reference, acctId, added, id) => ({
+		(amt, status, reference, type, added, id) => ({
 			amount: <div className={styles.amount}>					<h2>
 				<span
 					style={{ color: "#828282", paddingRight: "1px" }}
 				>NGN</span>{amt}</h2></div>,
 			// code: formatStatus(code),
-			email: <p className={styles.tableBodyText}>{acctId}</p>,
+			type: <p className={styles.tableBodyText}>{type}</p>,
 			status: (
 				<p className={styles[statusFormatObj[status] || "pendingText"]} >{status}</p>
 			),
@@ -305,10 +281,10 @@ const Refund = () => {
 		refunds?.map((each: any) =>
 			newRowOptions.push(
 				RefundRowTab(
-					each?.amount,
+					FormatToCurrency(each?.amount),
 					each?.status,
 					each?.reference,
-					each?.acctId,
+					capitalize(each?.refundtype) || '',
 					each?.added,
 					each?.id,
 				)
@@ -365,7 +341,7 @@ const Refund = () => {
 							aria-controls={open ? 'refund-menu' : undefined}
 							aria-haspopup='true'
 							aria-expanded={open ? 'true' : undefined}
-							onClick={handleClickRefundMenu}>
+							onClick={() => setIsSingleModalOpen(true)}>
 							+ Log a refund
 						</Button>
 

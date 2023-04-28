@@ -327,9 +327,6 @@ const BalanceHistory = () => {
                 <FilterAltOutlinedIcon /> Filter by:
               </Button>
             </div>
-            <Button>
-              <InsertDriveFileOutlinedIcon /> Download
-            </Button>
           </div>
         </Box>
         <div className={styles.tableContainer}>

@@ -28,19 +28,18 @@ const Balance = () => {
         setBalances(res?.balances || [])
       })()
 
-    } catch (error) {
-      dispatch(closeLoader());
+    } catch (error: any) {
       dispatch(
         openToastAndSetContent({
-          toastContent: "Failed to get account",
+          toastContent: error?.response?.data?.message || "Failed to get balance",
           toastStyles: {
             backgroundColor: "red",
           },
         })
       );
-
+    } finally {
+      dispatch(closeLoader());
     }
-    getBalance()
   }, []);
 
   const handleUsdLimit = () => {
@@ -56,7 +55,7 @@ const Balance = () => {
         },
         modalContent: (
           <div className='modalDiv'>
-            < SetUsdLimitModal />
+            <SetUsdLimitModal />
           </div>
         ),
       })

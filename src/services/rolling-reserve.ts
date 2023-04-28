@@ -1,9 +1,9 @@
 import axios from "axios";
+import { RollingReserveRes } from "../types/RollingReserveTypes";
 
-export const getRollingReserve = async () => {
+export const getRollingReserve = async (): Promise<RollingReserveRes> => {
     const { data } = await axios.get('/v1/rollingreserve');
-    console.log(data, 'data')
-    return data;
+    return data as RollingReserveRes;
 }
 
 export const getRollingReserveDownload = async (id: string) => {

@@ -118,6 +118,11 @@ const CustomersTab = ({ value, index }: any) => {
 		);
 	};
 
+	const handleClick = (event: React.MouseEvent<HTMLParagraphElement, globalThis.MouseEvent>, id: string) => {
+		event.stopPropagation();
+		handleBLacklist(id)
+	};
+
 	const CustomerRowTab = useCallback(
 		(firstname, lastname, email, msisdn, isblacklisted, id) => ({
 			name: (
@@ -131,7 +136,7 @@ const CustomersTab = ({ value, index }: any) => {
 			msisdn: <p className={styles.tableBodyText}>{msisdn}</p>,
 
 			actions: (
-				isblacklisted ? <div></div> : <p style={{ color: "red" }} onClick={() => handleBLacklist(id)}>Blacklist</p>
+				isblacklisted ? <div></div> : <p style={{ color: "red" }} onClickCapture={(e) => handleClick(e, id)}>Blacklist</p>
 			),
 
 		}),
@@ -192,7 +197,7 @@ const CustomersTab = ({ value, index }: any) => {
 				},
 				modalContent: (
 					<div className='modalDiv'>
-						<AddNewCustomer callback={addCallback} fn={getCustomers}/>
+						<AddNewCustomer callback={addCallback} fn={getCustomers} />
 					</div>
 				),
 			})
