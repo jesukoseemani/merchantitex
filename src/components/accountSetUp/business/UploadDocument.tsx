@@ -11,10 +11,12 @@ import { openToastAndSetContent } from '../../../redux/actions/toast/toastAction
 import useCustomUpload from '../../hooks/CustomUpload';
 import { saveUploadDoc } from '../../../redux/actions/setup';
 import { saveLoading } from '../../../redux/actions/loadingState/loadingStateActions';
-import { useHistory } from 'react-router';
-import { openModalAndSetContent } from '../../../redux/actions/modal/modalActions';
+import { useHistory } from 'react-router-dom';
+import { openModalAndSetContent, closeModal } from '../../../redux/actions/modal/modalActions';
 import SuccessModal from './SuccessModal';
 import CustomUploadBtn from '../../customs/CustomUploadBtn';
+import useSetup from '../../hooks/useSetup';
+import BankAccount from '../BankAccountModal';
 
 interface Props {
     handleNext?: () => void;
@@ -143,7 +145,7 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
     let { businessIncome, chargebackEmail, contactemail, supportEmail, supportPhone, websiteUrl } = additionalDetails
     let { firstname, lastname, phonenumber, bvn, address, docType, docNumber, docUrl, } = contactInfo
 
-
+    const { setupStatus } = useSetup()
 
     const handleSubmit = async (e: any) => {
         e.preventDefault()
@@ -188,27 +190,54 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
 
             if (data?.code === "success") {
 
-                dispatch(
-                    openModalAndSetContent({
-                        modalStyles: {
-                            padding: 0,
-                            borderRadius: 20,
-                            width: "300px !important",
-                            height: "200px !important"
+                if (setupStatus?.isSettlementAccountSet === false) {
 
-                        },
+                    dispatch(
+                        openModalAndSetContent({
+                            modalStyles: {
+                                padding: 0,
+                                width: "400px",
+                                minHeight: "600px",
 
-                        modalTitle: "",
-                        modalContent: (
-                            <div className='modalDiv'>
-                                <SuccessModal />
-                            </div>
-                        ),
-                    })
-                );
+                                borderRadius: 20,
+                            },
+                            modalTitle: "Add a bank account",
+
+                            modalContent: (
+                                <div className='modalDiv'>
+                                    <BankAccount checkBusinessStatus={setupStatus} />
+                                </div>
+                            ),
+                        })
+                    );
+
+                } else {
+                    dispatch(
+                        openModalAndSetContent({
+                            modalStyles: {
+                                padding: 0,
+                                borderRadius: 20,
+                                width: "300px !important",
+                                height: "200px !important"
+
+                            },
+
+                            modalTitle: "",
+                            modalContent: (
+                                <div className='modalDiv'>
+                                    <SuccessModal />
+                                </div>
+                            ),
+                        })
+                    );
+
+                }
+
+
+
                 history.push("/")
 
-                // window.location.href = "/"
+
             }
 
         } catch (err: any) {
