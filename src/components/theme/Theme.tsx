@@ -263,6 +263,15 @@ const theme = createTheme({
 
       }
     },
+    MuiAccordionSummary: {
+      styleOverrides: {
+        root: {
+          border: "1px solid transparent !important",
+          padding: "0px !important"
+        },
+        gutters: {}
+      }
+    },
 
     MuiTableCell: {
       styleOverrides: {

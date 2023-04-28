@@ -34,7 +34,7 @@ interface Props {
 
 }
 
-const CustomPhoneNumber = ({ adornmentOptions, className, position = "start", adornment, id, InputProps, options, as = "", size = "small", rows, multiline = false, label, placeholder, name = "", type = "text", defaultValue, value, ...props }: Props) => {
+const CustomPhoneNumber = ({ adornmentOptions, className, position = "start", adornment, id, InputProps, options, as = "", size = "small", rows, multiline = false, label, placeholder, name = "", type = "text", ...props }: Props) => {
     const [countryList, defaultCountry, defaultCountryDialCode,] = useCountry()
 
     return (
@@ -57,8 +57,7 @@ const CustomPhoneNumber = ({ adornmentOptions, className, position = "start", ad
                 id={id}
                 className={className}
                 fullWidth
-                defaultValue={defaultValue}
-                value={value}
+
                 options={options}
                 multiline={multiline}
                 rows={rows}

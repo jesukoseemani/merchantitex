@@ -17,7 +17,7 @@ const useCustomUpload = () => {
     const handleUpload = async (e: any) => {
         setLoading(true)
         try {
-            setImg(e.target.files[0])
+
 
             const formData = new FormData()
 

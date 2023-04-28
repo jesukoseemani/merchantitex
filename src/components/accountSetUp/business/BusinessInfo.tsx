@@ -19,6 +19,7 @@ import { useDispatch } from 'react-redux';
 import { SAVE_BUSINESS_INFO } from '../../../redux/actions/constants';
 import { saveBusinessInfo } from '../../../redux/actions/setup/index';
 import CustomState from '../../customs/CustomState';
+import CustomPhoneNumber from '../../customs/CustomPhoneInput';
 
 
 
@@ -39,10 +40,14 @@ interface StateProps {
 const BusinessInfo = ({ handleNext }: Props) => {
     const [age, setAge] = React.useState('');
     const [state, setState] = useState<StateProps[]>()
-    const handleOnChange = () => { }
     const dispatch = useDispatch()
 
     const { auth } = useSelector(state => state?.authReducer)
+    const { businessInfo } = useSelector(state => state?.setupReducer)
+
+
+    let { email, city, businessAddress, businessDescription, stateRegion, phonenumber } = businessInfo
+
 
     // fetch state
     useEffect(() => {
@@ -74,12 +79,12 @@ const BusinessInfo = ({ handleNext }: Props) => {
     return (
         <Formik
             initialValues={{
-                email: "",
-                city: "",
-                businessAddress: "",
-                stateRegion: "",
-                businessDescription: "",
-                phonenumber: ""
+                email,
+                city,
+                businessAddress,
+                stateRegion,
+                businessDescription,
+                phonenumber
             }}
             validationSchema={ValidateBusinessInfo}
 
@@ -102,8 +107,8 @@ const BusinessInfo = ({ handleNext }: Props) => {
                 <Box sx={{ marginTop: "-10px" }}>
                     <Form method="post">
 
-                        <Grid container columnSpacing={4} justifyContent="space-between">
-                            <Grid item xs={12} sm={6} md={6} mb="22px">
+                        <Grid container columnSpacing={"55px"} justifyContent="space-between">
+                            <Grid item xs={12} sm={6} md={6} mb="14px">
                                 <InputLabel className={styles.label}>Business Description</InputLabel>
                                 <Field
                                     as={TextField}
@@ -125,7 +130,7 @@ const BusinessInfo = ({ handleNext }: Props) => {
 
                                 />
                             </Grid>
-                            <Grid item xs={12} sm={6} md={6} mb="22px">
+                            <Grid item xs={12} sm={6} md={6} mb="14px">
                                 <InputLabel className={styles.label}>Business Address</InputLabel>
                                 <Field
                                     as={TextField}
@@ -147,29 +152,12 @@ const BusinessInfo = ({ handleNext }: Props) => {
                                 />
 
                             </Grid>
-                            <Grid item xs={12} sm={6} md={6} mb="22px">
-                                <InputLabel className={styles.label}>Business phone number</InputLabel>
-                                <Field
-                                    as={TextField}
-                                    helperText={
-                                        <ErrorMessage name="phonenumber">
-                                            {(msg) => <span style={{ color: "red" }}>{msg}</span>}
-                                        </ErrorMessage>
-                                    }
-                                    name="phonenumber"
-                                    placeholder="phonenumber"
+                            <Grid item xs={12} sm={6} md={6} mb="14px">
 
-                                    type="text"
-                                    size="small"
-                                    fullWidth
-                                // error={touched?.businessAddress && errors?.businessAddress}
-
-
-
-                                />
+                                <CustomPhoneNumber as={TextField} label={"Owner’s phone number"} placeholder="09069003426" name="phonenumber" />
                             </Grid>
 
-                            <Grid item xs={12} sm={6} md={6} mb="22px">
+                            <Grid item xs={12} sm={6} md={6} mb="14px">
                                 <InputLabel className={styles.label}>Business email Address</InputLabel>
                                 <Field
                                     as={TextField}
@@ -186,7 +174,7 @@ const BusinessInfo = ({ handleNext }: Props) => {
 
                                 />
                             </Grid>
-                            <Grid item xs={12} sm={6} md={6} mb="22px">
+                            <Grid item xs={12} sm={6} md={6} mb="14px">
                                 <InputLabel className={styles.label}>City</InputLabel>
                                 <Field
                                     as={TextField}
@@ -203,7 +191,7 @@ const BusinessInfo = ({ handleNext }: Props) => {
 
                                 />
                             </Grid>
-                            <Grid item xs={12} sm={6} md={6} mb="22px">
+                            <Grid item xs={12} sm={6} md={6} mb="14px">
                                 <InputLabel className={styles.label}>State or Regions</InputLabel>
 
                                 <Field
@@ -224,7 +212,7 @@ const BusinessInfo = ({ handleNext }: Props) => {
                             </Grid>
 
 
-                            <Grid item xs={12} sm={6} md={6} mb="22px"></Grid>
+                            <Grid item xs={12} sm={6} md={6} mb="14px"></Grid>
                             <br />
                             <div className="continueBtn" style={{ display: "flex", justifyContent: "flex-end", marginTop: "1rem", marginBottom: "4rem", width: "100%" }}>
                                 <button

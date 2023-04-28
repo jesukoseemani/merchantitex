@@ -12,7 +12,7 @@ import styles from "../style.module.scss"
 import { ValidateAdditionalInfo } from '../../validation/setup/Businesssetup';
 import SelectWrapper from '../../formUI/Select';
 import { saveAdditionalInfo } from '../../../redux/actions/setup';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // import SelectWrapper from '../../formUI/Select';
 
 interface Props {
@@ -33,6 +33,12 @@ const AdditionalInfo = ({ handleBack, handleNext }: Props) => {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setState(event.target.value);
     };
+    const { additionalDetails } = useSelector(state => state?.setupReducer)
+
+
+    let { businessIncome, chargebackEmail, contactemail, supportEmail, supportPhone, websiteUrl } = additionalDetails
+
+
 
 
 
@@ -66,17 +72,17 @@ const AdditionalInfo = ({ handleBack, handleNext }: Props) => {
 
             <Formik
                 initialValues={{
-                    websiteUrl: "",
-                    supportPhone: "",
-                    chargebackEmail: "",
-                    supportEmail: "",
-                    contactemail: "",
-                    businessIncome: "",
+                    websiteUrl,
+                    supportPhone,
+                    chargebackEmail,
+                    supportEmail,
+                    contactemail,
+                    businessIncome,
                 }}
                 validationSchema={ValidateAdditionalInfo}
 
-                onSubmit={({ businessIncome, chargebackEmail, contactemail, supportEmail, supportPhone, websiteUrl }, { setFieldValue }) => {
-                    dispatch(saveAdditionalInfo({ businessIncome, chargebackEmail, contactemail, supportEmail, supportPhone, websiteUrl }));
+                onSubmit={(values, { setFieldValue }) => {
+                    dispatch(saveAdditionalInfo(values));
                     // console.log({ businessIncome, chargebackEmail,contactemail,supportEmail,supportPhone, websiteUrl})
                     handleNext();
                 }}
@@ -91,8 +97,8 @@ const AdditionalInfo = ({ handleBack, handleNext }: Props) => {
                     <Box sx={{ marginTop: "-10px" }}>
                         <Form method="post">
 
-                            <Grid container columnSpacing={4} justifyContent="space-between">
-                                <Grid item xs={12} sm={6} md={6} mb="22px">
+                            <Grid container columnSpacing={"55px"} justifyContent="space-between">
+                                <Grid item xs={12} sm={6} md={6} mb="14px">
                                     <InputLabel className={styles.label}> Website URL (optional)</InputLabel>
                                     <Field
                                         as={TextField}
@@ -114,7 +120,7 @@ const AdditionalInfo = ({ handleBack, handleNext }: Props) => {
 
                                     />
                                 </Grid>
-                                <Grid item xs={12} sm={6} md={6} mb="22px">
+                                <Grid item xs={12} sm={6} md={6} mb="14px">
                                     <InputLabel className={styles.label}>Support Email Address</InputLabel>
                                     <Field
                                         as={TextField}
@@ -136,7 +142,7 @@ const AdditionalInfo = ({ handleBack, handleNext }: Props) => {
                                     />
                                 </Grid>
 
-                                <Grid item xs={12} sm={6} md={6} mb="22px">
+                                <Grid item xs={12} sm={6} md={6} mb="14px">
                                     <InputLabel className={styles.label}>Support Phone Number</InputLabel>
                                     <Field
                                         as={TextField}
@@ -153,7 +159,7 @@ const AdditionalInfo = ({ handleBack, handleNext }: Props) => {
 
                                     />
                                 </Grid>
-                                <Grid item xs={12} sm={6} md={6} mb="22px">
+                                <Grid item xs={12} sm={6} md={6} mb="14px">
                                     <InputLabel className={styles.label}>Chargeback Email Address</InputLabel>
                                     <Field
                                         as={TextField}
@@ -170,7 +176,7 @@ const AdditionalInfo = ({ handleBack, handleNext }: Props) => {
 
                                     />
                                 </Grid>
-                                <Grid item xs={12} sm={6} md={6} mb="22px">
+                                <Grid item xs={12} sm={6} md={6} mb="14px">
                                     <InputLabel className={styles.label}>Contact Email Address</InputLabel>
                                     <Field
                                         as={TextField}
@@ -192,7 +198,7 @@ const AdditionalInfo = ({ handleBack, handleNext }: Props) => {
                                     />
 
                                 </Grid>
-                                <Grid item xs={12} sm={6} md={6} mb="22px">
+                                <Grid item xs={12} sm={6} md={6} mb="14px">
                                     <InputLabel className={styles.label}>What’s Your Estimated Monthly Income?</InputLabel>
                                     <Field
                                         as={SelectWrapper}
@@ -213,7 +219,7 @@ const AdditionalInfo = ({ handleBack, handleNext }: Props) => {
                                 </Grid>
 
 
-                                <Grid item xs={12} sm={6} md={6} mb="22px"></Grid>
+                                <Grid item xs={12} sm={6} md={6} mb="14px"></Grid>
                                 <br />
                                 <Stack direction="row" gap={"24px"} justifyContent={"flex-end"} alignItems={"flex-end"} sx={{ width: "100%", marginTop: 10 }}>
                                     <button style={{
@@ -245,7 +251,7 @@ const AdditionalInfo = ({ handleBack, handleNext }: Props) => {
                                             fontFamily: 'Avenir',
                                         }}
 
-                                        type="submit">Submit</button>
+                                        type="submit">Continue</button>
                                 </Stack>
                             </Grid>
                         </Form>
