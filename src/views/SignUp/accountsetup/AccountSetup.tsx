@@ -139,7 +139,7 @@ const AccountSetup = () => {
 
         <div className={Styles.container}>
             <div className={Styles.middle_container}>
-                <h2>Hey {auth?.user?.firstname}, Let’s setup your accounts</h2>
+                <h2>Hey {auth?.user?.firstname}, Let’s setup your account(s)</h2>
                 <p>Your business is currently in <span>Test Mode -</span> this means there’re a couple more things to finish up before customers can start paying you online. The guides below will show you how to do this.</p>
                 <div className={Styles.box}>
 
