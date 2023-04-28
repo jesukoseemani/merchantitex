@@ -12,7 +12,7 @@ import styles from "../style.module.scss"
 import { ValidateAdditionalInfo } from '../../validation/setup/Businesssetup';
 import SelectWrapper from '../../formUI/Select';
 import { saveAdditionalInfo } from '../../../redux/actions/setup';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // import SelectWrapper from '../../formUI/Select';
 
 interface Props {
@@ -33,6 +33,12 @@ const AdditionalInfo = ({ handleBack, handleNext }: Props) => {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setState(event.target.value);
     };
+    const { additionalDetails } = useSelector(state => state?.setupReducer)
+
+
+    let { businessIncome, chargebackEmail, contactemail, supportEmail, supportPhone, websiteUrl } = additionalDetails
+
+
 
 
 
@@ -66,17 +72,17 @@ const AdditionalInfo = ({ handleBack, handleNext }: Props) => {
 
             <Formik
                 initialValues={{
-                    websiteUrl: "",
-                    supportPhone: "",
-                    chargebackEmail: "",
-                    supportEmail: "",
-                    contactemail: "",
-                    businessIncome: "",
+                    websiteUrl,
+                    supportPhone,
+                    chargebackEmail,
+                    supportEmail,
+                    contactemail,
+                    businessIncome,
                 }}
                 validationSchema={ValidateAdditionalInfo}
 
-                onSubmit={({ businessIncome, chargebackEmail, contactemail, supportEmail, supportPhone, websiteUrl }, { setFieldValue }) => {
-                    dispatch(saveAdditionalInfo({ businessIncome, chargebackEmail, contactemail, supportEmail, supportPhone, websiteUrl }));
+                onSubmit={(values, { setFieldValue }) => {
+                    dispatch(saveAdditionalInfo(values));
                     // console.log({ businessIncome, chargebackEmail,contactemail,supportEmail,supportPhone, websiteUrl})
                     handleNext();
                 }}
@@ -245,7 +251,7 @@ const AdditionalInfo = ({ handleBack, handleNext }: Props) => {
                                             fontFamily: 'Avenir',
                                         }}
 
-                                        type="submit">Submit</button>
+                                        type="submit">Continue</button>
                                 </Stack>
                             </Grid>
                         </Form>

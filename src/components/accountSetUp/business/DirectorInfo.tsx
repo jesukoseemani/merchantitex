@@ -3,7 +3,7 @@ import styles from "../style.module.scss"
 import AddIcon from "../../../assets/images/add.svg"
 import AngleDown from "../../../assets/images/arrowDown.png"
 import { ReactSVG } from 'react-svg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -14,7 +14,7 @@ import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import SelectWrapper from '../../formUI/Select';
 import WarningIcon from "../../../assets/images/warningIcon.svg";
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { closeLoader } from '../../../redux/actions/loader/loaderActions';
 import { openToastAndSetContent } from '../../../redux/actions/toast/toastActions';
 import { saveDirector } from '../../../redux/actions/setup/index';
@@ -22,6 +22,7 @@ import { ValidateUploads } from '../../validation/setup/Businesssetup';
 import *  as Yup from "yup"
 import useCustomUpload from '../../hooks/CustomUpload';
 import { v4 as uuidv4 } from "uuid";
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 
 interface Props {
     handleNext: () => void;
@@ -39,12 +40,32 @@ interface IdProps {
 }
 
 const DirectorInfo = ({ handleBack, handleNext }: Props) => {
-    const [imgUrl, setImgUrl] = useState("")
-    const [img, setImg] = useState("")
+    const [presentIndex, setPresentIndex] = useState(0)
     const [loading, setLoading] = useState(false)
+    const [imgUrl, setImgUrl] = useState("")
+
+    const { directors } = useSelector(state => state?.setupReducer)
+
+    const [input, setInput] = useState<any>([{
+        firstname: "",
+        lastname: "",
+        phonenumber: "",
+        bvn: "",
+        email: "",
+        address: "",
+        docNumber: "",
+        docUrl: ""
+    }])
+
+
+
+
+    useEffect(() => {
+        setInput(directors)
+    }, [directors])
+
 
     const dispatch = useDispatch()
-
 
     const idTypes: IdProps[] = [
         {
@@ -60,34 +81,22 @@ const DirectorInfo = ({ handleBack, handleNext }: Props) => {
     ]
 
 
-    // const { handleUpload, imgUrl, loading } = useCustomUpload()
 
 
 
     const handleUpload = async (e: any) => {
-        // console.log(e.target.files[0])
         setLoading(true)
         try {
-            // setImg(e.target.files[0])
-
-
-
             const formData = new FormData()
 
             formData.append("file", e.target.files[0])
             const { data } = await axios.post<any>("/v1/setup/doc/uploader", formData)
-            // console.log(data, e.target.file[0])
 
             if (data) {
-
-                // ÷setImgUrl(`http://img.com/${Date.now()}`)
+                console.log({ data })
                 setImgUrl(data?.fileUrl)
                 setLoading(false)
-                setImg("")
-                console.log(imgUrl)
             }
-
-
 
 
             dispatch(closeLoader());
@@ -96,7 +105,6 @@ const DirectorInfo = ({ handleBack, handleNext }: Props) => {
 
             dispatch(closeLoader());
             setLoading(false)
-            setImg("")
 
             const { message } = error?.response.data;
             dispatch(
@@ -114,82 +122,73 @@ const DirectorInfo = ({ handleBack, handleNext }: Props) => {
         }
     }
 
-    // const [imgCont, setImgCont] = useState<any>({})
 
-    console.log(imgUrl)
+    useEffect(() => {
+        imgUrl !== "" && handleInputChange(presentIndex, "docUrl", imgUrl)
+    }, [imgUrl])
 
-    const [input, setInput] = useState({
-        firstname: "",
-        lastname: "",
-        phonenumber: "",
-        bvn: "",
-        email: "",
-        address: "",
-        docNumber: ""
 
-    })
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setInput({ ...input, [e.target.name]: e.target.value })
+
+    const handleInputChange = (index: number, name: string, value: string) => {
+        let itemCopy = [...input][index]
+        itemCopy[name] = value
+        let inputCopy = [...input]
+        inputCopy.splice(index, 1, itemCopy)
+        setInput(inputCopy)
     }
 
 
-    const [directorList, setDirectorList] = useState<any>([])
 
-    const {
-        firstname,
-        lastname,
-        phonenumber,
-        bvn,
-        email,
-        address,
-        docNumber,
-    } = input
+    console.log({ presentIndex });
 
 
 
-
-
-
-    const handleSunmit = (e: any) => {
-        e.preventDefault()
+    const saveDirectorInfo = (e: any) => {
+        // if (allNotFilled) return
+        // e.preventDefault()
         e.stopPropagation()
+        dispatch(saveDirector(input))
+        handleNext()
 
-        let itemArray = {
-
-            firstname,
-            lastname,
-            phonenumber,
-            bvn,
-            email,
-            address,
-            docNumber,
-            id: uuidv4(),
-            docUrl: imgUrl
-        }
+    }
 
 
-        setDirectorList((prev: any) => [...prev, itemArray])
 
-        setInput({
+    const allNotFilled = input.map((each: any) => Object.values(each).some(every => every === "")).includes(true)
+
+    const addNewdirector = () => {
+
+        if (allNotFilled) return
+        setInput((prev: any) => [...prev, {
             firstname: "",
             lastname: "",
             phonenumber: "",
             bvn: "",
             email: "",
             address: "",
-            docNumber: ""
-        })
-        setImgUrl("")
-
-    }
-    console.log(directorList);
-
-
-    const saveDirector = () => {
+            docNumber: "",
+            docUrl: ""
+        }])
 
     }
 
+
+
+    const handleRemove = (index: number) => {
+        let inputCopy = [...input]
+        inputCopy.splice(index, 1)
+        setInput(inputCopy)
+    }
+
+
+
+    const handleBackDirector = () => {
+        dispatch(saveDirector(input))
+        handleBack()
+    }
+
+    console.log(input[0].phonenumber)
     return (
         <Box>
 
@@ -202,123 +201,120 @@ const DirectorInfo = ({ handleBack, handleNext }: Props) => {
 
                     <div>
 
+                        {input?.map((form: any, index: number) => (
+                            <Grid key={index} container columnSpacing={4} justifyContent="space-between">
+                                <Grid item xs={12} sm={6} md={6} mb="22px">
+
+                                    <InputLabel className={styles.label}>Director’s First Name</InputLabel>
+                                    <TextField onChange={(e) => handleInputChange(index, e.target.name, e.target.value)}
+                                        name={"firstname"}
+                                        placeholder="Director’s First Name"
+                                        type="text"
+                                        size="small"
+                                        fullWidth
+                                        value={input[index].firstname}
+
+                                    />
+                                </Grid>
 
 
-                        <Grid container columnSpacing={4} justifyContent="space-between">
+                                <Grid item xs={12} sm={6} md={6} mb="22px">
+                                    <InputLabel className={styles.label}>Director’s last Name</InputLabel>
+                                    <TextField onChange={(e) => handleInputChange(index, e.target.name, e.target.value)}
 
-                            <Grid item xs={12} sm={6} md={6} mb="22px">
+                                        name={"lastname"}
+                                        placeholder="Director’s last Name"
 
-                                <InputLabel className={styles.label}>Director’s First Name</InputLabel>
-                                <TextField onChange={handleInputChange}
+                                        type="text"
+                                        size="small"
+                                        fullWidth
+                                        value={input[index].lastname}
 
-
-                                    name={"firstname"}
-
-                                    placeholder="Director’s First Name"
-                                    type="text"
-                                    size="small"
-                                    fullWidth
-
-                                // error={touched?.businessAddress && errors?.businessAddress}
-
-
-
-                                />
-                            </Grid>
-
-
-                            <Grid item xs={12} sm={6} md={6} mb="22px">
-                                <InputLabel className={styles.label}>Director’s last Name</InputLabel>
-                                <TextField onChange={handleInputChange}
-
-
-
-                                    name={"lastname"}
-                                    placeholder="Director’s last Name"
-
-                                    type="text"
-                                    size="small"
-                                    fullWidth
-                                // error={touched?.businessAddress && errors?.businessAddress}
+                                    // error={touched?.businessAddress && errors?.businessAddress}
 
 
 
-                                />
+                                    />
 
-                            </Grid>
-
-
-
-                            <Grid item xs={12} sm={6} md={6} mb="22px">
-                                <InputLabel className={styles.label}>Director’s BVN</InputLabel>
-                                <TextField onChange={handleInputChange}
-
-
-                                    fullWidth
-                                    placeholder='Enter Director’s BVN'
-                                    name={"bvn"}
+                                </Grid>
 
 
 
-                                />
-                            </Grid>
+                                <Grid item xs={12} sm={6} md={6} mb="22px">
+                                    <InputLabel className={styles.label}>Director’s BVN</InputLabel>
+                                    <TextField onChange={(e) => handleInputChange(index, e.target.name, e.target.value)}
+
+
+                                        fullWidth
+                                        placeholder='Enter Director’s BVN'
+                                        name={"bvn"}
+                                        value={input[index].bvn}
+
+
+
+
+                                    />
+                                </Grid>
 
 
 
 
 
-                            <Grid item xs={12} sm={6} md={6} mb="22px">
-                                <InputLabel className={styles.label}>Director’s phone number</InputLabel>
-                                <TextField onChange={handleInputChange}
+                                <Grid item xs={12} sm={6} md={6} mb="22px">
+                                    <InputLabel className={styles.label}>Director’s phone number</InputLabel>
+                                    <TextField onChange={(e) => handleInputChange(index, e.target.name, e.target.value)}
 
-                                    fullWidth
-                                    placeholder='Director’s phone number'
-                                    name={"phonenumber"}
+                                        fullWidth
+                                        placeholder='Director’s phone number'
+                                        name={"phonenumber"}
+                                        value={input[index].phonenumber}
 
-                                />
+                                    />
 
-                            </Grid>
+                                </Grid>
 
 
 
 
 
 
-                            <Grid item xs={12} sm={6} md={6} mb="22px">
-                                <InputLabel className={styles.label}>Director’s Address</InputLabel>
-                                <TextField onChange={handleInputChange}
+                                <Grid item xs={12} sm={6} md={6} mb="22px">
+                                    <InputLabel className={styles.label}>Director’s Address</InputLabel>
+                                    <TextField onChange={(e) => handleInputChange(index, e.target.name, e.target.value)}
 
-                                    name={"address"}
-                                    type="text"
-                                    size="small"
-                                    fullWidth
+                                        name={"address"}
+                                        type="text"
+                                        size="small"
+                                        fullWidth
 
-                                    placeholder='Director’s Address'
-
-
-                                />
-
-                            </Grid>
-
-                            <Grid item xs={12} sm={6} md={6} mb="22px">
-                                <InputLabel className={styles.label}>Director’s Email</InputLabel>
-                                <TextField onChange={handleInputChange}
-
-                                    name={"email"}
-                                    type="email"
-                                    size="small"
-                                    fullWidth
-
-                                    placeholder='Director’s Email'
+                                        value={input[index].address}
+                                        placeholder='Director’s Address'
 
 
-                                />
+                                    />
 
-                            </Grid>
+                                </Grid>
 
-                            <Grid item xs={12} sm={6} md={6} mb="22px">
-                                <InputLabel className={styles.label}>Select an ID type</InputLabel>
-                                {/* <TextField onChange={handleInputChange}
+                                <Grid item xs={12} sm={6} md={6} mb="22px">
+                                    <InputLabel className={styles.label}>Director’s Email</InputLabel>
+                                    <TextField onChange={(e) => handleInputChange(index, e.target.name, e.target.value)}
+
+                                        name={"email"}
+                                        type="email"
+                                        size="small"
+                                        fullWidth
+                                        value={input[index].email}
+
+                                        placeholder='Director’s Email'
+
+
+                                    />
+
+                                </Grid>
+
+                                <Grid item xs={12} sm={6} md={6} mb="22px">
+                                    <InputLabel className={styles.label}>Select an ID type</InputLabel>
+                                    {/* <TextField onChange={(e)=>handleInputChange(index,e.target.name, e.target.value)}
                                     as={SelectWrapper}
 
 
@@ -334,108 +330,94 @@ const DirectorInfo = ({ handleBack, handleNext }: Props) => {
                                 /> */}
 
 
+                                </Grid>
+                                {/* {director.lastname.}urß */}
+
+                                <Grid item xs={12} sm={6} md={6} mb="22px">
+                                    <InputLabel className={styles.label}>ID Document number</InputLabel>
+                                    <TextField onChange={(e) => handleInputChange(index, e.target.name, e.target.value)}
+
+
+                                        name={"docNumber"}
+
+                                        value={input[index].docNumber}
+
+                                        type="text"
+                                        size="small"
+                                        fullWidth
+                                        // error={touched?.chargebackEmail && errors?.businessAddress}
+
+                                        placeholder='1234567890'
+
+
+
+                                    />
+
+                                </Grid>
+
+
+
+
+
+
+
+                                <Grid item xs={12} sm={6} md={6} mb="22px" className={styles.upload}>
+                                    <InputLabel className={styles.label}>Upload an ID </InputLabel>
+
+                                    <Button variant="outlined" fullWidth component="label"
+                                        style={{
+                                            background: "#F6F9FD",
+                                            fontSize: "14px", color: "#4F4F4F",
+                                            height: 44,
+                                            border: "1px dashed #7A9CC4",
+                                            borderRadius: 4,
+                                            fontWeight: 300,
+                                            fontFamily: "Avenir",
+                                            textTransform: "inherit"
+                                        }}>
+                                        <CloudUploadOutlinedIcon fontSize='small' className={styles.downloadIcon} />   {loading ? "upload in progress" : "choose file to upload"}
+                                        <input name={"file"} hidden accept="image/jpeg,image/jpg,image/png,application/pdf,image/JPEG image/PNG,image/JPG," onChange={(e) => {
+                                            setPresentIndex(index)
+                                            handleUpload(e)
+                                        }} type="file" id='file' />
+
+
+
+
+                                        {/* <span>{imgUrl && imgUrl}</span> */}
+
+
+
+                                    </Button>
+
+
+
+
+                                    <Stack direction={"row"} mt={1} alignItems="center" columnGap={1}>
+
+                                        <ReactSVG src={WarningIcon} />
+                                        <FormHelperText sx={{
+                                            fontFamily: 'Avenir',
+                                            fontStyle: "italic",
+                                            fontWeight: 400,
+                                            fontSize: "10px",
+                                            lineHeight: "16px",
+                                            color: "rgba(74, 82, 106, 0.990517)"
+                                        }}>
+                                            A valid NIN Slip, National ID Card, Permanent Voters Card, International Passport or Drivers License
+                                        </FormHelperText>
+                                    </Stack>
+
+
+
+                                </Grid>
+
+
+
+                                {input?.length > 1 && <button onClick={() => handleRemove(index)}><CloseOutlinedIcon /></button>}
                             </Grid>
-                            {/* {director.lastname.}urß */}
-
-                            <Grid item xs={12} sm={6} md={6} mb="22px">
-                                <InputLabel className={styles.label}>ID Document number</InputLabel>
-                                <TextField onChange={handleInputChange}
-
-
-                                    name={"docNumber"}
-
-
-                                    type="text"
-                                    size="small"
-                                    fullWidth
-                                    // error={touched?.chargebackEmail && errors?.businessAddress}
-
-                                    placeholder='1234567890'
-
-
-
-                                />
-
-                            </Grid>
-
-
-
-
-                            <Grid item xs={12} sm={6} md={6} mb="22px" className={styles.upload}>
-                                <TextField onChange={handleInputChange}
-
-
-                                    name={"docUrl"}
-
-                                    type="text"
-                                    size="small"
-                                    fullWidth
-                                    // error={touched?.chargebackEmail && errors?.businessAddress}
-
-                                    placeholder='1234567890'
-                                // defaultValue={imgUrl}
-
-
-                                />
-
-
-
-                            </Grid>
-
-
-                            <Grid item xs={12} sm={6} md={6} mb="22px" className={styles.upload}>
-                                <InputLabel className={styles.label}>Upload an ID </InputLabel>
-
-                                <Button variant="outlined" fullWidth component="label"
-                                    style={{
-                                        background: "#F6F9FD",
-                                        fontSize: "14px", color: "#4F4F4F",
-                                        height: 44,
-                                        border: "1px dashed #7A9CC4",
-                                        borderRadius: 4,
-                                        fontWeight: 300,
-                                        fontFamily: "Avenir",
-                                        textTransform: "inherit"
-                                    }}>
-                                    <CloudUploadOutlinedIcon fontSize='small' className={styles.downloadIcon} />   {loading ? "upload in progress" : "choose file to upload"}
-                                    <input name={"file"} hidden accept="image/jpeg,image/jpg,image/png,application/pdf,image/JPEG image/PNG,image/JPG," onChange={handleUpload} type="file" id='file' />
-
-
-
-
-                                    <span>{imgUrl && imgUrl}</span>
-
-
-
-                                </Button>
-
-
-
-
-                                <Stack direction={"row"} mt={1} alignItems="center" columnGap={1}>
-
-                                    <ReactSVG src={WarningIcon} />
-                                    <FormHelperText sx={{
-                                        fontFamily: 'Avenir',
-                                        fontStyle: "italic",
-                                        fontWeight: 400,
-                                        fontSize: "10px",
-                                        lineHeight: "16px",
-                                        color: "rgba(74, 82, 106, 0.990517)"
-                                    }}>
-                                        A valid NIN Slip, National ID Card, Permanent Voters Card, International Passport or Drivers License
-                                    </FormHelperText>
-                                </Stack>
-
-
-
-                            </Grid>
-
-
-
-
-                        </Grid>
-                        <button onClick={handleSunmit}>Add new director</button>
+                        ))
+                        }
 
                     </div>
 
@@ -461,9 +443,9 @@ const DirectorInfo = ({ handleBack, handleNext }: Props) => {
 
                             fontFamily: 'Avenir',
 
-                        }} onClick={handleBack}>Previous</button>
+                        }} onClick={handleBackDirector}>Previous</button>
                         <button
-                            onClick={saveDirector}
+                            onClick={saveDirectorInfo}
                             style={{
                                 backgroundColor: '#27AE60',
                                 height: "44px",
@@ -477,12 +459,13 @@ const DirectorInfo = ({ handleBack, handleNext }: Props) => {
 
                                 fontFamily: 'Avenir',
                             }}
-
+                            disabled={allNotFilled}
                             type="submit">continue</button>
                     </Stack>
 
                 </div>
             </form>
+            <button onClick={addNewdirector}>Add new director</button>
 
 
 

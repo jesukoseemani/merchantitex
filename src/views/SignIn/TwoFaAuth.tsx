@@ -21,6 +21,7 @@ import { saveCountry } from '../../redux/actions/country/countryActions';
 import { ReactSVG } from "react-svg";
 import { Box } from '@mui/material';
 import { styled } from '@mui/material';
+import { saveMe } from '../../redux/actions/me/meActions';
 
 
 
@@ -55,6 +56,20 @@ const TwoFaAuth = () => {
     const dispatch = useDispatch()
     const history = useHistory()
     const token = history?.location?.state
+
+
+    const fetchUserDetails = async () => {
+        await axios
+            .get(`/v1/profile/me`)
+            .then((res: any) => {
+                console.log(res, "res")
+                dispatch(saveMe(res.data));
+            })
+            .catch((err) => console.log(err));
+    };
+
+
+
     return (
         <Formik
             initialValues={{
@@ -76,8 +91,8 @@ const TwoFaAuth = () => {
                     dispatch(closeLoader());
                     if (data?.code === "success") {
                         console.log(data)
-
                         dispatch(saveAuth(data));
+                        fetchUserDetails()
 
                         dispatch(
                             openToastAndSetContent({

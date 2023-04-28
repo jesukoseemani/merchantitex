@@ -43,6 +43,11 @@ const BusinessInfo = ({ handleNext }: Props) => {
     const dispatch = useDispatch()
 
     const { auth } = useSelector(state => state?.authReducer)
+    const { businessInfo } = useSelector(state => state?.setupReducer)
+
+
+    let { email, city, businessAddress, businessDescription, stateRegion, phonenumber } = businessInfo
+
 
     // fetch state
     useEffect(() => {
@@ -74,12 +79,12 @@ const BusinessInfo = ({ handleNext }: Props) => {
     return (
         <Formik
             initialValues={{
-                email: "",
-                city: "",
-                businessAddress: "",
-                stateRegion: "",
-                businessDescription: "",
-                phonenumber: ""
+                email,
+                city,
+                businessAddress,
+                stateRegion,
+                businessDescription,
+                phonenumber
             }}
             validationSchema={ValidateBusinessInfo}
 

@@ -1,4 +1,4 @@
-import { SAVE_ADDITIONAL_INFO, SAVE_BUSINESS_INFO, SAVE_DIRECTOR_INFO } from "../constants";
+import { SAVE_ADDITIONAL_INFO, SAVE_BUSINESS_INFO, SAVE_DIRECTOR_INFO, SAVE_UPLOAD_DOC } from "../constants";
 import { ReactNode } from "react";
 
 export const saveBusinessInfo = (businessDetails: any) => {
@@ -16,9 +16,20 @@ export const saveAdditionalInfo = (additionalDetails: any) => {
     };
 };
 export const saveDirector = (directorDetails: any) => {
+    console.log(directorDetails, "actions");
+
 
     return {
         type: SAVE_DIRECTOR_INFO,
         directorDetails,
+    };
+};
+export const saveUploadDoc = (uploadDOc: any) => {
+    console.log(uploadDOc, "actions");
+
+
+    return {
+        type: SAVE_UPLOAD_DOC,
+        uploadDOc,
     };
 };
