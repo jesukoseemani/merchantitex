@@ -4,22 +4,16 @@ import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
-
-import NavBar from "../../components/navbar/NavBar";
 import Airtime from "../../components/bills/Airtime";
 import Bills from "../../components/bills/Bills";
-import ParentContainer from "../../components/ParentContainer/ParentContainer";
 
 export default function BillTabPanel() {
   const [value, setValue] = React.useState("1");
-
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
 
   return (
-
-
     <div
       style={{
         display: "flex",
@@ -41,10 +35,7 @@ export default function BillTabPanel() {
                 background: "#27AE60",
                 width: "10px"
               },
-
-
             }} >
-
               <Tab label="airtime" value="1" />
               <Tab label="bills" value="2" />
             </TabList>
@@ -58,6 +49,5 @@ export default function BillTabPanel() {
         </TabContext>
       </Box>
     </div>
-
   );
 }

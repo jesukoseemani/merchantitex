@@ -302,18 +302,18 @@ const Refund = () => {
 
 	useEffect(() => {
 		const newRowOptions: any[] = [];
-		// refunds?.map((each: RefundItem) =>
-		// 	newRowOptions.push(
-		// 		RefundRowTab(
-		// 			each?.amt,
-		// 			each?.status,
-		// 			each?.reference,
-		// 			each?.acctId,
-		// 			each?.added,
-		// 			each?.id,
-		// 		)
-		// 	)
-		// );
+		refunds?.map((each: any) =>
+			newRowOptions.push(
+				RefundRowTab(
+					each?.amount,
+					each?.status,
+					each?.reference,
+					each?.acctId,
+					each?.added,
+					each?.id,
+				)
+			)
+		);
 		setRows(newRowOptions);
 	}, [refunds, RefundRowTab]);
 

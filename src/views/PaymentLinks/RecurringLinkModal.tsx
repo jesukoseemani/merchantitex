@@ -37,6 +37,7 @@ const ITEM_PADDING_TOP = 8;
 interface RecurringLinkModalProps {
 	isOpen: boolean;
 	handleClose: () => void;
+	setIsUpdate: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 interface Props {
@@ -193,6 +194,7 @@ const useStyles = makeStyles({
 const RecurringLinkModal = ({
 	isOpen,
 	handleClose,
+	setIsUpdate
 }: RecurringLinkModalProps) => {
 	const classes = useStyles();
 
@@ -260,12 +262,10 @@ const RecurringLinkModal = ({
 				description: '',
 				currencyid: '',
 				redirectUrl: '',
-				otp: '',
 				fieldname: ""
-
 			}}
 			validationSchema={subscriptionSchema}
-			onSubmit={async ({ linkName, amount, currencyid, redirectUrl, fieldname, description, subChargeCount, otp }, { resetForm }) => {
+			onSubmit={async ({ linkName, amount, currencyid, redirectUrl, fieldname, description, subChargeCount }, { resetForm }) => {
 				dispatch(openLoader());
 
 				try {
@@ -278,7 +278,6 @@ const RecurringLinkModal = ({
 						redirectUrl,
 						description,
 						subChargeCount,
-						otp,
 						"extraField": [
 							{
 								"label": fieldname
@@ -293,7 +292,7 @@ const RecurringLinkModal = ({
 								},
 							})
 						)
-
+						setIsUpdate(true)
 						dispatch(closeLoader());
 						dispatch(closeModal())
 						resetForm()
@@ -405,10 +404,7 @@ const RecurringLinkModal = ({
 											<label htmlFor='fieldName'>Collect extra information</label>
 											<CustomInputField as={TextField} label={" Field Name"} placeholder='fieldname' name='fieldname' />
 										</div>
-										<div className={classes.formBox}>
-											<CustomInputField as={TextField} label={"Otp"} placeholder='otp' type='number' name='otp' />
 
-										</div>
 									</div>
 								) : null}
 								<Box sx={{ paddingInline: "3rem", marginBottom: "37px" }}>

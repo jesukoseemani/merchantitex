@@ -7,7 +7,7 @@ import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
 import { blacklistCustomer } from "../../services/customer";
 import Styles from "./addCustomer.module.scss";
 
-const Addtoblacklist: FC<{ id: string; callback?: () => void }> = ({ id, callback }) => {
+const Addtoblacklist: FC<{ id: string; callback?: () => void; fn?: () => void }> = ({ id, callback, fn }) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [reason, setReason] = useState('')
@@ -17,7 +17,7 @@ const Addtoblacklist: FC<{ id: string; callback?: () => void }> = ({ id, callbac
     try {
       await blacklistCustomer({ customerid: id?.toString(), reason });
       dispatch(closeModal());
-      callback?.();
+      fn?.()
     } catch (err: any) {
       dispatch(
         openToastAndSetContent({

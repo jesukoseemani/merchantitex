@@ -43,6 +43,7 @@ const MenuProps = {
 interface SingleLinkModalProps {
 	isOpen: boolean;
 	handleClose: () => void;
+	setIsUpdate: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 interface Props {
@@ -198,7 +199,7 @@ const useStyles = makeStyles({
 	}
 });
 
-const SingleLinkModal = ({ isOpen, handleClose }: SingleLinkModalProps) => {
+const SingleLinkModal = ({ isOpen, handleClose, setIsUpdate  }: SingleLinkModalProps) => {
 	const classes = useStyles();
 
 	const [linkName, setLinkName] = useState<string>('');
@@ -243,13 +244,13 @@ const SingleLinkModal = ({ isOpen, handleClose }: SingleLinkModalProps) => {
 				description: '',
 				donationContact: '',
 				currencyid: '',
-				otp: '',
+
 				fieldname: ""
 
 
 			}}
 			validationSchema={singleCharge}
-			onSubmit={async ({ linkName, amount, currencyid, description, fieldname, redirectUrl, otp }, { resetForm }) => {
+			onSubmit={async ({ linkName, amount, currencyid, description, fieldname, redirectUrl }, { resetForm }) => {
 				dispatch(openLoader());
 
 				try {
@@ -261,7 +262,7 @@ const SingleLinkModal = ({ isOpen, handleClose }: SingleLinkModalProps) => {
 						amount,
 						description,
 						redirectUrl,
-						otp,
+
 						"extraField": [
 							{
 								"label": fieldname
@@ -281,7 +282,7 @@ const SingleLinkModal = ({ isOpen, handleClose }: SingleLinkModalProps) => {
 								},
 							})
 						)
-
+						setIsUpdate(true)
 						dispatch(closeLoader());
 						dispatch(closeModal())
 						resetForm()
@@ -382,12 +383,7 @@ const SingleLinkModal = ({ isOpen, handleClose }: SingleLinkModalProps) => {
 
 
 										</div>
-										<div className={classes.formBox}>
-											<CustomInputField as={TextField} label={"Otp"} placeholder='otp' type='number' name='otp' />
 
-
-
-										</div>
 									</div>
 								) : null}
 							</Box>
