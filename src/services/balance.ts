@@ -8,5 +8,5 @@ export const getBalance = async (): Promise<{ balances: Balance[] }> => {
 
 export const getBalanceHistoryService = async (id: string): Promise<BalanceHistoryRes> => {
     const { data } = await axios.get(`/v1/balance/${id}/history`);
-    return data as BalanceHistoryRes;
+    return data as BalanceHistoryRes; 
 }

@@ -140,6 +140,8 @@ export default function TransactionsList() {
 			}));
 			setTransactions(data?.transactions || []);
 			setMeta(data?._metadata || {})
+			dispatch(closeLoader());
+
 		} catch (err: any) {
 			dispatch(closeLoader());
 			dispatch(

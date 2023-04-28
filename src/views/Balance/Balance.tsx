@@ -26,6 +26,8 @@ const Balance = () => {
         dispatch(openLoader());
         const res = await getBalance();
         setBalances(res?.balances || [])
+        dispatch(closeLoader());
+
       })()
 
     } catch (error) {
