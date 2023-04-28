@@ -34,13 +34,13 @@ const SignIn = () => {
 			try {
 
 				const { data } = await axios.get<any>("/resource/countries")
-				
-if(data){
-dispatch(saveCountry(data?.countries))	
-	dispatch(closeLoader());
-}
 
-				
+				if (data) {
+					dispatch(saveCountry(data?.countries))
+					dispatch(closeLoader());
+				}
+
+
 
 			} catch (error: any) {
 				dispatch(closeLoader());
@@ -107,10 +107,10 @@ dispatch(saveCountry(data?.countries))
 					.post('/auth/authenticate', values)
 					.then((res: any) => {
 						console.log(res?.data)
-						
+
 						if (res?.data?.code === "success") {
 							dispatch(saveAuth(res?.data));
-							
+
 							history.push({
 								pathname: "/signin/2fa",
 								state: res?.data?.twofa_token
