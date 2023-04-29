@@ -133,17 +133,18 @@ const NavBar = () => {
         </CustomModal >
 
       </Box>
+      {/* onClick={handleClick} */}
 
       <div className={Styles.userInfo}>
         <div className={Styles.user__img}>
-          <img src="https://loremflickr.com/640/480/cats" alt="user profile" />
+          <img src='https://i.ibb.co/fH4x0Xk/360-F-346936114-Rax-E6-OQogebg-AWTal-E1myse-Y1-Hbb5q-PM.jpg' alt="user profile" />
         </div>
         <div className={Styles.userProfile__text}>
           <Stack direction={"row"} alignItems="flex-start">
             <p>
               {auth?.user?.firstname}
             </p>
-            <IconButton onClick={handleClick} style={{ marginTop: "-7px" }}>
+            <IconButton style={{ marginTop: "-7px" }}>
               <ReactSVG src={ArrowDown} />
 
             </IconButton>
