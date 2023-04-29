@@ -92,7 +92,7 @@ const Header = ({ title }: Props) => {
       padding: "10px",
       textTransform: "inherit",
       backgroundColor: !alignment ? "rgba(206, 165, 40, 0.1)" : "rgba(4, 25, 38, 0.1)",
-      border: !alignment ? "0.7px solid #CEA528" : "0.7px solid #041926",
+      // border: !alignment ? "0.7px solid #CEA528" : "0.7px solid #041926",
       // border: alignment === "test server" ? "0.7px solid #CEA528" : "0.7px solid #041926",
 
 
@@ -110,7 +110,7 @@ const Header = ({ title }: Props) => {
         border: "none",
         "&.Mui-selected": {
           color: "#fff",
-          backgroundColor: "#041926",
+          backgroundColor: "#041926 !important",
           borderRadius: "20px",
           width: 190,
           height: 30,
@@ -126,7 +126,7 @@ const Header = ({ title }: Props) => {
 
         "&.Mui-selected": {
           color: "#fff",
-          backgroundColor: "#CEA528",
+          backgroundColor: "#CEA528 !important",
           borderRadius: "20px",
           width: 190,
           height: 30,

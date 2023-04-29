@@ -17,6 +17,7 @@ import SetupIcon from "../../assets/images/setupIcon.svg";
 import CustomModal from "../customs/CustomModal";
 import AddBusiness from "./AddBusiness";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import useSetup from "../hooks/useSetup";
 
 
 
@@ -52,6 +53,11 @@ const NavBar = () => {
     setShowuserInfo(false)
   };
 
+  const { setupStatus } = useSetup()
+
+  useEffect(() => {
+    console.log("setup", setupStatus?.isSetupComplete)
+  }, [setupStatus])
 
 
   const openUserMenu = Boolean(userMenu);
@@ -127,17 +133,18 @@ const NavBar = () => {
         </CustomModal >
 
       </Box>
+      {/* onClick={handleClick} */}
 
       <div className={Styles.userInfo}>
         <div className={Styles.user__img}>
-          <img src="https://loremflickr.com/640/480/cats" alt="user profile" />
+          <img src='https://i.ibb.co/fH4x0Xk/360-F-346936114-Rax-E6-OQogebg-AWTal-E1myse-Y1-Hbb5q-PM.jpg' alt="user profile" />
         </div>
         <div className={Styles.userProfile__text}>
           <Stack direction={"row"} alignItems="flex-start">
             <p>
               {auth?.user?.firstname}
             </p>
-            <IconButton onClick={handleClick} style={{ marginTop: "-7px" }}>
+            <IconButton style={{ marginTop: "-7px" }}>
               <ReactSVG src={ArrowDown} />
 
             </IconButton>
@@ -168,17 +175,19 @@ const NavBar = () => {
 
         <nav>
           {/* {nextedRoutes?} */}
-          <li
+          {
+            !setupStatus?.isSetupComplete && <li
 
-            onClick={() => history.push("/setup")}
-            className={Styles.setup}
-          >
-            {/* <img src={icon} alt={name} /> */}
+              onClick={() => history.push("/setup")}
+              className={Styles.setup}
+            >
 
-            <ReactSVG src={SetupIcon} className={Styles.linkIcon} />
-            Setup
+              <ReactSVG src={SetupIcon} className={Styles.linkIcon} />
+              Setup
 
-          </li>
+            </li>
+          }
+
 
           {!isNested && routes?.map((item) => {
             return (
@@ -191,7 +200,7 @@ const NavBar = () => {
                   {/* <img src={icon} alt={name} /> */}
 
                   <ReactSVG src={item?.icon} className={Styles.linkIcon} />
-                  {item?.title}
+                  {item?.title} {item?.title === "POS" && <div className={Styles.comingsoon}>Coming Soon</div>}
                   <div className={item?.link === pathname ? Styles.replaced_yen : Styles.replaced_not}>
                     <ActiveStateImg />
                   </div>

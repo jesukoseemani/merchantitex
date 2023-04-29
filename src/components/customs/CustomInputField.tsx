@@ -9,21 +9,21 @@ interface Props {
     label?: string | number;
     // errorName: string;
     placeholder?: string;
-    name?: string;
+    name: string;
     type?: string;
     id?: string;
     className?: string;
     size?: string;
-    defaultValue?: string | number;
-    value?: string | number;
+
     options?: any;
     as?: any;
     multiline?: boolean;
     rows?: number;
+    style?: React.CSSProperties;
 
 }
 
-const CustomInputField = ({ className, id, options, as = "", size = "small", rows, multiline = false, label, placeholder, name = "", type = "text", defaultValue, value, ...otherprops }: Props) => {
+const CustomInputField = ({ className, style, id, options, as = "", size = "small", rows, multiline = false, label, placeholder, name, type = "text", ...otherprops }: Props) => {
     return (
         <div>
             <InputLabel>
@@ -36,7 +36,7 @@ const CustomInputField = ({ className, id, options, as = "", size = "small", row
                         {(msg) => <span style={{ color: "red" }}>{msg}</span>}
                     </ErrorMessage>
                 }
-                name={name && name}
+                name={name}
                 placeholder={placeholder}
                 // margin="normal"
                 type={type}
@@ -44,12 +44,11 @@ const CustomInputField = ({ className, id, options, as = "", size = "small", row
                 fullWidth
                 className={className}
                 id={id}
-                defaultValue={defaultValue}
-                value={value}
                 options={options}
                 multiline={multiline}
                 rows={rows}
                 {...otherprops}
+                style={style}
 
 
             />

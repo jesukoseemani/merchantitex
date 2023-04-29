@@ -21,12 +21,14 @@ import { openModalAndSetContent } from '../../../redux/actions/modal/modalAction
 import { useDispatch, useSelector } from 'react-redux';
 import SuccessModal from '../../../components/accountSetUp/business/SuccessModal';
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
+import ContactForm from '../../../components/accountSetUp/business/ContactForm';
 
 
 
 
 const BusinessSetup = () => {
-
+    const { me } = useSelector(state => state?.meReducer)
+    const accountType = me?.business?.merchantaccounttype
 
     const style = {
         position: 'absolute' as 'absolute',
@@ -40,16 +42,41 @@ const BusinessSetup = () => {
 
         // p: 4,
     };
-    const steps = [
+    const stepContact = [
         {
             label: 'Business Information',
             description: `Add some more information about your business.`,
         },
+
         {
             label: 'Additional Information',
             description:
                 'Add some additional information about your business.',
         },
+        {
+            label: 'Add Business Owner’s Information',
+            description:
+                'Add some information about the business owner',
+        },
+
+
+        {
+            label: 'Upload Documents',
+            description: `Upload required documents to go live and start transacting.`,
+        },
+    ];
+    const stepsDirector = [
+        {
+            label: 'Business Information',
+            description: `Add some more information about your business.`,
+        },
+
+        {
+            label: 'Additional Information',
+            description:
+                'Add some additional information about your business.',
+        },
+
         {
             label: 'Additional Director(s) Infomation',
             description:
@@ -79,7 +106,6 @@ const BusinessSetup = () => {
     };
 
 
-    const { me } = useSelector(state => state?.meReducer)
 
 
     const SlideForm = () => {
@@ -89,7 +115,7 @@ const BusinessSetup = () => {
             case 2:
                 return <AdditionalInfo handleBack={handleBack} handleNext={handleNext} />
             case 3:
-                return <DirectorInfo handleBack={handleBack} handleNext={handleNext} />
+                return accountType === "INDIVIDUAL" ? <ContactForm handleBack={handleBack} handleNext={handleNext} /> : <DirectorInfo handleBack={handleBack} handleNext={handleNext} />
             case 4:
                 return <UploadDocument handleBack={handleBack} />
 
@@ -104,87 +130,63 @@ const BusinessSetup = () => {
         <div className={Styles.container}>
 
 
-            <Box >
+         
                 <Grid container spacing={4} justifyContent="space-around" flexWrap={"wrap"} alignItems={"center"}>
                     <Grid item xs={12} md={4}>
-                        <Box sx={{
-                            borderRight: "1px solid #E0E0E0",
-                            height: "450px",
-                            padding: "0px 20px",
-                            position: { md: "fixed" },
-                            top: "17%"
-
-                        }}>
-                            <Stepper activeStep={activeStep} orientation="vertical"
-
-                            // sx={{
-                            //     ".css-wxvx37-MuiSvgIcon-root-MuiStepIcon-root.Mui-active": {
-                            //         color: "#27AE60"
-                            //     }
-                            // }}
-
-                            >
-                                {steps.map((step, index) => (
-                                    <Step key={index}>
-                                        <StepLabel icon={<ReactSVG src={index < activeStep || index === activeStep ? ColorcheckIcon : CheckIcon}
-                                        />} sx={{
-                                            '& svg': {
-                                                width: "20px",
-                                                height: "20px"
-                                            }
-                                        }}>
-                                            <Box sx={{ marginLeft: "20px" }}>
-                                                <p className={Styles.stepLabel}>{step.label}</p>
-                                                <p className={Styles.stepDesc}>{step.description}</p>
-                                            </Box>
-                                        </StepLabel>
+                    <Stepper activeStep={activeStep} orientation="vertical">
+                        {accountType === "INDIVIDUAL" ? (
+                            stepContact?.map((step, index) => (
+                                <Step key={index}>
+                                    <StepLabel icon={<ReactSVG src={index < activeStep || index === activeStep ? ColorcheckIcon : CheckIcon}
+                                    />} sx={{
+                                        '& svg': {
+                                            width: "20px",
+                                            height: "20px"
+                                        }
+                                    }}>
+                                        <Box sx={{ marginLeft: "20px" }}>
+                                            <p className={Styles.stepLabel}>{step.label}</p>
+                                            <p className={Styles.stepDesc}>{step.description}</p>
+                                        </Box>
+                                    </StepLabel>
 
 
-                                    </Step>
-                                ))}
-                            </Stepper>
-                            {/* {activeStep === steps.length && (
-                              
-                            )} */}
-                        </Box>
+                                </Step>
+                            ))
+                        ) : (
+                            stepsDirector?.map((step, index) => (
+                                <Step key={index}>
+                                    <StepLabel icon={<ReactSVG src={index < activeStep || index === activeStep ? ColorcheckIcon : CheckIcon}
+                                    />} sx={{
+                                        '& svg': {
+                                            width: "20px",
+                                            height: "20px"
+                                        }
+                                    }}>
+                                        <Box sx={{ marginLeft: "20px" }}>
+                                            <p className={Styles.stepLabel}>{step.label}</p>
+                                            <p className={Styles.stepDesc}>{step.description}</p>
+                                        </Box>
+                                    </StepLabel>
+
+
+                                </Step>
+                            ))
+                        )}
+
+                    </Stepper>
                     </Grid>
 
                     <Grid item xs={12} md={6} mt={3}>
-
-
                         <div className={Styles.formContainer}>
-
-                            <div > <SlideForm /></div>
+                            <div> <SlideForm /></div>
                         </div>
                     </Grid>
 
                 </Grid>
-            </Box>
+       
 
-            {/* <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={style}>
-                    <Box
-                        // height="56px"
-                        py={"20px"}
-                        position="fixed"
-                        px="50px"
-                        right={0}
-
-
-                    >
-
-                        <IconButton onClick={handleClose}>
-                            <CloseOutlined />
-                        </IconButton>
-                    </Box>
-                    <SuccessModal />
-                </Box>
-            </Modal> */}
+        
         </div >
     )
 }
