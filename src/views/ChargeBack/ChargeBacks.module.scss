@@ -129,44 +129,6 @@
 	text-transform: capitalize;
 }
 
-.pendingText {
-	font-size: 0.875rem;
-	color: #12122c;
-	font-weight: 500;
-	cursor: pointer;
-	padding: 0.2rem 1rem;
-	background-color: #f2c94c;
-	border-radius: 2px;
-	text-align: center;
-	text-transform: capitalize;
-	width: 90%;
-}
-
-.wonText {
-	font-size: 0.875rem;
-	color: white;
-	font-weight: 500;
-	cursor: pointer;
-	padding: 0.2rem 1rem;
-	background-color: #27ae60;
-	border-radius: 2px;
-	text-align: center;
-	text-transform: capitalize;
-	width: 90%;
-}
-
-.lostText {
-	font-size: 0.875rem;
-	color: white;
-	font-weight: 500;
-	cursor: pointer;
-	padding: 0.2rem 1rem;
-	background-color: #eb5757;
-	border-radius: 2px;
-	text-align: center;
-	text-transform: capitalize;
-	width: 90%;
-}
 
 // .filterModalContainer {
 // 	border: 1px solid #d5dae1;
@@ -270,7 +232,7 @@
 // 	}
 // }
 
-.pendingText {
+.pending {
 	background-color: #f2c94c !important;
 	color: #12122c !important;
 	font-family: "Avenir";
@@ -292,7 +254,7 @@
 }
 
 
-.wonText {
+.approved {
 	font-family: "Avenir";
 	font-style: normal;
 	font-weight: 500 !important;
@@ -311,7 +273,7 @@
 
 }
 
-.lostText {
+.declined {
 	background-color: #f2c94c !important;
 	color: #12122c !important;
 	font-family: "Avenir";
