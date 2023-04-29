@@ -143,7 +143,6 @@ export default function TransactionsList() {
 			dispatch(closeLoader());
 
 		} catch (err: any) {
-			dispatch(closeLoader());
 			dispatch(
 				openToastAndSetContent({
 					toastContent: err?.response?.data?.message || 'Failed to get transactions',
@@ -152,6 +151,9 @@ export default function TransactionsList() {
 					},
 				})
 			);
+		} finally {
+			dispatch(closeLoader());
+
 		}
 	};
 
@@ -259,7 +261,6 @@ export default function TransactionsList() {
 						<Box className={Styles.right__btn}>
 							<Button onClick={() => setIsFilterModalOpen(true)}>
 								<FilterAltOutlinedIcon />	Filter by:
-
 							</Button>
 							<Button onClick={calDownload}>
 								Download
