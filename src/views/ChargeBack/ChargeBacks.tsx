@@ -15,13 +15,12 @@ import {
 import styles from './ChargeBacks.module.scss';
 import moment from 'moment';
 import CustomClickTable from '../../components/table/CustomClickTable';
-import { Box, Button, Grid, IconButton, Modal, OutlinedInput } from '@mui/material';
+import { Box, Button, Grid, IconButton, Modal } from '@mui/material';
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { useTheme } from '@mui/material/styles';
 import { makeStyles } from '@material-ui/styles';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import ParentContainer from '../../components/ParentContainer/ParentContainer';
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
 
 
@@ -140,7 +139,7 @@ const ChargeBacks = () => {
 	};
 
 	interface Column {
-		id: 'amt' | 'status' | 'txnRef' | 'email' | 'due' | 'added';
+		id: 'amt' | 'status' | 'txnRef' | 'email' | 'added';
 		label: any;
 		minWidth?: number;
 		align?: 'right' | 'left' | 'center';
@@ -150,14 +149,13 @@ const ChargeBacks = () => {
 		{ id: 'status', label: 'Status', minWidth: 100 },
 		{ id: 'txnRef', label: 'Transaction reference', minWidth: 100 },
 		{ id: 'email', label: 'Customer email', minWidth: 100 },
-		{ id: 'due', label: 'Due', minWidth: 100 },
-		{ id: 'added', label: 'Date', minWidth: 100 },
+		{ id: 'added', label: 'Due d ate', minWidth: 100 },
 	];
 
 	const statusFormatObj: { [key: string]: string } = {
-		won: 'wonText',
-		lost: 'lostText',
-		pending: 'pendingText',
+		approved: 'approved',
+		declined: 'declined',
+		pending: 'pending',
 	};
 
 	const ChargebackRowTab = useCallback(
@@ -188,7 +186,6 @@ const ChargeBacks = () => {
 			),
 			txnRef: <p className={styles.tableBodyText}>{txnRef}</p>,
 			email: <p className={styles.tableBodyText}>{email}</p>,
-			due: <p className={styles.dueText}>{due}</p>,
 			added: (
 				<p className={styles.tableBodyText}>
 					{moment(added).format('MMM D YYYY')}
@@ -330,50 +327,7 @@ const ChargeBacks = () => {
 			</Modal>
 
 			<div className={styles.pageWrapper}>
-				<div className={styles.topSection}>
-					<div>
-						<p
-							style={{ color: isOverview ? '#27ae60' : '#828282' }}
-							onClick={() => setIsOverview(true)}>
-							OVERVIEW
-						</p>
-						<p
-							style={{ color: !isOverview ? '#27ae60' : '#828282' }}
-							onClick={() => setIsOverview(false)}>
-							HOLDING BALANCE
-						</p>
-					</div>
-					<div>
-						<p>This is the chargeback overview information</p>
-					</div>
-					<div>
-						{isOverview ? (
-							<>
-								<div>
-									<p>Remaining of your threshold</p>
-									<p>{threshold}%</p>
-								</div>
-								<div>
-									<p>Chargeback value</p>
-									<p>NGN {value}</p>
-								</div>
-								<div>
-									<p>Chargeback count</p>
-									<p>{count}</p>
-								</div>
-							</>
-						) : (
-							<>
-								{balances.map((balance) => (
-									<div key={balance.currency}>
-										<p>{balance.currency}</p>
-										<p>{balance.sum}</p>
-									</div>
-								))}
-							</>
-						)}
-					</div>
-				</div>
+
 				<div className={styles.tableSection}>
 					<div>
 						<p>{totalRows} chargebacks</p>

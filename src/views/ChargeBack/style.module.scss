@@ -1,0 +1,44 @@
+.btn {
+    font-family: 'Avenir';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 16px;
+    line-height: 22px;
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+.acceptChargeback {
+    font-family: 'Avenir';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    color: #6F6F6F;
+
+    span {
+        color: #333;
+        font-weight: 900;
+    }
+}
+
+.acceptBtn {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 10px;
+    margin-bottom: 52px;
+
+    button {
+        width: 100%;
+        height: 44px;
+
+        &:nth-of-type(2) {
+            background-color: transparent;
+            border: 1px solid #095B2C;
+            color: #095B2C;
+
+        }
+    }
+}
