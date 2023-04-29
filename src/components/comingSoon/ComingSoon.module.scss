@@ -1,0 +1,41 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+}
+
+.wrapperh3 {
+    font-size: 28px;
+    color: #303041;
+    line-height: 20px;
+    font-weight: 500;
+    margin-bottom: 24px;
+}
+
+.wrapperP {
+    font-size: 18px;
+    color: #525261;
+    line-height: 20px;
+    font-weight: 400;
+    margin-bottom: 81px;
+}
+
+.wrapperimg {
+    width: 105px;
+    margin-bottom: 66px;
+    height: 105px;
+    object-fit: cover;
+}
+
+
+.goHome {
+    width: 464px;
+    height: 56px;
+    color: #ffffff;
+    background-color: #2A6C41;
+    border-radius: 8px;
+    font-weight: 800;
+    font-size: 16px;
+}

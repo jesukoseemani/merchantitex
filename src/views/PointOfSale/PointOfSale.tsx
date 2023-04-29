@@ -7,6 +7,7 @@ import DeployedTab from "./DeployedTab";
 import RequestsTab from "./RequestsTab";
 import PosModal from './PosModal';
 import ParentContainer from "../../components/ParentContainer/ParentContainer";
+import ComingSoon from "../../components/comingSoon/ComingSoon";
 
 export type PosTabStateType = 'requests' | 'deployed';
 
@@ -72,33 +73,34 @@ const PointOfSale = () => {
 
   return (
 
+    <ComingSoon />
 
-    <div className={styles.container}>
-      <PosModal isOpen={isModalOpen} handleClose={() => setIsModalOpen(false)} />
-      {/* <NavBar title="Point Of Sale"/> */}
-      <div className={styles.pageWrapper}>
-        <Tabs
-          value={value} onChange={handleTabChange} aria-label="pos tabs"
-          className={tabBtnClasses.root}
-        >
-          <Tab label="Requests" value='requests' />
-          <Tab label="Deployed" value='deployed' />
-        </Tabs>
+    // <div className={styles.container}>
+    //   <PosModal isOpen={isModalOpen} handleClose={() => setIsModalOpen(false)} />
+    //   {/* <NavBar title="Point Of Sale"/> */}
+    //   <div className={styles.pageWrapper}>
+    //     <Tabs
+    //       value={value} onChange={handleTabChange} aria-label="pos tabs"
+    //       className={tabBtnClasses.root}
+    //     >
+    //       <Tab label="Requests" value='requests' />
+    //       <Tab label="Deployed" value='deployed' />
+    //     </Tabs>
 
-        <RequestsTab
-          value={value}
-          index='requests'
-          openModal={() => setIsModalOpen(true)}
-          closeModal={() => setIsModalOpen(false)}
-        />
-        <DeployedTab
-          value={value}
-          index='deployed'
-          openModal={() => setIsModalOpen(true)}
-          closeModal={() => setIsModalOpen(false)}
-        />
-      </div>
-    </div>
+    //     <RequestsTab
+    //       value={value}
+    //       index='requests'
+    //       openModal={() => setIsModalOpen(true)}
+    //       closeModal={() => setIsModalOpen(false)}
+    //     />
+    //     <DeployedTab
+    //       value={value}
+    //       index='deployed'
+    //       openModal={() => setIsModalOpen(true)}
+    //       closeModal={() => setIsModalOpen(false)}
+    //     />
+    //   </div>
+    // </div>
   );
 };
 
