@@ -12,11 +12,13 @@ interface Props {
     name?: string;
     helperText?: string;
     multiple?: boolean | undefined
+    showIcon?: boolean,
+    helperStyle?: React.CSSProperties;
 }
 
-const CustomUploadBtn = ({ onChange, label, helperText, multiple, name }: Props) => {
+const CustomUploadBtn = ({ onChange, showIcon = true, helperStyle, label, helperText, multiple, name }: Props) => {
     return (
-        <Box >
+        <div >
             <InputLabel className={styles.label}>{label}</InputLabel>
             <Button
                 component="label"
@@ -51,8 +53,9 @@ const CustomUploadBtn = ({ onChange, label, helperText, multiple, name }: Props)
             </Button>
             <Stack direction={"row"} mt={1} alignItems="flex-start" columnGap={1}>
 
-                <WarningIcon style={{ width: "15px", height: "15px" }} />
+                {showIcon && <WarningIcon style={{ width: "15px", height: "15px" }} />}
                 <span style={{
+
                     fontFamily: 'Avenir',
                     // fontStyle: "italic",
                     fontWeight: 400,
@@ -60,6 +63,7 @@ const CustomUploadBtn = ({ onChange, label, helperText, multiple, name }: Props)
                     lineHeight: "16px",
                     color: "rgba(74, 82, 106, 0.990517)",
                     width: "100%",
+                    ...helperStyle,
 
                 }}>
                     {helperText}
@@ -83,7 +87,7 @@ const CustomUploadBtn = ({ onChange, label, helperText, multiple, name }: Props)
 
             </Stack> */}
 
-        </Box>
+        </div>
     )
 }
 
