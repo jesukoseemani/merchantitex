@@ -12,7 +12,7 @@ import { MouseEvent, useCallback, useEffect, useState } from "react";
 import styles from "./Balance.module.scss";
 import { makeStyles } from "@material-ui/styles";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import {
   GetRollingReservesRes,
   RollingReserveItem,
@@ -35,6 +35,9 @@ import useDownload from "../../hooks/useDownload";
 import { BASE_URL } from "../../config";
 import { RollingReserveType } from "../../types/RollingReserveTypes";
 import FormatToCurrency from "../../helpers/NumberToCurrency";
+import FilterModal from "../../components/filterModals/SettlementsFilterModal";
+import { SETTLEMENT_FILTER_DATA } from "../../constant";
+import { stripEmpty, stripSearch } from "../../utils";
 
 const useBtnStyles = makeStyles({
   root: {
@@ -162,6 +165,7 @@ const RollingReserve = () => {
   const modalBtnClasses = useModalBtnStyles();
 
   const history = useHistory();
+  const { search } = useLocation()
 
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [reserves, setReserves] = useState<RollingReserveType[]>([]);
@@ -261,10 +265,15 @@ const RollingReserve = () => {
     setRows(newRowOptions);
   }, [reserves, ReserveRowTab]);
 
-  const getRollingReserves = async () => {
+  const getRollingReserves = async (form = SETTLEMENT_FILTER_DATA) => {
     dispatch(openLoader());
     try {
-      const res = await getRollingReserve()
+      const res = await getRollingReserve(stripEmpty({
+        page: pageNumber,
+        perpage: rowsPerPage,
+        search: stripSearch(search),
+        ...form
+      }))
       setReserves(res?.rollingreserves || []);
       setTotalRows(res?._metadata?.totalcount || 0);
 
@@ -285,69 +294,20 @@ const RollingReserve = () => {
 
   useEffect(() => {
     getRollingReserves();
-  }, [pageNumber, rowsPerPage]);
+  }, [pageNumber, rowsPerPage, search]);
+
+  const action = (form: typeof SETTLEMENT_FILTER_DATA) => {
+    getRollingReserves(form)
+  }
 
   return (
 
-
     <div className={styles.container}>
-      <Modal
-        open={isFilterModalOpen}
-        onClose={() => setIsFilterModalOpen(false)}
-        aria-labelledby="balance history filter modal"
-      >
-        <div className={styles.filterModalContainer}>
-          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 22px" }}>
-            <h2>Filters</h2>
-            <IconButton onClick={() => setIsFilterModalOpen(false)}>
-              <CloseOutlined />
-            </IconButton>
-          </Box>
-          <hr />
-          <div className={styles.modalContent}>
-            <div className={styles.dates}>
-              <p>Due date</p>
-              <div>
-                <p>Today</p>
-                <p>Last 7 days</p>
-                <p>30 days</p>
-                <p>1 year</p>
-              </div>
-            </div>
-            <div>
-              <p>Custom date range</p>
-              <div>
-                <input
-                  placeholder="Start date"
-
-
-                />
-                <ArrowRightAltIcon />
-                <input
-                  placeholder="End Date"
-
-                />
-              </div>
-            </div>
-            <div>
-              <p>Withheld amount</p>
-              <input placeholder="NGN 0.00" />
-            </div>
-            <div>
-              <p>Status</p>
-              <input
-                placeholder="Choose status"
-
-              />
-            </div>
-          </div>
-          <hr />
-          <Box className={modalBtnClasses.root} px={3}>
-            <Button>Clear filter</Button>
-            <Button>Apply filter</Button>
-          </Box>
-        </div>
-      </Modal>
+      <FilterModal
+        isOpen={isFilterModalOpen}
+        handleClose={() => setIsFilterModalOpen(false)}
+        action={action}
+      />
 
       <div className={styles.pageWrapper}>
         <Box mb={2} className={styles.historyTopContainer}>

@@ -5,7 +5,7 @@ import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import { makeStyles } from '@material-ui/styles';
 import { useState } from 'react';
 import moment from 'moment';
-import { TRANSACTION_FILTER_DATA } from '../constant';
+import { REFUND_FILTER_DATA } from '../../constant';
 
 const useModalBtnStyles = makeStyles({
 	root: {
@@ -48,7 +48,7 @@ const useModalBtnStyles = makeStyles({
 interface FilterModalProps {
 	isOpen: boolean;
 	handleClose: () => void;
-	action?: (form: typeof TRANSACTION_FILTER_DATA) => void;
+	action?: (form: typeof REFUND_FILTER_DATA) => void;
 	setEvent?: React.Dispatch<React.SetStateAction<string>>;
 	setFromDate?: React.Dispatch<React.SetStateAction<string>>;
 	setToDate?: React.Dispatch<React.SetStateAction<string>>;
@@ -79,18 +79,10 @@ const FilterModal = ({
 	isOpen,
 	handleClose,
 	action,
-	setBearer,
-	name,
-	filterFunction,
 }: FilterModalProps) => {
 	const classes = useModalBtnStyles();
-	const [form, setForm] = useState(TRANSACTION_FILTER_DATA);
+	const [form, setForm] = useState(REFUND_FILTER_DATA);
 	const [event, setEvent] = useState('');
-
-	const applyHandler = () => {
-		setBearer?.(true);
-		filterFunction?.();
-	};
 
 	const handleChange = (value: string, key: string) => {
 		setForm({
@@ -129,7 +121,7 @@ const FilterModal = ({
 	}
 
 	const clear = () => {
-		setForm(TRANSACTION_FILTER_DATA);
+		setForm(REFUND_FILTER_DATA);
 		handleClose?.();
 	}
 
@@ -217,81 +209,33 @@ const FilterModal = ({
 						</div>
 					</div>
 
-					{name !== 'transaction' ? (
-						<div>
-							<p>Customer email</p>
-							<input placeholder='e.g test@mail.com' onChange={(e) => handleChange(e.target.value, 'email')} value={form.email} />
-						</div>
-					) : (
-						<div>
-							<p>Transaction ref</p>
-							<input
-								placeholder='e.g ITXH0898383UY38383'
-								onChange={(e) => handleChange(e.target.value, 'reference')}
-								value={form.reference}
-							/>
-						</div>
-					)}
+					<div>
+						<p>Reference</p>
+						<input
+							placeholder='e.g ITXH0898383UY38383'
+							onChange={(e) => handleChange(e.target.value, 'reference')}
+							value={form.reference}
+						/>
+					</div>
 
-					{name !== 'transaction' ? (
-						<div>
-							<p>Status</p>
-							<Select
-								fullWidth
-								className={classes.select}
-								value={form.status}
-								name='status'
-								id='status'
-								onChange={(e) => handleChange(e.target.value, 'status')}
-							>
-								<MenuItem value='' disabled selected hidden>
-									Choose status
-								</MenuItem>
-								<MenuItem value='APPROVED'>APPROVED</MenuItem>
-								<MenuItem value='PENDING_REVIEW'>PENDING</MenuItem>
-								<MenuItem value='DECLINED'>DECLINED</MenuItem>
-							</Select>
-						</div>
-					) : (
-						<div>
-							<p>Status</p>
-							<Select
-								fullWidth
-								className={classes.select}
-								value={form.status}
-								name='status'
-								id='status'
-								onChange={(e) => handleChange(e.target.value, 'status')}
-
-							>
-								<MenuItem value='' disabled selected hidden>
-									Choose status
-								</MenuItem>
-								<MenuItem value='00'>Approved</MenuItem>
-								<MenuItem value='F9'>Abandoned</MenuItem>
-								<MenuItem value='09'>Pending</MenuItem>
-							</Select>
-						</div>
-					)}
 
 					<div>
-						<p>Payment type</p>
+						<p>Status</p>
 						<Select
 							fullWidth
-							value={form.paymentmethod}
-							name='paymentmethod'
-							id='paymentmethod'
 							className={classes.select}
-							onChange={(e) => handleChange(e.target.value, 'paymentmethod')}
+							value={form.status}
+							name='status'
+							id='status'
+							onChange={(e) => handleChange(e.target.value, 'status')}
+
 						>
 							<MenuItem value='' disabled selected hidden>
-								Select payment type
+								Choose status
 							</MenuItem>
-							<MenuItem value='card'>Card</MenuItem>
-							<MenuItem value='ussd'>USSD</MenuItem>
-							<MenuItem value='account'>Account</MenuItem>
-							<MenuItem value='bank_transfer'>Bank Transfers</MenuItem>
-							<MenuItem value='payvice'>Payvice</MenuItem>
+							<MenuItem value='00'>Approved</MenuItem>
+							<MenuItem value='F9'>Abandoned</MenuItem>
+							<MenuItem value='09'>Pending</MenuItem>
 						</Select>
 					</div>
 				</div>

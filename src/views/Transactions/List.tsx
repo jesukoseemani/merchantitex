@@ -31,9 +31,11 @@ import { TransactionItem, Meta } from '../../types/Transaction';
 import CustomClickTable from '../../components/table/CustomClickTable';
 import { getTransactionsService } from '../../services/transaction';
 import { getTransactionStatus } from '../../utils/status';
-import { stripEmpty } from '../../utils';
+import { stripEmpty, stripSearch } from '../../utils';
 import useDownload from '../../hooks/useDownload';
 import { BASE_URL } from '../../config';
+import { TRANSACTION_FILTER_DATA } from '../../constant';
+import { statusFormatObj } from '../../helpers';
 
 export default function TransactionsList() {
 
@@ -124,18 +126,18 @@ export default function TransactionsList() {
 
 	const dispatch = useDispatch();
 
-	const getTransactions = async () => {
+	const getTransactions = async ({ fromdate, todate, reference, paymentmethod, status } = TRANSACTION_FILTER_DATA) => {
 		dispatch(openLoader());
 
 		try {
 			const data = await getTransactionsService(stripEmpty({
 				perpage: rowsPerPage,
 				page: pageNumber,
-				fromdate: fromDate,
-				todate: toDate,
-				reference: ref,
-				paymentmethod: payment,
-				search,
+				fromdate,
+				todate,
+				reference,
+				paymentmethod,
+				search: stripSearch(search),
 				status
 			}));
 			setTransactions(data?.transactions || []);
@@ -157,7 +159,7 @@ export default function TransactionsList() {
 
 	useEffect(() => {
 		getTransactions();
-	}, [pageNumber, rowsPerPage, fromDate, toDate, ref, payment, status, search]);
+	}, [pageNumber, rowsPerPage, search]);
 
 	const loadTransaction = (reference: string) => {
 		history.push(`/transaction/${reference}`);
@@ -181,13 +183,6 @@ export default function TransactionsList() {
 		{ id: 'payment_type', label: 'Payment type', minWidth: 150 },
 		{ id: 'date', label: 'Date', minWidth: 150 },
 	];
-
-
-	const statusFormatObj: { [key: string]: string } = {
-		successful: "wonText",
-		failed: "lostText",
-		pending: "pendingText",
-	};
 
 	const LoanRowTab = useCallback(
 		(amt, status, PaymentType, email, added, id) => ({
@@ -225,9 +220,12 @@ export default function TransactionsList() {
 				LoanRowTab(each.chargeamount, getTransactionStatus(each.responsecode), each.chargetype, each?.customer?.email, each.timein, each.paymentid)
 			)
 		);
-		console.log(newRowOptions, 'rows')
 		setRows(newRowOptions);
 	}, [transactions, LoanRowTab]);
+
+	const action = (form: typeof TRANSACTION_FILTER_DATA) => {
+		getTransactions(form)
+	}
 
 	return (
 		<div className={Styles.container}>
@@ -235,26 +233,17 @@ export default function TransactionsList() {
 			<FilterModal
 				isOpen={isFilterModalOpen}
 				handleClose={() => setIsFilterModalOpen(false)}
-				setEvent={setEvent}
-				setFromDate={setFromDate}
-				setToDate={setToDate}
-				setRef={setRef}
-				setStatus={setStatus}
-				setPayment={setPayment}
-				eventDate={event}
+				action={action}
 				clearHandler={clearHandler}
-				status={status}
-				payment={payment}
 				name='transaction'
 				filterFunction={modalFunc}
-				changePage={changePage}
 			/>
 			<div className={Styles.wrapper}>
 				<div className={Styles.transaction__btn}>
 
 					<Stack direction={"row"} justifyContent={"space-between"} flexWrap="wrap">
 						<Box>
-							<h2>{transactions?.length ?? 0} transactions</h2>
+							<h2>{meta?.totalcount || 0} transaction(s)</h2>
 						</Box>
 						<Box className={Styles.right__btn}>
 							<Button onClick={() => setIsFilterModalOpen(true)}>

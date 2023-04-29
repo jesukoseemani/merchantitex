@@ -3,7 +3,7 @@ import axios from 'axios';
 import moment from 'moment';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useTheme } from 'styled-components';
 import CustomClickTable from '../../components/table/CustomClickTable';
 import {
@@ -22,6 +22,9 @@ import RemoveBlacklist from './RemoveBlacklist';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 import { getBlacklistedCustomers } from '../../services/customer';
+import { SETTLEMENT_FILTER_DATA } from '../../constant';
+import FilterModal from '../../components/filterModals/SettlementsFilterModal';
+import { stripEmpty, stripSearch } from '../../utils';
 
 const BlacklistDatatable = () => {
 	const theme = useTheme();
@@ -35,6 +38,8 @@ const BlacklistDatatable = () => {
 	const [rowsPerPage, setRowsPerPage] = useState<number>(5);
 	const [totalRows, setTotalRows] = useState<number>(0);
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+	const { search } = useLocation();
+	const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
 
 	const changePage = (value: number) => {
 		setPageNumber(value);
@@ -115,10 +120,10 @@ const BlacklistDatatable = () => {
 		setRows(newRowOptions);
 	}, [transactions, CustomerRowTab]);
 
-	const getCustomers = async () => {
+	const getCustomers = async (form = SETTLEMENT_FILTER_DATA) => {
 		dispatch(openLoader());
 		try {
-			const res = await getBlacklistedCustomers();
+			const res = await getBlacklistedCustomers(stripEmpty({ page: pageNumber, perpage: rowsPerPage, search: stripSearch(search), ...form }));
 			setTransactions(res?.customers || []);
 			setTotalRows(res?._metadata?.totalcount || 0)
 			dispatch(closeLoader());
@@ -138,18 +143,25 @@ const BlacklistDatatable = () => {
 
 	useEffect(() => {
 		getCustomers();
-	}, [pageNumber, rowsPerPage]);
+	}, [pageNumber, rowsPerPage, search]);
 
+	const action = (form = SETTLEMENT_FILTER_DATA) => {
+		getCustomers(form)
+	}
 
 	return (
 		<Box py={"27px"}>
-
+			<FilterModal
+				isOpen={isFilterModalOpen}
+				handleClose={() => setIsFilterModalOpen(false)}
+				action={action}
+			/>
 
 			<Box>
 				<Stack direction={"row"} flexWrap="wrap" justifyContent="space-between" gap={3}>
-					<h2 className={styles.blacklistHeader}>{transactions?.length} blacklisted customers</h2>
+					<h2 className={styles.blacklistHeader}>{totalRows} blacklisted customer(s)</h2>
 					<Box className={styles.headerBox}>
-						<button ><FilterAltOutlinedIcon />Filter by:</button>
+						<button onClick={() => setIsFilterModalOpen(true)}><FilterAltOutlinedIcon />Filter by:</button>
 						{/* <button> <InsertDriveFileOutlinedIcon />Download</button> */}
 
 					</Box>
