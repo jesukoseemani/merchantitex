@@ -18,7 +18,7 @@ import { Payout, PayoutRes } from "../../types/Payout";
 import { getTransactionStatus } from "../../utils/status";
 import { statusFormatObj } from "../../helpers";
 
-export default function TransfersTable({ payout }: { payout: PayoutRes }) {
+export default function TransfersTable({ payout, changePage }: { payout: PayoutRes; changePage?: (p: number) => void }) {
   interface TransactionsProps {
     amount: number;
     status: string;
@@ -57,9 +57,6 @@ export default function TransfersTable({ payout }: { payout: PayoutRes }) {
   };
   const handleClose = () => {
     setAnchorEl(null);
-  };
-  const changePage = (value: number) => {
-    setPageNumber(value);
   };
 
   const limit = (value: number) => {

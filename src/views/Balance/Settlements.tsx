@@ -34,6 +34,8 @@ import { getSettlementStatus } from "../../utils/status";
 import { stripSearch } from "../../utils";
 import useDownload from "../../hooks/useDownload";
 import { BASE_URL } from "../../config";
+import FilterModal from "../../components/filterModals/SettlementsFilterModal";
+import { SETTLEMENT_FILTER_DATA } from "../../constant";
 
 const useBtnStyles = makeStyles({
   root: {
@@ -254,13 +256,14 @@ const Settlements = () => {
     setRows(newRowOptions);
   }, [settlements, SettlementRowTab]);
 
-  const getSettlements = async () => {
+  const getSettlements = async (form = SETTLEMENT_FILTER_DATA) => {
     dispatch(openLoader());
     try {
       const res = await getSettlementsService({
         page: pageNumber,
         perpage: rowsPerPage,
-        search: stripSearch(search)
+        search: stripSearch(search),
+        ...form
       });
       setSettlements(res?.settlements || []);
       setTotalRows(res?._metadata?.totalcount);
@@ -283,59 +286,18 @@ const Settlements = () => {
     getSettlements();
   }, [pageNumber, rowsPerPage, search]);
 
+  const action = (form: typeof SETTLEMENT_FILTER_DATA) => {
+    getSettlements(form);
+  }
+
   return (
 
     <div className={styles.container}>
-      <Modal
-        open={isFilterModalOpen}
-        onClose={() => setIsFilterModalOpen(false)}
-        aria-labelledby="settlements filter modal"
-      >
-        <div className={styles.filterModalContainer}>
-          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 22px" }}>
-            <h2>Filters</h2>
-            <IconButton onClick={() => setIsFilterModalOpen(false)}>
-              <CloseOutlined />
-            </IconButton>
-          </Box>
-          <hr />
-          <div className={styles.modalContent}>
-            <div>
-              <p>Due date</p>
-              <div>
-                <p>Today</p>
-                <p>Last 7 days</p>
-                <p>30 days</p>
-                <p>1 year</p>
-              </div>
-            </div>
-            <div>
-              <p>Custom date range</p>
-              <div>
-                <div>Start date</div>
-                <ArrowRightAltIcon />
-                <div>End date</div>
-              </div>
-            </div>
-            <div>
-              <p>Withheld amount</p>
-              <input placeholder="NGN 0.00" />
-            </div>
-            <div>
-              <p>Status</p>
-              <input
-                placeholder="Choose status"
-
-              />
-            </div>
-          </div>
-          <hr />
-          <div className={modalBtnClasses.root}>
-            <Button>Clear filter</Button>
-            <Button>Apply filter</Button>
-          </div>
-        </div>
-      </Modal>
+      <FilterModal
+        isOpen={isFilterModalOpen}
+        handleClose={() => setIsFilterModalOpen(false)}
+        action={action}
+      />
       {/* <NavBar name='Settlements' />
       <hr /> */}
 
@@ -343,7 +305,7 @@ const Settlements = () => {
       <div className={styles.pageWrapper}>
         <Box mb={2} className={styles.historyTopContainer}>
           <div>
-            <h2>19 Settlements</h2>
+            <h2>{totalRows} Settlement(s)</h2>
           </div>
           <div className={btnClasses.root}>
             <div>

@@ -41,7 +41,7 @@ const DATA = {
     description: ''
 }
 
-const Listtransfer = ({ payout }: { payout?: PayoutRes }) => {
+const Listtransfer = ({ payout, setOpen, changePage }: { payout?: PayoutRes, setOpen?: () => void; changePage?: (p: number) => void }) => {
     const { calDownload } = useDownload({ url: `${BASE_URL}/payout/download`, filename: 'payout' })
 
     const useStyles = makeStyles({
@@ -217,9 +217,9 @@ const Listtransfer = ({ payout }: { payout?: PayoutRes }) => {
         <Box mt={"20px"}>
             <Box>
                 <Stack direction={"row"} justifyContent="space-between" gap={"5px"} flexWrap="wrap">
-                    <h2 className={Styles.transfertitle}>{payout?._metadata?.totalcount || 0} Payout</h2>
+                    <h2 className={Styles.transfertitle}>{payout?._metadata?.totalcount || 0} Payout(s)</h2>
                     <Box className={Styles.headerBox}>
-                        <button><FilterAltOutlinedIcon />Filter by:</button>
+                        <button onClick={setOpen}><FilterAltOutlinedIcon />Filter by:</button>
                         <button onClick={calDownload}> <InsertDriveFileOutlinedIcon />Download</button>
                         <button onClick={() => setOpenItexModel(true)}>+ New transfer</button>
                     </Box>
@@ -236,7 +236,7 @@ const Listtransfer = ({ payout }: { payout?: PayoutRes }) => {
             />
 
             <Box sx={{ width: "100%", marginInline: "auto" }}>
-                <TransfersTable payout={payout!} />
+                <TransfersTable payout={payout!} changePage={changePage} />
             </Box>
             <ItexModalPayout />
 

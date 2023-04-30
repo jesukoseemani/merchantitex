@@ -20,7 +20,6 @@ import axios from 'axios';
 import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
 import moment from 'moment';
 import SingleRefundModal from './SingleRefundModal';
-import FilterModal from './FilterModal';
 import BulkRefundModal from './BulkRefundModal';
 import CustomClickTable from '../../components/table/CustomClickTable';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
@@ -32,6 +31,8 @@ import useDownload from '../../hooks/useDownload';
 import { BASE_URL } from '../../config';
 import { capitalize } from 'lodash';
 import FormatToCurrency from '../../helpers/NumberToCurrency';
+import FilterModal from '../../components/filterModals/RefundFilterModal';
+import { REFUND_FILTER_DATA } from '../../constant';
 
 
 
@@ -171,7 +172,7 @@ const Refund = () => {
 		setRowsPerPage(value);
 	};
 
-	const getRefunds = async () => {
+	const getRefunds = async (form = REFUND_FILTER_DATA) => {
 		dispatch(openLoader());
 
 		try {
@@ -179,7 +180,7 @@ const Refund = () => {
 				page: pageNumber,
 				perpage: rowsPerPage,
 				search: stripSearch(search),
-				...filters
+				...form
 			});
 			setRefunds(res?.refunds || []);
 			setTotalRows(res?._metadata?.totalcount || 0)
@@ -189,33 +190,6 @@ const Refund = () => {
 			dispatch(
 				openToastAndSetContent({
 					toastContent: err?.response?.data?.message || 'Failed to get refunds',
-					toastStyles: {
-						backgroundColor: 'red',
-					},
-				})
-			);
-		}
-	};
-
-	const downloadRefunds = async () => {
-		dispatch(openLoader());
-		try {
-
-			const res = await axios.get<DownloadRefundsRes>(
-				`/admin/refunds/download`
-			);
-			const { transaction } = res?.data;
-			if (transaction.redirecturl) {
-				window.open(transaction.redirecturl, '_blank');
-			}
-			dispatch(closeLoader());
-			await getDownloadedRefunds()
-		} catch (err) {
-			console.log(err);
-			dispatch(closeLoader());
-			dispatch(
-				openToastAndSetContent({
-					toastContent: 'Failed to download transactions',
 					toastStyles: {
 						backgroundColor: 'red',
 					},
@@ -274,7 +248,7 @@ const Refund = () => {
 
 	useEffect(() => {
 		getRefunds();
-	}, [pageNumber, rowsPerPage, refundLogged, filtersApplied, search]);
+	}, [pageNumber, rowsPerPage, refundLogged, search]);
 
 	useEffect(() => {
 		const newRowOptions: any[] = [];
@@ -293,25 +267,17 @@ const Refund = () => {
 		setRows(newRowOptions);
 	}, [refunds, RefundRowTab]);
 
+	const action = (form: typeof REFUND_FILTER_DATA) => {
+		getRefunds(form)
+	}
+
 	return (
 
 		<div className={styles.container}>
 			<FilterModal
 				isOpen={isFilterModalOpen}
 				handleClose={() => setIsFilterModalOpen(false)}
-				filters={filters}
-				setFilters={setFilters}
-				setFiltersApplied={setFiltersApplied}
-				fixedToDate={fixedToDate}
-				dateInterval={dateInterval}
-				setDateInterval={setDateInterval}
-			// setToDate={setToDate}
-			// setRef={setRef}
-			// setStatus={setStatus}
-			// setPayment={setPayment}
-			// eventDate={event}
-			// clearHandler={clearHandler}
-			// status={status}
+				action={action}
 			/>
 			<SingleRefundModal
 				isOpen={isSingleModalOpen}

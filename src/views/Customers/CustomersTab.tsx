@@ -21,9 +21,11 @@ import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutl
 import AddNewCustomer from './AddNewCustomer';
 import Addtoblacklist from './Addtoblacklist';
 import { getBlacklistedCustomers, getCustomersService, getDownloadedCustomers } from '../../services/customer';
-import { stripSearch } from '../../utils';
+import { stripEmpty, stripSearch } from '../../utils';
 import useDownload from '../../hooks/useDownload';
 import { BASE_URL } from '../../config';
+import FilterModal from '../../components/filterModals/SettlementsFilterModal';
+import { SETTLEMENT_FILTER_DATA } from '../../constant';
 
 const CustomersTab = ({ value, index }: any) => {
 	const theme = useTheme();
@@ -73,6 +75,7 @@ const CustomersTab = ({ value, index }: any) => {
 	const [rowsPerPage, setRowsPerPage] = useState<number>(5);
 	const [totalRows, setTotalRows] = useState<number>(0);
 	const { search } = useLocation();
+	const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
 
 	const addCallback = () => {
 		dispatch(closeModal());
@@ -160,10 +163,10 @@ const CustomersTab = ({ value, index }: any) => {
 		setRows(newRowOptions);
 	}, [customers, CustomerRowTab]);
 
-	const getCustomers = async () => {
+	const getCustomers = async (form = SETTLEMENT_FILTER_DATA) => {
 		dispatch(openLoader());
 		try {
-			const res = await getCustomersService({ page: pageNumber, perpage: rowsPerPage, search: stripSearch(search) });
+			const res = await getCustomersService(stripEmpty({ page: pageNumber, perpage: rowsPerPage, search: stripSearch(search), ...form }));
 			setCustomers(res?.customers || []);
 			setTotalRows(res?._metadata?.totalcount);
 			dispatch(closeLoader());
@@ -204,16 +207,24 @@ const CustomersTab = ({ value, index }: any) => {
 		);
 	};
 
+	const action = (form = SETTLEMENT_FILTER_DATA) => {
+		getCustomers(form)
+	}
+
 	return (
 
 		<Box mt={"31px"}>
-
+			<FilterModal
+				isOpen={isFilterModalOpen}
+				handleClose={() => setIsFilterModalOpen(false)}
+				action={action}
+			/>
 
 			<Box>
 				<Stack direction={"row"} flexWrap="wrap" justifyContent="space-between" gap={3}>
-					<h2>{totalRows} customers</h2>
+					<h2>{totalRows} customer(s)</h2>
 					<Box className={styles.headerBox}>
-						<button><FilterAltOutlinedIcon />Filter by:</button>
+						<button onClick={() => setIsFilterModalOpen(true)}><FilterAltOutlinedIcon />Filter by:</button>
 						<button onClick={calDownload}> <InsertDriveFileOutlinedIcon />Download</button>
 						<button onClick={AddCustomer}>+ Add customer</button>
 					</Box>
