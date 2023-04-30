@@ -27,7 +27,7 @@ interface Props {
 }
 
 const Header = ({ title }: Props) => {
-  const [alignment, setAlignment] = React.useState("live server");
+  const [alignment, setAlignment] = React.useState("live mode");
   const [search, setSearch] = useState('');
   const history = useHistory()
   const dispatch = useDispatch()
@@ -224,7 +224,7 @@ const Header = ({ title }: Props) => {
                   onClick={() => setActive(false)}
 
                 >
-                  Test Server
+                  Test Mode
                 </ToggleButton>
                 <ToggleButton
                   value={true}
@@ -232,7 +232,7 @@ const Header = ({ title }: Props) => {
 
                   onClick={() => setActive(true)}
                 >
-                  Live Server
+                  Live Mode
                 </ToggleButton>
               </ToggleButtonGroup>
             </StyledToggleButtonGroup>

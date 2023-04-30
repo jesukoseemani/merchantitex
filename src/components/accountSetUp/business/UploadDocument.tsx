@@ -94,11 +94,20 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
 
 
 
+    const splitImgUrl = (imgurl: string) => {
+        const breakstring = imgurl.split('.')
+
+        const filename = breakstring[0].substring(6, 14)
+        console.log(`${filename}.${breakstring[1]}`, "break");
+        return `${filename}.${breakstring[1]}`
+    }
+
+
     const handleFileUploadRegDoc = (e: any) => {
         handleUpload(e)
         setBizDoc(imgUrl)
 
-
+        console.log(splitImgUrl(imgUrl))
 
     }
     const handleUploadLinsence = (e: any) => {
@@ -268,7 +277,7 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
                     <Grid item xs={12} sm={6} md={6} mb="14px">
                         {/* {loading && "uploading......."}
                             {imgUrl && imgUrl} */}
-                        <CustomUploadBtn helperText='Only PDF, JPG and PNG are the accepted file formats' label='Upload Business Registration Document' onChange={(e: any) => handleFileUploadRegDoc(e)} />
+                        <CustomUploadBtn helperText='Only PDF, JPG and PNG are the accepted file formats' label='Upload Business Registration Document' onChange={(e: any) => handleFileUploadRegDoc(e)} uploadMsg={bizDoc && splitImgUrl(bizDoc)} />
 
 
                     </Grid>
@@ -280,7 +289,7 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
                     <br />
                     <Grid item xs={12} sm={6} md={6} mb="14px">
 
-                        <CustomUploadBtn helperText='Only PDF, JPG and PNG are the accepted file formats' label='Upload Application for Business Registration' onChange={(e: any) => handleBusinesType(e)} />
+                        <CustomUploadBtn helperText='Only PDF, JPG and PNG are the accepted file formats' label='Upload Application for Business Registration' onChange={(e: any) => handleBusinesType(e)} uploadMsg={biz_req_type && splitImgUrl(biz_req_type)} />
 
                     </Grid>
 
@@ -301,7 +310,7 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
                     <Grid item xs={12} sm={6} md={6} mb="14px">
 
 
-                        <CustomUploadBtn helperText='Only PDF, JPG and PNG are the accepted file formats' label='Upload Operating License Document ' onChange={(e) => handleUploadLinsence(e)} />
+                        <CustomUploadBtn helperText='Only PDF, JPG and PNG are the accepted file formats' label='Upload Operating License Document ' onChange={(e) => handleUploadLinsence(e)} uploadMsg={lisenceDoc && splitImgUrl(lisenceDoc)} />
 
                     </Grid>
                     <br />
@@ -328,7 +337,7 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
 
 
 
-                        <CustomUploadBtn helperText='Only PDF, JPG and PNG are the accepted file formats' label='Upload a Proof of Address' onChange={(e: any) => handleProveDoc(e)} />
+                        <CustomUploadBtn helperText='Only PDF, JPG and PNG are the accepted file formats' label='Upload a Proof of Address' onChange={(e: any) => handleProveDoc(e)} uploadMsg={proveDoc && splitImgUrl(proveDoc)} />
 
                     </Grid>
 

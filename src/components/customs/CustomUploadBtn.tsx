@@ -4,6 +4,7 @@ import { ReactSVG } from 'react-svg'
 import { ReactComponent as WarningIcon } from "../../assets/images/warningIcon.svg";
 import { ReactComponent as DownloadIcon } from "../../assets/images/cloudDownload.svg";
 import styles from "./style.module.scss"
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 
 interface Props {
@@ -11,12 +12,13 @@ interface Props {
     label?: string;
     name?: string;
     helperText?: string;
+    uploadMsg?: string;
     multiple?: boolean | undefined
     showIcon?: boolean,
     helperStyle?: React.CSSProperties;
 }
 
-const CustomUploadBtn = ({ onChange, showIcon = true, helperStyle, label, helperText, multiple, name }: Props) => {
+const CustomUploadBtn = ({ onChange, showIcon = true, uploadMsg = "", helperStyle, label, helperText, multiple, name }: Props) => {
     return (
         <div >
             <InputLabel className={styles.label}>{label}</InputLabel>
@@ -70,6 +72,15 @@ const CustomUploadBtn = ({ onChange, showIcon = true, helperStyle, label, helper
                 </span>
 
             </Stack>
+            {uploadMsg
+                && <span style={{
+                    color: "green",
+                    display: "flex",
+                    fontFamily: 'Avenir',
+                    fontSize: "12px",
+                    alignItems: "center",
+                    gap: "10px"
+                }}><CheckCircleOutlineIcon style={{ fontSize: "10px", width: "20px" }} /> {uploadMsg} uploaded successfully</span>}
             {/* <Stack direction={"row"} mt={1} alignItems="flex-start" columnGap={1}>
 
                 <span style={{
