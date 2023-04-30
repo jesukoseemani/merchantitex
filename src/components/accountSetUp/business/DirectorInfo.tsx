@@ -88,6 +88,12 @@ const DirectorInfo = ({ handleBack, handleNext }: Props) => {
     ]
 
 
+    const splitImgUrl = (imgurl: string) => {
+        const breakstring = imgurl.split('.')
+        const filename = breakstring[0].substring(6, 14)
+        return `${filename}.${breakstring[1]}`
+    }
+
 
 
 
@@ -398,7 +404,7 @@ const DirectorInfo = ({ handleBack, handleNext }: Props) => {
                                             <CustomUploadBtn helperText='A valid NIN Slip, National ID Card, Permanent Voters Card, International Passport or Drivers License' onChange={(e) => {
                                                 setPresentIndex(index)
                                                 handleUpload(e)
-                                            }} label='Upload an ID' />
+                                            }} label='Upload an ID' uploadMsg={imgUrl && splitImgUrl(imgUrl)} />
 
 
 
