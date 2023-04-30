@@ -197,7 +197,7 @@ export default function TransfersTable({ payout, changePage }: { payout: PayoutR
           columns={columns}
           rows={rows}
           totalRows={payout?._metadata?.totalcount || 0}
-          changePage={changePage}
+          changePage={changePage!}
           limit={limit}
           // reset={reset}
           link="/payout"

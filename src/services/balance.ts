@@ -8,7 +8,7 @@ export const getBalance = async (): Promise<{ balances: Balance[] }> => {
     return data as { balances: Balance[] };
 }
 
-export const getBalanceHistoryService = async (id: string, query: typeof BALANCE_HISTORY_FILTER_DATA & { search: string }): Promise<BalanceHistoryRes> => {
+export const getBalanceHistoryService = async (id: string, query: Record<string, any>): Promise<BalanceHistoryRes> => {
     const { data } = await axios.get(`/v1/balance/${id}/history${stringify(query)}`);
     return data as BalanceHistoryRes;
 }
