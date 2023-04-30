@@ -23,6 +23,7 @@ import FormatToCurrency from "../../helpers/NumberToCurrency";
 import { saveMe } from "../../redux/actions/me/meActions";
 import axios from "axios";
 import { useDispatch } from 'react-redux';
+import { getDate } from "../../utils";
 
 
 
@@ -40,7 +41,7 @@ const style = {
 };
 
 const getPercent = (data: ChargeTypeRes) => {
-  if (!data) return { count: 0, percent: 0 };
+  if (!data || !data?.data?.length) return { count: 0, percent: 0 };
 
   let count = 0;
   let type = '';
@@ -61,6 +62,7 @@ const MerchantOverview = () => {
   const handleHelpCenter = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const dispatch = useDispatch()
+  const [event, setEvent] = useState({ name: '', key: '' })
 
 
   const fetchUserDetails = async () => {
@@ -96,20 +98,21 @@ const MerchantOverview = () => {
 
   useEffect(() => {
     (async () => {
+      const { fromdate, todate } = getDate(event.key)
       try {
         const [charge, customer, summary, performance, failure] =
           await Promise.all([
-            getTopChargeType({ fromdate: "2020-01-01", todate: "2023-04-01" }),
-            getTopCustomers({ fromdate: "2020-01-01", todate: "2023-04-01" }),
+            getTopChargeType({ fromdate, todate }),
+            getTopCustomers({ fromdate, todate }),
             getTransactionSummary({
-              fromdate: "2020-01-01",
-              todate: "2023-04-01",
+              fromdate,
+              todate,
             }),
             getTransactionPerformance({
-              fromdate: "2020-01-01",
-              todate: "2023-04-01",
+              fromdate,
+              todate,
             }),
-            getTopFailure({ fromdate: "2020-01-01", todate: "2023-01-01" }),
+            getTopFailure({ fromdate, todate }),
           ]);
 
         setData({
@@ -121,7 +124,7 @@ const MerchantOverview = () => {
         });
       } catch (error) { }
     })();
-  }, []);
+  }, [event.key]);
 
   return (
     <div
@@ -129,8 +132,8 @@ const MerchantOverview = () => {
       style={{ display: "flex", flexDirection: "column", width: "100%" }}
     >
       {/* <NavBar name="Merchant Overview" /> */}
-      <MerchantChart summary={summary} total={performance?.total || 0} />
-      <OverviewCard abandoned={performance?.abandoned || 0} />
+      <MerchantChart summary={summary} total={performance?.total || 0} setEvent={setEvent} />
+      <OverviewCard abandoned={performance?.abandoned || 0} event={event.name} />
       <div className={Styles.tableWrapper}>
 
         <OverviewTable
@@ -191,7 +194,7 @@ const MerchantOverview = () => {
                 paddingAngle={4}
               />
             </div>
-            <div>
+            {!!performance && <div>
               <h2>{performance?.total || 0}</h2>
               <span>Total customers</span>
               <div className={Styles.listStatus}>
@@ -218,7 +221,7 @@ const MerchantOverview = () => {
                 ></div>
                 <p>Abandoned - {performance?.abandoned || 0} ({Math.round((performance?.abandoned! / performance?.total!) * 100)}%)</p>
               </div>
-            </div>
+            </div>}
           </div>
         </OverviewTable>
         <OverviewTable title="Top reasons for transactions failure">
