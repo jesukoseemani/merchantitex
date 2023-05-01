@@ -20,7 +20,8 @@ const theme = createTheme({
           justifyContent: "flex-start",
           alignItems: "flex-start",
           width: "100%",
-          // padding: "10px 20px",
+          padding: "20px",
+          lineHeight: "30px"
         },
 
 
@@ -30,9 +31,12 @@ const theme = createTheme({
       }
     },
 
+
     MuiMenuItem: {
       styleOverrides: {
-        //  root
+        root: {
+
+        }
 
       }
     },
@@ -272,6 +276,7 @@ const theme = createTheme({
         gutters: {}
       }
     },
+
 
     MuiTableCell: {
       styleOverrides: {
