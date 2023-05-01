@@ -24,3 +24,9 @@ export const BALANCE_HISTORY_FILTER_DATA = {
     fromdate: '',
     todate: '',
 }
+
+export const CHARGEBACK_FILTER_DATA = {
+    fromdate: '',
+    todate: '',
+    status: '',
+}
