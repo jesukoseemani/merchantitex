@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './ChargeBacksItem.module.scss';
 import NavBar from "../../components/navbar/NavBar";
 import { Link, useHistory, useLocation, useParams } from "react-router-dom";
@@ -17,12 +17,19 @@ import CustomModal from '../../components/customs/CustomModal';
 import DisputeChargeback from './DisputeChargeback';
 import AcceptChargeback from './AcceptChargeback';
 import ResponseChargeback from './RespondChargeback';
+import { chargebackResponse } from '../../types/Chargeback';
+import { getChargebackById } from '../../services/chargeback';
+
+
 const ChargeBacksItem = () => {
   const location = useLocation<{ rowData: string }>();
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const { slug } = useParams<{ slug: string }>();
+  const [chargeback, setChargeback] = useState<chargebackResponse | null>(null);
+
+
+
   const [openDisputModal, setOpenDisputeModal] = useState(false)
   const handleOpenDisputModal = () => setOpenDisputeModal(true);
   const handleCloseDisputModal = () => setOpenDisputeModal(false);
@@ -43,11 +50,21 @@ const ChargeBacksItem = () => {
     history.replace('/chargebacks');
   }
 
-  const { rowData } = location.state;
+  const getChargeBack = async () => {
+    try {
 
-  const formattedRowData: ChargebackItem = JSON.parse(rowData);
+      const res = await getChargebackById(location.pathname.split('/')[2]);
+      setChargeback(res || null)
 
-  const { amt, status, txnRef, email, due, added, id, cardNum, cardType, txnFee, country, bank } = formattedRowData;
+
+    } catch (error) {
+
+    }
+  };
+
+  useEffect(() => {
+    getChargeBack();
+  }, [location.pathname.split('/')[2]]);
 
   const statusFormatObj: { [key: string]: string } = {
     "approved": 'approved',
@@ -56,6 +73,7 @@ const ChargeBacksItem = () => {
   }
 
 
+  if (!chargeback) return null;
 
 
 
@@ -74,8 +92,8 @@ const ChargeBacksItem = () => {
 
           <div className={styles._wrapper_top_bar}>
             <div>
-              <h2>NGN {amt}</h2>
-              <p className={styles[statusFormatObj[status] || 'pendingText']}>{status}</p>
+              <h2>NGN 2000</h2>
+              <p className={styles[statusFormatObj["success"] || 'pendingText']}>success</p>
             </div>
             <div className={styles.refundBtn}>
               <button>Refund customer</button>
@@ -85,19 +103,19 @@ const ChargeBacksItem = () => {
           <div className={styles.sectionTwo}>
             <div>
               <p>Date / Time</p>
-              <p>{moment(added).format("MMM D YYYY h:mm A")}</p>
+              {/* <p>{moment(added).format("MMM D YYYY h:mm A")}</p> */}
             </div>
             <div>
               <p>Customer</p>
-              <p>{email}</p>
+              {/* <p>{email}</p> */}
             </div>
             <div>
               <p>Card type</p>
-              <p>{cardType === "VISA" && <VisaIcon />}</p>
+              {/* <p>{cardType === "VISA" && <VisaIcon />}</p> */}
             </div>
             <div>
               <p>Card number</p>
-              <p>{cardNum}</p>
+              {/* <p>{cardNum}</p> */}
             </div>
 
           </div>
@@ -108,7 +126,7 @@ const ChargeBacksItem = () => {
           <Box className={styles._section_three_header}>
             <div>
               <h2>Chargebacks</h2>
-              <p style={{ borderRadius: "20px" }} className={styles[statusFormatObj[status] || 'pendingText']}>{status}</p>
+              {/* <p style={{ borderRadius: "20px" }} className={styles[statusFormatObj[status] || 'pendingText']}>{status}</p> */}
             </div>
             <Box>
               <button onClick={handleOpenAcceptChargebackModal}>Accept Chargeback</button>
@@ -119,11 +137,11 @@ const ChargeBacksItem = () => {
           <div className={styles._section_three_body}>
             <div>
               <p>Chargeback amount</p>
-              <p>{amt}</p>
+              {/* <p>{amt}</p> */}
             </div>
             <div>
               <p>Chargeback date</p>
-              <p>{moment(added).format("MMM D YYYY h:mm A")}</p>
+              {/* <p>{moment(added).format("MMM D YYYY h:mm A")}</p> */}
             </div>
             <div>
               <p>Chargeback trail</p>
@@ -193,23 +211,23 @@ const ChargeBacksItem = () => {
           <div className={styles.sectionFour_body}>
             <div>
               <p>Payment reference</p>
-              <p>{txnRef}</p>
+              {/* <p>{txnRef}</p> */}
             </div>
             <div>
               <p>Transaction fee</p>
-              <p>{txnFee}</p>
+              {/* <p>{txnFee}</p> */}
             </div>
             <div>
               <p>Country/Region</p>
-              <p>{country}</p>
+              {/* <p>{country}</p> */}
             </div>
             <div>
               <p>Bank name</p>
-              <p>{bank}</p>
+              {/* <p>{bank}</p> */}
             </div>
             <div>
               <p>ITEX Reference</p>
-              <p>{txnRef}</p>
+              {/* <p>{txnRef}</p> */}
             </div>
           </div>
         </div>
@@ -261,7 +279,6 @@ const ChargeBacksItem = () => {
           isOpen={openDisputModal}
           handleClose={handleCloseDisputModal}
           close={() => setOpenDisputeModal(false)}>
-
           <DisputeChargeback />
         </CustomModal >
 
@@ -272,7 +289,6 @@ const ChargeBacksItem = () => {
           isOpen={openAcceptChargebackModal}
           handleClose={handleCloseAcceptChargebackModal}
           close={() => setOpenAcceptChargebackModal(false)}>
-
           <AcceptChargeback />
         </CustomModal >
 
@@ -284,7 +300,6 @@ const ChargeBacksItem = () => {
           isOpen={openResponseChargebackModal}
           handleClose={handleCloseResponseChargebackModal}
           close={() => setOpenResponseChargebackModal(false)}>
-
           <ResponseChargeback />
         </CustomModal >
 

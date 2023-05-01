@@ -27,9 +27,6 @@ import { statusFormatObj } from "../../helpers";
 
 export default function Transaction() {
 
-
-
-
 	let { id } = useParams<{ id: string }>();
 	const [transaction, setTransaction] = useState<TransactionResponse | null>(null);
 	const [activeStep, setActiveStep] = useState(0);
@@ -60,10 +57,10 @@ export default function Transaction() {
 			<div className={Styles.header}>
 				<span onClick={() => history.push('/transactions/list')} style={{
 					display: "flex",
-					alignItems: "center"
+					alignItems: "center"  
 				}}>
 					<ArrowLeftIcon />
-					Back to transactions
+					Back to transactions   
 				</span>
 			</div>
 			<Box className={Styles.sectionOne}>
