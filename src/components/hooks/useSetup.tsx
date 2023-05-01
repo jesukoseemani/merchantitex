@@ -11,7 +11,8 @@ interface Props {
     code: string;
     hasPendingReviews: boolean;
     isSetupComplete: boolean
-    message: string
+    message: string;
+    rejectedDocs: []
 
 }
 const useSetup = () => {
