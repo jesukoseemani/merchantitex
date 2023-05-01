@@ -176,9 +176,12 @@ const NavBar = () => {
         <nav>
           {/* {nextedRoutes?} */}
           {
-            !setupStatus?.isSetupComplete && <li
+            !setupStatus?.isBusinessApproved && <li
 
-              onClick={() => history.push("/setup")}
+              onClick={() => {
+                history.push("/setup")
+                dispatch(changeNewNavbar("Setup"))
+              }}
               className={Styles.setup}
             >
 

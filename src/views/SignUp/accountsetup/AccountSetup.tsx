@@ -19,7 +19,7 @@ import { useSelector } from 'react-redux'
 interface Props {
     isBusinessApproved: boolean;
     isSettlementAccountSet: boolean;
-
+    isSetupComplete: boolean;
 }
 const AccountSetup = () => {
     const dispatch = useDispatch()
@@ -36,7 +36,7 @@ const AccountSetup = () => {
                 setSettlementSetup(true)
 
             }
-            if (data?.isBusinessApproved) {
+            if (data?.isSetupComplete) {
                 setBusinesSetup(true)
 
             }

@@ -92,6 +92,7 @@ export default function CustomClickTable({
 
 	const handleClick = (row: any) => {
 		const val = row[identifier]?.props?.children;
+		
 
 		if (clickable && val) {
 			const rowData = rowsData.find((dataItem: any) => dataItem[identifier] === row[identifier]?.props?.children);

@@ -21,6 +21,7 @@ import { logOut } from '../../redux/actions/auth/authActions';
 import axios from 'axios';
 import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
 import Switch from '../switch/Switch';
+import { changeNewNavbar } from '../../redux/actions/navbarNew/navbarNewActions';
 
 
 
@@ -125,6 +126,7 @@ export default function UserMenu() {
 		dispatch(logOut());
 		history.push('/signIn');
 		dispatch(saveLoading(false));
+		dispatch(changeNewNavbar("HOME"))
 		dispatch(removeMe());
 		setAnchorEl(null);
 	};
