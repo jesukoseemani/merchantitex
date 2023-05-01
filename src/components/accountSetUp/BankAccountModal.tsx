@@ -23,6 +23,7 @@ import WarningIcon from "../../assets/images/warningIcon.svg";
 import { ReactSVG } from 'react-svg';
 import SuccessModal from './business/SuccessModal';
 import CustomInputField from '../customs/CustomInputField';
+import SuccessModalAccount from './business/SuccessModalAccount';
 
 
 
@@ -190,13 +191,13 @@ const BankAccount = ({ checkBusinessStatus }: any) => {
 
 														modalContent: (
 															<div className='modalDiv' style={{ height: "300px" }}>
-																<SuccessModal />
+																<SuccessModalAccount />
 															</div>
 														),
 													})
 												);
 												resetForm()
-												closeModal()
+												// closeModal()
 
 
 
