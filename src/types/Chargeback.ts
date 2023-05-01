@@ -64,48 +64,27 @@ export interface chargebackQuery {
 
 export interface chargebackResponse {
   chargeback: chargeback
-  refund: any
-  events: Event[]
+  chargebackResponses: ResEvent[]
+  chargebackDebit: Event[]
   code: string
   message: string
 }
 
 export interface chargeback {
   id: number
-  customer: Customer
-  merchantid: number
-  merchantreference: string
-  paymentlinkreference: string
-  modalreference: string
-  reference: string
+  merchantaccountid: number
+  linkingreference: string
   paymentid: string
-  linkingreference: any
-  authoption: string
   amount: number
   currency: string
-  chargeamount: number
-  country: string
-  fee: number
-  chargetype: string
-  route: string
-  network: any
-  timein: string
-  timeout: string
-  msisdn: any
-  narration: string
-  cardtype: string
-  issuer: string
-  mask: string
-  bankcode: any
-  paylocationtype: string
-  paylocationcountry: string
-  devicefingerprint: string
-  ipaddress: string
-  validationstatus: any
-  responsecode: string
-  responsemessage: string
-  rrn: any
-  chargebacktype: string
+  customerid: number
+  customeremail: string
+  chargebackreason: string
+  status: string
+  duedate: string
+  createdat: string
+  updatedat: null | string
+  responsestatus: string
 }
 
 export interface Customer {
@@ -122,10 +101,25 @@ export interface Customer {
 }
 
 export interface Event {
-  id: number
-  merchantid: number
-  paymentlinkreference: string
-  eventtype: string
-  activity: string
-  timein: string
+  id: number;
+  merchantaccountid: number;
+  merchantchargebackid: number;
+  amount: number;
+  currency: string;
+  source: string;
+  createdat: string;
+  updatedat: null | string | number;
+  status: string
 }
+
+export interface ResEvent {
+  id: number;
+  chargebackid: number;
+  responsefrom: string;
+  response: string;
+  proof1: null | string;
+  proof2: null | string;
+  createdat: string;
+  updatedat: null | string;
+}
+
