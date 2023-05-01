@@ -1,7 +1,7 @@
 @import "../../../components/color/color.module.scss";
 
 .signupContainer {
-	max-height: 95vh;
+	min-height: 100vh;
 	width: 100%;
 	background: $dark;
 	margin: 0 auto;

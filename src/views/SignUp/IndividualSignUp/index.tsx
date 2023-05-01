@@ -190,10 +190,10 @@ const IndividualSignUp = () => {
 			validationSchema={ValidateIndividual}
 			onSubmit={async ({ firstname, businessCategoryId, businessname, countryid, email, lastname, password, phonenumber }) => {
 				console.log({ phonenumber });
+				dispatch(openLoader());
 
 
 				try {
-					dispatch(closeLoader());
 					const { data } = await axios.post<Props>("/auth/register", {
 
 						"accounttype": "individual",
@@ -210,6 +210,7 @@ const IndividualSignUp = () => {
 
 
 					})
+					dispatch(closeLoader());
 
 
 					if (data?.code === "success") {
