@@ -102,7 +102,7 @@ const ChargeBacksItem = () => {
             <p>Back to chargebacks</p>
           </div>
         </div>
-        <Box className={styles.section__one__wrapper}>
+        <Box className={styles.section_one_wrapper}>
 
           <div className={styles._wrapper_top_bar}>
             <div>
