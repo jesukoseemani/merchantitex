@@ -8,6 +8,9 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useParams } from 'react-router-dom';
 import CustomInputField from '../../components/customs/CustomInputField';
 import CustomUploadBtn from '../../components/customs/CustomUploadBtn';
+import { openLoader, closeLoader } from '../../redux/actions/loader/loaderActions';
+import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
+import { closeModal } from '../../redux/actions/modal/modalActions';
 
 interface Props {
     code: string;
@@ -18,23 +21,19 @@ interface Actionprops {
     id: number;
     name: string;
 }
-const AcceptChargeback = () => {
+const AcceptChargeback = ({ chargebackid, currency, setOpenAcceptChargebackModal, chargeAmt }: any) => {
     const dispatch = useDispatch()
 
-    const validate = Yup.object({})
+    const validate = Yup.object({
+        response: Yup.string().required("response is required")
+    })
 
-    const actions: Actionprops[] = [{
-        id: 1,
-        name: "invoice"
-    }, {
-        id: 2,
-        name: "paymentlink"
-    }]
+
     return (
         <Formik
             initialValues={{
 
-                action: '',
+                response: '',
 
 
 
@@ -44,49 +43,50 @@ const AcceptChargeback = () => {
 
             }}
             validationSchema={validate}
+
+
             onSubmit={async (values, { resetForm }) => {
+                dispatch(openLoader());
+                console.log(values);
+
+
+                try {
+                    const { data } = await axios.post<Props>(`/v1/chargeback/${chargebackid}/accept`, values)
+                    if (data?.code === "success") {
+                        setOpenAcceptChargebackModal(false)
+
+                        dispatch(
+                            openToastAndSetContent({
+                                toastContent: data?.message,
+                                toastStyles: {
+                                    backgroundColor: "green",
+                                },
+                            })
+                        )
+
+                        resetForm()
+                        dispatch(closeLoader());
+
+                    }
+                } catch (error: any) {
+                    dispatch(closeLoader());
+                    const { message } = error?.response.data;
+
+                    dispatch(
+                        openToastAndSetContent({
+                            toastContent: message,
+                            toastStyles: {
+                                backgroundColor: "red",
+                            },
+                        })
+
+                    );
+                } finally {
+                    dispatch(closeLoader());
+                    setOpenAcceptChargebackModal(false)
+                }
+
             }}
-        // validationSchema={}
-        // onSubmit={async (values, { resetForm }) => {
-        //     dispatch(openLoader());
-        //     console.log(values);
-
-
-        //     try {
-        //         const { data } = await axios.post<Props>('/v1/payment/disable', { ...values, id })
-        //         if (data?.code === "success") {
-        //             dispatch(
-        //                 openToastAndSetContent({
-        //                     toastContent: data?.message,
-        //                     toastStyles: {
-        //                         backgroundColor: "green",
-        //                     },
-        //                 })
-        //             )
-
-        //             resetForm()
-        //             dispatch(closeLoader());
-        //             dispatch(closeModal())
-
-        //         }
-        //     } catch (error: any) {
-        //         dispatch(closeLoader());
-        //         const { message } = error?.response.data;
-        //         dispatch(
-        //             dispatch(
-        //                 openToastAndSetContent({
-        //                     toastContent: message,
-        //                     toastStyles: {
-        //                         backgroundColor: "red",
-        //                     },
-        //                 })
-        //             )
-        //         );
-        //     } finally {
-        //         dispatch(closeLoader());
-        //     }
-
-        // }}
 
         >
 
@@ -97,21 +97,19 @@ const AcceptChargeback = () => {
                     <Grid container spacing={3}>
 
 
-
-
                         <Grid item xs={12} sm={12}>
                             <p className={Styles.acceptChargeback}>You are about to accept a chargeback of <br />
-                                <span> NGN 23,000.00. </span> This amount will be deducted from your next settlement. Do you want to proceed?</p>
+                                <span>  {`${currency} ${chargeAmt}`} </span> This amount will be deducted from your next settlement. Do you want to proceed?</p>
                         </Grid>
                         <Grid item xs={12} sm={12}>
 
-                            <CustomInputField as={TextField} multiline rows={3} name="comment" label={"Comment"} placeholder="Items are out of stock" />
+                            <CustomInputField as={TextField} multiline rows={3} name="response" label={"Comment"} placeholder="Items are out of stock" />
                         </Grid>
                         <Grid item xs={12} sm={12}>
 
                             <div className={Styles.acceptBtn}>
-                                <button>Accept chargeback</button>
-                                <button>Cancel</button>
+                                <button type='submit'>Accept chargeback</button>
+                                <button onClick={() => setOpenAcceptChargebackModal(false)}>Cancel</button>
                             </div>
                         </Grid>
 

@@ -129,6 +129,7 @@ export default function ChargeBacks() {
 	useEffect(() => {
 		getChargeback();
 	}, [pageNumber, rowsPerPage, search]);
+	// console.log(chargeback, "chargeback");
 
 	const loadTransaction = (reference: string) => {
 		history.push(`/transaction/${reference}`);
@@ -212,6 +213,7 @@ export default function ChargeBacks() {
 	const action = (form: typeof CHARGEBACK_FILTER_DATA) => {
 		getChargeback(form)
 	}
+
 
 	return (
 		<div className={Styles.container}>
