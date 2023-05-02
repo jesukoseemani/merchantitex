@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './ChargeBacksItem.module.scss';
 import NavBar from "../../components/navbar/NavBar";
 import { Link, useHistory, useLocation, useParams } from "react-router-dom";
@@ -17,19 +17,15 @@ import CustomModal from '../../components/customs/CustomModal';
 import DisputeChargeback from './DisputeChargeback';
 import AcceptChargeback from './AcceptChargeback';
 import ResponseChargeback from './RespondChargeback';
-import { chargebackResponse } from '../../types/Chargeback';
-import { getChargebackById } from '../../services/chargeback';
-
-
+import axios from 'axios';
+import { closeLoader } from '../../redux/actions/loader/loaderActions';
+import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
 const ChargeBacksItem = () => {
   const location = useLocation<{ rowData: string }>();
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const [chargeback, setChargeback] = useState<chargebackResponse | null>(null);
-
-
-
+  const { chargebackid } = useParams<{ chargebackid: string }>();
   const [openDisputModal, setOpenDisputeModal] = useState(false)
   const handleOpenDisputModal = () => setOpenDisputeModal(true);
   const handleCloseDisputModal = () => setOpenDisputeModal(false);
@@ -50,21 +46,6 @@ const ChargeBacksItem = () => {
     history.replace('/chargebacks');
   }
 
-  const getChargeBack = async () => {
-    try {
-
-      const res = await getChargebackById(location.pathname.split('/')[2]);
-      setChargeback(res || null)
-
-
-    } catch (error) {
-
-    }
-  };
-
-  useEffect(() => {
-    getChargeBack();
-  }, [location.pathname.split('/')[2]]);
 
   const statusFormatObj: { [key: string]: string } = {
     "approved": 'approved',
@@ -73,7 +54,40 @@ const ChargeBacksItem = () => {
   }
 
 
-  if (!chargeback) return null;
+
+  const [chargebackItem, setChargebackItem] = useState<any>()
+  const getChargebackDetails = async () => {
+    try {
+
+      const { data } = await axios.get<any>(`/v1/chargeback/${chargebackid}`)
+      setChargebackItem(data)
+      console.log(data, "get")
+
+
+      dispatch(closeLoader());
+
+    } catch (error: any) {
+      dispatch(closeLoader());
+      const { message } = error.response.data;
+      dispatch(
+        dispatch(
+          openToastAndSetContent({
+            toastContent: message,
+            toastStyles: {
+              backgroundColor: "red",
+            },
+          })
+        )
+      );
+    } finally {
+      dispatch(closeLoader());
+    }
+  }
+
+  useEffect(() => {
+    getChargebackDetails()
+  }, [chargebackid])
+
 
 
 
@@ -88,12 +102,12 @@ const ChargeBacksItem = () => {
             <p>Back to chargebacks</p>
           </div>
         </div>
-        <Box className={styles.section__one__wrapper}>
+        <Box className={styles.section_one_wrapper}>
 
           <div className={styles._wrapper_top_bar}>
             <div>
-              <h2>NGN 2000</h2>
-              <p className={styles[statusFormatObj["success"] || 'pendingText']}>success</p>
+              <h2>{`${chargebackItem?.chargeback?.currency} ${chargebackItem?.chargeback?.amount}`}</h2>
+              <p className={styles[statusFormatObj[chargebackItem?.chargeback?.status] || 'pendingText']}>{chargebackItem?.chargeback?.status}</p>
             </div>
             <div className={styles.refundBtn}>
               <button>Refund customer</button>
@@ -103,11 +117,11 @@ const ChargeBacksItem = () => {
           <div className={styles.sectionTwo}>
             <div>
               <p>Date / Time</p>
-              {/* <p>{moment(added).format("MMM D YYYY h:mm A")}</p> */}
+              <p>{moment(chargebackItem?.chargeback?.createdat).format("MMM D YYYY h:mm A")}</p>
             </div>
             <div>
               <p>Customer</p>
-              {/* <p>{email}</p> */}
+              <p>{chargebackItem?.chargeback?.customeremail}</p>
             </div>
             <div>
               <p>Card type</p>
@@ -126,7 +140,7 @@ const ChargeBacksItem = () => {
           <Box className={styles._section_three_header}>
             <div>
               <h2>Chargebacks</h2>
-              {/* <p style={{ borderRadius: "20px" }} className={styles[statusFormatObj[status] || 'pendingText']}>{status}</p> */}
+              <p style={{ borderRadius: "20px" }} className={styles[statusFormatObj[status] || 'pendingText']}>{status}</p>
             </div>
             <Box>
               <button onClick={handleOpenAcceptChargebackModal}>Accept Chargeback</button>
@@ -137,11 +151,11 @@ const ChargeBacksItem = () => {
           <div className={styles._section_three_body}>
             <div>
               <p>Chargeback amount</p>
-              {/* <p>{amt}</p> */}
+              <p>{`${chargebackItem?.chargeback?.currency} ${chargebackItem?.chargeback?.amount}`}</p>
             </div>
             <div>
               <p>Chargeback date</p>
-              {/* <p>{moment(added).format("MMM D YYYY h:mm A")}</p> */}
+              <p>{moment(chargebackItem?.chargeback?.duedate).format("MMM D YYYY h:mm A")}</p>
             </div>
             <div>
               <p>Chargeback trail</p>
@@ -149,7 +163,11 @@ const ChargeBacksItem = () => {
             </div>
             <div>
               <p>Chargeback Reason</p>
-              <p>fraud</p>
+              <p>{chargebackItem?.chargeback?.chargebackreason}</p>
+            </div>
+            <div>
+              <p>Chargeback paymentid</p>
+              <p>{chargebackItem?.chargeback?.paymentid}</p>
             </div>
           </div>
           <Box className={styles.chargeProgress}>
@@ -163,7 +181,7 @@ const ChargeBacksItem = () => {
                 </div>
 
                 <div className={styles.chargebackReason}>
-                  <h2>Reason: <p>I provided value for this transaction and I have a screenshot of the service delivery to this customer.</p></h2>
+                  <h2>Reason: <p>{chargebackItem?.chargeback?.chargebackreason}</p></h2>
                 </div>
                 <div className={styles.chargebackFile}>
                   <div className="icon">
@@ -176,32 +194,39 @@ const ChargeBacksItem = () => {
                 </div>
               </Box>
             </Box>
-            <Box className={styles.chargeProgress_body} mt={"21px"}>
-              <div className={styles.chargeProgress_body_header}>
-                <div className={styles.Chargeback_text}>
+            {chargebackItem?.chargebackResponses &&
+              <Box className={styles.chargeProgress_body} mt={"21px"}>
 
-                  <h2>Admin Responded to Your Dispute    |</h2>
-                  <p>Aug 13 2020 <span> 2:49 PM </span></p>
-                  <div className={styles.chargeback__btn}>
-                    <button>Accept</button>
-                    <button onClick={handleOpenResponseChargebackModal}>Response</button>
-                  </div>
-                </div>
+                {chargebackItem?.chargebackResponses?.map((res: any, i: number) => (
+                  <div key={i} className={styles.chargeProgress_body_header}>
+                    <div className={styles.Chargeback_text}>
 
-                <div className={styles.chargebackReason}>
-                  <h2>Reason: <p>I provided value for this transaction and I have a screenshot of the service delivery to this customer.</p></h2>
-                </div>
-                <div className={styles.chargebackFile}>
-                  <div className="icon">
-                    <PdfIcon />
+                      <h2>Admin Responded to Your Dispute    |</h2>
+                      <p>{res?.createdat} </p>
+                      <div className={styles.chargeback__btn}>
+                        <button>Accept</button>
+                        <button onClick={handleOpenResponseChargebackModal}>Response</button>
+                      </div>
+                    </div>
+
+                    <div className={styles.chargebackReason}>
+                      <h2>Reason: <p>{res?.response}</p></h2>
+                    </div>
+                    <div className={styles.chargebackFile}>
+                      <div className="icon">
+                        <PdfIcon />
+                      </div>
+                      <div> <span>Service_delivery.pdf</span></div>
+                      <div>
+                        <button> Download <CloudDownloadOutlined /></button>
+                      </div>
+                    </div>
                   </div>
-                  <div> <span>Service_delivery.pdf</span></div>
-                  <div>
-                    <button> Download <CloudDownloadOutlined /></button>
-                  </div>
-                </div>
-              </div>
-            </Box>
+
+                ))}
+              </Box>
+
+            }
           </Box>
         </div>
         <div className={styles.sectionFour}>
@@ -211,15 +236,15 @@ const ChargeBacksItem = () => {
           <div className={styles.sectionFour_body}>
             <div>
               <p>Payment reference</p>
-              {/* <p>{txnRef}</p> */}
+              <p>{chargebackItem?.chargeback?.paymentid}</p>
             </div>
             <div>
               <p>Transaction fee</p>
-              {/* <p>{txnFee}</p> */}
+              <p>{`${chargebackItem?.chargeback?.currency} ${chargebackItem?.chargeback?.amount}`}</p>
             </div>
             <div>
               <p>Country/Region</p>
-              {/* <p>{country}</p> */}
+              {/* <p>{}</p> */}
             </div>
             <div>
               <p>Bank name</p>
@@ -227,7 +252,8 @@ const ChargeBacksItem = () => {
             </div>
             <div>
               <p>ITEX Reference</p>
-              {/* <p>{txnRef}</p> */}
+              <p>{chargebackItem?.chargeback?.linkingreference}</p>
+
             </div>
           </div>
         </div>
@@ -279,7 +305,8 @@ const ChargeBacksItem = () => {
           isOpen={openDisputModal}
           handleClose={handleCloseDisputModal}
           close={() => setOpenDisputeModal(false)}>
-          <DisputeChargeback />
+
+          <DisputeChargeback chargebackid={chargebackid} setOpenResponseChargebackModal={setOpenResponseChargebackModal} />
         </CustomModal >
 
       </Box>
@@ -289,7 +316,14 @@ const ChargeBacksItem = () => {
           isOpen={openAcceptChargebackModal}
           handleClose={handleCloseAcceptChargebackModal}
           close={() => setOpenAcceptChargebackModal(false)}>
-          <AcceptChargeback />
+
+          <p>{chargebackItem?.chargeback?.linkingreference}</p>
+          <AcceptChargeback
+            chargebackid={chargebackid}
+            chargeAmt={chargebackItem?.chargeback?.amount}
+            currency={chargebackItem?.chargeback?.currency}
+            setOpenAcceptChargebackModal={setOpenAcceptChargebackModal}
+          />
         </CustomModal >
 
       </Box>
@@ -300,7 +334,8 @@ const ChargeBacksItem = () => {
           isOpen={openResponseChargebackModal}
           handleClose={handleCloseResponseChargebackModal}
           close={() => setOpenResponseChargebackModal(false)}>
-          <ResponseChargeback />
+
+          <ResponseChargeback chargebackid={chargebackid} setOpenResponseChargebackModal={setOpenResponseChargebackModal} />
         </CustomModal >
 
       </Box>

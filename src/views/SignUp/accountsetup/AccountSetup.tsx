@@ -15,6 +15,8 @@ import axios from 'axios'
 import { closeLoader } from '../../../redux/actions/loader/loaderActions'
 import { openToastAndSetContent } from '../../../redux/actions/toast/toastActions'
 import { useSelector } from 'react-redux'
+import { ReactComponent as WarningIcon } from "../../../assets/images/exclamation.svg"
+import useSetup from '../../../components/hooks/useSetup'
 
 interface Props {
     isBusinessApproved: boolean;
@@ -67,7 +69,8 @@ const AccountSetup = () => {
         checkBusinessStatus()
     }, [])
 
-
+    const { setupStatus } = useSetup()
+    console.log(setupStatus, "statussssss")
 
     const handleBussinessForm = () => {
         dispatch(
@@ -137,41 +140,58 @@ const AccountSetup = () => {
 
     return (
 
-        <div className={Styles.container}>
-            <div className={Styles.middle_container}>
-                <h2>Hey {auth?.user?.firstname}, Let’s setup your account(s)</h2>
-                <p>Your business is currently in <span>Test Mode -</span> this means there’re a couple more things to finish up before customers can start paying you online. The guides below will show you how to do this.</p>
-                <div className={Styles.box}>
 
-                    <div>
-                        <div> <ReactSVG src={ColorcheckIcon} /></div>
-                        <div> <p>Personal Profile</p></div>
-                        <div onClick={handleProfileForm}> <button disabled className={Styles.disable}>Continue</button></div>
+        <>
+            {!setupStatus?.rejectedDocs?.length && <div className={Styles.rejectDoc_box}>
+                <div className={Styles.rejectDoc_left}>
+                    <div><WarningIcon style={{ color: "#A17A00", height: "43px", width: "43px" }} /></div>
+                    <div className={Styles.rejectDoc_text}>
+                        <p>You have rejected documents</p>
+                        <span>We sent you an email, kindly make changes and re-upload documents</span>
+                    </div>
+                </div>
+                <div className={Styles.rejectDoc_right}>
+                    <button onClick={handleBussinessForm}>Re-upload documents</button>
+                </div>
+            </div>}
+            <div className={Styles.container}>
+                <div className={Styles.middle_container}>
 
-                    </div> 
 
-                    <div>
-                        <div> <ReactSVG src={businessSetup ? ColorcheckIcon : CheckIcon} /></div>
-                        <div>   <p>Business Information
-                            and Documentation</p></div>
-                        <div onClick={handleBussinessForm}> <button className={businessSetup && Styles.disable}>Continue</button></div>
+                    <h2>Hey {auth?.user?.firstname}, Let’s setup your account(s)</h2>
+                    <p>Your business is currently in <span>Test Mode -</span> this means there’re a couple more things to finish up before customers can start paying you online. The guides below will show you how to do this.</p>
+                    <div className={Styles.box}>
 
+                        <div>
+                            <div> <ReactSVG src={ColorcheckIcon} /></div>
+                            <div> <p>Personal Profile</p></div>
+                            <div onClick={handleProfileForm}> <button disabled className={Styles.disable}>Continue</button></div>
+
+                        </div>
+
+                        <div>
+                            <div> <ReactSVG src={businessSetup ? ColorcheckIcon : CheckIcon} /></div>
+                            <div>   <p>Business Information
+                                and Documentation</p></div>
+                            <div onClick={handleBussinessForm}> <button className={businessSetup && Styles.disable}>Continue</button></div>
+
+
+
+                        </div>
+                        {/* </Grid> */}
+                        {/* <Grid item xs={12} sm={12} md={4}> */}
+                        <div>
+                            <div> <ReactSVG src={settlementSetup ? ColorcheckIcon : CheckIcon} /></div>
+                            <div>  <p>Add Bank Accounts</p></div>
+                            <div> <button onClick={handleBankAccount} disabled={settlementSetup} className={settlementSetup && Styles.disable}>Continue</button></div>
+
+                        </div>
 
 
                     </div>
-                    {/* </Grid> */}
-                    {/* <Grid item xs={12} sm={12} md={4}> */}
-                    <div>
-                        <div> <ReactSVG src={settlementSetup ? ColorcheckIcon : CheckIcon} /></div>
-                        <div>  <p>Add Bank Accounts</p></div>
-                        <div> <button onClick={handleBankAccount} disabled={settlementSetup} className={settlementSetup && Styles.disable}>Continue</button></div>
-
-                    </div>
-
-
                 </div>
             </div>
-        </div>
+        </>
 
     )
 }

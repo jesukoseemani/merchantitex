@@ -415,7 +415,7 @@ export default function AppRoutes() {
             />
             <ProtectedRoute
               exact
-              path="/chargebacks/:slug"
+              path="/chargebacks/:chargebackid"
               component={ChargeBacksItem}
               AuthUser={loadingState}
             />
