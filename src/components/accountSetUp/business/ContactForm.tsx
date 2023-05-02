@@ -39,6 +39,12 @@ const ContactForm = ({ handleBack, handleNext }: Props) => {
     const [state, setState] = React.useState('');
     const dispatch = useDispatch()
 
+    const splitImgUrl = (string:string) => {
+        const breakstring = string.split('.')
+        const filename = breakstring[0].substring(6, 14)
+        return `${filename}.${breakstring[1]}`
+    }
+
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setState(event.target.value);
     };
@@ -160,7 +166,7 @@ const ContactForm = ({ handleBack, handleNext }: Props) => {
                                 <Grid item xs={12} sm={6} md={6}>
 
                                     <CustomUploadBtn helperText='A valid NIN Slip, National ID Card, Permanent Voters Card, International Passport or Drivers License.' label='Upload an ID Document' onChange={handleUpload} />
-                                  
+                                    {splitImgUrl(imgUrl ?? "")}
 
                                 </Grid>
 

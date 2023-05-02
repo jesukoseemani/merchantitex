@@ -126,7 +126,7 @@ export default function UserMenu() {
 		dispatch(logOut());
 		history.push('/signIn');
 		dispatch(saveLoading(false));
-		dispatch(changeNewNavbar("HOME"))
+		dispatch(changeNewNavbar("Home"))
 		dispatch(removeMe());
 		setAnchorEl(null);
 	};
