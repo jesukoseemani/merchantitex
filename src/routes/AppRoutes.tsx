@@ -96,6 +96,7 @@ import UserActivity from '../redux/reducers/settings/user/UserActivity';
 import PaymentMethod from "../views/Settings/payment/PaymentMethod";
 import TwoFaAuth from "../views/SignIn/TwoFaAuth";
 import TestForm from '../components/TestForm';
+import { changeNewNavbar } from "../redux/actions/navbarNew/navbarNewActions";
 
 
 
@@ -160,6 +161,8 @@ export default function AppRoutes() {
         localStorage.clear();
         dispatch(logOut());
         history.push("/signin");
+        dispatch(changeNewNavbar("Home"))
+
       } else {
         return Promise.reject(error);
       }
