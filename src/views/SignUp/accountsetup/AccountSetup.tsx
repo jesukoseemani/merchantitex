@@ -142,7 +142,7 @@ const AccountSetup = () => {
 
 
         <>
-            {!setupStatus?.rejectedDocs?.length && <div className={Styles.rejectDoc_box}>
+            {setupStatus?.rejectedDocs && setupStatus?.rejectedDocs?.length > 0 && <div className={Styles.rejectDoc_box}>
                 <div className={Styles.rejectDoc_left}>
                     <div><WarningIcon style={{ color: "#A17A00", height: "43px", width: "43px" }} /></div>
                     <div className={Styles.rejectDoc_text}>

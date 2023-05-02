@@ -42,7 +42,9 @@ const DisputeChargeback = ({ chargebackid, setOpenResponseChargebackModal }: any
 
     const [proof1, setProof1] = useState("")
 
-
+    const handleUpload = (e: any) => {
+        setImg(e.target.files[0])
+    }
 
     // useEffect(() => {
     //     console.log(img, "imgtype");
@@ -123,7 +125,7 @@ const DisputeChargeback = ({ chargebackid, setOpenResponseChargebackModal }: any
                         </Grid>
                         <Grid item xs={12} sm={12}>
 
-                            <CustomUploadBtn label='Attach proof' name='proof1' onChange={setImg} showIcon={false} />
+                            <CustomUploadBtn label='Attach proof' name='proof1' onChange={handleUpload} showIcon={false} />
 
 
                             {/* <button style={{

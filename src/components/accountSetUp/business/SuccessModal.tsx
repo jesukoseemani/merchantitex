@@ -13,12 +13,7 @@ import { useHistory } from 'react-router-dom';
 const SuccessModal = () => {
     const history = useHistory()
     const dispatch = useDispatch()
-    useEffect(() => {
-        setInterval(() => {
-            dispatch(closeModal())
-            window.location.href = "/"
-        }, 4000);
-    }, [])
+
 
 
 
