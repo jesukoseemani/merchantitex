@@ -27,7 +27,7 @@ interface Props {
 }
 
 const Header = ({ title }: Props) => {
-  const [alignment, setAlignment] = React.useState("live mode");
+  const [alignment, setAlignment] = React.useState("TEST");
   const [search, setSearch] = useState('');
   const history = useHistory()
   const dispatch = useDispatch()
@@ -39,8 +39,20 @@ const Header = ({ title }: Props) => {
     try {
 
       const data = await axios.get<any>("/v1/profile/env/toogle")
-      if (data.data.env !== null)
+      if (data.data.env !== null) {
+        setAlignment(data.data.env)
         dispatch(FetchProfileDetails())
+        dispatch(
+          openToastAndSetContent({
+            toastContent: data.data.message,
+            toastStyles: {
+              backgroundColor: "green",
+            },
+          })
+        )
+      }
+
+
     } catch (error: any) {
       const { message } = error.response.data;
 
@@ -57,15 +69,20 @@ const Header = ({ title }: Props) => {
   };
   const { pathname } = useLocation();
   const [active, setActive] = React.useState(false);
-  const { userDetails } = useSelector((state) => state?.userDetailReducer);
+  const { user } = useSelector((state) => state?.meReducer?.me);
   const [activeLink, setActiveLink] = useState(null);
   const { navbarRoute } = useSelector((state) => state.navbarReducer);
 
 
 
   useEffect(() => {
-    setAlignment(userDetails?.islivetoogle);
-  }, [alignment]);
+    if (user?.islivetoogle) {
+      setAlignment("LIVE");
+    } else {
+      setAlignment("TEST");
+    }
+
+  }, [user]);
 
   useEffect(() => {
     setSearch('')
@@ -161,8 +178,6 @@ const Header = ({ title }: Props) => {
 
   return (
     <div className={Styles.header__box}>
-
-
       {/* <Container> */}
       <Grid container justifyContent="space-between" alignItems="center" spacing={3}>
         <Grid item xs={7} md={5.5}>
@@ -219,18 +234,16 @@ const Header = ({ title }: Props) => {
                 className={Styles.toggleButton}
               >
                 <ToggleButton
-                  value={false}
+                  value="TEST"
                   aria-label="left aligned"
-                  onClick={() => setActive(false)}
-
+                // onClick={() => setActive(false)}
                 >
                   Test Mode
                 </ToggleButton>
                 <ToggleButton
-                  value={true}
+                  value="LIVE"
                   aria-label="right aligned"
-
-                  onClick={() => setActive(true)}
+                // onClick={() => setActive(true)}
                 >
                   Live Mode
                 </ToggleButton>

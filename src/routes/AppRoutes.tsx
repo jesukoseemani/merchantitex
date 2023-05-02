@@ -161,7 +161,7 @@ export default function AppRoutes() {
         localStorage.clear();
         dispatch(logOut());
         history.push("/signin");
-        dispatch(changeNewNavbar("HOME"))
+        dispatch(changeNewNavbar("Home"))
 
       } else {
         return Promise.reject(error);

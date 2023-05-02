@@ -140,7 +140,7 @@ const ChargeBacksItem = () => {
           <Box className={styles._section_three_header}>
             <div>
               <h2>Chargebacks</h2>
-              <p style={{ borderRadius: "20px" }} className={styles[statusFormatObj[status] || 'pendingText']}>{status}</p>
+              {/* <p style={{ borderRadius: "20px" }} className={styles[statusFormatObj[status] || 'pendingText']}>{status}</p> */}
             </div>
             <Box>
               <button onClick={handleOpenAcceptChargebackModal}>Accept Chargeback</button>
