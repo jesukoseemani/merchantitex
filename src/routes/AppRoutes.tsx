@@ -261,7 +261,7 @@ export default function AppRoutes() {
             />
             <ProtectedRoute
               exact
-              path="/transactions/refund/:slug"
+              path="/transactions/refund/:id"
               component={RefundItem}
               AuthUser={loadingState}
             />
@@ -415,7 +415,7 @@ export default function AppRoutes() {
             />
             <ProtectedRoute
               exact
-              path="/chargebacks/:chargebackid"
+              path="/chargebacks/:id"
               component={ChargeBacksItem}
               AuthUser={loadingState}
             />

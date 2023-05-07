@@ -95,7 +95,7 @@ const DisableInvoice = ({ id }: any) => {
 
             {(props) => (
                 <Form>
-                    <Grid container px={"40px"} spacing={3}>
+                    <Grid container px={"40px"} spacing={3} height="250px">
 
 
 
@@ -120,7 +120,7 @@ const DisableInvoice = ({ id }: any) => {
 
                         <Grid item xs={12} sm={12}>
 
-                            <Box sx={{ display: "flex", justifyContent: "flex-end", alignItems: "flex-end", marginTop: "20px" }}>
+                            <Box sx={{ display: "flex", justifyContent: "flex-end", alignItems: "flex-end", marginTop: "-1rem" }}>
                                 <button
                                     style={{
                                         width: "100%",

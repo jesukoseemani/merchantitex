@@ -21,7 +21,7 @@
 .signinDiv {
 	border: 1px solid transparent;
 	width: 444px;
-	height: 407px;
+	min-height: 230px;
 	max-width: 400px;
 	margin: 0 auto;
 	background-color: #fff;
@@ -58,14 +58,13 @@
 }
 
 .desc {
+	font-family: 'Avenir';
 	font-style: normal;
+	font-weight: 300;
 	font-size: 15px;
-	line-height: 16px;
-	overflow: hidden;
-	width: 75%;
-	color: #8b8b8b;
-	font-weight: 400 !important;
-	// line-break: auto;
+	line-height: 20px;
+	text-align: center;
+	color: #FFFFFF;
 }
 
 .title {
@@ -111,7 +110,8 @@
 	align-items: center;
 	width: 100%;
 	cursor: pointer;
-	margin: 30px 0px;
+	margin-top: 29px;
+	// margin-bottom: 41px;
 }
 
 .subP {
@@ -138,6 +138,10 @@
 	line-height: 20px;
 	font-weight: 900;
 
+
+	#signupText {
+		color: #27AE60;
+	}
 }
 
 

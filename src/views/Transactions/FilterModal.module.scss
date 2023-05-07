@@ -10,29 +10,37 @@
 	left: 50%;
 	transform: translate(-50%, -50%);
 	font-family: 'Avenir', sans-serif;
+	display: none !important;
 
-	&>h2 {
-		padding: 26px;
-		font-family: 'Avenir';
-		font-style: normal;
-		font-weight: 900;
-		font-size: 14px;
-		line-height: 19px;
 
-		color: #4F4F4F;
 
-	}
+	.filterHeader {
+		border-bottom: 1px solid #D5DAE1;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		border: 2px solid red !important;
+		padding: 26px 26px 12px 26.06px;
 
-	hr {
-		background-color: #e5e9ec;
+		h2 {
+			font-family: 'Avenir';
+			font-style: normal;
+			font-weight: 900;
+			font-size: 14px;
+			line-height: 19px;
+
+			color: #4F4F4F;
+		}
 	}
 }
 
+
 .modalContent {
-	margin: 1.85rem 1.5rem;
+	margin: 1.88rem 1.5rem;
 	display: grid;
 	grid-gap: 1.25rem;
 	padding: 5px;
+
 
 	input,
 	select {
@@ -70,11 +78,12 @@
 			flex-wrap: wrap;
 			justify-content: space-between;
 			align-items: center;
+			gap: 14px;
 
 			&>p {
 				border: 1px solid #dddddd;
 				border-radius: 10px;
-				padding: 7px 13px;
+				padding: 7px 12px;
 				color: #828282;
 				height: 32px;
 				font-family: 'Avenir';
@@ -98,6 +107,8 @@
 	}
 
 	&>div:nth-child(2) {
+		margin-top: 3px;
+
 		&>p {
 			color: #333;
 			margin-bottom: 5px;
@@ -111,7 +122,7 @@
 
 		&>div {
 			display: flex;
-			gap: 0.5rem;
+			gap: 15px;
 			align-items: center;
 			// border: 1px solid red;
 			justify-content: center;
@@ -151,6 +162,8 @@
 	&>div:nth-child(3),
 	&>div:nth-child(4),
 	&>div:nth-child(5) {
+		margin-top: 3px;
+
 		&>p {
 			color: #333;
 			margin-bottom: 0.5rem;
@@ -159,7 +172,6 @@
 			font-weight: 400;
 			font-size: 14px;
 			line-height: 19px;
-
 			color: #333333;
 
 			input {
@@ -174,6 +186,7 @@
 				line-height: 20px;
 				letter-spacing: 0.0028px;
 				color: #C4C4C4;
+				border: 1px solid red !important;
 			}
 		}
 	}
@@ -186,4 +199,8 @@
 	// 		border: 1px solid red;
 	// 	}
 	// }
+}
+
+.input {
+	height: 32px !important;
 }

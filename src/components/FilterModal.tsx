@@ -11,17 +11,19 @@ const useModalBtnStyles = makeStyles({
 	root: {
 		display: 'flex',
 		justifyContent: 'flex-end',
-		padding: '1rem 1.5rem 1.5rem',
+		padding: '33px 30px',
 		gap: '1.25rem',
 		'& .MuiButton-root': {
 			fontFamily: `'Avenir', sans-serif`,
-			fontWeight: '500',
-			fontSize: '.875rem',
+			lineHiieght: "19px",
+			fontSize: '14px',
 			color: 'black',
 			background: '#E0E0E0',
 			borderRadius: '20px',
 			textTransform: 'none',
-			padding: '.35rem .85rem',
+			padding: '.35rem 1.2rem',
+			fontStyle: "normal",
+			fontWeight: "400",
 		},
 		'& .MuiButton-root:nth-child(2)': {
 			color: 'white',
@@ -41,7 +43,10 @@ const useModalBtnStyles = makeStyles({
 	},
 	select: {
 		minHeight: "32px !important",
-		paddingLeft: "10px"
+		paddingLeft: "10px",
+
+		'& .MuiSelect': { border: "3px solid green" }
+
 	}
 });
 
@@ -148,7 +153,7 @@ const FilterModal = ({
 				timeout: 500,
 			}}>
 			<div className={styles.filterModalContainer}>
-				<Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 22px" }}>
+				<Box className={styles.filterHeader}>
 					<h2>Filters</h2>
 					<IconButton onClick={handleClose}>
 						<CloseOutlined />
@@ -229,6 +234,7 @@ const FilterModal = ({
 								placeholder='e.g ITXH0898383UY38383'
 								onChange={(e) => handleChange(e.target.value, 'reference')}
 								value={form.reference}
+								className={styles.input}
 							/>
 						</div>
 					)}
@@ -243,6 +249,9 @@ const FilterModal = ({
 								name='status'
 								id='status'
 								onChange={(e) => handleChange(e.target.value, 'status')}
+								// className={styles.input}
+								sx={{}}
+
 							>
 								<MenuItem value='' disabled selected hidden>
 									Choose status
@@ -295,7 +304,7 @@ const FilterModal = ({
 						</Select>
 					</div>
 				</div>
-				<hr />
+				<hr style={{ border: "1px solid #f2f2f2" }} />
 				<div className={classes.root}>
 					<Button onClick={clear}>Clear filter</Button>
 					<Button onClick={apply}>Apply filter</Button>

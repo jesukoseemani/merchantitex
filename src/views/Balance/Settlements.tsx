@@ -36,6 +36,7 @@ import useDownload from "../../hooks/useDownload";
 import { BASE_URL } from "../../config";
 import FilterModal from "../../components/filterModals/SettlementsFilterModal";
 import { SETTLEMENT_FILTER_DATA } from "../../constant";
+import CustomStatus from "../../components/customs/CustomStatus";
 
 const useBtnStyles = makeStyles({
   root: {
@@ -221,9 +222,7 @@ const Settlements = () => {
         </p>
       ),
       status: (
-        <p className={styles[statusFormatObj[getSettlementStatus(status)] || "pendingText"]}>
-          {getSettlementStatus(status)}
-        </p>
+        <CustomStatus type={getSettlementStatus(status) && getSettlementStatus(status)} text={getSettlementStatus(status)} />
       ),
       destination: <p className={styles.tableBodyText}>{destination}</p>,
       added: (
@@ -239,6 +238,9 @@ const Settlements = () => {
     }),
     []
   );
+
+  console.log({ settlements });
+
 
   useEffect(() => {
     const newRowOptions: any[] = [];

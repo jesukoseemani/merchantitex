@@ -15,6 +15,7 @@ import { closeLoader, openLoader } from '../../../redux/actions/loader/loaderAct
 import { openToastAndSetContent } from '../../../redux/actions/toast/toastActions';
 import { useEffect, useState } from 'react';
 import DisableInvoice from './DisableInvoice';
+import CustomStatus from '../../customs/CustomStatus';
 
 
 const InvoiceDetails = () => {
@@ -104,8 +105,10 @@ const InvoiceDetails = () => {
             openModalAndSetContent({
                 modalStyles: {
                     padding: 0,
-                    borderRadius: 20
+                    borderRadius: 20,
+                    height: "250px !important"
                 },
+
 
                 modalTitle: "Disable Invoice",
                 modalContent: (
@@ -137,7 +140,8 @@ const InvoiceDetails = () => {
                 <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"} flexWrap="wrap" className={Styles.Stack__container}>
                     <Box className={Styles.title}>
                         <h2>{invoiceDetails?.invoice?.currency} {invoiceDetails?.invoice?.totalAmount}</h2>
-                        <span className={invoiceDetails?.invoice?.status === "Successful" ? Styles.sucessful : Styles.pending}>{invoiceDetails?.invoice?.status}</span>
+                        {/* <span className={invoiceDetails?.invoice?.status === "Successful" ? Styles.sucessful : Styles.pending}>{invoiceDetails?.invoice?.status}</span> */}
+                        <CustomStatus text={invoiceDetails?.invoice?.status} type={invoiceDetails?.invoice?.status} />
                     </Box>
                     <Box className={Styles.btn_group}>
                         <button onClick={handleDisableInvoice}>Disable</button>

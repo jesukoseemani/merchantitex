@@ -1,5 +1,5 @@
 import { Backdrop, Box, Button, IconButton, MenuItem, Modal, Select } from '@mui/material';
-import styles from './FilterModal.module.scss';
+import styles from '../../components/FilterModal.module.scss';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import { makeStyles } from '@material-ui/styles';
@@ -11,17 +11,19 @@ const useModalBtnStyles = makeStyles({
     root: {
         display: 'flex',
         justifyContent: 'flex-end',
-        padding: '1rem 1.5rem 1.5rem',
+        padding: '33px 30px',
         gap: '1.25rem',
         '& .MuiButton-root': {
             fontFamily: `'Avenir', sans-serif`,
-            fontWeight: '500',
-            fontSize: '.875rem',
+            lineHiieght: "19px",
+            fontSize: '14px',
             color: 'black',
             background: '#E0E0E0',
             borderRadius: '20px',
             textTransform: 'none',
-            padding: '.35rem .85rem',
+            padding: '.35rem 1.2rem',
+            fontStyle: "normal",
+            fontWeight: "400",
         },
         '& .MuiButton-root:nth-child(2)': {
             color: 'white',
@@ -140,7 +142,7 @@ const FilterModal = ({
                 timeout: 500,
             }}>
             <div className={styles.filterModalContainer}>
-                <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 22px" }}>
+                <Box className={styles.filterHeader}>
                     <h2>Filters</h2>
                     <IconButton onClick={handleClose}>
                         <CloseOutlined />
@@ -229,7 +231,7 @@ const FilterModal = ({
                         </Select>
                     </div>
                 </div>
-                <hr />
+                <hr style={{ border: "1px solid #f2f2f2" }} />
                 <div className={classes.root}>
                     <Button onClick={clear}>Clear filter</Button>
                     <Button onClick={apply}>Apply filter</Button>

@@ -80,10 +80,9 @@ button {
 }
 
 .successWrapper {
-    width: 540px;
+    width: 540px !important;
     height: 493px;
-    background: #F8F8F8;
-    border: 1.30275px solid #F0F0F0;
+    // background: #F8F8F8;
     border-radius: 20px;
     display: flex;
     justify-content: center;
@@ -206,4 +205,39 @@ button {
     line-height: 22px;
     border: 1px solid #27AE60;
     margin-right: 10px;
+}
+
+
+.invoiceDetails {
+    border: 1px solid #f2f2f2;
+    padding-inline: 50px;
+
+
+    &>div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #f2f2f2;
+        padding: 15px 0;
+
+        h2 {
+            font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 19px;
+            color: #333333;
+        }
+
+        p {
+            font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 19px;
+
+            color: #333333;
+        }
+    }
+
 }

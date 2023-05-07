@@ -22,6 +22,7 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 import DisableInvoice from '../../components/bills/invoice/DisableInvoice';
 import { openModalAndSetContent } from '../../redux/actions/modal/modalActions';
+import CustomStatus from '../../components/customs/CustomStatus';
 
 
 
@@ -260,7 +261,8 @@ const PaymentLinksItem = () => {
 					<div className={styles.sectionTwo}>
 						<div>
 							<p className={styles.nameText}>{linkItem?.linkName}</p>
-							<p style={{ borderRadius: "20px" }}>Active</p>
+
+							<CustomStatus text={linkItem?.status} type={linkItem?.status} />
 						</div>
 						<div className={btnClasses.root}>
 							<Button style={{ borderRadius: "20px", height: "34px" }}>Edit</Button>
@@ -328,7 +330,7 @@ const PaymentLinksItem = () => {
 			<div className={styles.sectionFour}>
 				<div>
 					<Stack direction={"row"} spacing={1} justifyContent="space-between" flexWrap={"wrap"} alignItems={"center"}>
-						<h3>30 Transactions</h3>
+						<h3>0 Transactions</h3>
 						<Box className={styles.buttonGroup}>
 							<button> <FilterAltOutlinedIcon />filter by</button>
 							<button> <InsertDriveFileOutlinedIcon />Download</button>

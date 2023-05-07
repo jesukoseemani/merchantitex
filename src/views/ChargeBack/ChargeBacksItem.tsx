@@ -20,12 +20,18 @@ import ResponseChargeback from './RespondChargeback';
 import axios from 'axios';
 import { closeLoader } from '../../redux/actions/loader/loaderActions';
 import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
+
+
+
 const ChargeBacksItem = () => {
   const location = useLocation<{ rowData: string }>();
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const { chargebackid } = useParams<{ chargebackid: string }>();
+  const { id } = useParams<{ id: string }>();
+
+
+
   const [openDisputModal, setOpenDisputeModal] = useState(false)
   const handleOpenDisputModal = () => setOpenDisputeModal(true);
   const handleCloseDisputModal = () => setOpenDisputeModal(false);
@@ -42,26 +48,28 @@ const ChargeBacksItem = () => {
 
 
 
-  if (!location.state.rowData) {
-    history.replace('/chargebacks');
-  }
 
 
   const statusFormatObj: { [key: string]: string } = {
     "approved": 'approved',
-    "declined": 'declined',
+    "declined": 'lost',
     "pending": 'pending',
   }
 
 
 
   const [chargebackItem, setChargebackItem] = useState<any>()
+
   const getChargebackDetails = async () => {
     try {
 
-      const { data } = await axios.get<any>(`/v1/chargeback/${chargebackid}`)
-      setChargebackItem(data)
-      console.log(data, "get")
+      const { data } = await axios.get<any>(`/v1/chargeback/${id}`)
+
+      if (data?.code === "success") {
+
+        setChargebackItem(data)
+        console.log(data, "get")
+      }
 
 
       dispatch(closeLoader());
@@ -86,7 +94,8 @@ const ChargeBacksItem = () => {
 
   useEffect(() => {
     getChargebackDetails()
-  }, [chargebackid])
+    // return () => setChargebackItem("")
+  }, [id])
 
 
 
@@ -306,7 +315,7 @@ const ChargeBacksItem = () => {
           handleClose={handleCloseDisputModal}
           close={() => setOpenDisputeModal(false)}>
 
-          <DisputeChargeback chargebackid={chargebackid} setOpenResponseChargebackModal={setOpenResponseChargebackModal} />
+          <DisputeChargeback chargebackid={id} setOpenResponseChargebackModal={setOpenResponseChargebackModal} />
         </CustomModal >
 
       </Box>
@@ -319,7 +328,7 @@ const ChargeBacksItem = () => {
 
           <p>{chargebackItem?.chargeback?.linkingreference}</p>
           <AcceptChargeback
-            chargebackid={chargebackid}
+            chargebackid={id}
             chargeAmt={chargebackItem?.chargeback?.amount}
             currency={chargebackItem?.chargeback?.currency}
             setOpenAcceptChargebackModal={setOpenAcceptChargebackModal}
@@ -335,7 +344,7 @@ const ChargeBacksItem = () => {
           handleClose={handleCloseResponseChargebackModal}
           close={() => setOpenResponseChargebackModal(false)}>
 
-          <ResponseChargeback chargebackid={chargebackid} setOpenResponseChargebackModal={setOpenResponseChargebackModal} />
+          <ResponseChargeback chargebackid={id} setOpenResponseChargebackModal={setOpenResponseChargebackModal} />
         </CustomModal >
 
       </Box>

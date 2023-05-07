@@ -12,6 +12,7 @@ import styles from "./style.module.scss"
 import { Box, Button, Stack } from '@mui/material'
 import { openModalAndSetContent } from '../../../redux/actions/modal/modalActions'
 import CreateInvoice from './CreateInvoice'
+import CustomStatus from '../../customs/CustomStatus';
 
 
 
@@ -117,12 +118,14 @@ const InvoiceRequesttable = () => {
                 </p>
             ),
             status: (
-                <span
-                    className={status === "Successful" ? styles.status : styles.pending}
-                >
-                    {" "}
-                    {status}
-                </span>
+                // <span
+                //     className={status === "Successful" ? styles.status : styles.pending}
+                // >
+                //     {" "}
+                //     {status}
+                // </span>
+
+                <CustomStatus type={status} text={status} />
             ),
             name: <p className={styles.tableBodyText}>{`${firstname} ${lastname}`}</p>,
             email: <p className={styles.tableBodyText}>{email}</p>,
@@ -206,7 +209,9 @@ const InvoiceRequesttable = () => {
                 modalStyles: {
                     padding: 0,
                     borderRadius: "0.5rem",
-                    boxShadow: "-4px 4px 14px rgba(224, 224, 224, 0.69)",
+                    boxShadow: "0px 3px 20px rgba(0, 0, 0, 0.16)",
+                    width: "753px",
+                    maxWidth: "100%"
                 },
                 modalTitle: "Create an Invoice",
                 modalContent: (

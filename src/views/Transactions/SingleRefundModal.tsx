@@ -24,9 +24,19 @@ const SingleRefundModal = ({ isOpen, handleClose, setRefundLogged }: SingleRefun
       maxWidth: '400px',
       width: '100%',
       backgroundColor: 'white',
-      boxShadow: '-4px 4px 14px rgba(224, 224, 224, 0.69)',
+      boxShadow: '0px 3px 20px rgba(0, 0, 0, 0.16)',
       borderRadius: '20px',
       paddingBottom: "20px",
+
+      '& h2': {
+        fontFamily: 'Avenir',
+        fontStyle: "normal",
+        fontWeight: '900',
+        lineHeight: "25px",
+        color: "#000",
+        fontSize: '18px',
+
+      },
       '& > div:nth-child(1)': {
         display: 'flex',
         justifyContent: 'space-between',
@@ -43,7 +53,9 @@ const SingleRefundModal = ({ isOpen, handleClose, setRefundLogged }: SingleRefun
         },
       },
       '& hr': {
-        background: '#E0E0E0'
+        // background: '',
+        border: "#E0E0E0 1px solid",
+        height: "0.01px"
       },
       '& > div:nth-child(3)': {
         display: 'grid',
@@ -71,17 +83,18 @@ const SingleRefundModal = ({ isOpen, handleClose, setRefundLogged }: SingleRefun
       },
       '& input, & textarea': {
         background: 'white',
-        // border: '1px solid #ddd',
-        borderRadius: '4px',
+        // border: '1px solid #ff0',
+        borderRadius: '10px !important',
         fontFamily: 'Avenir',
 
         marginTop: '.2rem',
         // padding: '.75rem',
-        height: "11px",
+        // height: "11px",
         fontSize: '.875rem',
         resize: 'none',
         '&::placeholder': {
-          color: '#B9B9B9'
+          color: '#B9B9B9',
+          fontSize: "14px"
         }
       }
     },
@@ -120,54 +133,6 @@ const SingleRefundModal = ({ isOpen, handleClose, setRefundLogged }: SingleRefun
   const [desc, setDesc] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
 
-  // const postRefund = async () => {
-  //   dispatch(openLoader());
-  //   setLoading(true);
-  //   try {
-  //     const res = await axios({
-  //       method: 'POST',
-  //       url: '/transaction/refund',
-  //       data: {
-  //         transaction: {
-  //           merchantreference: ref
-  //           // merchantreference: "tx-YvD4Yr2mebQdn2pvsClRJGFiJ"
-  //         },
-  //         order: {
-  //           amount: `${amt}`,
-  //           description: desc,
-  //           currency: "NGN"
-  //         }
-  //       }
-  //     })
-  //     dispatch(
-  //       openToastAndSetContent({
-  //         toastContent: "Refund logged",
-  //         toastStyles: {
-  //           backgroundColor: "green",
-  //         },
-  //       })
-  //     );
-  //     handleClose();
-  //     dispatch(closeLoader());
-  //     setRefundLogged(prev => !prev)
-  //     setLoading(false);
-  //     setAmt(undefined);
-  //     setRef('');
-  //     setDesc('');
-  //   } catch (err) {
-  //     console.log(err);
-  //     dispatch(closeLoader());
-  //     setLoading(false);
-  //     dispatch(
-  //       openToastAndSetContent({
-  //         toastContent: "Failed to log refund",
-  //         toastStyles: {
-  //           backgroundColor: "red"
-  //         },
-  //       })
-  //     );
-  //   }
-  // }
 
   const postRefund = async () => {
     setLoading(true);
@@ -206,7 +171,7 @@ const SingleRefundModal = ({ isOpen, handleClose, setRefundLogged }: SingleRefun
       <Fade in={isOpen}>
         <Box className={classes.root}>
           <div>
-            <p>Log a refund</p>
+            <h2>Log a refund</h2>
             <IconButton aria-label='close single refund modal' onClick={handleClose}>
               <CloseIcon />
             </IconButton>
@@ -249,13 +214,31 @@ const SingleRefundModal = ({ isOpen, handleClose, setRefundLogged }: SingleRefun
               <OutlinedInput placeholder='reason' multiline rows={10} value={desc} onChange={(e) => setDesc(e.target.value)} />
             </div>
           </div>
-          <div>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "13px", marginBottom: "20px" }}>
+
             <Button
-              fullWidth className={classes.formBtn}
+              className={classes.formBtn}
+              isOutlined={true}
+              onClick={handleClose}
+              loading={loading}
+              text="Cancel"
+              sx={{
+                background: "transparent !important",
+                border: "1px solid #27AE60",
+                color: "#095B2C !important",
+
+
+              }}
+              fullWidth
+            />
+            <Button
+              className={classes.formBtn}
               disabled={!amt || !desc || !id || !type || loading}
               onClick={postRefund}
               loading={loading}
               text="Continue"
+              fullWidth
+
             />
           </div>
         </Box>

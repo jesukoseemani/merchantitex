@@ -1,0 +1,32 @@
+.toastSuccess {
+    border: 2px solid #27AE60;
+    padding: 18px 20px;
+    // min-width: 350px;
+    border-radius: 50px 50px 0px 50px;
+    display: flex;
+    align-items: center;
+    width: max-content;
+    gap: 20px;
+    z-index: 99999 !important;
+
+    p {
+        font-family: 'Avenir';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 25px;
+        /* identical to box height */
+
+
+        color: #27AE60;
+    }
+}
+
+.toastError {
+    @extend .toastSuccess;
+    border: 2px solid #EB5757;
+
+    p {
+        color: #EB5757;
+    }
+}

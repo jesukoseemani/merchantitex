@@ -17,6 +17,7 @@ import { useDispatch } from "react-redux";
 import { Payout, PayoutRes } from "../../types/Payout";
 import { getTransactionStatus } from "../../utils/status";
 import { statusFormatObj } from "../../helpers";
+import CustomStatus from "../customs/CustomStatus";
 
 export default function TransfersTable({ payout, changePage }: { payout: PayoutRes; changePage?: (p: number) => void }) {
   interface TransactionsProps {
@@ -28,24 +29,24 @@ export default function TransfersTable({ payout, changePage }: { payout: PayoutR
       time: string;
     };
   }
-  const status = [
-    "Successful",
-    "Pending",
-    "Error",
-    "Successful",
-    "Successful",
-    "Error",
-  ];
-  const source = new Array(5).fill({
-    amount: 20000,
-    status: status[Math.floor(Math.random() * status.length)],
-    receipient: "Philip Kachikwu | FCMB | 1234567890",
-    date: {
-      format: "Aug 13 2020",
-      time: "2:21 PM",
-    },
-  });
-  const [transactions, setTransactions] = useState<TransactionsProps[]>(source);
+  // const status = [
+  //   "Successful",
+  //   "Pending",
+  //   "Error",
+  //   "Successful",
+  //   "Successful",
+  //   "Error",
+  // ];
+  // const source = new Array(5).fill({
+  //   amount: 20000,
+  //   status: status[Math.floor(Math.random() * status.length)],
+  //   receipient: "Philip Kachikwu | FCMB | 1234567890",
+  //   date: {
+  //     format: "Aug 13 2020",
+  //     time: "2:21 PM",
+  //   },
+  // });
+  // const [transactions, setTransactions] = useState<TransactionsProps[]>();
   const [rows, setRows] = useState<TransactionsProps[]>([]);
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [rowsPerPage, setRowsPerPage] = useState<number>(10);
@@ -91,11 +92,15 @@ export default function TransfersTable({ payout, changePage }: { payout: PayoutR
         </div>
       ),
       status: (
-        <Label
-          className={Styles[statusFormatObj[status] || "pendingText"]}
-        >
-          <p style={{ borderRadius: "20px" }}> {status}</p>
-        </Label>
+        // <Label
+        //   className={Styles[statusFormatObj[status] || "pendingText"]}
+        // >
+        //   <p style={{ borderRadius: "20px" }}> {status}</p>
+        // </Label>
+
+        <CustomStatus type={status} text={status} />
+
+
       ),
       receipient,
       date: (

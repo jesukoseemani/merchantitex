@@ -25,17 +25,20 @@ import { subDays } from 'date-fns';
 import { CSVLink } from 'react-csv';
 import FilterModal from '../../components/FilterModal';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
-import InsertDriveFileOutlined from '@mui/icons-material/InsertDriveFileOutlined';
+import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 import { Box, Stack } from '@mui/material';
 import { TransactionItem, Meta } from '../../types/Transaction';
 import CustomClickTable from '../../components/table/CustomClickTable';
 import { getTransactionsService } from '../../services/transaction';
-import { getTransactionStatus } from '../../utils/status';
+import { getSettlementStatus, getTransactionStatus } from '../../utils/status';
 import { stripEmpty, stripSearch } from '../../utils';
 import useDownload from '../../hooks/useDownload';
 import { BASE_URL } from '../../config';
 import { TRANSACTION_FILTER_DATA } from '../../constant';
 import { statusFormatObj } from '../../helpers';
+import { ReactComponent as FileIcon } from "../../assets/images/file.svg"
+import { ReactComponent as FilterIcon } from "../../assets/images/filter.svg"
+import CustomStatus from '../../components/customs/CustomStatus';
 
 export default function TransactionsList() {
 
@@ -144,6 +147,7 @@ export default function TransactionsList() {
 			setMeta(data?._metadata || {})
 			dispatch(closeLoader());
 
+
 		} catch (err: any) {
 			dispatch(
 				openToastAndSetContent({
@@ -187,7 +191,7 @@ export default function TransactionsList() {
 	];
 
 	const LoanRowTab = useCallback(
-		(amt, status, PaymentType, email, added, id) => ({
+		(amt, responsecode, PaymentType, email, added, id) => ({
 			amount: (
 				<div
 					// onClick={() => loadTransaction(transaction?.merchantreference)}
@@ -199,7 +203,7 @@ export default function TransactionsList() {
 				</div>
 			),
 			status: (
-				<p className={Styles[statusFormatObj[status] || "pendingText"]} >{status}</p>
+				<CustomStatus text={getTransactionStatus(responsecode)} type={getTransactionStatus(responsecode)} />
 			),
 			email: (
 				<p>{email}</p>
@@ -229,6 +233,8 @@ export default function TransactionsList() {
 		getTransactions(form)
 	}
 
+	// console.log(transactions);
+
 	return (
 		<div className={Styles.container}>
 			{/* <NavBar />  */}
@@ -248,12 +254,12 @@ export default function TransactionsList() {
 							<h2>{meta?.totalcount || 0} transaction(s)</h2>
 						</Box>
 						<Box className={Styles.right__btn}>
-							<Button onClick={() => setIsFilterModalOpen(true)}>
-								<FilterAltOutlinedIcon />	Filter by:
-							</Button>
-							<Button onClick={calDownload}>
-								Download
-							</Button>
+							<button onClick={() => setIsFilterModalOpen(true)}>
+								<FilterIcon />	Filter by:
+							</button>
+							<button onClick={calDownload}>
+								<FileIcon />	Download
+							</button>
 						</Box>
 
 					</Stack>
@@ -314,6 +320,7 @@ export default function TransactionsList() {
 					/>
 				)}
 			</div>
+
 		</div>
 
 	);

@@ -18,6 +18,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import axios from "axios";
 import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
 import { FetchProfileDetails } from "../../helpers/FetchProfileDetails";
+import { CustomToast } from "../customs/CustomToast";
 
 
 
@@ -55,15 +56,18 @@ const Header = ({ title }: Props) => {
 
     } catch (error: any) {
       const { message } = error.response.data;
+      <CustomToast text={message} type="error" />
 
-      dispatch(
-        openToastAndSetContent({
-          toastContent: message,
-          toastStyles: {
-            backgroundColor: "red",
-          },
-        })
-      )
+
+      //  dispatch(
+      //   openToastAndSetContent({
+      //     toastContent: message,
+      //     toastStyles: {
+      //       backgroundColor: "red",
+      //     },
+      //  })
+      // )
+
 
     }
   };
@@ -110,7 +114,7 @@ const Header = ({ title }: Props) => {
       textTransform: "inherit",
       backgroundColor: !alignment ? "rgba(206, 165, 40, 0.1)" : "rgba(4, 25, 38, 0.1)",
       // border: !alignment ? "0.7px solid #CEA528" : "0.7px solid #041926",
-      // border: alignment === "test server" ? "0.7px solid #CEA528" : "0.7px solid #041926",
+      border: alignment === "TEST" ? "0.7px solid #CEA528" : "0.7px solid #041926",
 
 
       "&.Mui-disabled": {
@@ -142,16 +146,16 @@ const Header = ({ title }: Props) => {
         border: "none",
 
         "&.Mui-selected": {
-          color: "#fff",
+          color: "#000",
           backgroundColor: "#CEA528 !important",
           borderRadius: "20px",
           width: 190,
           height: 30,
-          fontSize: 10,
+          fontSize: "10px",
           gap: 10,
           fontFamily: 'Avenir',
           fontStyle: "normal",
-          fontWeight: 500,
+          fontWeight: "900 !important",
           lineHight: "14px",
 
         },

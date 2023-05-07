@@ -54,47 +54,41 @@ const AddNewCustomer: FC<{ callback: () => void; fn: () => void }> = ({ callback
   }
 
   return (
-    <div className={Styles.payment__input__container}>
-      <div className={Styles.form__title}>
-        <h3>Add a new customer</h3>
-      </div>
+    <div className={Styles.add_customer}>
+      <form>
+        <div className="name">
+          <label htmlFor="name">First Name</label>
+          <input
+            type="text"
+            placeholder="first name"
+            id="firstname"
+            name="firstname"
+            onChange={e => handleChange(e)}
+          />
+        </div>
+        <div className="name">
+          <label htmlFor="name">Last Name</label>
+          <input
+            type="text"
+            placeholder="last name"
+            id="lastname"
+            name="lastname"
+            onChange={e => handleChange(e)}
+          />
+        </div>
+        <div className="email">
+          <label htmlFor="email" >Email Address</label>
+          <input type="email" placeholder="Email" id="email" name="email" onChange={e => handleChange(e)} />
+        </div>
+        <div className="MSISDN">
+          <label htmlFor="msisdn">Phone Number</label>
+          <input placeholder="Phone Number" name="msisdn" onChange={e => handleChange(e)} />
+        </div>
 
-      <div className={Styles.airtime_form__body}>
-        <form>
-          <div className="name">
-            <label htmlFor="name">First Name</label>
-            <input
-              type="text"
-              placeholder="first name"
-              id="firstname"
-              name="firstname"
-              onChange={e => handleChange(e)}
-            />
-          </div>
-          <div className="name">
-            <label htmlFor="name">Last Name</label>
-            <input
-              type="text"
-              placeholder="last name"
-              id="lastname"
-              name="lastname"
-              onChange={e => handleChange(e)}
-            />
-          </div>
-          <div className="email">
-            <label htmlFor="email" >Email Address</label>
-            <input type="email" placeholder="Email" id="email" name="email" onChange={e => handleChange(e)} />
-          </div>
-          <div className="MSISDN">
-            <label htmlFor="msisdn">MSISDN</label>
-            <input placeholder="" name="msisdn" onChange={e => handleChange(e)} />
-          </div>
-
-          <div className="submit">
-            <Button type="submit" disabled={loading || !isValid} onClick={add} text="Add Customer" loading={loading} />
-          </div>
-        </form>
-      </div>
+        <div className="submit">
+          <Button type="submit" disabled={loading || !isValid} onClick={add} text="Add Customer" loading={loading} />
+        </div>
+      </form>
     </div>
   );
 };

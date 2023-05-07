@@ -33,6 +33,7 @@ import { capitalize } from 'lodash';
 import FormatToCurrency from '../../helpers/NumberToCurrency';
 import FilterModal from '../../components/filterModals/RefundFilterModal';
 import { REFUND_FILTER_DATA } from '../../constant';
+import CustomStatus from '../../components/customs/CustomStatus';
 
 
 
@@ -113,10 +114,12 @@ const Refund = () => {
 			fontFamily: `'Avenir', sans-serif`,
 			display: 'flex',
 			gap: '1rem',
+			marginBottom: "5px",
 			flexWrap: "wrap",
 			[theme.breakpoints.down('sm')]: {
 				// flexDirection: 'column',
-				marginTop: "20px"
+				marginTop: "20px",
+
 			},
 			'& .MuiButtonBase-root': {
 				borderRadius: '20px',
@@ -213,15 +216,11 @@ const Refund = () => {
 		{ id: 'added', label: 'Date', minWidth: 170 },
 	];
 
-	const statusFormatObj: { [key: string]: string } = {
-		successful: "wonText",
-		failed: "lostText",
-		pending: "pendingText",
-	};
+
 
 
 	const RefundRowTab = useCallback(
-		(amt, status, reference, type, added, id) => ({
+		(amt, status, reference, type, added, id, paymentid) => ({
 			amount: <div className={styles.amount}>					<h2>
 				<span
 					style={{ color: "#828282", paddingRight: "1px" }}
@@ -229,7 +228,7 @@ const Refund = () => {
 			// code: formatStatus(code),
 			type: <p className={styles.tableBodyText}>{type}</p>,
 			status: (
-				<p className={styles[statusFormatObj[status] || "pendingText"]} >{status}</p>
+				<CustomStatus type={status} text={status} />
 			),
 			linkingreference: (
 				<p className={styles.tableBodyText}>{reference}</p>
@@ -239,7 +238,7 @@ const Refund = () => {
 					{moment(added).format('MMM D YYYY h:mm A')}
 				</p>
 			),
-			id: <p>{id}</p>
+			id: <p>{paymentid}</p>
 		}),
 		[]
 	);
@@ -261,6 +260,7 @@ const Refund = () => {
 					capitalize(each?.refundtype) || '',
 					each?.added,
 					each?.id,
+					each?.paymentid
 				)
 			)
 		);
@@ -270,6 +270,9 @@ const Refund = () => {
 	const action = (form: typeof REFUND_FILTER_DATA) => {
 		getRefunds(form)
 	}
+
+
+
 
 	return (
 
@@ -334,9 +337,9 @@ const Refund = () => {
 						totalRows={totalRows}
 						changePage={changePage}
 						limit={limit}
-						// clickable
-						// link='/transactions/refund'
-						// identifier='linkingreference'
+						clickable
+						link='/transactions/refund'
+						identifier='id'
 						rowsData={refunds}
 					/>
 				</div>

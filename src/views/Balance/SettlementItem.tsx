@@ -30,6 +30,7 @@ import { capitalize } from "lodash";
 import { getBankName } from "../../utils";
 import { Transaction } from "../../types/Transaction";
 import { statusFormatObj } from "../../helpers";
+import CustomStatus from "../../components/customs/CustomStatus";
 
 const useTableStyles = makeStyles({
   root: {
@@ -131,15 +132,17 @@ const SettlementItem = () => {
         </p>
       ),
       status: (
-        <p
-          className={
-            styles[
-            statusFormatObj[getTransactionStatus(status)!] || "pendingText"
-            ]
-          }
-        >
-          {getTransactionStatus(status)}
-        </p>
+        // <p
+        //   className={
+        //     styles[
+        //     statusFormatObj[getTransactionStatus(status)!] || "pendingText"
+        //     ]
+        //   }
+        // >
+        //   {getTransactionStatus(status)}
+        // </p>
+
+        <CustomStatus type={status} text={status} />
       ),
       txnType: <p className={styles.tableBodyCapital}>{txnType}</p>,
       added: (
@@ -154,6 +157,7 @@ const SettlementItem = () => {
     }),
     []
   );
+
 
   useEffect(() => {
     const newRowOptions: any[] = [];
