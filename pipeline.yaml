@@ -1,0 +1,45 @@
+trigger:
+  - dev
+
+pool:
+  vmImage: "ubuntu-latest"
+
+variables:
+  serverIpAdd: "18.195.193.255"
+  serverPassword: "$(SERVER_PASSWORD_SSH)"
+  serverUsername: "kenneth.osekhuemen"
+  sudoPassword: "$(SERVER_PASSWORD_SSH)"
+
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: "14.x"
+    displayName: "Install Node.js"
+
+  - script: |
+      npm install
+      npm build
+    displayName: "Install Node dependencies"
+
+  - script: |
+      npm run test
+    displayName: "Run Tests"
+
+  - task: CopyFilesOverSSH@0
+    inputs:
+      sshEndpoint: "ITEXPAY Staging FE"
+      sourceFolder: "$(System.DefaultWorkingDirectory)/build"
+      targetFolder: "/var/www/merchant/build/"
+      contents: "**"
+      sshPassphrase: "$(serverPassword)"
+      username: "$(serverUsername)"
+      password: "$(serverPassword)"
+      cleanTargetFolder: false
+      failOnEmptySource: true
+    displayName: "Upload to Server"
+
+  - script: |
+      echo "$(sudoPassword)" | sshpass -p "$(serverPassword)" ssh -o StrictHostKeyChecking=no $(serverUsername)@$(serverIpAdd) -p 22 'pm2 restart 2'
+    displayName: "Start ITEXPAY Merchant App with pm2"
+    env:
+      PM2_HOME: "/var/lib/pm2"
