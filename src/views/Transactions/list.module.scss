@@ -443,8 +443,18 @@ button.primary:hover {
 					padding: 0 !important;
 				}
 
-
 			}
+
+
+			& button:nth-of-type(2) {
+				background-color: transparent;
+				color: #095B2C;
+				border: 1px solid #27AE60;
+				border-radius: 20px
+			}
+
+
+
 
 			.button_business_button {
 				display: flex;

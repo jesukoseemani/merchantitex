@@ -3,6 +3,9 @@ import styles from './FilterModal.module.scss';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import { makeStyles } from '@material-ui/styles';
+import { useState } from 'react';
+import moment from 'moment';
+import { TRANSACTION_FILTER_DATA } from '../constant';
 
 const useModalBtnStyles = makeStyles({
 	root: {
@@ -45,6 +48,7 @@ const useModalBtnStyles = makeStyles({
 interface FilterModalProps {
 	isOpen: boolean;
 	handleClose: () => void;
+	action?: (form: typeof TRANSACTION_FILTER_DATA) => void;
 	setEvent?: React.Dispatch<React.SetStateAction<string>>;
 	setFromDate?: React.Dispatch<React.SetStateAction<string>>;
 	setToDate?: React.Dispatch<React.SetStateAction<string>>;
@@ -62,58 +66,77 @@ interface FilterModalProps {
 	changePage?: (value: number) => void;
 }
 
+
+// DATE CONVERTION
+const now = new Date();
+const dateNow = moment().format('YYYY-MM-DD');
+const sevenDaysAgo = moment().subtract(7, 'day').format('YYYY-MM-DD');
+const thirtyDaysAgo = moment().subtract(30, 'day').format('YYYY-MM-DD');
+const startOfYear = moment().startOf('year').format('YYYY-MM-DD');
+const endOfYear = moment().endOf('year').format('YYYY-MM-DD');
+
 const FilterModal = ({
 	isOpen,
 	handleClose,
-	setEvent,
-	setFromDate,
-	setToDate,
-	setEmail,
-	setRef,
-	setStatus,
-	setPayment,
-	eventDate,
-	clearHandler,
+	action,
 	setBearer,
 	name,
-	status,
-	payment,
 	filterFunction,
-	changePage,
 }: FilterModalProps) => {
 	const classes = useModalBtnStyles();
-
-	const handleClick = (event: any) => {
-		setEvent?.(event.currentTarget.getAttribute('data-value'));
-	};
-
-	const fromDateHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setFromDate?.(e.target.value);
-	};
-
-	const toDateHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setToDate?.(e.target.value);
-	};
-
-	const statusHandler = (e: any) => {
-		setStatus?.(e.target.value);
-	};
-
-	const paymentHandler = (e: any) => {
-		setPayment?.(e.target.value);
-	};
-
-	const emailHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setEmail?.(e.target.value);
-	};
-	const refHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setRef?.(e.target.value);
-	};
+	const [form, setForm] = useState(TRANSACTION_FILTER_DATA);
+	const [event, setEvent] = useState('');
 
 	const applyHandler = () => {
 		setBearer?.(true);
 		filterFunction?.();
 	};
+
+	const handleChange = (value: string, key: string) => {
+		setForm({
+			...form,
+			[key]: value
+		})
+	}
+
+	const handleDateChange = (key: string) => {
+		setEvent(key)
+		let todate = '';
+		let fromdate = '';
+
+		if (key === 'today') {
+			fromdate = dateNow;
+			todate = dateNow;
+		} else if (key === 'last7days') {
+			fromdate = sevenDaysAgo;
+			todate = dateNow;
+		} else if (key === 'last30days') {
+			fromdate = thirtyDaysAgo;
+			todate = dateNow;
+		} else if (key === 'oneyear') {
+			fromdate = startOfYear;
+			todate = endOfYear;
+		} else {
+			fromdate = '';
+			todate = '';
+		}
+
+		setForm({
+			...form,
+			fromdate,
+			todate
+		})
+	}
+
+	const clear = () => {
+		setForm(TRANSACTION_FILTER_DATA);
+		handleClose?.();
+	}
+
+	const apply = () => {
+		action?.(form);
+		handleClose?.();
+	}
 
 	return (
 		<Modal
@@ -138,37 +161,37 @@ const FilterModal = ({
 						<div>
 							<p
 								style={{
-									color: eventDate === 'today' ? '#26AD60' : '',
-									border: eventDate === 'today' ? '1px solid #26AD60' : '',
+									color: event === 'today' ? '#26AD60' : '',
+									border: event === 'today' ? '1px solid #26AD60' : '',
 								}}
-								onClick={handleClick}
+								onClick={() => handleDateChange('today')}
 								data-value='today'>
 								Today
 							</p>
 							<p
 								style={{
-									color: eventDate === 'last7days' ? '#26AD60' : '',
-									border: eventDate === 'last7days' ? '1px solid #26AD60' : '',
+									color: event === 'last7days' ? '#26AD60' : '',
+									border: event === 'last7days' ? '1px solid #26AD60' : '',
 								}}
-								onClick={handleClick}
+								onClick={() => handleDateChange('last7days')}
 								data-value='last7days'>
 								Last 7 days
 							</p>
 							<p
 								style={{
-									color: eventDate === 'last30days' ? '#26AD60' : '',
-									border: eventDate === 'last30days' ? '1px solid #26AD60' : '',
+									color: event === 'last30days' ? '#26AD60' : '',
+									border: event === 'last30days' ? '1px solid #26AD60' : '',
 								}}
-								onClick={handleClick}
+								onClick={() => handleDateChange('last30days')}
 								data-value='last30days'>
 								30 days
 							</p>
 							<p
 								style={{
-									color: eventDate === 'oneyear' ? '#26AD60' : '',
-									border: eventDate === 'oneyear' ? '1px solid #26AD60' : '',
+									color: event === 'oneyear' ? '#26AD60' : '',
+									border: event === 'oneyear' ? '1px solid #26AD60' : '',
 								}}
-								onClick={handleClick}
+								onClick={() => handleDateChange('oneyear')}
 								data-value='oneyear'>
 								1 year
 							</p>
@@ -180,15 +203,15 @@ const FilterModal = ({
 						<div>
 							<input
 								type='text'
-								// value={fromdate}
-								onChange={fromDateHandler}
+								value={form.fromdate}
+								onChange={(e) => handleChange(e.target.value, 'fromdate')}
 								placeholder="Start date"
 							/>
 							<ArrowRightAltIcon />
 							<input
 								type='text'
-								// value={todate}
-								onChange={toDateHandler}
+								value={form.todate}
+								onChange={(e) => handleChange(e.target.value, 'todate')}
 								placeholder="End date"
 							/>
 						</div>
@@ -197,14 +220,15 @@ const FilterModal = ({
 					{name !== 'transaction' ? (
 						<div>
 							<p>Customer email</p>
-							<input placeholder='e.g test@mail.com' onChange={emailHandler} />
+							<input placeholder='e.g test@mail.com' onChange={(e) => handleChange(e.target.value, 'email')} value={form.email} />
 						</div>
 					) : (
 						<div>
-							<p>Transaction Ref</p>
+							<p>Transaction ref</p>
 							<input
 								placeholder='e.g ITXH0898383UY38383'
-								onChange={refHandler}
+								onChange={(e) => handleChange(e.target.value, 'reference')}
+								value={form.reference}
 							/>
 						</div>
 					)}
@@ -215,10 +239,11 @@ const FilterModal = ({
 							<Select
 								fullWidth
 								className={classes.select}
-								value={status}
+								value={form.status}
 								name='status'
 								id='status'
-								onChange={statusHandler}>
+								onChange={(e) => handleChange(e.target.value, 'status')}
+							>
 								<MenuItem value='' disabled selected hidden>
 									Choose status
 								</MenuItem>
@@ -232,18 +257,19 @@ const FilterModal = ({
 							<p>Status</p>
 							<Select
 								fullWidth
-
 								className={classes.select}
-								value={status}
+								value={form.status}
 								name='status'
 								id='status'
-								onChange={statusHandler}>
-								<option value='' disabled selected hidden>
+								onChange={(e) => handleChange(e.target.value, 'status')}
+
+							>
+								<MenuItem value='' disabled selected hidden>
 									Choose status
-								</option>
-								<option value='00'>Successful</option>
-								<option value='09'>Failed</option>
-								<option value='78'>Pending</option>
+								</MenuItem>
+								<MenuItem value='00'>Approved</MenuItem>
+								<MenuItem value='F9'>Abandoned</MenuItem>
+								<MenuItem value='09'>Pending</MenuItem>
 							</Select>
 						</div>
 					)}
@@ -252,12 +278,12 @@ const FilterModal = ({
 						<p>Payment type</p>
 						<Select
 							fullWidth
-
-							value={payment}
-							name='payment_type'
-							id='payment_type'
+							value={form.paymentmethod}
+							name='paymentmethod'
+							id='paymentmethod'
 							className={classes.select}
-							onChange={paymentHandler}>
+							onChange={(e) => handleChange(e.target.value, 'paymentmethod')}
+						>
 							<MenuItem value='' disabled selected hidden>
 								Select payment type
 							</MenuItem>
@@ -271,8 +297,8 @@ const FilterModal = ({
 				</div>
 				<hr />
 				<div className={classes.root}>
-					<Button onClick={clearHandler}>Clear filter</Button>
-					<Button onClick={applyHandler}>Apply filter</Button>
+					<Button onClick={clear}>Clear filter</Button>
+					<Button onClick={apply}>Apply filter</Button>
 				</div>
 			</div>
 		</Modal>

@@ -14,7 +14,6 @@ import { closeLoader, openLoader } from '../../../redux/actions/loader/loaderAct
 import CustomInputField from '../../customs/CustomInputField';
 import useCurrency from '../../hooks/Usecurrency';
 import CustomCurrency from '../../formUI/SelectCountry/CustomCurrency';
-import useCustomUpload from '../../hooks/CustomUpload';
 import UseFetch from '../../hooks/UseFetch';
 import CustomerListDropDown from '../../customs/CustomerListDropDown';
 import CustomSelect from '../../customs/CustomSelect';
@@ -29,6 +28,8 @@ import TableRow from '@mui/material/TableRow';
 import EditIcon from "../../../assets/images/editicon.svg"
 import DeleteIcon from "../../../assets/images/delete.svg"
 import { ReactSVG } from 'react-svg';
+import { Divider } from '@material-ui/core';
+import useCustomUpload from '../../hooks/CustomUpload';
 
 
 
@@ -47,7 +48,7 @@ interface ItemArray {
 }
 
 const CreateInvoice = ({ fetchInvoice }: any) => {
-    const [loading, imgUrl, handleUpload] = useCustomUpload()
+    const { loading, imgUrl, handleUpload } = useCustomUpload()
     const [customer, setCustomer] = useState<any>([])
 
     const dispatch = useDispatch()
@@ -121,6 +122,14 @@ const CreateInvoice = ({ fetchInvoice }: any) => {
         subtotal: 0,
     })
     const [invoiceList, setInvoiceList] = useState<any>([])
+    const [tax, setTax] = useState<number>(0)
+    const [discount, setDiscount] = useState<number>(0)
+    const [subTotalState, setSubTotalState] = useState<number>(0)
+    const [overTotalState, setOverTotalState] = useState<number>(0)
+
+
+
+
 
     const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         setInvoiceItem({ ...invoiceItem, [e.target.name]: e.target.value })
@@ -150,6 +159,14 @@ const CreateInvoice = ({ fetchInvoice }: any) => {
         //     subtotal: 0,
         // })
         setInvoiceList((prev: any) => [...prev, itemArray])
+        setInvoiceItem({
+            itemName: "",
+            quantity: 0,
+            price: 0,
+            subtotal: 0,
+        })
+
+
 
     }
 
@@ -170,10 +187,38 @@ const CreateInvoice = ({ fetchInvoice }: any) => {
     }
 
     const disableBtn = () => {
-        if (itemName === "" && price <= 0 && quantity <= 0) {
+        if (invoiceItem.itemName === "" && invoiceItem.price <= 0 && invoiceItem.quantity <= 0) {
             return true
+        } else {
+            return false
         }
     }
+
+    const subTotalHandler = () => {
+        const reducedSub = invoiceList?.reduce((prev: any, cur: any) => (
+            prev + cur.subtotal
+        ), 0)
+
+        setSubTotalState(((tax / 100) * reducedSub) + reducedSub)
+        return ((tax / 100) * reducedSub) + reducedSub
+    }
+
+    const totalHandler = () => {
+        const tots = (discount / 100) * subTotalState
+        const discountedPrice = subTotalState - tots
+        setOverTotalState(discountedPrice)
+    }
+
+
+    useEffect(() => {
+        subTotalHandler()
+    }, [invoiceList])
+
+    useEffect(() => {
+        totalHandler()
+    }, [subTotalState])
+
+
 
     return (
         <Formik
@@ -183,22 +228,18 @@ const CreateInvoice = ({ fetchInvoice }: any) => {
                 dueDate: '',
                 customerid: '',
                 currencyid: '',
-
                 comment: '',
                 otp: '',
-                tax: "",
-                discount: "",
-                items: invoiceList
 
             }}
             validationSchema={invoiceSchema}
             onSubmit={async (values, { resetForm }) => {
                 dispatch(openLoader());
-                console.log(values);
+                console.log({ ...values, businesslogo: imgUrl, items: invoiceList, tax, totalAmount: overTotalState, discount });
 
 
                 try {
-                    const { data } = await axios.post<Props>('/v1/payment/create/invoice', { ...values, businesslogo: imgUrl })
+                    const { data } = await axios.post<Props>('/v1/payment/create/invoice', { ...values, businesslogo: imgUrl, items: invoiceList, tax, totalAmount: overTotalState, discount })
                     if (data?.code === "success") {
                         dispatch(
                             openToastAndSetContent({
@@ -221,7 +262,7 @@ const CreateInvoice = ({ fetchInvoice }: any) => {
                                     borderRadius: 20
                                 },
 
-                                modalTitle: "Add a new customer",
+                                modalTitle: "",
                                 modalContent: (
                                     <div className='modalDiv'>
                                         <Success />
@@ -337,13 +378,34 @@ const CreateInvoice = ({ fetchInvoice }: any) => {
                                             as={TextField} label={"Comment"} placeholder='Enter comment' name='comment' type='text' />
                                     </Grid>
 
+                                    <Grid item xs={12} sm={12} md={6} >
+
+                                        <InputLabel>Tax</InputLabel>
+                                        <TextField
+                                            onChange={(e) => setTax(Number(e.target.value))}
+                                            name="tax"
+                                            value={tax}
+                                            fullWidth
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={6}>
+                                        <InputLabel>Discount</InputLabel>
+                                        <TextField
+                                            onChange={(e) => setDiscount(Number(e.target.value))}
+                                            name="discount"
+                                            value={discount}
+                                            fullWidth
+                                        />
+                                    </Grid>
+
+
                                 </Grid>
 
                             </Box>
 
                             <Stack className={Styles.puchaseHeader} direction={"row"} justifyContent="space-between" alignItems={"center"} borderBottom="1px solid #E0E0E0" paddingX={"50px"} marginTop="1rem" paddingY={0}>
-                                <h2 style={{ paddingBottom: "10px" }}>Purchase item</h2>
-                                <p style={{ color: "#333", paddingBottom: "10px" }}>NGN 0.00</p>
+                                <h2 style={{ paddingBottom: "5px" }}>Purchase item</h2>
+
                             </Stack>
 
 
@@ -355,7 +417,6 @@ const CreateInvoice = ({ fetchInvoice }: any) => {
                                     <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                                         <TableHead>
                                             <TableRow>
-
                                                 <TableCell >Item Name</TableCell>
                                                 <TableCell >Quantity</TableCell>
                                                 <TableCell >Price</TableCell>
@@ -390,7 +451,7 @@ const CreateInvoice = ({ fetchInvoice }: any) => {
 
 
                             </Box>}
-                            <Grid container spacing={3} padding={"2rem"} px={6}>
+                            <Grid container spacing={3} px={6}>
 
 
 
@@ -419,9 +480,6 @@ const CreateInvoice = ({ fetchInvoice }: any) => {
                                                 name="itemName"
                                                 value={invoiceItem?.itemName}
                                                 fullWidth
-
-
-
                                             />
 
                                         </Grid>
@@ -450,14 +508,15 @@ const CreateInvoice = ({ fetchInvoice }: any) => {
                                                 value={invoiceItem?.price}
                                                 type={"number"}
                                                 fullWidth
-
-
                                             />
 
                                         </Grid>
 
                                     </Grid>
-                                    <button disabled={disableBtn()} type="button" onClick={handleAddItem} > + Add another item</button>
+                                    <button style={{ background: 'transparent', color: "blue" }} className={Styles.addanother} disabled={disableBtn()} type="button" onClick={handleAddItem}>
+                                        {invoiceList?.length > 0 ? "+Add another item" : "+Add  item"}
+
+                                    </button>
 
                                 </Grid>
 
@@ -467,43 +526,48 @@ const CreateInvoice = ({ fetchInvoice }: any) => {
 
 
 
-                                <Grid item xs={12} sm={12} md={6} >
-
-                                    <CustomInputField
-                                        as={TextField} label={"Tax"} placeholder='0.0' name='tax' type='number' />
-
-                                </Grid>
-                                <Grid item xs={12} sm={12} md={6}>
-                                    <CustomInputField
-                                        as={TextField} label={"discount"} placeholder='0.0' name='discount' type='number' />
-
-                                </Grid>
 
 
-                                <Grid item xs={12} sm={12} md={6}>
+                                {/* <Grid item xs={12} sm={12} md={6}>
                                     <CustomInputField as={TextField} label={"Total Amount"} placeholder='0.00' name='totalAmount' type='number' />
+                                </Grid> */}
 
-
-                                </Grid>
-
-                                <Grid item xs={12} sm={12} md={6}>
+                                <Grid item xs={12} sm={12}>
 
                                     <CustomInputField
                                         as={TextField} label={"Otp"} placeholder='otp' name='otp' type='number' />
                                 </Grid>
 
 
+                                <Grid item xs={12} sm={12}>
+                                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: 'center', }}>
+                                        <h2 style={{ color: '#333333', fontSize: '14px', fontFamily: 'Avenir', fontWeight: '400' }}>discount</h2>
+                                        <p style={{ color: '#333333', fontSize: '14px', fontFamily: 'Avenir', fontWeight: '400' }}>{discount}%</p>
+                                    </div>
+                                    <Divider style={{ margin: 0, padding: 0 }} />
+                                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: 'center', }}>
+                                        <h2 style={{ color: '#333333', fontSize: '14px', fontFamily: 'Avenir', fontWeight: '400' }}>Subtotal</h2>
+                                        <p style={{ color: '#333333', fontSize: '14px', fontFamily: 'Avenir', fontWeight: '400' }}>
+                                            NGN {subTotalState}
+                                        </p>
+                                    </div>
+                                    <Divider />
 
-                                <Box>
-                                    <Box>
-                                        <h2>discount</h2>
-                                    </Box>
-                                </Box>
+                                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: 'center' }}>
+                                        <h2 style={{ color: '#000000', fontSize: '14px', fontFamily: 'Avenir', fontWeight: 'bold' }}>Total</h2>
+                                        <p style={{ color: '#333333', fontSize: '14px', fontFamily: 'Avenir', fontWeight: '400' }}>NGN {overTotalState}</p>
+                                    </div>
+
+
+                                </Grid>
+
+
 
 
 
                                 <Grid item xs={12} sm={12} md={12} justifyContent={"flex-end"}>
                                     <Box sx={{ display: "flex", justifyContent: "flex-end", alignItems: "flex-end", marginTop: "20px" }}>
+                                        <button onClick={() => dispatch(closeModal())} className={Styles.btnCancel}>Cancel</button>
                                         <button type='submit' className={Styles.btn}>Create Invoice</button>
 
                                     </Box>

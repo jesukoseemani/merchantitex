@@ -12,6 +12,7 @@ import moment from "moment";
 import CustomClickTable from "../../components/table/CustomClickTable";
 import DoDisturbIcon from "@mui/icons-material/DoDisturb";
 import {
+  Customer as CustomerType,
   GetRecentCustomerRes,
   RecentCustomerItem,
 } from "../../types/CustomerTypes";
@@ -20,6 +21,7 @@ import { Box } from "@mui/material";
 import Addtoblacklist from "./Addtoblacklist";
 import { openModalAndSetContent } from "../../redux/actions/modal/modalActions";
 import { CustomerItem as Customer } from '../../types/CustomerTypes';
+import { getCustomerById } from "../../services/customer";
 
 
 
@@ -32,27 +34,16 @@ interface customerProps {
   total: number;
 }
 const CustomerItem = () => {
-  // const { state } = useLocation();
-  const location = useLocation<{ rowData: string }>();
-  const history = useHistory();
   const dispatch = useDispatch();
 
   const { slug } = useParams<{ slug: string }>();
 
-  if (!location.state.rowData) {
-    history.replace('/customers');
-  }
-
-  const { rowData } = location.state;
-
-  const formattedRowData: Customer = JSON.parse(rowData);
 
   // const { desc, name, amt, linkType, url, added, website, img, frequency, chargeCount, phone } = formattedRowData;
   // transNum, total
-  const { firstname, lastname, email, phone, total, transNum } = formattedRowData;
 
-  const [totalAmt, setTotalAmt] = useState<number>(0);
   const [transactions, setTransactions] = useState<RecentCustomerItem[]>([]);
+  const [customer, setCustomer] = useState<CustomerType | null>(null)
   const [rows, setRows] = useState<RecentCustomerItem[]>([]);
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
@@ -110,26 +101,20 @@ const CustomerItem = () => {
     []
   );
 
-  const getTransactions = async () => {
+
+  const getSingleCustomer = async () => {
     dispatch(openLoader());
     try {
-      const res = await axios.get<GetRecentCustomerRes>(
-        `/mockData/recentcustomerinfo.json?customerId=${email}`,
-        { baseURL: "" }
-      );
-      const { transactions, _metadata } = res?.data;
-      console.log(res);
-      if (transactions.length) {
-        setTransactions(transactions);
-        setTotalRows(_metadata?.totalcount);
-      }
+      const res = await getCustomerById(slug);
+      setCustomer(res?.customer || {});
+      setTransactions(res?.transactions || [])
       dispatch(closeLoader());
     } catch (err) {
       console.log(err);
       dispatch(closeLoader());
       dispatch(
         openToastAndSetContent({
-          toastContent: "Failed to get transactions",
+          toastContent: "Failed to get single customer",
           toastStyles: {
             backgroundColor: "red",
           },
@@ -138,11 +123,36 @@ const CustomerItem = () => {
     }
   };
 
-
-
   useEffect(() => {
-    getTransactions();
-  }, [pageNumber, rowsPerPage]);
+    if (slug) {
+      getSingleCustomer()
+    }
+  }, [slug])
+
+
+
+  const callback = () => {
+    getSingleCustomer()
+  }
+
+  const handleBLacklist = () => {
+    dispatch(
+      openModalAndSetContent({
+        modalStyles: {
+          padding: 0,
+          width: "653px",
+          height: "340px",
+          borderRadius: '20px',
+          boxShadow: '-4px 4px 14px rgba(224, 224, 224, 0.69)',
+        },
+        modalContent: (
+          <div className='modalDiv'>
+            <Addtoblacklist id={slug} callback={callback} />
+          </div>
+        ),
+      })
+    );
+  };
 
   useEffect(() => {
     const newRowOptions: any[] = [];
@@ -160,25 +170,6 @@ const CustomerItem = () => {
     setRows(newRowOptions);
   }, [transactions, TransactionRowTab]);
 
-
-  const handleBLacklist = () => {
-    dispatch(
-      openModalAndSetContent({
-        modalStyles: {
-          padding: 0,
-          width: "653px",
-          height: "254px",
-          borderRadius: '20px',
-          boxShadow: '-4px 4px 14px rgba(224, 224, 224, 0.69)',
-        },
-        modalContent: (
-          <div className='modalDiv'>
-            <Addtoblacklist />
-          </div>
-        ),
-      })
-    );
-  };
   return (
 
 
@@ -198,30 +189,30 @@ const CustomerItem = () => {
         </div>
 
         <Box className={styles.layerOneWrapper}>
-          <div className={styles.titleText}>
+          {!customer?.isblacklisted && <div className={styles.titleText}>
             <p>Customer Information</p>
             <div onClick={handleBLacklist}>
               <p>Blacklist customer</p>
               <DoDisturbIcon />
             </div>
-          </div>
+          </div>}
           <div className={styles.sectionTwo}>
             <div>
               <p>Name</p>
               <p>
-                <span>{firstname}</span>{" "}
-                <span className={styles.capitalize}>{lastname}</span>
+                <span>{customer?.firstname || ''}</span>{" "}
+                <span className={styles.capitalize}>{customer?.lastname || ''}</span>
               </p>
             </div>
             <div></div>
             <div>
               <p>Email</p>
-              <p>{email ?? "N/A"}</p>
+              <p>{customer?.email ?? "N/A"}</p>
             </div>
             <div></div>
             <div>
-              <p>Phone</p>
-              <p>{phone ?? "N/A"}</p>
+              <p>MSISDN</p>
+              <p>{customer?.msisdn ?? "N/A"}</p>
             </div>
           </div>
 
@@ -235,19 +226,14 @@ const CustomerItem = () => {
           <div className={styles.bodyText}>
             <div>
               <p>Number of transactions</p>
-              <p>{transNum}</p>
+              <p></p>
             </div>
             <div>
               <p>Total spend</p>
-              <p>NGN {total}</p>
+              <p>NGN </p>
             </div>
           </div>
         </div>
-
-
-
-
-
 
         <div className={styles.sectionFour}>
           <div>

@@ -7,6 +7,9 @@
     margin-top: 90px;
 
 
+
+
+
     .middle_container {
         width: 82%;
 
@@ -26,7 +29,7 @@
             margin-bottom: 19px;
         }
 
-        p {
+        &>p {
             // font-family: 'Avenir';
             font-style: normal;
             font-weight: 400;
@@ -175,5 +178,74 @@
     @media screen and (max-width:750px) {
         height: auto;
         width: 100%;
+    }
+}
+
+
+// rejectDoc
+.rejectDoc_box {
+    background: #FCFDFF;
+    border-radius: 20px;
+    min-height: 93px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-flow: row wrap;
+    padding: 29px;
+    margin-top: 26px;
+
+    .rejectDoc_left {
+        display: flex;
+        align-items: center;
+        gap: 17px;
+        justify-content: space-around;
+
+
+
+        .rejectDoc_text {
+
+            p {
+                font-family: 'Avenir';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 22px;
+                color: #A17A00;
+            }
+
+            span {
+                font-family: 'Avenir';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 16px;
+                color: #434343;
+            }
+
+        }
+
+
+    }
+
+    .rejectDoc_right {
+        button {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding: 7.5px 16px;
+            gap: 4px;
+            width: 171px;
+            height: 35px;
+            background: #27AE60;
+            border-radius: 20px;
+            font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 19px;
+            letter-spacing: 0.0024px;
+            color: #FFFFFF;
+
+        }
     }
 }

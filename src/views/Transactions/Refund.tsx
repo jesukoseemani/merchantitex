@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import styles from './Refund.module.scss';
 import { useTheme } from '@mui/material/styles';
 import { makeStyles } from '@material-ui/styles';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Box, Button, Menu, MenuItem } from '@mui/material';
 import InsertDriveFileOutlined from '@mui/icons-material/InsertDriveFileOutlined';
@@ -20,12 +20,19 @@ import axios from 'axios';
 import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
 import moment from 'moment';
 import SingleRefundModal from './SingleRefundModal';
-import FilterModal from './FilterModal';
 import BulkRefundModal from './BulkRefundModal';
 import CustomClickTable from '../../components/table/CustomClickTable';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
-import { GetRefundRes, RefundItem } from '../../types/Transaction';
+import { RefundItem } from '../../types/RefundTypes';
 import BeneficiaryMenu from '../Payout/BeneficiaryMenu';
+import { getDownloadedRefunds, getRefundsService } from '../../services/refund';
+import { stripSearch } from '../../utils';
+import useDownload from '../../hooks/useDownload';
+import { BASE_URL } from '../../config';
+import { capitalize } from 'lodash';
+import FormatToCurrency from '../../helpers/NumberToCurrency';
+import FilterModal from '../../components/filterModals/RefundFilterModal';
+import { REFUND_FILTER_DATA } from '../../constant';
 
 
 
@@ -40,6 +47,8 @@ const Refund = () => {
 	const [rowsPerPage, setRowsPerPage] = useState<number>(5);
 	const [totalRows, setTotalRows] = useState<number>(0);
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+	const { search } = useLocation()
+	const { calDownload } = useDownload({ url: `${BASE_URL}/refund/download`, filename: 'refund' })
 
 	const currentDate = moment(new Date()).format('YYYY-MM-DD');
 
@@ -163,74 +172,24 @@ const Refund = () => {
 		setRowsPerPage(value);
 	};
 
-	const getRefunds = async () => {
-		// dispatch(openLoader());
-		// const filterKeys = Object.keys(filters);
-		// const filterValues = Object.values(filters);
-		// let filterString = '';
-
-		// if (dateInterval) {
-		// 	let fromDate = '';
-
-		// 	if (dateInterval === 'year') {
-		// 		fromDate = moment().subtract(1, 'years').format('YYYY-MM-DD');
-		// 	} else {
-		// 		fromDate = moment()
-		// 			.subtract(Number(dateInterval), 'days')
-		// 			.format('YYYY-MM-DD');
-		// 	}
-
-		// 	filterString = `&todate=${fixedToDate}&fromdate=${fromDate}`;
-		// }
-
-		// filterKeys.forEach((keyString, index) => {
-		// 	if (filterValues[index] === '') return;
-		// 	filterString += `&${keyString}=${filterValues[index]}`;
-		// });
-
-		try {
-			const res = await axios.get<GetRefundRes>(
-				'/mockData/transactionrequest.json',
-				{ baseURL: '' }
-			);
-			const { transactions, _metadata } = res?.data;
-			console.log(history);
-			if (history.length) {
-				setRefunds(transactions);
-				setTotalRows(_metadata?.totalcount);
-			}
-			dispatch(closeLoader());
-		} catch (err) {
-			console.log(err);
-			dispatch(closeLoader());
-			dispatch(
-				openToastAndSetContent({
-					toastContent: 'Failed to get items',
-					toastStyles: {
-						backgroundColor: 'red',
-					},
-				})
-			);
-		}
-	};
-
-	const downloadRefunds = async () => {
+	const getRefunds = async (form = REFUND_FILTER_DATA) => {
 		dispatch(openLoader());
+
 		try {
-			const res = await axios.get<DownloadRefundsRes>(
-				`/admin/refunds/download`
-			);
-			const { transaction } = res?.data;
-			if (transaction.redirecturl) {
-				window.open(transaction.redirecturl, '_blank');
-			}
+			const res = await getRefundsService({
+				page: pageNumber,
+				perpage: rowsPerPage,
+				search: stripSearch(search),
+				...form
+			});
+			setRefunds(res?.refunds || []);
+			setTotalRows(res?._metadata?.totalcount || 0)
 			dispatch(closeLoader());
-		} catch (err) {
-			console.log(err);
+		} catch (err: any) {
 			dispatch(closeLoader());
 			dispatch(
 				openToastAndSetContent({
-					toastContent: 'Failed to download transactions',
+					toastContent: err?.response?.data?.message || 'Failed to get refunds',
 					toastStyles: {
 						backgroundColor: 'red',
 					},
@@ -240,7 +199,7 @@ const Refund = () => {
 	};
 
 	interface Column {
-		id: 'amount' | 'status' | 'email' | 'linkingreference' | 'added';
+		id: 'amount' | 'status' | 'type' | 'linkingreference' | 'added';
 		label: any;
 		minWidth?: number;
 		align?: 'right' | 'left' | 'center';
@@ -249,7 +208,7 @@ const Refund = () => {
 	const columns: Column[] = [
 		{ id: 'amount', label: 'Amount', minWidth: 80 },
 		{ id: 'status', label: 'Status', minWidth: 70 },
-		{ id: 'email', label: 'Email address', minWidth: 100 },
+		{ id: 'type', label: 'Refund type', minWidth: 100 },
 		{ id: 'linkingreference', label: 'Transaction reference', minWidth: 250 },
 		{ id: 'added', label: 'Date', minWidth: 170 },
 	];
@@ -262,13 +221,13 @@ const Refund = () => {
 
 
 	const RefundRowTab = useCallback(
-		(amt, status, reference, acctId, added, id) => ({
+		(amt, status, reference, type, added, id) => ({
 			amount: <div className={styles.amount}>					<h2>
 				<span
 					style={{ color: "#828282", paddingRight: "1px" }}
 				>NGN</span>{amt}</h2></div>,
 			// code: formatStatus(code),
-			email: <p className={styles.tableBodyText}>{acctId}</p>,
+			type: <p className={styles.tableBodyText}>{type}</p>,
 			status: (
 				<p className={styles[statusFormatObj[status] || "pendingText"]} >{status}</p>
 			),
@@ -289,17 +248,17 @@ const Refund = () => {
 
 	useEffect(() => {
 		getRefunds();
-	}, [pageNumber, rowsPerPage, refundLogged, filtersApplied]);
+	}, [pageNumber, rowsPerPage, refundLogged, search]);
 
 	useEffect(() => {
 		const newRowOptions: any[] = [];
-		refunds?.map((each: RefundItem) =>
+		refunds?.map((each: any) =>
 			newRowOptions.push(
 				RefundRowTab(
-					each?.amt,
+					FormatToCurrency(each?.amount),
 					each?.status,
 					each?.reference,
-					each?.acctId,
+					capitalize(each?.refundtype) || '',
 					each?.added,
 					each?.id,
 				)
@@ -308,18 +267,17 @@ const Refund = () => {
 		setRows(newRowOptions);
 	}, [refunds, RefundRowTab]);
 
+	const action = (form: typeof REFUND_FILTER_DATA) => {
+		getRefunds(form)
+	}
+
 	return (
 
 		<div className={styles.container}>
 			<FilterModal
 				isOpen={isFilterModalOpen}
 				handleClose={() => setIsFilterModalOpen(false)}
-				filters={filters}
-				setFilters={setFilters}
-				setFiltersApplied={setFiltersApplied}
-				fixedToDate={fixedToDate}
-				dateInterval={dateInterval}
-				setDateInterval={setDateInterval}
+				action={action}
 			/>
 			<SingleRefundModal
 				isOpen={isSingleModalOpen}
@@ -341,7 +299,7 @@ const Refund = () => {
 						<Button onClick={() => setIsFilterModalOpen(true)}>
 							<FilterAltOutlinedIcon />Filter by:
 						</Button>
-						<Button onClick={() => downloadRefunds()}>
+						<Button onClick={calDownload}>
 							<InsertDriveFileOutlined />Download
 						</Button>
 						<Button
@@ -349,7 +307,7 @@ const Refund = () => {
 							aria-controls={open ? 'refund-menu' : undefined}
 							aria-haspopup='true'
 							aria-expanded={open ? 'true' : undefined}
-							onClick={handleClickRefundMenu}>
+							onClick={() => setIsSingleModalOpen(true)}>
 							+ Log a refund
 						</Button>
 

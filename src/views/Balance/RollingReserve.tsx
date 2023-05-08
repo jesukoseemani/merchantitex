@@ -12,7 +12,7 @@ import { MouseEvent, useCallback, useEffect, useState } from "react";
 import styles from "./Balance.module.scss";
 import { makeStyles } from "@material-ui/styles";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import {
   GetRollingReservesRes,
   RollingReserveItem,
@@ -30,6 +30,14 @@ import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
 import { useDispatch } from "react-redux";
 import CustomClickTable from "../../components/table/CustomClickTable";
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import { getRollingReserve } from "../../services/rolling-reserve";
+import useDownload from "../../hooks/useDownload";
+import { BASE_URL } from "../../config";
+import { RollingReserveType } from "../../types/RollingReserveTypes";
+import FormatToCurrency from "../../helpers/NumberToCurrency";
+import FilterModal from "../../components/filterModals/SettlementsFilterModal";
+import { SETTLEMENT_FILTER_DATA } from "../../constant";
+import { stripEmpty, stripSearch } from "../../utils";
 
 const useBtnStyles = makeStyles({
   root: {
@@ -157,14 +165,18 @@ const RollingReserve = () => {
   const modalBtnClasses = useModalBtnStyles();
 
   const history = useHistory();
+  const { search } = useLocation()
 
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
-  const [reserves, setReserves] = useState<RollingReserveItem[]>([]);
-  const [rows, setRows] = useState<RollingReserveItem[]>([]);
+  const [reserves, setReserves] = useState<RollingReserveType[]>([]);
+  const [rows, setRows] = useState<RollingReserveType[]>([]);
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
   const [totalRows, setTotalRows] = useState<number>(0);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  const { calDownload } = useDownload({ url: `${BASE_URL}/rollingreserve/download`, filename: 'rollingreserve' })
+
   const open = Boolean(anchorEl);
 
   const dispatch = useDispatch();
@@ -190,60 +202,45 @@ const RollingReserve = () => {
     pending: "pendingText",
   };
   interface Column {
-    id: "amt" | "Month" | "added" | "settlementAmt" | 'rolling' | "dueDate";
+    id: "amount" | "balanceBefore" | "balanceAfter" | "created" | "duedate";
     label: any;
     minWidth?: number;
     align?: "right" | "left" | "center";
   }
   const columns: Column[] = [
-    { id: "amt", label: "Monthly transaction amount", minWidth: 100 },
-    { id: "Month", label: "Month", minWidth: 100 },
-    { id: "added", label: "Settlement Date", minWidth: 100 },
-    { id: "settlementAmt", label: "Settlement amount", minWidth: 100 },
-    { id: "rolling", label: "Rolling reserve", minWidth: 100 },
-    { id: "dueDate", label: "Date withheld", minWidth: 100 },
+    { id: "amount", label: "Amount", minWidth: 100 },
+    { id: "balanceBefore", label: "Balance Before", minWidth: 100 },
+    { id: "balanceAfter", label: "Balance After", minWidth: 100 },
+    { id: "created", label: "Created Date", minWidth: 100 },
+    { id: "duedate", label: "Due Date", minWidth: 100 },
   ];
 
   const ReserveRowTab = useCallback(
-    (monthlyamt, month, settlementDate, settlementAmt, rollingReserve, id, dueDate) => ({
-      amt: (
+    (amount, balanceBefore, balanceAfter, created, duedate, id) => ({
+      amount: (
         <p className={styles.tableBodyText}>
           <span className={styles.tableBodySpan}>NGN </span>
-          {monthlyamt}
+          {FormatToCurrency(amount)}
         </p>
       ),
-      Month: (
+      balanceBefore: (
         <p className={styles.tableBodyText}>
-          {month}
+          {FormatToCurrency(balanceBefore)}
         </p>
       ),
-      rolling: (
+      balanceAfter: (
         <p className={styles.tableBodyText}>
-          {rollingReserve}
+          {FormatToCurrency(balanceAfter)}
         </p>
       ),
-      added: (
+      created: (
         <p className={styles.tableBodyText}>
-          {moment(settlementDate).format("MMM D YYYY")}
-          <span className={styles.tableBodySpan}>
-            {" "}
-            {moment(settlementDate).format("h:mm A")}
-          </span>
+          {created}
         </p>
       ),
-      settlementAmt: (
+      duedate: (
         <p className={styles.tableBodyText}>
-          <span className={styles.tableBodySpan}>NGN </span>
-          {settlementAmt}
-        </p>
-      ),
-      dueDate: (
-        <p className={styles.tableBodyText}>
-          {moment(dueDate).format("MMM D YYYY")}
-          <span className={styles.tableBodySpan}>
-            {" "}
-            {moment(dueDate).format("h:mm A")}
-          </span>
+          {duedate}
         </p>
       ),
       id: <p>{id}</p>,
@@ -253,15 +250,14 @@ const RollingReserve = () => {
 
   useEffect(() => {
     const newRowOptions: any[] = [];
-    reserves?.map((each: RollingReserveItem) =>
+    reserves?.map((each: RollingReserveType) =>
       newRowOptions.push(
         ReserveRowTab(
-          each?.monthlyamt,
-          each?.month,
-          each?.settlementDate,
-          each?.settlementAmt,
-          each?.rollingReserve,
-          each?.dueDate,
+          each?.amount,
+          each?.balanceBefore,
+          each?.balanceAfter,
+          each?.createdat,
+          each?.duedate,
           each?.id
         )
       )
@@ -269,126 +265,54 @@ const RollingReserve = () => {
     setRows(newRowOptions);
   }, [reserves, ReserveRowTab]);
 
-  const getRollingReserves = async () => {
+  const getRollingReserves = async (form = SETTLEMENT_FILTER_DATA) => {
     dispatch(openLoader());
     try {
-      const res = await axios.get<GetRollingReservesRes>(
-        "/mockData/rollingreserve.json",
-        { baseURL: "" }
-      );
-      const { reserves, _metadata } = res?.data;
-      if (reserves.length) {
-        setReserves(reserves);
-        setTotalRows(_metadata?.totalcount);
-      }
-      dispatch(closeLoader());
-    } catch (err) {
-      console.log(err);
-      dispatch(closeLoader());
+      const res = await getRollingReserve(stripEmpty({
+        page: pageNumber,
+        perpage: rowsPerPage,
+        search: stripSearch(search),
+        ...form
+      }))
+      setReserves(res?.rollingreserves || []);
+      setTotalRows(res?._metadata?.totalcount || 0);
+
+    } catch (err: any) {
       dispatch(
         openToastAndSetContent({
-          toastContent: "Failed to get reserves",
+          toastContent: err?.response?.data?.message || "Failed to get reserves",
           toastStyles: {
             backgroundColor: "red",
           },
         })
       );
+    } finally {
+      dispatch(closeLoader());
+
     }
   };
 
   useEffect(() => {
     getRollingReserves();
-  }, [pageNumber, rowsPerPage]);
+  }, [pageNumber, rowsPerPage, search]);
+
+  const action = (form: typeof SETTLEMENT_FILTER_DATA) => {
+    getRollingReserves(form)
+  }
 
   return (
 
-
     <div className={styles.container}>
-      <Modal
-        open={isFilterModalOpen}
-        onClose={() => setIsFilterModalOpen(false)}
-        aria-labelledby="balance history filter modal"
-      >
-        <div className={styles.filterModalContainer}>
-          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 22px" }}>
-            <h2>Filters</h2>
-            <IconButton onClick={() => setIsFilterModalOpen(false)}>
-              <CloseOutlined />
-            </IconButton>
-          </Box>
-          <hr />
-          <div className={styles.modalContent}>
-            <div className={styles.dates}>
-              <p>Due date</p>
-              <div>
-                <p>Today</p>
-                <p>Last 7 days</p>
-                <p>30 days</p>
-                <p>1 year</p>
-              </div>
-            </div>
-            <div>
-              <p>Custom date range</p>
-              <div>
-                <input
-                  placeholder="Start date"
+      <FilterModal
+        isOpen={isFilterModalOpen}
+        handleClose={() => setIsFilterModalOpen(false)}
+        action={action}
+      />
 
-
-                />
-                <ArrowRightAltIcon />
-                <input
-                  placeholder="End Date"
-
-                />
-              </div>
-            </div>
-            <div>
-              <p>Withheld amount</p>
-              <input placeholder="NGN 0.00" />
-            </div>
-            <div>
-              <p>Status</p>
-              <input
-                placeholder="Choose status"
-
-              />
-            </div>
-          </div>
-          <hr />
-          <Box className={modalBtnClasses.root} px={3}>
-            <Button>Clear filter</Button>
-            <Button>Apply filter</Button>
-          </Box>
-        </div>
-      </Modal>
-
-
-      <Box className={styles.rolling__reserve__top__box} mb={"26px"}>
-
-        <Grid container justifyContent={"space-between"} alignItems="center" flexWrap={"wrap"}>
-          <Grid item xs={12} sm={12} md={4} spacing={2}>
-            <Box className={styles.left__box}>
-              <p>Rolling reserve balance (USD)</p>
-              <h3>NGN 300,000.00</h3>
-              <Link to="/">View USD chargeback history</Link>
-            </Box>
-          </Grid>
-
-
-          <Grid item xs={12} sm={12} md={1} sx={{ display: { xs: "none", sm: "none", md: "block" } }}><Box sx={{ borderRight: "1px solid #E0E0E0", height: "40px" }}></Box></Grid>
-
-          <Grid item xs={12} sm={12} md={4}>
-            <Box className={styles.right__box}>
-              <ErrorOutlineIcon />  <p>The rolling reserve is 10% of a merchant’s monthly transaction volume. The rolling reserve is applied to International transactions only.</p>
-            </Box></Grid>
-        </Grid>
-
-
-      </Box>
       <div className={styles.pageWrapper}>
         <Box mb={2} className={styles.historyTopContainer}>
           <div>
-            <h2>19 Settlements</h2>
+            <h2>{totalRows} Rolling Reserve(s)</h2>
           </div>
           <div className={btnClasses.root}>
             <div>
@@ -396,7 +320,7 @@ const RollingReserve = () => {
                 <FilterAltOutlinedIcon /> Filter by:
               </Button>
             </div>
-            <Button>
+            <Button onClick={calDownload}>
               <InsertDriveFileOutlinedIcon /> Download
             </Button>
           </div>

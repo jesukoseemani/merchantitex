@@ -9,7 +9,6 @@ import ParentContainer from "../../components/ParentContainer/ParentContainer";
 const Transaction = () => {
   const history = useHistory();
   return (
-
     <div className={Styles.container}>
       <TransactionsList />
     </div>

@@ -1,6 +1,5 @@
 import styles from "./Balance.module.scss";
-import axios from "axios";
-import { GetWalletsRes, WalletItem } from "../../types/BalanceTypes";
+import { Balance as BalanceType } from "../../types/BalanceTypes";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
@@ -13,65 +12,36 @@ import { openModalAndSetContent } from "../../redux/actions/modal/modalActions";
 import SetlNgnimitModal from "../../components/balance/SetlNgnimitModal";
 import SetUsdLimitModal from "../../components/balance/SetUsdLimitModal";
 import FundAcct from "../../components/balance/FundAcct";
+import { getBalance } from "../../services/balance";
 
 const Balance = () => {
-  const [wallets, setWallets] = useState<WalletItem[]>([]);
-  const [acct, setAcct] = useState<string>("");
-  const [bankName, setBankName] = useState<string>("");
+  const [balances, setBalances] = useState<BalanceType[]>([])
 
   const dispatch = useDispatch();
 
-  const getProfile = async () => {
-    dispatch(openLoader());
-    try {
-      const res: any = await axios.get(`/v1/profile/me`);
-      setAcct(
-        res?.data?.business?.settlement?.account[0]?.accountnumber as string
-      );
-      setBankName(
-        res?.data?.business?.settlement?.account[0]?.bankname as string
-      );
-      dispatch(closeLoader());
-    } catch (err) {
-      console.log(err);
-      dispatch(closeLoader());
-      dispatch(
-        openToastAndSetContent({
-          toastContent: "Failed to get account",
-          toastStyles: {
-            backgroundColor: "red",
-          },
-        })
-      );
-    }
-  };
-
-  const getWallets = async () => {
-    dispatch(openLoader());
-    try {
-      const res = await axios.get<GetWalletsRes>(`/merchant/account/wallet`);
-      const { wallets } = res?.data;
-      if (wallets.length) {
-        setWallets(wallets);
-      }
-      dispatch(closeLoader());
-    } catch (err) {
-      console.log(err);
-      dispatch(closeLoader());
-      dispatch(
-        openToastAndSetContent({
-          toastContent: "Failed to get wallets",
-          toastStyles: {
-            backgroundColor: "red",
-          },
-        })
-      );
-    }
-  };
 
   useEffect(() => {
-    getWallets();
-    getProfile();
+    try {
+      (async () => {
+        dispatch(openLoader());
+        const res = await getBalance();
+        setBalances(res?.balances || [])
+        dispatch(closeLoader());
+
+      })()
+
+    } catch (error: any) {
+      dispatch(
+        openToastAndSetContent({
+          toastContent: error?.response?.data?.message || "Failed to get balance",
+          toastStyles: {
+            backgroundColor: "red",
+          },
+        })
+      );
+    } finally {
+      dispatch(closeLoader());
+    }
   }, []);
 
   const handleUsdLimit = () => {
@@ -87,7 +57,7 @@ const Balance = () => {
         },
         modalContent: (
           <div className='modalDiv'>
-            < SetUsdLimitModal />
+            <SetUsdLimitModal />
           </div>
         ),
       })
@@ -125,7 +95,7 @@ const Balance = () => {
         },
         modalContent: (
           <div className='modalDiv'>
-            < FundAcct />
+            <FundAcct />
           </div>
         ),
       })
@@ -134,107 +104,42 @@ const Balance = () => {
 
   return (
 
-    // <div className={styles.container}>
-
-    //   <div className={styles.pageWrapper}>
-    //     {/* <div className={styles.topBoxContainer}>
-    //       <div>
-    //         <p>Dispute/Chargeback</p>
-    //         <p>NGN 400,000.00</p>
-    //         <Link to="/chargebacks">View chargebacks</Link>
-    //       </div>
-    //       <div>
-    //         <p>Refunds</p>
-    //         <p>NGN 400,000.00</p>
-    //         <Link to="/transactions/refund">See all refunds</Link>
-    //       </div>
-
-    //       <div>
-    //         <p>Non compliance assessment</p>
-    //         <p>NGN 400,000.00</p>
-    //         <div>
-    //           <InfoOutlinedIcon />
-    //           <p>
-    //             This is how much you’re charged for defaulting on compliance
-    //             rules
-    //           </p>
-    //         </div>
-    //       </div>
-    //     </div> */}
-
-    //     <div className={styles.balanceContainer}>
-    //       {wallets?.map(({ currency, availablebalance, ledgerbalance }) => (
-    //         <BalanceBox
-    //           currency={currency}
-    //           availablebalance={availablebalance}
-    //           ledgerbalance={ledgerbalance}
-    //         />
-    //       ))}
-    //     </div>
-
-    //   </div>
-
-    // </div>
-
     <Box className={styles.balance__container} mt="27px">
       {/* <Box > */}
 
-      <Box className={styles.balance__header}>
-        <Stack direction={"row"} justifyContent={"space-between"} alignItems="center" flexWrap={"wrap"}>
-          <h2>NGN Balance</h2>
+      {balances?.length > 0 && balances.map((balance, i) => (
+        <div key={i}>
+          <Box className={styles.balance__header}>
+            <Stack direction={"row"} justifyContent={"space-between"} alignItems="center" flexWrap={"wrap"}>
+              <h2>{balance?.currency} Balance</h2>
 
-          <Stack direction={"row"} alignItems="center" columnGap={"10px"} flexWrap="wrap">
-            <button onClick={handleSetNGNLimit}>Set low limits</button>
-            <button onClick={handleFundAcct}>Fund balance</button>
-          </Stack>
+              <Stack direction={"row"} alignItems="center" columnGap={"10px"} flexWrap="wrap">
+                <button>See {balance?.currency} Transactions</button>
+              </Stack>
 
-        </Stack>
+            </Stack>
 
-      </Box>
-      <Box className={styles.balance__body}>
-        <Stack direction={"row"} justifyContent="space-between" flexWrap={"wrap"} alignItems={"center"}>
-          <Stack>
-            <p>Collection balance</p>
-            <p>Payout balance</p>
-          </Stack>
-          <Stack>
-            <p>NGN 40,000.04</p>
-            <p>NGN 40,000.04</p>
-          </Stack>
-        </Stack>
-      </Box>
+          </Box>
+          <Box className={styles.balance__body}>
+            <Stack direction={"row"} justifyContent="space-between" flexWrap={"wrap"} alignItems={"center"}>
+              <Stack>
+                <p>Available Balance</p>
+                <p>Ledger Balance</p>
+                <p>Rolling Reserve Balance</p>
+              </Stack>
+              <Stack>
+                <p>NGN {balance?.availablebalance || 0}</p>
+                <p>NGN {balance?.ledgerbalance || 0}</p>
+                <p>NGN {balance?.reservebalance || 0}</p>
+              </Stack>
+            </Stack>
+          </Box>
+        </div>
+      ))
+      }
 
       {/* </Box> */}
 
-
-
-
-
-
-      <Box className={styles.balance__header_two}>
-        <Stack direction={"row"} justifyContent={"space-between"} alignItems="center" flexWrap={"wrap"}>
-          <h2>USD Balance</h2>
-
-          <Stack direction={"row"} spacing={1.3}>
-            <button className={styles.outline_btn} onClick={handleUsdLimit}>Set low limits</button>
-
-          </Stack>
-
-        </Stack>
-
-      </Box>
-      <Box className={styles.balance__body}>
-        <Stack direction={"row"} justifyContent="space-between" alignItems={"center"}>
-          <Stack>
-            <p>Collection balance</p>
-            <p>Payout balance</p>
-          </Stack>
-          <Stack>
-            <p>USD 200.00</p>
-            <p>USD 200.00</p>
-          </Stack>
-        </Stack>
-      </Box>
     </Box>
 
 

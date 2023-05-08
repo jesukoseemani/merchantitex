@@ -17,6 +17,7 @@ button {
     color: #fff;
     font-weight: 400;
     font-size: 14px;
+
     @media screen and (max-width:500px) {
         margin-top: 1rem;
     }
@@ -182,4 +183,27 @@ button {
     font-size: 16px;
     line-height: 22px;
 
+}
+
+.addanother {
+    &:disabled {
+        cursor: not-allowed;
+    }
+}
+
+.btnCancel {
+    width: 140px;
+    height: 44px;
+    border-radius: 22px;
+    padding: 7.5px 16px;
+    background: #ffffff;
+    color: #27AE60;
+    // width: 180px;
+    font-family: 'Avenir';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 16px;
+    line-height: 22px;
+    border: 1px solid #27AE60;
+    margin-right: 10px;
 }

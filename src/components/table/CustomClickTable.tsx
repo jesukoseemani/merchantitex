@@ -11,17 +11,24 @@ import {
 	TableCell,
 } from '@mui/material';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 const useStyles = makeStyles({
 	root: {
 		width: '100%',
 		borderRadius: "20px",
-
+		marginTop: "10px"
 
 	},
 	container: {
 		maxHeight: '70vh',
 		maxWidth: '100%',
 		borderRadius: "20px 20px 0px 0px"
+	},
+
+	noRecord: {
+		display: 'flex',
+		justifyContent: 'center',
+		padding: '20px',
 	}
 });
 
@@ -50,6 +57,8 @@ export default function CustomClickTable({
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(5);
 	const [rowsPerPageOptions, setRowsPerPageOptions] = useState<number[]>([]);
+	const LoaderSelector = useSelector((state) => state.loader);
+	const { LoaderOpened } = LoaderSelector;
 	// made table and pagination dynamic so that any other component can call and use it
 	useEffect(() => {
 		let number: number = 0;
@@ -83,6 +92,7 @@ export default function CustomClickTable({
 
 	const handleClick = (row: any) => {
 		const val = row[identifier]?.props?.children;
+		
 
 		if (clickable && val) {
 			const rowData = rowsData.find((dataItem: any) => dataItem[identifier] === row[identifier]?.props?.children);
@@ -160,6 +170,9 @@ export default function CustomClickTable({
 						})}
 					</TableBody>
 				</Table>
+				{!LoaderOpened && (!rows || !rows?.length) ? <div className={classes.noRecord}>
+					No record found
+				</div> : null}
 			</TableContainer>
 			<TablePagination
 				rowsPerPageOptions={rowsPerPageOptions}
