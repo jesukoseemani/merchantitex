@@ -129,44 +129,6 @@
 	text-transform: capitalize;
 }
 
-.pendingText {
-	font-size: 0.875rem;
-	color: #12122c;
-	font-weight: 500;
-	cursor: pointer;
-	padding: 0.2rem 1rem;
-	background-color: #f2c94c;
-	border-radius: 2px;
-	text-align: center;
-	text-transform: capitalize;
-	width: 90%;
-}
-
-.wonText {
-	font-size: 0.875rem;
-	color: white;
-	font-weight: 500;
-	cursor: pointer;
-	padding: 0.2rem 1rem;
-	background-color: #27ae60;
-	border-radius: 2px;
-	text-align: center;
-	text-transform: capitalize;
-	width: 90%;
-}
-
-.lostText {
-	font-size: 0.875rem;
-	color: white;
-	font-weight: 500;
-	cursor: pointer;
-	padding: 0.2rem 1rem;
-	background-color: #eb5757;
-	border-radius: 2px;
-	text-align: center;
-	text-transform: capitalize;
-	width: 90%;
-}
 
 // .filterModalContainer {
 // 	border: 1px solid #d5dae1;
@@ -270,7 +232,7 @@
 // 	}
 // }
 
-.pendingText {
+.pending {
 	background-color: #f2c94c !important;
 	color: #12122c !important;
 	font-family: "Avenir";
@@ -292,7 +254,7 @@
 }
 
 
-.wonText {
+.approved {
 	font-family: "Avenir";
 	font-style: normal;
 	font-weight: 500 !important;
@@ -311,7 +273,7 @@
 
 }
 
-.lostText {
+.declined {
 	background-color: #f2c94c !important;
 	color: #12122c !important;
 	font-family: "Avenir";
@@ -523,4 +485,159 @@
 	// 		border: 1px solid red;
 	// 	}
 	// }
+}
+
+
+.wrapper {
+	width: 100%;
+	margin: 9px auto auto;
+
+	&>.header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 18px;
+		// border: 2px solid red !important;
+
+		&>div {
+			display: flex;
+			align-items: center;
+
+			&>button {
+				display: flex;
+				align-items: center;
+				padding: 8px 14px;
+				font-style: normal;
+				font-weight: normal;
+				font-size: 14px;
+				line-height: 16px;
+				letter-spacing: 0.0024px;
+				color: #333333;
+				width: auto;
+				min-width: fit-content;
+				height: 32px;
+				background: #e0e0e0;
+				border-radius: 20px;
+
+				&>svg {
+					font-size: 15px;
+					margin-left: 0px;
+				}
+
+				&:first-child {
+					&>svg {
+						font-size: 20px;
+					}
+				}
+
+
+			}
+
+			& button:nth-of-type(2) {
+
+				background: transparent;
+				border: 1px solid #27AE60;
+				color: #27AE60;
+				border-radius: 20px;
+				margin-left: 16px;
+				display: none !important;
+			}
+		}
+	}
+}
+
+.transaction__btn {
+	padding: 0;
+
+	h2 {
+		font-family: 'Avenir';
+		font-style: normal;
+		font-weight: 400;
+		font-size: 20px;
+		line-height: 27px;
+
+		color: #333333;
+		;
+	}
+
+	div {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+
+		button {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 0px;
+		}
+
+
+		.right__btn {
+
+
+			& button:nth-of-type(1) {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				border-radius: 20px;
+				width: 108px;
+				height: 32px;
+				padding: 0 !important;
+				gap: 0;
+				color: #333;
+				font-family: 'Avenir';
+				font-style: normal;
+				font-weight: 400;
+				font-size: 12px;
+				line-height: 14px;
+
+
+
+				svg {
+					margin: 0px !important;
+					padding: 0 !important;
+				}
+
+			}
+
+
+			& button:nth-of-type(2) {
+				background-color: transparent;
+				color: #095B2C;
+				border: 1px solid #27AE60;
+				border-radius: 20px
+			}
+
+
+
+
+			.button_business_button {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				color: #27ae60;
+				border-radius: 20px;
+				font-family: "Avenir";
+				font-style: normal;
+				font-weight: 500;
+				font-size: 12px;
+				line-height: 20px;
+				letter-spacing: 0.0024px;
+				background-color: transparent;
+				border: none;
+				outline: none;
+				width: 121px;
+				height: 32px;
+				cursor: pointer;
+				border-radius: 20px;
+				border: 1px solid #27AE60;
+
+
+
+			}
+
+
+		}
+	}
 }

@@ -13,8 +13,11 @@ import Styles from "./Navbar.module.scss";
 import { useHistory, useLocation } from "react-router-dom";
 import UserMenu from "../menu/userMenu";
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import axios from "axios";
+import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
+import { FetchProfileDetails } from "../../helpers/FetchProfileDetails";
 
 
 
@@ -24,28 +27,70 @@ interface Props {
 }
 
 const Header = ({ title }: Props) => {
-  const [alignment, setAlignment] = React.useState("live server");
-  const handleAlignment = (
+  const [alignment, setAlignment] = React.useState("TEST");
+  const [search, setSearch] = useState('');
+  const history = useHistory()
+  const dispatch = useDispatch()
+
+  const handleAlignment = async (
     event: React.MouseEvent<HTMLElement>,
     newAlignment: string
   ) => {
-    if (newAlignment !== null) {
-      setAlignment(newAlignment);
+    try {
+
+      const data = await axios.get<any>("/v1/profile/env/toogle")
+      if (data.data.env !== null) {
+        setAlignment(data.data.env)
+        dispatch(FetchProfileDetails())
+        dispatch(
+          openToastAndSetContent({
+            toastContent: data.data.message,
+            toastStyles: {
+              backgroundColor: "green",
+            },
+          })
+        )
+      }
+
+
+    } catch (error: any) {
+      const { message } = error.response.data;
+
+      dispatch(
+        openToastAndSetContent({
+          toastContent: message,
+          toastStyles: {
+            backgroundColor: "red",
+          },
+        })
+      )
+
     }
   };
   const { pathname } = useLocation();
-  const [active, setActive] = React.useState(0);
+  const [active, setActive] = React.useState(false);
+  const { user } = useSelector((state) => state?.meReducer?.me);
   const [activeLink, setActiveLink] = useState(null);
   const { navbarRoute } = useSelector((state) => state.navbarReducer);
 
 
 
   useEffect(() => {
-    setActive(0);
-  }, [active]);
+    if (user?.islivetoogle) {
+      setAlignment("LIVE");
+    } else {
+      setAlignment("TEST");
+    }
 
+  }, [user]);
 
+  useEffect(() => {
+    setSearch('')
+  }, [pathname])
 
+  useEffect(() => {
+    history.replace({ pathname, search })
+  }, [search])
 
 
   const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
@@ -63,8 +108,8 @@ const Header = ({ title }: Props) => {
       fontSize: 10,
       padding: "10px",
       textTransform: "inherit",
-      backgroundColor: alignment === "test server" ? "rgba(206, 165, 40, 0.1)" : "rgba(4, 25, 38, 0.1)",
-      border: alignment === "test server" ? "0.7px solid #CEA528" : "0.7px solid #041926",
+      backgroundColor: !alignment ? "rgba(206, 165, 40, 0.1)" : "rgba(4, 25, 38, 0.1)",
+      // border: !alignment ? "0.7px solid #CEA528" : "0.7px solid #041926",
       // border: alignment === "test server" ? "0.7px solid #CEA528" : "0.7px solid #041926",
 
 
@@ -82,7 +127,7 @@ const Header = ({ title }: Props) => {
         border: "none",
         "&.Mui-selected": {
           color: "#fff",
-          backgroundColor: "#041926",
+          backgroundColor: "#041926 !important",
           borderRadius: "20px",
           width: 190,
           height: 30,
@@ -98,7 +143,7 @@ const Header = ({ title }: Props) => {
 
         "&.Mui-selected": {
           color: "#fff",
-          backgroundColor: "#CEA528",
+          backgroundColor: "#CEA528 !important",
           borderRadius: "20px",
           width: 190,
           height: 30,
@@ -133,8 +178,6 @@ const Header = ({ title }: Props) => {
 
   return (
     <div className={Styles.header__box}>
-
-
       {/* <Container> */}
       <Grid container justifyContent="space-between" alignItems="center" spacing={3}>
         <Grid item xs={7} md={5.5}>
@@ -151,6 +194,8 @@ const Header = ({ title }: Props) => {
                 <OutlinedInput
                   id="outlined-adornment-amount"
                   placeholder="Search"
+                  value={search}
+                  onChange={e => setSearch(e.target.value)}
                   startAdornment={<InputAdornment position="start"> <SearchOutlinedIcon /></InputAdornment>}
                   sx={{
                     background: " #FBFBFB",
@@ -189,20 +234,18 @@ const Header = ({ title }: Props) => {
                 className={Styles.toggleButton}
               >
                 <ToggleButton
-                  value="test server"
+                  value="TEST"
                   aria-label="left aligned"
-                  onClick={() => setActive(0)}
-
+                // onClick={() => setActive(false)}
                 >
-                  Test Server
+                  Test Mode
                 </ToggleButton>
                 <ToggleButton
-                  value="live server"
+                  value="LIVE"
                   aria-label="right aligned"
-
-                  onClick={() => setActive(1)}
+                // onClick={() => setActive(true)}
                 >
-                  Live Server
+                  Live Mode
                 </ToggleButton>
               </ToggleButtonGroup>
             </StyledToggleButtonGroup>

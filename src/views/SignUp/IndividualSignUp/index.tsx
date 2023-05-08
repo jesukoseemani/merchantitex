@@ -190,10 +190,10 @@ const IndividualSignUp = () => {
 			validationSchema={ValidateIndividual}
 			onSubmit={async ({ firstname, businessCategoryId, businessname, countryid, email, lastname, password, phonenumber }) => {
 				console.log({ phonenumber });
+				dispatch(openLoader());
 
 
 				try {
-					dispatch(closeLoader());
 					const { data } = await axios.post<Props>("/auth/register", {
 
 						"accounttype": "individual",
@@ -210,6 +210,7 @@ const IndividualSignUp = () => {
 
 
 					})
+					dispatch(closeLoader());
 
 
 					if (data?.code === "success") {
@@ -338,7 +339,7 @@ const IndividualSignUp = () => {
 
 										</Grid>
 										<Grid item xs={12} md={5.6} >
-											<CustomInputField label={"Password"} name="password" as={TextField} placeholder="password" />
+											<CustomInputField label={"Password"} name="password" type='password' as={TextField} placeholder="password" />
 
 										</Grid>
 										{/* <InputLabel className={styles.mt}></InputLabel> */}

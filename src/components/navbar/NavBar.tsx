@@ -17,6 +17,7 @@ import SetupIcon from "../../assets/images/setupIcon.svg";
 import CustomModal from "../customs/CustomModal";
 import AddBusiness from "./AddBusiness";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import useSetup from "../hooks/useSetup";
 
 
 
@@ -27,6 +28,8 @@ const style = {
 const NavBar = () => {
   const business = useSelector((state) => state?.meReducer?.me?.business);
   const { auth } = useSelector((state) => state?.authReducer);
+  const { userDetails } = useSelector(state => state?.userDetailReducer)
+
 
   const { pathname } = useLocation();
   const [active, setActive] = React.useState<string | number>(0);
@@ -50,6 +53,11 @@ const NavBar = () => {
     setShowuserInfo(false)
   };
 
+  const { setupStatus } = useSetup()
+
+  useEffect(() => {
+    console.log("setup", setupStatus?.isSetupComplete)
+  }, [setupStatus])
 
 
   const openUserMenu = Boolean(userMenu);
@@ -125,24 +133,25 @@ const NavBar = () => {
         </CustomModal >
 
       </Box>
+      {/* onClick={handleClick} */}
 
       <div className={Styles.userInfo}>
         <div className={Styles.user__img}>
-          <img src="https://loremflickr.com/640/480/cats" alt="user profile" />
+          <img src='https://i.ibb.co/fH4x0Xk/360-F-346936114-Rax-E6-OQogebg-AWTal-E1myse-Y1-Hbb5q-PM.jpg' alt="user profile" />
         </div>
         <div className={Styles.userProfile__text}>
           <Stack direction={"row"} alignItems="flex-start">
             <p>
               {auth?.user?.firstname}
             </p>
-            <IconButton onClick={handleClick} style={{ marginTop: "-7px" }}>
+            <IconButton style={{ marginTop: "-7px" }}>
               <ReactSVG src={ArrowDown} />
 
             </IconButton>
           </Stack>
 
 
-          <span>   {auth?.user?.email}</span>
+          <span>{auth?.user?.email}</span>
 
 
         </div>
@@ -166,17 +175,22 @@ const NavBar = () => {
 
         <nav>
           {/* {nextedRoutes?} */}
-          <li
+          {
+            !setupStatus?.isBusinessApproved && <li
 
-            onClick={() => history.push("/setup")}
-            className={Styles.setup}
-          >
-            {/* <img src={icon} alt={name} /> */}
+              onClick={() => {
+                history.push("/setup")
+                dispatch(changeNewNavbar("Setup"))
+              }}
+              className={Styles.setup}
+            >
 
-            <ReactSVG src={SetupIcon} className={Styles.linkIcon} />
-            Setup
+              <ReactSVG src={SetupIcon} className={Styles.linkIcon} />
+              Setup
 
-          </li>
+            </li>
+          }
+
 
           {!isNested && routes?.map((item) => {
             return (
@@ -189,7 +203,7 @@ const NavBar = () => {
                   {/* <img src={icon} alt={name} /> */}
 
                   <ReactSVG src={item?.icon} className={Styles.linkIcon} />
-                  {item?.title}
+                  {item?.title} {item?.title === "POS" && <div className={Styles.comingsoon}>Coming Soon</div>}
                   <div className={item?.link === pathname ? Styles.replaced_yen : Styles.replaced_not}>
                     <ActiveStateImg />
                   </div>
@@ -206,7 +220,6 @@ const NavBar = () => {
                 onClick={() => subChangeHandler(link, title)}
                 className={link === pathname ? Styles.active : Styles.routes}
               >
-                {/* <img src={icon} alt={name} /> */}
 
                 <ReactSVG src={icon} className={Styles.linkIcon} />
                 {title}

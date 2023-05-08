@@ -1,6 +1,7 @@
 import React from 'react'
 import * as Yup from 'yup';
-import "yup-phone";
+import "yup-phone-lite";
+import { countryCode } from '../../../helpers/CountryCode';
 
 
 
@@ -38,6 +39,21 @@ export const ValidateAdditionalInfo = Yup.object({
         .required('business Income is required'),
 
 })
+
+
+export const ValidateContactInfo = Yup.object({
+    firstname: Yup.string().required("owner's firstname is Required"),
+    lastname: Yup.string().required("owner's lastname is Required"),
+    bvn: Yup.number().required(" owner's bvn is Required"),
+    docNumber: Yup.string().required(" owner's bvn is Required"),
+    // .required('Trading/Business name is required'),
+    address: Yup.string().required("owner's Address is Required"),
+    docType: Yup.string().required("owner's id type is Required"),
+
+    phonenumber: Yup.string().required("phone number is required").phone(countryCode, "Invalid phone no"),
+
+})
+
 
 
 

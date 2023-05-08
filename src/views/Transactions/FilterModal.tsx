@@ -194,8 +194,8 @@ const FilterModal = ({
 								Choose status
 							</MenuItem>
 							<MenuItem value='00'>Successful</MenuItem>
-							<MenuItem value='09'>Failed</MenuItem>
-							{/* <option value='01'>Pending</option> */}
+							<MenuItem value='F9'>Failed</MenuItem>
+							<MenuItem value='09'>Pending</MenuItem>
 						</Select>
 					</div>
 					<div>

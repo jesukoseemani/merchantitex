@@ -10,11 +10,15 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { makeStyles } from "@material-ui/core/styles";
 import { ReactComponent as ArrowRightIcon } from "../../assets/images/arrowRight.svg";
+import CustomClickTable from '../../components/table/CustomClickTable';
 
 import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
 import { useDispatch } from "react-redux";
+import { Payout, PayoutRes } from "../../types/Payout";
+import { getTransactionStatus } from "../../utils/status";
+import { statusFormatObj } from "../../helpers";
 
-export default function TransfersTable() {
+export default function TransfersTable({ payout, changePage }: { payout: PayoutRes; changePage?: (p: number) => void }) {
   interface TransactionsProps {
     amount: number;
     status: string;
@@ -54,9 +58,6 @@ export default function TransfersTable() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const changePage = (value: number) => {
-    setPageNumber(value);
-  };
 
   const limit = (value: number) => {
     setRowsPerPage(value);
@@ -83,22 +84,15 @@ export default function TransfersTable() {
     { id: "date", label: "Date", align: "center", minWidth: 100 },
   ];
   const LoanRowTab = useCallback(
-    (amount: number, status: string, receipient: string, date: any) => ({
+    (amount: number, status: string, receipient: string, date: any, id: number) => ({
       amount: (
         <div className={Styles.amount}>
           <span>NGN {amount}</span>
-          {/* <h2></h2> */}
         </div>
       ),
       status: (
         <Label
-          className={
-            status?.toLowerCase() == "successful"
-              ? "success-status"
-              : status?.toLowerCase() == "error"
-                ? "danger-status"
-                : "warning-status"
-          }
+          className={Styles[statusFormatObj[status] || "pendingText"]}
         >
           <p style={{ borderRadius: "20px" }}> {status}</p>
         </Label>
@@ -107,21 +101,23 @@ export default function TransfersTable() {
       date: (
         <div className={Styles.date}>
           <p>{date.format}{date.time}</p>
-          {/* <span></span> */}
+          <span>{date}</span>
         </div>
       ),
     }),
     []
   );
+
   useEffect(() => {
     const newRowOptions: any[] = [];
-    transactions?.map((each: TransactionsProps) =>
+    payout?.payouts?.map((each: Payout) =>
       newRowOptions.push(
-        LoanRowTab(each.amount, each.status, each.receipient, each.date)
+        LoanRowTab(each.amount, getTransactionStatus(each?.responsecode!), each?.recipientname!, each.timein, each.id)
       )
     );
     setRows(newRowOptions);
-  }, [transactions, LoanRowTab]);
+  }, [payout, LoanRowTab]);
+
   const useStyles = makeStyles({
     container: {
       width: "407px",
@@ -197,12 +193,17 @@ export default function TransfersTable() {
         </div>
       </Menu>
       <div className={Styles.wrapper}>
-        <OperantTable
+        <CustomClickTable
           columns={columns}
           rows={rows}
-          totalRows={totalRows}
-          changePage={changePage}
+          totalRows={payout?._metadata?.totalcount || 0}
+          changePage={changePage!}
           limit={limit}
+          // reset={reset}
+          link="/payout"
+          clickable
+          identifier="id"
+          rowsData={payout?.payouts || []}
         />
       </div>
     </div>

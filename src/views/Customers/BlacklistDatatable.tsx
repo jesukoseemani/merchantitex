@@ -3,7 +3,7 @@ import axios from 'axios';
 import moment from 'moment';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useTheme } from 'styled-components';
 import CustomClickTable from '../../components/table/CustomClickTable';
 import {
@@ -13,7 +13,7 @@ import {
 import { openModalAndSetContent } from '../../redux/actions/modal/modalActions';
 import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
 import {
-	BlacklistCustomerItem,
+	CustomerItem,
 	GetBlacklistCustomerRes,
 } from '../../types/CustomerTypes';
 import Addtoblacklist from './Addtoblacklist';
@@ -21,6 +21,10 @@ import styles from './blacklist.module.scss';
 import RemoveBlacklist from './RemoveBlacklist';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
+import { getBlacklistedCustomers } from '../../services/customer';
+import { SETTLEMENT_FILTER_DATA } from '../../constant';
+import FilterModal from '../../components/filterModals/SettlementsFilterModal';
+import { stripEmpty, stripSearch } from '../../utils';
 
 const BlacklistDatatable = () => {
 	const theme = useTheme();
@@ -28,12 +32,14 @@ const BlacklistDatatable = () => {
 
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const [transactions, setTransactions] = useState<BlacklistCustomerItem[]>([]);
-	const [rows, setRows] = useState<BlacklistCustomerItem[]>([]);
+	const [transactions, setTransactions] = useState<CustomerItem[]>([]);
+	const [rows, setRows] = useState<CustomerItem[]>([]);
 	const [pageNumber, setPageNumber] = useState<number>(1);
 	const [rowsPerPage, setRowsPerPage] = useState<number>(5);
 	const [totalRows, setTotalRows] = useState<number>(0);
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+	const { search } = useLocation();
+	const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
 
 	const changePage = (value: number) => {
 		setPageNumber(value);
@@ -44,18 +50,16 @@ const BlacklistDatatable = () => {
 	};
 
 	interface Column {
-		id: 'name' | 'email' | 'phone' | 'added' | 'actions';
+		id: 'name' | 'email' | 'msisdn' | 'actions';
 		label: any;
 		minWidth?: number;
 		align?: 'right' | 'left' | 'center';
-
 	}
 	const columns: Column[] = [
 		{ id: 'name', label: 'Name', minWidth: 150 },
 		{ id: 'email', label: 'Email', minWidth: 150 },
-		{ id: 'phone', label: 'Phone Numbers', minWidth: 150 },
-		{ id: 'added', label: 'Date Added', minWidth: 150, align: 'left' },
-		{ id: 'actions', label: 'Actions', minWidth: 150, align: 'left' },
+		{ id: 'msisdn', label: 'MSISDN', minWidth: 150 },
+		{ id: 'actions', label: 'Actions', minWidth: 100 },
 	];
 
 	const handleBLacklist = () => {
@@ -79,62 +83,49 @@ const BlacklistDatatable = () => {
 	};
 
 	const CustomerRowTab = useCallback(
-		(firstname, lastname, email, added, phone) => ({
+		(firstname, lastname, email, msisdn, id) => ({
 			name: (
 				<p className={styles.tableBodyText}>
 					<span className={styles.capitalText}>{firstname}</span>{' '}
 					<span className={styles.capitalText}>{lastname}</span>
 				</p>
 			),
+			id: <p className={styles.tableBodyText}>{id}</p>,
 			email: <p className={styles.tableBodyText}>{email}</p>,
-			phone: <p className={styles.tableBodyText}>{phone}</p>,
-			added: (
-				<p className={styles.tableBodyText}>
-					{moment(added).format('MMM D YYYY')}
-					<span className={styles.tableBodySpan}>
-						{' '}
-						{moment(added).format('h:mm A')}
-					</span>
-				</p>
-			),
+			msisdn: <p className={styles.tableBodyText}>{msisdn}</p>,
+
 			actions: (
 				<button onClick={handleBLacklist} className={styles.ActionBtn}>
-					Remove from Blacklist
+					Remove
 				</button>
 			),
+
 		}),
 		[]
 	);
 
 	useEffect(() => {
 		const newRowOptions: any[] = [];
-		transactions?.map((each: BlacklistCustomerItem) =>
+		transactions?.map((each: CustomerItem) =>
 			newRowOptions.push(
 				CustomerRowTab(
 					each?.firstname,
 					each?.lastname,
 					each?.email,
-					each?.added,
-					each?.phone
+					each?.msisdn,
+					each?.id
 				)
 			)
 		);
 		setRows(newRowOptions);
 	}, [transactions, CustomerRowTab]);
 
-	const getCustomers = async () => {
+	const getCustomers = async (form = SETTLEMENT_FILTER_DATA) => {
 		dispatch(openLoader());
 		try {
-			const res = await axios.get<GetBlacklistCustomerRes>(
-				'/mockData/blacklistcustomer.json',
-				{ baseURL: '' }
-			);
-			console.log(res?.data);
-			const { transactions, _metadata } = res?.data;
-			if (transactions.length) {
-				setTransactions(transactions);
-				setTotalRows(_metadata?.totalcount);
-			}
+			const res = await getBlacklistedCustomers(stripEmpty({ page: pageNumber, perpage: rowsPerPage, search: stripSearch(search), ...form }));
+			setTransactions(res?.customers || []);
+			setTotalRows(res?._metadata?.totalcount || 0)
 			dispatch(closeLoader());
 		} catch (err) {
 			console.log(err);
@@ -152,19 +143,26 @@ const BlacklistDatatable = () => {
 
 	useEffect(() => {
 		getCustomers();
-	}, [pageNumber, rowsPerPage]);
+	}, [pageNumber, rowsPerPage, search]);
 
+	const action = (form = SETTLEMENT_FILTER_DATA) => {
+		getCustomers(form)
+	}
 
 	return (
 		<Box py={"27px"}>
-
+			<FilterModal
+				isOpen={isFilterModalOpen}
+				handleClose={() => setIsFilterModalOpen(false)}
+				action={action}
+			/>
 
 			<Box>
 				<Stack direction={"row"} flexWrap="wrap" justifyContent="space-between" gap={3}>
-					<h2 className={styles.blacklistHeader}>{transactions?.length} blacklisted customers</h2>
+					<h2 className={styles.blacklistHeader}>{totalRows} blacklisted customer(s)</h2>
 					<Box className={styles.headerBox}>
-						<button ><FilterAltOutlinedIcon />Filter by:</button>
-						<button> <InsertDriveFileOutlinedIcon />Download</button>
+						<button onClick={() => setIsFilterModalOpen(true)}><FilterAltOutlinedIcon />Filter by:</button>
+						{/* <button> <InsertDriveFileOutlinedIcon />Download</button> */}
 
 					</Box>
 				</Stack>

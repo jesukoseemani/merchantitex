@@ -15,6 +15,7 @@ import { Button } from '@mui/material';
 import CustomClickTable from '../../components/table/CustomClickTable';
 import { makeStyles } from '@material-ui/styles';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
+import ComingSoon from '../../components/comingSoon/ComingSoon';
 
 const useModalBtnStyles = makeStyles({
 	root: {
@@ -191,27 +192,28 @@ const RequestsTab = ({
 	}, [pageNumber, rowsPerPage]);
 
 	return (
-		<TabPanel value={value} index={index}>
-			<div className={styles.topContainer}>
-				<h3>{totalRows} POS requests</h3>
-				<div className={btnClasses.root}>
-					<Button style={{ borderRadius: "20px" }} onClick={openModal}>Request new POS</Button>
-				</div>
-			</div>
-			<div className={styles.tableContainer}>
-				<CustomClickTable
-					columns={columns}
-					rows={rows}
-					totalRows={totalRows}
-					changePage={changePage}
-					limit={limit}
-					clickable
-					link='/point_of_sale/requests'
-					identifier='reqId'
-					rowsData={requests}
-				/>
-			</div>
-		</TabPanel>
+		// <TabPanel value={value} index={index}>
+		// 	<div className={styles.topContainer}>
+		// 		<h3>{totalRows} POS requests</h3>
+		// 		<div className={btnClasses.root}>
+		// 			<Button style={{ borderRadius: "20px" }} onClick={openModal}>Request new POS</Button>
+		// 		</div>
+		// 	</div>
+		// 	<div className={styles.tableContainer}>
+		// 		<CustomClickTable
+		// 			columns={columns}
+		// 			rows={rows}
+		// 			totalRows={totalRows}
+		// 			changePage={changePage}
+		// 			limit={limit}
+		// 			clickable
+		// 			link='/point_of_sale/requests'
+		// 			identifier='reqId'
+		// 			rowsData={requests}
+		// 		/>
+		// 	</div>
+		// </TabPanel>
+		<ComingSoon />
 	);
 };
 

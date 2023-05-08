@@ -40,6 +40,7 @@ interface Props {
 interface DonationLinkModalProps {
 	isOpen: boolean;
 	handleClose: () => void;
+	setIsUpdate: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 
@@ -174,7 +175,7 @@ const useStyles = makeStyles({
 	}
 });
 
-const DonationLinkModal = ({ isOpen, handleClose }: DonationLinkModalProps) => {
+const DonationLinkModal = ({ isOpen, handleClose, setIsUpdate }: DonationLinkModalProps) => {
 
 	const dispatch = useDispatch()
 	const classes = useStyles();
@@ -197,7 +198,7 @@ const DonationLinkModal = ({ isOpen, handleClose }: DonationLinkModalProps) => {
 
 
 
-	const [loading, imgUrl, handleUpload] = useCustomUpload()
+	const { loading, imgUrl, handleUpload } = useCustomUpload()
 	const [currencyList, loadingCurrency, currencyId] = useCurrency()
 	const [loadingCountry, countryCode, countryList, countryId] = useCountry()
 
@@ -212,12 +213,11 @@ const DonationLinkModal = ({ isOpen, handleClose }: DonationLinkModalProps) => {
 				donationContact: '',
 				currencyid: '',
 				redirectUrl: '',
-				otp: '',
 				pageImage: ''
 
 			}}
 			validationSchema={paymentDonation}
-			onSubmit={async ({ linkName, amount, currencyid, redirectUrl, description, donationWebsite, donationContact, otp }, { resetForm }) => {
+			onSubmit={async ({ linkName, amount, currencyid, redirectUrl, description, donationWebsite, donationContact }, { resetForm }) => {
 				dispatch(openLoader());
 
 				try {
@@ -234,7 +234,6 @@ const DonationLinkModal = ({ isOpen, handleClose }: DonationLinkModalProps) => {
 							donationContact,
 							pageImage: imgUrl
 						},
-						otp
 					})
 					if (data?.code === "success") {
 						dispatch(
@@ -245,7 +244,7 @@ const DonationLinkModal = ({ isOpen, handleClose }: DonationLinkModalProps) => {
 								},
 							})
 						)
-
+						setIsUpdate(true)
 						dispatch(closeLoader());
 						dispatch(closeModal())
 						resetForm()
@@ -367,10 +366,7 @@ const DonationLinkModal = ({ isOpen, handleClose }: DonationLinkModalProps) => {
 											</Grid>
 										</Grid>
 									</Grid>
-									<Grid item xs={12} md={6} alignItems="cemter" mt={-4}>
 
-										<CustomInputField as={TextField} label={"Otp"} placeholder='otp' name='otp' />
-									</Grid>
 									<Grid item xs={12} md={6} justifyContent={"flex-end"} alignItems="flex-end" >
 										<Box>
 											<Button type="submit" style={{ borderRadius: "20px", height: "44px" }} fullWidth className={classes.formBtn}>

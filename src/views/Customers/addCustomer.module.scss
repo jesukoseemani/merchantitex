@@ -25,6 +25,7 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 5rem 1fr;
+  padding-bottom: 20px;
   // background-color: red;
   // margin: 1rem;
 
@@ -279,4 +280,16 @@
 
 .blacklistBtn {
   &:nth-of-type(1) {}
+}
+
+.text_area_cover {
+  margin-top: 20px;
+}
+
+.text_area {
+  border: 1px solid #cecece;
+  width: 100%;
+  border-radius: 5px;
+  padding: 5px 10px;
+
 }

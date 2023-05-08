@@ -16,7 +16,7 @@
     font-family: 'Avenir';
     font-style: normal;
     font-weight: 400;
-    font-size: 10px;
+    font-size: 7px;
     line-height: 16px;
     width: 100%;
 
@@ -28,6 +28,8 @@
 
 .downloadIcon {
     margin-right: 10px !important;
+
+
 }
 
 .directorInfo {
@@ -60,4 +62,17 @@
     text-align: center;
 
     color: #4F4F4F;
+}
+
+.headerTitle {
+
+    font-family: 'Avenir';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 14px;
+    line-height: 19px;
+    margin-bottom: 16px;
+    color: #414141;
+
+
 }

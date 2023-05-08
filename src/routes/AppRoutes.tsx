@@ -88,11 +88,15 @@ import Operations from "../components/permission/Operations";
 import Support from "../components/permission/Support";
 import Developer from "../components/permission/Developer";
 import NgoSignUp from "../views/SignUp/ngo";
+import Payout from "../views/Payout/Payout";
+import SinglePayout from "../views/Payout/SinglePayout";
 import Owner from "../components/permission/Owner";
 import UsersPermission from "../components/permission/Users";
 import UserActivity from '../redux/reducers/settings/user/UserActivity';
 import PaymentMethod from "../views/Settings/payment/PaymentMethod";
 import TwoFaAuth from "../views/SignIn/TwoFaAuth";
+import TestForm from '../components/TestForm';
+import { changeNewNavbar } from "../redux/actions/navbarNew/navbarNewActions";
 
 
 
@@ -157,6 +161,8 @@ export default function AppRoutes() {
         localStorage.clear();
         dispatch(logOut());
         history.push("/signin");
+        dispatch(changeNewNavbar("Home"))
+
       } else {
         return Promise.reject(error);
       }
@@ -200,10 +206,12 @@ export default function AppRoutes() {
         <Route exact path="/reset/password">
           <ResetPassword />
         </Route>
+        <Route exact path="/testform">
+          <TestForm />
+        </Route>
 
 
         <Navigation title="">
-
           <>
             <ProtectedRoute
               exact
@@ -211,6 +219,7 @@ export default function AppRoutes() {
               component={MerchantOverview}
               AuthUser={loadingState}
             />
+
 
             {/* <ProtectedRoute
               exact
@@ -386,13 +395,27 @@ export default function AppRoutes() {
 
             <ProtectedRoute
               exact
+              path="/payout"
+              component={Payout}
+              AuthUser={loadingState}
+            />
+
+            <ProtectedRoute
+              exact
+              path="/payout/:id"
+              component={SinglePayout}
+              AuthUser={loadingState}
+            />
+
+            <ProtectedRoute
+              exact
               path="/chargebacks"
               component={ChargeBacks}
               AuthUser={loadingState}
             />
             <ProtectedRoute
               exact
-              path="/chargebacks/:slug"
+              path="/chargebacks/:chargebackid"
               component={ChargeBacksItem}
               AuthUser={loadingState}
             />

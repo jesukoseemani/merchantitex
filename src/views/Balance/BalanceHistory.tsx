@@ -1,14 +1,10 @@
-import { Box, Button, IconButton, Modal, OutlinedInput } from '@mui/material';
-import { MouseEvent, useCallback, useEffect, useState } from 'react';
-import NavBar from '../../components/navbar/NavBar';
+import { Box, Button, IconButton, Modal } from '@mui/material';
+import { useCallback, useEffect, useState } from 'react';
 import styles from './Balance.module.scss';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import { makeStyles } from '@material-ui/styles';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import {
-  BalanceHistoryItem,
-  GetBalanceHistoryRes,
+  BalanceHistory as History,
 } from '../../types/BalanceTypes';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
@@ -16,13 +12,16 @@ import {
   closeLoader,
   openLoader,
 } from '../../redux/actions/loader/loaderActions';
-import axios from 'axios';
 import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
 import CustomClickTable from '../../components/table/CustomClickTable';
-import ParentContainer from '../../components/ParentContainer/ParentContainer';
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
+import { getBalanceHistoryService } from '../../services/balance';
+import FilterModal from '../../components/filterModals/BalanceHistoryFilter';
+import { BALANCE_HISTORY_FILTER_DATA } from '../../constant';
+import { stripEmpty } from '../../utils';
+import { useLocation } from 'react-router-dom';
 
 
 const useBtnStyles = makeStyles({
@@ -144,23 +143,18 @@ const useModalBtnStyles = makeStyles({
 
 const BalanceHistory = () => {
   const btnClasses = useBtnStyles();
-  const tableClasses = useTableStyles();
   const modalBtnClasses = useModalBtnStyles();
 
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
-  const [history, setHistory] = useState<BalanceHistoryItem[]>([]);
-  const [rows, setRows] = useState<BalanceHistoryItem[]>([]);
+  const [history, setHistory] = useState<History[]>([]);
+  const [rows, setRows] = useState<History[]>([]);
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
   const [totalRows, setTotalRows] = useState<number>(0);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
 
   const dispatch = useDispatch();
 
-  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -187,6 +181,8 @@ const BalanceHistory = () => {
     { id: 'added', label: 'Date', minWidth: 150 },
   ];
 
+  const { search } = useLocation()
+
   const BalanceHistoryRowTab = useCallback(
     (init, amt, after, details, added, id) => ({
       init: (
@@ -199,7 +195,7 @@ const BalanceHistory = () => {
         <p className={styles.tableBodyText}>
           <span
             style={{
-              color: amt.startsWith("+") ? "#219653" : "#eb5757",
+              color: amt?.startsWith?.("+") ? "#219653" : "#eb5757",
               fontWeight: "700",
             }}
           >
@@ -230,33 +226,27 @@ const BalanceHistory = () => {
 
   useEffect(() => {
     const newRowOptions: any[] = [];
-    history?.map((each: BalanceHistoryItem) =>
+    history?.map((each: History) =>
       newRowOptions.push(
         BalanceHistoryRowTab(
-          each?.init,
-          each?.amt,
-          each?.after,
-          each?.details,
-          each?.added,
-          each?.id
+          each?.balancebefore || 0,
+          each?.amount || 0,
+          each?.balanceafter || 0,
+          '---',
+          each?.createdat,
+          each?.id || ''
         )
       )
     );
     setRows(newRowOptions);
   }, [history, BalanceHistoryRowTab]);
 
-  const getBalanceHistory = async () => {
+  const getBalanceHistory = async (form = BALANCE_HISTORY_FILTER_DATA) => {
     dispatch(openLoader());
     try {
-      const res = await axios.get<GetBalanceHistoryRes>(
-        "/mockData/balancehistory.json",
-        { baseURL: "" }
-      );
-      const { history, _metadata } = res?.data;
-      if (history.length) {
-        setHistory(history);
-        setTotalRows(_metadata?.totalcount);
-      }
+      const res = await getBalanceHistoryService('52', stripEmpty({ search, ...form }))
+      setHistory(res?.balancehistory || []);
+      setTotalRows(res?._metadata?.totalcount || 0);
       dispatch(closeLoader());
     } catch (err) {
       console.log(err);
@@ -274,68 +264,24 @@ const BalanceHistory = () => {
 
   useEffect(() => {
     getBalanceHistory();
-  }, [pageNumber, rowsPerPage]);
+  }, [pageNumber, rowsPerPage, search]);
+
+  const action = (form: typeof BALANCE_HISTORY_FILTER_DATA) => {
+    getBalanceHistory(form)
+  }
 
   return (
 
     <div className={styles.container}>
-      <Modal
-        open={isFilterModalOpen}
-        onClose={() => setIsFilterModalOpen(false)}
-        aria-labelledby="balance history filter modal"
-      >
-        <div className={styles.filterModalContainer}>
-          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 22px" }}>
-            <h2>Filters</h2>
-            <IconButton onClick={handleClose}>
-              <CloseOutlined />
-            </IconButton>
-          </Box>
-          <hr />
-          <div className={styles.modalContent}>
-            <div className={styles.dates}>
-              <p>Due date</p>
-              <div >
-                <p>Today</p>
-                <p>Last 7 days</p>
-                <p>30 days</p>
-                <p>1 year</p>
-              </div>
-            </div>
-            <div>
-              <p>Custom date range</p>
-              <div>
-                <div>Start date</div>
-                <ArrowRightAltIcon />
-                <div>End date</div>
-              </div>
-            </div>
-            <div>
-              <p>Withheld amount</p>
-              <input placeholder="NGN 0.00" />
-            </div>
-            <div>
-              <p>Status</p>
-              <input
-                placeholder="Choose status"
-
-              />
-            </div>
-          </div>
-          <hr />
-          <div className={modalBtnClasses.root}>
-            <Button>Clear filter</Button>
-            <Button>Apply filter</Button>
-          </div>
-        </div>
-      </Modal>
-
-
-
+      <FilterModal
+        isOpen={isFilterModalOpen}
+        handleClose={() => setIsFilterModalOpen(false)}
+        action={action}
+      />
       <div className={styles.pageWrapper}>
         <Box className={styles.historyTopContainer} mb={2}>
           <div>
-            <h2 className={styles.history__title}>{history?.length ?? 0} balance logs</h2>
+            <h2 className={styles.history__title}>{totalRows} balance log(s)</h2>
           </div>
           <div className={btnClasses.root}>
             <div>
@@ -343,9 +289,6 @@ const BalanceHistory = () => {
                 <FilterAltOutlinedIcon /> Filter by:
               </Button>
             </div>
-            <Button>
-              <InsertDriveFileOutlinedIcon /> Download
-            </Button>
           </div>
         </Box>
         <div className={styles.tableContainer}>

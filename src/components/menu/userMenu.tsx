@@ -21,10 +21,13 @@ import { logOut } from '../../redux/actions/auth/authActions';
 import axios from 'axios';
 import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
 import Switch from '../switch/Switch';
+import { changeNewNavbar } from '../../redux/actions/navbarNew/navbarNewActions';
+
 
 
 export default function UserMenu() {
 	const [user, setUser] = useState<any>({});
+	const { auth } = useSelector((state) => state?.authReducer);
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const [checked, setChecked] = useState<boolean>(true);
 	const open = Boolean(anchorEl);
@@ -39,25 +42,11 @@ export default function UserMenu() {
 		} catch (error: any) {
 			if (error.response) {
 				const { message } = error.response.data;
-				dispatch(
-					openToastAndSetContent({
-						toastContent: message,
-						toastStyles: {
-							backgroundColor: 'red',
-						},
-					})
-				);
+				console.log(message);
 			} else if (error.request) {
 				console.log('sorry, there was an error');
 			} else {
-				dispatch(
-					openToastAndSetContent({
-						toastContent: error.message,
-						toastStyles: {
-							backgroundColor: 'red',
-						},
-					})
-				);
+				console.log('sorry, there was an error');
 			}
 		}
 	};
@@ -90,7 +79,7 @@ export default function UserMenu() {
 			alignItems: 'flex-start',
 			justifyContent: 'center',
 			padding: '1rem .5rem',
-			width: 170,
+			width: 200,
 			borderRadius: 20
 		},
 		primary: {
@@ -137,6 +126,7 @@ export default function UserMenu() {
 		dispatch(logOut());
 		history.push('/signIn');
 		dispatch(saveLoading(false));
+		dispatch(changeNewNavbar("Home"))
 		dispatch(removeMe());
 		setAnchorEl(null);
 	};
@@ -172,9 +162,9 @@ export default function UserMenu() {
 					<div className={Styles.userdetails}>
 						<h2 className={Styles.username}>
 							{/* {user?.firstname} {user?.lastname} */}
-							Reece James
+							{auth?.user?.firstname} {auth?.user?.lastname}
 						</h2>
-						<div className={Styles.usermail}>james@gmail.com</div>
+						<div className={Styles.usermail}>{auth?.user?.email}</div>
 					</div>
 				</MenuItem>
 				<MenuItem
@@ -186,7 +176,7 @@ export default function UserMenu() {
 						<div>
 							<img src={SettingsIcon} alt='' />
 						</div>
-						<div className={Styles.accountDetail} >My Account</div>
+						<div className={Styles.accountDetail}>My Account</div>
 					</div>
 				</MenuItem>
 				<MenuItem

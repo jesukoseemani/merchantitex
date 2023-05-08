@@ -1,10 +1,15 @@
 import { Box, Typography } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ColorcheckIcon from "../../../assets/images/circle-check-color.svg"
 import Styles from "./success.module.scss"
 
 import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
+
+
+
+
 const SuccessModal = () => {
+
     return (
 
         <Box className={Styles.container}>

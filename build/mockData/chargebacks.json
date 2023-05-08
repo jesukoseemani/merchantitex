@@ -8,7 +8,7 @@
   "chargebacks": [
     { 
       "amt": "45,000.52" ,
-      "status": "won", 
+      "status": "Won", 
       "txnRef": "ITEX-gh2dh33sf4get5sfs33kj", 
       "email": "john@mail.com", 
       "due": "due",
@@ -22,7 +22,7 @@
     },
     { 
       "amt": "5,000.00" ,
-      "status": "lost", 
+      "status": "Lost", 
       "txnRef": "ITEX-dr2dh33sf4tyes5sfs33kj", 
       "email": "jane@mail.com", 
       "due": "overdue",
@@ -36,7 +36,7 @@
     },
     { 
       "amt": "6,000.22" ,
-      "status": "pending", 
+      "status": "Pending", 
       "txnRef": "ITEX-uy5dh3sds4f46gt5sqfsw2kj", 
       "email": "joe@mail.com", 
       "due": "due",

@@ -69,9 +69,12 @@ const useModalBtnStyles = makeStyles({
 
 interface LinksViewProps {
 	openLinkModal: () => void;
+	setIsUpdate: React.Dispatch<React.SetStateAction<boolean>>
+	isUpdate: boolean
 }
 
-const LinksView = ({ openLinkModal }: LinksViewProps) => {
+
+const LinksView = ({ openLinkModal, isUpdate, setIsUpdate }: LinksViewProps) => {
 	const theme = useTheme();
 
 	const useBtnStyles = makeStyles({
@@ -234,7 +237,9 @@ const LinksView = ({ openLinkModal }: LinksViewProps) => {
 			if (paymentlinks.length) {
 				setLinks(paymentlinks);
 				setTotalRows(_metadata?.totalcount);
+				console.log(paymentlinks, "links")
 			}
+			setIsUpdate(false)
 			dispatch(closeLoader());
 		} catch (err) {
 			console.log(err);
@@ -252,7 +257,7 @@ const LinksView = ({ openLinkModal }: LinksViewProps) => {
 
 	useEffect(() => {
 		getPaymentLinks();
-	}, [pageNumber, rowsPerPage]);
+	}, [pageNumber, rowsPerPage, isUpdate]);
 
 
 

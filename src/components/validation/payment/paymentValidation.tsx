@@ -5,7 +5,6 @@ import "yup-phone-lite"
 export const paymentDonation = Yup.object({
     linkName: Yup.string().required("link name is Required"),
     currencyid: Yup.number().required("currency is Required"),
-    otp: Yup.number().required("otp is required"),
     amount: Yup.number().required("Amount is required"),
     description: Yup.string().required("description is required"),
     donationWebsite: Yup.string().required("donationWebsite is required").url(),
@@ -17,7 +16,6 @@ export const paymentDonation = Yup.object({
 export const singleCharge = Yup.object({
     linkName: Yup.string().required("link name is Required"),
     currencyid: Yup.number().required("currency is Required"),
-    otp: Yup.number().required("otp is required"),
     amount: Yup.number().required("Amount is required"),
     description: Yup.string().required("description is required"),
     redirectUrl: Yup.string().required("donationWebsite is required").url(),
@@ -28,7 +26,6 @@ export const singleCharge = Yup.object({
 export const subscriptionSchema = Yup.object({
     linkName: Yup.string().required("link name is Required"),
     currencyid: Yup.number().required("currency is Required"),
-    otp: Yup.number().required("otp is required"),
     amount: Yup.number().required("Amount is required"),
     subChargeCount: Yup.number().required("Subcharge count is required"),
     description: Yup.string().required("description is required"),
@@ -57,26 +54,10 @@ export const invoiceSchema = Yup.object({
     otp: Yup.number().required("otp is required"),
     dueDate: Yup.date().required("due date is required"),
     comment: Yup.string().required("comment is required"),
-    tax: Yup.number().required("tax is required"),
-    discount: Yup.number().required("discount is required"),
-    totalAmount: Yup.number().required("total Amount is required"),
-
-    items: Yup.array().of(
-        Yup.object().shape({
-            subtotal: Yup.number().required("subtotal is required"),
-            quantity: Yup.number().required("quantity is required"),
-            price: Yup.number().required("price is required"),
-            itemName: Yup.string().required("itemName is required"),
-
-        })
-    )
-
-
-
 
 })
 export const DisableSchema = Yup.object({
-    otp: Yup.number().required("otp is Required"),
+
     action: Yup.string().required("otp is Required"),
 
 })

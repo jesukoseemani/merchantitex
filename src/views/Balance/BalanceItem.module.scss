@@ -104,11 +104,11 @@
 }
 
 .sectionThree {
-	padding: 4rem 0rem 0;
+	padding: 20px 30px;
+	background: #FFFFFF;
+	border: 1px solid #DFDFDF;
+	border-radius: 20px;
 
-	@media screen and (max-width: 760px) {
-		padding: 3rem 6rem 0 2rem;
-	}
 
 	&>div:nth-child(1) {
 		border-bottom: 1px solid #e0e0e0;
