@@ -163,7 +163,7 @@ export default function CustomClickTable({
 													// padding: "16.5px 39px"
 												}}
 												style={{ maxWidth: column.maxWidth, }}>
-												{value}
+												<p>{value}</p>
 											</TableCell>
 										);
 									})}

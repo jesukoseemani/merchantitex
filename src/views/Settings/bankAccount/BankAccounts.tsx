@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
-import NavBar from "../../components/navbar/NavBar";
-import Styles from "./Settings.module.scss";
+import NavBar from "../../../components/navbar/NavBar";
+import Styles from "./bank.module.scss";
 import {
   Dropdown,
   Menu,
@@ -11,26 +11,26 @@ import {
   Label,
 
 } from "semantic-ui-react";
-import OperantTable from "../../components/table/OperantTable";
+import OperantTable from "../../../components/table/OperantTable";
 import { useDispatch, useSelector } from "react-redux";
 import {
   closeLoader,
   openLoader,
-} from "../../redux/actions/loader/loaderActions";
+} from "../../../redux/actions/loader/loaderActions";
 import axios from "axios";
-import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
+import { openToastAndSetContent } from "../../../redux/actions/toast/toastActions";
 import { IconButton } from "@material-ui/core";
 import CloseIcon from "@mui/icons-material/Close";
-import ParentContainer from "../../components/ParentContainer/ParentContainer";
 import { Box, Checkbox, Stack } from "@mui/material";
-import EditIcon from "../../assets/images/editicon.svg"
-import DeleteIcon from "../../assets/images/delete.svg"
+import EditIcon from "../../../assets/images/editicon.svg"
+import DeleteIcon from "../../../assets/images/delete.svg"
 import { CircleFlag } from 'react-circle-flags'
 import { ReactSVG } from "react-svg";
-import { openModalAndSetContent } from "../../redux/actions/modal/modalActions";
+import { openModalAndSetContent } from "../../../redux/actions/modal/modalActions";
 import AddBank from "./AddBank";
-import { fetchBankAcct } from "../../redux/actions/settings/BankAccount";
-import Navigation from "../../components/navbar/Navigation";
+import { fetchBankAcct } from "../../../redux/actions/settings/BankAccount";
+import Navigation from "../../../components/navbar/Navigation";
+import CustomStatus from "../../../components/customs/CustomStatus";
 
 
 interface TransactionsProps {
@@ -156,7 +156,7 @@ const BankAccounts = () => {
     { id: "country", label: "Country", minWidth: 100 },
     { id: "currency", label: "Currency", minWidth: 100 },
     { id: "status", label: "Ranking", minWidth: 100 },
-    { id: "action", label: "Action", align: "right", minWidth: 100 },
+    { id: "action", label: "Action", align: "center", minWidth: 100 },
   ];
   const LoanRowTab = useCallback((
     accountname?: string,
@@ -184,17 +184,8 @@ const BankAccounts = () => {
     country: (<Box display={"flex"} alignItems={"center"} gap={1}><CircleFlag countryCode={`${country?.toLocaleLowerCase()}`} height="20" />{country}</Box>),
     currency,
     status: (
-      <Label
-        className={
-          status?.toLowerCase() === 'active'
-            ? Styles.success
-            : status?.toLowerCase() === 'inactive'
-              ? 'warning'
-              : 'danger'
-        }>
-        {status}
-      </Label>
-    ),
+
+      <CustomStatus type={status} text={String(status)} />),
     id,
     bankcode,
     action: (<Stack direction={"row"}>
@@ -271,21 +262,6 @@ const BankAccounts = () => {
 
 
 
-
-
-  // const AccountModal = () => {
-  //   return (
-  //     // <Modal
-  //     //   onClose={() => setOpenModal(false)}
-  //     //   onOpen={() => setOpenModal(true)}
-  //     //   open={openModal}
-  //     //   className={Styles.modalContainer}
-  //     // >
-  //     //   <AddBank data="" title='Add/Edit Bank' getTransactions={getTransactions} />
-  //     // </Modal>
-  //   );
-  // };
-
   return (
     <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
 
@@ -295,9 +271,9 @@ const BankAccounts = () => {
           <div>
             <h2>{settlements?.length} Settlement bank accounts </h2>
           </div>
-          <Button style={{ borderRadius: "20px" }} onClick={showBankModal} className="success">
+          <button style={{ borderRadius: "20px" }} onClick={showBankModal} className="success">
             + Add bank account
-          </Button>
+          </button>
         </div>
         <div className={Styles.tableWrapper}>
           <OperantTable

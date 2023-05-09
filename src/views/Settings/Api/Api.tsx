@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Button, Modal, Select, Label, Form } from 'semantic-ui-react';
-import NavBar from '../../components/navbar/NavBar';
-import Styles from './Settings.module.scss';
-import { ReactComponent as CopyIcon } from '../../assets/images/copy-2.svg';
+import NavBar from '../../../components/navbar/NavBar';
+import Styles from './styles.module.scss';
+import { ReactComponent as CopyIcon } from '../../../assets/images/copyColor.svg';
 import { IconButton } from '@material-ui/core';
 import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,13 +10,14 @@ import axios from 'axios';
 import {
 	closeLoader,
 	openLoader,
-} from '../../redux/actions/loader/loaderActions';
-import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
+} from '../../../redux/actions/loader/loaderActions';
+import { openToastAndSetContent } from '../../../redux/actions/toast/toastActions';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import TextTruncate from 'react-text-truncate';
-import ParentContainer from '../../components/ParentContainer/ParentContainer';
+import ParentContainer from '../../../components/ParentContainer/ParentContainer';
 import { Box } from '@mui/material';
-import { closeModal } from '../../redux/actions/modal/modalActions';
+import { closeModal } from '../../../redux/actions/modal/modalActions';
+import CustomModal from '../../../components/customs/CustomModal';
 
 
 interface Props {
@@ -31,7 +32,8 @@ const Api = () => {
 	const { userDetails } = useSelector((state) => state?.userDetailReducer);
 	const [key, setKey] = useState<any>()
 	const dispatch = useDispatch();
-
+	const handleGenerateModal = () => setOpenModal(true);
+	const handleCloseModal = () => setOpenModal(false);
 
 
 
@@ -111,17 +113,8 @@ const Api = () => {
 
 	const APIModal = () => {
 		return (
-			<Modal
-				onClose={() => setOpenModal(false)}
-				onOpen={() => setOpenModal(true)}
-				open={openModal}
-				className={Styles.modalContainer}>
-				<div className={Styles.modalHeader}>
-					<h2>Generate new API keys</h2>
-					<IconButton onClick={() => setOpenModal(false)}>
-						<CloseIcon />
-					</IconButton>
-				</div>
+			<div>
+
 				<div className={Styles.modalList}>
 					<p className={Styles.note}>
 						Are you sure you want to generate new API keys? If you’ve integrated
@@ -131,11 +124,12 @@ const Api = () => {
 				</div>
 				<div className={Styles.modalFooter}>
 					<div className={Styles.btnGroup}>
-						<button style={{ padding: "10px 20px", borderRadius: "20px" }} onClick={() => setOpenModal(false)}>Cancel</button>
-						<button onClick={generateKey} style={{ padding: "10px 20px", borderRadius: "20px" }} className='success'>Proceed</button>
+						<button onClick={() => setOpenModal(false)}>Cancel</button>
+						<button onClick={generateKey}>Generate</button>
 					</div>
 				</div>
-			</Modal>
+			</div>
+
 		);
 	};
 
@@ -145,20 +139,33 @@ const Api = () => {
 	return (
 
 		<div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-			<APIModal />
+
+			<Box>
+				<CustomModal
+					title="Generate new API keys"
+					isOpen={openModal}
+					handleClose={handleCloseModal}
+					close={() => setOpenModal(false)}>
+					<APIModal />
+				</CustomModal >
+
+			</Box>
 			{/* <NavBar name='API' /> */}
 			<div className={Styles.container}>
 				<div className={Styles.formHeader}>
 					<div>
 						<h2>API Keys</h2>
+						<p>Manage your API Keys settings</p>
 					</div>
+
+
 				</div>
 				<div className={Styles.apiWrapper}>
 					<div className={Styles.apiListContainer}>
 						<h3>Public key</h3>
 						<div>
-							<span>{key?.publicApiKey}</span>
-							<CopyToClipboard text={key?.publicApiKey.substring(0, 50)}>
+							<span>{key?.publicApiKey?.substring(0, 30)}</span>
+							<CopyToClipboard text={key?.publicApiKey}>
 								<IconButton>
 									<CopyIcon />
 								</IconButton>
@@ -168,8 +175,8 @@ const Api = () => {
 					<div className={Styles.apiListContainer}>
 						<h3>Secret key</h3>
 						<div>
-							<span>{key?.privateApiKey}</span>
-							<CopyToClipboard text={key?.privateApiKey.substring(0, 50)}>
+							<span>{key?.privateApiKey?.substring(0, 30)}</span>
+							<CopyToClipboard text={key?.privateApiKey}>
 								<IconButton>
 									<CopyIcon />
 								</IconButton>
@@ -178,14 +185,9 @@ const Api = () => {
 					</div>
 					<div className={Styles.apiListContainer}>
 						<h3>Encryption key </h3>
-						<div style={{ maxWidth: '250px', width: '100%' }}>
-							{/* <TextTruncate
-								line={1}
-								element='span'
-								truncateText='…'
-								text={key?.encryptedPublicApiKey}
-							/> */}
-							<span>{key?.encryptedPublicApiKey?.substring(0, 50)}</span>
+						<div>
+
+							<span>{key?.encryptedPublicApiKey?.substring(0, 30)}</span>
 
 							<CopyToClipboard text={key?.encryptedPublicApiKey}>
 								<IconButton>
@@ -195,7 +197,7 @@ const Api = () => {
 						</div>
 					</div>
 				</div>
-				<button onClick={() => setOpenModal(true)} className='success' style={{ padding: "10px 20px", borderRadius: "20px" }}>
+				<button onClick={handleGenerateModal} className='success' style={{ padding: "10px 20px", borderRadius: "20px" }}>
 					Generate new API keys
 				</button>
 			</div>

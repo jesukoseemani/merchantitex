@@ -9,26 +9,7 @@ const WebHooks = () => {
 
   const [user, setUser] = useState("")
   const [generate, setgenerate] = useState("")
-  const countryList = [
-    {
-      key: 1,
-      value: "nigeria",
-      text: "Nigeria",
-      flag: "ng",
-    },
-    {
-      key: 2,
-      value: "ghana",
-      text: "Ghana",
-      flag: "gh",
-    },
-    {
-      key: 3,
-      value: "us",
-      text: "United State of America",
-      flag: "us",
-    },
-  ];
+
 
 
 

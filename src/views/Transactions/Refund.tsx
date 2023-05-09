@@ -34,6 +34,8 @@ import FormatToCurrency from '../../helpers/NumberToCurrency';
 import FilterModal from '../../components/filterModals/RefundFilterModal';
 import { REFUND_FILTER_DATA } from '../../constant';
 import CustomStatus from '../../components/customs/CustomStatus';
+import CustomCurrencyFormat from '../../components/customs/CustomCurrencyFormat';
+import CustomDateFormat from '../../components/customs/CustomDateFormat';
 
 
 
@@ -220,12 +222,8 @@ const Refund = () => {
 
 
 	const RefundRowTab = useCallback(
-		(amt, status, reference, type, added, id, paymentid) => ({
-			amount: <div className={styles.amount}>					<h2>
-				<span
-					style={{ color: "#828282", paddingRight: "1px" }}
-				>NGN</span>{amt}</h2></div>,
-			// code: formatStatus(code),
+		(currency, amt, status, reference, type, added, id, paymentid) => ({
+			amount: <CustomCurrencyFormat amount={amt} currency={currency} />,
 			type: <p className={styles.tableBodyText}>{type}</p>,
 			status: (
 				<CustomStatus type={status} text={status} />
@@ -234,9 +232,8 @@ const Refund = () => {
 				<p className={styles.tableBodyText}>{reference}</p>
 			),
 			added: (
-				<p className={styles.tableBodyText}>
-					{moment(added).format('MMM D YYYY h:mm A')}
-				</p>
+				<CustomDateFormat time={added} date={added} />
+
 			),
 			id: <p>{paymentid}</p>
 		}),
@@ -254,7 +251,8 @@ const Refund = () => {
 		refunds?.map((each: any) =>
 			newRowOptions.push(
 				RefundRowTab(
-					FormatToCurrency(each?.amount),
+					each?.currency,
+					each?.amount,
 					each?.status,
 					each?.reference,
 					capitalize(each?.refundtype) || '',

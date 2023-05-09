@@ -13,14 +13,29 @@
         font-family: 'Avenir';
         font-style: normal;
         font-weight: 500;
-        font-size: 12px;
+        font-size: 12px !important;
         line-height: 16px;
         text-align: center;
         text-transform: capitalize !important;
     }
+
+    .success {
+        font-family: 'Avenir';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px !important;
+        line-height: 16px;
+        text-align: center;
+        text-transform: capitalize !important;
+        background: #D6FFE7 !important;
+
+        p {
+            color: #006629;
+        }
+    }
 }
 
-.success,
+// .success,
 .Approved,
 .approved,
 .successful,
@@ -46,6 +61,7 @@
 .error,
 .lost,
 .declined,
+.inactive,
 .expired,
 .abandoned,
 .Abandoned {

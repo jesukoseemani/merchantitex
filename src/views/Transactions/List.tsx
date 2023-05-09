@@ -39,6 +39,8 @@ import { statusFormatObj } from '../../helpers';
 import { ReactComponent as FileIcon } from "../../assets/images/file.svg"
 import { ReactComponent as FilterIcon } from "../../assets/images/filter.svg"
 import CustomStatus from '../../components/customs/CustomStatus';
+import CustomCurrencyFormat from '../../components/customs/CustomCurrencyFormat';
+import CustomDateFormat from '../../components/customs/CustomDateFormat';
 
 export default function TransactionsList() {
 
@@ -191,16 +193,9 @@ export default function TransactionsList() {
 	];
 
 	const LoanRowTab = useCallback(
-		(amt, responsecode, PaymentType, email, added, id) => ({
+		(currency, amt, responsecode, PaymentType, email, added, id) => ({
 			amount: (
-				<div
-					// onClick={() => loadTransaction(transaction?.merchantreference)}
-					className={Styles.amount}>
-					<h2>
-						<span
-							style={{ color: "#828282", paddingRight: "1px" }}
-						>NGN</span>{amt || 0}</h2>
-				</div>
+				<CustomCurrencyFormat amount={amt} currency={currency} />
 			),
 			status: (
 				<CustomStatus text={getTransactionStatus(responsecode)} type={getTransactionStatus(responsecode)} />
@@ -212,7 +207,8 @@ export default function TransactionsList() {
 				<p>{PaymentType}</p>
 			),
 			date: (
-				<p>	{added}</p>
+				<CustomDateFormat time={added} date={added} />
+
 			),
 			id: <p>{id}</p>
 
@@ -223,7 +219,7 @@ export default function TransactionsList() {
 		const newRowOptions: any[] = [];
 		transactions?.map((each: TransactionItem) =>
 			newRowOptions.push(
-				LoanRowTab(each.chargeamount, getTransactionStatus(each.responsecode), each.chargetype, each?.customer?.email, each.timein, each.paymentid)
+				LoanRowTab(each?.currency, each?.chargeamount, getTransactionStatus(each?.responsecode), each?.chargetype, each?.customer?.email, each.timein, each.paymentid)
 			)
 		);
 		setRows(newRowOptions);

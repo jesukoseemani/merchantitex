@@ -84,12 +84,12 @@ export const Avenirtes: NavProps[] = [
         icon: Balance,
         link: "/balance",
       },
-      {
-        id: 10,
-        title: "Balance history",
-        icon: HistoryIcon,
-        link: "/balance/balance_history",
-      },
+      // {
+      //   id: 10,
+      //   title: "Balance history",
+      //   icon: HistoryIcon,
+      //   link: "/balance/balance_history",
+      // },
       {
         id: 8,
         title: "Settlements",

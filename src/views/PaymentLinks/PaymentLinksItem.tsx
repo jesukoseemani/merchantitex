@@ -3,7 +3,7 @@ import styles from './PaymentLinksItem.module.scss';
 import NavBar from '../../components/navbar/NavBar';
 import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
-import { Box, Button, Stack } from '@mui/material';
+import { Box, Button, IconButton, Stack } from '@mui/material';
 import { makeStyles } from '@material-ui/styles';
 import CustomClickTable from '../../components/table/CustomClickTable';
 import { GetTransactionsRes, TransactionItem } from '../../types/CustomerTypes';
@@ -24,7 +24,9 @@ import DisableInvoice from '../../components/bills/invoice/DisableInvoice';
 import { openModalAndSetContent } from '../../redux/actions/modal/modalActions';
 import CustomStatus from '../../components/customs/CustomStatus';
 
-
+import { ReactComponent as CopyIcon } from "../../assets/images/copyColor.svg";
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import FormatToCurrency from '../../helpers/NumberToCurrency';
 
 const useBtnStyles = makeStyles({
 	root: {
@@ -95,6 +97,7 @@ const PaymentLinksItem = () => {
 		dispatch(openLoader());
 		try {
 			const { data } = await axios.get<any>(`/v1/payment/paymentlinks/${id}`);
+			console.log(data);
 
 			if (data?.paymentlink) {
 				setLinkItem(data?.paymentlink);
@@ -121,7 +124,6 @@ const PaymentLinksItem = () => {
 	}, [id]);
 
 	console.log(linkItem, "linkitemsmsms");
-	console.log(typeof linkItem, "linkitemsmsms");
 
 
 
@@ -153,7 +155,7 @@ const PaymentLinksItem = () => {
 
 	const TransactionRowTab = useCallback(
 		(email, added, amount, code, paymentmethod) => ({
-			amount: <p className={styles.tableBodyText}>NGN{amount}</p>,
+			amount: <p className={styles.tableBodyText}>NGN{FormatToCurrency(amount)}</p>,
 			code: formatStatus(code),
 			email: <p className={styles.tableBodyText}>{email}</p>,
 			paymentmethod: (
@@ -260,68 +262,88 @@ const PaymentLinksItem = () => {
 				<div className={styles.sectionWrapper}>
 					<div className={styles.sectionTwo}>
 						<div>
-							<p className={styles.nameText}>{linkItem?.linkName}</p>
+							<h2 className={styles.nameText}>{linkItem?.linkName}</h2>
 
 							<CustomStatus text={linkItem?.status} type={linkItem?.status} />
 						</div>
-						<div className={btnClasses.root}>
-							<Button style={{ borderRadius: "20px", height: "34px" }}>Edit</Button>
-							<Button onClick={handleDisable} style={{ borderRadius: "20px", height: "34px" }}>Disable</Button>
-							<Button style={{ borderRadius: "20px", height: "34px" }}>Delete</Button>
+						<div>
+							<button>Edit</button>
+							<button onClick={handleDisable}>Disable</button>
+							<button>Delete</button>
 						</div>
 					</div>
 					<div className={styles.sectionThree}>
+
 						<div>
-							<div>
-								<p>Payment Link URL</p>
-								<p>
-									{linkItem?.paymentUrl} <ContentCopyIcon style={{ color: "#2F80ED", fontSize: "50px" }} fontSize={"large"} /> <ExtLinkIcon style={{ color: "#2F80ED" }} />
-								</p>
-							</div>
-							<div>
-								<p>Date created</p>
-								<p>{moment(linkItem?.added).format('MMM D YYYY h:mm A')}</p>
-							</div>
-							<div>
-								<p>Link type</p>
-								<p>{linkItem?.linkType}</p>
-							</div>
-							<div>
-								<p>Amount</p>
-								<p>NGN {linkItem?.amount}</p>
-							</div>
-							{linkItem?.donationWebsite && <div>
-								<p>Donation websites</p>
-								<Link to={linkItem?.donationWebsite}> {linkItem?.donationWebsite}</Link>
-							</div>}
-							{linkItem?.redirectUrl && <div>
-								<p>RedirectUrl</p>
-								<p> {linkItem?.redirectUrl}</p>
-							</div>}
-							{linkItem?.chargeCount && <div>
-								<p>Charge count</p>
-								<p> {linkItem?.chargeCount}</p>
-							</div>}
-							{linkItem?.donationContact && <div>
-								<p>Contact phone number</p>
-								<p> {linkItem?.donationContact && linkItem?.donationContact}</p>
-							</div>}
+							<span>Payment Link URL</span>
+							<p>
+								{linkItem?.paymenturl?.substring(0, 25)}
+								<CopyToClipboard text={linkItem?.paymenturl}>
+									<IconButton>
+										<CopyIcon />
+									</IconButton>
+
+								</CopyToClipboard>
+
+
+								<IconButton onClick={() => window.location.href = linkItem?.paymenturl} className={styles.urlBox}>
+
+									<ExtLinkIcon style={{ color: "#2F80ED" }} />
+								</IconButton>
+
+
+							</p>
+						</div>
+						<div>
+							<span>Date created</span>
+							<p className={styles.tableBodyText}>
+								{moment(linkItem?.added).format('MMM D YYYY')}
+								<span className={styles.tableBodySpan}>
+									{' '}
+									{moment(linkItem?.added).format('h:mm A')}
+								</span>
+							</p>
+						</div>
+						<div>
+							<span>Link type</span>
+							<p>{linkItem?.linkType}</p>
+						</div>
+						<div>
+							<span>Amount</span>
+							<p>NGN {FormatToCurrency(linkItem?.amount)}</p>
+						</div>
+						{linkItem?.donationWebsite && <div>
+							<span>Donation websites</span>
+							<Link to={linkItem?.donationWebsite}> {linkItem?.donationWebsite}</Link>
+						</div>}
+						{linkItem?.redirectUrl && <div>
+							<span>RedirectUrl</span>
+							<p> {linkItem?.redirectUrl}</p>
+						</div>}
+						{linkItem?.chargeCount && <div>
+							<span>Charge count</span>
+							<p> {linkItem?.chargeCount}</p>
+						</div>}
+						{linkItem?.donationContact && <div>
+							<span>Contact phone number</span>
+							<p> {linkItem?.donationContact && linkItem?.donationContact}</p>
+						</div>}
+
+					</div>
+
+					<div className={styles.sectionThree_box2}>
+
+						<div className={styles.descBox}>
+							<span>Description</span>
+							<p>{linkItem?.description}</p>
 						</div>
 
-						<div className={styles.box}>
-
-							<div className={styles.descBox}>
-								<p>Description</p>
-								<p>{linkItem?.description}</p>
+						{linkItem?.pageImage &&
+							<div className={styles.img}>
+								<span>Image</span>
+								<img src={linkItem?.pageImage} alt={linkItem?.linkItempageImage} width="117px" height={"55px"} />
 							</div>
-
-							{linkItem?.pageImage &&
-								<div className={styles.img}>
-									<p>Image</p>
-									<img src={linkItem?.pageImage} alt={linkItem?.linkItempageImage} width="117px" height={"55px"} />
-								</div>
-							}
-						</div>
+						}
 					</div>
 				</div>
 

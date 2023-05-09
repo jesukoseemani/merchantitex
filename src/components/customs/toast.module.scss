@@ -30,3 +30,59 @@
         color: #EB5757;
     }
 }
+
+
+
+// currency formater
+.currencyFormat {
+    display: flex;
+    align-items: center;
+    flex-flow: row wrap;
+    gap: 5px;
+
+
+    .currency {
+        font-family: 'Avenir light';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 19px;
+
+        color: #828282;
+    }
+
+    .amount {
+        font-family: 'Avenir bold';
+        font-style: normal;
+        font-weight: 800;
+        font-size: 14px;
+        line-height: 19px;
+        margin-top: -2px;
+        color: #333333;
+        letter-spacing: 1px;
+    }
+}
+
+
+// date and time format
+.dateFormat {
+    display: flex;
+    align-items: center;
+    flex-flow: row wrap;
+    gap: 3px;
+
+    .day {
+        font-family: 'Avenir';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 19px;
+        color: #333333 !important;
+    }
+
+    .time {
+        @extend .day;
+        color: #BDBDBD !important;
+        margin-top: -2px;
+    }
+}

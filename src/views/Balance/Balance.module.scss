@@ -632,12 +632,12 @@
 		// padding-top: 11px;
 
 		h2 {
-			font-family: 'Avenir';
+			font-family: 'Avenir bold' !important;
 			font-style: normal;
-			font-weight: 800 !important;
+			font-weight: 900 !important;
 			font-size: 22px;
 			line-height: 30px;
-			color: #333333;
+			color: #333333 !important;
 
 		}
 
@@ -650,7 +650,7 @@
 			display: flex;
 			align-items: center;
 			text-align: center;
-			height: 30.76px;
+			height: 31px;
 			color: #FFFFFF;
 			border: 1.28183px solid #27AE60;
 		}

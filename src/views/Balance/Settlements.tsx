@@ -37,6 +37,9 @@ import { BASE_URL } from "../../config";
 import FilterModal from "../../components/filterModals/SettlementsFilterModal";
 import { SETTLEMENT_FILTER_DATA } from "../../constant";
 import CustomStatus from "../../components/customs/CustomStatus";
+import FormatToCurrency from '../../helpers/NumberToCurrency';
+import CustomCurrencyFormat from "../../components/customs/CustomCurrencyFormat";
+import CustomDateFormat from "../../components/customs/CustomDateFormat";
 
 const useBtnStyles = makeStyles({
   root: {
@@ -182,9 +185,7 @@ const Settlements = () => {
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+
 
   const changePage = (value: number) => {
     setPageNumber(value);
@@ -194,11 +195,7 @@ const Settlements = () => {
     setRowsPerPage(value);
   };
 
-  const statusFormatObj: { [key: string]: string } = {
-    successful: "wonText",
-    error: "lostText",
-    pending: "pendingText",
-  };
+
 
   interface Column {
     id: "amt" | "status" | "destination" | "added";
@@ -214,25 +211,17 @@ const Settlements = () => {
   ];
 
   const SettlementRowTab = useCallback(
-    (amt, status, destination, added, id) => ({
+    (currency, amt, status, destination, added, id) => ({
       amt: (
-        <p className={styles.tableBodyText}>
-          <span className={styles.tableBodySpan}>NGN </span>
-          {amt}
-        </p>
+        <CustomCurrencyFormat currency={currency} amount={amt} />
       ),
       status: (
         <CustomStatus type={getSettlementStatus(status) && getSettlementStatus(status)} text={getSettlementStatus(status)} />
       ),
       destination: <p className={styles.tableBodyText}>{destination}</p>,
       added: (
-        <p className={styles.tableBodyText}>
-          {moment(added).format("MMM D YYYY")}
-          <span className={styles.tableBodySpan}>
-            {" "}
-            {moment(added).format("h:mm A")}
-          </span>
-        </p>
+        <CustomDateFormat time={added} date={added} />
+
       ),
       id: <p>{id}</p>,
     }),
@@ -247,6 +236,7 @@ const Settlements = () => {
     settlements?.map((each: Settlement) =>
       newRowOptions.push(
         SettlementRowTab(
+          each?.currency,
           each?.chargeamount,
           each?.responsecode,
           each?.settlementaccountname,

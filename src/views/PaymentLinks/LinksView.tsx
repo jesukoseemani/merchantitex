@@ -29,6 +29,9 @@ import useCountry from '../../components/hooks/UseCountry';
 import CustomPhoneNumber from '../../components/customs/CustomPhoneInput';
 import { ReactComponent as CopyIcon } from "../../assets/images/copyColor.svg"
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import FormatToCurrency from '../../helpers/NumberToCurrency';
+import CustomCurrencyFormat from '../../components/customs/CustomCurrencyFormat';
+import CustomDateFormat from '../../components/customs/CustomDateFormat';
 
 const useModalBtnStyles = makeStyles({
 	root: {
@@ -162,18 +165,15 @@ const LinksView = ({ openLinkModal, isUpdate, setIsUpdate }: LinksViewProps) => 
 	];
 
 	const LinkRowTab = useCallback(
-		(linkName, amount, linkType, paymentUrl, added, id, desc) => ({
+		(linkName, currency, amount, linkType, paymentUrl, createdAt, id, desc) => ({
 			name: <p className={styles.tableBodyText}>{linkName}</p>,
 			amt: (
-				<p className={styles.tableBodyText}>
-					<span className={styles.tableBodySpan}>NGN </span>
-					{amount}
-				</p>
+				<CustomCurrencyFormat amount={amount} currency={currency} />
 			),
 			linkType: <p className={styles.tableBodyText}>{linkType}</p>,
 			url: (
 				<Box className={styles.tableBodyFlex} sx={{ border: "12px solid transparent", position: "relative" }}>
-					<p className={styles.tableBodyText} style={{ marginRight: "3rem", marginLeft: "-1rem" }}>{paymentUrl?.substring(0, 20)}</p>
+					<p className={styles.tableBodyText} style={{ marginRight: "3rem", marginLeft: "-1rem" }}>{paymentUrl?.substring(0, 20)}...</p>
 					<Box sx={{ position: "absolute", right: 0, display: "flex", justifyContent: "center", alignItems: "center", gap: "5px" }}>
 
 						<Box onClick={(e) => e.preventDefault()}>
@@ -200,13 +200,7 @@ const LinksView = ({ openLinkModal, isUpdate, setIsUpdate }: LinksViewProps) => 
 			// copy: <div style={{ border: '1px solid red'}}><ContentCopyIcon sx={{ color: '#27ae60', fontSize: '.85rem', mt: '6px' }} /></div>,
 			// send: <div style={{ border: '1px solid red'}}><ExtLinkIcon /></div>,
 			added: (
-				<p className={styles.tableBodyText}>
-					{moment(added).format('MMM D YYYY')}
-					<span className={styles.tableBodySpan}>
-						{' '}
-						{moment(added).format('h:mm A')}
-					</span>
-				</p>
+				<CustomDateFormat date={createdAt} time={createdAt} />
 			),
 			id: <p className={styles.tableBodyText}>{id}</p>,
 			desc: <p className={styles.tableBodyText}>{desc}</p>,
@@ -220,10 +214,11 @@ const LinksView = ({ openLinkModal, isUpdate, setIsUpdate }: LinksViewProps) => 
 			newRowOptions.push(
 				LinkRowTab(
 					each?.linkName,
+					each?.currency,
 					each?.amount,
 					each?.linkType,
 					each?.paymentUrl,
-					each?.added,
+					each?.createdAt,
 					each?.id,
 					each?.desc
 				)

@@ -3,7 +3,7 @@ import "./status.scss"
 
 
 interface Props {
-    text: string;
+    text: string | undefined;
     type: unknown;
     // type: "Success" | "Successful" | "Pending" | "pending" | "Error" | "Declined" | "Lost" | "Abandoned" | "Approved" | "approved" | "expired" | "active" | "decline" | undefined;
 }

@@ -18,6 +18,9 @@ import { stripEmpty, stripSearch } from '../../utils';
 import { CHARGEBACK_FILTER_DATA } from '../../constant';
 import { chargebackItem } from '../../types/Chargeback';
 import { getChargebackService } from '../../services/chargeback';
+import CustomCurrencyFormat from '../../components/customs/CustomCurrencyFormat';
+import CustomStatus from '../../components/customs/CustomStatus';
+import CustomDateFormat from '../../components/customs/CustomDateFormat';
 
 export default function ChargeBacks() {
 
@@ -160,6 +163,7 @@ export default function ChargeBacks() {
 
 	const LoanRowTab = useCallback(
 		(
+			currency,
 			amount,
 			status,
 			linkingreference,
@@ -168,22 +172,15 @@ export default function ChargeBacks() {
 			id
 		) => ({
 			amt: (
-				<p className={Styles.tableBodyText}>
-					<span className={Styles.tableBodySpan}>NGN </span>
-					{amount}
-				</p>
+				<CustomCurrencyFormat amount={amount} currency={currency} />
 			),
 			status: (
-				<p style={{ borderRadius: "20px" }} className={Styles[statusFormatObj[status] || 'pendingText']}>
-					{status}
-				</p>
+				<CustomStatus text={status} type={status} />
 			),
 			txnRef: <p className={Styles.tableBodyText}>{linkingreference}</p>,
 			email: <p className={Styles.tableBodyText}>{customeremail}</p>,
 			added: (
-				<p className={Styles.tableBodyText}>
-					{moment(duedate).format('MMM D YYYY')}
-				</p>
+				<CustomDateFormat date={duedate} time={duedate} />
 			),
 			id: (
 				<p className={Styles.tableBodyText}>
@@ -198,7 +195,9 @@ export default function ChargeBacks() {
 		const newRowOptions: any[] = [];
 		chargeback?.map((each: chargebackItem) =>
 			newRowOptions.push(
-				LoanRowTab(each?.amount,
+				LoanRowTab(
+					each?.currency,
+					each?.amount,
 					each?.status,
 					each?.linkingreference,
 					each?.customeremail,

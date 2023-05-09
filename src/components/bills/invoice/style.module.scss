@@ -241,3 +241,36 @@ button {
     }
 
 }
+
+.tableBodyText {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.tableBodySpan {
+    font-family: 'Avenir';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    color: #BDBDBD;
+}
+
+.tableBodyAmount {
+    font-family: 'Avenir Bold' !important;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 14px;
+    line-height: 19px;
+
+    color: #333333;
+}
+
+.tableBodyCurrency {
+    // border: 1px solid red;
+    align-items: center;
+    flex-flow: row wrap;
+    display: flex;
+    gap: 5px;
+}

@@ -33,6 +33,7 @@ import TransBreakDown from "./TransBreakDown";
 import CustomStatus from "../../components/customs/CustomStatus";
 import DoDisturbIcon from '@mui/icons-material/DoDisturb';
 import Addtoblacklist from "../Customers/Addtoblacklist";
+import FormatToCurrency from "../../helpers/NumberToCurrency";
 
 
 export default function Transaction() {
@@ -128,7 +129,7 @@ export default function Transaction() {
 				<div className={Styles.headerTitle}>
 					<div className={Styles.leftText}>
 						<div className={Styles.amt_box}>
-							<p>NGN{transaction?.transaction?.amount ?? 0}</p>
+							<p>NGN{FormatToCurrency(transaction?.transaction?.amount) ?? 0}</p>
 						</div>
 
 						<div>
@@ -193,7 +194,7 @@ export default function Transaction() {
 
 						<Grid item xs={12} sm={3} md={1.8}>
 							<span className={Styles.timeline}>Transaction Fee</span>
-							<h2>{transaction?.transaction?.fee || 0}</h2>
+							<h2>{FormatToCurrency(transaction?.transaction?.fee) || 0}</h2>
 						</Grid>
 						<Grid item xs={12} sm={3} md={1.8}>
 							<span>Country/Region</span>

@@ -1,14 +1,11 @@
+import React from "react";
 import NavBar from "../../components/navbar/NavBar";
 // import Styles from "./transaction.module.scss";
 import styles from "./BalanceItem.module.scss";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import { Link, useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/styles";
-import { Box } from "@mui/material";
-import {
-  GetTransactionsRes,
-  TransactionItem,
-} from "../../types/MockTransactionTypes";
+import { Box, IconButton } from "@mui/material";
 import { MouseEvent, useCallback, useEffect, useState } from "react";
 import moment from "moment";
 import { useDispatch } from "react-redux";
@@ -25,12 +22,15 @@ import {
   getSingleSettlement,
 } from "../../services/settlement";
 import { Settlement } from "../../types/Settlement";
-import { getSettlementStatus, getTransactionStatus } from "../../utils/status";
 import { capitalize } from "lodash";
 import { getBankName } from "../../utils";
 import { Transaction } from "../../types/Transaction";
-import { statusFormatObj } from "../../helpers";
 import CustomStatus from "../../components/customs/CustomStatus";
+import FormatToCurrency from '../../helpers/NumberToCurrency';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+
+import { ReactComponent as CopyIcon } from "../../assets/images/copyColor.svg";
+
 
 const useTableStyles = makeStyles({
   root: {
@@ -111,7 +111,7 @@ const SettlementItem = () => {
   };
 
   interface Column {
-    id: "amt" | "status" | "txnType" | "added";
+    id: "amt" | "status" | "email" | "txnType" | "added";
     label: any;
     minWidth?: number;
     align?: "right" | "left" | "center";
@@ -119,31 +119,24 @@ const SettlementItem = () => {
   const columns: Column[] = [
     { id: "amt", label: "Amount", minWidth: 100 },
     { id: "status", label: "Status", minWidth: 100 },
+    { id: "email", label: "Email address", minWidth: 100 },
     { id: "txnType", label: "Transaction Type", minWidth: 100 },
     { id: "added", label: "Date", minWidth: 100 },
   ];
 
   const TransactionRowTab = useCallback(
-    (amt, status, txnType, added) => ({
+    (amount, responsemessage, customer, txnType, added, chargetype) => ({
       amt: (
         <p className={styles.tableBodyText}>
           <span className={styles.tableBodySpan}>NGN </span>
-          {amt}
+          {FormatToCurrency(amount)}
         </p>
       ),
       status: (
-        // <p
-        //   className={
-        //     styles[
-        //     statusFormatObj[getTransactionStatus(status)!] || "pendingText"
-        //     ]
-        //   }
-        // >
-        //   {getTransactionStatus(status)}
-        // </p>
 
-        <CustomStatus type={status} text={status} />
+        <CustomStatus text={responsemessage} type={responsemessage} />
       ),
+      email: <p>{customer?.email}</p>,
       txnType: <p className={styles.tableBodyCapital}>{txnType}</p>,
       added: (
         <p className={styles.tableBodyText}>
@@ -151,6 +144,7 @@ const SettlementItem = () => {
           <span className={styles.tableBodySpan}>
             {" "}
             {moment(added).format("h:mm A")}
+
           </span>
         </p>
       ),
@@ -165,9 +159,11 @@ const SettlementItem = () => {
       newRowOptions.push(
         TransactionRowTab(
           each?.amount,
-          each?.responsecode,
+          each.responsemessage,
+          each.customer,
           each?.chargetype,
-          each?.transactiontype
+          each?.transactiontype,
+          each?.responsecode
         )
       )
     );
@@ -235,63 +231,61 @@ const SettlementItem = () => {
           </div>
         </div>
 
-        <div className={styles.sectionThree} style={{ marginBottom: "30px" }}>
-          <div>
-            <div style={{ display: "flex", alignItems: "center", paddingBottom: "10px" }}>
-              <p style={{ marginRight: "10px" }}>NGN {settlement?.chargeamount || 0}</p>
-              <p
-                className={
-                  styles[
-                  statusFormatObj[
-                  getSettlementStatus(settlement?.responsecode!)!
-                  ] || "pendingText"
-                  ]
-                }
-              >
-                {capitalize(
-                  getSettlementStatus(settlement?.responsecode || "")
-                )}
-              </p>
-            </div>{" "}
+        <div className={styles.sectionThree}>
+          <div className={styles.sectionThree_header}>
+            <h2>NGN {FormatToCurrency(Number(settlement?.chargeamount)) || 0}</h2>
+
+            <CustomStatus text={capitalize(
+              (settlement?.responsemessage || ""))} type={capitalize((settlement?.responsemessage || ""))} />
+
           </div>
-          <div>
+
+          <div className={styles.sectionThreeBody}>
             <div>
-              <p>Date / Time </p>
+              <span>Date / Time </span>
               <p>{settlement?.settlementdate || ''}</p>
             </div>
             <div>
-              <p>Settlement Destination</p>
+              <span>Settlement Destination</span>
               <p>{`${settlement?.settlementaccountname || ''} | ${getBankName(settlement?.settlementbankcode || "")} | ${settlement?.settlementaccountnumber || ''}`}</p>
             </div>
             <div>
-              <p>Chargebacks</p>
+              <span>Chargebacks</span>
               <p>None</p>
             </div>
             <div>
-              <p>Refunds</p>
+              <span>Refunds</span>
               <p>None</p>
             </div>
           </div>
         </div>
-        <div className={styles.sectionThree}>
-          <div>
-            <h3>Payment information</h3>
+
+
+        <div className={styles.sectionFour_Payment}>
+          <div className={styles.sectionFour_payment_header}>
+            <h2>Payment information</h2>
           </div>
-          <div>
+          <div className={styles.sectionFour_payment_body}>
             <div>
-              <p>Payment reference</p>
-              <p>{settlement?.settlementid || ""}</p>
+              <span>Payment reference</span>
+              <p>{settlement?.settlementid || ""}
+                <CopyToClipboard text={String(settlement?.settlementid)}>
+                  <IconButton>
+                    <CopyIcon />
+                  </IconButton>
+
+                </CopyToClipboard></p>
             </div>
             <div>
-              <p>Transaction Fee</p>
-              <p>NGN{settlement?.fee || 0}</p>
+              <span>Transaction Fee</span>
+              <p>NGN{FormatToCurrency(Number(settlement?.fee)) || 0}</p>
             </div>
             <div>
-              <p>Country/Region</p>
+              <span>Country/Region</span>
               <p>{settlement?.settlementcountry || ''}</p>
             </div>
             <div>
-              <p>Bank name</p>
+              <span>Bank name</span>
               <p>{getBankName(settlement?.settlementbankcode || "")}</p>
             </div>
           </div>

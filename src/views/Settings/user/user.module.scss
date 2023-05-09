@@ -1,0 +1,71 @@
+.userContainer {
+    width: 595px;
+
+    .label {
+        font-family: 'Avenir';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 19px;
+        text-transform: capitalize;
+        color: #333333;
+    }
+
+}
+
+.user_permission {
+    margin-bottom: 21.52px;
+
+    h2 {
+        font-family: 'Avenir bold';
+        font-style: normal;
+        font-weight: 900;
+        font-size: 16px;
+        line-height: 20px;
+        color: #333333;
+    }
+
+
+    a {
+        padding-right: 10px;
+        font-family: 'Avenir';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 24px;
+        text-decoration: none;
+        color: #0243EC;
+    }
+
+
+    .user_content {
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+
+        p {
+            font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 26px;
+            letter-spacing: -0.2px;
+            color: #333333;
+
+        }
+
+        span {
+            font-family: 'Avenir light';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 24px;
+            color: #828282;
+            margin-top: -2rem;
+            margin-bottom: 22px;
+
+
+
+        }
+    }
+}
