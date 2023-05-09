@@ -90,7 +90,7 @@ const CustomersTab = ({ value, index }: any) => {
 	};
 
 	interface Column {
-		id: 'name' | 'email' | 'msisdn' | 'actions';
+		id: 'name' | 'email' | 'msisdn' | "added" | 'actions';
 		label: any;
 		minWidth?: number;
 		align?: 'right' | 'left' | 'center';
@@ -98,7 +98,8 @@ const CustomersTab = ({ value, index }: any) => {
 	const columns: Column[] = [
 		{ id: 'name', label: 'Name', minWidth: 150 },
 		{ id: 'email', label: 'Email', minWidth: 150 },
-		{ id: 'msisdn', label: 'MSISDN', minWidth: 150 },
+		{ id: 'msisdn', label: 'Phone number', minWidth: 150 },
+		{ id: 'added', label: 'Date added', minWidth: 100 },
 		{ id: 'actions', label: 'Actions', minWidth: 100 },
 	];
 
@@ -108,10 +109,11 @@ const CustomersTab = ({ value, index }: any) => {
 				modalStyles: {
 					padding: 0,
 					width: "653px",
-					height: "340px",
+					height: "500px !important",
 					borderRadius: '20px',
-					boxShadow: '-4px 4px 14px rgba(224, 224, 224, 0.69)',
+					boxShadow: "0px 3px 20px rgba(0, 0, 0, 0.16)"
 				},
+				modalTitle: "Blacklist customer",
 				modalContent: (
 					<div className='modalDiv'>
 						<Addtoblacklist id={id} fn={getCustomers} />
@@ -127,7 +129,7 @@ const CustomersTab = ({ value, index }: any) => {
 	};
 
 	const CustomerRowTab = useCallback(
-		(firstname, lastname, email, msisdn, isblacklisted, id) => ({
+		(firstname, lastname, email, msisdn, isblacklisted, createdat, id) => ({
 			name: (
 				<p className={styles.tableBodyText}>
 					<span className={styles.capitalText}>{firstname}</span>{' '}
@@ -137,6 +139,7 @@ const CustomersTab = ({ value, index }: any) => {
 			id: <p className={styles.tableBodyText}>{id}</p>,
 			email: <p className={styles.tableBodyText}>{email}</p>,
 			msisdn: <p className={styles.tableBodyText}>{msisdn}</p>,
+			added: <p className={styles.tableBodyText}>{createdat}</p>,
 
 			actions: (
 				isblacklisted ? <div></div> : <p style={{ color: "red" }} onClickCapture={(e) => handleClick(e, id)}>Blacklist</p>
@@ -155,6 +158,7 @@ const CustomersTab = ({ value, index }: any) => {
 					each?.lastname,
 					each?.email,
 					each?.msisdn,
+					each.createdat,
 					each.isblacklisted,
 					each?.id
 				)
@@ -162,6 +166,8 @@ const CustomersTab = ({ value, index }: any) => {
 		);
 		setRows(newRowOptions);
 	}, [customers, CustomerRowTab]);
+
+	console.log(customers);
 
 	const getCustomers = async (form = SETTLEMENT_FILTER_DATA) => {
 		dispatch(openLoader());
@@ -193,13 +199,15 @@ const CustomersTab = ({ value, index }: any) => {
 			openModalAndSetContent({
 				modalStyles: {
 					padding: 0,
-					width: "419",
-					height: "475px",
+					width: "419px",
+					minHeight: "475px",
 					borderRadius: '20px',
-					boxShadow: '-4px 4px 14px rgba(224, 224, 224, 0.69)',
+					boxShadow: "0px 3px 20px rgba(0, 0, 0, 0.16)"
 				},
+				modalTitle: "Add a new customer",
 				modalContent: (
 					<div className='modalDiv'>
+
 						<AddNewCustomer callback={addCallback} fn={getCustomers} />
 					</div>
 				),

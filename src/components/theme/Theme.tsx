@@ -273,6 +273,7 @@ const theme = createTheme({
       }
     },
 
+
     MuiTableCell: {
       styleOverrides: {
         stickyHeader: {
@@ -282,13 +283,13 @@ const theme = createTheme({
           },
           '& h2': {
             // color: "red !important",
-            fontFamily: "Avenir !important",
+            fontFamily: "Avenir SemiBold !important",
             fontStyle: "normal !important",
             fontWeight: "500 !important",
             fontSize: "14px !important",
             lineHeight: "19px",
             letterSpacing: "0.0024px",
-            color: "#000 !important",
+            color: "#333 !important",
 
 
           }
@@ -299,7 +300,18 @@ const theme = createTheme({
           cursor: "pointer",
           '&:hover': {
             opacity: "0.7"
+          },
+          '& p': {
+            fontFamily: 'Avenir Light',
+            fontStyle: "normal",
+            fontWeight: "400",
+            fontSize: "14px",
+            lineHeight: "19px",
+            // color: "#333333",
+
           }
+
+
         }
 
       }

@@ -16,13 +16,15 @@ const useStyles = makeStyles({
 	root: {
 		width: '100%',
 		borderRadius: "20px",
-		marginTop: "10px"
+		marginTop: "10px",
+		boxShadow: "none"
+
 
 	},
 	container: {
 		maxHeight: '70vh',
 		maxWidth: '100%',
-		borderRadius: "20px 20px 0px 0px"
+		borderRadius: "20px 20px 0px 0px",
 	},
 
 	noRecord: {
@@ -92,7 +94,7 @@ export default function CustomClickTable({
 
 	const handleClick = (row: any) => {
 		const val = row[identifier]?.props?.children;
-		
+
 
 		if (clickable && val) {
 			const rowData = rowsData.find((dataItem: any) => dataItem[identifier] === row[identifier]?.props?.children);
@@ -161,7 +163,7 @@ export default function CustomClickTable({
 													// padding: "16.5px 39px"
 												}}
 												style={{ maxWidth: column.maxWidth, }}>
-												{value}
+												<p>{value}</p>
 											</TableCell>
 										);
 									})}
@@ -181,7 +183,10 @@ export default function CustomClickTable({
 				page={page}
 				onPageChange={handleChangePage}
 				onRowsPerPageChange={handleChangeRowsPerPage}
-				style={{ paddingLeft: "18px" }}
+				style={{ paddingLeft: "18px", }}
+				sx={{
+					border: "none"
+				}}
 			/>
 		</Paper >
 	);

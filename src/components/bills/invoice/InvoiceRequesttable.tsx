@@ -12,52 +12,56 @@ import styles from "./style.module.scss"
 import { Box, Button, Stack } from '@mui/material'
 import { openModalAndSetContent } from '../../../redux/actions/modal/modalActions'
 import CreateInvoice from './CreateInvoice'
+import CustomStatus from '../../customs/CustomStatus';
+import FormatToCurrency from '../../../helpers/NumberToCurrency';
+import CustomCurrencyFormat from '../../customs/CustomCurrencyFormat';
+import CustomDateFormat from '../../customs/CustomDateFormat';
 
 
 
-const useModalBtnStyles = makeStyles({
-    root: {
-        display: 'flex',
-        justifyContent: 'flex-end',
-        padding: '1rem 1.5rem 0',
-        gap: '1.25rem',
-        '& .MuiButton-root': {
-            fontFamily: `'Avenir', sans-serif`,
-            fontWeight: '500',
-            fontSize: '.875rem',
-            color: 'black',
-            background: '#E0E0E0',
-            borderRadius: '3px',
-            textTransform: 'none',
-        },
-        '& .MuiButton-root:nth-child(2)': {
-            color: 'white',
-            background: '#27AE60',
-        },
-    },
-});
+// const useModalBtnStyles = makeStyles({
+//     root: {
+//         display: 'flex',
+//         justifyContent: 'flex-end',
+//         padding: '1rem 1.5rem 0',
+//         gap: '1.25rem',
+//         '& .MuiButton-root': {
+//             fontFamily: `'Avenir', sans-serif`,
+//             fontWeight: '500',
+//             fontSize: '.875rem',
+//             color: 'black',
+//             background: '#E0E0E0',
+//             borderRadius: '3px',
+//             textTransform: 'none',
+//         },
+//         '& .MuiButton-root:nth-child(2)': {
+//             color: 'white',
+//             background: '#27AE60',
+//         },
+//     },
+// });
 
-const useBtnStyles = makeStyles({
-    root: {
-        fontFamily: `'Avenir', sans-serif`,
-        '& .MuiButtonBase-root': {
-            borderRadius: '.25rem',
-            padding: '.5rem 1rem',
-            textTransform: 'none',
-            fontSize: '.875rem',
-            fontWeight: '400',
-            alignItem: 'center',
-            display: 'flex',
-            backgroundColor: '#27AE60',
-            color: '#FFF',
-            gap: '.5rem',
-        },
-        '& svg': {
-            fontSize: '1rem',
-            marginLeft: '.25rem',
-        },
-    },
-});
+// const useBtnStyles = makeStyles({
+//     root: {
+//         fontFamily: `'Avenir', sans-serif`,
+//         '& .MuiButtonBase-root': {
+//             borderRadius: '.25rem',
+//             padding: '.5rem 1rem',
+//             textTransform: 'none',
+//             fontSize: '.875rem',
+//             fontWeight: '400',
+//             alignItem: 'center',
+//             display: 'flex',
+//             backgroundColor: '#27AE60',
+//             color: '#FFF',
+//             gap: '.5rem',
+//         },
+//         '& svg': {
+//             fontSize: '1rem',
+//             marginLeft: '.25rem',
+//         },
+//     },
+// });
 
 const InvoiceRequesttable = () => {
     const [requests, setRequests] = useState<BillInvoiceRequestItem[]>([]);
@@ -71,12 +75,7 @@ const InvoiceRequesttable = () => {
 
     const dispatch = useDispatch();
 
-    // const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
-    //     setAnchorEl(event.currentTarget);
-    // };
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+
 
     const changePage = (value: number) => {
         setPageNumber(value);
@@ -94,46 +93,30 @@ const InvoiceRequesttable = () => {
     }
     const columns: Column[] = [
         { id: 'title', label: 'Invoice Title', minWidth: 100 },
-        { id: 'status', label: 'Payment Status', minWidth: 100 },
+        { id: 'status', label: 'Payment Status', minWidth: 140 },
         { id: 'amount', label: 'Amount', minWidth: 100 },
         { id: 'name', label: 'Customer Name', minWidth: 100 },
         { id: 'email', label: 'Customer Email', minWidth: 100 },
-        { id: 'date', label: 'Created Date', minWidth: 100 },
+        { id: 'date', label: 'Created Date', minWidth: 200 },
     ];
 
 
     const InvoiceHistoryRowTab = useCallback(
-        (invoiceName, status, totalAmount, firstname, lastname, email, added, id) => ({
+        (invoiceName, status, currency, totalAmount, firstname, lastname, email, createdAt, id) => ({
             title: (
                 <p className={styles.tableBodyText}>
                     <span className={styles.tableBodySpan}> </span>
                     {invoiceName}
                 </p>
             ),
-            amount: (
-                <p className={styles.tableBodyText}>
-                    <span className={styles.tableBodySpan}>NGN </span>
-                    {totalAmount}
-                </p>
-            ),
-            status: (
-                <span
-                    className={status === "Successful" ? styles.status : styles.pending}
-                >
-                    {" "}
-                    {status}
-                </span>
+            amount: (<CustomCurrencyFormat amount={totalAmount} currency={currency} />),
+
+            status: (<CustomStatus type={status} text={status} />
             ),
             name: <p className={styles.tableBodyText}>{`${firstname} ${lastname}`}</p>,
             email: <p className={styles.tableBodyText}>{email}</p>,
             date: (
-                <p className={styles.tableBodyText}>
-                    {moment(added).format('MMM D YYYY')}
-                    <span className={styles.tableBodySpan}>
-                        {' '}
-                        {moment(added).format('h:mm A')}
-                    </span>
-                </p>
+                <CustomDateFormat time={createdAt} date={createdAt} />
             ),
             id: <p>{id}</p>,
         }),
@@ -146,11 +129,12 @@ const InvoiceRequesttable = () => {
                 InvoiceHistoryRowTab(
                     each?.invoiceName,
                     each?.status,
+                    each?.currency,
                     each?.totalAmount,
                     each?.customer.firstname,
                     each?.customer.lastname,
                     each?.customer.email,
-                    each?.added,
+                    each?.createdAt,
                     each?.id,
 
                 )
@@ -206,7 +190,9 @@ const InvoiceRequesttable = () => {
                 modalStyles: {
                     padding: 0,
                     borderRadius: "0.5rem",
-                    boxShadow: "-4px 4px 14px rgba(224, 224, 224, 0.69)",
+                    boxShadow: "0px 3px 20px rgba(0, 0, 0, 0.16)",
+                    width: "753px",
+                    maxWidth: "100%"
                 },
                 modalTitle: "Create an Invoice",
                 modalContent: (

@@ -28,25 +28,28 @@ import useCurrency from '../../components/hooks/Usecurrency';
 import useCountry from '../../components/hooks/UseCountry';
 import CustomPhoneNumber from '../../components/customs/CustomPhoneInput';
 import { ReactComponent as CopyIcon } from "../../assets/images/copyColor.svg"
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import FormatToCurrency from '../../helpers/NumberToCurrency';
+import CustomCurrencyFormat from '../../components/customs/CustomCurrencyFormat';
+import CustomDateFormat from '../../components/customs/CustomDateFormat';
 
 const useModalBtnStyles = makeStyles({
 	root: {
 		display: 'flex',
 		justifyContent: 'flex-end',
-		paddingInline: '30px',
-		marginTop: "30px",
+		padding: '33px 30px',
 		gap: '1.25rem',
-		height: "44px",
 		'& .MuiButton-root': {
 			fontFamily: `'Avenir', sans-serif`,
-			fontWeight: '500',
-			fontSize: '.875rem',
+			lineHiieght: "19px",
+			fontSize: '14px',
 			color: 'black',
 			background: '#E0E0E0',
 			borderRadius: '20px',
 			textTransform: 'none',
-			padding: '.35rem .85rem',
-			marginBottom: "2rem"
+			padding: '.35rem 1.2rem',
+			fontStyle: "normal",
+			fontWeight: "400",
 		},
 		'& .MuiButton-root:nth-child(2)': {
 			color: 'white',
@@ -63,7 +66,6 @@ const useModalBtnStyles = makeStyles({
 		border: '1px solid #27ae60 !important',
 		color: '#27ae60 !important',
 
-
 	},
 });
 
@@ -76,6 +78,7 @@ interface LinksViewProps {
 
 const LinksView = ({ openLinkModal, isUpdate, setIsUpdate }: LinksViewProps) => {
 	const theme = useTheme();
+	const history = useHistory()
 
 	const useBtnStyles = makeStyles({
 		root: {
@@ -162,30 +165,30 @@ const LinksView = ({ openLinkModal, isUpdate, setIsUpdate }: LinksViewProps) => 
 	];
 
 	const LinkRowTab = useCallback(
-		(linkName, amount, linkType, paymentUrl, added, id, desc) => ({
+		(linkName, currency, amount, linkType, paymentUrl, createdAt, id, desc) => ({
 			name: <p className={styles.tableBodyText}>{linkName}</p>,
 			amt: (
-				<p className={styles.tableBodyText}>
-					<span className={styles.tableBodySpan}>NGN </span>
-					{amount}
-				</p>
+				<CustomCurrencyFormat amount={amount} currency={currency} />
 			),
 			linkType: <p className={styles.tableBodyText}>{linkType}</p>,
 			url: (
 				<Box className={styles.tableBodyFlex} sx={{ border: "12px solid transparent", position: "relative" }}>
-					<p className={styles.tableBodyText} style={{ marginRight: "3rem", marginLeft: "-1rem" }}>{paymentUrl?.substring(0, 20)}</p>
+					<p className={styles.tableBodyText} style={{ marginRight: "3rem", marginLeft: "-1rem" }}>{paymentUrl?.substring(0, 20)}...</p>
 					<Box sx={{ position: "absolute", right: 0, display: "flex", justifyContent: "center", alignItems: "center", gap: "5px" }}>
 
 						<Box onClick={(e) => e.preventDefault()}>
+							<CopyToClipboard text={paymentUrl}>
 
-							<IconButton>
+								<IconButton>
 
-								<CopyIcon />
-							</IconButton>
+									<CopyIcon />
+								</IconButton>
+							</CopyToClipboard>
+
 
 						</Box>
 						<Box className={styles.copyLink}>
-							<IconButton>
+							<IconButton onClick={() => history.push(`/payment_links/${id}`)}>
 
 								<OpenInNewIcon sx={{ color: '#2F80ED', fontSize: 'large', mt: '6px' }}
 								/>
@@ -197,13 +200,7 @@ const LinksView = ({ openLinkModal, isUpdate, setIsUpdate }: LinksViewProps) => 
 			// copy: <div style={{ border: '1px solid red'}}><ContentCopyIcon sx={{ color: '#27ae60', fontSize: '.85rem', mt: '6px' }} /></div>,
 			// send: <div style={{ border: '1px solid red'}}><ExtLinkIcon /></div>,
 			added: (
-				<p className={styles.tableBodyText}>
-					{moment(added).format('MMM D YYYY')}
-					<span className={styles.tableBodySpan}>
-						{' '}
-						{moment(added).format('h:mm A')}
-					</span>
-				</p>
+				<CustomDateFormat date={createdAt} time={createdAt} />
 			),
 			id: <p className={styles.tableBodyText}>{id}</p>,
 			desc: <p className={styles.tableBodyText}>{desc}</p>,
@@ -217,10 +214,11 @@ const LinksView = ({ openLinkModal, isUpdate, setIsUpdate }: LinksViewProps) => 
 			newRowOptions.push(
 				LinkRowTab(
 					each?.linkName,
+					each?.currency,
 					each?.amount,
 					each?.linkType,
 					each?.paymentUrl,
-					each?.added,
+					each?.createdAt,
 					each?.id,
 					each?.desc
 				)
@@ -268,12 +266,13 @@ const LinksView = ({ openLinkModal, isUpdate, setIsUpdate }: LinksViewProps) => 
 				onClose={() => setIsFilterModalOpen(false)}
 				aria-labelledby='chargebacks filter modal'>
 				<div className={styles.filterModalContainer}>
-					<Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 22px" }}>
+					<Box className={styles.filterHeader}>
 						<h2>Filters</h2>
 						<IconButton onClick={() => setIsFilterModalOpen(false)}>
 							<CloseOutlined />
 						</IconButton>
 					</Box>
+
 					<hr />
 					<div className={styles.modalContent}>
 						<div>
@@ -340,8 +339,8 @@ const LinksView = ({ openLinkModal, isUpdate, setIsUpdate }: LinksViewProps) => 
 					totalRows={totalRows}
 					changePage={changePage}
 					limit={limit}
-					clickable
-					link='/payment_links'
+					// clickable
+					// link='/payment_links'
 					identifier='id'
 					rowsData={links}
 				/>

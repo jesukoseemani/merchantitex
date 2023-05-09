@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import styles from '../../../../views/Settings/Settings.module.scss';
+import styles from './user.module.scss';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-import { openToastAndSetContent } from '../../../actions/toast/toastActions';
+import { openToastAndSetContent } from '../../../redux/actions/toast/toastActions';
 import {
     openLoader,
     closeLoader,
-} from '../../../actions/loader/loaderActions';
+} from '../../../redux/actions/loader/loaderActions';
 import { useDispatch } from 'react-redux';
 import { InputLabel, TextField } from '@mui/material';
 import { Divider, MenuItem, styled, Select, Stack, Link, Grid } from '@mui/material';
-import { closeModal } from '../../../actions/modal/modalActions';
-import CustomSelect from '../../../../components/customs/CustomSelect';
-import CustomCategory from '../../../../components/customs/CustomCategory';
+import { closeModal } from '../../../redux/actions/modal/modalActions';
+import CustomSelect from '../../../components/customs/CustomSelect';
+import CustomCategory from '../../../components/customs/CustomCategory';
 
 
 
@@ -284,16 +284,16 @@ const EditUserModal = ({ data, getUsers }: any) => {
                                     </Grid>
                                 </Form>
                             </div>
-                            <div className={styles.user}>
-                                <Stack direction={"row"} justifyContent="space-between" alignItems={"center"} borderBottom="1px solid #F2F2F2" pb={"18px"}>
+                            <div className={styles.user_permission}>
+                                <Stack direction={"row"} mb={2} justifyContent="space-between" alignItems={"center"} borderBottom="1px solid #F2F2F2" pb={"18px"} >
                                     <h2>Permissions</h2>
                                     <Link href={"#"}>View all permissions</Link>
                                 </Stack>
 
                                 {roles?.map(({ id, roleName, description }: any) => (
                                     <div className={styles.user_content} key={id}>
-                                        <h3 className={styles.user_h3}>{roleName}</h3>
-                                        <p className={styles.user_p}>{description}</p>
+                                        <p className={styles.user_h3}>{roleName}</p>
+                                        <span className={styles.user_p}>{description}</span>
                                     </div>
                                 ))}
                             </div>

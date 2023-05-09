@@ -10,6 +10,7 @@ const useModalBtnStyles = makeStyles({
 		display: 'flex',
 		justifyContent: 'flex-end',
 		padding: '1rem 1.5rem 1.5rem',
+		// border: "2px solid red",
 		gap: '1.25rem',
 		'& .MuiButton-root': {
 			fontFamily: `'Avenir', sans-serif`,
@@ -111,12 +112,12 @@ const FilterModal = ({
 				timeout: 500,
 			}}>
 			<div className={styles.filterModalContainer}>
-				<Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 22px" }}>
+				<div className={styles.filterHeader} style={{ border: "2px solid red", display: "none" }}>
 					<h2>Filters</h2>
 					<IconButton onClick={handleClose}>
 						<CloseOutlined />
 					</IconButton>
-				</Box>
+				</div>
 				<hr />
 				<div className={styles.modalContent}>
 					<div>

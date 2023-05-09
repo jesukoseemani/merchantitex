@@ -34,9 +34,7 @@ const Addtoblacklist: FC<{ id: string; callback?: () => void; fn?: () => void }>
 
   return (
     <div className={Styles.blacklist__input__container}>
-      <div className={Styles.form__title}>
-        <h3>Blacklist customer</h3>
-      </div>
+
 
       <div className={Styles.airtime_form__body}>
         <p>
@@ -45,10 +43,10 @@ const Addtoblacklist: FC<{ id: string; callback?: () => void; fn?: () => void }>
         </p>
 
         <div className={Styles.text_area_cover}>
-          <textarea className={Styles.text_area} value={reason} onChange={e => setReason(e.target.value)} placeholder="Reason" name="reason" id="reason"></textarea>
+          <textarea className={Styles.text_area} rows={2} value={reason} onChange={e => setReason(e.target.value)} placeholder="Reason" name="reason" id="reason"></textarea>
         </div>
 
-        <Stack spacing={2} direction="row" justifyContent={"flex-end"} className={Styles.blacklistBtn}>
+        <Stack spacing={2} direction="row" justifyContent={"flex-end"} mb={4} className={Styles.blacklistBtn}>
           <button onClick={() => dispatch(closeModal())}>Cancel</button>
           <Button text="Confirm" onClick={blacklist} loading={loading} disabled={!reason || loading} />
         </Stack>

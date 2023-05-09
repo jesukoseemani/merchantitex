@@ -149,7 +149,7 @@ label {
 }
 
 .subP {
-	color: #8b8b8b;
+	color: #fff;
 }
 
 .formSub {
@@ -170,6 +170,12 @@ label {
 		font-size: 12px;
 		line-height: 16px;
 	}
+
+}
+
+#logText {
+	color: #27AE60;
+	cursor: pointer;
 }
 
 @media only screen and (max-width: 775px) {

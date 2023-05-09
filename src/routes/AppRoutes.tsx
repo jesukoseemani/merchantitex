@@ -25,10 +25,10 @@ import TerminalRequests from "../views/PointOfSale/TerminalRequest";
 import Bills from "../views/Bills/BillTabPanel";
 import GeneralSettings from "../views/Settings/GeneralSettings";
 import AccountSettings from "../views/Settings/AccountSettings";
-import Api from "../views/Settings/Api";
+import Api from "../views/Settings/Api/Api";
 import Users from "../views/Settings/Users";
-import WebHooks from "../views/Settings/WebHooks";
-import BankAccounts from "../views/Settings/BankAccounts";
+import WebHooks from "../views/Settings/webhook/WebHooks";
+import BankAccounts from "../views/Settings/bankAccount/BankAccounts";
 import SignUp from "../views/SignUp/SignUpPage";
 import IndividualSignUp from "../views/SignUp/IndividualSignUp";
 import BusinessSignUp from "../views/SignUp/business/BusinessSignUp";
@@ -92,7 +92,7 @@ import Payout from "../views/Payout/Payout";
 import SinglePayout from "../views/Payout/SinglePayout";
 import Owner from "../components/permission/Owner";
 import UsersPermission from "../components/permission/Users";
-import UserActivity from '../redux/reducers/settings/user/UserActivity';
+import UserActivity from '../views/Settings/user/UserActivity';
 import PaymentMethod from "../views/Settings/payment/PaymentMethod";
 import TwoFaAuth from "../views/SignIn/TwoFaAuth";
 import TestForm from '../components/TestForm';
@@ -261,7 +261,7 @@ export default function AppRoutes() {
             />
             <ProtectedRoute
               exact
-              path="/transactions/refund/:slug"
+              path="/transactions/refund/:id"
               component={RefundItem}
               AuthUser={loadingState}
             />
@@ -275,7 +275,7 @@ export default function AppRoutes() {
 
             <ProtectedRoute
               exact
-              path="/balance/balance_history"
+              path="/balance_history/:id"
               component={BalanceHistory}
               AuthUser={loadingState}
             />
@@ -297,17 +297,17 @@ export default function AppRoutes() {
               component={SettlementItem}
               AuthUser={loadingState}
             />
+            <ProtectedRoute
+              exact
+              path="/rolling_reserve/:id"
+              component={RollingReserveItem}
+              AuthUser={loadingState}
+            />
 
             <ProtectedRoute
               exact
               path="/balance/rolling_reserve"
               component={RollingReserve}
-              AuthUser={loadingState}
-            />
-            <ProtectedRoute
-              exact
-              path="/balance/rolling_reserve/:slug"
-              component={RollingReserveItem}
               AuthUser={loadingState}
             />
 
@@ -415,7 +415,7 @@ export default function AppRoutes() {
             />
             <ProtectedRoute
               exact
-              path="/chargebacks/:chargebackid"
+              path="/chargebacks/:id"
               component={ChargeBacksItem}
               AuthUser={loadingState}
             />

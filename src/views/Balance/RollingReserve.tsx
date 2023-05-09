@@ -38,6 +38,7 @@ import FormatToCurrency from "../../helpers/NumberToCurrency";
 import FilterModal from "../../components/filterModals/SettlementsFilterModal";
 import { SETTLEMENT_FILTER_DATA } from "../../constant";
 import { stripEmpty, stripSearch } from "../../utils";
+import CustomDateFormat from "../../components/customs/CustomDateFormat";
 
 const useBtnStyles = makeStyles({
   root: {
@@ -216,32 +217,34 @@ const RollingReserve = () => {
   ];
 
   const ReserveRowTab = useCallback(
-    (amount, balanceBefore, balanceAfter, created, duedate, id) => ({
+    (currency, amount, balanceBefore, balanceAfter, created, duedate, id) => ({
       amount: (
         <p className={styles.tableBodyText}>
-          <span className={styles.tableBodySpan}>NGN </span>
+          <span className={styles.tableBodySpan}>{currency} </span>
           {FormatToCurrency(amount)}
         </p>
       ),
       balanceBefore: (
         <p className={styles.tableBodyText}>
+          <span className={styles.tableBodySpan}>{currency} </span>
+
           {FormatToCurrency(balanceBefore)}
         </p>
       ),
       balanceAfter: (
         <p className={styles.tableBodyText}>
+          <span className={styles.tableBodySpan}>{currency} </span>
+
           {FormatToCurrency(balanceAfter)}
         </p>
       ),
       created: (
-        <p className={styles.tableBodyText}>
-          {created}
-        </p>
+        <CustomDateFormat time={created} date={created} />
+
       ),
       duedate: (
-        <p className={styles.tableBodyText}>
-          {duedate}
-        </p>
+        <CustomDateFormat time={duedate} date={duedate} />
+
       ),
       id: <p>{id}</p>,
     }),
@@ -253,6 +256,7 @@ const RollingReserve = () => {
     reserves?.map((each: RollingReserveType) =>
       newRowOptions.push(
         ReserveRowTab(
+          each?.currency,
           each?.amount,
           each?.balanceBefore,
           each?.balanceAfter,
@@ -332,8 +336,8 @@ const RollingReserve = () => {
             totalRows={totalRows}
             changePage={changePage}
             limit={limit}
-            // clickable
-            link="/balance/rolling_reserve"
+            clickable
+            link="/rolling_reserve"
             identifier="id"
             rowsData={reserves}
           />

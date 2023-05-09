@@ -2,280 +2,569 @@
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	position: relative;
+	height: 100%;
 
-	& > hr {
-		background-color: #e0e0e0;
+	&>a {
+		font-family: 'Avenir';
+		font-style: normal;
+		font-weight: normal;
+		font-size: 16px;
+		line-height: 19px;
+		color: #2f80ed;
+		padding: 0 46px;
+		margin-top: -10px;
+		margin-bottom: 80px;
+		opacity: 1;
+		transition: opacity 0.5s ease;
+
+		// &:hover {
+		// 	opacity: 0.9;
+		// }
 	}
-}
 
-.pageWrapper {
-	margin-bottom: 4rem;
-
-	& > hr {
-		background-color: #e0e0e0;
+	.header {
+		margin-top: 27px;
 	}
-}
 
-.tableContainer {
-	margin-top: 1.5rem;
-}
 
-.tableBodyText {
-	font-size: 0.875rem;
-	color: #333;
-	font-weight: 400;
-	cursor: pointer;
-}
+	.sectionOne {
+		background: #FFFFFF;
+		border: 1px solid #DFDFDF;
+		border-radius: 20px;
+		margin-top: 20px;
 
-.successText {
-	color: white !important;
-	background-color: #27ae60;
-	padding: 0.2rem 0.625rem;
-	text-align: center;
-	border-radius: 2px;
-	font-weight: 500;
-	max-width: 85px;
-}
+		.section_header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 27px 32px;
+			border-bottom: 1px solid #EFF3F8;
+			flex-flow: row wrap;
 
-.pendingText {
-	color: black;
-	background-color: #f2c94c;
-	padding: 0.2rem 0.625rem;
-	text-align: center;
-	border-radius: 2px;
-	font-weight: 500;
-	max-width: 85px;
-}
+			&>div:nth-of-type(1) {
+				display: flex;
+				align-items: center;
+				gap: 10px;
 
-.failText {
-	color: white;
-	background-color: #eb5757;
-	padding: 0.2rem 0.625rem;
-	text-align: center;
-	border-radius: 2px;
-	font-weight: 500;
-	max-width: 85px;
-}
+				h2 {
+					font-family: 'Avenir';
+					font-style: normal;
+					font-weight: 500;
+					font-size: 24px;
+					line-height: 33px;
 
-.capitalize {
-	text-transform: capitalize;
-	color: #333;
-}
+					color: #000000;
+				}
 
-.sectionOne {
-	padding: 0 2rem;
+				p {
 
-	& > div:nth-child(1) {
-		margin: 1.25rem 0;
-		div {
+					font-family: 'Avenir';
+					font-style: normal;
+					font-weight: 500;
+					font-size: 12px;
+					line-height: 16px;
+					text-align: center;
+					color: #006629;
+
+
+				}
+			}
+
+			button {
+				background-color: unset;
+				border-radius: 20px;
+				border: 1px solid #27AE60;
+				font-family: 'Avenir';
+				font-style: normal;
+				font-weight: 400;
+				font-size: 14px;
+				line-height: 19px;
+				letter-spacing: 0.0024px;
+				color: #095B2C;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+
+				&:hover {
+					opacity: .8;
+					background-color: #27AE60;
+					color: #fff;
+				}
+			}
+
+		}
+
+		.refundDetails {
+			padding: 39.5px 32px 29.5px 32px;
 			display: flex;
 			align-items: center;
-			color: #828282;
-			& > p {
-				color: #4f4f4f;
-				font-size: 0.875rem;
+			gap: 90px;
+			flex-flow: row wrap;
+
+			span {
+				font-family: 'Avenir';
+				font-style: normal;
 				font-weight: 400;
+				font-size: 14px;
+				line-height: 19px;
+
+				color: #828282;
+			}
+
+			h2 {
+				font-family: 'Avenir';
+				font-style: normal;
+				font-weight: 400;
+				font-size: 14px;
+				line-height: 19px;
+				margin-top: 4px;
+				color: #333333;
 			}
 		}
 	}
 
-	& > div:nth-child(2) {
-		display: flex;
-		align-items: center;
-		gap: 1.25rem;
-		margin-bottom: 1.5rem;
+	.payment_info {
+		background: #FFFFFF;
+		border: 1px solid #DFDFDF;
+		border-radius: 20px;
+		margin-top: 30px;
 
-		& > p:nth-child(1) {
-			color: #333;
-			font-size: 1.5rem;
-			font-weight: 700;
+
+		.payment_header {
+			padding: 40px 31px 20px 31px;
+			border-bottom: 1px solid #EFF3F8;
+
+			h2 {
+				font-family: 'Avenir';
+				font-style: normal;
+				font-weight: 500;
+				font-size: 18px;
+				line-height: 25px;
+				color: #333333;
+			}
 		}
-		& > p:nth-child(2) {
-			color: white;
-			font-weight: 500;
-			font-size: 0.75rem;
-			padding: 0.15rem 0.625rem;
-			background-color: #27ae60;
-			border-radius: 2px;
+
+		.payment_details {
+			padding: 20px 32px 41px 32px;
+			display: flex;
+			align-items: center;
+			gap: 30px;
+			flex-flow: row wrap;
+
+			span {
+				font-family: 'Avenir';
+				font-style: normal;
+				font-weight: 400;
+				font-size: 14px;
+				line-height: 19px;
+				letter-spacing: 0.0024px;
+
+				color: #828282;
+			}
+
+			h2 {
+				font-family: 'Avenir';
+				font-style: normal;
+				font-weight: 400;
+				font-size: 14px;
+				line-height: 19px;
+				color: #333333;
+				margin-top: 4px;
+			}
+
+			.copy__details {
+				display: flex;
+				gap: 10px;
+				align-items: center;
+
+			}
+		}
+	}
+
+	.refund_info {
+
+		background: #FFFFFF;
+		border: 1px solid #DFDFDF;
+		border-radius: 20px;
+		margin-top: 30px;
+
+
+		.refund_header {
+			padding: 40px 32px 20px 32px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			flex-flow: row wrap;
+			border-bottom: 1px solid #EFF3F8;
+
+			button {
+				background-color: unset;
+				border-radius: 20px;
+				border: 1px solid #27AE60;
+				font-family: 'Avenir';
+				font-style: normal;
+				font-weight: 400;
+				font-size: 14px;
+				line-height: 19px;
+				letter-spacing: 0.0024px;
+				color: #095B2C;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+
+				&:hover {
+					opacity: .8;
+					background-color: #27AE60;
+					color: #fff;
+				}
+			}
+		}
+
+		.refund_info_Details {
+			display: flex;
+			align-items: center;
+			flex-flow: row wrap;
+			padding: 20px 32px;
+			gap: 40px;
+
+			span {
+				font-family: 'Avenir';
+				font-style: normal;
+				font-weight: 400;
+				font-size: 14px;
+				line-height: 19px;
+				letter-spacing: 0.0024px;
+				color: #828282;
+			}
+
+			h2 {
+				margin-top: 5px;
+
+				font-family: 'Avenir';
+				font-style: normal;
+				font-weight: 400;
+				font-size: 14px;
+				line-height: 19px;
+
+				color: #333333;
+			}
+		}
+
+		.refund_reason {
+			padding: 21px 32px;
+			border-top: 1px solid #EFF3F8;
+
+			h2 {
+				font-family: 'Avenir';
+				font-style: normal;
+				font-weight: 400;
+				font-size: 14px;
+				line-height: 19px;
+
+				color: #828282;
+			}
+
+			p {
+
+				font-family: 'Avenir';
+				font-style: normal;
+				font-weight: 400;
+				font-size: 14px;
+				line-height: 19px;
+				margin-top: 7px;
+				color: #333333;
+				width: 50%;
+
+
+
+				@media screen and (max-width:768px) {
+					width: 100%;
+				}
+			}
 		}
 	}
 }
 
-.sectionTwo {
-	padding: 2rem 2rem 0;
 
-	@media screen and (max-width: 760px) {
-		padding: 3rem 6rem 0 2rem;
+.payment_wrapper {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-flow: row wrap;
+	gap: 30px;
+	background-color: transparent;
+	margin-top: 30px;
+
+
+	&>div {
+		width: 48%;
+		background: #FFFFFF;
+		border: 1px solid #DFDFDF;
+		border-radius: 20px;
+		height: 333px;
+
+		@media screen and (max-width:1086px) {
+			width: 100%;
+		}
 	}
+}
 
-	& > div:nth-child(1) {
+.last__section__header {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 80px;
+	border-bottom: 1px solid #EFF3F8;
+	padding: 22px 32px;
+	flex-flow: row wrap;
+
+	&>div {
 		display: flex;
-		gap: 1.5rem;
 		align-items: center;
-		border-bottom: 1px solid #e0e0e0;
-		width: 100%;
-		padding: 0.75rem 0;
+		justify-content: center;
+		flex-flow: row wrap;
+		gap: 10px;
 
-		@media screen and (max-width: 450px) {
-			display: block;
+
+
+		span {
+			font-family: 'Avenir';
+			font-style: normal;
+			font-weight: 400;
+			font-size: 12px;
+			line-height: 16px;
+			color: #4F4F4F;
 		}
 
-		& > p:nth-child(1) {
-			font-weight: 700;
-			color: #333;
-			font-size: 1.125rem;
-		}
-		& > p:nth-child(2) {
+		h2 {
+			font-family: 'Avenir';
+			font-style: normal;
 			font-weight: 500;
-			color: #4f4f4f;
-			font-size: 0.875rem;
+			font-size: 18px;
+			line-height: 25px;
+			/* identical to box height */
+
+
+			color: #333333;
+		}
+
+		.success {
+			font-family: 'Avenir';
+			font-style: normal;
+			font-weight: 500;
+			font-size: 14px;
+			line-height: 19px;
+			text-transform: capitalize;
+			color: #219653;
+		}
+
+		.danger {
+			font-family: 'Avenir';
+			font-style: normal;
+			font-weight: 500;
+			font-size: 14px;
+			line-height: 19px;
+			text-transform: capitalize;
+			color: #EB5757;
 		}
 	}
 
-	& > div:nth-child(2) {
+
+
+}
+
+.paymentStage {
+
+	// padding: 1px 12px;
+	.last__section__header {
+		padding: 22px 32px;
+	}
+
+	svg {
+		width: 20px;
+		height: 20px;
+
+		path {
+			stroke: #27AE60;
+		}
+
+
+
+
+	}
+
+	.stepWrapper {
+		padding-left: 30px;
 		display: flex;
-		gap: 5rem;
-		margin-top: 0.625rem;
-		flex-wrap: wrap;
+		gap: 10px;
+		align-items: center;
+	}
 
-		@media screen and (max-width: 920px) {
-			gap: 3rem;
-		}
+	.timeBox {
+		display: flex;
+		margin-top: 5px;
 
-		@media screen and (max-width: 400px) {
-			display: grid;
-			grid-gap: 1rem;
-		}
+		p {
+			font-family: 'Avenir';
+			font-style: normal;
+			font-weight: 500;
+			font-size: 14px;
+			line-height: 19px;
 
-		& > div {
-			display: grid;
-			grid-gap: 0.5rem;
-			font-weight: 400;
-			font-size: 0.875rem;
-			& > p:nth-child(1) {
-				color: #828282;
-			}
-			& > p:nth-child(2) {
-				color: #333;
+			color: #219653;
+
+			span {
+				font-weight: 400;
+				font-size: 10px;
+				line-height: 16px;
+
+				color: #4F4F4F;
 			}
 		}
 	}
 
-	& > div:nth-child(3) {
-		display: flex;
-		gap: 5rem;
-		margin-top: 4rem;
+	.errorBox {
 
-		@media screen and (max-width: 1050px) {
-			gap: 3rem;
-		}
+		@extend .timeBox;
+		margin-top: 3.8rem;
+		gap: 10px !important;
 
-		@media screen and (max-width: 920px) {
-			display: grid;
-			grid-template-columns: repeat(2, 1fr);
-		}
-
-		@media screen and (max-width: 400px) {
-			grid-template-columns: 1fr;
-			grid-gap: 1rem;
-		}
-
-		& > div:nth-child(even) {
-			margin: 0.25rem 0;
-			width: 1.5px;
-			background: #e0e0e0;
-
-			@media screen and (max-width: 920px) {
-				display: none;
-			}
-		}
-
-		& > div:nth-child(odd) {
-			font-weight: 400;
-			font-size: 0.875rem;
-			& > p:nth-child(1) {
-				color: #828282;
-			}
-			& > p:nth-child(2) {
-				color: #333;
-				margin-top: 0.5rem;
-			}
+		p {
+			color: #EB5757;
 		}
 
 		span {
-			text-transform: capitalize;
-			color: #333;
+			margin-left: 10px;
 		}
 	}
 
-	span {
-		text-transform: capitalize;
-		color: #828282;
-	}
-}
-
-.sectionThree {
-	padding: 4rem 2rem 0;
-
-	@media screen and (max-width: 760px) {
-		padding: 3rem 6rem 0 2rem;
-	}
-
-	& > div:nth-child(1) {
-		border-bottom: 1px solid #e0e0e0;
+	.steplabel {
 		h3 {
-			font-family: 'Avenir', sans-serif;
-			color: #333;
-			font-weight: 700;
-			padding: 0.625rem 0;
-			font-size: 1.125rem;
-		}
-	}
 
-	& > div:nth-child(2) {
-		display: flex;
-		gap: 5rem;
-		margin-top: 0.625rem;
-		flex-wrap: wrap;
-
-		@media screen and (max-width: 920px) {
-			gap: 3rem;
-		}
-
-		@media screen and (max-width: 400px) {
-			display: grid;
-			grid-gap: 1rem;
-		}
-
-		& > div {
+			font-family: 'Avenir';
+			font-style: normal;
 			font-weight: 400;
-			font-size: 0.875rem;
-			& > p:nth-child(1) {
-				color: #828282;
-			}
-			& > p:nth-child(2) {
-				color: #333;
-				margin-top: 0.5rem;
-			}
+			font-size: 16px;
+			line-height: 22px;
+			/* identical to box height */
+			color: #333333;
+			margin-top: 20px;
+		}
+
+		p {
+			font-family: 'Avenir';
+			font-style: normal;
+			font-weight: 400;
+			font-size: 12px;
+			line-height: 16px;
+			color: #333333;
+		}
+
+		span {
+			color: #828282;
 		}
 	}
 }
 
-.sectionFour {
-	padding: 4rem 2rem 0;
 
-	& > div:nth-child(1) {
-		border-bottom: 1px solid #e0e0e0;
-		h3 {
-			font-family: 'Avenir', sans-serif;
-			color: #333;
-			font-weight: 700;
-			padding: 0.625rem 0;
-		}
+.timeline {
+	font-family: 'Avenir';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 18px;
+	line-height: 25px;
+	color: #333333;
+}
+
+.link {
+	padding: 32px;
+	// margin-top: -26px !important;
+	margin-bottom: 2rem !important;
+	cursor: pointer;
+
+	p {
+		font-family: 'Avenir';
+		font-style: normal;
+		font-weight: 400;
+		font-size: 16px;
+		line-height: 22px;
+		/* identical to box height */
+		color: #2F80ED;
 	}
 
-	& > div:nth-child(2) {
-		margin-top: 1rem;
+}
+
+.customerInfo {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px 32px;
+	flex-flow: row wrap;
+
+	.customerInfo_left {
+		display: flex;
+		// align-items: center;
+		flex-flow: row wrap;
+		gap: 10px;
+
+		h2 {
+			font-family: 'Avenir';
+			font-style: normal;
+			font-weight: 500;
+			font-size: 15px;
+			line-height: 20px;
+
+			color: #000000;
+		}
+
+		p {
+			font-family: 'Avenir';
+			font-style: normal;
+			font-weight: 400;
+			font-size: 13px;
+			line-height: 18px;
+			/* identical to box height */
+
+
+			color: #000000;
+		}
+
+
+	}
+
+	.blacklist {
+		cursor: pointer;
+
+		p {
+			color: #EB5757;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+
+		@media screen and (max-width:1086px) {
+			margin-top: 2rem;
+		}
+	}
+}
+
+.profile {
+	@extend .link;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	margin-top: 79px;
+	align-items: center;
+	flex-flow: row wrap;
+	width: 100%;
+
+	svg {
+		width: 20px;
+		height: 20px;
+		// color: #2F80ED;
+
+		path {
+			stroke: #2F80ED;
+		}
 	}
 }

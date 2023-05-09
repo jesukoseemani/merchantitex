@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import NavBar from '../../components/navbar/NavBar';
-import Styles from './Settings.module.scss';
+import styles from './generalsetting.module.scss';
 import { Button, Form } from 'semantic-ui-react';
 import axios, { AxiosResponse } from 'axios';
 import {
@@ -13,12 +13,18 @@ import { serialize } from 'object-to-formdata';
 import { FetchProfileDetails } from '../../helpers/FetchProfileDetails'
 import ParentContainer from '../../components/ParentContainer/ParentContainer';
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
-import { InputLabel } from '@mui/material';
+import { Box, InputLabel, Tab, Tabs } from '@mui/material';
 import { openModalAndSetContent, closeModal } from '../../redux/actions/modal/modalActions';
 // import QrCode from '../Profile/QrCode';
 import QRCode from 'react-qr-code';
 import { saveMe } from '../../redux/actions/me/meActions'
 import Navigation from '../../components/navbar/Navigation';
+import { TabContext, TabList, TabPanel } from '@mui/lab';
+import BusinessInfo from './general/businessInfo/BusinessInfo';
+import Profile from './general/profile/Profile';
+import Security from './security/Security'
+
+
 
 interface QrProps {
 	code: string;
@@ -171,50 +177,6 @@ const GeneralSettings = () => {
 		}
 	};
 
-	// const getUserDetails = async () => {
-	// 	try {
-	// 		const res: { data: any } = await axios.get(`/v1/profile/me`);
-	// 		setForm(res?.data?.business?.user?.[0]);
-	// 		setBusiness({
-	// 			tradingname: res?.data?.business?.tradingname,
-	// 			email: res?.data?.business?.email,
-	// 			phonenumber: res?.data?.business?.phonenumber,
-	// 			chargebackemail: res?.data?.business?.meta[3].value,
-	// 			supportemail: res?.data?.business?.meta[2].value,
-	// 			country: '',
-	// 			registeredaddress: res?.data?.business?.address[0] || '',
-	// 			supportphonenumber: res?.data?.business?.phonenumber,
-	// 			businesslogo: '',
-	// 		});
-	// 	} catch (error: any) {
-	// 		if (error.response) {
-	// 			const { message } = error.response.data;
-	// 			dispatch(
-	// 				openToastAndSetContent({
-	// 					toastContent: message,
-	// 					toastStyles: {
-	// 						backgroundColor: 'red',
-	// 					},
-	// 				})
-	// 			);
-	// 		} else if (error.request) {
-	// 			console.log('sorry, there was an error');
-	// 		} else {
-	// 			dispatch(
-	// 				openToastAndSetContent({
-	// 					toastContent: error.message,
-	// 					toastStyles: {
-	// 						backgroundColor: 'red',
-	// 					},
-	// 				})
-	// 			);
-	// 		}
-	// 	}
-	// };
-
-	// useEffect(() => {
-	// 	getUserDetails();
-	// }, []);
 
 	const countryList = [
 		{
@@ -270,10 +232,10 @@ const GeneralSettings = () => {
 
 						},
 						modalContent: (
-							<div className={Styles.modalDiv}>
+							<div className={styles.modalDiv}>
 								{/* <BoxComponent data={data?.qrcodeUrl} /> */}
 
-								<div className={Styles.outerbox}>
+								<div className={styles.outerbox}>
 									<div
 										style={{
 											width: '100%',
@@ -446,203 +408,223 @@ const GeneralSettings = () => {
 		})
 	}
 
+	const [tabValue, setTabValue] = React.useState('1');
 
+	const handleTabChange = (event: React.SyntheticEvent, newValue: string) => {
+		setTabValue(newValue);
+	};
 	return (
 
 
-		<div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-			{/* <NavBar  /> */}
-			<div className={Styles.container}>
-				<div className={Styles.formHeader}>
-					<p></p>
-					<Button className='success' style={{ borderRadius: "20px" }} onClick={showQr}>Generate 2FA</Button>
-				</div>
-				<div className={Styles.formHeader}>
-					<div>
-						<h2>Profile</h2>
-						<p>Personal information</p>
-					</div>
-					<Button
+		// <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+		// 	{/* <NavBar  /> */}
+		// 	<div className={Styles.container}>
+		// 		<div className={Styles.formHeader}>
+		// 			<p></p>
+		// 			<Button className='success' style={{ borderRadius: "20px" }} onClick={showQr}>Generate 2FA</Button>
+		// 		</div>
+		// 		<div className={Styles.formHeader}>
+		// 			<div>
+		// 				<h2>Profile</h2>
+		// 				<p>Personal information</p>
+		// 			</div>
+		// 			<Button
 
-						loading={loader}
-						className='success'
-						onClick={updateUserDetails}
-						style={{ borderRadius: "20px" }}
+		// 				loading={loader}
+		// 				className='success'
+		// 				onClick={updateUserDetails}
+		// 				style={{ borderRadius: "20px" }}
 
-					>
-						Save changes
-					</Button>
-				</div>
-				<div className={Styles.formField}>
-					<Form.Input
-						fluid
-						name='firstname'
-						onChange={handleChange}
-						defaultValue={user?.firstname}
-						label='First name'
-						placeholder='John'
-					/>
-					<Form.Input
-						fluid
-						name='lastname'
-						defaultValue={user?.lastname}
-						onChange={handleChange}
-						label='Last name'
-						placeholder='Doe'
-					/>
-				</div>
-				<div className={Styles.formField}>
-					<Form.Input
-						fluid
-						name='email'
-						value={user?.email}
-						onChange={handleChange}
-						label='Email address'
-						placeholder='email@email.com'
-					/>
-					<Form.Input
-						fluid
-						name='phonenumber'
-						defaultValue={user?.phonenumber}
-						onChange={handleChange}
-						label='Phone number'
-						placeholder='+234 000 000 0000'
-					/>
-				</div>
-				<div className={Styles.formHeader}>
-					<div>
-						<h2>Password</h2>
-						<p>Personal information</p>
-					</div>
-					<Button onClick={handlePassWordChange} className='success' style={{ borderRadius: "20px" }}>Save changes</Button>
-				</div>
+		// 			>
+		// 				Save changes
+		// 			</Button>
+		// 		</div>
+		// 		<div className={Styles.formField}>
+		// 			<Form.Input
+		// 				fluid
+		// 				name='firstname'
+		// 				onChange={handleChange}
+		// 				defaultValue={user?.firstname}
+		// 				label='First name'
+		// 				placeholder='John'
+		// 			/>
+		// 			<Form.Input
+		// 				fluid
+		// 				name='lastname'
+		// 				defaultValue={user?.lastname}
+		// 				onChange={handleChange}
+		// 				label='Last name'
+		// 				placeholder='Doe'
+		// 			/>
+		// 		</div>
+		// 		<div className={Styles.formField}>
+		// 			<Form.Input
+		// 				fluid
+		// 				name='email'
+		// 				value={user?.email}
+		// 				onChange={handleChange}
+		// 				label='Email address'
+		// 				placeholder='email@email.com'
+		// 			/>
+		// 			<Form.Input
+		// 				fluid
+		// 				name='phonenumber'
+		// 				defaultValue={user?.phonenumber}
+		// 				onChange={handleChange}
+		// 				label='Phone number'
+		// 				placeholder='+234 000 000 0000'
+		// 			/>
+		// 		</div>
+		// 		<div className={Styles.formHeader}>
+		// 			<div>
+		// 				<h2>Password</h2>
+		// 				<p>Personal information</p>
+		// 			</div>
+		// 			<Button onClick={handlePassWordChange} className='success' style={{ borderRadius: "20px" }}>Save changes</Button>
+		// 		</div>
 
-				<div className={Styles.formField}>
-					<Form.Input
-						fluid
-						name='currentPassword'
-						label='Current password'
-						onChange={handleChangePass}
-						placeholder='***********'
-						type='password'
-						value={passInput?.currentPassword}
-					/>
-					<Form.Input
-						fluid
-						name='password'
-						label='New password'
-						onChange={handleChangePass}
-						placeholder='***********'
-						type='password'
-						value={passInput?.password}
-					/>
-				</div>
-				<div className={Styles.formHeader}>
-					<div>
-						<h2>Business information</h2>
-						<p>Personal information</p>
-					</div>
-					<Button style={{ borderRadius: "20px" }} loading={loader} className='success' onClick={updateBusiness}>
-						Save changes
-					</Button>
-				</div>
+		// 		<div className={Styles.formField}>
+		// 			<Form.Input
+		// 				fluid
+		// 				name='currentPassword'
+		// 				label='Current password'
+		// 				onChange={handleChangePass}
+		// 				placeholder='***********'
+		// 				type='password'
+		// 				value={passInput?.currentPassword}
+		// 			/>
+		// 			<Form.Input
+		// 				fluid
+		// 				name='password'
+		// 				label='New password'
+		// 				onChange={handleChangePass}
+		// 				placeholder='***********'
+		// 				type='password'
+		// 				value={passInput?.password}
+		// 			/>
+		// 		</div>
+		// 		<div className={Styles.formHeader}>
+		// 			<div>
+		// 				<h2>Business information</h2>
+		// 				<p>Personal information</p>
+		// 			</div>
+		// 			<Button style={{ borderRadius: "20px" }} loading={loader} className='success' onClick={updateBusiness}>
+		// 				Save changes
+		// 			</Button>
+		// 		</div>
 
 
-				<div className={Styles.formField}>
-					<Form.Input
-						fluid
-						name='tradingname'
-						label='Business name'
-						// onChange={handleBizChange}
-						defaultValue={business?.tradingname}
-						placeholder='Your company ltd.'
-					/>
-					<Form.Input
-						fluid
-						name='email'
-						defaultValue={business?.email}
-						label='Business email'
-						// onChange={handleBizChange}
-						placeholder='supportemail@email.com'
-					/>
-				</div>
-				<div className={Styles.formField}>
-					<Form.Input
-						fluid
-						name='phonenumber'
-						defaultValue={business?.phonenumber}
-						// onChange={handleBizChange}
-						label='Business phone number'
-						placeholder='+234 000 000 0000'
-					/>
-					<Form.Input
-						fluid
-						name='street'
-						value={business?.registeredaddress}
-						// onChange={handleBizChange}
-						label='Address'
-						placeholder='41 James street, lekki'
-					/>
-				</div>
-				<div className={Styles.formField}>
-					<Form.Input
-						fluid
-						name='supportemail'
-						value={business?.supportemail}
-						// onChange={handleBizChange}
-						label='Support email'
-						placeholder='support@yourcompany.com'
-					/>
-					<Form.Input
-						fluid
-						name='supportphonenumber'
-						value={business?.supportphonenumber}
-						// onChange={handleBizChange}
-						label='Support Phone'
-						placeholder='+234 000 000 0000'
-					/>
-				</div>
-				<div className={Styles.formField}>
-					<Form.Select
-						fluid
-						search
-						name='country'
-						value={business?.country}
-						// onChange={handleBizChange}
-						label='Country'
-						options={countryList}
-						placeholder='Select country'
-					/>
-					<Form.Input
-						fluid
-						name='chargebackemail'
-						value={business?.chargebackemail}
-						// onChange={handleBizChange}
-						label='Chargeback email'
-						placeholder='chargebackemail@email.com'
-					/>
-				</div>
-				<div className={Styles.formField} style={{ width: "465px", maxWidth: "100%" }}>
-					<InputLabel className={Styles.label}>Business Logo </InputLabel>
-					<Button variant="outlined" fullWidth component="label"
-						style={{
-							background: "#F6F9FD",
-							fontSize: "14px", color: "#4F4F4F",
-							height: 44,
-							border: "1px dashed #7A9CC4",
-							borderRadius: 4,
-							fontWeight: 300,
-							fontFamily: "Avenir",
-							textTransform: "inherit",
-							display: "flex",
-							justifyContent: "flex-start",
-							alignItems: "center"
-						}}>
-						<CloudUploadOutlinedIcon className={Styles.downloadIcon} />   choose file to upload
-						<input hidden accept="image/*" multiple type="file" />
-					</Button>
-				</div>
-			</div>
+		// 		<div className={Styles.formField}>
+		// 			<Form.Input
+		// 				fluid
+		// 				name='tradingname'
+		// 				label='Business name'
+		// 				// onChange={handleBizChange}
+		// 				defaultValue={business?.tradingname}
+		// 				placeholder='Your company ltd.'
+		// 			/>
+		// 			<Form.Input
+		// 				fluid
+		// 				name='email'
+		// 				defaultValue={business?.email}
+		// 				label='Business email'
+		// 				// onChange={handleBizChange}
+		// 				placeholder='supportemail@email.com'
+		// 			/>
+		// 		</div>
+		// 		<div className={Styles.formField}>
+		// 			<Form.Input
+		// 				fluid
+		// 				name='phonenumber'
+		// 				defaultValue={business?.phonenumber}
+		// 				// onChange={handleBizChange}
+		// 				label='Business phone number'
+		// 				placeholder='+234 000 000 0000'
+		// 			/>
+		// 			<Form.Input
+		// 				fluid
+		// 				name='street'
+		// 				value={business?.registeredaddress}
+		// 				// onChange={handleBizChange}
+		// 				label='Address'
+		// 				placeholder='41 James street, lekki'
+		// 			/>
+		// 		</div>
+		// 		<div className={Styles.formField}>
+		// 			<Form.Input
+		// 				fluid
+		// 				name='supportemail'
+		// 				value={business?.supportemail}
+		// 				// onChange={handleBizChange}
+		// 				label='Support email'
+		// 				placeholder='support@yourcompany.com'
+		// 			/>
+		// 			<Form.Input
+		// 				fluid
+		// 				name='supportphonenumber'
+		// 				value={business?.supportphonenumber}
+		// 				// onChange={handleBizChange}
+		// 				label='Support Phone'
+		// 				placeholder='+234 000 000 0000'
+		// 			/>
+		// 		</div>
+		// 		<div className={Styles.formField}>
+		// 			<Form.Select
+		// 				fluid
+		// 				search
+		// 				name='country'
+		// 				value={business?.country}
+		// 				// onChange={handleBizChange}
+		// 				label='Country'
+		// 				options={countryList}
+		// 				placeholder='Select country'
+		// 			/>
+		// 			<Form.Input
+		// 				fluid
+		// 				name='chargebackemail'
+		// 				value={business?.chargebackemail}
+		// 				// onChange={handleBizChange}
+		// 				label='Chargeback email'
+		// 				placeholder='chargebackemail@email.com'
+		// 			/>
+		// 		</div>
+		// 		<div className={Styles.formField} style={{ width: "465px", maxWidth: "100%" }}>
+		// 			<InputLabel className={Styles.label}>Business Logo </InputLabel>
+		// 			<Button variant="outlined" fullWidth component="label"
+		// 				style={{
+		// 					background: "#F6F9FD",
+		// 					fontSize: "14px", color: "#4F4F4F",
+		// 					height: 44,
+		// 					border: "1px dashed #7A9CC4",
+		// 					borderRadius: 4,
+		// 					fontWeight: 300,
+		// 					fontFamily: "Avenir",
+		// 					textTransform: "inherit",
+		// 					display: "flex",
+		// 					justifyContent: "flex-start",
+		// 					alignItems: "center"
+		// 				}}>
+		// 				<CloudUploadOutlinedIcon className={Styles.downloadIcon} />   choose file to upload
+		// 				<input hidden accept="image/*" multiple type="file" />
+		// 			</Button>
+		// 		</div>
+		// 	</div>
+		// </div>
+
+
+		<div className={styles.container}>
+			<TabContext value={tabValue}>
+				<Box>
+					<TabList onChange={handleTabChange} aria-label="lab API tabs example">
+						<Tab label="Business Information" value="1" />
+						<Tab label="Profile" value="2" />
+						<Tab label="Login & Security" value="3" />
+					</TabList>
+				</Box>
+				<TabPanel value="1"><BusinessInfo me={me} /></TabPanel>
+				<TabPanel value="2"><Profile me={me} /></TabPanel>
+				<TabPanel value="3"><Security /></TabPanel>
+			</TabContext>
 		</div>
 	);
 };

@@ -14,12 +14,14 @@ import {
 	openModalAndSetContent,
 	closeModal,
 } from '../../redux/actions/modal/modalActions';
-import UserModal from '../../redux/reducers/settings/user/UserModal';
+import UserModal from './user/UserModal';
 import ParentContainer from '../../components/ParentContainer/ParentContainer';
-import EditUserModal from '../../redux/reducers/settings/user/EditUserModal';
-import { Stack } from '@mui/material';
+import EditUserModal from './user/EditUserModal';
+import { capitalize, Stack, Box } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { useHistory } from 'react-router-dom';
+import CustomDateFormat from '../../components/customs/CustomDateFormat';
+import CustomModal from '../../components/customs/CustomModal';
 
 
 
@@ -121,6 +123,18 @@ const Users = () => {
 		setRowsPerPage(value);
 	};
 
+
+	const [openUserModal, setOpenUserModal] = useState(false)
+	const AddNewUser = () => setOpenUserModal(true);
+	const handleCloseModal = () => setOpenUserModal(false);
+	const [data, setData] = useState<any>()
+	const [openEditUserModal, setOpenEditUserModal] = useState(false)
+	const editHandler = (data: any) => {
+		setOpenEditUserModal(true)
+		setData(data)
+	};
+	const handleCloseUserModal = () => setOpenEditUserModal(false);
+
 	interface Column {
 		id: 'name' | 'email_address' | 'phone' | 'role' | 'last_login' | 'action';
 		label: any;
@@ -130,8 +144,8 @@ const Users = () => {
 	const columns: Column[] = [
 		{ id: 'name', label: 'Name', minWidth: 160 },
 		{ id: 'email_address', label: 'Email address', minWidth: 130 },
-		{ id: 'phone', label: 'Phone number', minWidth: 100 },
-		{ id: 'role', label: 'Role', minWidth: 100 },
+		{ id: 'phone', label: 'Phone number', minWidth: 130 },
+		{ id: 'role', label: 'Role', minWidth: 140 },
 		{ id: 'last_login', label: 'Last login', minWidth: 100 },
 		{ id: 'action', label: '', align: 'right', minWidth: 150 },
 	];
@@ -149,8 +163,8 @@ const Users = () => {
 			name: `${firstname} ${lastname}`,
 			email_address: email,
 			phone: phonenumber || 'nill',
-			role: role || 'nil',
-			last_login: lastlogin || "nil",
+			role: capitalize(role?.toLowerCase()) || 'nil',
+			last_login: lastlogin ? <CustomDateFormat date={lastlogin} time={lastlogin} /> : "nil",
 			action: (
 				<Stack direction={"row"}>
 					<IconButton
@@ -166,14 +180,14 @@ const Users = () => {
 						Remove
 					</IconButton>
 
-					<IconButton
+					{/* <IconButton
 						onClick={() => history.push({
 							pathname: "/user/activity",
 							state: { id }
 						})}
 						className='action text-success'>
 						Activities
-					</IconButton>
+					</IconButton> */}
 				</Stack>
 			),
 			id
@@ -200,51 +214,7 @@ const Users = () => {
 		setRows(newRowOptions);
 	}, [settlements, LoanRowTab]);
 
-	const AddNewUser = () => {
-		dispatch(
-			openModalAndSetContent({
-				modalStyles: {
-					padding: 0,
-					// width: '550px',
-					// minHeight: 400,
-					maxWidth: '100%',
-					borderRadius: 20,
-					boxShadow: "-4px 4px 14px rgba(224, 224, 224, 0.69)",
 
-				},
-				modalTitle: "Add a new user",
-				modalContent: (
-					<div className={Styles.modalDiv}>
-						<UserModal key={"ii"} getUsers={getUsers} />
-					</div>
-				),
-			})
-		);
-	};
-
-	const editHandler = (data: any) => {
-
-		dispatch(
-			openModalAndSetContent({
-				modalStyles: {
-					padding: 0,
-					width: '539px',
-					// minHeight: '450px',
-					maxWidth: '100%',
-					minHeight: 400,
-
-					overflow: "auto",
-					borderRadius: "20px"
-				},
-				modalTitle: "Edit Bank Account",
-				modalContent: (
-					<div className={Styles.modalDiv}>
-						<EditUserModal data={data} getUsers={getUsers} />
-					</div>
-				),
-			})
-		);
-	};
 
 	const deleteHandler = (id: number) => {
 		const handleCancelModa = () => {
@@ -295,6 +265,7 @@ const Users = () => {
 					maxWidth: '653px',
 					height: '254px !important',
 					width: '100%',
+
 
 
 					borderRadius: "20px"
@@ -352,6 +323,29 @@ const Users = () => {
 					/>
 				</div>
 			</div>
+
+			<Box>
+				<CustomModal
+					title="Add new user"
+					isOpen={openUserModal}
+					handleClose={handleCloseModal}
+					close={() => setOpenUserModal(false)}>
+
+					<UserModal key={"ii"} getUsers={getUsers} />
+
+				</CustomModal >
+
+			</Box>
+			<Box>
+				<CustomModal
+					title="Edit User"
+					isOpen={openEditUserModal}
+					handleClose={handleCloseUserModal}
+					close={() => setOpenUserModal(false)}>
+					<EditUserModal data={data} getUsers={getUsers} />
+				</CustomModal >
+
+			</Box>
 		</div>
 	);
 };

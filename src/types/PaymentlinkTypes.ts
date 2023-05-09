@@ -15,7 +15,7 @@ export interface LinkItem {
   amount: string;
   linkType: string;
   paymentUrl: string;
-  added: string;
+  createdAt: string;
   id: string;
   desc: string;
   frequency?: string;
@@ -25,7 +25,7 @@ export interface LinkItem {
   description?: string;
   subInterval?: number;
   subChargeCount?: number;
-
+  currency?: string;
   chargeCount?: number;
   phone?: string;
   status?: string;
