@@ -386,15 +386,6 @@ const DonationLinkModal = ({ isOpen, handleClose, setIsUpdate }: DonationLinkMod
 										</Grid>
 									</Grid>
 
-<<<<<<< HEAD
-									<Grid item xs={12} md={6} justifyContent={"flex-end"} alignItems="flex-end" >
-										<Box>
-											<Button type="submit" style={{ borderRadius: "20px", height: "44px" }} fullWidth className={classes.formBtn}>
-												{loading ? "uploading ...." : "Create link"}
-											</Button>
-										</Box>
-=======
->>>>>>> cf1b6e5573d3a5cbb6ed65d56994332ba0b85dfb
 
 
 

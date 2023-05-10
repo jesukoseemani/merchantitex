@@ -16,23 +16,15 @@ const useStyles = makeStyles({
 	root: {
 		width: '100%',
 		borderRadius: "20px",
-<<<<<<< HEAD
-		marginTop: "10px"
-=======
 		marginTop: "10px",
 		boxShadow: "none"
 
->>>>>>> cf1b6e5573d3a5cbb6ed65d56994332ba0b85dfb
 
 	},
 	container: {
 		maxHeight: '70vh',
 		maxWidth: '100%',
-<<<<<<< HEAD
-		borderRadius: "20px 20px 0px 0px"
-=======
 		borderRadius: "20px 20px 0px 0px",
->>>>>>> cf1b6e5573d3a5cbb6ed65d56994332ba0b85dfb
 	},
 
 	noRecord: {
