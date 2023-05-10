@@ -17,13 +17,10 @@ import { useDispatch } from "react-redux";
 import { Payout, PayoutRes } from "../../types/Payout";
 import { getTransactionStatus } from "../../utils/status";
 import { statusFormatObj } from "../../helpers";
-<<<<<<< HEAD
-=======
 import CustomStatus from "../customs/CustomStatus";
 import FormatToCurrency from "../../helpers/NumberToCurrency";
 import CustomDateFormat from "../customs/CustomDateFormat";
 import CustomCurrencyFormat from "../customs/CustomCurrencyFormat";
->>>>>>> cf1b6e5573d3a5cbb6ed65d56994332ba0b85dfb
 
 export default function TransfersTable({ payout, changePage }: { payout: PayoutRes; changePage?: (p: number) => void }) {
   interface TransactionsProps {
@@ -73,38 +70,16 @@ export default function TransfersTable({ payout, changePage }: { payout: PayoutR
     { id: "date", label: "Date", minWidth: 100 },
   ];
   const LoanRowTab = useCallback(
-<<<<<<< HEAD
-    (amount: number, status: string, receipient: string, date: any, id: number) => ({
-      amount: (
-        <div className={Styles.amount}>
-          <span>NGN {amount}</span>
-        </div>
-      ),
-      status: (
-        <Label
-          className={Styles[statusFormatObj[status] || "pendingText"]}
-        >
-          <p style={{ borderRadius: "20px" }}> {status}</p>
-        </Label>
-=======
     (currency, amount, status, receipientname, receipientbank, recipientaccountnumber, date, id) => ({
       amount: (
         <CustomCurrencyFormat currency={currency} amount={amount} />
       ),
       status: (
         <CustomStatus type={status} text={status} />
->>>>>>> cf1b6e5573d3a5cbb6ed65d56994332ba0b85dfb
       ),
       receipient: <p>{`${receipientname} | ${receipientbank} | ${recipientaccountnumber}`}</p>,
       date: (
-<<<<<<< HEAD
-        <div className={Styles.date}>
-          <p>{date.format}{date.time}</p>
-          <span>{date}</span>
-        </div>
-=======
         <CustomDateFormat date={date} time={date} />
->>>>>>> cf1b6e5573d3a5cbb6ed65d56994332ba0b85dfb
       ),
       id
     }),
@@ -115,11 +90,7 @@ export default function TransfersTable({ payout, changePage }: { payout: PayoutR
     const newRowOptions: any[] = [];
     payout?.payouts?.map((each: Payout) =>
       newRowOptions.push(
-<<<<<<< HEAD
-        LoanRowTab(each.amount, getTransactionStatus(each?.responsecode!), each?.recipientname!, each.timein, each.id)
-=======
         LoanRowTab(each?.currency, each?.amount, getTransactionStatus(each?.responsecode!), each?.recipientname, each?.recipientbank, each?.recipientaccountnumber, each?.timein, each?.id)
->>>>>>> cf1b6e5573d3a5cbb6ed65d56994332ba0b85dfb
       )
     );
     setRows(newRowOptions);

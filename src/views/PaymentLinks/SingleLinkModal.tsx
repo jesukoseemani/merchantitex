@@ -211,11 +211,7 @@ const useStyles = makeStyles({
 	}
 });
 
-<<<<<<< HEAD
-const SingleLinkModal = ({ isOpen, handleClose, setIsUpdate  }: SingleLinkModalProps) => {
-=======
 const SingleLinkModal = ({ isOpen, handleClose, setIsUpdate }: SingleLinkModalProps) => {
->>>>>>> cf1b6e5573d3a5cbb6ed65d56994332ba0b85dfb
 	const classes = useStyles();
 
 	const [linkName, setLinkName] = useState<string>('');
@@ -402,17 +398,6 @@ const SingleLinkModal = ({ isOpen, handleClose, setIsUpdate }: SingleLinkModalPr
 											</div>
 											<div className={classes.formBox} style={{ marginBottom: "18px" }}>
 
-<<<<<<< HEAD
-										</div>
-
-									</div>
-								) : null}
-							</Box>
-							<div>
-								<Button type='submit' style={{ borderRadius: "20px" }} fullWidth className={classes.formBtn}>
-									Create link
-								</Button>
-=======
 												<CustomInputField as={TextField} label={"RedCollect extra information"} placeholder='fieldname' name='fieldname' />
 
 
@@ -427,7 +412,6 @@ const SingleLinkModal = ({ isOpen, handleClose, setIsUpdate }: SingleLinkModalPr
 									</Button>
 								</div>
 
->>>>>>> cf1b6e5573d3a5cbb6ed65d56994332ba0b85dfb
 							</div>
 
 						</Form>
