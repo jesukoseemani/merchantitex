@@ -21,7 +21,10 @@ import { getBalanceHistoryService } from '../../services/balance';
 import FilterModal from '../../components/filterModals/BalanceHistoryFilter';
 import { BALANCE_HISTORY_FILTER_DATA } from '../../constant';
 import { stripEmpty } from '../../utils';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
+import FormatToCurrency from '../../helpers/NumberToCurrency';
+import CustomCurrencyFormat from '../../components/customs/CustomCurrencyFormat';
+import CustomDateFormat from '../../components/customs/CustomDateFormat';
 
 
 const useBtnStyles = makeStyles({
@@ -139,11 +142,14 @@ const useModalBtnStyles = makeStyles({
     border: '1px solid #27ae60 !important',
     color: '#27ae60 !important',
   },
+
 });
 
 const BalanceHistory = () => {
   const btnClasses = useBtnStyles();
   const modalBtnClasses = useModalBtnStyles();
+  const { id } = useParams<{ id: string }>();
+
 
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [history, setHistory] = useState<History[]>([]);
@@ -184,10 +190,10 @@ const BalanceHistory = () => {
   const { search } = useLocation()
 
   const BalanceHistoryRowTab = useCallback(
-    (init, amt, after, details, added, id) => ({
+    (currency, init, amt, after, details, added, id) => ({
       init: (
         <p className={styles.tableBodyText}>
-          <span className={styles.tableBodySpan}>NGN </span>
+          <span className={styles.tableBodySpan}>{currency} </span>
           {init}
         </p>
       ),
@@ -199,25 +205,17 @@ const BalanceHistory = () => {
               fontWeight: "700",
             }}
           >
-            {amt}
+            {FormatToCurrency(amt)}
           </span>
         </p>
       ),
       after: (
-        <p className={styles.tableBodyText}>
-          <span className={styles.tableBodySpan}>NGN </span>
-          {after}
-        </p>
+        <CustomCurrencyFormat amount={after} currency={currency} />
       ),
       details: <p className={styles.tableBodyText}>{details}</p>,
       added: (
-        <p className={styles.tableBodyText}>
-          {moment(added).format("MMM D YYYY")}
-          <span className={styles.tableBodySpan}>
-            {" "}
-            {moment(added).format("h:mm A")}
-          </span>
-        </p>
+        <CustomDateFormat time={added} date={added} />
+
       ),
       id: <p>{id}</p>,
     }),
@@ -229,6 +227,7 @@ const BalanceHistory = () => {
     history?.map((each: History) =>
       newRowOptions.push(
         BalanceHistoryRowTab(
+          each?.currency,
           each?.balancebefore || 0,
           each?.amount || 0,
           each?.balanceafter || 0,
@@ -244,7 +243,7 @@ const BalanceHistory = () => {
   const getBalanceHistory = async (form = BALANCE_HISTORY_FILTER_DATA) => {
     dispatch(openLoader());
     try {
-      const res = await getBalanceHistoryService('52', stripEmpty({ search, ...form }))
+      const res = await getBalanceHistoryService(id, stripEmpty({ search, ...form }))
       setHistory(res?.balancehistory || []);
       setTotalRows(res?._metadata?.totalcount || 0);
       dispatch(closeLoader());

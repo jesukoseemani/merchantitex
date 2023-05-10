@@ -170,32 +170,26 @@ label {
 
 .confirm_container {
     width: 560.66px;
-    height: 442px;
     background: #FFFFFF;
-    box-shadow: 0px 3px 20px rgba(0, 0, 0, 0.16);
     border-radius: 20px;
 
-    .title {
-        padding: 22px 50px;
-        border-bottom: 1px solid #E0E0E0;
+    .confirmInput {
+        margin-top: -5px;
 
-        width: 100%;
-        margin-inline: auto;
-
-        h2 {
-            font-family: 'Avenir';
-            font-style: normal;
-            font-weight: 500;
-            font-size: 18px;
-            line-height: 25px;
-            color: #505050;
+        .label {
+            font-family: 'Avenir' !important;
+            font-style: normal !important;
+            font-weight: 400 !important;
+            font-size: 14px !important;
+            line-height: 19px !important;
+            color: #333333;
         }
     }
 
     // confirmation
     .confirm {
         padding-inline: 40px;
-        margin-top: 26px;
+        margin-top: 20px;
 
 
         p {
@@ -203,25 +197,30 @@ label {
             font-style: normal;
             font-weight: 400;
             font-size: 16px;
-            line-height: 24px;
+            line-height: 24px !important;
             color: #333333;
+            display: flex;
+
+
         }
 
         .confirmFooter {
-            margin-top: 50px;
+            margin-top: 33px;
+            margin-bottom: 15px;
 
             p {
                 font-family: 'Avenir';
                 font-style: normal;
                 font-weight: 400;
-                font-size: 14px;
-                line-height: 20px;
+                font-size: 16px;
+                line-height: 24px;
                 color: #333333;
                 display: flex;
                 justify-content: center;
-                margin-top: 5px;
                 align-items: center;
-                margin-top: 15px;
+                margin-top: 10px;
+                color: #333333;
+                border: #219653 2px solid;
 
                 a {
                     color: #219653;
@@ -230,8 +229,13 @@ label {
                     margin-left: 2px;
 
 
+
                 }
+
+
             }
+
+
 
             button {
                 width: 100%;
@@ -252,6 +256,30 @@ label {
     }
 }
 
+.amounts {
+    color: red;
+    display: flex;
+}
+
+.resend {
+    width: 100%;
+
+    p {
+        font-family: 'Avenir';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 20px;
+        cursor: pointer;
+        text-align: center;
+        color: #333333;
+    }
+
+    span {
+        color: #27AE60;
+    }
+}
+
 .small {
     font-size: 13px;
     margin-left: 10px;
@@ -259,6 +287,10 @@ label {
 
 .mb {
     margin-bottom: 30px;
+
+    p {
+        display: flex;
+    }
 }
 
 .full {

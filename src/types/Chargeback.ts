@@ -4,7 +4,7 @@ export interface chargebackItem {
   linkingreference: string;
   paymentid: string;
   amount: number;
-  currency: number;
+  currency: string;
   customerid: null | number | string;
   customeremail: string;
   chargebackreason: string;

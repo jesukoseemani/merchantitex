@@ -9,7 +9,7 @@ import {
 	Table,
 	TableBody,
 	TableCell,
-} from "@material-ui/core";
+} from "@mui/material";
 
 const useStyles = makeStyles({
 	root: {
@@ -90,16 +90,20 @@ export default function OperantTable({
 				<Table stickyHeader aria-label='sticky table'>
 					{noHeader ?? (
 						<TableHead>
-							<TableRow>
+							<TableRow style={{
+								padding: "15px 0px !important",
+
+							}}>
 								{columns.map((column, index) => (
 									<TableCell
+
 										key={index}
 										align={column.align}
 										style={{
-											fontFamily: 'Avenir',
+											fontFamily: 'Avenir bold',
 											fontStyle: "normal",
 											fontWeight: 500,
-											fontSize: "14px",
+											fontSize: "14px !important",
 											lineHeight: "19px",
 											letterSpacing: "0.0024px",
 											color: "#333333",
@@ -120,7 +124,18 @@ export default function OperantTable({
 									{columns.map((column, secondIndex) => {
 										const value = row[column.id];
 										return (
-											<TableCell key={secondIndex} align={column.align}>
+											<TableCell key={secondIndex} align={column.align} sx={{
+
+												'&:first-child': {
+													paddingLeft: "38px",
+												},
+												'&:last-child': {
+													paddingRight: "38px"
+
+												},
+
+												// padding: "16.5px 39px"
+											}}>
 												{value}
 											</TableCell>
 										);
@@ -138,6 +153,8 @@ export default function OperantTable({
 				page={page}
 				onPageChange={handleChangePage}
 				onRowsPerPageChange={handleChangeRowsPerPage}
+				style={{ paddingLeft: "16px", }}
+
 			/>
 		</Paper>
 	);

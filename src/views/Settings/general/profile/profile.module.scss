@@ -1,0 +1,116 @@
+.profile__container {
+    background: #FFFFFF;
+    border: 1px solid #DFDFDF;
+    border-radius: 20px;
+
+
+    .profile__header {
+        padding: 38.26px 31px;
+        border-bottom: 1px solid #DFDFDF;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-flow: row wrap;
+
+        .left {
+            display: flex;
+            // align-items;
+            gap: 16.68px;
+
+            p {
+
+                font-family: 'Avenir semibold';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 17.6111px;
+                line-height: 24px;
+
+                color: #212B36;
+            }
+
+            span {
+                font-family: 'Avenir';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 17.6111px;
+                line-height: 24px;
+                /* identical to box height */
+
+
+                color: #828282;
+            }
+        }
+
+        .right {
+            button {
+                border: 1px solid #27AE60;
+                border-radius: 20px;
+                font-family: 'Avenir';
+                font-style: normal;
+                font-weight: 900;
+                font-size: 14px;
+                line-height: 19px;
+                letter-spacing: 0.0024px;
+                color: #FFFFFF;
+            }
+        }
+    }
+
+    .profile__body {
+        padding: 20px 32px 30px 32px;
+        display: flex;
+        align-items: center;
+        gap: 5rem;
+        flex-flow: row wrap;
+
+        span {
+            font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 19px;
+            letter-spacing: 0.0024px;
+            color: #828282;
+        }
+
+        p {
+            font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 19px;
+            color: #333333;
+            margin-top: 4px;
+        }
+    }
+}
+
+
+// edit profile
+.btnGroup {
+    padding: 35px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // flex-flow: row wrap;
+    gap: 24px;
+
+    button {
+        width: 155px;
+        height: 44px;
+        font-family: 'Avenir';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 22px;
+        text-align: center;
+        color: #fff;
+
+
+        &:nth-of-type(1) {
+            border: 1px solid #27AE60;
+            background: transparent;
+            color: #095B2C;
+        }
+    }
+}

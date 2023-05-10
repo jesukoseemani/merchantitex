@@ -44,17 +44,20 @@ const Confirmation: FC<{
 
     return (
         <Box className={Styles.confirm_container}>
-            <Box className={Styles.title}><h2>Payout confirmation</h2></Box>
 
             <Box className={Styles.confirm}>
-                <p className={Styles.mb}>Enter the code generated from the google authenticator</p>
-                <div>
-                    <InputLabel style={{ color: '#000' }}>Confirmation Code</InputLabel>
+                <p className={Styles.mb}>We sent a confirmation code to 08090909090 to complete your payout of NGN {form?.amount} to James Seun - Access bank (1234567890)</p>
+                <div className={Styles.confirmInput}>
+                    <InputLabel style={{ color: '#000' }} className={Styles.label}>Confirmation Code</InputLabel>
                     <OutlinedInput fullWidth placeholder='Enter confirmation code' onChange={e => setOtp(e.target.value)} />
                 </div>
                 <Box className={Styles.confirmFooter}>
                     <button onClick={pay}>{loading ? 'PLEASE WAIT' : 'Continue'}</button>
                 </Box>
+
+                <div className={Styles.resend}>
+                    <p>Didn’t get the code? <span>  Resend verification code</span></p>
+                </div>
             </Box>
 
         </Box>

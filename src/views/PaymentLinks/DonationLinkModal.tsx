@@ -161,7 +161,7 @@ const useStyles = makeStyles({
 		fontFamily: 'Avenir',
 		fontStyle: "normal",
 		fontWeight: 400,
-		fontSize: "12px",
+		fontSize: "11px",
 		lineHeight: "16px",
 		color: " #828282"
 	},
@@ -301,34 +301,18 @@ const DonationLinkModal = ({ isOpen, handleClose, setIsUpdate }: DonationLinkMod
 										<CustomInputField as={TextField} label={"Donation website"} placeholder='https://donation.com' name='donationWebsite' />
 
 									</Grid>
-									<Grid item xs={12} md={6}>
-										<CustomInputField as={TextField} label={"Redirect after payment"} placeholder='https://redirect.com' name='redirectUrl' />
 
-
-									</Grid>
 									<Grid item xs={12} md={6} alignItems="center">
 
 										<CustomInputDropdown as={TextField} label={"Amount"} placeholder='amount' name='amount' position="start" adornmentName='currencyid'
 											adornmentOptions={currencyList} adornmentType={CustomCurrency}
 										/>
-
-
-
-
-
 										<FormHelperText className={classes.helperText}>
-											Leave empty to allow customers enter desired amount
+											Keep empty for customers to enter their desired amount.
 										</FormHelperText>
 									</Grid>
 
 
-
-									<Grid item xs={12} md={6}>
-
-										<CustomInputField as={TextField} label={"Description"} placeholder='description' name='description'
-											multiline={true} rows={5}
-										/>
-									</Grid>
 
 									<Grid item xs={12} md={6}>
 										<Grid container>
@@ -341,7 +325,30 @@ const DonationLinkModal = ({ isOpen, handleClose, setIsUpdate }: DonationLinkMod
 												</FormHelperText>
 											</Grid>
 
-											<Grid item xs={12} mt={3.5} mb={3.5}>
+
+
+										</Grid>
+									</Grid>
+
+
+									<Grid item xs={12} md={6}>
+
+										<CustomInputField as={TextField} label={"Description"} placeholder='description' name='description'
+											multiline={true} rows={6}
+										/>
+									</Grid>
+
+
+									<Grid item xs={12} md={6} >
+
+										<Grid container>
+											<Grid item xs={12} mb={2.5}>
+												<CustomInputField as={TextField} label={"Redirect after payment"} placeholder='https://redirect.com' name='redirectUrl' />
+
+
+											</Grid>
+
+											<Grid xs={12} mb={2.7}>
 												<InputLabel className={classes.label}>Upload a featured image</InputLabel>
 
 
@@ -363,18 +370,42 @@ const DonationLinkModal = ({ isOpen, handleClose, setIsUpdate }: DonationLinkMod
 													This image will be displayed on the social platforms where the
 													link is shared.
 												</FormHelperText>
+
 											</Grid>
+
+
+											<Grid item xs={12} justifyContent={"flex-end"} alignItems="flex-end" >
+												<Box>
+													<Button type="submit" style={{ borderRadius: "20px", height: "44px" }} fullWidth className={classes.formBtn}>
+														{loading ? "uploading ...." : "Create link"}
+													</Button>
+												</Box>
+
+											</Grid>
+
 										</Grid>
 									</Grid>
 
+<<<<<<< HEAD
 									<Grid item xs={12} md={6} justifyContent={"flex-end"} alignItems="flex-end" >
 										<Box>
 											<Button type="submit" style={{ borderRadius: "20px", height: "44px" }} fullWidth className={classes.formBtn}>
 												{loading ? "uploading ...." : "Create link"}
 											</Button>
 										</Box>
+=======
+>>>>>>> cf1b6e5573d3a5cbb6ed65d56994332ba0b85dfb
 
-									</Grid>
+
+
+
+
+
+
+
+
+
+
 
 								</Grid>
 							</Form>

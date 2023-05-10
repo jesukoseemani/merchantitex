@@ -1,11 +1,11 @@
 export const getTransactionStatus = (code: string) => {
     return code === "00"
-        ? "Approved"
+        ? "approved"
         : code === "09"
-            ? "Pending"
+            ? "pending"
             : code === "F9"
-                ? "Abandoned"
-                : "Declined";
+                ? "abandoned"
+                : "declined";
 };
 
 export const getSettlementStatus = (code: string) => {

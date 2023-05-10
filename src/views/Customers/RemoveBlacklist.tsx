@@ -7,9 +7,6 @@ const RemoveBlacklist = () => {
   const dispatch = useDispatch();
   return (
     <div className={Styles.blacklist__input__container}>
-      <div className={Styles.form__title}>
-        <h3>Remove from blacklist</h3>
-      </div>
 
       <div className={Styles.airtime_form__body}>
         <p>
@@ -18,7 +15,7 @@ const RemoveBlacklist = () => {
           customer from blacklist.
         </p>
 
-        <Stack spacing={2} direction="row" justifyContent={"flex-end"}>
+        <Stack spacing={2} direction="row" mb={4} justifyContent={"flex-end"}>
           <button onClick={() => dispatch(closeModal())}>Cancel</button>
           <button>Comfirm</button>
         </Stack>

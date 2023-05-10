@@ -71,13 +71,14 @@ const useStyles = makeStyles({
 		left: '50%',
 		transform: 'translate(-50%, -50%)',
 		fontFamily: `'Avenir', sans-serif`,
-		padding: '0rem 21px 2rem',
+		// padding: '0rem 21px 2rem',
 
 		'& > div:nth-child(1)': {
 			display: 'flex',
 			justifyContent: 'space-between',
 			alignItems: 'center',
-			padding: '0rem 2rem',
+			borderBottom: "1px solid #f2f2f2",
+			padding: '0rem 3rem',
 			'& .MuiIconButton-root': {
 				padding: '6px',
 				marginBottom: '3px',
@@ -93,7 +94,8 @@ const useStyles = makeStyles({
 			},
 		},
 		'& hr': {
-			background: '#E0E0E0',
+			background: 'transparent',
+			border: "1px solid #f2f2f2",
 			marginBottom: "2px"
 		},
 		'& > div:nth-child(3)': {
@@ -108,7 +110,7 @@ const useStyles = makeStyles({
 	},
 	formBox: {
 		display: 'grid',
-		// paddingInline:
+		paddingInline: "30px",
 
 		'& label': {
 			color: '#333',
@@ -142,7 +144,9 @@ const useStyles = makeStyles({
 		fontWeight: 700,
 		fontSize: '1rem',
 		backgroundColor: '#27AE60',
-		padding: '.5rem',
+		paddingInline: "30px",
+
+
 		borderRadius: '.25rem',
 		textTransform: 'none',
 		height: "44px",
@@ -186,6 +190,14 @@ const useStyles = makeStyles({
 	addView: {
 		display: 'grid',
 		gridGap: '1rem',
+
+		'& hr': {
+			paddingInline: "30px !important"
+
+		},
+
+
+
 	},
 	helperText: {
 		fontSize: '0.75rem',
@@ -199,7 +211,11 @@ const useStyles = makeStyles({
 	}
 });
 
+<<<<<<< HEAD
 const SingleLinkModal = ({ isOpen, handleClose, setIsUpdate  }: SingleLinkModalProps) => {
+=======
+const SingleLinkModal = ({ isOpen, handleClose, setIsUpdate }: SingleLinkModalProps) => {
+>>>>>>> cf1b6e5573d3a5cbb6ed65d56994332ba0b85dfb
 	const classes = useStyles();
 
 	const [linkName, setLinkName] = useState<string>('');
@@ -314,74 +330,79 @@ const SingleLinkModal = ({ isOpen, handleClose, setIsUpdate  }: SingleLinkModalP
 					BackdropProps={{
 						timeout: 500,
 					}}>
-					<Form>
-						<div className={classes.root}>
-							<div className={styles.headerTitle}>
-								<p>Create a payment link</p>
-								<IconButton
-									aria-label='close payment link modal'
-									onClick={handleClose}>
-									<CloseIcon />
-								</IconButton>
-							</div>
+					<Box>
 
-
-							<Box sx={{ paddingInline: "20px" }}>
-								<div className={classes.formBox} style={{ marginBottom: "18px" }}>
-									<CustomInputField
-										as={TextField} className="hh" label={"Link name"} placeholder='Food Bank' name='linkName' type='text' />
-								</div>
-								<div className={classes.formBox}>
-
-									<CustomInputDropdown as={TextField} label={"Amount"} placeholder='amount' name='amount' position="start" adornmentName='currencyid'
-										adornmentOptions={currencyList} adornmentType={CustomCurrency}
-									/>
-
-									<CustomPhoneNumber as={TextField} label={"phone number"} placeholder="09069003426" name="phone" />
-
-									<span className={classes.helperText}>Leave empty to allow customers enter desired amount</span>
+						<Form>
+							<div className={classes.root}>
+								<div className={styles.headerTitle}>
+									<p style={{ paddingLeft: "5px" }}>Create a payment link</p>
+									<IconButton
+										aria-label='close payment link modal'
+										onClick={handleClose}>
+										<CloseIcon />
+									</IconButton>
 								</div>
 
 
+								<Box sx={{ paddingInline: "20px" }}>
+									<div className={classes.formBox} style={{ marginBottom: "18px" }}>
+										<CustomInputField
+											as={TextField} className="hh" label={"Link name"} placeholder='Food Bank' name='linkName' type='text' />
+									</div>
+									<div className={classes.formBox} style={{ marginBottom: "18px" }}>
+
+										<CustomInputDropdown as={TextField} label={"Amount"} placeholder='amount' name='amount' position="start" adornmentName='currencyid'
+											adornmentOptions={currencyList} adornmentType={CustomCurrency}
+										/>
 
 
-								<div className={classes.formBox}>
+										<span className={classes.helperText}>Leave empty to allow customers enter desired amount</span>
+
+									</div>
+
+									<div className={classes.formBox} style={{ marginBottom: "18px" }}>
+										<CustomPhoneNumber as={TextField} label={"phone number"} placeholder="09069003426" name="phone" />
+
+									</div>
 
 
-									<CustomInputField as={TextField} label={"Description"} placeholder='description' multiline={true} name='description' rows={3} />
+									<div className={classes.formBox} style={{ marginBottom: "18px" }}>
 
 
-								</div>
-								<div>
+										<CustomInputField as={TextField} label={"Description"} placeholder='description' multiline={true} name='description' rows={3} />
+
+
+										{/* <br /> */}
+									</div>
+									<div style={{ marginTop: "17px", paddingInline: "30px" }} >
+										{isAddOpen ? (
+											<div
+												className={classes.removeBtn}
+												onClick={() => setIsAddOpen(false)}>
+												Additional details <ArrowDropUp />
+											</div>
+										) : (
+											<div
+												className={classes.addBtn}
+												onClick={() => setIsAddOpen(true)}>
+												+ Add additional details
+											</div>
+										)}
+									</div>
 									{isAddOpen ? (
-										<div
-											className={classes.removeBtn}
-											onClick={() => setIsAddOpen(false)}>
-											Additional details <ArrowDropUp />
-										</div>
-									) : (
-										<div
-											className={classes.addBtn}
-											onClick={() => setIsAddOpen(true)}>
-											+ Add additional details
-										</div>
-									)}
-								</div>
-								{isAddOpen ? (
-									<div className={classes.addView}>
+										<div className={classes.addView}>
+
+											<hr style={{ marginTop: "11.5px", marginInline: "30px" }} />
+
+											<div className={classes.formBox} style={{ marginBottom: "18px" }}>
+
+												<CustomInputField as={TextField} label={"Redirect after payment"} placeholder='https://donation.com' name='redirectUrl' />
 
 
-										<div className={classes.formBox}>
+											</div>
+											<div className={classes.formBox} style={{ marginBottom: "18px" }}>
 
-											<CustomInputField as={TextField} label={"Redirect after payment"} placeholder='https://donation.com' name='redirectUrl' />
-
-
-										</div>
-										<div className={classes.formBox}>
-
-											<CustomInputField as={TextField} label={"RedCollect extra information"} placeholder='fieldname' name='fieldname' />
-
-
+<<<<<<< HEAD
 										</div>
 
 									</div>
@@ -391,10 +412,27 @@ const SingleLinkModal = ({ isOpen, handleClose, setIsUpdate  }: SingleLinkModalP
 								<Button type='submit' style={{ borderRadius: "20px" }} fullWidth className={classes.formBtn}>
 									Create link
 								</Button>
+=======
+												<CustomInputField as={TextField} label={"RedCollect extra information"} placeholder='fieldname' name='fieldname' />
+
+
+											</div>
+
+										</div>
+									) : null}
+								</Box>
+								<div style={{ marginInline: "20px", marginBottom: "40px" }}>
+									<Button type='submit' style={{ borderRadius: "20px" }} fullWidth className={classes.formBtn}>
+										Create link
+									</Button>
+								</div>
+
+>>>>>>> cf1b6e5573d3a5cbb6ed65d56994332ba0b85dfb
 							</div>
 
-						</div>
-					</Form>
+						</Form>
+					</Box>
+					{/* </div> */}
 				</Modal>
 			)}
 		</Formik>

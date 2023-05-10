@@ -111,8 +111,9 @@ export interface BillInvoiceRequestItem {
 
   invoiceName: string;
   totalAmount: number;
+  currency: string;
   status: string;
-  added?: string;
+  createdAt?: string;
   phone?: string;
   url?: string;
   providerRef?: string;

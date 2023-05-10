@@ -17,7 +17,7 @@ import {
   RecentCustomerItem,
 } from "../../types/CustomerTypes";
 import { useCallback, useEffect, useState } from "react";
-import { Box } from "@mui/material";
+import { Avatar, Box } from "@mui/material";
 import Addtoblacklist from "./Addtoblacklist";
 import { openModalAndSetContent } from "../../redux/actions/modal/modalActions";
 import { CustomerItem as Customer } from '../../types/CustomerTypes';
@@ -130,10 +130,10 @@ const CustomerItem = () => {
   }, [slug])
 
 
-
   const callback = () => {
     getSingleCustomer()
   }
+
 
   const handleBLacklist = () => {
     dispatch(
@@ -141,10 +141,12 @@ const CustomerItem = () => {
         modalStyles: {
           padding: 0,
           width: "653px",
-          height: "340px",
+          height: "500px !important",
           borderRadius: '20px',
-          boxShadow: '-4px 4px 14px rgba(224, 224, 224, 0.69)',
+          boxShadow: "0px 3px 20px rgba(0, 0, 0, 0.16)"
+
         },
+        modalTitle: "Blacklist customer",
         modalContent: (
           <div className='modalDiv'>
             <Addtoblacklist id={slug} callback={callback} />
@@ -189,55 +191,65 @@ const CustomerItem = () => {
         </div>
 
         <Box className={styles.layerOneWrapper}>
-          {!customer?.isblacklisted && <div className={styles.titleText}>
-            <p>Customer Information</p>
-            <div onClick={handleBLacklist}>
-              <p>Blacklist customer</p>
-              <DoDisturbIcon />
-            </div>
-          </div>}
-          <div className={styles.sectionTwo}>
-            <div>
-              <p>Name</p>
-              <p>
-                <span>{customer?.firstname || ''}</span>{" "}
-                <span className={styles.capitalize}>{customer?.lastname || ''}</span>
-              </p>
-            </div>
-            <div></div>
-            <div>
-              <p>Email</p>
-              <p>{customer?.email ?? "N/A"}</p>
-            </div>
-            <div></div>
-            <div>
-              <p>MSISDN</p>
-              <p>{customer?.msisdn ?? "N/A"}</p>
-            </div>
-          </div>
+          {!customer?.isblacklisted &&
+            <>
+              <div className={styles.titleText}>
+                <p>Customer Information</p>
+                {!customer?.isblacklisted && <div onClick={handleBLacklist}>
+                  <p>Blacklist customer</p>
+                  <DoDisturbIcon />
+                </div>}
+              </div>
+              <div className={styles.sectionTwo}>
+                <div>
+                  <Avatar sx={{ bgcolor: "#2684ED", fontSize: "14px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                    {`${customer?.firstname.substring(0, 1)} ${customer?.lastname.substring(0, 1)}`}
+                  </Avatar>
+                  <div>
+                    <p>Name</p>
+                    <span>
+                      <span>{`${customer?.firstname || ''} ${customer?.lastname || ''}`}</span>{" "}
+                    </span>
+                  </div>
+                </div>
 
 
+                <div>
+                  <p>Email</p>
+                  <span>{customer?.email ?? "N/A"}</span>
+                </div>
+
+                <div>
+                  <p>Phone</p>
+                  <span>{customer?.msisdn ?? "N/A"}</span>
+                </div>
+              </div>
+            </>
+          }
         </Box>
-        <div className={styles.sectionThree}>
+        <Box className={styles.layerTwoWrapper}>
+
           <div className={styles.titleText}>
             <h3>Performance</h3>
           </div>
+          <div className={styles.sectionTwo}>
 
-          <div className={styles.bodyText}>
             <div>
               <p>Number of transactions</p>
-              <p></p>
+              <span>0</span>
             </div>
+
             <div>
               <p>Total spend</p>
-              <p>NGN </p>
+              <span>NGN 0 </span>
             </div>
           </div>
-        </div>
+        </Box>
 
         <div className={styles.sectionFour}>
-          <div>
+          <div className={styles.transHeader}>
             <h3>Recent transactions</h3>
+            <p>See all customer’s transactions</p>
           </div>
           <div className={styles.tableContainer}>
             <CustomClickTable

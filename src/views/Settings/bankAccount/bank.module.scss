@@ -1,0 +1,30 @@
+.container {
+
+    .formHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 28px 0 22px 0;
+
+        h2 {
+            font-family: 'Avenir bold';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 27px;
+            color: #333333;
+        }
+
+        button {
+            height: 39px;
+            font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14.3448px;
+            line-height: 20px;
+            text-align: center;
+
+            color: #FFFFFF;
+        }
+    }
+}

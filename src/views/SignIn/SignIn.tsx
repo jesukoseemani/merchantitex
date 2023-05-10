@@ -1,5 +1,4 @@
-import react, { useEffect } from 'react';
-import { InputLabel, Typography, Button, TextField } from '@material-ui/core';
+import react, { useEffect, useState } from 'react';
 import styles from './SignIn.module.scss';
 import Logo from '../../assets/images/white_bg_logo.svg';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -20,12 +19,19 @@ import { saveUserDetail } from '../../redux/actions/userDetail/userDetailActions
 import { saveCountry } from '../../redux/actions/country/countryActions';
 // import { makeStyles } from '@material-ui/core';
 import { ReactSVG } from "react-svg";
-import { Box, styled } from '@mui/material';
+import { Box, styled, InputAdornment, IconButton, InputLabel, Typography, Button, TextField, FormControl, OutlinedInput } from '@mui/material';
 import TwoFaAuth from './TwoFaAuth';
 import { saveMe } from '../../redux/actions/me/meActions';
+import { Visibility, VisibilityOff } from '@material-ui/icons';
+import { CustomToast } from '../../components/customs/CustomToast';
 
 const SignIn = () => {
 
+	const [showPassword, setShowPassword] = useState(false);
+	const handleClickShowPassword = () => setShowPassword((show) => !show);
+	const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+		event.preventDefault();
+	};
 
 
 	useEffect(() => {
@@ -66,16 +72,6 @@ const SignIn = () => {
 
 
 
-
-	const StyledTextField = styled(TextField, {
-		name: "StyledTextField",
-	})({
-
-		"& .MuiInputBase-root": {
-			height: 44,
-			// marginBottom: "18px",
-		}
-	});
 	const dispatch = useDispatch();
 	const history = useHistory();
 
@@ -119,6 +115,7 @@ const SignIn = () => {
 							if (res?.data?.twofa_token !== null) {
 								console.log(res?.data?.twofa_token);
 								dispatch(closeLoader());
+								<CustomToast text={res?.data?.message} type="success" />
 								dispatch(
 									openToastAndSetContent({
 										toastContent: res?.data?.message,
@@ -135,6 +132,8 @@ const SignIn = () => {
 
 								dispatch(saveUserDetail(res?.data?.user));
 								dispatch(closeLoader());
+								<CustomToast text={"Login Successful"} type="success" />
+
 								dispatch(
 									openToastAndSetContent({
 										toastContent: 'Login Successful',
@@ -158,6 +157,8 @@ const SignIn = () => {
 						console.log(err);
 						dispatch(closeLoader());
 						dispatch(saveLoading(false));
+						<CustomToast text={err?.response?.data?.message} type="error" />
+
 						dispatch(
 							openToastAndSetContent({
 								toastContent: err?.response?.data?.message,
@@ -185,7 +186,7 @@ const SignIn = () => {
 											<span className={styles.formTitle}>Email Address</span>
 										</InputLabel>
 										<Field
-											as={StyledTextField}
+											as={TextField}
 											helperText={
 												<ErrorMessage name='email'>
 													{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
@@ -197,14 +198,17 @@ const SignIn = () => {
 											type='email'
 											size='small'
 											fullWidth
+
+
 										/>
+										{/* <FormControl fullWidth> */}
 
 
 										<InputLabel style={{ marginTop: "17px" }}>
 											<span className={styles.formTitle}>Password</span>
 										</InputLabel>
 										<Field
-											as={StyledTextField}
+											as={TextField}
 											helperText={
 												<ErrorMessage name='password'>
 													{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
@@ -213,14 +217,31 @@ const SignIn = () => {
 											name='password'
 											variant='outlined'
 
-											type='password'
+											type={showPassword ? 'text' : 'password'}
+											InputProps={{
+												endAdornment: <InputAdornment position="end">
+													<IconButton
+														aria-label="toggle password visibility"
+														onClick={handleClickShowPassword}
+														onMouseDown={handleMouseDownPassword}
+														edge="end"
+													>
+														{showPassword ? <VisibilityOff /> : <Visibility />}
+													</IconButton>
+												</InputAdornment>,
+											}}
 
 											size='small'
 											fullWidth
 
+
 										/>
+										{/* </FormControl> */}
 
 									</Box>
+
+
+
 
 									<button
 										style={{
@@ -243,7 +264,7 @@ const SignIn = () => {
 									<InputLabel>
 										<div className={styles.sub}>
 											<p className={styles.formSub}>
-												<span onClick={() => history.push("/reset/password")}>Forgot Password?</span>
+												<span onClick={() => history.push("/reset/password")}>Forgot password?</span>
 											</p>
 										</div>
 									</InputLabel>
@@ -257,7 +278,7 @@ const SignIn = () => {
 							<span className={styles.subP}>
 								<Link to='/signup' className={styles.signinAnchor}>
 									<span className={styles.desc}>Don't have an account? </span>
-									Sign up
+									<span id={styles.signupText}>Sign up</span>
 								</Link>
 							</span>
 						</p>

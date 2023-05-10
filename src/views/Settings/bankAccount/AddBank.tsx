@@ -1,29 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import styles from './style.module.scss';
+import styles from './bank.module.scss';
 import { Grid } from '@material-ui/core';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { InputLabel, TextField, Button, } from '@material-ui/core';
-import SelectWrapperCountry from '../../components/formUI/SelectCountry';
+import SelectWrapperCountry from '../../../components/formUI/SelectCountry';
 import axios from 'axios';
-import {
-    openLoader,
-    closeLoader,
-} from '../../redux/actions/loader/loaderActions';
 import { useDispatch, useSelector } from 'react-redux';
-import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
-import { closeModal, openModalAndSetContent } from '../../redux/actions/modal/modalActions';
 // import { saveCountry } from '../../redux/actions/country/countryActions';
 import * as Yup from 'yup';
-import { FetchProfileDetails } from '../../helpers/FetchProfileDetails';
 import { styled } from '@mui/system';
 import { Box, MenuItem, Select, FormHelperText, Stack, Checkbox } from '@mui/material';
-import CustomDropdown from '../../components/customs/CustomInputDropdown';
-import CustomCurrency from '../../components/formUI/SelectCountry/CustomCurrency';
-import WarningIcon from "../../assets/images/warningIcon.svg";
+
+import WarningIcon from "../../../assets/images/warningIcon.svg";
 import { ReactSVG } from 'react-svg';
-import { fetchBankAcct } from '../../redux/actions/settings/BankAccount';
-
-
+import { closeLoader, openLoader } from '../../../redux/actions/loader/loaderActions';
+import { openToastAndSetContent } from '../../../redux/actions/toast/toastActions';
+import { closeModal } from '../../../redux/actions/modal/modalActions';
 
 
 

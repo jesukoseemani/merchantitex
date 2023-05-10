@@ -4,9 +4,7 @@ import ColorcheckIcon from "../../../assets/images/circle-check-color.svg"
 import Styles from "./success.module.scss"
 
 import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
-
-
-
+ 
 
 const SuccessModal = () => {
 

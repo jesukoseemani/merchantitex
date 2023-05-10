@@ -67,12 +67,15 @@ const BlacklistDatatable = () => {
 			openModalAndSetContent({
 				modalStyles: {
 					padding: 0,
-					height: "254px",
+					height: "350px !important",
 					width: "653px",
 					maxWidth: "97%",
 					borderRadius: '20px',
-					boxShadow: '-4px 4px 14px rgba(224, 224, 224, 0.69)',
+					boxShadow: "0px 3px 20px rgba(0, 0, 0, 0.16)"
+
 				},
+				modalTitle: "Remove from blacklist",
+
 				modalContent: (
 					<div className='modalDiv'>
 						<RemoveBlacklist />

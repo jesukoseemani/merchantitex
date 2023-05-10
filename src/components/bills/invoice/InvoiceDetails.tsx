@@ -1,10 +1,11 @@
+import React from 'react';
 import { Avatar, Box, Grid, List, ListItem, IconButton, ListItemAvatar, ListItemText, Stack, useMediaQuery } from '@mui/material'
 import Styles from "./invoicedetails.module.scss"
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 import { Link, useHistory, useLocation, useParams } from 'react-router-dom'
-import CopyIcon from "../../../assets/images/copyColor.svg"
-import LinkIcon from "../../../assets/images/ext-link.svg"
+import { ReactComponent as CopyIcon } from "../../../assets/images/copyColor.svg"
+import { ReactComponent as LinkIcon } from "../../../assets/images/ext-link.svg"
 import { ReactSVG } from 'react-svg';
 import { BillInvoiceRequestItem } from '../../../types/BiilsTypes';
 import { useDispatch } from 'react-redux';
@@ -15,7 +16,9 @@ import { closeLoader, openLoader } from '../../../redux/actions/loader/loaderAct
 import { openToastAndSetContent } from '../../../redux/actions/toast/toastActions';
 import { useEffect, useState } from 'react';
 import DisableInvoice from './DisableInvoice';
-
+import CustomStatus from '../../customs/CustomStatus';
+import FormatToCurrency from '../../../helpers/NumberToCurrency';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const InvoiceDetails = () => {
     const matches = useMediaQuery("(max-width:600px)");
@@ -69,7 +72,7 @@ const InvoiceDetails = () => {
         try {
             const { data } = await axios.get<any>(`/v1/payment/merchantinvoices/${id}`);
 
-            console.log(data?.items, "data");
+            console.log(data, "data");
             if (data) {
                 setInvoiceDetails(data);
                 setItemDetails(data?.items)
@@ -104,8 +107,10 @@ const InvoiceDetails = () => {
             openModalAndSetContent({
                 modalStyles: {
                     padding: 0,
-                    borderRadius: 20
+                    borderRadius: 20,
+                    height: "250px !important"
                 },
+
 
                 modalTitle: "Disable Invoice",
                 modalContent: (
@@ -136,8 +141,9 @@ const InvoiceDetails = () => {
             <Box className={Styles.sectionTwo}>
                 <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"} flexWrap="wrap" className={Styles.Stack__container}>
                     <Box className={Styles.title}>
-                        <h2>{invoiceDetails?.invoice?.currency} {invoiceDetails?.invoice?.totalAmount}</h2>
-                        <span className={invoiceDetails?.invoice?.status === "Successful" ? Styles.sucessful : Styles.pending}>{invoiceDetails?.invoice?.status}</span>
+                        <h2>{invoiceDetails?.invoice?.currency} {FormatToCurrency(invoiceDetails?.invoice?.totalAmount)}</h2>
+
+                        <CustomStatus text={invoiceDetails?.invoice?.status} type={invoiceDetails?.invoice?.status} />
                     </Box>
                     <Box className={Styles.btn_group}>
                         <button onClick={handleDisableInvoice}>Disable</button>
@@ -171,57 +177,58 @@ const InvoiceDetails = () => {
                     <h2>Invoice details</h2>
 
                 </Box>
-                <Grid container px={"25px"} mt={"22px"} className={Styles.headerTitle} spacing={1}>
-                    <Grid item xs={6} sm={6} md={4} >
+                <div className={Styles.sectionThree__wrapper}>
+                    <div>
                         <h2>Company details</h2>
-                        <List sx={{
-                            ".css-mchx6o-MuiListItem-root": { padding: 0, }
-                        }}>
-                            <ListItem>
-                                <ListItemAvatar>
-                                    <Avatar src={invoiceDetails?.invoice?.businesslogo}>
 
-                                    </Avatar>
-                                </ListItemAvatar>
-                                <ListItemText primary={`${invoiceDetails?.invoice?.user?.firstname} ${invoiceDetails?.invoice?.user?.lastname}`} secondary={invoiceDetails?.invoice?.user?.email} />
-                            </ListItem>
+                        <div className={Styles.box_with_img}>
+                            <div>
+                                <Avatar src={invoiceDetails?.invoice?.businesslogo} alt="invoiceDetails?.invoice?.businesslogo" />
 
-                        </List>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={4}><h2>Invoice URL</h2>
-                        <Box sx={{
-                            display: "flex", alignItems: "center", padding: 0,
-                            '& svg': {
-                                width: "20px",
-                                height: "20px",
-                                '& path': {
-                                    stroke: "#2F80ED",
+                            </div>
+                            <div>
+                                <p>{invoiceDetails?.invoice?.user?.firstname} {invoiceDetails?.invoice?.user?.lastname}</p>
+                                <span>{invoiceDetails?.invoice?.user?.email}</span>
 
-                                }
-                            }
+                            </div>
+                            {/* </p> */}
+                        </div>
 
-                        }}>
-                            {/* <Link to={`${url}${id}`}>
-                                {url + id}
-                            </Link> */}
-                            <IconButton>
-                                <ReactSVG src={CopyIcon} />
-                            </IconButton>
+                    </div>
+                    <div>
+                        <h2>Invoice URL</h2>
+                        <div>
 
-                            <IconButton>
-                                <ReactSVG src={LinkIcon} />
-                            </IconButton>
+                            <div className={Styles.box_width__icon}>
 
-                        </Box>
+                                <p>{invoiceDetails?.invoice?.invoiceurl?.substring(0, 35)}</p>
+                                <CopyToClipboard text={invoiceDetails?.invoice?.invoiceurl}>
+                                    <IconButton>
+                                        <CopyIcon />
+                                    </IconButton>
+
+                                </CopyToClipboard>
 
 
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={3}>
+                                <IconButton onClick={() => window.location.href = invoiceDetails?.invoice?.invoiceurl}>
+                                    <LinkIcon />
+                                </IconButton>
+
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div>
                         <h2>Invoice reference</h2>
-                        <Box sx={{ padding: "10px" }}> <p>{invoiceDetails?.invoice?.paymentreference}</p></Box>
+                        <div>
+                            <p>{invoiceDetails?.invoice?.paymentreference}</p>
+                        </div>
 
-                    </Grid>
-                </Grid>
+                    </div>
+                </div>
             </Box>
 
 
@@ -239,12 +246,12 @@ const InvoiceDetails = () => {
                                 <Box>
                                     <div>
                                         <p>{x?.itemName}</p>
-                                        <p>NGN {x?.price} x {x?.quantity}</p>
+                                        <p>NGN {FormatToCurrency(x?.price)} x {x?.quantity}</p>
                                     </div>
 
                                     <div>
                                         <p>Subtotal</p>
-                                        <p>{x?.subtotal}</p>
+                                        <p>{FormatToCurrency(x?.subtotal)}</p>
 
                                     </div>
 
@@ -269,7 +276,7 @@ const InvoiceDetails = () => {
                             <div>
 
                                 <p>Total</p>
-                                <p>{invoiceDetails?.invoice?.totalAmount}</p>
+                                <p>{FormatToCurrency(invoiceDetails?.invoice?.totalAmount)}</p>
                             </div>
                         </Stack>
 

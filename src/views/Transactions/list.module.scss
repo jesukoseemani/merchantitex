@@ -13,14 +13,13 @@
 
 .wrapper {
 	width: 100%;
-	margin: 9px auto auto;
+	margin: 27px 9px auto auto;
 
 	&>.header {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 		margin-bottom: 18px;
-		// border: 2px solid red !important;
 
 		&>div {
 			display: flex;
@@ -401,7 +400,7 @@ button.primary:hover {
 		line-height: 27px;
 
 		color: #333333;
-		;
+
 	}
 
 	div {
@@ -418,30 +417,31 @@ button.primary:hover {
 
 
 		.right__btn {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 10px;
+			flex-flow: row wrap;
+			margin-bottom: 6px;
 
+			button {
 
-			& button:nth-of-type(1) {
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				border-radius: 20px;
-				width: 108px;
-				height: 32px;
-				padding: 0 !important;
-				gap: 0;
-				color: #333;
 				font-family: 'Avenir';
 				font-style: normal;
 				font-weight: 400;
 				font-size: 12px;
 				line-height: 14px;
+				font-feature-settings: 'liga' off;
+				height: 32px;
+			}
 
+			& button:nth-of-type(1) {
+				color: #333333;
+				background-color: #E0E0E0;
 
+				gap: 7px;
 
-				svg {
-					margin: 0px !important;
-					padding: 0 !important;
-				}
+			}
 
 			}
 
@@ -450,7 +450,8 @@ button.primary:hover {
 				background-color: transparent;
 				color: #095B2C;
 				border: 1px solid #27AE60;
-				border-radius: 20px
+				border-radius: 20px;
+				gap: 8px;
 			}
 
 
@@ -484,7 +485,6 @@ button.primary:hover {
 
 		}
 	}
-}
 
 
 

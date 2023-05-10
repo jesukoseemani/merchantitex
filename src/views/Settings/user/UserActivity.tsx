@@ -1,13 +1,13 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom';
-import UseFetch from '../../../../components/hooks/UseFetch';
+import UseFetch from '../../../components/hooks/UseFetch';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useCallback } from 'react';
-import OperantTable from '../../../../components/table/OperantTable';
+import OperantTable from '../../../components/table/OperantTable';
 import axios from 'axios';
-import { closeLoader, openLoader } from '../../../actions/loader/loaderActions';
-import { openToastAndSetContent } from '../../../actions/toast/toastActions';
+import { closeLoader, openLoader } from '../../../redux/actions/loader/loaderActions';
+import { openToastAndSetContent } from '../../../redux/actions/toast/toastActions';
 import { Box } from '@mui/material';
 
 

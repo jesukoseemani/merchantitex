@@ -210,7 +210,8 @@ const BankAccount = ({ checkBusinessStatus }: any) => {
 
 
 	let { accountNumber, bvn, otp, bankid } = values
-	if (bvn?.length >= 11 || accountNumber?.length >= 10) {
+	if (bvn?.length >= 11 && accountNumber?.length >= 10) {
+		dispatch(openLoader())
 		axios
 			.post('/v1/setup/account/validate', {
 

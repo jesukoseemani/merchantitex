@@ -8,7 +8,7 @@ export interface CustomerItem {
   total: number;
   isblacklisted: boolean;
   addressline1: string;
-  added?: string;
+  createdat?: string;
   id?: string;
 }
 

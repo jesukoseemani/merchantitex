@@ -22,6 +22,7 @@ import { ReactSVG } from "react-svg";
 import { Box } from '@mui/material';
 import { styled } from '@mui/material';
 import { saveMe } from '../../redux/actions/me/meActions';
+import { CustomToast } from '../../components/customs/CustomToast';
 
 
 
@@ -93,30 +94,39 @@ const TwoFaAuth = () => {
                         console.log(data)
                         dispatch(saveAuth(data));
                         fetchUserDetails()
+                        // < CustomToast text = { data?.message } />
 
-                        dispatch(
-                            openToastAndSetContent({
-                                toastContent: data?.message,
-                                toastStyles: {
-                                    backgroundColor: 'green',
-                                },
-                            })
-                        )
+                        // dispatch(
+                        //     openToastAndSetContent({
+                        //         toastContent: data?.message,
+                        //         toastStyles: {
+                        //             backgroundColor: 'green',
+                        //         },
+                        //     })
+                        // )
                         // window.location.href = "/"
+
                         history.push("/")
+                        return (
+                            <CustomToast text={data?.message} type="success" />
+
+                        )
+
                     }
 
                 } catch (err: any) {
                     dispatch(closeLoader());
                     dispatch(saveLoading(false));
-                    dispatch(
-                        openToastAndSetContent({
-                            toastContent: err?.response?.data?.message,
-                            toastStyles: {
-                                backgroundColor: 'red',
-                            },
-                        })
-                    );
+                    <CustomToast text={err?.response?.data?.message} type="error" />
+
+                    // dispatch(
+                    //     openToastAndSetContent({
+                    //         toastContent: err?.response?.data?.message,
+                    //         toastStyles: {
+                    //             backgroundColor: 'red',
+                    //         },
+                    //     })
+                    // );
                 }
 
             }}

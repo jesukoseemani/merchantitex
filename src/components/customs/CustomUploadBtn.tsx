@@ -53,7 +53,7 @@ const CustomUploadBtn = ({ onChange, showIcon = true, uploadMsg = "", helperStyl
                         color: "#4F4F4F"
                     }}
                 >choose file to upload</span>
-                <input hidden onChange={(e) => onChange?.(e?.target?.files && e.target.files[0])} name={name} accept="image/jpeg,image/jpg,image/png,application/pdf,image/JPEG image/PNG,image/JPG," multiple={multiple} type="file" />
+                <input hidden onChange={onChange} name={name} accept="image/jpeg,image/jpg,image/png,application/pdf,image/JPEG image/PNG,image/JPG," multiple={multiple} type="file" />
             </Button>
             <Stack direction={"row"} mt={1} alignItems="flex-start" columnGap={1}>
 

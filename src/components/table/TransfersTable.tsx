@@ -17,35 +17,24 @@ import { useDispatch } from "react-redux";
 import { Payout, PayoutRes } from "../../types/Payout";
 import { getTransactionStatus } from "../../utils/status";
 import { statusFormatObj } from "../../helpers";
+<<<<<<< HEAD
+=======
+import CustomStatus from "../customs/CustomStatus";
+import FormatToCurrency from "../../helpers/NumberToCurrency";
+import CustomDateFormat from "../customs/CustomDateFormat";
+import CustomCurrencyFormat from "../customs/CustomCurrencyFormat";
+>>>>>>> cf1b6e5573d3a5cbb6ed65d56994332ba0b85dfb
 
 export default function TransfersTable({ payout, changePage }: { payout: PayoutRes; changePage?: (p: number) => void }) {
   interface TransactionsProps {
     amount: number;
     status: string;
-    receipient: string;
-    date: {
-      format: string;
-      time: string;
-    };
+    receipientName: string;
+    receipientBank: string;
+    receipientAcctno: number;
+    date: string;
   }
-  const status = [
-    "Successful",
-    "Pending",
-    "Error",
-    "Successful",
-    "Successful",
-    "Error",
-  ];
-  const source = new Array(5).fill({
-    amount: 20000,
-    status: status[Math.floor(Math.random() * status.length)],
-    receipient: "Philip Kachikwu | FCMB | 1234567890",
-    date: {
-      format: "Aug 13 2020",
-      time: "2:21 PM",
-    },
-  });
-  const [transactions, setTransactions] = useState<TransactionsProps[]>(source);
+
   const [rows, setRows] = useState<TransactionsProps[]>([]);
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [rowsPerPage, setRowsPerPage] = useState<number>(10);
@@ -80,10 +69,11 @@ export default function TransfersTable({ payout, changePage }: { payout: PayoutR
   const columns: Column[] = [
     { id: "amount", label: "Amount", minWidth: 100 },
     { id: "status", label: "Status", minWidth: 100 },
-    { id: "receipient", label: "Receipient", minWidth: 200 },
-    { id: "date", label: "Date", align: "center", minWidth: 100 },
+    { id: "receipient", label: "Beneficiary", minWidth: 200 },
+    { id: "date", label: "Date", minWidth: 100 },
   ];
   const LoanRowTab = useCallback(
+<<<<<<< HEAD
     (amount: number, status: string, receipient: string, date: any, id: number) => ({
       amount: (
         <div className={Styles.amount}>
@@ -96,14 +86,27 @@ export default function TransfersTable({ payout, changePage }: { payout: PayoutR
         >
           <p style={{ borderRadius: "20px" }}> {status}</p>
         </Label>
+=======
+    (currency, amount, status, receipientname, receipientbank, recipientaccountnumber, date, id) => ({
+      amount: (
+        <CustomCurrencyFormat currency={currency} amount={amount} />
       ),
-      receipient,
+      status: (
+        <CustomStatus type={status} text={status} />
+>>>>>>> cf1b6e5573d3a5cbb6ed65d56994332ba0b85dfb
+      ),
+      receipient: <p>{`${receipientname} | ${receipientbank} | ${recipientaccountnumber}`}</p>,
       date: (
+<<<<<<< HEAD
         <div className={Styles.date}>
           <p>{date.format}{date.time}</p>
           <span>{date}</span>
         </div>
+=======
+        <CustomDateFormat date={date} time={date} />
+>>>>>>> cf1b6e5573d3a5cbb6ed65d56994332ba0b85dfb
       ),
+      id
     }),
     []
   );
@@ -112,7 +115,11 @@ export default function TransfersTable({ payout, changePage }: { payout: PayoutR
     const newRowOptions: any[] = [];
     payout?.payouts?.map((each: Payout) =>
       newRowOptions.push(
+<<<<<<< HEAD
         LoanRowTab(each.amount, getTransactionStatus(each?.responsecode!), each?.recipientname!, each.timein, each.id)
+=======
+        LoanRowTab(each?.currency, each?.amount, getTransactionStatus(each?.responsecode!), each?.recipientname, each?.recipientbank, each?.recipientaccountnumber, each?.timein, each?.id)
+>>>>>>> cf1b6e5573d3a5cbb6ed65d56994332ba0b85dfb
       )
     );
     setRows(newRowOptions);
@@ -130,6 +137,9 @@ export default function TransfersTable({ payout, changePage }: { payout: PayoutR
     },
   });
   const classes = useStyles();
+
+  console.log({ payout });
+
   return (
     <div className={Styles.container}>
       <Menu

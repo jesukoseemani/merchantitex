@@ -456,7 +456,7 @@ const NgoSignUp = () => {
 						<div className={styles.mt}>
 							<p onClick={handleSignin}>
 								<span className={styles.subP}>Already have an account? </span>
-								Log in
+								<span id={styles.logText}>Log in</span>
 							</p>
 						</div>
 					</div>
