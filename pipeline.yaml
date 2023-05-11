@@ -40,6 +40,6 @@ steps:
 
   - script: |
       echo "$(sudoPassword)" | sshpass -p "$(serverPassword)" ssh -o StrictHostKeyChecking=no $(serverUsername)@$(serverIpAdd) -p 22 'pm2 restart 2'
-    displayName: "Start ITEXPAY Admin App with pm2"
+    displayName: "Start ITEXPAY Merchant App with pm2"
     env:
       PM2_HOME: "/var/lib/pm2"
