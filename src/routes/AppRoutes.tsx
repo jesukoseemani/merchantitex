@@ -91,7 +91,6 @@ import Owner from "../components/permission/Owner";
 import UsersPermission from "../components/permission/Users";
 import UserActivity from '../views/Settings/user/UserActivity';
 import TwoFaAuth from "../views/SignIn/TwoFaAuth";
-import TestForm from '../components/TestForm';
 import { changeNewNavbar } from "../redux/actions/navbarNew/navbarNewActions";
 import Api from '../views/Settings/Api/Api';
 import WebHooks from '../views/Settings/webhook/WebHooks';
@@ -200,9 +199,7 @@ export default function AppRoutes() {
         <Route exact path="/reset/password">
           <ResetPassword />
         </Route>
-        <Route exact path="/testform">
-          <TestForm />
-        </Route>
+
 
 
         <ProtectedRoute
