@@ -127,9 +127,7 @@ const Listtransfer = ({ payout, setOpen, changePage }: { payout?: PayoutRes, set
                     dispatch(
                         openToastAndSetContent({
                             toastContent: error?.response?.data?.message || 'Failed to get balances',
-                            toastStyles: {
-                                backgroundColor: 'red',
-                            },
+                            msgType: "error"
                         })
                     );
                 }
@@ -187,6 +185,7 @@ const Listtransfer = ({ payout, setOpen, changePage }: { payout?: PayoutRes, set
                         options={formattedBalance}
                         onChange={(e: any, value: any) => handleChange(value.value, 'balance')}
                         className={Styles.select}
+
 
                     />
                 </Form.Field>
@@ -266,18 +265,8 @@ const Listtransfer = ({ payout, setOpen, changePage }: { payout?: PayoutRes, set
             <Box sx={{ width: "100%", marginInline: "auto" }}>
                 <TransfersTable payout={payout!} changePage={changePage} />
             </Box>
-            {/* <ItexModalPayout /> */}
 
-            {/* <Box>
-                <CustomModal
-                    title="Make a payout"
-                    isOpen={openModal}
-                    handleClose={handleCloseModal}
-                    close={() => setOpenModal(false)}>
 
-                    <SingleTransferBankAcct close={handleCloseModal} />
-                </CustomModal >
-            </Box> */}
         </Box>
     )
 }

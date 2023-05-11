@@ -62,9 +62,7 @@ const BankAccount = ({ checkBusinessStatus }: any) => {
 				dispatch(
 					openToastAndSetContent({
 						toastContent: err?.response?.data?.message,
-						toastStyles: {
-							backgroundColor: 'red',
-						},
+						msgType: "error"
 					})
 				);
 			}
@@ -89,9 +87,7 @@ const BankAccount = ({ checkBusinessStatus }: any) => {
 				dispatch(
 					openToastAndSetContent({
 						toastContent: err?.response?.data?.message,
-						toastStyles: {
-							backgroundColor: 'red',
-						},
+						msgType: "error"
 					})
 				);
 			}
@@ -151,9 +147,7 @@ const BankAccount = ({ checkBusinessStatus }: any) => {
 						dispatch(
 							openToastAndSetContent({
 								toastContent: resp?.data?.message,
-								toastStyles: {
-									backgroundColor: 'green',
-								},
+								msgType: "success",
 							})
 						);
 
@@ -189,9 +183,7 @@ const BankAccount = ({ checkBusinessStatus }: any) => {
 					dispatch(
 						openToastAndSetContent({
 							toastContent: err?.response?.data?.message,
-							toastStyles: {
-								backgroundColor: 'red',
-							},
+							msgType: "error",
 						})
 					);
 				});
@@ -211,42 +203,44 @@ const BankAccount = ({ checkBusinessStatus }: any) => {
 
 	let { accountNumber, bvn, otp, bankid } = values
 	if (bvn?.length >= 11 && accountNumber?.length >= 10) {
-		dispatch(openLoader())
-		axios
-			.post('/v1/setup/account/validate', {
+		const validateBvn = () => {
 
-				bvn,
-				accountNumber: accountNumber,
-				bankid
+			dispatch(openLoader())
+			axios
+				.post('/v1/setup/account/validate', {
 
-
-			},
-			)
-
-			.then((res: any) => {
-				console.log(res, "bvnnnnnnnn")
-				dispatch(closeLoader());
-
-				if (res?.data?.code === "Account validated successfully") {
-					setAccountName(res?.data?.accountName)
-					console.log(res?.data?.accountName);
-
-				}
-			})
-			.catch((err) => {
-				dispatch(closeLoader());
-				setLoading(false)
+					bvn,
+					accountNumber: accountNumber,
+					bankid
 
 
-				dispatch(
-					openToastAndSetContent({
-						toastContent: err?.response?.data?.message,
-						toastStyles: {
-							backgroundColor: 'red',
-						},
-					})
-				);
-			});
+				},
+				)
+
+				.then((res: any) => {
+					console.log(res, "bvnnnnnnnn")
+					dispatch(closeLoader());
+
+					if (res?.data?.code === "Account validated successfully") {
+						setAccountName(res?.data?.accountName)
+						console.log(res?.data?.accountName);
+
+					}
+				})
+				.catch((err) => {
+					dispatch(closeLoader());
+					setLoading(false)
+
+
+					dispatch(
+						openToastAndSetContent({
+							toastContent: err?.response?.data?.message,
+							msgType: "error"
+						})
+					);
+				});
+		}
+		validateBvn()
 	}
 
 
@@ -386,7 +380,7 @@ const BankAccount = ({ checkBusinessStatus }: any) => {
 								placeholder='Enter otp'
 								variant='outlined'
 								onChange={handleChange}
-								value={values.otp}
+								defaultValue={values.otp}
 								size='small'
 								fullWidth
 								helperText={<span style={{ color: "red", fontSize: "10px", marginTop: "-10px" }}>{touched?.otp && errors?.otp}</span>}

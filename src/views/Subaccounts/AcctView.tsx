@@ -147,9 +147,7 @@ const AcctView = ({ setIsModalOpen }: AcctViewProps) => {
 			dispatch(
 				openToastAndSetContent({
 					toastContent: 'Failed to get accounts',
-					toastStyles: {
-						backgroundColor: 'red',
-					},
+					msgType: "error"
 				})
 			);
 		}

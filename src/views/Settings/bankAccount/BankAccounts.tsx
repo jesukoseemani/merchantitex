@@ -90,27 +90,21 @@ const BankAccounts = () => {
           dispatch(
             openToastAndSetContent({
               toastContent: message,
-              toastStyles: {
-                backgroundColor: "red",
-              },
+              msgType: "error"
             })
           );
         } else if (error.request) {
           dispatch(
             openToastAndSetContent({
               toastContent: "Error occured",
-              toastStyles: {
-                backgroundColor: "red",
-              },
+              msgType: "error"
             })
           );
         } else {
           dispatch(
             openToastAndSetContent({
               toastContent: error.message,
-              toastStyles: {
-                backgroundColor: "red",
-              },
+              msgType: "error"
             })
           );
         }

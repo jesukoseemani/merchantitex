@@ -22,6 +22,7 @@ import Addtoblacklist from "./Addtoblacklist";
 import { openModalAndSetContent } from "../../redux/actions/modal/modalActions";
 import { CustomerItem as Customer } from '../../types/CustomerTypes';
 import { getCustomerById } from "../../services/customer";
+import Navigation from "../../components/navbar/Navigation";
 
 
 
@@ -115,9 +116,7 @@ const CustomerItem = () => {
       dispatch(
         openToastAndSetContent({
           toastContent: "Failed to get single customer",
-          toastStyles: {
-            backgroundColor: "red",
-          },
+          msgType: "error"
         })
       );
     }
@@ -173,94 +172,97 @@ const CustomerItem = () => {
   }, [transactions, TransactionRowTab]);
 
   return (
+    <Navigation title={`${customer?.firstname || ''} ${customer?.lastname || ''}`}>
 
+      <div className={styles.container}>
 
-    <div className={styles.container}>
+        <div className={styles.pageWrapper}>
+          <div className={styles.sectionOne}>
+            <div>
+              <Link to="/customers">
+                <div>
+                  <ArrowLeftIcon />
+                  <p>Back to customers</p>
+                </div>
+              </Link>
+            </div>
 
-      <div className={styles.pageWrapper}>
-        <div className={styles.sectionOne}>
-          <div>
-            <Link to="/customers">
+          </div>
+
+          <Box className={styles.layerOneWrapper}>
+            <div className={styles.titleText}>
+              <p>Customer Information</p>
+              {!customer?.isblacklisted && <div onClick={handleBLacklist}>
+                <p>Blacklist customer</p>
+                <DoDisturbIcon />
+              </div>}
+            </div>
+            <div className={styles.sectionTwo}>
               <div>
-                <ArrowLeftIcon />
-                <p>Back to customers</p>
+                <Avatar sx={{ bgcolor: "#2684ED", fontSize: "14px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                  {`${customer?.firstname.substring(0, 1)} ${customer?.lastname.substring(0, 1)}`}
+                </Avatar>
+                <div>
+                  <p>Name</p>
+                  <span>
+                    <span>{`${customer?.firstname || ''} ${customer?.lastname || ''}`}</span>{" "}
+                  </span>
+                </div>
               </div>
-            </Link>
-          </div>
 
-        </div>
 
-        <Box className={styles.layerOneWrapper}>
-          <div className={styles.titleText}>
-            <p>Customer Information</p>
-            {!customer?.isblacklisted && <div onClick={handleBLacklist}>
-              <p>Blacklist customer</p>
-              <DoDisturbIcon />
-            </div>}
-          </div>
-          <div className={styles.sectionTwo}>
-            <div>
-              <Avatar sx={{ bgcolor: "#2684ED", fontSize: "14px", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                {`${customer?.firstname.substring(0, 1)} ${customer?.lastname.substring(0, 1)}`}
-              </Avatar>
               <div>
-                <p>Name</p>
-                <span>
-                  <span>{`${customer?.firstname || ''} ${customer?.lastname || ''}`}</span>{" "}
-                </span>
+                <p>Email</p>
+                <span>{customer?.email ?? "N/A"}</span>
+              </div>
+
+              <div>
+                <p>Phone</p>
+                <span>{customer?.msisdn ?? "N/A"}</span>
               </div>
             </div>
 
 
-            <div>
-              <p>Email</p>
-              <span>{customer?.email ?? "N/A"}</span>
+          </Box>
+          <Box className={styles.layerTwoWrapper}>
+
+            <div className={styles.titleText}>
+              <h3>Performance</h3>
             </div>
+            <div className={styles.sectionTwo}>
 
-            <div>
-              <p>Phone</p>
-              <span>{customer?.msisdn ?? "N/A"}</span>
+              <div>
+                <p>Number of transactions</p>
+                <span>0</span>
+              </div>
+
+              <div>
+                <p>Total spend</p>
+                <span>NGN 0 </span>
+              </div>
             </div>
-          </div>
+          </Box>
 
-
-        </Box>
-        <Box className={styles.layerTwoWrapper}>
-
-          <div className={styles.titleText}>
-            <h3>Performance</h3>
-          </div>
-          <div className={styles.sectionTwo}>
-
-            <div>
-              <p>Number of transactions</p>
-              <span>0</span>
+          <div className={styles.sectionFour}>
+            <div className={styles.transHeader}>
+              <h3>Recent transactions</h3>
+              <p>See all customer’s transactions</p>
             </div>
-
-            <div>
-              <p>Total spend</p>
-              <span>NGN 0 </span>
+            <div className={styles.tableContainer}>
+              <CustomClickTable
+                columns={columns}
+                rows={rows}
+                totalRows={totalRows}
+                changePage={changePage}
+                limit={limit}
+              />
             </div>
-          </div>
-        </Box>
-
-        <div className={styles.sectionFour}>
-          <div className={styles.transHeader}>
-            <h3>Recent transactions</h3>
-            <p>See all customer’s transactions</p>
-          </div>
-          <div className={styles.tableContainer}>
-            <CustomClickTable
-              columns={columns}
-              rows={rows}
-              totalRows={totalRows}
-              changePage={changePage}
-              limit={limit}
-            />
           </div>
         </div>
       </div>
-    </div>
+    </Navigation>
+
+
   );
 };
 

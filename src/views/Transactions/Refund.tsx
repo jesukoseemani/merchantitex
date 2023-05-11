@@ -36,6 +36,7 @@ import { REFUND_FILTER_DATA } from '../../constant';
 import CustomStatus from '../../components/customs/CustomStatus';
 import CustomCurrencyFormat from '../../components/customs/CustomCurrencyFormat';
 import CustomDateFormat from '../../components/customs/CustomDateFormat';
+import Navigation from '../../components/navbar/Navigation';
 
 
 
@@ -195,9 +196,7 @@ const Refund = () => {
 			dispatch(
 				openToastAndSetContent({
 					toastContent: err?.response?.data?.message || 'Failed to get refunds',
-					toastStyles: {
-						backgroundColor: 'red',
-					},
+					msgType: "error"
 				})
 			);
 		}
@@ -274,75 +273,78 @@ const Refund = () => {
 
 	return (
 
-		<div className={styles.container}>
-			<FilterModal
-				isOpen={isFilterModalOpen}
-				handleClose={() => setIsFilterModalOpen(false)}
-				action={action}
-			/>
-			<SingleRefundModal
-				isOpen={isSingleModalOpen}
-				handleClose={() => setIsSingleModalOpen(false)}
-				setRefundLogged={setRefundLogged}
-			/>
-			<BulkRefundModal
-				isOpen={isBulkModalOpen}
-				handleClose={() => setIsBulkModalOpen(false)}
-				setRefundLogged={setRefundLogged}
-			/>
+		<Navigation title="Refund">
+			<div className={styles.container}>
+				<FilterModal
+					isOpen={isFilterModalOpen}
+					handleClose={() => setIsFilterModalOpen(false)}
+					action={action}
+				/>
+				<SingleRefundModal
+					isOpen={isSingleModalOpen}
+					handleClose={() => setIsSingleModalOpen(false)}
+					setRefundLogged={setRefundLogged}
+				/>
+				<BulkRefundModal
+					isOpen={isBulkModalOpen}
+					handleClose={() => setIsBulkModalOpen(false)}
+					setRefundLogged={setRefundLogged}
+				/>
 
-			<div className={styles.pageWrapper}>
-				<div className={styles.historyTopContainer}>
-					<div>
-						<p>{refunds?.length} Refunds</p>
+				<div className={styles.pageWrapper}>
+					<div className={styles.historyTopContainer}>
+						<div>
+							<p>{refunds?.length} Refunds</p>
+						</div>
+						<div className={btnClasses.root}>
+							<Button onClick={() => setIsFilterModalOpen(true)}>
+								<FilterAltOutlinedIcon />Filter by:
+							</Button>
+							<Button onClick={calDownload}>
+								<InsertDriveFileOutlined />Download
+							</Button>
+							<Button
+								id='log-refund-button'
+								aria-controls={open ? 'refund-menu' : undefined}
+								aria-haspopup='true'
+								aria-expanded={open ? 'true' : undefined}
+								onClick={() => setIsSingleModalOpen(true)}>
+								+ Log a refund
+							</Button>
+
+							<BeneficiaryMenu
+								openBeneficiary={openRefundMenu}
+								handleCloseMenu={handleCloseMenu}
+								beneficiary={refundMenu}
+								data={data}
+								style={{
+									width: "max-content",
+									borderRadius: "10px",
+									boxShadow: "0px 0px 0px rgba(63, 63, 68, 0.05), 0px 1px 3px rgba(63, 63, 68, 0.15)",
+									marginTop: "5px",
+								}}
+
+							/>
+
+						</div>
 					</div>
-					<div className={btnClasses.root}>
-						<Button onClick={() => setIsFilterModalOpen(true)}>
-							<FilterAltOutlinedIcon />Filter by:
-						</Button>
-						<Button onClick={calDownload}>
-							<InsertDriveFileOutlined />Download
-						</Button>
-						<Button
-							id='log-refund-button'
-							aria-controls={open ? 'refund-menu' : undefined}
-							aria-haspopup='true'
-							aria-expanded={open ? 'true' : undefined}
-							onClick={() => setIsSingleModalOpen(true)}>
-							+ Log a refund
-						</Button>
-
-						<BeneficiaryMenu
-							openBeneficiary={openRefundMenu}
-							handleCloseMenu={handleCloseMenu}
-							beneficiary={refundMenu}
-							data={data}
-							style={{
-								width: "max-content",
-								borderRadius: "10px",
-								boxShadow: "0px 0px 0px rgba(63, 63, 68, 0.05), 0px 1px 3px rgba(63, 63, 68, 0.15)",
-								marginTop: "5px",
-							}}
-
+					<div className={styles.tableContainer}>
+						<CustomClickTable
+							columns={columns}
+							rows={rows}
+							totalRows={totalRows}
+							changePage={changePage}
+							limit={limit}
+							clickable
+							link='/transactions/refund'
+							identifier='id'
+							rowsData={refunds}
 						/>
-
 					</div>
-				</div>
-				<div className={styles.tableContainer}>
-					<CustomClickTable
-						columns={columns}
-						rows={rows}
-						totalRows={totalRows}
-						changePage={changePage}
-						limit={limit}
-						clickable
-						link='/transactions/refund'
-						identifier='id'
-						rowsData={refunds}
-					/>
 				</div>
 			</div>
-		</div>
+
+		</Navigation>
 	);
 };
 

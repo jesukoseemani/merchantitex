@@ -34,6 +34,9 @@ import CustomStatus from "../../components/customs/CustomStatus";
 import DoDisturbIcon from '@mui/icons-material/DoDisturb';
 import Addtoblacklist from "../Customers/Addtoblacklist";
 import FormatToCurrency from "../../helpers/NumberToCurrency";
+import Navigation from "../../components/navbar/Navigation";
+import CustomDateFormat from "../../components/customs/CustomDateFormat";
+import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
 
 
 export default function Transaction() {
@@ -41,17 +44,26 @@ export default function Transaction() {
 	let { id } = useParams<{ id: string }>();
 	const [transaction, setTransaction] = useState<TransactionResponse | null>(null);
 	const [activeStep, setActiveStep] = useState(0);
-
 	const history = useHistory();
 
 	const dispatch = useDispatch();
 
 	const getTransactions = async () => {
 		try {
+			dispatch(openLoader())
+
 			const res = await getTransactionByPaymentId(id);
 			setTransaction(res || null)
-		} catch (error) {
+			dispatch(closeLoader())
+		} catch (error: any) {
+			dispatch(closeLoader())
 
+			dispatch(
+				openToastAndSetContent({
+					toastContent: error?.response?.data?.message || 'Failed to get transactions',
+					msgType: "error"
+				})
+			);
 		}
 	};
 
@@ -114,203 +126,192 @@ export default function Transaction() {
 	};
 	return (
 
-		<div className={Styles.container}>
-			{/* <NavBar /> */}
-			<div className={Styles.header}>
-				<span onClick={() => history.push('/transactions/list')} style={{
-					display: "flex",
-					alignItems: "center"
-				}}>
-					<ArrowLeftIcon />
-					Back to transactions
-				</span>
-			</div>
-			<Box className={Styles.sectionOne}>
-				<div className={Styles.headerTitle}>
-					<div className={Styles.leftText}>
-						<div className={Styles.amt_box}>
-							<p>NGN{FormatToCurrency(transaction?.transaction?.amount) ?? 0}</p>
-						</div>
-
-						<div>
-
-							<CustomStatus text={getTransactionStatus(transaction?.transaction?.responsecode)} type={getTransactionStatus(transaction?.transaction?.responsecode)} />
-						</div>
-					</div>
-					<div className={Styles.btn__group}>
-						<Button className={Styles.refundBtn}>Resend Receipt</Button>
-						<Button className={Styles.resendBtn}>Refund customer</Button>
-					</div>
+		<Navigation title="Transactions">
+			<div className={Styles.container}>
+				{/* <NavBar /> */}
+				<div className={Styles.header}>
+					<span onClick={() => history.push('/transactions')} style={{
+						display: "flex",
+						alignItems: "center"
+					}}>
+						<ArrowLeftIcon />
+						Back to transactions
+					</span>
 				</div>
-
-				<div className={Styles.customerDetails}>
-					<div>
-						<div>
-							<span>Date / Time</span>
-							<h2>{moment(transaction?.transaction?.timein).format('LLL')}</h2>
-						</div>
-					</div>
-					<div>
-						<div>
-							<span>Customer</span>
-							<h2>{transaction?.transaction?.customer?.email || ''}</h2>
-						</div>
-					</div>
-					<div>
-						<div>
-							<span>Card type</span>
-							<h2>{transaction?.transaction?.chargetype}</h2>
-						</div>
-					</div>
-					<div>
-						<div>
-							<span>Card number</span>
-							<h2>{transaction?.transaction?.mask}</h2>
-						</div>
-					</div>
-
-				</div>
-
-
-			</Box>
-
-			<Box className={Styles.sectionTwo} >
-				<div className={Styles.headerTitle}>
-					<h2>Payment information</h2>
-				</div>
-				<Box className={Styles.containerBox}>
-					<Grid container spacing={2} justifyContent="flex-start" alignItems={"center"}>
-						<Grid item xs={12} sm={4} md={3.4}>
-							<span>Payment reference</span>
-							<h2>
-								{transaction?.transaction?.paymentlinkreference?.substring(0, 22)}
-								<CopyToClipboard text={transaction?.transaction?.paymentlinkreference}>
-									<IconButton>
-										<CopyIcon />
-									</IconButton>
-								</CopyToClipboard>
-							</h2>
-						</Grid>
-
-						<Grid item xs={12} sm={3} md={1.8}>
-							<span className={Styles.timeline}>Transaction Fee</span>
-							<h2>{FormatToCurrency(transaction?.transaction?.fee) || 0}</h2>
-						</Grid>
-						<Grid item xs={12} sm={3} md={1.8}>
-							<span>Country/Region</span>
-							<h2>{transaction?.transaction?.paylocationcountry}</h2>
-						</Grid>
-						<Grid item xs={12} sm={3} md={1.8}>
-							<span>Bank name</span>
-							{/* <h2>Access Bank</h2> */}
-						</Grid>
-						<Grid item xs={12} sm={5} md={5} lg={3}>
-							<span>ITEX Reference</span>
-							<h2>{transaction?.transaction?.paymentid}</h2>
-						</Grid>
-					</Grid>
-				</Box>
-				<div className={Styles.naration}>
-					<span>Narration</span>
-					<h2>{transaction?.transaction?.narration}</h2>
-
-				</div>
-
-			</Box>
-
-
-
-
-
-			<div className={Styles.payment_wrapper}>
-
-				<Box className={Styles.paymentStage}>
-					<div className={Styles.last__section__header}>
-						<h2>Transaction Event</h2>
-
-					</div>
-					<div className={Styles.stepWrapper}>
-						<Stepper activeStep={2} orientation="vertical" sx={{
-							".css-iprrf9-MuiStepConnector-line": {
-								height: "55px",
-								marginTop: "-28px",
-								border: "0.6px solid #27ae60 !important",
-								width: "2px",
-
-
-								marginLeft: "-3px"
-							},
-
-
-							// '.css-iprrf9-MuiStepConnector-line': { background: "blue" }
-						}}>
-							<Step >
-								<StepLabel className={Styles.steplabel} icon={<CheckColorIcon />} optional={<p>
-									Aug 13 2020 <span>2:21 PM</span>
-								</p>}>
-									<h3>Payment started</h3>
-								</StepLabel>
-							</Step>
-							<Step sx={{ marginTop: "-30px" }}>
-								<StepLabel className={Styles.steplabel} icon={<CheckColorIcon />} optional={<p>
-									Aug 13 2020 <span>2:21 PM</span>
-								</p>}>
-									<h3>Payment Completed</h3>
-								</StepLabel>
-							</Step>
-						</Stepper>
-						<div>
-							<div className={Styles.timeBox}>
-								<p className={Styles.success}>1 min 05secs <span>Time spent making payment</span></p>
-
+				<Box className={Styles.sectionOne}>
+					<div className={Styles.headerTitle}>
+						<div className={Styles.leftText}>
+							<div className={Styles.amt_box}>
+								<p>NGN{FormatToCurrency(transaction?.transaction?.amount) ?? 0}</p>
 							</div>
-							<div className={Styles.errorBox}>
-								<p className={Styles.danger}>1 Error<span>While making payment</span></p>
 
-							</div>
-						</div>
-					</div>
-
-
-
-					<div className={Styles.link}>
-
-						<div onClick={handleBreakDown}><p>Show breakdown</p></div>
-					</div>
-				</Box>
-
-				<div>
-					<div className={Styles.last__section__header}>
-						<h2>Customer Information</h2>
-
-					</div>
-
-					<div className={Styles.customerInfo}>
-						<div className={Styles.customerInfo_left}>
-							<Avatar sx={{ bgcolor: "#2684ED", fontSize: "14px", display: "flex", justifyContent: "center", alignItems: "center" }}>
-								{`${transaction?.transaction?.customer?.firstname?.slice(0, 1)} ${transaction?.transaction?.customer?.lastname?.slice(0, 1)}`}
-							</Avatar>
 							<div>
-								<p>{`${transaction?.transaction?.customer?.firstname} ${transaction?.transaction?.customer?.lastname}`}</p>
-								<span>{transaction?.transaction?.customer?.email}</span>
+
+								<CustomStatus text={getTransactionStatus(transaction?.transaction?.responsecode)} type={getTransactionStatus(transaction?.transaction?.responsecode)} />
 							</div>
 						</div>
-						<div className={Styles.blacklist} onClick={handleBLacklist}>
-							<p>Blacklist customer  <DoDisturbIcon /></p>
+						<div className={Styles.btn__group}>
+							<Button className={Styles.refundBtn}>Resend Receipt</Button>
+							<Button className={Styles.resendBtn}>Refund customer</Button>
 						</div>
-						<br />
-						<div className={Styles.profile}>
-							<p>See customer profile </p>
-							<IconButton>
-								<LinkIcon />
-							</IconButton>
+					</div>
+
+					<div className={Styles.customerDetails}>
+						<div>
+							<div>
+								<span>Date / Time</span>
+								<h2>{moment(transaction?.transaction?.timein).format('LLL')}</h2>
+							</div>
+						</div>
+						<div>
+							<div>
+								<span>Customer</span>
+								<h2>{transaction?.transaction?.customer?.email || ''}</h2>
+							</div>
+						</div>
+						<div>
+							<div>
+								<span>Card type</span>
+								<h2>{transaction?.transaction?.chargetype}</h2>
+							</div>
+						</div>
+						<div>
+							<div>
+								<span>Card number</span>
+								<h2>{transaction?.transaction?.mask}</h2>
+							</div>
+						</div>
+
+					</div>
+
+
+				</Box>
+
+				<Box className={Styles.sectionTwo} >
+					<div className={Styles.headerTitle}>
+						<h2>Payment information</h2>
+					</div>
+					<Box className={Styles.containerBox}>
+						<Grid container spacing={2} justifyContent="flex-start" alignItems={"center"}>
+							<Grid item xs={12} sm={4} md={3.4}>
+								<span>Payment reference</span>
+								<h2>
+									{transaction?.transaction?.paymentlinkreference?.substring(0, 22)}
+									<CopyToClipboard text={transaction?.transaction?.paymentlinkreference}>
+										<IconButton>
+											<CopyIcon />
+										</IconButton>
+									</CopyToClipboard>
+								</h2>
+							</Grid>
+
+							<Grid item xs={12} sm={3} md={1.8}>
+								<span className={Styles.timeline}>Transaction Fee</span>
+								<h2>{FormatToCurrency(transaction?.transaction?.fee) || 0}</h2>
+							</Grid>
+							<Grid item xs={12} sm={3} md={1.8}>
+								<span>Country/Region</span>
+								<h2>{transaction?.transaction?.paylocationcountry}</h2>
+							</Grid>
+							<Grid item xs={12} sm={3} md={1.8}>
+								<span>Bank name</span>
+								{/* <h2>Access Bank</h2> */}
+							</Grid>
+							<Grid item xs={12} sm={5} md={5} lg={3}>
+								<span>ITEX Reference</span>
+								<h2>{transaction?.transaction?.paymentid}</h2>
+							</Grid>
+						</Grid>
+					</Box>
+					<div className={Styles.naration}>
+						<span>Narration</span>
+						<h2>{transaction?.transaction?.narration}</h2>
+
+					</div>
+
+				</Box>
+
+
+
+
+
+				<div className={Styles.payment_wrapper}>
+
+					<div className={Styles.paymentStage}>
+						<div className={Styles.last__section__header}>
+							<h2>Transaction Event</h2>
+
+						</div>
+						<div className={Styles.stepWrapper}>
+							{!transaction?.events.length ? (
+								<p>No transaction Event</p>
+							) : <Stepper activeStep={transaction?.events?.length} orientation="vertical" >
+								{
+									transaction?.events?.map((x: any, i: number) => (
+										<Step>
+											<StepLabel icon={<CheckColorIcon />} key={i}>
+												<div className={Styles.labelBox}>
+													<div>
+														<h6>{x?.activity}</h6>
+														<p><CustomDateFormat date={x?.timein} time={x?.timein} />
+														</p>
+													</div>
+													<div>
+														<p className={Styles.success}>1 min 05secs <span>Time spent making payment</span></p>
+
+													</div>
+												</div>
+											</StepLabel>
+
+										</Step>
+									))}
+
+							</Stepper>}
+
+						</div>
+
+
+
+						{transaction?.events?.length > 0 && <div className={Styles.link}>
+
+							<div onClick={handleBreakDown}><p>Show breakdown</p></div>
+						</div>}
+					</div>
+
+					<div>
+						<div className={Styles.last__section__header}>
+							<h2>Customer Information</h2>
+
+						</div>
+
+						<div className={Styles.customerInfo}>
+							<div className={Styles.customerInfo_left}>
+								<Avatar sx={{ bgcolor: "#2684ED", fontSize: "14px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+									{`${transaction?.transaction?.customer?.firstname?.slice(0, 1)} ${transaction?.transaction?.customer?.lastname?.slice(0, 1)}`}
+								</Avatar>
+								<div>
+									<p>{`${transaction?.transaction?.customer?.firstname} ${transaction?.transaction?.customer?.lastname}`}</p>
+									<span>{transaction?.transaction?.customer?.email}</span>
+								</div>
+							</div>
+							<div className={Styles.blacklist} onClick={handleBLacklist}>
+								<p>Blacklist customer  <DoDisturbIcon /></p>
+							</div>
+							<br />
+							<div className={Styles.profile}>
+								<p>See customer profile </p>
+								<IconButton>
+									<LinkIcon />
+								</IconButton>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 
 
 
-		</div>
+			</div >
+
+		</Navigation >
 	);
 }

@@ -287,9 +287,7 @@ const RecurringLinkModal = ({
 						dispatch(
 							openToastAndSetContent({
 								toastContent: data?.message,
-								toastStyles: {
-									backgroundColor: "green",
-								},
+								msgType: "error"
 							})
 						)
 						setIsUpdate(true)
@@ -304,9 +302,7 @@ const RecurringLinkModal = ({
 						dispatch(
 							openToastAndSetContent({
 								toastContent: message,
-								toastStyles: {
-									backgroundColor: "red",
-								},
+								msgType: "error"
 							})
 						)
 					);

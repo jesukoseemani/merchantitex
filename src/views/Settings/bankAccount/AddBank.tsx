@@ -61,9 +61,7 @@ const AddBank = ({ data, getTransactions }: any) => {
                 dispatch(
                     openToastAndSetContent({
                         toastContent: err?.response?.data?.message,
-                        toastStyles: {
-                            backgroundColor: 'red',
-                        },
+                        msgType: "error"
                     })
                 );
             }
@@ -87,9 +85,7 @@ const AddBank = ({ data, getTransactions }: any) => {
                 dispatch(
                     openToastAndSetContent({
                         toastContent: err?.response?.data?.message,
-                        toastStyles: {
-                            backgroundColor: 'red',
-                        },
+                        msgType: "error"
                     })
                 );
             }
@@ -187,9 +183,7 @@ const AddBank = ({ data, getTransactions }: any) => {
                                                 dispatch(
                                                     openToastAndSetContent({
                                                         toastContent: resp?.data?.message,
-                                                        toastStyles: {
-                                                            backgroundColor: 'green',
-                                                        },
+                                                        msgType: "success"
                                                     })
                                                 );
 
@@ -212,9 +206,7 @@ const AddBank = ({ data, getTransactions }: any) => {
                                             dispatch(
                                                 openToastAndSetContent({
                                                     toastContent: err?.response?.data?.message,
-                                                    toastStyles: {
-                                                        backgroundColor: 'red',
-                                                    },
+                                                    msgType: "error"
                                                 })
                                             );
                                         });
@@ -235,9 +227,7 @@ const AddBank = ({ data, getTransactions }: any) => {
                                 dispatch(
                                     openToastAndSetContent({
                                         toastContent: err?.response?.data?.message,
-                                        toastStyles: {
-                                            backgroundColor: 'red',
-                                        },
+                                        msgType: "error"
                                     })
                                 );
                             });

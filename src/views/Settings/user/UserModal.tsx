@@ -83,9 +83,7 @@ function UserModal({ getUsers }: any) {
 					dispatch(
 						openToastAndSetContent({
 							toastContent: message,
-							toastStyles: {
-								backgroundColor: "red",
-							},
+							msgType: "error"
 						})
 					)
 				);
@@ -125,9 +123,7 @@ function UserModal({ getUsers }: any) {
 					dispatch(
 						openToastAndSetContent({
 							toastContent: message,
-							toastStyles: {
-								backgroundColor: "red",
-							},
+							msgType: "error"
 						})
 					)
 				);
@@ -166,9 +162,7 @@ function UserModal({ getUsers }: any) {
 							dispatch(
 								openToastAndSetContent({
 									toastContent: data?.message,
-									toastStyles: {
-										backgroundColor: 'green',
-									},
+									msgType: "success"
 								})
 							);
 							dispatch(closeModal())
@@ -185,9 +179,7 @@ function UserModal({ getUsers }: any) {
 						dispatch(
 							openToastAndSetContent({
 								toastContent: error?.response?.data?.message,
-								toastStyles: {
-									backgroundColor: 'red',
-								},
+								msgType: "error"
 							})
 						);
 					}

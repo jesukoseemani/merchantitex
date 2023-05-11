@@ -34,18 +34,16 @@ const AddNewCustomer: FC<{ callback: () => void; fn: () => void }> = ({ callback
       dispatch(
         openToastAndSetContent({
           toastContent: "Customer added successfully",
-          toastStyles: {
-            backgroundColor: "green",
-          },
+          msgType: "success"
+
         })
       );
     } catch (error: any) {
       dispatch(
         openToastAndSetContent({
           toastContent: error?.response?.data?.message || "Failed to add customer",
-          toastStyles: {
-            backgroundColor: "red",
-          },
+          msgType: "error"
+
         })
       );
     } finally {

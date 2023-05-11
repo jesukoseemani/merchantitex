@@ -3,16 +3,18 @@ import styles from "./toast.module.scss"
 import { Box, ClickAwayListener } from '@mui/material';
 import { ReactComponent as SuccessIcon } from "../../assets/images/doubleCheckIcon.svg";
 import { ReactComponent as ErrorIcon } from "../../assets/images/errorCheck.svg";
+import { useDispatch } from 'react-redux';
+import { closeToast } from '../../redux/actions/toast/toastActions';
 
 
 interface Props {
-    text: string;
-    type?: "success" | "error";
+    toastContent?: string | number | null;
+    msgType: "success" | "error";
     style?: React.CSSProperties
 }
-export const CustomToast = ({ text, type, style }: Props) => {
+export const CustomToast = ({ toastContent, msgType, style }: Props) => {
     const [showToast, setShowToast] = useState(true)
-
+    const dispatch = useDispatch()
 
     useEffect(() => {
         setShowToast(true)
@@ -25,7 +27,7 @@ export const CustomToast = ({ text, type, style }: Props) => {
     }
     setTimeout(() => {
         setShowToast(!false)
-
+        dispatch(closeToast())
     }, 4000);
 
     return (
@@ -34,9 +36,9 @@ export const CustomToast = ({ text, type, style }: Props) => {
                 onClickAway={handleClickAway}
 
             >
-                <div onClick={handleClickAway} className={type === "success" ? styles.toastSuccess : styles.toastError} >
-                    {type === "success" ? <SuccessIcon /> : <ErrorIcon />}
-                    <p>{text}</p>
+                <div onClick={handleClickAway} className={msgType === "success" ? styles.toastSuccess : styles.toastError} >
+                    {msgType === "success" ? <SuccessIcon /> : <ErrorIcon />}
+                    <p>{toastContent && toastContent}</p>
 
                 </div>
             </ClickAwayListener>}

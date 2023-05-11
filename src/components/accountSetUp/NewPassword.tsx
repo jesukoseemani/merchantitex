@@ -62,9 +62,7 @@ const LoginPasswordReset = () => {
           dispatch(
             openToastAndSetContent({
               toastContent: "no token found",
-              toastStyles: {
-                backgroundColor: 'red',
-              },
+              msgType: "error"
             })
           );
         }
@@ -83,9 +81,7 @@ const LoginPasswordReset = () => {
             dispatch(
               openToastAndSetContent({
                 toastContent: data?.message,
-                toastStyles: {
-                  backgroundColor: 'green',
-                },
+                msgType: "success"
               })
             );
             setTimeout(() => {
@@ -100,9 +96,7 @@ const LoginPasswordReset = () => {
           dispatch(
             openToastAndSetContent({
               toastContent: error.message,
-              toastStyles: {
-                backgroundColor: 'red',
-              },
+              msgType: "error"
             })
           );
         }

@@ -41,6 +41,7 @@ import { ReactComponent as FilterIcon } from "../../assets/images/filter.svg"
 import CustomStatus from '../../components/customs/CustomStatus';
 import CustomCurrencyFormat from '../../components/customs/CustomCurrencyFormat';
 import CustomDateFormat from '../../components/customs/CustomDateFormat';
+import Navigation from '../../components/navbar/Navigation';
 
 export default function TransactionsList() {
 
@@ -154,9 +155,7 @@ export default function TransactionsList() {
 			dispatch(
 				openToastAndSetContent({
 					toastContent: err?.response?.data?.message || 'Failed to get transactions',
-					toastStyles: {
-						backgroundColor: 'red',
-					},
+					msgType: "error"
 				})
 			);
 		} finally {
@@ -232,6 +231,7 @@ export default function TransactionsList() {
 	// console.log(transactions);
 
 	return (
+
 		<div className={Styles.container}>
 			{/* <NavBar />  */}
 			<FilterModal

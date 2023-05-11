@@ -168,9 +168,7 @@ const BillsRequestTable = () => {
       dispatch(
         openToastAndSetContent({
           toastContent: "Failed to get items",
-          toastStyles: {
-            backgroundColor: "red",
-          },
+          msgType: "error"
         })
       );
     }

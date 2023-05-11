@@ -164,9 +164,7 @@ const InvoiceRequesttable = () => {
                 dispatch(
                     openToastAndSetContent({
                         toastContent: message,
-                        toastStyles: {
-                            backgroundColor: "red",
-                        },
+                        msgType: "error"
                     })
                 )
             );

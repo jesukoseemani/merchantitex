@@ -54,9 +54,7 @@ export default function EmptyTransfers() {
           dispatch(
             openToastAndSetContent({
               toastContent: error?.response?.data?.message || 'Failed to get balances',
-              toastStyles: {
-                backgroundColor: 'red',
-              },
+              msgType: "error"
             })
           );
         }
@@ -178,11 +176,11 @@ export default function EmptyTransfers() {
         <p>
           But, you can change that. You can start by initiating your first to a bank account.
         </p>
-        <Button className="success" onClick={MakePayout}>
-          <Dropdown.Item>
-            Make a payout
-          </Dropdown.Item>
-        </Button>
+        <button onClick={MakePayout}>
+          Make a payout
+
+        </button>
+
       </div>
     </>
   );

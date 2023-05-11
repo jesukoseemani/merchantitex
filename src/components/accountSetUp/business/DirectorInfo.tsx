@@ -124,9 +124,7 @@ const DirectorInfo = ({ handleBack, handleNext }: Props) => {
                 dispatch(
                     openToastAndSetContent({
                         toastContent: message,
-                        toastStyles: {
-                            backgroundColor: "red",
-                        },
+                        msgType: "error"
                     })
                 )
             );
@@ -245,9 +243,11 @@ const DirectorInfo = ({ handleBack, handleNext }: Props) => {
                                 <AccordionDetails>
 
                                     <Grid key={index} container columnSpacing={"55px"} justifyContent="space-between">
-                                        <Grid item xs={12} justifyContent="flex-end" sx={{ float: "right" }}>
-                                            {input?.length > 1 && <IconButton sx={{ background: "red", width: "20px", height: "20px" }} onClick={() => handleRemove(index)}><CloseOutlinedIcon style={{ fontSize: "12px", padding: "5px" }} /></IconButton>}
+                                        <Grid item xs={12} justifyContent="flex-end" sx={{}}>
+                                            {input?.length > 1 && <IconButton sx={{ background: "red !important", width: "20px", height: "20px", display: "flex", justifyContent: "center", alignItems: "center" }} onClick={() => handleRemove(index)}><CloseOutlinedIcon style={{ fontSize: "12px", padding: "5px" }} /></IconButton>}
+
                                         </Grid>
+
                                         <Grid item xs={12} sm={6} md={6} mb="22px">
 
                                             <InputLabel className={styles.label}>Director’s First Name</InputLabel>

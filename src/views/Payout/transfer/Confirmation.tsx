@@ -32,9 +32,8 @@ const Confirmation: FC<{
             dispatch(
                 openToastAndSetContent({
                     toastContent: error?.response?.data?.message || 'Failed to make a payout',
-                    toastStyles: {
-                        backgroundColor: 'red',
-                    },
+                    msgType: "error"
+
                 })
             );
         } finally {

@@ -63,9 +63,7 @@ const BusinessInfo = ({ handleNext }: Props) => {
                 dispatch(
                     openToastAndSetContent({
                         toastContent: err?.response?.data?.message,
-                        toastStyles: {
-                            backgroundColor: 'red',
-                        },
+                        msgType: "error"
                     })
                 );
             }
@@ -104,7 +102,7 @@ const BusinessInfo = ({ handleNext }: Props) => {
 
 
             {({ touched, errors, values }) => (
-                <Box sx={{ marginTop: "-10px" }}>
+                <Box>
                     <Form method="post">
 
                         <Grid container columnSpacing={"55px"} justifyContent="space-between">

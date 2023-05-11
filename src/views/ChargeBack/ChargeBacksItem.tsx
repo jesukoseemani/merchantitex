@@ -20,6 +20,8 @@ import ResponseChargeback from './RespondChargeback';
 import axios from 'axios';
 import { closeLoader } from '../../redux/actions/loader/loaderActions';
 import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
+import CustomStatus from '../../components/customs/CustomStatus';
+import CustomDateFormat from '../../components/customs/CustomDateFormat';
 
 
 
@@ -50,11 +52,6 @@ const ChargeBacksItem = () => {
 
 
 
-  const statusFormatObj: { [key: string]: string } = {
-    "approved": 'approved',
-    "declined": 'lost',
-    "pending": 'pending',
-  }
 
 
 
@@ -81,9 +78,7 @@ const ChargeBacksItem = () => {
         dispatch(
           openToastAndSetContent({
             toastContent: message,
-            toastStyles: {
-              backgroundColor: "red",
-            },
+            msgType: "error"
           })
         )
       );
@@ -116,7 +111,7 @@ const ChargeBacksItem = () => {
           <div className={styles._wrapper_top_bar}>
             <div>
               <h2>{`${chargebackItem?.chargeback?.currency} ${chargebackItem?.chargeback?.amount}`}</h2>
-              <p className={styles[statusFormatObj[chargebackItem?.chargeback?.status] || 'pendingText']}>{chargebackItem?.chargeback?.status}</p>
+              <CustomStatus text={chargebackItem?.chargeback?.status} type={chargebackItem?.chargeback?.status} />
             </div>
             <div className={styles.refundBtn}>
               <button>Refund customer</button>
@@ -186,7 +181,7 @@ const ChargeBacksItem = () => {
                 <div className={styles.Chargeback_text}>
 
                   <h2>You disputed this chargeback     |</h2>
-                  <p>Aug 13 2020 <span> 2:49 PM </span></p>
+                  <CustomDateFormat date={chargebackItem?.chargeback?.createdat} time={chargebackItem?.chargeback?.createdat} />
                 </div>
 
                 <div className={styles.chargebackReason}>

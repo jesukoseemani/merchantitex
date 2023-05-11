@@ -80,9 +80,7 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
                 dispatch(
                     openToastAndSetContent({
                         toastContent: message,
-                        toastStyles: {
-                            backgroundColor: "red",
-                        },
+                        msgType: "error"
                     })
                 )
             );
@@ -249,9 +247,7 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
             dispatch(
                 openToastAndSetContent({
                     toastContent: err?.response?.data?.message,
-                    toastStyles: {
-                        backgroundColor: 'red',
-                    },
+                    msgType: "error",
                 })
             );
         }
