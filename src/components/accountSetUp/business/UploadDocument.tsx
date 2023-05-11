@@ -89,7 +89,7 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
         }
     }
 
-
+    console.log("123")
 
 
     const splitImgUrl = (imgurl: string) => {
@@ -207,7 +207,6 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
                                 padding: 0,
                                 width: "400px",
                                 minHeight: "600px",
-
                                 borderRadius: 20,
                             },
                             modalTitle: "Add a bank account",
