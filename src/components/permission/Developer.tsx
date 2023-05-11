@@ -49,7 +49,7 @@ const Developer = () => {
     }, [])
     return (
         <Permission>
-            <div>div className={styles.permission__wrapper}
+            <div className={styles.permission__wrapper}>
                 <Box className={styles.left__container}>
                     <Box className={styles.firstSection}>
                         <h2>Owner</h2>

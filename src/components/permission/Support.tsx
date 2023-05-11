@@ -77,16 +77,14 @@ const Support = () => {
 
                     </Box>
                 </Box>
-                <Box className={styles.right__container}>
-                    <Box className={styles.firstSection}>
+                <div className={styles.right__container}>
+                    <div className={styles.firstSection}>
                         <h2>Users with this role</h2>
                         <p>See users with these permissions</p>
-                    </Box>
-
-
+                    </div>
                     <div className={styles.secondSection}>
                         <div className={styles.permission__Roles}>
-                            <div>
+                            <div >
                                 <Avatar sx={{ bgcolor: "#2684ED", fontSize: "14px", display: "flex", justifyContent: "center", alignItems: "center" }}>
                                     JH
                                 </Avatar>
@@ -108,14 +106,13 @@ const Support = () => {
                                 </div>
                             </div>
                         </div>
-
                     </div>
-
-                </Box>
-
+                </div>
             </div>
-        </Permission>
+        </Permission >
     )
 }
 
 export default Support
+
+

@@ -172,6 +172,8 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
                 supportEmail,
                 supportPhone,
                 websiteUrl,
+                city,
+                email,
                 "contactPerson": {
                     firstname,
                     lastname,

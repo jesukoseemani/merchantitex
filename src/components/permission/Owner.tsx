@@ -85,22 +85,25 @@ const Owner = () => {
 
                     <div className={styles.secondSection}>
                         <div className={styles.permission__Roles}>
+
+
                             <div>
                                 <Avatar sx={{ bgcolor: "#2684ED", fontSize: "14px", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                    JH
+                                    RM
                                 </Avatar>
                                 <div>
-                                    <p>James Haliday</p>
-                                    <span>jameshaliday@example.com</span>
+                                    <p>Rick Morty</p>
+                                    <span>rickmorty@email.com</span>
 
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
+
+
             </div>
-        </Permission >
+        </Permission>
     )
 }
 
