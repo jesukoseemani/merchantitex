@@ -1,14 +1,10 @@
-import { Box, Switch } from '@mui/material';
-import React from 'react'
-import UseFetch from '../../../components/hooks/UseFetch';
-import { useDispatch } from 'react-redux';
 import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux';
 import { openLoader, closeLoader } from '../../../redux/actions/loader/loaderActions';
-import { useState } from 'react';
 import { openToastAndSetContent } from '../../../redux/actions/toast/toastActions';
-import { useEffect } from 'react';
-import styles from "./styles.module.scss"
-
+import styles from "./style.module.scss"
+import { Checkbox, FormControlLabel, FormGroup } from '@mui/material';
 
 
 
@@ -20,7 +16,7 @@ interface Props {
     iseditable: boolean;
     currency: string
 }
-const PaymentMethod = () => {
+const PaymentTab = () => {
 
     const dispatch = useDispatch();
     const [payment, setPayment] = useState<any>()
@@ -47,9 +43,7 @@ const PaymentMethod = () => {
                     dispatch(
                         openToastAndSetContent({
                             toastContent: message,
-                            toastStyles: {
-                                backgroundColor: "red",
-                            },
+                            msgType: "error"
                         })
                     );
                 }
@@ -68,22 +62,31 @@ const PaymentMethod = () => {
         message: string
     }
 
+    const [paymentOptions, setPaymentOption] = useState<any>([])
+    const [newPaymentOptions, setNewPaymentOption] = useState<any>()
+    // const handleChange = (e: any, id: any) => {
+    //     let { value } = e.target
+    //     setPaymentOption({ ...paymentOptions, value })
 
-    const handleTogglepayment = (e: any) => {
-        setChecked(true)
-        // setChecked((prev) => !prev);
-        console.log(e?.target.value)
+
+
+    // }
+
+    console.log(newPaymentOptions)
+    console.log(paymentOptions);
+
+
+    const handleChange = (e: any, id: any) => {
+
         dispatch(openLoader());
         axios
-            .get<SwitchProp>(`/v1/setting/methods/${e?.target.value}/switch`)
+            .get<SwitchProp>(`/v1/setting/methods/${e.target.value}/switch`)
             .then((res: any) => {
                 if (res?.data?.code === "success") {
                     dispatch(
                         openToastAndSetContent({
                             toastContent: res?.data?.message,
-                            toastStyles: {
-                                backgroundColor: "green",
-                            },
+                            msgType: "success"
                         })
                     );
                     getPaymentMethod()
@@ -99,40 +102,46 @@ const PaymentMethod = () => {
                     dispatch(
                         openToastAndSetContent({
                             toastContent: message,
-                            toastStyles: {
-                                backgroundColor: "red",
-                            },
+                            msgType: "error"
                         })
                     );
                 }
             });
     }
     return (
-        <Box className={styles.box__wrapper}>
+        <div className={styles.account__container}>
+            <div className={styles.account__header}>
+                <div className="left">
+                    <h2>Payment Preferences</h2>
+                    <p>Manage your payment preferences</p>
+                </div>
+                <div className="right">
+                    <button>Save changes</button>
+                </div>
+            </div>
 
-            {!payment?.length ? (
-                <p>No payment method found</p>
-            ) : (
+            <div className={styles.account__body}>
+                <p>Transfer and payout receipts</p>
+                <div>
+                    {!payment?.length ? (
+                        <p>No payment method found</p>
+                    ) : (
 
-                payment?.map((x: any, i: number) => (
-                    <Box key={i} className={styles.box}>
+                        payment?.map((x: any, i: any) => (
+                            <FormGroup key={i}>
+                                <FormControlLabel name={x?.paymentmethod} id={x?.merchantaccountmethodid} value={x?.merchantaccountmethodid} onChange={(e: any, id: any) => handleChange(e, id)} control={<Checkbox defaultChecked />} label={x?.paymentmethod} />
 
-
-                        <h2>Paymentid: <p>{x?.merchantaccountmethodid}</p></h2>
-                        <h2>userId: <p>{x?.merchantaccountid}</p></h2>
-                        <h2>paymentmethod: <p>{x?.paymentmethod}</p></h2>
-                        <h2>currency: <p>{x?.currency}</p></h2>
-                        <h2>Switch Method: <p><Switch datatype={x} value={x?.merchantaccountmethodid} checked={checked} onChange={handleTogglepayment} /></p></h2>
-                        {/* <h2>Switch Method: <p><button onClick={() => handleTogglepayment(x)}>Switch</button></p></h2> */}
-
-                    </Box>
-                ))
-            )
+                            </FormGroup>
+                        ))
+                    )
 
 
-            }
-        </Box>
+                    }
+                </div>
+
+            </div>
+        </div>
     )
 }
 
-export default PaymentMethod
+export default PaymentTab

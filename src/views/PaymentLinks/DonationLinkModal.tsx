@@ -239,9 +239,7 @@ const DonationLinkModal = ({ isOpen, handleClose, setIsUpdate }: DonationLinkMod
 						dispatch(
 							openToastAndSetContent({
 								toastContent: data?.message,
-								toastStyles: {
-									backgroundColor: "green",
-								},
+								msgType: "success"
 							})
 						)
 						setIsUpdate(true)
@@ -256,9 +254,7 @@ const DonationLinkModal = ({ isOpen, handleClose, setIsUpdate }: DonationLinkMod
 						dispatch(
 							openToastAndSetContent({
 								toastContent: message,
-								toastStyles: {
-									backgroundColor: "red",
-								},
+								msgType: "error"
 							})
 						)
 					);

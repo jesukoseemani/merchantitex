@@ -83,9 +83,7 @@ const EditUserModal = ({ data, getUsers }: any) => {
                     dispatch(
                         openToastAndSetContent({
                             toastContent: message,
-                            toastStyles: {
-                                backgroundColor: "red",
-                            },
+                            msgType: "error"
                         })
                     )
                 );
@@ -128,9 +126,7 @@ const EditUserModal = ({ data, getUsers }: any) => {
                             dispatch(
                                 openToastAndSetContent({
                                     toastContent: data?.message,
-                                    toastStyles: {
-                                        backgroundColor: 'green',
-                                    },
+                                    msgType: "success"
                                 })
                             );
                             dispatch(closeModal())
@@ -147,9 +143,7 @@ const EditUserModal = ({ data, getUsers }: any) => {
                         dispatch(
                             openToastAndSetContent({
                                 toastContent: error?.response?.data?.message,
-                                toastStyles: {
-                                    backgroundColor: 'red',
-                                },
+                                msgType: "error"
                             })
                         );
                     }

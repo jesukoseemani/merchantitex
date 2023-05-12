@@ -109,9 +109,7 @@ const PaymentLinksItem = () => {
 			dispatch(
 				openToastAndSetContent({
 					toastContent: 'Failed to get links',
-					toastStyles: {
-						backgroundColor: 'red',
-					},
+					msgType: "error"
 				})
 			);
 		}
@@ -190,9 +188,7 @@ const PaymentLinksItem = () => {
 			dispatch(
 				openToastAndSetContent({
 					toastContent: 'Failed to get transactions',
-					toastStyles: {
-						backgroundColor: 'red',
-					},
+					msgType: "error"
 				})
 			);
 		}

@@ -219,9 +219,7 @@ const Lost = () => {
 			dispatch(
 				openToastAndSetContent({
 					toastContent: 'Failed to get chargebacks',
-					toastStyles: {
-						backgroundColor: 'red',
-					},
+					msgType: "error"
 				})
 			);
 		}
@@ -232,126 +230,126 @@ const Lost = () => {
 	}, [pageNumber, rowsPerPage]);
 
 	return (
-			<div className={styles.container}>
-				<Modal
-					open={isFilterModalOpen}
-					onClose={() => setIsFilterModalOpen(false)}
-					aria-labelledby='chargebacks filter modal'>
-					<div className={styles.filterModalContainer}>
-						<p>Filters</p>
-						<hr />
-						<div className={styles.modalContent}>
-							<div>
-								<p>Due date</p>
-								<div>
-									<p>Today</p>
-									<p>Last 7 days</p>
-									<p>30 days</p>
-									<p>1 year</p>
-								</div>
-							</div>
-							<div>
-								<p>Custom date range</p>
-								<div>
-									<div>Start date</div>
-									<ArrowRightAltIcon />
-									<div>End date</div>
-								</div>
-							</div>
-							<div>
-								<p>Withheld amount</p>
-								<OutlinedInput placeholder='NGN 0.00' size='small' fullWidth />
-							</div>
-							<div>
-								<p>Status</p>
-								<OutlinedInput
-									placeholder='Choose status'
-									size='small'
-									fullWidth
-								/>
-							</div>
-						</div>
-						<hr />
-						<div className={modalBtnClasses.root}>
-							<Button>Clear filter</Button>
-							<Button>Apply filter</Button>
-						</div>
-					</div>
-				</Modal>
-				{/* <NavBar name='Lost' /> */}
-				<div className={styles.pageWrapper}>
-					<div className={styles.topSection}>
+		<div className={styles.container}>
+			<Modal
+				open={isFilterModalOpen}
+				onClose={() => setIsFilterModalOpen(false)}
+				aria-labelledby='chargebacks filter modal'>
+				<div className={styles.filterModalContainer}>
+					<p>Filters</p>
+					<hr />
+					<div className={styles.modalContent}>
 						<div>
-							<p
-								style={{ color: isOverview ? '#27ae60' : '#828282' }}
-								onClick={() => setIsOverview(true)}>
-								OVERVIEW
-							</p>
-							<p
-								style={{ color: !isOverview ? '#27ae60' : '#828282' }}
-								onClick={() => setIsOverview(false)}>
-								HOLDING BALANCE
-							</p>
+							<p>Due date</p>
+							<div>
+								<p>Today</p>
+								<p>Last 7 days</p>
+								<p>30 days</p>
+								<p>1 year</p>
+							</div>
 						</div>
 						<div>
-							<p>This is the chargeback overview information</p>
-						</div>
-						<div>
-							{isOverview ? (
-								<>
-									<div>
-										<p>Remaining of your threshold</p>
-										<p>{threshold}%</p>
-									</div>
-									<div>
-										<p>Chargeback value</p>
-										<p>NGN {value}</p>
-									</div>
-									<div>
-										<p>Chargeback count</p>
-										<p>{count}</p>
-									</div>
-								</>
-							) : (
-								<>
-									{balances.map((balance) => (
-										<div key={balance.currency}>
-											<p>{balance.currency}</p>
-											<p>{balance.sum}</p>
-										</div>
-									))}
-								</>
-							)}
-						</div>
-					</div>
-					<div className={styles.tableSection}>
-						<div>
-							<p>{totalRows} lost chargebacks</p>
-							<div className={btnClasses.root}>
-								<Button onClick={() => setIsFilterModalOpen(true)}>
-									Filter <ArrowDropDownIcon />
-								</Button>
-								<Button>
-									Download <CloudUploadOutlinedIcon />
-								</Button>
+							<p>Custom date range</p>
+							<div>
+								<div>Start date</div>
+								<ArrowRightAltIcon />
+								<div>End date</div>
 							</div>
 						</div>
-						<div className={styles.tableContainer}>
-							<CustomClickTable
-								columns={columns}
-								rows={rows}
-								totalRows={totalRows}
-								changePage={changePage}
-								limit={limit}
-								clickable
-								link='/chargeBacks'
-								identifier='id'
-								rowsData={chargebacks}
+						<div>
+							<p>Withheld amount</p>
+							<OutlinedInput placeholder='NGN 0.00' size='small' fullWidth />
+						</div>
+						<div>
+							<p>Status</p>
+							<OutlinedInput
+								placeholder='Choose status'
+								size='small'
+								fullWidth
 							/>
 						</div>
 					</div>
+					<hr />
+					<div className={modalBtnClasses.root}>
+						<Button>Clear filter</Button>
+						<Button>Apply filter</Button>
+					</div>
+				</div>
+			</Modal>
+			{/* <NavBar name='Lost' /> */}
+			<div className={styles.pageWrapper}>
+				<div className={styles.topSection}>
+					<div>
+						<p
+							style={{ color: isOverview ? '#27ae60' : '#828282' }}
+							onClick={() => setIsOverview(true)}>
+							OVERVIEW
+						</p>
+						<p
+							style={{ color: !isOverview ? '#27ae60' : '#828282' }}
+							onClick={() => setIsOverview(false)}>
+							HOLDING BALANCE
+						</p>
+					</div>
+					<div>
+						<p>This is the chargeback overview information</p>
+					</div>
+					<div>
+						{isOverview ? (
+							<>
+								<div>
+									<p>Remaining of your threshold</p>
+									<p>{threshold}%</p>
+								</div>
+								<div>
+									<p>Chargeback value</p>
+									<p>NGN {value}</p>
+								</div>
+								<div>
+									<p>Chargeback count</p>
+									<p>{count}</p>
+								</div>
+							</>
+						) : (
+							<>
+								{balances.map((balance) => (
+									<div key={balance.currency}>
+										<p>{balance.currency}</p>
+										<p>{balance.sum}</p>
+									</div>
+								))}
+							</>
+						)}
+					</div>
+				</div>
+				<div className={styles.tableSection}>
+					<div>
+						<p>{totalRows} lost chargebacks</p>
+						<div className={btnClasses.root}>
+							<Button onClick={() => setIsFilterModalOpen(true)}>
+								Filter <ArrowDropDownIcon />
+							</Button>
+							<Button>
+								Download <CloudUploadOutlinedIcon />
+							</Button>
+						</div>
+					</div>
+					<div className={styles.tableContainer}>
+						<CustomClickTable
+							columns={columns}
+							rows={rows}
+							totalRows={totalRows}
+							changePage={changePage}
+							limit={limit}
+							clickable
+							link='/chargeBacks'
+							identifier='id'
+							rowsData={chargebacks}
+						/>
+					</div>
 				</div>
 			</div>
+		</div>
 
 	);
 };

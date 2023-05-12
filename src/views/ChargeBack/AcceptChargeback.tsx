@@ -58,9 +58,7 @@ const AcceptChargeback = ({ chargebackid, currency, setOpenAcceptChargebackModal
                         dispatch(
                             openToastAndSetContent({
                                 toastContent: data?.message,
-                                toastStyles: {
-                                    backgroundColor: "green",
-                                },
+                                msgType: "success"
                             })
                         )
 
@@ -75,9 +73,7 @@ const AcceptChargeback = ({ chargebackid, currency, setOpenAcceptChargebackModal
                     dispatch(
                         openToastAndSetContent({
                             toastContent: message,
-                            toastStyles: {
-                                backgroundColor: "red",
-                            },
+                            msgType: "error"
                         })
 
                     );

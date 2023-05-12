@@ -5,15 +5,12 @@ import {
 
 const initialToastState = {
   toastContent: "",
-  toastStyles: {
-    backgroundColor: "green",
-    fontWeight: 800,
-    color: "white",
-  },
+
   toastOpened: false,
+  msgType: ""
 };
 
-const toastReducer = (state = initialToastState, action:any) => {
+const toastReducer = (state = initialToastState, action: any) => {
   switch (action.type) {
     case CLOSE_TOAST: {
       return { ...state, toastOpened: false };
@@ -23,7 +20,9 @@ const toastReducer = (state = initialToastState, action:any) => {
         ...state,
         toastOpened: true,
         toastContent: action.toastContent,
-        toastStyles: { ...state.toastStyles, ...action.toastStyles },
+        msgType: action.msgType,
+        // toastStyles: { ...state.toastStyles, ...action.toastStyles },
+
       };
     }
     default: {

@@ -30,6 +30,7 @@ import FormatToCurrency from '../../helpers/NumberToCurrency';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { ReactComponent as CopyIcon } from "../../assets/images/copyColor.svg";
+import Navigation from "../../components/navbar/Navigation";
 
 
 const useTableStyles = makeStyles({
@@ -186,9 +187,7 @@ const SettlementItem = () => {
       dispatch(
         openToastAndSetContent({
           toastContent: "Failed to get transactions",
-          toastStyles: {
-            backgroundColor: "red",
-          },
+          msgType: "success"
         })
       );
     }
@@ -208,9 +207,7 @@ const SettlementItem = () => {
         dispatch(
           openToastAndSetContent({
             toastContent: "Failed to get settlement",
-            toastStyles: {
-              backgroundColor: "red",
-            },
+            msgType: "error"
           })
         );
       }
@@ -218,95 +215,98 @@ const SettlementItem = () => {
   }, [slug]);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.pageWrapper}>
-        <div className={styles.sectionOne}>
-          <div>
-            <Link to="/balance/settlements">
+    <Navigation title="Settlements">
+
+      <div className={styles.container}>
+        <div className={styles.pageWrapper}>
+          <div className={styles.sectionOne}>
+            <div>
+              <Link to="/balance/settlements">
+                <div>
+                  <ArrowLeftIcon />
+                  <p>Back to settlements</p>
+                </div>
+              </Link>
+            </div>
+          </div>
+
+          <div className={styles.sectionThree}>
+            <div className={styles.sectionThree_header}>
+              <h2>NGN {FormatToCurrency(Number(settlement?.chargeamount)) || 0}</h2>
+
+              <CustomStatus text={capitalize(
+                (settlement?.responsemessage || ""))} type={capitalize((settlement?.responsemessage || ""))} />
+
+            </div>
+
+            <div className={styles.sectionThreeBody}>
               <div>
-                <ArrowLeftIcon />
-                <p>Back to settlements</p>
+                <span>Date / Time </span>
+                <p>{settlement?.settlementdate || ''}</p>
               </div>
-            </Link>
-          </div>
-        </div>
-
-        <div className={styles.sectionThree}>
-          <div className={styles.sectionThree_header}>
-            <h2>NGN {FormatToCurrency(Number(settlement?.chargeamount)) || 0}</h2>
-
-            <CustomStatus text={capitalize(
-              (settlement?.responsemessage || ""))} type={capitalize((settlement?.responsemessage || ""))} />
-
-          </div>
-
-          <div className={styles.sectionThreeBody}>
-            <div>
-              <span>Date / Time </span>
-              <p>{settlement?.settlementdate || ''}</p>
-            </div>
-            <div>
-              <span>Settlement Destination</span>
-              <p>{`${settlement?.settlementaccountname || ''} | ${getBankName(settlement?.settlementbankcode || "")} | ${settlement?.settlementaccountnumber || ''}`}</p>
-            </div>
-            <div>
-              <span>Chargebacks</span>
-              <p>None</p>
-            </div>
-            <div>
-              <span>Refunds</span>
-              <p>None</p>
+              <div>
+                <span>Settlement Destination</span>
+                <p>{`${settlement?.settlementaccountname || ''} | ${getBankName(settlement?.settlementbankcode || "")} | ${settlement?.settlementaccountnumber || ''}`}</p>
+              </div>
+              <div>
+                <span>Chargebacks</span>
+                <p>None</p>
+              </div>
+              <div>
+                <span>Refunds</span>
+                <p>None</p>
+              </div>
             </div>
           </div>
-        </div>
 
 
-        <div className={styles.sectionFour_Payment}>
-          <div className={styles.sectionFour_payment_header}>
-            <h2>Payment information</h2>
-          </div>
-          <div className={styles.sectionFour_payment_body}>
-            <div>
-              <span>Payment reference</span>
-              <p>{settlement?.settlementid || ""}
-                <CopyToClipboard text={String(settlement?.settlementid)}>
-                  <IconButton>
-                    <CopyIcon />
-                  </IconButton>
+          <div className={styles.sectionFour_Payment}>
+            <div className={styles.sectionFour_payment_header}>
+              <h2>Payment information</h2>
+            </div>
+            <div className={styles.sectionFour_payment_body}>
+              <div>
+                <span>Payment reference</span>
+                <p>{settlement?.settlementid || ""}
+                  <CopyToClipboard text={String(settlement?.settlementid)}>
+                    <IconButton>
+                      <CopyIcon />
+                    </IconButton>
 
-                </CopyToClipboard></p>
-            </div>
-            <div>
-              <span>Transaction Fee</span>
-              <p>NGN{FormatToCurrency(Number(settlement?.fee)) || 0}</p>
-            </div>
-            <div>
-              <span>Country/Region</span>
-              <p>{settlement?.settlementcountry || ''}</p>
-            </div>
-            <div>
-              <span>Bank name</span>
-              <p>{getBankName(settlement?.settlementbankcode || "")}</p>
+                  </CopyToClipboard></p>
+              </div>
+              <div>
+                <span>Transaction Fee</span>
+                <p>NGN{FormatToCurrency(Number(settlement?.fee)) || 0}</p>
+              </div>
+              <div>
+                <span>Country/Region</span>
+                <p>{settlement?.settlementcountry || ''}</p>
+              </div>
+              <div>
+                <span>Bank name</span>
+                <p>{getBankName(settlement?.settlementbankcode || "")}</p>
+              </div>
             </div>
           </div>
-        </div>
-        <div className={styles.sectionFour}>
-          <div>
-            <h3>Settlement transactions</h3>
-          </div>
-          <div className={styles.tableContainer}>
-            <CustomClickTable
-              columns={columns}
-              rows={rows}
-              totalRows={totalRows}
-              changePage={changePage}
-              limit={limit}
-              rowsData={txns}
-            />
+          <div className={styles.sectionFour}>
+            <div>
+              <h3>Settlement transactions</h3>
+            </div>
+            <div className={styles.tableContainer}>
+              <CustomClickTable
+                columns={columns}
+                rows={rows}
+                totalRows={totalRows}
+                changePage={changePage}
+                limit={limit}
+                rowsData={txns}
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </Navigation>
   );
 };
 

@@ -70,7 +70,7 @@ export default function TransfersTable({ payout, changePage }: { payout: PayoutR
     { id: "date", label: "Date", minWidth: 100 },
   ];
   const LoanRowTab = useCallback(
-    (currency, amount, status, receipientname, receipientbank, recipientaccountnumber, date, id) => ({
+    (currency, amount, status, receipientname, receipientbank, recipientaccountnumber, date, id, linkingreference) => ({
       amount: (
         <CustomCurrencyFormat currency={currency} amount={amount} />
       ),
@@ -81,7 +81,7 @@ export default function TransfersTable({ payout, changePage }: { payout: PayoutR
       date: (
         <CustomDateFormat date={date} time={date} />
       ),
-      id
+      id: <p>{linkingreference}</p>
     }),
     []
   );
@@ -90,7 +90,16 @@ export default function TransfersTable({ payout, changePage }: { payout: PayoutR
     const newRowOptions: any[] = [];
     payout?.payouts?.map((each: Payout) =>
       newRowOptions.push(
-        LoanRowTab(each?.currency, each?.amount, getTransactionStatus(each?.responsecode!), each?.recipientname, each?.recipientbank, each?.recipientaccountnumber, each?.timein, each?.id)
+        LoanRowTab(each?.currency,
+          each?.amount,
+          getTransactionStatus(each?.responsecode!),
+          each?.recipientname,
+          each?.recipientbank,
+          each?.recipientaccountnumber,
+          each?.timein,
+          each?.id,
+          each?.linkingreference
+        )
       )
     );
     setRows(newRowOptions);
@@ -186,6 +195,9 @@ export default function TransfersTable({ payout, changePage }: { payout: PayoutR
           identifier="id"
           rowsData={payout?.payouts || []}
         />
+
+
+
       </div>
     </div>
   );

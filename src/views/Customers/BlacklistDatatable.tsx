@@ -25,6 +25,7 @@ import { getBlacklistedCustomers } from '../../services/customer';
 import { SETTLEMENT_FILTER_DATA } from '../../constant';
 import FilterModal from '../../components/filterModals/SettlementsFilterModal';
 import { stripEmpty, stripSearch } from '../../utils';
+import Navigation from '../../components/navbar/Navigation';
 
 const BlacklistDatatable = () => {
 	const theme = useTheme();
@@ -136,9 +137,7 @@ const BlacklistDatatable = () => {
 			dispatch(
 				openToastAndSetContent({
 					toastContent: 'Failed to get customers',
-					toastStyles: {
-						backgroundColor: 'red',
-					},
+					msgType: "error"
 				})
 			);
 		}
@@ -153,37 +152,40 @@ const BlacklistDatatable = () => {
 	}
 
 	return (
-		<Box py={"27px"}>
-			<FilterModal
-				isOpen={isFilterModalOpen}
-				handleClose={() => setIsFilterModalOpen(false)}
-				action={action}
-			/>
-
-			<Box>
-				<Stack direction={"row"} flexWrap="wrap" justifyContent="space-between" gap={3}>
-					<h2 className={styles.blacklistHeader}>{totalRows} blacklisted customer(s)</h2>
-					<Box className={styles.headerBox}>
-						<button onClick={() => setIsFilterModalOpen(true)}><FilterAltOutlinedIcon />Filter by:</button>
-						{/* <button> <InsertDriveFileOutlinedIcon />Download</button> */}
-
-					</Box>
-				</Stack>
-			</Box>
-			<div className={styles.tableContainer} style={{ position: 'relative', marginTop: "17px" }}>
-				<CustomClickTable
-					columns={columns}
-					rows={rows}
-					totalRows={totalRows}
-					changePage={changePage}
-					limit={limit}
-					// clickable
-					// link="/customers"
-					identifier='email'
-					rowsData={transactions}
+		<Navigation title='Blacklist'>
+			<Box py={"27px"}>
+				<FilterModal
+					isOpen={isFilterModalOpen}
+					handleClose={() => setIsFilterModalOpen(false)}
+					action={action}
 				/>
-			</div>
-		</Box>
+
+				<Box>
+					<Stack direction={"row"} flexWrap="wrap" justifyContent="space-between" gap={3}>
+						<h2 className={styles.blacklistHeader}>{totalRows} blacklisted customer(s)</h2>
+						<Box className={styles.headerBox}>
+							<button onClick={() => setIsFilterModalOpen(true)}><FilterAltOutlinedIcon />Filter by:</button>
+							{/* <button> <InsertDriveFileOutlinedIcon />Download</button> */}
+
+						</Box>
+					</Stack>
+				</Box>
+				<div className={styles.tableContainer} style={{ position: 'relative', marginTop: "17px" }}>
+					<CustomClickTable
+						columns={columns}
+						rows={rows}
+						totalRows={totalRows}
+						changePage={changePage}
+						limit={limit}
+						// clickable
+						// link="/customers"
+						identifier='email'
+						rowsData={transactions}
+					/>
+				</div>
+			</Box>
+
+		</Navigation>
 	);
 };
 

@@ -31,9 +31,7 @@ const Webhooks = () => {
                         // toastContent: "Login Failed",
                         toastContent: err?.response?.data?.message,
 
-                        toastStyles: {
-                            backgroundColor: 'red',
-                        },
+                        msgType: "error"
                     })
                 );
             });
@@ -63,9 +61,7 @@ const Webhooks = () => {
                         // toastContent: "Login Failed",
                         toastContent: res?.data?.message,
 
-                        toastStyles: {
-                            backgroundColor: 'green',
-                        },
+                        msgType: "success"
                     })
                 );
             })
@@ -76,10 +72,7 @@ const Webhooks = () => {
                     openToastAndSetContent({
                         // toastContent: "Login Failed",
                         toastContent: err?.response?.data?.message,
-
-                        toastStyles: {
-                            backgroundColor: 'red',
-                        },
+                        msgType: "error"
                     })
                 );
             });

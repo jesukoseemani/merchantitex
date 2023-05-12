@@ -1,0 +1,57 @@
+.permissionContainer {
+    margin-top: 33px;
+
+    .headerBox {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-flow: row wrap;
+
+
+        h2 {
+            font-family: 'Avenir semibold';
+            font-style: normal;
+            font-weight: 900;
+            font-size: 20px;
+            line-height: 27px;
+            color: #333333;
+        }
+
+        button {
+            height: 39px;
+        }
+    }
+
+    .permission__body {
+        margin-top: 36px;
+
+        .sidebar {
+            display: flex;
+            position: sticky;
+            top: 7rem;
+
+
+            li {
+                list-style: none;
+                line-height: 60px;
+                margin-top: -23px;
+
+                a {
+                    text-decoration: none;
+                    font-family: 'Avenir';
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 19px;
+                    color: #2F3238;
+                    text-transform: capitalize;
+
+                    &:is(.active, :hover) {
+                        color: #27ae60;
+
+                    }
+                }
+            }
+        }
+    }
+}

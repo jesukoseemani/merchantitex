@@ -118,9 +118,7 @@ export default function ChargeBacks() {
 			dispatch(
 				openToastAndSetContent({
 					toastContent: err?.response?.data?.message || 'Failed to get chargebacks',
-					toastStyles: {
-						backgroundColor: 'red',
-					},
+					msgType: "error"
 				})
 			);
 		} finally {

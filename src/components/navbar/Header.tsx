@@ -46,9 +46,7 @@ const Header = ({ title }: Props) => {
         dispatch(
           openToastAndSetContent({
             toastContent: data.data.message,
-            toastStyles: {
-              backgroundColor: "green",
-            },
+            msgType: "success"
           })
         )
       }
@@ -56,17 +54,14 @@ const Header = ({ title }: Props) => {
 
     } catch (error: any) {
       const { message } = error.response.data;
-      <CustomToast text={message} type="error" />
 
 
-      //  dispatch(
-      //   openToastAndSetContent({
-      //     toastContent: message,
-      //     toastStyles: {
-      //       backgroundColor: "red",
-      //     },
-      //  })
-      // )
+      dispatch(
+        openToastAndSetContent({
+          toastContent: message,
+          msgType: "error"
+        })
+      )
 
 
     }

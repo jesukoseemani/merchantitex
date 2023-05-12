@@ -5,13 +5,17 @@ import NavBar from "../../components/navbar/NavBar";
 import { useHistory } from "react-router-dom";
 import TransactionsList from "./List";
 import ParentContainer from "../../components/ParentContainer/ParentContainer";
+import Navigation from "../../components/navbar/Navigation";
 
 const Transaction = () => {
   const history = useHistory();
   return (
-    <div className={Styles.container}>
-      <TransactionsList />
-    </div>
+    <Navigation title="Transactions">
+      <div className={Styles.container}>
+        <TransactionsList />
+      </div>
+
+    </Navigation>
   );
 };
 
