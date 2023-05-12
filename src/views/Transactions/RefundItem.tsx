@@ -231,7 +231,7 @@ const RefundItem = () => {
             </div>
             <div>
               <span>Status</span>
-              <h2><CustomStatus text='Completed' type={"success"} /></h2>
+              <h2><CustomStatus text='Completed' type={"approved"} /></h2>
             </div>
             <div>
               <span>Balance After Refund</span>
@@ -247,62 +247,77 @@ const RefundItem = () => {
 
         <div className={styles.payment_wrapper}>
 
-          <Box className={styles.paymentStage}>
+          <div className={styles.paymentStage}>
             <div className={styles.last__section__header}>
               <h2>Transaction Event</h2>
 
             </div>
             <div className={styles.stepWrapper}>
               <Stepper activeStep={2} orientation="vertical" sx={{
-                ".css-iprrf9-MuiStepConnector-line": {
-                  height: "55px",
-                  marginTop: "-28px",
-                  border: "0.6px solid #27ae60 !important",
-                  width: "2px",
-
-
-
-
-                  marginLeft: "-3px"
+                '.css-5grjn4-MuiStepConnector-line': {
+                  minHeight: "40px",
+                  marginTop: "-0.6rem"
                 },
 
 
                 // '.css-iprrf9-MuiStepConnector-line': { background: "blue" }
               }}>
                 <Step >
-                  <StepLabel className={styles.steplabel} icon={<CheckColorIcon />} optional={<p>
-                    Aug 13 2020 <span>2:21 PM</span>
-                  </p>}>
-                    <h3>Payment started</h3>
+                  <StepLabel icon={<CheckColorIcon />}
+                  >
+                    <div className={styles.optionalContainer}>
+
+                      <div>
+                        <h3>Payment started</h3>
+                        <p className={styles.timeBox}>
+                          Aug 13 2020 <span>2:21 PM</span>
+                        </p>
+
+                      </div>
+                      <div>
+                        <p>1 min 05secs <span>Time spent making payment</span></p>
+
+                      </div>
+                    </div>
                   </StepLabel>
                 </Step>
-                <Step sx={{ marginTop: "-30px" }}>
-                  <StepLabel className={styles.steplabel} icon={<CheckColorIcon />} optional={<p>
-                    Aug 13 2020 <span>2:21 PM</span>
-                  </p>}>
-                    <h3>Payment Completed</h3>
+                <Step>
+                  <StepLabel icon={<CheckColorIcon />}>
+                    <div className={styles.optionalContainer}>
+
+                      <div>
+                        <h3>Payment Completed</h3>
+                        <p className={styles.timeBox}>
+                          Aug 13 2020 <span>2:21 PM</span>
+                        </p>
+
+                      </div>
+
+                      <div className={styles.error}>
+                        <p>1 Error<span>While making payment</span></p>
+
+                      </div>
+
+
+                    </div>
+
+
                   </StepLabel>
                 </Step>
+
               </Stepper>
-              <div>
-                <div className={styles.timeBox}>
-                  <p className={styles.success}>1 min 05secs <span>Time spent making payment</span></p>
 
-                </div>
-                <div className={styles.errorBox}>
-                  <p className={styles.danger}>1 Error<span>While making payment</span></p>
 
-                </div>
-              </div>
             </div>
-
-
-
             <div className={styles.link}>
 
               <div onClick={handleBreakDown}><p>Show breakdown</p></div>
             </div>
-          </Box>
+
+          </div>
+
+
+
 
           <div>
             <div className={styles.last__section__header}>
@@ -323,19 +338,18 @@ const RefundItem = () => {
               <div className={styles.blacklist} onClick={handleBLacklist}>
                 <p>Blacklist customer  <DoDisturbIcon /></p>
               </div>
-              <br />
-              <div className={styles.profile}>
-                <p>See customer profile </p>
-                <IconButton>
-                  <LinkIcon />
-                </IconButton>
-              </div>
+            </div>
+            <div className={styles.profile}>
+              <p>See customer profile </p>
+              <IconButton>
+                <LinkIcon />
+              </IconButton>
             </div>
           </div>
         </div>
 
-      </div>
-    </Navigation>
+      </div >
+    </Navigation >
 
 
 
