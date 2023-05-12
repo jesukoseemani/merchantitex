@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 import { stripEmpty, stripSearch } from "../../utils";
 import FilterModal from "../../components/filterModals/PayoutFilterModal";
 import { REFUND_FILTER_DATA } from "../../constant";
+import Navigation from "../../components/navbar/Navigation";
 
 const Payout = () => {
 
@@ -38,14 +39,17 @@ const Payout = () => {
 
     return (
 
-        <div className={Styles.container}>
-            <FilterModal
-                isOpen={isFilterModalOpen}
-                handleClose={() => setIsFilterModalOpen(false)}
-                action={action}
-            />
-            {!isData ? <EmptyTransfers /> : <Listtransfer payout={payout!} setOpen={() => setIsFilterModalOpen(true)} changePage={changePage} />}
-        </div>
+        <Navigation title="Payout">
+            <div className={Styles.container}>
+                <FilterModal
+                    isOpen={isFilterModalOpen}
+                    handleClose={() => setIsFilterModalOpen(false)}
+                    action={action}
+                />
+                {!isData ? <EmptyTransfers /> : <Listtransfer payout={payout!} setOpen={() => setIsFilterModalOpen(true)} changePage={changePage} />}
+            </div>
+
+        </Navigation>
 
     );
 };

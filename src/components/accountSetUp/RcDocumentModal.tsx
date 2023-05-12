@@ -73,9 +73,7 @@ const RcDocument = () => {
 								dispatch(
 									openToastAndSetContent({
 										toastContent: res.data.message,
-										toastStyles: {
-											backgroundColor: 'green',
-										},
+										msgType: "success"
 									})
 								);
 								dispatch(FetchProfileDetails());
@@ -90,9 +88,7 @@ const RcDocument = () => {
 								dispatch(
 									openToastAndSetContent({
 										toastContent: err?.response?.data?.message,
-										toastStyles: {
-											backgroundColor: 'red',
-										},
+										msgType: "error"
 									})
 								);
 							});

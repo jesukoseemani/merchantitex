@@ -196,9 +196,7 @@ const BulkRefundModal = ({ isOpen, handleClose, setRefundLogged }: BulkRefundMod
       dispatch(
         openToastAndSetContent({
           toastContent: "Refund logged",
-          toastStyles: {
-            backgroundColor: "green",
-          },
+          msgType: "success"
         })
       );
       handleClose();
@@ -213,9 +211,7 @@ const BulkRefundModal = ({ isOpen, handleClose, setRefundLogged }: BulkRefundMod
       dispatch(
         openToastAndSetContent({
           toastContent: "Failed to log refund",
-          toastStyles: {
-            backgroundColor: "red"
-          },
+          msgType: "error"
         })
       );
     }

@@ -64,9 +64,7 @@ const SingleTransferBankAcct = ({ close }: { close: () => void }) => {
                     dispatch(
                         openToastAndSetContent({
                             toastContent: error?.response?.data?.message || 'Failed to get balances',
-                            toastStyles: {
-                                backgroundColor: 'red',
-                            },
+                            msgType: "error"
                         })
                     );
                 }

@@ -36,7 +36,7 @@ const BusinessContent = () => {
 		nin: Yup.string()
 			.min(11, 'Must be at least 11 characters')
 			.required('NIN is required'),
-	
+
 		supportemail: Yup.string()
 			.email('Email is invalid')
 			.required('This is required'),
@@ -96,9 +96,7 @@ const BusinessContent = () => {
 								dispatch(
 									openToastAndSetContent({
 										toastContent: res.data.message,
-										toastStyles: {
-											backgroundColor: 'green',
-										},
+										msgType: "success"
 									})
 								);
 								dispatch(FetchProfileDetails());
@@ -113,9 +111,7 @@ const BusinessContent = () => {
 								dispatch(
 									openToastAndSetContent({
 										toastContent: err?.response?.data?.message,
-										toastStyles: {
-											backgroundColor: 'red',
-										},
+										msgType: "error"
 									})
 								);
 							});

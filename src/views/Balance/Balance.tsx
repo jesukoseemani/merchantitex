@@ -15,6 +15,7 @@ import FundAcct from "../../components/balance/FundAcct";
 import { getBalance } from "../../services/balance";
 import FormatToCurrency from "../../helpers/NumberToCurrency";
 import { useHistory } from 'react-router-dom';
+import Navigation from "../../components/navbar/Navigation";
 
 const Balance = () => {
   const [balances, setBalances] = useState<BalanceType[]>([])
@@ -37,9 +38,9 @@ const Balance = () => {
       dispatch(
         openToastAndSetContent({
           toastContent: error?.response?.data?.message || "Failed to get balance",
-          toastStyles: {
-            backgroundColor: "red",
-          },
+          msgType: "error"
+
+
         })
       );
     } finally {
@@ -107,44 +108,47 @@ const Balance = () => {
 
   return (
 
-    <Box className={styles.balance__container} mt="27px">
-      {/* <Box > */}
+    <Navigation title="Balance">
+      <Box className={styles.balance__container} mt="27px">
+        {/* <Box > */}
 
-      {balances?.length > 0 && balances.map((balance, i) => (
-        <div key={i}>
-          <Box className={styles.balance__header}>
-            <Stack direction={"row"} justifyContent={"space-between"} alignItems="center" flexWrap={"wrap"}>
-              <h2>{balance?.currency} Balance</h2>
+        {balances?.length > 0 && balances.map((balance, i) => (
+          <div key={i}>
+            <Box className={styles.balance__header}>
+              <Stack direction={"row"} justifyContent={"space-between"} alignItems="center" flexWrap={"wrap"}>
+                <h2>{balance?.currency} Balance</h2>
 
-              <Stack direction={"row"} alignItems="center" columnGap={"10px"} flexWrap="wrap" >
-                <button>See {balance?.currency} Transactions</button>
-                <button onClick={() => history.push(`/balance_history/${balance?.id}`)}>View balance history</button>
+                <Stack direction={"row"} alignItems="center" columnGap={"10px"} flexWrap="wrap" >
+                  <button>See {balance?.currency} Transactions</button>
+                  <button onClick={() => history.push(`/balance_history/${balance?.id}`)}>View balance history</button>
+                </Stack>
+
               </Stack>
 
-            </Stack>
-
-          </Box>
-          <Box className={styles.balance__body}>
-            <Stack direction={"row"} justifyContent="space-between" flexWrap={"wrap"} alignItems={"center"}>
-              <Stack>
-                <p>Available Balance</p>
-                <p>Ledger Balance</p>
-                <p>Rolling Reserve Balance</p>
+            </Box>
+            <Box className={styles.balance__body}>
+              <Stack direction={"row"} justifyContent="space-between" flexWrap={"wrap"} alignItems={"center"}>
+                <Stack>
+                  <p>Available Balance</p>
+                  <p>Ledger Balance</p>
+                  <p>Rolling Reserve Balance</p>
+                </Stack>
+                <Stack>
+                  <p>NGN {FormatToCurrency(balance?.availablebalance) || 0}</p>
+                  <p>NGN {FormatToCurrency(balance?.ledgerbalance) || 0}</p>
+                  <p>NGN {FormatToCurrency(balance?.reservebalance) || 0}</p>
+                </Stack>
               </Stack>
-              <Stack>
-                <p>NGN {FormatToCurrency(balance?.availablebalance) || 0}</p>
-                <p>NGN {FormatToCurrency(balance?.ledgerbalance) || 0}</p>
-                <p>NGN {FormatToCurrency(balance?.reservebalance) || 0}</p>
-              </Stack>
-            </Stack>
-          </Box>
-        </div>
-      ))
-      }
+            </Box>
+          </div>
+        ))
+        }
 
-      {/* </Box> */}
+        {/* </Box> */}
 
-    </Box>
+      </Box>
+
+    </Navigation>
 
 
   );

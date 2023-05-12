@@ -96,37 +96,30 @@ const TwoFaAuth = () => {
                         fetchUserDetails()
                         // < CustomToast text = { data?.message } />
 
-                        // dispatch(
-                        //     openToastAndSetContent({
-                        //         toastContent: data?.message,
-                        //         toastStyles: {
-                        //             backgroundColor: 'green',
-                        //         },
-                        //     })
-                        // )
+                        dispatch(
+                            openToastAndSetContent({
+                                toastContent: data?.message,
+                                msgType: "success"
+                            })
+                        )
                         // window.location.href = "/"
 
                         history.push("/")
-                        return (
-                            <CustomToast text={data?.message} type="success" />
 
-                        )
+
 
                     }
 
                 } catch (err: any) {
                     dispatch(closeLoader());
                     dispatch(saveLoading(false));
-                    <CustomToast text={err?.response?.data?.message} type="error" />
 
-                    // dispatch(
-                    //     openToastAndSetContent({
-                    //         toastContent: err?.response?.data?.message,
-                    //         toastStyles: {
-                    //             backgroundColor: 'red',
-                    //         },
-                    //     })
-                    // );
+                    dispatch(
+                        openToastAndSetContent({
+                            toastContent: err?.response?.data?.message,
+                            msgType: "error"
+                        })
+                    );
                 }
 
             }}

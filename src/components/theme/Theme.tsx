@@ -68,7 +68,7 @@ const theme = createTheme({
           // bacakground: "red !important",÷
 
           '&.Mui-checked': {
-            color: "transparent",
+            color: "#fff",
             '& svg': {
               '& path': {
 
@@ -108,8 +108,11 @@ const theme = createTheme({
     },
     MuiStepIcon: {
       styleOverrides: {
+
         root: {
           color: "#B3B3B3",
+          height: "20px",
+          width: "20px",
           '&.Mui-completed': {
             color: "#27AE60",
           },
@@ -137,15 +140,20 @@ const theme = createTheme({
       styleOverrides: {
         line: {
           // border: "none"
-          height: "80px",
-
-        },
-        lineVertical: {
-          height: "90px",
+          color: "pink",
+          minHeight: "70px",
+          borderLeft: "1px solid #B3B3B3",
           marginTop: "-1rem",
+          marginLeft: "-3px",
 
 
+          "&.Mui-active": {
+            borderLeft: "1px solid green !important",
+          },
         },
+
+
+
 
       }
     },
@@ -159,6 +167,28 @@ const theme = createTheme({
       }
     },
 
+    MuiStepLabel: {
+      styleOverrides: {
+        root: {
+          position: "relative",
+          width: "100% !important",
+
+        },
+
+        iconContainer: {
+          marginTop: "-0.5rem"
+        },
+        labelContainer: {
+          width: "100% !important",
+          position: "absolute",
+          left: "30.8px",
+          top: 0
+
+
+        }
+
+      }
+    },
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
@@ -229,40 +259,87 @@ const theme = createTheme({
     MuiTab: {
       styleOverrides: {
         root: {
-          fontFamily: 'Avenir',
+          fontFamily: 'Avenir semibold',
           fontStyle: "normal",
           fontWeight: 400,
           fontSize: "16px",
           lineHeight: "22px",
           color: "#4F4F4F",
+          position: 'relative',
+          border: "none",
+
+
           textTransform: 'capitalize',
           '&.Mui-selected': {
-            color: "#27AE60"
+            color: "#27AE60",
+            position: "relative",
+            border: "none",
+
+
+
+
+            "&::after": {
+              content: '""',
+              position: "absolute",
+              left: "35%",
+              bottom: "2px",
+              width: "30px !important",
+              height: "3px",
+              borderBottom: "2px solid #27AE60",
+              transform: " translate(-50% -50%)"
+            },
+
           },
 
+
+
+          '& .MuiBox-root': {
+            padding: '0px !important',
+
+
+          },
 
         }
       }
     },
+
 
 
 
     MuiTabs: {
       styleOverrides: {
-        root: { postion: "relative" },
+
+        root: {
+          postion: "relative",
+          textAlign: "left",
+
+          padding: '0px !important',
+
+
+
+
+        },
         indicator: {
-          width: "35px !important",
+          width: "0px !important",
+          textAlign: "center",
           margin: "0px 2.2rem !important",
-          backgroundColor: "#27AE60",
+          border: "none",
+          display: "none"
+
+          // backgroundColor: "#27AE60",
           // marginTop: "-3rem !important",
         },
         flexContainer: {
-          gap: "35px !important"
-        }
+          gap: "35px !important",
+
+        },
+
+
 
 
       }
     },
+
     MuiAccordionSummary: {
       styleOverrides: {
         root: {

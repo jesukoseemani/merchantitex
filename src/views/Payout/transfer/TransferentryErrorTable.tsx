@@ -206,9 +206,7 @@ const TransferentryErrorTable = () => {
             dispatch(
                 openToastAndSetContent({
                     toastContent: 'Failed to get customers',
-                    toastStyles: {
-                        backgroundColor: 'red',
-                    },
+                    msgType: "error"
                 })
             );
         }

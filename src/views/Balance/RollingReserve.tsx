@@ -39,6 +39,7 @@ import FilterModal from "../../components/filterModals/SettlementsFilterModal";
 import { SETTLEMENT_FILTER_DATA } from "../../constant";
 import { stripEmpty, stripSearch } from "../../utils";
 import CustomDateFormat from "../../components/customs/CustomDateFormat";
+import Navigation from "../../components/navbar/Navigation";
 
 const useBtnStyles = makeStyles({
   root: {
@@ -285,9 +286,7 @@ const RollingReserve = () => {
       dispatch(
         openToastAndSetContent({
           toastContent: err?.response?.data?.message || "Failed to get reserves",
-          toastStyles: {
-            backgroundColor: "red",
-          },
+          msgType: "error"
         })
       );
     } finally {
@@ -306,44 +305,47 @@ const RollingReserve = () => {
 
   return (
 
-    <div className={styles.container}>
-      <FilterModal
-        isOpen={isFilterModalOpen}
-        handleClose={() => setIsFilterModalOpen(false)}
-        action={action}
-      />
+    <Navigation title="Rolling reserve">
 
-      <div className={styles.pageWrapper}>
-        <Box mb={2} className={styles.historyTopContainer}>
-          <div>
-            <h2>{totalRows} Rolling Reserve(s)</h2>
-          </div>
-          <div className={btnClasses.root}>
+      <div className={styles.container}>
+        <FilterModal
+          isOpen={isFilterModalOpen}
+          handleClose={() => setIsFilterModalOpen(false)}
+          action={action}
+        />
+
+        <div className={styles.pageWrapper}>
+          <Box mb={2} className={styles.historyTopContainer}>
             <div>
-              <Button onClick={() => setIsFilterModalOpen(true)}>
-                <FilterAltOutlinedIcon /> Filter by:
+              <h2>{totalRows} Rolling Reserve(s)</h2>
+            </div>
+            <div className={btnClasses.root}>
+              <div>
+                <Button onClick={() => setIsFilterModalOpen(true)}>
+                  <FilterAltOutlinedIcon /> Filter by:
+                </Button>
+              </div>
+              <Button onClick={calDownload}>
+                <InsertDriveFileOutlinedIcon /> Download
               </Button>
             </div>
-            <Button onClick={calDownload}>
-              <InsertDriveFileOutlinedIcon /> Download
-            </Button>
+          </Box>
+          <div className={styles.tableContainer}>
+            <CustomClickTable
+              columns={columns}
+              rows={rows}
+              totalRows={totalRows}
+              changePage={changePage}
+              limit={limit}
+              clickable
+              link="/rolling_reserve"
+              identifier="id"
+              rowsData={reserves}
+            />
           </div>
-        </Box>
-        <div className={styles.tableContainer}>
-          <CustomClickTable
-            columns={columns}
-            rows={rows}
-            totalRows={totalRows}
-            changePage={changePage}
-            limit={limit}
-            clickable
-            link="/rolling_reserve"
-            identifier="id"
-            rowsData={reserves}
-          />
         </div>
       </div>
-    </div>
+    </Navigation>
 
   );
 };

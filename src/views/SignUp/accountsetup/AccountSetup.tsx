@@ -17,6 +17,7 @@ import { openToastAndSetContent } from '../../../redux/actions/toast/toastAction
 import { useSelector } from 'react-redux'
 import { ReactComponent as WarningIcon } from "../../../assets/images/exclamation.svg"
 import useSetup from '../../../components/hooks/useSetup'
+import Navigation from '../../../components/navbar/Navigation'
 
 interface Props {
     isBusinessApproved: boolean;
@@ -54,9 +55,7 @@ const AccountSetup = () => {
                 dispatch(
                     openToastAndSetContent({
                         toastContent: message,
-                        toastStyles: {
-                            backgroundColor: "red",
-                        },
+                        msgType: "error"
                     })
                 )
             );
@@ -141,7 +140,7 @@ const AccountSetup = () => {
     return (
 
 
-        <>
+        <Navigation title='Home'>
             {setupStatus?.rejectedDocs && setupStatus?.rejectedDocs?.length > 0 && <div className={Styles.rejectDoc_box}>
                 <div className={Styles.rejectDoc_left}>
                     <div><WarningIcon style={{ color: "#A17A00", height: "43px", width: "43px" }} /></div>
@@ -173,7 +172,7 @@ const AccountSetup = () => {
                             <div> <ReactSVG src={businessSetup ? ColorcheckIcon : CheckIcon} /></div>
                             <div>   <p>Business Information
                                 and Documentation</p></div>
-                            <div onClick={handleBussinessForm}> <button className={businessSetup && Styles.disable}>Continue</button></div>
+                            <div onClick={handleBussinessForm}> <button disabled={businessSetup} className={businessSetup && Styles.disable}>Continue</button></div>
 
 
 
@@ -191,7 +190,7 @@ const AccountSetup = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </Navigation>
 
     )
 }

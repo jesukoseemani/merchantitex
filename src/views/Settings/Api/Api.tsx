@@ -55,9 +55,7 @@ const Api = () => {
 					dispatch(
 						openToastAndSetContent({
 							toastContent: message,
-							toastStyles: {
-								backgroundColor: "red",
-							},
+							msgType: "error"
 						})
 					);
 				}
@@ -82,9 +80,7 @@ const Api = () => {
 				dispatch(
 					openToastAndSetContent({
 						toastContent: data?.message,
-						toastStyles: {
-							backgroundColor: 'green',
-						},
+						msgType: "success",
 					})
 				);
 
@@ -102,9 +98,7 @@ const Api = () => {
 				dispatch(
 					openToastAndSetContent({
 						toastContent: message,
-						toastStyles: {
-							backgroundColor: 'red',
-						},
+						msgType: "error"
 					})
 				);
 			}

@@ -10,6 +10,7 @@ import TransfersTable from "../../components/table/TransfersTable";
 import ParentContainer from "../../components/ParentContainer/ParentContainer";
 import Listtransfer from "./transfer/Listtransfer";
 import { getPayoutService } from "../../services/payout";
+import Navigation from "../../components/navbar/Navigation";
 
 const Transfers = () => {
   // const { currency } = queryString.parse(location.search);
@@ -22,31 +23,35 @@ const Transfers = () => {
   }, [])
   return (
 
-    <div className={Styles.container}>
+    <Navigation title="Payouts">
 
-      <div className={Styles.panel}>
-        <div>
+      <div className={Styles.container}>
+
+        <div className={Styles.panel}>
           <div>
-            <span>Payout balance:</span>
-            <h2>NGN 2,345,678.00</h2>
+            <div>
+              <span>Payout balance:</span>
+              <h2>NGN 2,345,678.00</h2>
+            </div>
+          </div>
+          <div>
+            <div>
+              <span>Total transfer value:</span>
+              <h2>NGN 2,345,678.00</h2>
+            </div>
+          </div>
+          <div>
+            <div>
+              <span>Successful transfers:</span>
+              <h2>22</h2>
+            </div>
           </div>
         </div>
-        <div>
-          <div>
-            <span>Total transfer value:</span>
-            <h2>NGN 2,345,678.00</h2>
-          </div>
-        </div>
-        <div>
-          <div>
-            <span>Successful transfers:</span>
-            <h2>22</h2>
-          </div>
-        </div>
+        {isEmpty ? <EmptyTransfers /> : <Listtransfer />}
+        {/* <EmptyTransfers /> */}
       </div>
-      {isEmpty ? <EmptyTransfers /> : <Listtransfer />}
-      {/* <EmptyTransfers /> */}
-    </div>
+    </Navigation>
+
 
   );
 };

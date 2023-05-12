@@ -24,15 +24,12 @@ import PointOfSale from "../views/PointOfSale/PointOfSale";
 import TerminalRequests from "../views/PointOfSale/TerminalRequest";
 import Bills from "../views/Bills/BillTabPanel";
 import GeneralSettings from "../views/Settings/GeneralSettings";
-import AccountSettings from "../views/Settings/AccountSettings";
-import Api from "../views/Settings/Api/Api";
+import AccountSettings from "../views/Settings/AcctPreference/AccountSettings";
 import Users from "../views/Settings/Users";
-import WebHooks from "../views/Settings/webhook/WebHooks";
 import BankAccounts from "../views/Settings/bankAccount/BankAccounts";
 import SignUp from "../views/SignUp/SignUpPage";
 import IndividualSignUp from "../views/SignUp/IndividualSignUp";
 import BusinessSignUp from "../views/SignUp/business/BusinessSignUp";
-import { Web } from "@material-ui/icons";
 import ProtectedRoute from "../components/ProtectedRoutes";
 import SignIn from "../views/SignIn/SignIn";
 import AccountType from "../components/accountSetUp/AccountType";
@@ -82,7 +79,7 @@ import BlacklistDatatable from "../views/Customers/BlacklistDatatable";
 import InvoiceDetails from "../components/bills/invoice/InvoiceDetails";
 import TransferHistory from "../views/Payout/transfer/TransferHistory";
 import Navigation from "../components/navbar/Navigation";
-import Permission from "../views/Settings/Permission";
+import Permission from "../views/Settings/permission/Permission";
 import Administrator from "../components/permission/Administrator";
 import Operations from "../components/permission/Operations";
 import Support from "../components/permission/Support";
@@ -93,18 +90,17 @@ import SinglePayout from "../views/Payout/SinglePayout";
 import Owner from "../components/permission/Owner";
 import UsersPermission from "../components/permission/Users";
 import UserActivity from '../views/Settings/user/UserActivity';
-import PaymentMethod from "../views/Settings/payment/PaymentMethod";
 import TwoFaAuth from "../views/SignIn/TwoFaAuth";
-import TestForm from '../components/TestForm';
 import { changeNewNavbar } from "../redux/actions/navbarNew/navbarNewActions";
+import Api from '../views/Settings/Api/Api';
+import WebHooks from '../views/Settings/webhook/WebHooks';
+import Checkout from "../views/Settings/Checkout/Checkout";
 
 
 
 export default function AppRoutes() {
   // const { loadingState } = useSelector((state) => state?.loadingStateReducer);
-  const { access_token: loadingState } = useSelector(
-    (state) => state?.authReducer?.auth
-  );
+  const { access_token: loadingState } = useSelector((state) => state?.authReducer?.auth);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -127,9 +123,8 @@ export default function AppRoutes() {
         dispatch(
           openToastAndSetContent({
             toastContent: "Failed",
-            toastStyles: {
-              backgroundColor: "red",
-            },
+
+            msgType: "error"
           })
         );
       } else if (error.request) {
@@ -138,10 +133,10 @@ export default function AppRoutes() {
         dispatch(
           openToastAndSetContent({
             toastContent: "Failed",
-            toastStyles: {
-              backgroundColor: "red",
-            },
+
+            msgType: "error"
           })
+
         );
       }
       // handle expired token
@@ -153,10 +148,9 @@ export default function AppRoutes() {
         dispatch(
           openToastAndSetContent({
             toastContent: "Token Expired",
-            toastStyles: {
-              backgroundColor: "red",
-            },
+            msgType: "error"
           })
+
         );
         localStorage.clear();
         dispatch(logOut());
@@ -206,142 +200,159 @@ export default function AppRoutes() {
         <Route exact path="/reset/password">
           <ResetPassword />
         </Route>
-        <Route exact path="/testform">
-          <TestForm />
-        </Route>
 
+
+
+        <ProtectedRoute
+          exact
+          path="/"
+          component={MerchantOverview}
+          AuthUser={loadingState}
+        />
+        <ProtectedRoute
+          exact
+          path="/transactions"
+          component={Transactions}
+          AuthUser={loadingState}
+        />
+
+
+
+        <ProtectedRoute
+          exact
+          path="/transactions/list"
+          component={TransactionsList}
+          AuthUser={loadingState}
+        />
+
+        <ProtectedRoute
+          exact
+          path="/transaction/:id"
+          component={Transaction}
+          AuthUser={loadingState}
+        />
+        <ProtectedRoute
+          exact
+          path="/transactions/refund"
+          component={Refund}
+          AuthUser={loadingState}
+        />
+        <ProtectedRoute
+          exact
+          path="/transactions/refund/:id"
+          component={RefundItem}
+          AuthUser={loadingState}
+        />
+        <ProtectedRoute
+          exact
+          path="/balance"
+          component={Balance}
+          AuthUser={loadingState}
+        />
+        <ProtectedRoute
+          exact
+          path="/balance_history/:id"
+          component={BalanceHistory}
+          AuthUser={loadingState}
+        />
+        <ProtectedRoute
+          exact
+          path="/balance/balance_history/:slug"
+          component={SettlementItem}
+          AuthUser={loadingState}
+        />
+        <ProtectedRoute
+          exact
+          path="/balance/settlements"
+          component={Settlements}
+          AuthUser={loadingState}
+        />
+
+        <ProtectedRoute
+          exact
+          path="/balance/settlements/:slug"
+          component={SettlementItem}
+          AuthUser={loadingState}
+        />
+        <ProtectedRoute
+          exact
+          path="/balance/rolling_reserve"
+          component={RollingReserve}
+          AuthUser={loadingState}
+        />
+        <ProtectedRoute
+          exact
+          path="/rolling_reserve/:id"
+          component={RollingReserveItem}
+          AuthUser={loadingState}
+        />
+
+        <ProtectedRoute
+          exact
+          path="/customers"
+          component={CustomersTab}
+          AuthUser={loadingState}
+        />
+
+        <ProtectedRoute
+          exact
+          path="/customers/:slug"
+          component={CustomerItem}
+          AuthUser={loadingState}
+        />
+
+        <ProtectedRoute
+          exact
+          path="/blacklist"
+          component={BlacklistDatatable}
+          AuthUser={loadingState}
+        />
+        <ProtectedRoute
+          exact
+          path="/payout/transfers"
+          component={Transfers}
+          AuthUser={loadingState}
+        />
+        <ProtectedRoute
+          exact
+          path="/payout/transfer/entries"
+          component={BulkTransferEntry}
+          AuthUser={loadingState}
+        />
+
+        <ProtectedRoute
+          exact
+          path="/payout/:id"
+          component={Pendingdetails}
+          AuthUser={loadingState}
+        />
+
+
+
+
+        <ProtectedRoute
+          exact
+          path="/payout"
+          component={Payout}
+          AuthUser={loadingState}
+        />
+        <ProtectedRoute
+          exact
+          path="/setup"
+          component={AccountSetup}
+          AuthUser={loadingState}
+        />
 
         <Navigation title="">
           <>
-            <ProtectedRoute
-              exact
-              path="/"
-              component={MerchantOverview}
-              AuthUser={loadingState}
-            />
-
 
             {/* <ProtectedRoute
-              exact
-              path='/merchant_overview'
-              component={MerchantOverview}
-              AuthUser={loadingState}
-            /> */}
+          exact
+          path="/payout/:id"
+          component={SinglePayout}
+          AuthUser={loadingState}
+        /> */}
 
-            <ProtectedRoute
-              exact
-              path="/transactions"
-              component={Transactions}
-              AuthUser={loadingState}
-            />
-            {/* <ProtectedRoute
-              exact
-              path="/transactions"
-              component={Transactions}
-              AuthUser={AccountSetUp}
-            /> */}
-            <ProtectedRoute
-              exact
-              path="/transactions/list"
-              component={TransactionsList}
-              AuthUser={loadingState}
-            />
-            <ProtectedRoute
-              exact
-              path="/transaction/:id"
-              component={Transaction}
-              AuthUser={loadingState}
-            />
-
-            <ProtectedRoute
-              exact
-              path="/transactions/refund"
-              component={Refund}
-              AuthUser={loadingState}
-            />
-            <ProtectedRoute
-              exact
-              path="/transactions/refund/:id"
-              component={RefundItem}
-              AuthUser={loadingState}
-            />
-
-            <ProtectedRoute
-              exact
-              path="/balance"
-              component={Balance}
-              AuthUser={loadingState}
-            />
-
-            <ProtectedRoute
-              exact
-              path="/balance_history/:id"
-              component={BalanceHistory}
-              AuthUser={loadingState}
-            />
-            <ProtectedRoute
-              exact
-              path="/balance/balance_history/:slug"
-              component={SettlementItem}
-              AuthUser={loadingState}
-            />
-            <ProtectedRoute
-              exact
-              path="/balance/settlements"
-              component={Settlements}
-              AuthUser={loadingState}
-            />
-            <ProtectedRoute
-              exact
-              path="/balance/settlements/:slug"
-              component={SettlementItem}
-              AuthUser={loadingState}
-            />
-            <ProtectedRoute
-              exact
-              path="/rolling_reserve/:id"
-              component={RollingReserveItem}
-              AuthUser={loadingState}
-            />
-
-            <ProtectedRoute
-              exact
-              path="/balance/rolling_reserve"
-              component={RollingReserve}
-              AuthUser={loadingState}
-            />
-
-            <ProtectedRoute
-              exact
-              path="/customers"
-              component={CustomersTab}
-              AuthUser={loadingState}
-            />
-            <ProtectedRoute
-              exact
-              path="/blacklist"
-              component={BlacklistDatatable}
-              AuthUser={loadingState}
-            />
-
-            <ProtectedRoute
-              exact
-              path="/customers/:slug"
-              component={CustomerItem}
-              AuthUser={loadingState}
-            />
-            <ProtectedRoute
-              exact
-              path="/payout/transfers"
-              component={Transfers}
-              AuthUser={loadingState}
-            />
-            <ProtectedRoute
-              exact
-              path="/payout/transfer/entries"
-              component={BulkTransferEntry}
-              AuthUser={loadingState}
-            />
             <ProtectedRoute
               exact
               path="/payout/transfer/history"
@@ -373,12 +384,7 @@ export default function AppRoutes() {
               AuthUser={loadingState}
             />
 
-            <ProtectedRoute
-              exact
-              path="/payout/pending_approval/details/:id"
-              component={Pendingdetails}
-              AuthUser={loadingState}
-            />
+
 
             <ProtectedRoute
               exact
@@ -393,19 +399,6 @@ export default function AppRoutes() {
               AuthUser={loadingState}
             />
 
-            <ProtectedRoute
-              exact
-              path="/payout"
-              component={Payout}
-              AuthUser={loadingState}
-            />
-
-            <ProtectedRoute
-              exact
-              path="/payout/:id"
-              component={SinglePayout}
-              AuthUser={loadingState}
-            />
 
             <ProtectedRoute
               exact
@@ -562,12 +555,7 @@ export default function AppRoutes() {
               component={BulkBillPayment}
               AuthUser={loadingState}
             />
-            <ProtectedRoute
-              exact
-              path="/setup"
-              component={AccountSetup}
-              AuthUser={loadingState}
-            />
+
 
 
           </>
@@ -657,11 +645,10 @@ export default function AppRoutes() {
             />
             <ProtectedRoute
               exact
-              path="/general_setting/paymentmethod"
-              component={PaymentMethod}
+              path="/general_setting/checkout"
+              component={Checkout}
               AuthUser={loadingState}
             />
-
             <ProtectedRoute
               exact
               path="/general_setting/account_settings"

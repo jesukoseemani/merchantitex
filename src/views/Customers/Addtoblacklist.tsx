@@ -22,9 +22,8 @@ const Addtoblacklist: FC<{ id: string; callback?: () => void; fn?: () => void }>
       dispatch(
         openToastAndSetContent({
           toastContent: err?.response?.data?.message || 'Failed to blacklist customer',
-          toastStyles: {
-            backgroundColor: 'red',
-          },
+          msgType: "error"
+
         })
       );
     } finally {

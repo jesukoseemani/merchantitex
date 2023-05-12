@@ -26,6 +26,7 @@ import useDownload from '../../hooks/useDownload';
 import { BASE_URL } from '../../config';
 import FilterModal from '../../components/filterModals/SettlementsFilterModal';
 import { SETTLEMENT_FILTER_DATA } from '../../constant';
+import Navigation from '../../components/navbar/Navigation';
 
 const CustomersTab = ({ value, index }: any) => {
 	const theme = useTheme();
@@ -182,9 +183,7 @@ const CustomersTab = ({ value, index }: any) => {
 			dispatch(
 				openToastAndSetContent({
 					toastContent: err?.response?.data?.message || 'Failed to get customers',
-					toastStyles: {
-						backgroundColor: 'red',
-					},
+					msgType: "error"
 				})
 			);
 		}
@@ -220,38 +219,41 @@ const CustomersTab = ({ value, index }: any) => {
 
 	return (
 
-		<Box mt={"31px"}>
-			<FilterModal
-				isOpen={isFilterModalOpen}
-				handleClose={() => setIsFilterModalOpen(false)}
-				action={action}
-			/>
+		<Navigation title='Customers'>
+			<Box mt={"31px"}>
+				<FilterModal
+					isOpen={isFilterModalOpen}
+					handleClose={() => setIsFilterModalOpen(false)}
+					action={action}
+				/>
 
-			<Box>
-				<Stack direction={"row"} flexWrap="wrap" justifyContent="space-between" gap={3}>
-					<h2>{totalRows} customer(s)</h2>
-					<Box className={styles.headerBox}>
-						<button onClick={() => setIsFilterModalOpen(true)}><FilterAltOutlinedIcon />Filter by:</button>
-						<button onClick={calDownload}> <InsertDriveFileOutlinedIcon />Download</button>
-						<button onClick={AddCustomer}>+ Add customer</button>
-					</Box>
-				</Stack>
+				<Box>
+					<Stack direction={"row"} flexWrap="wrap" justifyContent="space-between" gap={3}>
+						<h2>{totalRows} customer(s)</h2>
+						<Box className={styles.headerBox}>
+							<button onClick={() => setIsFilterModalOpen(true)}><FilterAltOutlinedIcon />Filter by:</button>
+							<button onClick={calDownload}> <InsertDriveFileOutlinedIcon />Download</button>
+							<button onClick={AddCustomer}>+ Add customer</button>
+						</Box>
+					</Stack>
+				</Box>
+
+				<div className={styles.tableContainer} style={{ position: 'relative' }}>
+					<CustomClickTable
+						columns={columns}
+						rows={rows}
+						totalRows={totalRows}
+						changePage={changePage}
+						limit={limit}
+						clickable
+						link="/customers"
+						identifier={"id"}
+						rowsData={customers}
+					/>
+				</div>
 			</Box>
 
-			<div className={styles.tableContainer} style={{ position: 'relative' }}>
-				<CustomClickTable
-					columns={columns}
-					rows={rows}
-					totalRows={totalRows}
-					changePage={changePage}
-					limit={limit}
-					clickable
-					link="/customers"
-					identifier={"id"}
-					rowsData={customers}
-				/>
-			</div>
-		</Box>
+		</Navigation>
 
 	);
 };

@@ -50,9 +50,7 @@ const useCustomUpload = () => {
                 dispatch(
                     openToastAndSetContent({
                         toastContent: message,
-                        toastStyles: {
-                            backgroundColor: "red",
-                        },
+                        msgType: "error"
                     })
                 )
             );

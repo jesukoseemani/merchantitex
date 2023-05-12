@@ -7,7 +7,12 @@
     align-items: center;
     width: max-content;
     gap: 20px;
-    z-index: 99999 !important;
+    z-index: 99999999 !important;
+    position: absolute;
+    right: 1rem;
+    background-color: #fff;
+    top: 0.3rem;
+
 
     p {
         font-family: 'Avenir';

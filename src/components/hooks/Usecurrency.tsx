@@ -45,9 +45,7 @@ const useCurrency = () => {
                 dispatch(
                     openToastAndSetContent({
                         toastContent: err?.response?.data?.message,
-                        toastStyles: {
-                            backgroundColor: 'red',
-                        },
+                        msgType: "error"
                     })
                 );
             }
