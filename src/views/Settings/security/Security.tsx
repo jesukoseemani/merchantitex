@@ -38,7 +38,6 @@ const Security = ({ fetchUserDetails, me }: any) => {
     const handlePassWordChange = async () => {
         try {
             const { data } = await axios.post<passwordProp>("/v1/profile/password/change", passInput)
-            console.log(data)
             if (data?.code === "success") {
                 setPassInput({
                     currentPassword: "",
@@ -53,7 +52,7 @@ const Security = ({ fetchUserDetails, me }: any) => {
             }
         } catch (error: any) {
             dispatch(closeLoader());
-            const { message } = error.response.data;
+            const { message } = error?.response?.data;
             dispatch(
                 openToastAndSetContent({
                     toastContent: message,

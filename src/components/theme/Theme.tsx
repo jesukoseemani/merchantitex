@@ -141,9 +141,9 @@ const theme = createTheme({
         line: {
           // border: "none"
           color: "pink",
-          height: "105px",
+          minHeight: "70px",
           borderLeft: "1px solid #B3B3B3",
-          marginTop: "-1.2rem",
+          marginTop: "-1rem",
           marginLeft: "-3px",
 
 

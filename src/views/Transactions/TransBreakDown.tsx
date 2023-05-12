@@ -10,7 +10,7 @@ const TransBreakDown = () => {
     let data2 = [
         {
             time: "2:49 PM",
-            label: "Initiated Checkout from https://imorapidtransfer.com/deposit",
+            label: "Initiated Checkout from https://imorapidtransfer",
             icon: <CheckIcon />,
             id: 1,
         },
@@ -44,63 +44,53 @@ const TransBreakDown = () => {
 
             <div className={styles.stepperBox}>
                 <Stepper activeStep={1} orientation="vertical" sx={{
-                    "& .MuiStepConnector-root": {
-                        height: "30px",
+                    '.css-5grjn4-MuiStepConnector-line': {
+                        minHeight: "40px",
+                        marginTop: "-0.6rem"
 
-                    },
-                    ".css-iprrf9-MuiStepConnector-line": {
-                        height: "45px",
-                        marginLeft: "-3px",
-                        border: "0.6px solid #27ae60 !important",
-                        width: "2px",
-                        marginTop: "-1.6rem !important"
                     }
-
-
                 }}>
                     <Step>
-                        <StepLabel className={styles.steplabel} icon={<CheckColorIcon />} optional={<p>
-                            Aug 13 2020 <span>2:21 PM</span>
-                        </p>}>
-                            <h3>Payment started</h3>
+                        <StepLabel className={styles.steplabel} icon={<CheckColorIcon />}>
+                            <div style={{ marginTop: "-0.4rem" }}>
+                                <h3>Payment started</h3>
+                                <p>
+                                    Aug 13 2020 <span>2:21 PM</span>
+                                </p>
+                            </div>
                         </StepLabel>
                     </Step>
-                    <Step sx={{ marginTop: "-30px" }}>
-                        <StepLabel className={styles.steplabel} icon={<CheckColorIcon />} optional={<p>
-                            Aug 13 2020 <span>2:21 PM</span>
-                        </p>}>
-                            <h3>Payment Completed</h3>
+                    <Step>
+                        <StepLabel className={styles.steplabel} icon={<CheckColorIcon />}>
+                            <div style={{ marginTop: "-0.4rem" }}>
+
+                                <h3>Payment Completed</h3>
+                                <p>
+                                    Aug 13 2020 <span>2:21 PM</span>
+                                </p>
+                            </div>
                         </StepLabel>
                     </Step>
                 </Stepper>
             </div>
 
+
             <div className={styles.stepper__container_2}>
                 <Stepper activeStep={1} orientation="vertical" sx={{
-                    "& .MuiStepConnector-root": {
-                        height: "0px",
-                        marginTop: "-4rem"
-
+                    '.css-5grjn4-MuiStepConnector-line': {
+                        minHeight: "45px",
+                        marginTop: "-0.6rem"
                     },
-                    ".css-iprrf9-MuiStepConnector-line": {
-                        height: "40px",
-                        marginLeft: "-3px",
-                        border: "0.6px solid #27ae60 !important",
-                        width: "2px",
-
-
-
-                    }
-
 
                 }}>
                     {
                         data2?.map((x: any) => (
-                            <Step sx={{ marginTop: "-1rem" }}>
-                                <StepLabel className={styles.steplabel} icon={x?.icon} optional={<h3>{x?.label} <br />  </h3>} key={x?.id}>
-                                    <br />
-                                    {/* <br /> */}
-                                    <span>{x?.time}</span>
+                            <Step>
+                                <StepLabel className={styles.steplabel} icon={x?.icon} key={x?.id}>
+                                    <div style={{ marginTop: "5px" }}>
+                                        <span>{x?.time}</span>
+                                        <h3>{x?.label}   </h3>
+                                    </div>
 
                                 </StepLabel>
 

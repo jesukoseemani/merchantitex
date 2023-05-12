@@ -131,7 +131,12 @@ const BusinessSetup = () => {
 
             <div>
 
-                <Stepper activeStep={activeStep} orientation="vertical">
+                <Stepper activeStep={activeStep} orientation="vertical" sx={{
+                    '.css-5grjn4-MuiStepConnector-line': {
+                        minHeight: "105px"
+                    }
+
+                }}>
                     {accountType === "INDIVIDUAL" ? (
                         stepContact?.map((step, index) => (
                             <Step key={index}>

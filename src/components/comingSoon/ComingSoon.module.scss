@@ -3,31 +3,46 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 70vh;
+    min-height: 90vh;
+    background: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    border-radius: 20px;
 }
 
 .wrapperh3 {
-    font-size: 28px;
-    color: #303041;
-    line-height: 20px;
+    font-family: 'Avenir bold';
+    font-style: normal;
     font-weight: 500;
-    margin-bottom: 24px;
+    font-size: 14px;
+    line-height: 19px;
+
+    color: #000000;
 }
 
 .wrapperP {
-    font-size: 18px;
-    color: #525261;
-    line-height: 20px;
+    font-family: 'Avenir';
+    font-style: normal;
     font-weight: 400;
-    margin-bottom: 81px;
+    font-size: 14px;
+    line-height: 21px;
+    width: 55%;
+    max-width: 100%;
+
+    text-align: center;
+
+    color: #9EA0B0;
+
+    @media screen and (max-width:768px) {
+        width: 80%;
+    }
 }
 
-.wrapperimg {
-    width: 105px;
-    margin-bottom: 66px;
-    height: 105px;
-    object-fit: cover;
-}
+// .wrapperimg {
+//     width: 105px;
+//     margin-bottom: 66px;
+//     height: 105px;
+//     object-fit: cover;
+// }
 
 
 .goHome {
@@ -38,4 +53,13 @@
     border-radius: 8px;
     font-weight: 800;
     font-size: 16px;
+}
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
