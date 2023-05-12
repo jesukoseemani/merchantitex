@@ -80,9 +80,7 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
                 dispatch(
                     openToastAndSetContent({
                         toastContent: message,
-                        toastStyles: {
-                            backgroundColor: "red",
-                        },
+                        msgType: "error"
                     })
                 )
             );
@@ -91,7 +89,7 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
         }
     }
 
-
+    console.log("123")
 
 
     const splitImgUrl = (imgurl: string) => {
@@ -174,6 +172,8 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
                 supportEmail,
                 supportPhone,
                 websiteUrl,
+                city,
+                email,
                 "contactPerson": {
                     firstname,
                     lastname,
@@ -207,7 +207,6 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
                                 padding: 0,
                                 width: "400px",
                                 minHeight: "600px",
-
                                 borderRadius: 20,
                             },
                             modalTitle: "Add a bank account",
@@ -249,9 +248,7 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
             dispatch(
                 openToastAndSetContent({
                     toastContent: err?.response?.data?.message,
-                    toastStyles: {
-                        backgroundColor: 'red',
-                    },
+                    msgType: "error",
                 })
             );
         }

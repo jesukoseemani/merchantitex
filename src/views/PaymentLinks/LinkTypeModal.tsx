@@ -81,12 +81,18 @@ const useStyles = makeStyles({
 			color: '#414141',
 			fontSize: '1rem',
 			fontWeight: '500',
+			fontFamily: 'Avenir bold',
+			fontStyle: "normal",
+			lineHeight: "22px",
 		},
 		'& p:last-of-type': {
 			color: '#8B8B8B',
-			fontSize: '.875rem',
 			fontWeight: '400',
 			marginTop: '.2rem',
+			fontFamily: 'Avenir light',
+			fontStyle: "normal",
+			fontSize: "14px",
+			lineHeight: "21px",
 		},
 		'& .MuiRadio-root.Mui-checked': {
 			'& span': {
@@ -101,7 +107,7 @@ const useStyles = makeStyles({
 			fontSize: '1rem',
 			marginTop: '2rem',
 			textTransform: 'none',
-			padding: '.75rem 1.5rem',
+			// padding: '.75rem 1.5rem',
 			height: "44px",
 			fontFamily: 'Avenir',
 
@@ -157,7 +163,7 @@ const LinkTypeModal = ({
 								display: 'grid',
 								gridTemplateRows: '3 1fr',
 								gridGap: '1rem',
-								paddingInline: "21px"
+								paddingInline: "15px"
 							}}>
 							<CustomFormControlLabel
 								value='single'
@@ -175,7 +181,7 @@ const LinkTypeModal = ({
 								label={
 									<>
 										<p>Recurring Charge</p>
-										<p>Enter your details to create an account</p>
+										<p>Start accepting payment using our infrastructure from customers anywhere in the world.</p>
 									</>
 								}
 							/>
@@ -185,7 +191,7 @@ const LinkTypeModal = ({
 								label={
 									<>
 										<p>Donation Link</p>
-										<p>Enter your details to create an account</p>
+										<p>Accept credit / debit cards, USSD, Bank transfer and more.</p>
 									</>
 								}
 							/>

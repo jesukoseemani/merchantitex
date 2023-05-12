@@ -122,9 +122,7 @@ const DeployedItem = () => {
       dispatch(
         openToastAndSetContent({
           toastContent: "Failed to get transactions",
-          toastStyles: {
-            backgroundColor: "red",
-          },
+          msgType: "error"
         })
       );
     }

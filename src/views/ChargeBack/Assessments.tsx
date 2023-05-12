@@ -182,9 +182,7 @@ const Assessments = () => {
 			dispatch(
 				openToastAndSetContent({
 					toastContent: 'Failed to get assessments',
-					toastStyles: {
-						backgroundColor: 'red',
-					},
+					msgType: "error"
 				})
 			);
 		}

@@ -45,9 +45,7 @@ const EmailVerification = () => {
           dispatch(
             openToastAndSetContent({
               toastContent: data?.message,
-              toastStyles: {
-                backgroundColor: "green",
-              },
+              msgType: "success"
             })
           )
         );
@@ -59,9 +57,7 @@ const EmailVerification = () => {
         dispatch(
           openToastAndSetContent({
             toastContent: message,
-            toastStyles: {
-              backgroundColor: "red",
-            },
+            msgType: "error",
           })
         )
       );

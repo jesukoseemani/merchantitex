@@ -94,9 +94,7 @@ const BusinessSignUp = () => {
 					dispatch(
 						openToastAndSetContent({
 							toastContent: message,
-							toastStyles: {
-								backgroundColor: "red",
-							},
+							msgType: "error"
 						})
 					)
 				);
@@ -132,9 +130,7 @@ const BusinessSignUp = () => {
 					dispatch(
 						openToastAndSetContent({
 							toastContent: message,
-							toastStyles: {
-								backgroundColor: "red",
-							},
+							msgType: "error"
 						})
 					)
 				);
@@ -211,9 +207,7 @@ const BusinessSignUp = () => {
 					dispatch(
 						openToastAndSetContent({
 							toastContent: error?.response?.data?.message,
-							toastStyles: {
-								backgroundColor: 'red',
-							},
+							msgType: "error"
 						})
 					);
 				}

@@ -69,9 +69,7 @@ const AddBankAccount = () => {
 						dispatch(
 							openToastAndSetContent({
 								toastContent: res.data.message,
-								toastStyles: {
-									backgroundColor: 'green',
-								},
+								msgType: "success"
 							})
 						);
 						dispatch(FetchProfileDetails());
@@ -86,9 +84,7 @@ const AddBankAccount = () => {
 						dispatch(
 							openToastAndSetContent({
 								toastContent: err?.response?.data?.message,
-								toastStyles: {
-									backgroundColor: 'red',
-								},
+								msgType: "error"
 							})
 						);
 					});

@@ -25,6 +25,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import FormatToCurrency from '../../helpers/NumberToCurrency';
 import CustomCurrencyFormat from '../../components/customs/CustomCurrencyFormat';
 import CustomDateFormat from '../../components/customs/CustomDateFormat';
+import Navigation from '../../components/navbar/Navigation';
 
 
 const useBtnStyles = makeStyles({
@@ -253,9 +254,7 @@ const BalanceHistory = () => {
       dispatch(
         openToastAndSetContent({
           toastContent: "Failed to get history",
-          toastStyles: {
-            backgroundColor: "red",
-          },
+          msgType: "error"
         })
       );
     }
@@ -271,40 +270,43 @@ const BalanceHistory = () => {
 
   return (
 
-    <div className={styles.container}>
-      <FilterModal
-        isOpen={isFilterModalOpen}
-        handleClose={() => setIsFilterModalOpen(false)}
-        action={action}
-      />
-      <div className={styles.pageWrapper}>
-        <Box className={styles.historyTopContainer} mb={2}>
-          <div>
-            <h2 className={styles.history__title}>{totalRows} balance log(s)</h2>
-          </div>
-          <div className={btnClasses.root}>
+    <Navigation title='Balance History'>
+      <div className={styles.container}>
+        <FilterModal
+          isOpen={isFilterModalOpen}
+          handleClose={() => setIsFilterModalOpen(false)}
+          action={action}
+        />
+        <div className={styles.pageWrapper}>
+          <Box className={styles.historyTopContainer} mb={2}>
             <div>
-              <Button onClick={() => setIsFilterModalOpen(true)}>
-                <FilterAltOutlinedIcon /> Filter by:
-              </Button>
+              <h2 className={styles.history__title}>{totalRows} balance log(s)</h2>
             </div>
+            <div className={btnClasses.root}>
+              <div>
+                <Button onClick={() => setIsFilterModalOpen(true)}>
+                  <FilterAltOutlinedIcon /> Filter by:
+                </Button>
+              </div>
+            </div>
+          </Box>
+          <div className={styles.tableContainer}>
+            <CustomClickTable
+              columns={columns}
+              rows={rows}
+              totalRows={totalRows}
+              changePage={changePage}
+              limit={limit}
+              // clickable
+              link="/balance/balance_history"
+              identifier="id"
+              rowsData={history}
+            />
           </div>
-        </Box>
-        <div className={styles.tableContainer}>
-          <CustomClickTable
-            columns={columns}
-            rows={rows}
-            totalRows={totalRows}
-            changePage={changePage}
-            limit={limit}
-            // clickable
-            link="/balance/balance_history"
-            identifier="id"
-            rowsData={history}
-          />
         </div>
       </div>
-    </div>
+
+    </Navigation>
 
   );
 };

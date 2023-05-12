@@ -149,9 +149,7 @@ const SettlementAccount = () => {
             dispatch(
                 openToastAndSetContent({
                     toastContent: 'Failed to get transactions',
-                    toastStyles: {
-                        backgroundColor: 'red',
-                    },
+                    msgType: "error"
                 })
             );
         }
@@ -182,9 +180,7 @@ const SettlementAccount = () => {
             dispatch(
                 openToastAndSetContent({
                     toastContent: 'Failed to get accounts',
-                    toastStyles: {
-                        backgroundColor: 'red',
-                    },
+                    msgType: "error"
                 })
             );
         }

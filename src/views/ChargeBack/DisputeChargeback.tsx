@@ -78,9 +78,7 @@ const DisputeChargeback = ({ chargebackid, setOpenResponseChargebackModal }: any
                         dispatch(
                             openToastAndSetContent({
                                 toastContent: data?.message,
-                                toastStyles: {
-                                    backgroundColor: "green",
-                                },
+                                msgType: "success"
                             })
                         )
 
@@ -96,9 +94,7 @@ const DisputeChargeback = ({ chargebackid, setOpenResponseChargebackModal }: any
                     dispatch(
                         openToastAndSetContent({
                             toastContent: message,
-                            toastStyles: {
-                                backgroundColor: "red",
-                            },
+                            msgType: "error"
                         })
 
                     );

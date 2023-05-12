@@ -208,9 +208,7 @@ const SubaccountsItem = () => {
 			dispatch(
 				openToastAndSetContent({
 					toastContent: 'Failed to get transactions',
-					toastStyles: {
-						backgroundColor: 'red',
-					},
+					msgType: "error"
 				})
 			);
 		}
@@ -240,9 +238,7 @@ const SubaccountsItem = () => {
 			dispatch(
 				openToastAndSetContent({
 					toastContent: 'Failed to get accounts',
-					toastStyles: {
-						backgroundColor: 'red',
-					},
+					msgType: "error"
 				})
 			);
 		}
@@ -353,7 +349,7 @@ const SubaccountsItem = () => {
 
 
 							<TabPanel value="1" sx={{ padding: 0, }}>
-								<Box  sx={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", alignItems: "center" }} mt={"22px"} mb={"17px"}>
+								<Box sx={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", alignItems: "center" }} mt={"22px"} mb={"17px"}>
 									<h2 className={styles.btnHeaderTitle}>{txns?.length ?? 0} Transactions</h2>
 									<Stack direction={"row"} alignItems="center" justifyContent={"center"} mb={"14px"} gap="21px" className={styles.btn__group}>
 										<button>All Transaction <ArrowDropDownOutlinedIcon /></button>

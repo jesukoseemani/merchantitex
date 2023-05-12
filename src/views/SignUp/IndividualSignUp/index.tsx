@@ -105,9 +105,7 @@ const IndividualSignUp = () => {
 					dispatch(
 						openToastAndSetContent({
 							toastContent: message,
-							toastStyles: {
-								backgroundColor: "red",
-							},
+							msgType: "error"
 						})
 					)
 				);
@@ -143,9 +141,7 @@ const IndividualSignUp = () => {
 					dispatch(
 						openToastAndSetContent({
 							toastContent: message,
-							toastStyles: {
-								backgroundColor: "red",
-							},
+							msgType: "error"
 						})
 					)
 				);
@@ -225,9 +221,7 @@ const IndividualSignUp = () => {
 					dispatch(
 						openToastAndSetContent({
 							toastContent: error?.response?.data?.message,
-							toastStyles: {
-								backgroundColor: 'red',
-							},
+							msgType: "error"
 						})
 					);
 				}

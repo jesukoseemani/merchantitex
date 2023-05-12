@@ -149,9 +149,7 @@ const SingleRefundModal = ({ isOpen, handleClose, setRefundLogged }: SingleRefun
       dispatch(
         openToastAndSetContent({
           toastContent: error?.response?.data?.message || "Failed to log a refund",
-          toastStyles: {
-            backgroundColor: "red"
-          },
+          msgType: "error"
         })
       );
     } finally {

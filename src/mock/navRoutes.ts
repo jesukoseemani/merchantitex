@@ -23,6 +23,8 @@ import BillIcon from "../assets/images/bills.svg";
 import SettlementIcon from "../assets/images/settlement.svg";
 import HistoryIcon from "../assets/images/balanceIcon.svg";
 import PermisionIcon from "../assets/images/permision.svg";
+import CheckIcon from "../assets/images/check.svg";
+
 
 // import { ReactSVG } from "react-svg";
 
@@ -208,17 +210,12 @@ export const navRoutes: NavProps[] = [
         icon: UserIcon,
         link: "/general_setting/users",
       },
-      {
-        id: 25,
-        title: "Payment method",
-        icon: BillIcon,
-        link: "/general_setting/paymentmethod",
-      },
+
       {
         id: 26,
         title: "Permissions",
         icon: PermisionIcon,
-        link: "/general_setting/permissions",
+        link: "/general_setting/permissions/owner/1",
       },
       {
         id: 27,
@@ -234,7 +231,13 @@ export const navRoutes: NavProps[] = [
       },
       {
         id: 29,
-        title: "Accounts Settings",
+        title: "Checkout",
+        icon: CheckIcon,
+        link: "/general_setting/checkout",
+      },
+      {
+        id: 30,
+        title: "Account preferences",
         icon: AcctSetting,
         link: "/general_setting/account_settings",
       },

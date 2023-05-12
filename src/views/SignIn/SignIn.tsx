@@ -55,9 +55,7 @@ const SignIn = () => {
 					dispatch(
 						openToastAndSetContent({
 							toastContent: message,
-							toastStyles: {
-								backgroundColor: "red",
-							},
+							msgType: "error"
 						})
 					)
 				);
@@ -115,13 +113,11 @@ const SignIn = () => {
 							if (res?.data?.twofa_token !== null) {
 								console.log(res?.data?.twofa_token);
 								dispatch(closeLoader());
-								<CustomToast text={res?.data?.message} type="success" />
+
 								dispatch(
 									openToastAndSetContent({
 										toastContent: res?.data?.message,
-										toastStyles: {
-											backgroundColor: 'green',
-										},
+										msgType: "success"
 									})
 								)
 
@@ -132,14 +128,11 @@ const SignIn = () => {
 
 								dispatch(saveUserDetail(res?.data?.user));
 								dispatch(closeLoader());
-								<CustomToast text={"Login Successful"} type="success" />
 
 								dispatch(
 									openToastAndSetContent({
 										toastContent: 'Login Successful',
-										toastStyles: {
-											backgroundColor: 'green',
-										},
+										msgType: "success"
 									})
 								);
 							}
@@ -157,14 +150,11 @@ const SignIn = () => {
 						console.log(err);
 						dispatch(closeLoader());
 						dispatch(saveLoading(false));
-						<CustomToast text={err?.response?.data?.message} type="error" />
 
 						dispatch(
 							openToastAndSetContent({
 								toastContent: err?.response?.data?.message,
-								toastStyles: {
-									backgroundColor: 'red',
-								},
+								msgType: "error"
 							})
 						);
 					});

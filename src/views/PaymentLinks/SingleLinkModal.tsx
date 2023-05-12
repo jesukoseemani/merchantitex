@@ -289,9 +289,7 @@ const SingleLinkModal = ({ isOpen, handleClose, setIsUpdate }: SingleLinkModalPr
 						dispatch(
 							openToastAndSetContent({
 								toastContent: data?.message,
-								toastStyles: {
-									backgroundColor: "green",
-								},
+								msgType: "error"
 							})
 						)
 						setIsUpdate(true)
@@ -307,9 +305,7 @@ const SingleLinkModal = ({ isOpen, handleClose, setIsUpdate }: SingleLinkModalPr
 					dispatch(
 						openToastAndSetContent({
 							toastContent: message,
-							toastStyles: {
-								backgroundColor: "red",
-							},
+							msgType: "error"
 						})
 					);
 				} finally {

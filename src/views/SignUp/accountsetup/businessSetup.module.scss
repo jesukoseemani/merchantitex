@@ -1,44 +1,44 @@
-.container {
-    width: 100% !important;
-    height: 100%;
-    background: #FFFFFF;
-    border-radius: 20px;
-    // overflow: hidden;
-    margin: 0px auto;
-    position: relative;
+// .container {
+//     width: 100% !important;
+//     height: 100%;
+//     background: #FFFFFF;
+//     border-radius: 20px;
+//     // overflow: hidden;
+//     margin: 0px auto;
+//     position: relative;
 
 
-    .title {
-        height: 60px;
-        display: flex;
-        align-items: center;
-        padding: 27px 50px;
-        border-bottom: 1px solid #E0E0E0;
-        background-color: #fff;
-        position: sticky;
-        width: 100%;
-        top: 0px;
-        // inset: 0;
-        z-index: 9999;
-        // border: 2px solid red;
+//     .title {
+//         height: 60px;
+//         display: flex;
+//         align-items: center;
+//         padding: 27px 50px;
+//         border-bottom: 1px solid #E0E0E0;
+//         background-color: #fff;
+//         position: sticky;
+//         width: 100%;
+//         top: 0px;
+//         // inset: 0;
+//         z-index: 9999;
+//         // border: 2px solid red;
 
 
 
 
-        p {
-            font-family: 'Avenir';
-            font-style: normal;
-            font-weight: 400;
-            font-size: 18px;
-            line-height: 25px;
-            /* identical to box height */
+//         p {
+//             font-family: 'Avenir';
+//             font-style: normal;
+//             font-weight: 400;
+//             font-size: 18px;
+//             line-height: 25px;
+//             /* identical to box height */
 
 
-            color: #828282;
-        }
-    }
+//             color: #828282;
+//         }
+//     }
 
-}
+// }
 
 
 // form
@@ -107,4 +107,42 @@
     line-height: 19px;
 
     color: #8B8B8B;
+}
+
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 3px 40px;
+    gap: 3rem;
+    position: relative;
+
+    &>div {
+        width: 35%;
+        position: relative;
+
+        &:nth-of-type(1) {
+            border-right: 1px solid #E0E0E0;
+            position: sticky;
+            top: 7rem;
+
+            // width: 30%;
+            // height: 100%;
+            @media screen and (max-width:768px) {
+                display: none;
+            }
+        }
+
+        &:nth-of-type(2) {
+            flex: 2;
+        }
+    }
+
+    .stepLabel {
+
+        .stepDesc {
+            width: 70%;
+        }
+    }
 }

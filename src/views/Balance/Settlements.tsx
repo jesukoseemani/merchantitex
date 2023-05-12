@@ -40,6 +40,7 @@ import CustomStatus from "../../components/customs/CustomStatus";
 import FormatToCurrency from '../../helpers/NumberToCurrency';
 import CustomCurrencyFormat from "../../components/customs/CustomCurrencyFormat";
 import CustomDateFormat from "../../components/customs/CustomDateFormat";
+import Navigation from "../../components/navbar/Navigation";
 
 const useBtnStyles = makeStyles({
   root: {
@@ -266,9 +267,7 @@ const Settlements = () => {
       dispatch(
         openToastAndSetContent({
           toastContent: err?.response?.data?.message || "Failed to get settlements",
-          toastStyles: {
-            backgroundColor: "red",
-          },
+          msgType: "error"
         })
       );
     }
@@ -284,47 +283,50 @@ const Settlements = () => {
 
   return (
 
-    <div className={styles.container}>
-      <FilterModal
-        isOpen={isFilterModalOpen}
-        handleClose={() => setIsFilterModalOpen(false)}
-        action={action}
-      />
-      {/* <NavBar name='Settlements' />
+    <Navigation title="Settlements">
+      <div className={styles.container}>
+        <FilterModal
+          isOpen={isFilterModalOpen}
+          handleClose={() => setIsFilterModalOpen(false)}
+          action={action}
+        />
+        {/* <NavBar name='Settlements' />
       <hr /> */}
 
 
-      <div className={styles.pageWrapper}>
-        <Box mb={2} className={styles.historyTopContainer}>
-          <div>
-            <h2>{totalRows} Settlement(s)</h2>
-          </div>
-          <div className={btnClasses.root}>
+        <div className={styles.pageWrapper}>
+          <Box mb={2} className={styles.historyTopContainer}>
             <div>
-              <Button onClick={() => setIsFilterModalOpen(true)}>
-                <FilterAltOutlinedIcon /> Filter by:
+              <h2>{totalRows} Settlement(s)</h2>
+            </div>
+            <div className={btnClasses.root}>
+              <div>
+                <Button onClick={() => setIsFilterModalOpen(true)}>
+                  <FilterAltOutlinedIcon /> Filter by:
+                </Button>
+              </div>
+              <Button onClick={calDownload}>
+                <InsertDriveFileOutlinedIcon /> Download
               </Button>
             </div>
-            <Button onClick={calDownload}>
-              <InsertDriveFileOutlinedIcon /> Download
-            </Button>
+          </Box>
+          <div className={styles.tableContainer}>
+            <CustomClickTable
+              columns={columns}
+              rows={rows}
+              totalRows={totalRows}
+              changePage={changePage}
+              limit={limit}
+              clickable
+              link="/balance/settlements"
+              identifier="id"
+              rowsData={settlements}
+            />
           </div>
-        </Box>
-        <div className={styles.tableContainer}>
-          <CustomClickTable
-            columns={columns}
-            rows={rows}
-            totalRows={totalRows}
-            changePage={changePage}
-            limit={limit}
-            clickable
-            link="/balance/settlements"
-            identifier="id"
-            rowsData={settlements}
-          />
         </div>
       </div>
-    </div>
+
+    </Navigation>
 
   );
 };

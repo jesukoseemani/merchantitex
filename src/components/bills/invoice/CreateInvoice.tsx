@@ -75,9 +75,8 @@ const CreateInvoice = ({ fetchInvoice }: any) => {
                     dispatch(
                         openToastAndSetContent({
                             toastContent: message,
-                            toastStyles: {
-                                backgroundColor: "red",
-                            },
+                            msgType: "error"
+
                         })
                     )
                 );
@@ -244,9 +243,7 @@ const CreateInvoice = ({ fetchInvoice }: any) => {
                         dispatch(
                             openToastAndSetContent({
                                 toastContent: data?.message,
-                                toastStyles: {
-                                    backgroundColor: "green",
-                                },
+                                msgType: "success"
                             })
                         )
 
@@ -281,9 +278,7 @@ const CreateInvoice = ({ fetchInvoice }: any) => {
                         dispatch(
                             openToastAndSetContent({
                                 toastContent: message,
-                                toastStyles: {
-                                    backgroundColor: "red",
-                                },
+                                msgType: "error"
                             })
                         )
                     );

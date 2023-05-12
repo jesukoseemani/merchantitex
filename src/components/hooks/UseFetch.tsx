@@ -36,9 +36,7 @@ const UseFetch = (url: any) => {
                     dispatch(
                         openToastAndSetContent({
                             toastContent: message,
-                            toastStyles: {
-                                backgroundColor: "red",
-                            },
+                            msgType: "error"
                         })
                     )
                 );

@@ -86,9 +86,7 @@ const InvoiceDetails = () => {
             dispatch(
                 openToastAndSetContent({
                     toastContent: 'Failed to get links',
-                    toastStyles: {
-                        backgroundColor: 'red',
-                    },
+                    msgType: "error"
                 })
             );
         }

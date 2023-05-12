@@ -49,9 +49,7 @@ const AddNewCustmerToList = ({ fetchInvoice }: any) => {
                         dispatch(
                             openToastAndSetContent({
                                 toastContent: data?.message,
-                                toastStyles: {
-                                    backgroundColor: "green",
-                                },
+                                msgType: "success",
                             })
                         )
 
@@ -67,9 +65,7 @@ const AddNewCustmerToList = ({ fetchInvoice }: any) => {
                         dispatch(
                             openToastAndSetContent({
                                 toastContent: message,
-                                toastStyles: {
-                                    backgroundColor: "red",
-                                },
+                                msgType: "error"
                             })
                         )
                     );

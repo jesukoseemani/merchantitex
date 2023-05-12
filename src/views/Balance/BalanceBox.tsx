@@ -104,9 +104,7 @@ const BalanceBox = ({
 						<span className={styles.productId}> {Id} </span> <span>Copied</span>
 					</div>
 				),
-				toastStyles: {
-					backgroundColor: 'green',
-				},
+				msgType: "success"
 			})
 		);
 	};

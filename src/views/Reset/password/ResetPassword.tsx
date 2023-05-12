@@ -48,9 +48,7 @@ const ResetPassword = () => {
                         dispatch(
                             openToastAndSetContent({
                                 toastContent: data.message,
-                                toastStyles: {
-                                    backgroundColor: 'green',
-                                },
+                                msgType: "success"
                             })
                         );
                         console.log(data, "data");
@@ -63,9 +61,7 @@ const ResetPassword = () => {
                     dispatch(
                         openToastAndSetContent({
                             toastContent: error.message,
-                            toastStyles: {
-                                backgroundColor: 'red',
-                            },
+                            msgType: "error"
                         })
                     );
                 }

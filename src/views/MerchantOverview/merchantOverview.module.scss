@@ -323,7 +323,7 @@
 
   &>li {
     counter-increment: item;
-    margin-top: 23px;
+    margin-top: 15px;
     // margin-right: 3rem;
     display: flex;
     gap: 13px;
@@ -349,6 +349,10 @@
       line-height: 18px;
       margin-top: -3px;
       color: #4F4F4F;
+
+      &:first-child {
+        width: 70%;
+      }
     }
   }
 }
@@ -385,6 +389,7 @@
   }
 }
 
+
 .dangerBar {
   background-color: transparent !important;
 
@@ -397,7 +402,7 @@
   background-color: transparent !important;
 
   &>div {
-    background: rgba(86, 204, 242, 0.69) !important;
+    background: #8ADCF6 !important;
   }
 }
 
@@ -428,4 +433,17 @@ ol {
 
 .percentage {
   background-color: transparent !important;
+}
+
+
+.helpCenter {
+  position: fixed;
+  display: none;
+  right: 20px;
+  bottom: 20%
+}
+
+.showHelpCenter {
+  @extend .helpCenter;
+  display: block;
 }

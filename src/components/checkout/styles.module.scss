@@ -1,0 +1,80 @@
+.container {
+    background: #FFFFFF;
+    border: 1px solid #DFDFDF;
+    border-radius: 20px;
+
+    .webhook_header {
+        padding: 28px 45px;
+        border-bottom: 1px solid #EFF3F8;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-flow: row wrap;
+
+
+        h2 {
+            font-family: 'Avenir semibold';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 27px;
+            color: #333333;
+        }
+
+        p {
+            font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 19px;
+            color: #828282;
+        }
+
+        button {
+            height: 32px;
+            border-radius: 30px;
+            font-family: 'Avenir semibold';
+            font-style: normal;
+            font-weight: 900;
+            font-size: 11.7701px;
+            line-height: 16px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #FFFFFF;
+        }
+    }
+
+    .hook_body {
+        padding: 29.5px 45px;
+
+        .label {
+            font-family: 'Avenir';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 22px;
+            color: #828282;
+        }
+
+        input {
+            background: #FFFFFF;
+            border: 1px dashed #DDDDDD;
+            border-radius: 4px;
+            height: 50px;
+            padding: 16px;
+            width: 100%;
+
+        }
+
+        .helperText {
+            font-family: 'Avenir';
+            font-style: italic;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 16px;
+            margin-top: 7px;
+            color: #828282;
+        }
+    }
+}

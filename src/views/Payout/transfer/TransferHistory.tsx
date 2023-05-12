@@ -36,6 +36,7 @@ const TransferHistory = () => {
         );
     }
     return (
+
         <Box>
             <Box className={Styles.errorBox} >
                 <Stack direction={"row"} justifyContent="space-between" spacing={2} alignItems={"center"} flexWrap="wrap" sx={{ height: { xs: "auto", md: "100%" } }}>

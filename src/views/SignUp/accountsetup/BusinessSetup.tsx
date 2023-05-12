@@ -129,64 +129,69 @@ const BusinessSetup = () => {
     return (
         <div className={Styles.container}>
 
+            <div>
 
-         
-                <Grid container spacing={4} justifyContent="space-around" flexWrap={"wrap"} alignItems={"center"}>
-                    <Grid item xs={12} md={4}>
-                    <Stepper activeStep={activeStep} orientation="vertical">
-                        {accountType === "INDIVIDUAL" ? (
-                            stepContact?.map((step, index) => (
-                                <Step key={index}>
-                                    <StepLabel icon={<ReactSVG src={index < activeStep || index === activeStep ? ColorcheckIcon : CheckIcon}
-                                    />} sx={{
+                <Stepper activeStep={activeStep} orientation="vertical" sx={{
+                    '.css-5grjn4-MuiStepConnector-line': {
+                        minHeight: "105px"
+                    }
+
+                }}>
+                    {accountType === "INDIVIDUAL" ? (
+                        stepContact?.map((step, index) => (
+                            <Step key={index}>
+                                <StepLabel
+                                    icon={<ReactSVG src={index < activeStep || index === activeStep ? ColorcheckIcon : CheckIcon}
+                                    />}
+                                    sx={{
                                         '& svg': {
                                             width: "20px",
                                             height: "20px"
-                                        }
+                                        },
+
                                     }}>
-                                        <Box sx={{ marginLeft: "20px" }}>
-                                            <p className={Styles.stepLabel}>{step.label}</p>
-                                            <p className={Styles.stepDesc}>{step.description}</p>
-                                        </Box>
-                                    </StepLabel>
+                                    <div className={Styles.stepLabel}>
+                                        <p className={Styles.stepLabel}>{step.label}</p>
+                                        <p className={Styles.stepDesc}>{step.description}</p>
+                                    </div>
+                                </StepLabel>
 
 
-                                </Step>
-                            ))
-                        ) : (
-                            stepsDirector?.map((step, index) => (
-                                <Step key={index}>
-                                    <StepLabel icon={<ReactSVG src={index < activeStep || index === activeStep ? ColorcheckIcon : CheckIcon}
-                                    />} sx={{
-                                        '& svg': {
-                                            width: "20px",
-                                            height: "20px"
-                                        }
-                                    }}>
-                                        <Box sx={{ marginLeft: "20px" }}>
-                                            <p className={Styles.stepLabel}>{step.label}</p>
-                                            <p className={Styles.stepDesc}>{step.description}</p>
-                                        </Box>
-                                    </StepLabel>
+                            </Step>
+                        ))
+                    ) : (
+                        stepsDirector?.map((step, index) => (
+                            <Step key={index}>
+                                <StepLabel icon={<ReactSVG src={index < activeStep || index === activeStep ? ColorcheckIcon : CheckIcon}
+                                />} sx={{
+                                    '& svg': {
+                                        width: "20px",
+                                        height: "20px"
+                                    },
+
+                                }}>
+                                    <div className={Styles.stepLabel}>
+                                        <p className={Styles.stepLabel}>{step.label}</p>
+                                        <p className={Styles.stepDesc}>{step.description}</p>
+                                    </div>
+                                </StepLabel>
 
 
-                                </Step>
-                            ))
-                        )}
+                            </Step>
+                        ))
+                    )}
 
-                    </Stepper>
-                    </Grid>
+                </Stepper>
+            </div>
 
-                    <Grid item xs={12} md={6} mt={3}>
-                        <div className={Styles.formContainer}>
-                            <div> <SlideForm /></div>
-                        </div>
-                    </Grid>
 
-                </Grid>
-       
+            <div className={Styles.formContainer}>
+                <div> <SlideForm /></div>
+            </div>
 
-        
+
+
+
         </div >
     )
 }
