@@ -358,6 +358,7 @@ const theme = createTheme({
         }
       }
     },
+
     MuiTableCell: {
       styleOverrides: {
         stickyHeader: {

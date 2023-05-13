@@ -150,7 +150,6 @@ export default function TransactionsList() {
 			setMeta(data?._metadata || {})
 			dispatch(closeLoader());
 
-
 		} catch (err: any) {
 			dispatch(
 				openToastAndSetContent({
