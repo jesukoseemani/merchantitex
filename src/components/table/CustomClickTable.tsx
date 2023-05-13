@@ -94,6 +94,7 @@ export default function CustomClickTable({
 
 	const handleClick = (row: any) => {
 		const val = row[identifier]?.props?.children;
+		
 
 
 		if (clickable && val) {

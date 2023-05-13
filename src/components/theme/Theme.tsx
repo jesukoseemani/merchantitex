@@ -346,7 +346,7 @@ const theme = createTheme({
           border: "1px solid transparent !important",
           padding: "0px !important"
         },
-        gutters: {}
+
       }
     },
 

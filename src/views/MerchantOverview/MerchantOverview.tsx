@@ -230,6 +230,24 @@ const MerchantOverview = () => {
           </OverviewTable>
 
 
+
+
+          <OverviewTable
+            title="What payment option do my customers use the most?"
+            subTitle={`${getPercent(charge!).percent}% of your customers prefer to pay with ${getPercent(charge!).type}.`}
+          >
+            <div className={Styles.paymentContainer}>
+              {
+                charge?.data?.length! > 0 && charge?.data.map((c, i) => (
+                  <div key={i}>
+                    <p>{capitalize(c.chargetype)} Payments</p>
+                    <Progress className={Math.max((c?.count / charge?.total!) * 100) ? Styles.successBar : Styles.primaryBar} percent={Math.round((c?.count / charge?.total!) * 100)} progress />
+
+                  </div>
+                ))
+              }
+            </div>
+          </OverviewTable>
           <OverviewTable title="Top reasons for transactions failure">
             <ol className={Styles.transactionContainer}>
               {
@@ -249,23 +267,6 @@ const MerchantOverview = () => {
                 ))
               }
             </ol>
-          </OverviewTable>
-
-          <OverviewTable
-            title="What payment option do my customers use the most?"
-            subTitle={`${getPercent(charge!).percent}% of your customers prefer to pay with ${getPercent(charge!).type}.`}
-          >
-            <div className={Styles.paymentContainer}>
-              {
-                charge?.data?.length! > 0 && charge?.data.map((c, i) => (
-                  <div key={i}>
-                    <p>{capitalize(c.chargetype)} Payments</p>
-                    <Progress className={Math.max((c?.count / charge?.total!) * 100) ? Styles.successBar : Styles.primaryBar} percent={Math.round((c?.count / charge?.total!) * 100)} progress />
-
-                  </div>
-                ))
-              }
-            </div>
           </OverviewTable>
           <div className={showHelpcenter ? Styles.showHelpCenter : Styles.helpCenter}>
             <Helpcenter />

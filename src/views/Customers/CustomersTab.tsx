@@ -206,7 +206,6 @@ const CustomersTab = ({ value, index }: any) => {
 				modalTitle: "Add a new customer",
 				modalContent: (
 					<div className='modalDiv'>
-
 						<AddNewCustomer callback={addCallback} fn={getCustomers} />
 					</div>
 				),
