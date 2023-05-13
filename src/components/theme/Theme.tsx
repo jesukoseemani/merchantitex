@@ -358,10 +358,6 @@ const theme = createTheme({
         }
       }
     },
-<<<<<<< HEAD
-=======
-
->>>>>>> 5725619a407f2cb5d7e475a90f1f1cfc066f739e
     MuiTableCell: {
       styleOverrides: {
         stickyHeader: {
