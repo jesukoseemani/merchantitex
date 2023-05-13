@@ -82,18 +82,15 @@ const Owner = () => {
                         <h2>Users with this role</h2>
                         <p>See users with these permissions</p>
                     </div>
-
                     <div className={styles.secondSection}>
                         <div className={styles.permission__Roles}>
-
-
                             <div>
                                 <Avatar sx={{ bgcolor: "#2684ED", fontSize: "14px", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                    RM
+                                    JH
                                 </Avatar>
                                 <div>
-                                    <p>Rick Morty</p>
-                                    <span>rickmorty@email.com</span>
+                                    <p>James Haliday</p>
+                                    <span>jameshaliday@example.com</span>
 
                                 </div>
                             </div>
@@ -101,9 +98,8 @@ const Owner = () => {
                     </div>
                 </div>
 
-
             </div>
-        </Permission>
+        </Permission >
     )
 }
 

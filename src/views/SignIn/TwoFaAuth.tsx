@@ -131,7 +131,7 @@ const TwoFaAuth = () => {
                         <ReactSVG src={Logo} />
                     </div>
                     <div className={styles.mt1}>
-                        <div className={styles.signinDiv} style={{ height: "300px" }}>
+                        <div className={styles.signinTwoFaDiv}>
                             <h5 className={styles.signinHeader}>Enter otp to continue</h5>
                             <div className={styles.formBody}>
                                 <Form>
@@ -144,7 +144,7 @@ const TwoFaAuth = () => {
                                             {/* <span className={styles.formTitle}>Password</span> */}
                                         </InputLabel>
                                         <Field
-                                            as={StyledTextField}
+                                            as={TextField}
                                             helperText={
                                                 <ErrorMessage name='otp'>
                                                     {(msg) => <span style={{ color: 'red' }}>{msg}</span>}
