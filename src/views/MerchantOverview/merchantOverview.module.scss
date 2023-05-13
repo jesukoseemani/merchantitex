@@ -319,7 +319,7 @@
   margin-right: auto;
   counter-reset: item;
   list-style: none;
-  padding-inline: 23px;
+  padding: 20px 23px;
 
   &>li {
     counter-increment: item;
@@ -351,7 +351,7 @@
       color: #4F4F4F;
 
       &:first-child {
-        width: 70%;
+        width: 55%;
       }
     }
   }
@@ -438,12 +438,16 @@ ol {
 
 .helpCenter {
   position: fixed;
-  display: none;
+  // display: none;
   right: 20px;
-  bottom: 20%
+  bottom: 20%;
+  transform: scale(0);
+  transition: transform .3s ease-in-out;
 }
 
 .showHelpCenter {
   @extend .helpCenter;
-  display: block;
+  transform: scale(1);
+  transition: transform .3s ease-in-out;
+
 }

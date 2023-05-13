@@ -15,7 +15,7 @@ import TransferBalance from "../views/Payout/TransferBalance";
 import ChargeBacks from "../views/ChargeBack/ChargeBacks";
 import Pending from "../views/ChargeBack/Pending";
 import AwaitingResponse from "../views/ChargeBack/AwaitingResponse";
-import Won from "../views/ChargeBack/Won";
+
 import Lost from "../views/ChargeBack/Lost";
 import Subaccounts from "../views/Subaccounts/Subaccounts";
 import PaymentLinks from "../views/PaymentLinks/PaymentLinks";
@@ -75,7 +75,6 @@ import Pendingdetails from "../views/Payout/Pendingdetails";
 import BeneficiaryDetails from "../views/Payout/BeneficiaryDetails";
 import CustomersTab from "../views/Customers/CustomersTab";
 import BlacklistTab from "../views/Customers/BlacklistTab";
-import BlacklistDatatable from "../views/Customers/BlacklistDatatable";
 import InvoiceDetails from "../components/bills/invoice/InvoiceDetails";
 import TransferHistory from "../views/Payout/transfer/TransferHistory";
 import Navigation from "../components/navbar/Navigation";
@@ -94,6 +93,8 @@ import TwoFaAuth from "../views/SignIn/TwoFaAuth";
 import { changeNewNavbar } from "../redux/actions/navbarNew/navbarNewActions";
 import Api from '../views/Settings/Api/Api';
 import WebHooks from '../views/Settings/webhook/WebHooks';
+import BlacklistDatatable from '../views/Customers/BlacklistDatatable';
+import Won from '../views/ChargeBack/Won';
 
 
 

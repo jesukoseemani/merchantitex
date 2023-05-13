@@ -52,7 +52,7 @@ const Developer = () => {
             <div className={styles.permission__wrapper}>
                 <Box className={styles.left__container}>
                     <Box className={styles.firstSection}>
-                        <h2>Owner</h2>
+                        <h2>Developer</h2>
                         <p>Users with this role are able to control everything on the dashboard</p>
                     </Box>
                     <Box className={styles.secondSection}>
