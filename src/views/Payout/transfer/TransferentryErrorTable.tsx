@@ -13,7 +13,7 @@ import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 import { GetTransHistoryRes, TransHistory } from '../../../types/transferTypes';
 import styles from "./transferEntries.module.scss";
 import { Checkbox, IconButton, Stack } from '@mui/material';
-import BeneficiaryMenu from '../BeneficiaryMenu';
+import BeneficiaryMenu from '../beneficiary/BeneficiaryMenu';
 import { Box } from '@material-ui/core';
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 import DeleteEntries from './DeleteEntries';

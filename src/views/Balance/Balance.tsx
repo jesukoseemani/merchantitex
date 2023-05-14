@@ -109,7 +109,7 @@ const Balance = () => {
   return (
 
     <Navigation title="Balance">
-      <Box className={styles.balance__container} mt="27px">
+      {balances?.length > 0 && <Box className={styles.balance__container} mt="27px">
         {/* <Box > */}
 
         {balances?.length > 0 && balances.map((balance, i) => (
@@ -146,7 +146,7 @@ const Balance = () => {
 
         {/* </Box> */}
 
-      </Box>
+      </Box>}
 
     </Navigation>
 

@@ -141,9 +141,9 @@ const theme = createTheme({
         line: {
           // border: "none"
           color: "pink",
-          minHeight: "70px",
+          height: "105px",
           borderLeft: "1px solid #B3B3B3",
-          marginTop: "-1rem",
+          marginTop: "-1.2rem",
           marginLeft: "-3px",
 
 
@@ -346,23 +346,15 @@ const theme = createTheme({
           border: "1px solid transparent !important",
           padding: "0px !important"
         },
-
+        gutters: {}
       }
     },
 
-    MuiFormHelperText: {
-      styleOverrides: {
-        root: {
-          margin: "0px !important",
-          width: "100% !important",
-        }
-      }
-    },
     MuiTableCell: {
       styleOverrides: {
         stickyHeader: {
           padding: "16.5px",
-          border: "none !important",
+          borderBottom: "transparent !important",
           '&:first-child': {
             paddingLeft: "38px"
           },

@@ -92,6 +92,7 @@ export default function OperantTable({
 						<TableHead>
 							<TableRow style={{
 								padding: "15px 0px !important",
+								borderBottom: "none !important",
 
 							}}>
 								{columns.map((column, index) => (

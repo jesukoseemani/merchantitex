@@ -132,17 +132,43 @@
 		display: flex;
 		align-items: center;
 		flex-flow: row wrap;
-		gap: 3rem;
+		gap: 2.5rem;
 
 		div {
 			border-left: 1px solid #EFF3F8;
-			padding-left: 1rem;
+			padding-left: 2rem;
+
 
 			&:nth-of-type(1) {
 				border: none;
 				padding: 0;
 			}
 
+			@media screen and (max-width:545px) {
+				&:nth-of-type(3) {
+					border: none;
+					padding: 0;
+				}
+			}
+
+			@media screen and (min-width:545px) and (max-width:655px) {
+				&:nth-of-type(4) {
+					border: none;
+					padding: 0;
+				}
+			}
+
+		}
+
+		@media screen and (max-width:500px) {
+			flex-direction: column;
+			align-items: flex-start;
+
+			div {
+				border: none;
+				padding: 0;
+
+			}
 		}
 
 		span {
@@ -289,7 +315,7 @@
 		padding: 39px 31px;
 		display: flex;
 		align-items: center;
-		gap: 4rem;
+		gap: 3.5rem;
 		flex-flow: row wrap;
 
 		span {
@@ -313,7 +339,7 @@
 
 		&>div:not(:nth-of-type(1)) {
 			border-left: 1px solid #EFF3F8;
-			padding-left: 3rem;
+			padding-left: 3.5rem;
 
 		}
 

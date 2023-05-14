@@ -18,10 +18,11 @@ import DisputeChargeback from './DisputeChargeback';
 import AcceptChargeback from './AcceptChargeback';
 import ResponseChargeback from './RespondChargeback';
 import axios from 'axios';
-import { closeLoader } from '../../redux/actions/loader/loaderActions';
+import { closeLoader, openLoader } from '../../redux/actions/loader/loaderActions';
 import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
 import CustomStatus from '../../components/customs/CustomStatus';
 import CustomDateFormat from '../../components/customs/CustomDateFormat';
+import FormatToCurrency from '../../helpers/NumberToCurrency';
 
 
 
@@ -60,6 +61,7 @@ const ChargeBacksItem = () => {
   const getChargebackDetails = async () => {
     try {
 
+      dispatch(openLoader())
       const { data } = await axios.get<any>(`/v1/chargeback/${id}`)
 
       if (data?.code === "success") {
@@ -110,7 +112,7 @@ const ChargeBacksItem = () => {
 
           <div className={styles._wrapper_top_bar}>
             <div>
-              <h2>{`${chargebackItem?.chargeback?.currency} ${chargebackItem?.chargeback?.amount}`}</h2>
+              <h2>{`${chargebackItem?.chargeback?.currency} ${FormatToCurrency(chargebackItem?.chargeback?.amount)}`}</h2>
               <CustomStatus text={chargebackItem?.chargeback?.status} type={chargebackItem?.chargeback?.status} />
             </div>
             <div className={styles.refundBtn}>
@@ -120,19 +122,21 @@ const ChargeBacksItem = () => {
 
           <div className={styles.sectionTwo}>
             <div>
-              <p>Date / Time</p>
+              <span>Date / Time</span>
               <p>{moment(chargebackItem?.chargeback?.createdat).format("MMM D YYYY h:mm A")}</p>
             </div>
             <div>
-              <p>Customer</p>
+              <span>Customer</span>
               <p>{chargebackItem?.chargeback?.customeremail}</p>
             </div>
             <div>
-              <p>Card type</p>
+              <span>Card type</span>
+              <p>n/a</p>
               {/* <p>{cardType === "VISA" && <VisaIcon />}</p> */}
             </div>
             <div>
-              <p>Card number</p>
+              <span>Card number</span>
+              <p>n/a</p>
               {/* <p>{cardNum}</p> */}
             </div>
 
@@ -155,7 +159,7 @@ const ChargeBacksItem = () => {
           <div className={styles._section_three_body}>
             <div>
               <p>Chargeback amount</p>
-              <p>{`${chargebackItem?.chargeback?.currency} ${chargebackItem?.chargeback?.amount}`}</p>
+              <p>{`${chargebackItem?.chargeback?.currency} ${FormatToCurrency(chargebackItem?.chargeback?.amount)}`}</p>
             </div>
             <div>
               <p>Chargeback date</p>
