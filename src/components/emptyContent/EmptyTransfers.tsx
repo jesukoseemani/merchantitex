@@ -1,7 +1,7 @@
 import Styles from "./transfers.module.scss";
 import { openModalAndSetContent } from "../../redux/actions/modal/modalActions";
 import { useDispatch } from "react-redux";
-import Addpayout from "../../views/Payout/transfer/AddPayout";
+import Addpayout from '../../views/Payout/transfer/Addpayout';
 
 
 export default function EmptyTransfers() {

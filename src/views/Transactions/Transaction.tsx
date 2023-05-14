@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Label } from "semantic-ui-react";
+import { Button } from "semantic-ui-react";
 import Styles from "./transaction.module.scss";
 import { ReactComponent as CopyIcon } from "../../assets/images/copyColor.svg";
 import { ReactComponent as LinkIcon } from "../../assets/images/ext-link.svg";

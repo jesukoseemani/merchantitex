@@ -11,7 +11,7 @@ import { BASE_URL } from '../../../config';
 import useDownload from '../../../hooks/useDownload';
 import { PayoutRes } from '../../../types/Payout';
 import { openModalAndSetContent } from '../../../redux/actions/modal/modalActions';
-import Addpayout from './AddPayout';
+import Addpayout from './Addpayout';
 
 const DATA = {
     balance: 0,

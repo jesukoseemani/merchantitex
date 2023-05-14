@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Button, Modal, Select, Label, Form } from 'semantic-ui-react';
 import NavBar from '../../../components/navbar/NavBar';
 import Styles from './styles.module.scss';
 import { ReactComponent as CopyIcon } from '../../../assets/images/copyColor.svg';
