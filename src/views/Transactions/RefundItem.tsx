@@ -23,8 +23,8 @@ import { ReactComponent as CheckColorIcon } from "../../assets/images/circle-che
 import TransBreakDown from './TransBreakDown';
 import { openModalAndSetContent } from '../../redux/actions/modal/modalActions';
 import { ReactComponent as LinkIcon } from "../../assets/images/ext-link.svg";
-import Addtoblacklist from '../Customers/Addtoblacklist';
 import Navigation from '../../components/navbar/Navigation';
+import Addtoblacklist from '../Customers/Addtoblacklist';
 
 
 const RefundItem = () => {
@@ -255,8 +255,8 @@ const RefundItem = () => {
             <div className={styles.stepWrapper}>
               <Stepper activeStep={2} orientation="vertical" sx={{
                 '.css-5grjn4-MuiStepConnector-line': {
-                  minHeight: "40px",
-                  marginTop: "-0.6rem"
+                  height: "40px !important",
+                  marginTop: "-0.6rem !important"
                 },
 
 
@@ -327,7 +327,7 @@ const RefundItem = () => {
 
             <div className={styles.customerInfo}>
               <div className={styles.customerInfo_left}>
-                <Avatar sx={{ bgcolor: "#2684ED", fontSize: "14px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <Avatar sx={{ bgcolor: "#FF7CFA", fontWeight: "900", width: "46px", height: "46px", fontSize: "19px", display: "flex", fontFamily: "Avenir bold", justifyContent: "center", alignItems: "center" }}>
                   DA
                 </Avatar>
                 <div>
@@ -336,7 +336,7 @@ const RefundItem = () => {
                 </div>
               </div>
               <div className={styles.blacklist} onClick={handleBLacklist}>
-                <p>Blacklist customer  <DoDisturbIcon /></p>
+                <p>Blacklist customer  <DoDisturbIcon fontSize='small' /></p>
               </div>
             </div>
             <div className={styles.profile}>

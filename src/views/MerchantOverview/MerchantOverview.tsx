@@ -144,7 +144,7 @@ const MerchantOverview = () => {
   }, [event.key]);
 
   return (
-    <Navigation title="Homepage">
+    <Navigation title="Home">
       <div
         className={Styles.container}
         style={{ display: "flex", flexDirection: "column", width: "100%" }}
@@ -153,41 +153,6 @@ const MerchantOverview = () => {
         <MerchantChart summary={summary} total={performance?.total || 0} setEvent={setEvent} />
         <OverviewCard abandoned={performance?.abandoned || 0} event={event.name} />
         <div className={Styles.tableWrapper}>
-
-          <OverviewTable
-            title="What payment option do my customers use the most?"
-            subTitle={`${getPercent(charge!).percent}% of your customers prefer to pay with ${getPercent(charge!).type}.`}
-          >
-            <div className={Styles.paymentContainer}>
-              {
-                charge?.data?.length! > 0 && charge?.data.map((c, i) => (
-                  <div key={i}>
-                    <p>{c.chargetype?.toUpperCase() || '---'} Payments</p>
-                    <Progress className={Math.max((c?.count / charge?.total!) * 100) ? Styles.successBar : Styles.primaryBar} percent={Math.round((c?.count / charge?.total!) * 100)} progress />
-
-                  </div>
-                ))
-              }
-            </div>
-          </OverviewTable>
-          <OverviewTable title="Top customers by volume and value">
-            <div className={Styles.listWrapper}>
-              {
-                customer?.length > 0 && customer.map((c, i) => (
-                  <div className={Styles.listItem} key={i}>
-                    <div>
-                      <h2>{`${capitalize(c?.firstname || '')} ${capitalize(c?.lastname || '')}`}</h2>
-                      <span>{c?.email || ''}</span>
-                    </div>
-                    <div>
-                      <h2>NGN{FormatToCurrency(c?.transaction_amount)}</h2>
-                      <span>Amount spent</span>
-                    </div>
-                  </div>
-                ))
-              }
-            </div>
-          </OverviewTable>
 
           <OverviewTable title="Perfomance">
             <div className={Styles.deviceContainer}>
@@ -243,6 +208,46 @@ const MerchantOverview = () => {
               </div>}
             </div>
           </OverviewTable>
+
+
+          <OverviewTable title="Top customers by volume and value">
+            <div className={Styles.listWrapper}>
+              {
+                customer?.length > 0 && customer.map((c, i) => (
+                  <div className={Styles.listItem} key={i}>
+                    <div>
+                      <h2>{`${capitalize(c?.firstname || '')} ${capitalize(c?.lastname || '')}`}</h2>
+                      <span>{c?.email || ''}</span>
+                    </div>
+                    <div>
+                      <h2>NGN{FormatToCurrency(c?.transaction_amount)}</h2>
+                      <span>Amount spent</span>
+                    </div>
+                  </div>
+                ))
+              }
+            </div>
+          </OverviewTable>
+
+
+
+
+          <OverviewTable
+            title="What payment option do my customers use the most?"
+            subTitle={`${getPercent(charge!).percent}% of your customers prefer to pay with ${getPercent(charge!).type}.`}
+          >
+            <div className={Styles.paymentContainer}>
+              {
+                charge?.data?.length! > 0 && charge?.data.map((c, i) => (
+                  <div key={i}>
+                    <p>{capitalize(c.chargetype)} Payments</p>
+                    <Progress className={Math.max((c?.count / charge?.total!) * 100) ? Styles.successBar : Styles.primaryBar} percent={Math.round((c?.count / charge?.total!) * 100)} progress />
+
+                  </div>
+                ))
+              }
+            </div>
+          </OverviewTable>
           <OverviewTable title="Top reasons for transactions failure">
             <ol className={Styles.transactionContainer}>
               {
@@ -274,6 +279,7 @@ const MerchantOverview = () => {
               transform: "translate(-50% -50%)",
               cursor: "pointer",
               // zIndex: 9999999
+              border: "2px solid red"
             }}
           >
 

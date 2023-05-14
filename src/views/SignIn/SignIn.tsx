@@ -165,70 +165,75 @@ const SignIn = () => {
 
 						<ReactSVG src={Logo} />
 					</div>
-					<div className={styles.mt1}>
+					<div>
 						<div className={styles.signinDiv}>
-							<h5 className={styles.signinHeader}>Sign in to your account</h5>
+							<h2 className={styles.signinHeader}>Sign in to your account</h2>
 							<div className={styles.formBody}>
 								<Form>
-									<Box py={3}>
+									<div>
 
-										<InputLabel>
-											<span className={styles.formTitle}>Email Address</span>
-										</InputLabel>
-										<Field
-											as={TextField}
-											helperText={
-												<ErrorMessage name='email'>
-													{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
-												</ErrorMessage>
-											}
-											name='email'
-											variant='outlined'
+										<div className={styles.inputDiv}>
+											<InputLabel className={styles.formTitle}>
+												Email Address
+											</InputLabel>
+											<Field
+												as={TextField}
+												helperText={
+													<ErrorMessage name='email'>
+														{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
+													</ErrorMessage>
+												}
+												name='email'
+												variant='outlined'
 
-											type='email'
-											size='small'
-											fullWidth
+												type='email'
+												size='small'
+												fullWidth
 
 
-										/>
+											/>
+										</div>
 										{/* <FormControl fullWidth> */}
 
+										<div className={styles.inputDiv}>
 
-										<InputLabel style={{ marginTop: "17px" }}>
-											<span className={styles.formTitle}>Password</span>
-										</InputLabel>
-										<Field
-											as={TextField}
-											helperText={
-												<ErrorMessage name='password'>
-													{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
-												</ErrorMessage>
-											}
-											name='password'
-											variant='outlined'
+											<InputLabel className={styles.formTitle}>
+												Password
+											</InputLabel>
+											<Field
+												as={TextField}
+												helperText={
+													<ErrorMessage name='password'>
+														{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
+													</ErrorMessage>
+												}
+												name='password'
+												variant='outlined'
 
-											type={showPassword ? 'text' : 'password'}
-											InputProps={{
-												endAdornment: <InputAdornment position="end">
-													<IconButton
-														aria-label="toggle password visibility"
-														onClick={handleClickShowPassword}
-														onMouseDown={handleMouseDownPassword}
-														edge="end"
-													>
-														{showPassword ? <VisibilityOff /> : <Visibility />}
-													</IconButton>
-												</InputAdornment>,
-											}}
+												type={showPassword ? 'text' : 'password'}
+												InputProps={{
+													endAdornment: <InputAdornment position="end">
+														<IconButton
+															aria-label="toggle password visibility"
+															onClick={handleClickShowPassword}
+															onMouseDown={handleMouseDownPassword}
+															edge="end"
+															sx={{ paddingRight: "14px" }}
+														>
+															{showPassword ? <VisibilityOff /> : <Visibility />}
+														</IconButton>
+													</InputAdornment>,
+												}}
 
-											size='small'
-											fullWidth
+												size='small'
+												fullWidth
 
 
-										/>
+											/>
+										</div>
 										{/* </FormControl> */}
 
-									</Box>
+									</div>
 
 
 
@@ -245,7 +250,10 @@ const SignIn = () => {
 											cursor: 'pointer',
 											fontSize: "16px",
 											height: "44px",
-											fontWeight: "bold"
+											marginTop: "20px",
+											marginBottom: "31px",
+											fontWeight: "bold",
+											display: "block"
 										}}
 										type='submit'
 										color='primary'>
@@ -263,15 +271,11 @@ const SignIn = () => {
 						</div>
 					</div>
 
-					<div className={styles.sub}>
-						<p className={styles.mt2}>
-							<span className={styles.subP}>
-								<Link to='/signup' className={styles.signinAnchor}>
-									<span className={styles.desc}>Don't have an account? </span>
-									<span id={styles.signupText}>Sign up</span>
-								</Link>
-							</span>
-						</p>
+					<div className={styles.signinAnchor_box}>
+						<Link to='/signup' className={styles.signinAnchor}>
+							<span className={styles.desc}>Don't have an account? </span>
+							<span id={styles.signupText}>Sign up</span>
+						</Link>
 					</div>
 				</div>
 			)}

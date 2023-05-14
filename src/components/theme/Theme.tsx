@@ -346,14 +346,23 @@ const theme = createTheme({
           border: "1px solid transparent !important",
           padding: "0px !important"
         },
-        gutters: {}
+
       }
     },
 
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          margin: "0px !important",
+          width: "100% !important",
+        }
+      }
+    },
     MuiTableCell: {
       styleOverrides: {
         stickyHeader: {
           padding: "16.5px",
+          border: "none !important",
           '&:first-child': {
             paddingLeft: "38px"
           },

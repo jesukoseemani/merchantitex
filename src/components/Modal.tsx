@@ -2,11 +2,11 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '../redux/actions/modal/modalActions';
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
-import { Box } from '@mui/material';
+import { Box, Backdrop } from '@mui/material';
 
 const styles = {
 	main: {
-		backgroundColor: 'rgba(137, 146, 163, 0.5)',
+		backgroundColor: '',
 		zIndex: 1300,
 		position: 'fixed',
 		top: 0,
@@ -16,6 +16,7 @@ const styles = {
 		display: 'flex',
 		justifyContent: 'center',
 		alignItems: 'center',
+		// boxShadow: 24,
 	} as React.CSSProperties,
 	messageBox: {
 		backgroundColor: 'white',
@@ -28,6 +29,7 @@ const styles = {
 		borderRadius: "20px !important"
 	} as React.CSSProperties,
 };
+// border: '2px solid #000',
 
 export default function Modal() {
 	const modalProps = useSelector((state) => state.modal);
@@ -40,66 +42,72 @@ export default function Modal() {
 	return (
 		<>
 			{modalOpened ? (
-				<div style={{ ...styles.main, left: 0 }} onClick={(e) => Close(e)}>
-					<div style={{ ...styles.messageBox, ...modalStyles }}>
+				<Backdrop
+					sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+					open={modalOpened}
+				// onClick={handleClose}
+				>
+					<div style={{ ...styles.main, left: 0 }} onClick={(e) => Close(e)}>
+						<div style={{ ...styles.messageBox, ...modalStyles }}>
 
 
 
-						{modalTitle && <Box sx={{
-							display: "flex",
-							justifyContent: "space-between",
-							alignItems: "center",
-							borderBottom: "1px solid #E0E0E0",
-							padding: "20px 40px",
-							// height: "100px"
-							position: "sticky",
-							top: 0,
-							marginBottom: "27px",
-							zIndex: "9999 !important",
-							background: "#fff",
+							{modalTitle && <Box sx={{
+								display: "flex",
+								justifyContent: "space-between",
+								alignItems: "center",
+								borderBottom: "1px solid #E0E0E0",
+								padding: "20px 40px",
+								// height: "100px"
+								position: "sticky",
+								top: 0,
+								marginBottom: "27px",
+								zIndex: "9999 !important",
+								background: "#fff",
 
-						}}>
-							<Box>
-								<h2 style={{
-									fontFamily: 'Avenir',
-									fontStyle: "normal",
-									fontWeight: "500",
-									fontSize: "18px",
-									lineHeight: "25px",
-									color: " #000000",
-								}}>
-
-									{modalTitle && modalTitle}</h2>
-							</Box>
-							<Box>
-								<ClearOutlinedIcon
-									style={{
-										zIndex: 99999,
-										cursor: 'pointer',
-										// position: 'absolute',
-										// top: '20px',
-										// right: '40px',
-									}}
-									onClick={(e: any) => Close(e)}
-									sx={{ color: 'rgba(0, 40, 65, 0.5)' }}
-								/>
-							</Box>
-
-						</Box>}
-
-						<Box sx={{
-							borderRadius: "0px !important",
-							'.css-1xvpoxq': {
-								borderRadius: "0px"
-							}
-						}}
-							onClick={(e) => {
-								e.stopPropagation();
 							}}>
-							{modalContent && modalContent}
-						</Box>
+								<Box>
+									<h2 style={{
+										fontFamily: 'Avenir',
+										fontStyle: "normal",
+										fontWeight: "500",
+										fontSize: "18px",
+										lineHeight: "25px",
+										color: " #000000",
+									}}>
+
+										{modalTitle && modalTitle}</h2>
+								</Box>
+								<Box>
+									<ClearOutlinedIcon
+										style={{
+											zIndex: 99999,
+											cursor: 'pointer',
+											// position: 'absolute',
+											// top: '20px',
+											// right: '40px',
+										}}
+										onClick={(e: any) => Close(e)}
+										sx={{ color: 'rgba(0, 40, 65, 0.5)' }}
+									/>
+								</Box>
+
+							</Box>}
+
+							<Box sx={{
+								borderRadius: "0px !important",
+								'.css-1xvpoxq': {
+									borderRadius: "0px"
+								}
+							}}
+								onClick={(e) => {
+									e.stopPropagation();
+								}}>
+								{modalContent && modalContent}
+							</Box>
+						</div>
 					</div>
-				</div>
+				</Backdrop>
 			) : null}
 		</>
 	);
