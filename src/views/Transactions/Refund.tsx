@@ -24,7 +24,7 @@ import BulkRefundModal from './BulkRefundModal';
 import CustomClickTable from '../../components/table/CustomClickTable';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import { RefundItem } from '../../types/RefundTypes';
-import BeneficiaryMenu from '../Payout/BeneficiaryMenu';
+import BeneficiaryMenu from '../Payout/beneficiary/BeneficiaryMenu';
 import { getDownloadedRefunds, getRefundsService } from '../../services/refund';
 import { stripSearch } from '../../utils';
 import useDownload from '../../hooks/useDownload';

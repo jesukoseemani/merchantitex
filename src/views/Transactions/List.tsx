@@ -42,6 +42,12 @@ import CustomStatus from '../../components/customs/CustomStatus';
 import CustomCurrencyFormat from '../../components/customs/CustomCurrencyFormat';
 import CustomDateFormat from '../../components/customs/CustomDateFormat';
 import Navigation from '../../components/navbar/Navigation';
+import LinkTypeModal from '../PaymentLinks/LinkTypeModal';
+import SingleLinkModal from '../PaymentLinks/SingleLinkModal';
+import RecurringLinkModal from '../PaymentLinks/RecurringLinkModal';
+import DonationLinkModal from '../PaymentLinks/DonationLinkModal';
+import { openModalAndSetContent } from '../../redux/actions/modal/modalActions';
+import CreateInvoice from '../../components/bills/invoice/CreateInvoice';
 
 export default function TransactionsList() {
 
@@ -175,6 +181,29 @@ export default function TransactionsList() {
 		setIsFilterModalOpen(false)
 		setReset(true);
 	};
+
+
+
+	const handleInvoce = () => {
+		dispatch(
+			openModalAndSetContent({
+				modalStyles: {
+					padding: 0,
+					borderRadius: "0.5rem",
+					boxShadow: "0px 3px 20px rgba(0, 0, 0, 0.16)",
+					width: "753px",
+					maxWidth: "100%"
+				},
+				modalTitle: "Create an Invoice",
+				modalContent: (
+					<div className="modalDiv">
+						<CreateInvoice fetchInvoice={""} />
+					</div>
+				),
+			})
+		);
+	}
+
 	interface Column {
 		id: 'amount' | 'status' | 'email' | 'payment_type' | 'date';
 		label: any;
@@ -229,9 +258,42 @@ export default function TransactionsList() {
 
 	// console.log(transactions);
 
+
+	//show paymentlink modal
+	const [isLinkModalOpen, setIsLinkModalOpen] = useState<boolean>(false);
+	const [isSingleLinkModalOpen, setIsSingleLinkModalOpen] = useState<boolean>(false);
+	const [isRecurringLinkModalOpen, setIsRecurringLinkModalOpen] = useState<boolean>(false);
+	const [isDonationLinkModalOpen, setIsDonationLinkModalOpen] = useState<boolean>(false);
+	const [isEmpty, setIsEmpty] = useState<boolean>(false);
+	const [isUpdate, setIsUpdate] = useState<boolean>(false);
+	const openSingleLinkModal = () => {
+		setIsSingleLinkModalOpen(true);
+		setIsLinkModalOpen(false);
+	}
+
+	const openRecurringLinkModal = () => {
+		setIsRecurringLinkModalOpen(true);
+		setIsLinkModalOpen(false);
+	}
+
+	const openDonationLinkModal = () => {
+		setIsDonationLinkModalOpen(true);
+		setIsLinkModalOpen(false);
+	}
+
 	return (
 
 		<div className={Styles.container}>
+			<LinkTypeModal
+				isOpen={isLinkModalOpen} handleClose={() => setIsLinkModalOpen(false)}
+				openDonationLinkModal={openDonationLinkModal}
+				openRecurringLinkModal={openRecurringLinkModal}
+				openSingleLinkModal={openSingleLinkModal}
+			/>
+			<SingleLinkModal isOpen={isSingleLinkModalOpen} handleClose={() => setIsSingleLinkModalOpen(false)} setIsUpdate={setIsUpdate} />
+			<RecurringLinkModal isOpen={isRecurringLinkModalOpen} handleClose={() => setIsRecurringLinkModalOpen(false)} setIsUpdate={setIsUpdate} />
+			<DonationLinkModal isOpen={isDonationLinkModalOpen} handleClose={() => setIsDonationLinkModalOpen(false)} setIsUpdate={setIsUpdate} />
+
 			{/* <NavBar />  */}
 			<FilterModal
 				isOpen={isFilterModalOpen}
@@ -281,14 +343,14 @@ export default function TransactionsList() {
 								<div>
 									<InvoiceIcon />
 									<h2>Start collecting payments using invoice</h2>
-									<Button className={Styles.primary}>Create an invoice</Button>
+									<button onClick={handleInvoce} className={Styles.primary}>Create an invoice</button>
 								</div>
 								<div>
 									<LinkIcon />
 									<h2>Start collecting payments using payment link</h2>
-									<Button className={Styles.primary}>
+									<button onClick={() => setIsLinkModalOpen(true)} className={Styles.primary}>
 										Create payment link
-									</Button>
+									</button>
 								</div>
 							</div>
 						</div>

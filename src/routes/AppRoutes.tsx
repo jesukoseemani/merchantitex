@@ -10,8 +10,7 @@ import BalanceHistory from "../views/Balance/BalanceHistory";
 import RollingReserve from "../views/Balance/RollingReserve";
 import Customers from "../views/Customers/Customers";
 import Transfers from "../views/Payout/Transfers";
-import FundingHistory from "../views/Payout/FundingHistory";
-import TransferBalance from "../views/Payout/TransferBalance";
+import FundingHistory from "../views/Payout/beneficiary/FundingHistory";
 import ChargeBacks from "../views/ChargeBack/ChargeBacks";
 import Pending from "../views/ChargeBack/Pending";
 import AwaitingResponse from "../views/ChargeBack/AwaitingResponse";
@@ -37,8 +36,8 @@ import LoginPasswordReset from "../components/accountSetUp/LoginPasswordReset";
 import EmailVerification from "../components/accountSetUp/EmailVerification";
 import NewPassword from "../components/accountSetUp/NewPassword";
 import QuickUpdate from "../views/QuickUpdate";
-import Beneficiaries from "../views/Payout/Beneficiaries";
-import PendingApproval from "../views/Payout/PendingApproval";
+import Beneficiaries from "../views/Payout/beneficiary/Beneficiaries";
+import PendingApproval from "../views/Payout/PendingApproval/PendingApproval";
 import Assessments from "../views/ChargeBack/Assessments";
 import TransactionsList from "../views/Transactions/List";
 import Transaction from "../views/Transactions/Transaction";
@@ -53,7 +52,7 @@ import ChargeBacksItem from "../views/ChargeBack/ChargeBacksItem";
 import AssessmentsItem from "../views/ChargeBack/AssessmentsItem";
 import DeployedItem from "../views/PointOfSale/DeployedItem";
 import RequestsItem from "../views/PointOfSale/RequestsItem";
-import TransferTable from "../views/Payout/TransferTable";
+// import TransferTable from "../views/Payout/TransferTable";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -71,8 +70,8 @@ import ResetPassword from "../views/Reset/password/ResetPassword";
 import AccountSetup from "../views/SignUp/accountsetup/AccountSetup";
 import Invoice from "../components/bills/invoice/Invoice";
 import BulkTransferEntry from "../views/Payout/transfer/BulkTransferEntry";
-import Pendingdetails from "../views/Payout/Pendingdetails";
-import BeneficiaryDetails from "../views/Payout/BeneficiaryDetails";
+import Pendingdetails from "../views/Payout/PendingApproval/Pendingdetails";
+import BeneficiaryDetails from "../views/Payout/beneficiary/BeneficiaryDetails";
 import CustomersTab from "../views/Customers/CustomersTab";
 import BlacklistTab from "../views/Customers/BlacklistTab";
 import InvoiceDetails from "../components/bills/invoice/InvoiceDetails";
@@ -95,6 +94,8 @@ import Api from '../views/Settings/Api/Api';
 import WebHooks from '../views/Settings/webhook/WebHooks';
 import BlacklistDatatable from '../views/Customers/BlacklistDatatable';
 import Won from '../views/ChargeBack/Won';
+import TransferentryErrorTable from "../views/Payout/transfer/TransferentryErrorTable";
+import PayoutItem from "../views/Payout/PayoutItem";
 
 
 
@@ -323,7 +324,7 @@ export default function AppRoutes() {
         <ProtectedRoute
           exact
           path="/payout/:id"
-          component={Pendingdetails}
+          component={PayoutItem}
           AuthUser={loadingState}
         />
 
@@ -362,7 +363,7 @@ export default function AppRoutes() {
             <ProtectedRoute
               exact
               path="/payout/transfers/list"
-              component={TransferTable}
+              component={TransferentryErrorTable}
               AuthUser={loadingState}
             />
             <ProtectedRoute
@@ -393,11 +394,11 @@ export default function AppRoutes() {
               AuthUser={loadingState}
             />
 
-            <ProtectedRoute
+            {/* <ProtectedRoute
               path="/payout/transfer_balance"
               component={TransferBalance}
               AuthUser={loadingState}
-            />
+            /> */}
 
 
             <ProtectedRoute

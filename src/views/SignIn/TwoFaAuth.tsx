@@ -140,11 +140,11 @@ const TwoFaAuth = () => {
 
 
 
-                                        <InputLabel style={{ marginTop: "17px" }}>
+                                        <InputLabel style={{ marginTop: "10px" }}>
                                             {/* <span className={styles.formTitle}>Password</span> */}
                                         </InputLabel>
                                         <Field
-                                            as={TextField}
+                                            as={StyledTextField}
                                             helperText={
                                                 <ErrorMessage name='otp'>
                                                     {(msg) => <span style={{ color: 'red' }}>{msg}</span>}

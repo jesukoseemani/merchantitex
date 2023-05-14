@@ -16,66 +16,6 @@
 	padding: 0 0rem;
 }
 
-.pending {
-	background-color: #f2c94c !important;
-	color: #12122c !important;
-	font-family: "Avenir";
-	font-style: normal;
-	font-weight: 500 !important;
-	font-size: 12px !important;
-	line-height: 16px;
-	text-align: center;
-	background: rgba(242, 201, 76, 0.15) !important;
-	color: #b99528 !important;
-	height: 19px;
-	display: flex;
-	padding: 2px 15px !important;
-	border-radius: 20px !important;
-	justify-content: center;
-	align-items: center;
-	// width: 80px;
-	width: max-content;
-}
-
-
-.approved {
-	font-family: "Avenir";
-	font-style: normal;
-	font-weight: 500 !important;
-	font-size: 12px !important;
-	line-height: 16px;
-	text-align: center;
-	background-color: rgba(39, 174, 96, 0.15) !important;
-	color: #27ae60 !important;
-	height: 19px;
-	display: flex;
-	padding: 2px 15px !important;
-	border-radius: 20px !important;
-	justify-content: center;
-	align-items: center;
-	width: 80px;
-
-}
-
-.declined {
-	background-color: #f2c94c !important;
-	color: #12122c !important;
-	font-family: "Avenir";
-	font-style: normal;
-	font-weight: 500 !important;
-	font-size: 12px !important;
-	line-height: 16px;
-	text-align: center;
-	background: rgba(235, 87, 87, 0.15) !important;
-	color: #eb5757 !important;
-	height: 19px;
-	display: flex;
-	padding: 2px 15px !important;
-	border-radius: 20px !important;
-	justify-content: center;
-	align-items: center;
-	width: 80px;
-}
 
 .sectionOne {
 	// padding: 0 0rem 3rem;
@@ -214,16 +154,16 @@
 	padding-bottom: 29px;
 	display: flex;
 	align-items: center;
-	gap: 7rem;
+	gap: 6rem;
 	flex-flow: row wrap;
 
 	&>div {
 		border-right: 1px solid #EFF3F8;
-		padding-right: 2rem;
+		padding-right: 4rem;
 
 
 
-		& div>:first-child {
+		span {
 			font-style: normal;
 			font-weight: 400;
 			font-size: 14px;
@@ -232,7 +172,7 @@
 			color: #828282;
 		}
 
-		&>:last-child {
+		p {
 			font-family: 'Avenir';
 			font-style: normal;
 			font-weight: 400;
@@ -246,7 +186,7 @@
 	@media screen and (min-width:768px) {
 		// flex-direction: column;
 		height: auto;
-		;
+
 	}
 
 	&>:nth-of-type(4) {
@@ -280,7 +220,7 @@
 
 			h2 {
 
-				font-family: 'Avenir';
+				font-family: 'Avenir bold';
 				font-style: normal;
 				font-weight: 500;
 				font-size: 18px;
@@ -364,7 +304,7 @@
 			padding-bottom: 21px;
 
 			h2 {
-				font-family: 'Avenir';
+				font-family: 'Avenir bold';
 				font-style: normal;
 				font-weight: 500;
 				font-size: 16px;
@@ -496,7 +436,7 @@
 
 		h2 {
 
-			font-family: 'Avenir';
+			font-family: 'Avenir bold';
 			font-style: normal;
 			font-weight: 500;
 			font-size: 18px;

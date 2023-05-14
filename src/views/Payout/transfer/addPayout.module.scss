@@ -1,0 +1,33 @@
+.userContainer {
+    .userContentBox {
+        padding-inline: 50px;
+        width: 100%;
+    }
+
+    .descBox {
+        border-top: 1px solid #E0E0E0;
+        padding: 21px 50px;
+
+    }
+
+    .warning {
+        margin-top: 22px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        p {
+            font-family: 'Avenir' light;
+            font-style: italic;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 16px;
+            color: rgba(74, 82, 106, 0.990517);
+        }
+
+    }
+
+    button {
+        margin: 7px 50px 38px 50px;
+    }
+}

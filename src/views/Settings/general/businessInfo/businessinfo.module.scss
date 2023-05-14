@@ -71,7 +71,7 @@
 
         &>div:not(:nth-of-type(1)) {
             border-left: 1px solid #DFDFDF;
-            padding-left: 2rem;
+            padding-left: 4rem;
 
             @media screen and (max-width:500px) {
                 border: none;

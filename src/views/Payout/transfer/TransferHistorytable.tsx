@@ -13,7 +13,7 @@ import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 import { GetTransHistoryRes, TransHistory } from '../../../types/transferTypes';
 import styles from "./transferEntries.module.scss";
 import { Checkbox, IconButton } from '@mui/material';
-import BeneficiaryMenu from '../BeneficiaryMenu';
+import BeneficiaryMenu from '../beneficiary/BeneficiaryMenu';
 import DeleteEntries from './DeleteEntries';
 const TransferHistorytable = () => {
 
