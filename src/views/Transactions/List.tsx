@@ -1,13 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import NavBar from '../../components/navbar/NavBar';
 import Styles from './list.module.scss';
-import { Button, Dropdown, Label, Input } from 'semantic-ui-react';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import CloudDownloadOutlinedIcon from '@mui/icons-material/CloudDownloadOutlined';
-import OperantTable from '../../components/table/OperantTable';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import { makeStyles } from '@material-ui/core/styles';
 import { ReactComponent as ArrowRightIcon } from '../../assets/images/arrowRight.svg';
 import { ReactComponent as InvoiceIcon } from '../../assets/images/invoice.svg';
 import { ReactComponent as LinkIcon } from '../../assets/images/link.svg';
@@ -18,14 +10,9 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
-import FormatToCurrency from '../../helpers/NumberToCurrency';
 import moment from 'moment';
 import { useHistory, useLocation } from 'react-router-dom';
-import { subDays } from 'date-fns';
-import { CSVLink } from 'react-csv';
-import FilterModal from '../../components/FilterModal';
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
-import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
+import FilterModal from '../../components/FilterModal'
 import { Box, Stack } from '@mui/material';
 import { TransactionItem, Meta } from '../../types/Transaction';
 import CustomClickTable from '../../components/table/CustomClickTable';

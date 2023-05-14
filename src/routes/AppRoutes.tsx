@@ -95,7 +95,7 @@ import WebHooks from '../views/Settings/webhook/WebHooks';
 import BlacklistDatatable from '../views/Customers/BlacklistDatatable';
 import Won from '../views/ChargeBack/Won';
 import TransferentryErrorTable from "../views/Payout/transfer/TransferentryErrorTable";
-import PayoutItem from "../views/Payout/PayoutItem";
+import PayoutItem from '../views/Payout/PayoutItem';
 
 
 
@@ -321,12 +321,7 @@ export default function AppRoutes() {
           AuthUser={loadingState}
         />
 
-        <ProtectedRoute
-          exact
-          path="/payout/:id"
-          component={PayoutItem}
-          AuthUser={loadingState}
-        />
+
 
 
 
@@ -343,7 +338,12 @@ export default function AppRoutes() {
           component={AccountSetup}
           AuthUser={loadingState}
         />
-
+        <ProtectedRoute
+          exact
+          path="/payout/:id"
+          component={PayoutItem}
+          AuthUser={loadingState}
+        />
         <Navigation title="">
           <>
 
