@@ -199,10 +199,17 @@ const Header = ({ title }: Props) => {
                   sx={{
                     background: " #FBFBFB",
                     border: "0.3px solid #DDDDDD",
-                    borderRadius: "10px",
+                    borderRadius: "10px !important",
                     height: "35px",
                     outline: "none",
-                    paddingLeft: "40px !important"
+                    paddingLeft: "40px !important",
+                    fontFamily: 'Avenir',
+                    fontStyle: "normal",
+                    fontWeight: "400",
+                    fontSize: "14px",
+                    lineHeight: "19px",
+                    color: "#9A9999",
+
 
                   }}
                 />

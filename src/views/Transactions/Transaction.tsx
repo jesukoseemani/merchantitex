@@ -3,7 +3,7 @@ import { Button, Label } from "semantic-ui-react";
 import Styles from "./transaction.module.scss";
 import { ReactComponent as CopyIcon } from "../../assets/images/copyColor.svg";
 import { ReactComponent as LinkIcon } from "../../assets/images/ext-link.svg";
-// import { ReactComponent as VisaIcon } from "../../assets/images/visa.svg";
+import { ReactComponent as VisaIcon } from "../../assets/images/visa.svg";
 import { ReactComponent as BlaklistIcon } from "../../assets/images/blacklistIcon.svg";
 import { ReactComponent as CheckColorIcon } from "../../assets/images/circle-check-color.svg";
 import { Link, useLocation, useParams } from "react-router-dom";
@@ -37,6 +37,7 @@ import FormatToCurrency from "../../helpers/NumberToCurrency";
 import Navigation from "../../components/navbar/Navigation";
 import CustomDateFormat from "../../components/customs/CustomDateFormat";
 import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
+import { getBankName } from "../../utils";
 
 
 export default function Transaction() {
@@ -142,7 +143,7 @@ export default function Transaction() {
 					<div className={Styles.headerTitle}>
 						<div className={Styles.leftText}>
 							<div className={Styles.amt_box}>
-								<p>NGN{FormatToCurrency(transaction?.transaction?.amount) ?? 0}</p>
+								<p>{transaction?.transaction?.currency} {FormatToCurrency(transaction?.transaction?.amount) ?? 0}</p>
 							</div>
 
 							<div>
@@ -172,13 +173,13 @@ export default function Transaction() {
 						<div>
 							<div>
 								<span>Card type</span>
-								<h2>{transaction?.transaction?.chargetype}</h2>
+								<h2>{transaction?.transaction?.cardtype === "Visa" ? <VisaIcon /> : transaction?.transaction?.cardtype || "nil"}</h2>
 							</div>
 						</div>
 						<div>
 							<div>
 								<span>Card number</span>
-								<h2>{transaction?.transaction?.mask}</h2>
+								<h2>{transaction?.transaction?.mask || "nil"}</h2>
 							</div>
 						</div>
 
@@ -211,15 +212,15 @@ export default function Transaction() {
 							</Grid>
 							<Grid item xs={12} sm={3} md={1.8}>
 								<span>Country/Region</span>
-								<h2>{transaction?.transaction?.paylocationcountry}</h2>
+								<h2>{transaction?.transaction?.paylocationcountry || "nil"}</h2>
 							</Grid>
 							<Grid item xs={12} sm={3} md={1.8}>
 								<span>Bank name</span>
-								{/* <h2>Access Bank</h2> */}
+								<h2>{getBankName(transaction?.transaction?.bankcode) || "nil"}</h2>
 							</Grid>
 							<Grid item xs={12} sm={5} md={5} lg={3}>
 								<span>ITEX Reference</span>
-								<h2>{transaction?.transaction?.paymentid}</h2>
+								<h2>{transaction?.transaction?.paymentid || "nil"}</h2>
 							</Grid>
 						</Grid>
 					</Box>
@@ -287,8 +288,8 @@ export default function Transaction() {
 
 						<div className={Styles.customerInfo}>
 							<div className={Styles.customerInfo_left}>
-								<Avatar sx={{ bgcolor: "#2684ED", fontSize: "14px", display: "flex", justifyContent: "center", alignItems: "center" }}>
-									{`${transaction?.transaction?.customer?.firstname?.slice(0, 1)} ${transaction?.transaction?.customer?.lastname?.slice(0, 1)}`}
+								<Avatar sx={{ bgcolor: "#FF7CFA", fontWeight: "900", width: "46px", height: "46px", fontSize: "19px", display: "flex", fontFamily: "Avenir bold", justifyContent: "center", alignItems: "center" }}>
+									{transaction?.transaction?.customer?.firstname?.slice(0, 1)}{transaction?.transaction?.customer?.lastname?.slice(0, 1)}
 								</Avatar>
 								<div>
 									<p>{`${transaction?.transaction?.customer?.firstname} ${transaction?.transaction?.customer?.lastname}`}</p>
@@ -296,9 +297,9 @@ export default function Transaction() {
 								</div>
 							</div>
 							<div className={Styles.blacklist} onClick={handleBLacklist}>
-								<p>Blacklist customer  <DoDisturbIcon /></p>
+								<p>Blacklist customer </p> <DoDisturbIcon fontSize="small" />
 							</div>
-							<br />
+
 							<div className={Styles.profile}>
 								<p>See customer profile </p>
 								<IconButton>

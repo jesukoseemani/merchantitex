@@ -3,7 +3,7 @@ import SearchBar from "../search/searchBar";
 import Styles from "./Navbar.module.scss";
 import { Box, Button, ClickAwayListener, IconButton, InputAdornment, Menu, MenuItem, OutlinedInput, Stack } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import ArrowDown from "../../assets/images/arrowDown.svg";
+import Logo from "../../assets/images/defaultLogo.svg";
 import ArrowLeft from "../../assets/images/arrowLeft.svg";
 import { ReactSVG } from "react-svg";
 import { navRoutes } from "../../mock/navRoutes";
@@ -137,21 +137,18 @@ const NavBar = () => {
 
       <div className={Styles.userInfo}>
         <div className={Styles.user__img}>
-          <img src='https://i.ibb.co/fH4x0Xk/360-F-346936114-Rax-E6-OQogebg-AWTal-E1myse-Y1-Hbb5q-PM.jpg' alt="user profile" />
+          {!business?.isapproved && <img src={Logo} alt="user profile" />}
         </div>
         <div className={Styles.userProfile__text}>
           <Stack direction={"row"} alignItems="flex-start">
             <p>
-              {auth?.user?.firstname}
+              {business?.tradingname}
             </p>
-            <IconButton style={{ marginTop: "-7px" }}>
-              <ReactSVG src={ArrowDown} />
 
-            </IconButton>
           </Stack>
 
 
-          <span>{auth?.user?.email}</span>
+          <span>Merchant ID:{business?.merchantaccountid}</span>
 
 
         </div>

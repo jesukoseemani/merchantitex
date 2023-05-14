@@ -1,82 +1,33 @@
-import { Box, Checkbox, FormControl, FormControlLabel, FormHelperText, FormLabel, Grid, InputLabel, OutlinedInput } from '@mui/material'
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { closeLoader, openLoader } from '../../redux/actions/loader/loaderActions'
-import { openToastAndSetContent } from '../../redux/actions/toast/toastActions'
-import Styles from "./styles.module.scss"
+import React, { useState } from 'react'
+import Logo from "../../assets/template/logo.svg";
+import Test from "../../assets/images/coverImage.svg";
+import Preview from "../../assets/template/preview.svg";
+import Styles from "./CheckoutComp.module.scss"
+import CheckoutSvg from './CheckoutSvg'
+import { useSelector } from 'react-redux';
 
+
+interface Props {
+    sidebar_color: string,
+    button_color: string
+}
 
 const CheckoutComp = () => {
-    const [url, setUrl] = useState('');
-    const [SecreteHash, setSecreteHash] = useState('');
-    const [value, setValue] = useState('1');
+    const { tradingname } = useSelector((state) => state?.meReducer?.me?.business);
 
+    const [image, setImage] = useState("https://i.ibb.co/fH4x0Xk/360-F-346936114-Rax-E6-OQogebg-AWTal-E1myse-Y1-Hbb5q-PM.jpg")
+    const [colorOption, setColorOption] = useState<Props>(
+        {
+            sidebar_color: "#041926",
+            button_color: "#7FFFD4"
+        })
 
-
-
-    const fetchWebhook = () => {
-        axios
-            .get<any>(`/v1/developer/webhook`)
-            .then((res: any) => {
-                setUrl(res?.data?.webhook?.url);
-                setSecreteHash(res?.data?.webhook?.secretKey)
-                console.log(res?.data)
-            })
-            .catch((err) => {
-                console.log(err);
-                dispatch(closeLoader());
-                dispatch(
-                    openToastAndSetContent({
-                        // toastContent: "Login Failed",
-                        toastContent: err?.response?.data?.message,
-
-                        msgType: "error"
-                    })
-                );
-            });
+    const handleChange = (e: any) => {
+        setColorOption({
+            ...colorOption,
+            [e.target.name]: e.target.value
+        })
     }
-    useEffect(() => {
-        fetchWebhook()
-    }, []);
-
-    const dispatch = useDispatch();
-    const webhookHandler = () => {
-        dispatch(openLoader());
-        axios
-            .post(`/v1/developer/webhook/update`, {
-                url,
-                secretKey: SecreteHash,
-                enableNotification: true
-
-
-            })
-            .then((res: any) => {
-                console.log('heris:', res);
-
-                dispatch(closeLoader());
-                fetchWebhook()
-                dispatch(
-                    openToastAndSetContent({
-                        // toastContent: "Login Failed",
-                        toastContent: res?.data?.message,
-
-                        msgType: "success"
-                    })
-                );
-            })
-            .catch((err) => {
-                console.log(err);
-                dispatch(closeLoader());
-                dispatch(
-                    openToastAndSetContent({
-                        // toastContent: "Login Failed",
-                        toastContent: err?.response?.data?.message,
-                        msgType: "error"
-                    })
-                );
-            });
-    };
     return (
         <div>
             <div className={Styles.container}>
@@ -87,19 +38,57 @@ const CheckoutComp = () => {
                         <p>Customize your checkout to match your brand</p>
                     </div>
                     <div>
-                        <button onClick={webhookHandler}>Save Changes</button>
+                        <button>Save Changes</button>
                     </div>
                 </div>
 
 
                 <div className={Styles.hook_body}>
-                    <div className='hook_wrapper'>
-                        <div className='hook_left'></div>
-                        <div className='hook_right'></div>
+                    <div className={Styles.hook_wrapper}>
+                        <div className={Styles.hook_left}>
+                            <div className={Styles.hook_left_wrapper}>
+                                <div className={Styles.hook_left_logo}>
+                                    <img src={image} alt="" />
+                                </div>
 
+                                <div className={Styles.hook_left_content}>
+                                    <h3 className={Styles.hook_left_contenth3}>Change business logo</h3>
+                                    <p className={Styles.hook_left_contentp}>We recommend using a square shaped image that is atleast 120px by 120px for optimum results. File must be JPG or PNG.</p>
+                                    <label htmlFor='logo' className={Styles.hook_left_contentbutton}>Edit logo</label>
+                                    <input type="file" name="logo" id="logo" hidden />
+                                </div>
+                            </div>
+
+                            <div className={Styles.hook_left_down}>
+                                <h3 className={Styles.hook_left_downh3}>Checkout Colors</h3>
+                                <div className={Styles.hook_left_down_color}>
+                                    <div className={Styles.hook_left_down_colorleft}>Sidebar Color:</div>
+                                    <div className={Styles.hook_left_down_colorright}>
+                                        <input onChange={handleChange} value={colorOption.sidebar_color} className={Styles.hook_left_down_inputtext} type="text" name="sidebar_color" />
+                                        <input onChange={handleChange} className={Styles.hook_left_down_inputcolor} value={colorOption.sidebar_color} type="color" name="sidebar_color" id="" />
+                                    </div>
+                                </div>
+                                <div className={Styles.hook_left_down_color}>
+                                    <div className={Styles.hook_left_down_colorleft}>Button Color:</div>
+                                    <div className={Styles.hook_left_down_colorright}>
+                                        <input onChange={handleChange} value={colorOption.button_color} className={Styles.hook_left_down_inputtext} type="text" name="button_color" />
+                                        <input onChange={handleChange} className={Styles.hook_left_down_inputcolor} value={colorOption.button_color} type="color" name="button_color" id="" />
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div className={Styles.hook_right}>
+                            <div className={Styles.hook_right_heading}>
+                                <img src={Preview} alt="" />
+                                <p>Preview</p>
+                            </div>
+                            <div>
+                                <CheckoutSvg sidebarColor={colorOption.sidebar_color} focus={colorOption.button_color} image={image} businessName={tradingname} />
+                            </div>
+                        </div>
                     </div>
-
-
                 </div>
             </div>
         </div>

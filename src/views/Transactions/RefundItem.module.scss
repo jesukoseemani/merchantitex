@@ -98,8 +98,27 @@
 			padding: 39.5px 32px 29.5px 32px;
 			display: flex;
 			align-items: center;
-			gap: 90px;
+			gap: 4rem;
 			flex-flow: row wrap;
+
+			div:not(:nth-of-type(1)) {
+				border-left: #EFF3F8 solid 1px;
+				padding-left: 3rem;
+
+				@media screen and (max-width:602px) {
+					&:nth-of-type(3) {
+						padding: 0;
+						border: none;
+					}
+				}
+
+				@media screen and (min-width:637px) and (max-width:1113px) {
+					&:nth-of-type(4) {
+						padding: 0;
+						border: none;
+					}
+				}
+			}
 
 			span {
 				font-family: 'Avenir';
@@ -532,8 +551,8 @@
 		flex-flow: row wrap;
 		gap: 10px;
 
-		h2 {
-			font-family: 'Avenir';
+		p {
+			font-family: 'Avenir semibold';
 			font-style: normal;
 			font-weight: 500;
 			font-size: 15px;
@@ -542,7 +561,7 @@
 			color: #000000;
 		}
 
-		p {
+		span {
 			font-family: 'Avenir';
 			font-style: normal;
 			font-weight: 400;

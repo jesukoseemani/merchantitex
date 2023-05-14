@@ -2,12 +2,9 @@
 	height: 100vh;
 	width: 100%;
 	background: #041926;
-	margin: 0 auto;
-	display: flex;
-	padding-top: 52px;
-	// justify-content: center;
-	// align-items: center;
-	flex-direction: column;
+	// margin: 0 auto;
+
+
 }
 
 .logo {
@@ -15,21 +12,28 @@
 	justify-content: center;
 	align-items: center;
 	width: 100%;
-	margin-bottom: 40px;
+	// padding: 52px 0px 40.58px 0px;
+	padding-top: 52px;
+	padding-bottom: 40.58px;
 }
 
 .signinDiv {
-	border: 1px solid transparent;
-	width: 444px;
-	min-height: 230px;
-	max-width: 400px;
+	// border: 1px solid transparent;
+	// width: 444px;
+	// min-height: 407px;
+	// // max-width: 444px;
 	margin: 0 auto;
-	background-color: #fff;
-	padding: 41px 50px;
-	background: #ffffff;
+	// background-color: #fff;
+	// padding: 41px 50px;
+	// background: #ffffff;
+	// box-shadow: 0px 4px 14px rgba(15, 49, 32, 0.15);
+	// border-radius: 20px;
+	background: #FFFFFF;
 	box-shadow: 0px 4px 14px rgba(15, 49, 32, 0.15);
 	border-radius: 20px;
-
+	padding: 41px 50px;
+	width: 444px;
+	min-height: 407px;
 
 }
 
@@ -43,18 +47,16 @@
 }
 
 .signinHeader {
-	// display: flex;
-	// justify-content: center;
-	// align-items: center;
-	font-family: 'Avenir Heavy';
-	font-weight: normal;
+	font-family: 'Avenir bold';
+	font-style: normal;
 	font-weight: 900;
 	font-size: 18px;
 	line-height: 25px;
 	text-align: center;
+
 	color: #000000;
-	padding: 0;
-	margin-bottom: 20px;
+	margin-bottom: 34px;
+	display: block;
 }
 
 .desc {
@@ -76,6 +78,14 @@
 
 }
 
+.inputDiv {
+
+	&:nth-of-type(1) {
+		margin-bottom: 13px;
+
+	}
+}
+
 .formTitle {
 	font-style: normal;
 	font-weight: 400;
@@ -83,6 +93,7 @@
 	// line-height: 19px;
 	// margin-top: 10px;
 	// margin-bottom: 5px !;
+	margin-bottom: 5px;
 
 	color: #333333;
 }
@@ -110,17 +121,18 @@
 	align-items: center;
 	width: 100%;
 	cursor: pointer;
-	margin-top: 29px;
 	// margin-bottom: 41px;
 }
 
 .subP {
+	font-family: 'Avenir semibold';
 	font-style: normal;
-	font-weight: normal;
-	font-size: 0.9rem;
-	line-height: 1rem;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 19px;
 	text-align: center;
-	color: #6f6f6f;
+	color: #000000;
+	margin-top: 47px;
 }
 
 .formSub {
@@ -128,6 +140,12 @@
 	line-height: 1rem;
 	text-align: center;
 	color: #000000;
+}
+
+
+.signinAnchor_box {
+	margin-top: 47px;
+	text-align: center;
 }
 
 .signinAnchor {
@@ -177,4 +195,10 @@ label {
 	line-height: 19px;
 
 	color: #333333;
+}
+
+
+.signinTwoFaDiv {
+	@extend .signinDiv;
+	min-height: 300px !important;
 }
