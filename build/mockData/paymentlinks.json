@@ -1,0 +1,54 @@
+{
+  "_metadata": {
+    "pagecount": 1,
+    "totalcount": 4,
+    "page": 1,
+    "links": []
+  },
+  "paymentlinks": [
+    {
+      "name": "Shoe Payment",
+      "amt": "45,000.52",
+      "linkType": "Single charge",
+      "url": "itexpay.com/link-ITEX-676",
+      "added": "2022-03-28 14:43:38.0",
+      "id": "1",
+      "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente, vitae voluptatum! Velit deserunt rerum vitae at. Labore ipsum cumque amet delectus. Porro in quisquam odio expedita ipsum. Earum praesentium laboriosam temporibus perspiciatis ipsa aliquam hic omnis facilis, nobis, veritatis voluptate! Eos consequatur obcaecati neque accusamus blanditiis hic quidem, cupiditate quis."
+    },
+    {
+      "name": "Monthly contribution",
+      "amt": "5000.00",
+      "linkType": "Recurring charge",
+      "url": "itexpay.com/link-ITEX-677",
+      "added": "2022-03-28 14:43:38.0",
+      "id": "2",
+      "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente, vitae voluptatum! Velit deserunt rerum vitae at. Labore ipsum cumque amet delectus. Porro in quisquam odio expedita ipsum. Earum praesentium laboriosam temporibus perspiciatis ipsa aliquam hic omnis facilis, nobis, veritatis voluptate! Eos consequatur obcaecati neque accusamus blanditiis hic quidem, cupiditate quis.",
+
+      "charge": "10",
+      "frequency": "Monthly"
+    },
+    {
+      "name": "Daily thrift",
+      "amt": "32,000.00",
+      "linkType": "Donation link",
+      "url": "itexpay.com/link-ITEX-678",
+      "added": "2022-03-28 14:43:38.0",
+      "id": "3",
+      "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente, vitae voluptatum! Velit deserunt rerum vitae at. Labore ipsum cumque amet delectus. Porro in quisquam odio expedita ipsum. Earum praesentium laboriosam temporibus perspiciatis ipsa aliquam hic omnis facilis, nobis, veritatis voluptate! Eos consequatur obcaecati neque accusamus blanditiis hic quidem, cupiditate quis.",
+      "phone": "09056009234",
+      "website": "www.google.com",
+      "img": "https://images.unsplash.com/photo-1518717758536-85ae29035b6d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8ZG9nc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+    },
+    {
+      "name": "For the job",
+      "amt": "4,000.00",
+      "linkType": "Single charge",
+      "url": "itexpay.com/link-ITEX-679",
+      "added": "2022-03-28 14:43:38.0",
+      "id": "4",
+      "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente, vitae voluptatum! Velit deserunt rerum vitae at. Labore ipsum cumque amet delectus. Porro in quisquam odio expedita ipsum. Earum praesentium laboriosam temporibus perspiciatis ipsa aliquam hic omnis facilis, nobis, veritatis voluptate! Eos consequatur obcaecati neque accusamus blanditiis hic quidem, cupiditate quis."
+    }
+  ],
+  "code": "00",
+  "message": "Successful"
+}

@@ -1,0 +1,36 @@
+{
+  "_metadata": {
+    "pagecount": 1,
+    "totalcount": 3,
+    "page": 1,
+    "links": []
+  },
+  "transactions": [
+    {
+      "amt": "34,000.52",
+      "status": "successful",
+      "destination": "Bank account",
+      "added": "2022-03-28 14:43:38.0",
+      "id": "1"
+    },
+    {
+      "amt": "50,000.52",
+      "status": "pending",
+      "destination": "Bank account",
+      "added": "2022-03-28 14:43:38.0",
+      "id": "2"
+    },
+    {
+      "amt": "55,000.52",
+      "status": "error",
+      "destination": "Bank account",
+      "added": "2022-03-28 14:43:38.0",
+      "id": "3"
+    }
+  ],
+  "code": "00",
+  "message": "Successful",
+  "earned": "3,445,000.00",
+  "paid": "2,445,000.00",
+  "value": "22"
+}

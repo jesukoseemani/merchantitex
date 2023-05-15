@@ -30,7 +30,7 @@ export default function ZijelaTabs({
 	const [value, setValue] = useState(0);
 	const [display, setDisplay] = useState<ReactNode>('');
 	const handleChange = (
-		event: React.ChangeEvent<Record<string, unknown>>,
+		event: React.ChangeEvent<{}>,
 		newValue: number
 	) => {
 		setValue(newValue);
