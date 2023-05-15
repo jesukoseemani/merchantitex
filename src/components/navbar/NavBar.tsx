@@ -11,7 +11,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import { changeNewNavbar } from "../../redux/actions/navbarNew/navbarNewActions";
 import useLocalStorage from "../../helpers/useLocalStorage";
 import { ReactComponent as ActiveStateImg } from '../../assets/images/activeState.svg'
-import BeneficiaryMenu from "../../views/Payout/BeneficiaryMenu";
+import BeneficiaryMenu from "../../views/Payout/beneficiary/BeneficiaryMenu";
 import { ReactComponent as CopyIcon } from "../../assets/images/copyColor.svg";
 import SetupIcon from "../../assets/images/setupIcon.svg";
 import CustomModal from "../customs/CustomModal";

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import NavBar from '../../components/navbar/NavBar';
 import styles from './generalsetting.module.scss';
-import { Button, Form } from 'semantic-ui-react';
 import axios, { AxiosResponse } from 'axios';
 import {
 	closeLoader,

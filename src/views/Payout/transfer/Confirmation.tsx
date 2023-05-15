@@ -45,9 +45,9 @@ const Confirmation: FC<{
         <Box className={Styles.confirm_container}>
 
             <Box className={Styles.confirm}>
-                <p className={Styles.mb}>We sent a confirmation code to 08090909090 to complete your payout of NGN {form?.amount} to James Seun - Access bank (1234567890)</p>
+                <p className={Styles.confirmText}>We sent a confirmation code to 08090909090 to complete your payout of  <span className={Styles.amt}>NGN{form?.amount}</span> to {form?.account}</p>
                 <div className={Styles.confirmInput}>
-                    <InputLabel style={{ color: '#000' }} className={Styles.label}>Confirmation Code</InputLabel>
+                    <InputLabel className={Styles.label}>Confirmation Code</InputLabel>
                     <OutlinedInput fullWidth placeholder='Enter confirmation code' onChange={e => setOtp(e.target.value)} />
                 </div>
                 <Box className={Styles.confirmFooter}>

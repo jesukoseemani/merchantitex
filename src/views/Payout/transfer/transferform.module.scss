@@ -174,32 +174,37 @@ label {
     border-radius: 20px;
 
     .confirmInput {
-        margin-top: -5px;
+        padding-inline: 40px;
+
 
         .label {
-            font-family: 'Avenir' !important;
-            font-style: normal !important;
-            font-weight: 400 !important;
-            font-size: 14px !important;
-            line-height: 19px !important;
+            font-family: 'Avenir semibold';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 19px;
             color: #333333;
         }
     }
 
     // confirmation
     .confirm {
-        padding-inline: 40px;
-        margin-top: 20px;
+        // margin-top: 20px;
 
 
-        p {
+        .confirmText {
+            padding: 0px 40px 25px 40px;
+            margin-top: -1px;
             font-family: 'Avenir';
             font-style: normal;
             font-weight: 400;
             font-size: 16px;
-            line-height: 24px !important;
+            line-height: 24px;
             color: #333333;
-            display: flex;
+
+            .amt {
+                font-family: 'Avenir bold';
+            }
 
 
         }
@@ -207,6 +212,7 @@ label {
         .confirmFooter {
             margin-top: 33px;
             margin-bottom: 15px;
+            padding-inline: 40px;
 
             p {
                 font-family: 'Avenir';
@@ -263,6 +269,7 @@ label {
 
 .resend {
     width: 100%;
+    margin-bottom: 65px;
 
     p {
         font-family: 'Avenir';

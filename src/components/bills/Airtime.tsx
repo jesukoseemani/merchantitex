@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Styles from "./airtime.module.scss";
 import AirtimeRequestTable from "./AirtimeRequestTable";
-import BeneficiaryMenu from "../../views/Payout/BeneficiaryMenu";
+import BeneficiaryMenu from "../../views/Payout/beneficiary/BeneficiaryMenu";
 import { useDispatch } from "react-redux";
 import { openModalAndSetContent } from "../../redux/actions/modal/modalActions";
 import SingleAirtimePayment from "./SingleAirtimePayment";

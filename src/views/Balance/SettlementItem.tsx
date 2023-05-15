@@ -1,6 +1,4 @@
 import React from "react";
-import NavBar from "../../components/navbar/NavBar";
-// import Styles from "./transaction.module.scss";
 import styles from "./BalanceItem.module.scss";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import { Link, useParams } from "react-router-dom";
@@ -16,7 +14,6 @@ import {
 import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
 import axios from "axios";
 import CustomClickTable from "../../components/table/CustomClickTable";
-import ParentContainer from "../../components/ParentContainer/ParentContainer";
 import {
   getSettlementTransactions,
   getSingleSettlement,
@@ -173,8 +170,8 @@ const SettlementItem = () => {
 
   useEffect(() => {
     try {
-      dispatch(openLoader());
       (async () => {
+        dispatch(openLoader());
         const res = await getSettlementTransactions(slug);
         if (res?.transactions?.length) {
           setTxns(res?.transactions || []);
@@ -196,8 +193,8 @@ const SettlementItem = () => {
   useEffect(() => {
     if (slug) {
       try {
-        dispatch(openLoader());
         (async () => {
+          dispatch(openLoader());
           const res = await getSingleSettlement(slug);
           setSettlement(res?.settlement || {});
           dispatch(closeLoader());

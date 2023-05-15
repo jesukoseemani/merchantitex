@@ -565,26 +565,28 @@
 		align-items: center;
 		gap: 10px;
 
-		button {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			gap: 0px;
-		}
 
 
 		.right__btn {
 
+			&>button {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				gap: 0px;
+				height: 32px;
+			}
 
 			& button:nth-of-type(1) {
 				display: flex;
 				justify-content: center;
 				align-items: center;
 				border-radius: 20px;
+				gap: 9.62px;
 				width: 108px;
 				height: 32px;
 				padding: 0 !important;
-				gap: 0;
+				background: #E0E0E0;
 				color: #333;
 				font-family: 'Avenir';
 				font-style: normal;
@@ -606,7 +608,9 @@
 				background-color: transparent;
 				color: #095B2C;
 				border: 1px solid #27AE60;
-				border-radius: 20px
+				border-radius: 20px;
+				display: flex;
+				gap: 10px;
 			}
 
 

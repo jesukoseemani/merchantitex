@@ -199,8 +199,9 @@ const CustomerItem = () => {
             </div>
             <div className={styles.sectionTwo}>
               <div>
-                <Avatar sx={{ bgcolor: "#2684ED", fontSize: "14px", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                  {`${customer?.firstname.substring(0, 1)} ${customer?.lastname.substring(0, 1)}`}
+                <Avatar className={styles.userProfileBox}>
+                  {customer?.firstname?.substring(0, 1)}{customer?.lastname?.substring(0, 1)}
+
                 </Avatar>
                 <div>
                   <p>Name</p>
