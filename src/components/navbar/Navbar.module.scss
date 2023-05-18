@@ -168,6 +168,18 @@ nav {
   color: #fff;
   height: 34px;
   margin-bottom: 15px;
+
+  &:hover {
+    background: #EB5757;
+    border: 0.4px solid #EB5757;
+    color: #fff;
+
+    svg {
+      path {
+        stroke: #fff;
+      }
+    }
+  }
 }
 
 .replaced_not {

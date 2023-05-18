@@ -266,44 +266,40 @@ const MerchantOverview = () => {
 
                 ))
               }
+
             </ol>
+
+
           </OverviewTable>
-          <div className={showHelpcenter ? Styles.showHelpCenter : Styles.helpCenter}>
-            <Helpcenter />
-          </div>
-          <Box
-            sx={{
-              position: "fixed",
-              right: 0,
-              bottom: "48%",
-              transform: "translate(-50% -50%)",
-              cursor: "pointer",
-              // zIndex: 9999999
-              border: "2px solid red"
-            }}
-          >
 
-          </Box>
-          <Box
-            sx={{
-              position: "fixed",
-              right: 0,
-              bottom: "10%",
-              transform: "translate(-50% -50%)",
-              cursor: "pointer",
 
-            }}
-          >
-
-            <button style={{ background: "transparent" }}>  {showHelpcenter ? <CloseHelpCenter onClick={handleClose} /> :
-              <ReactSVG src={HelpCenterIcon} onClick={handleClick} />
-            }</button>
-
-          </Box>
 
 
         </div>
+
       </div>
+      <Box
+        sx={{
+          position: "fixed",
+          right: 0,
+          bottom: "10%",
+          transform: "translate(-50% -50%)",
+          cursor: "pointer",
+          zIndex: 9999
+
+
+
+        }}
+      >
+        <div className={showHelpcenter ? Styles.showHelpCenter : Styles.helpCenter}>
+          <Helpcenter />
+        </div>
+
+        <button style={{ background: "transparent" }}>  {showHelpcenter ? <CloseHelpCenter onClick={handleClose} /> :
+          <ReactSVG src={HelpCenterIcon} onClick={handleClick} />
+        }</button>
+
+      </Box>
 
     </Navigation>
   );

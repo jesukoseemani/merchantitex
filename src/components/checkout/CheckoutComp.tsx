@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Logo from "../../assets/template/logo.svg";
 import Test from "../../assets/images/coverImage.svg";
-import Preview from "../../assets/template/preview.svg";
+import { ReactComponent as Preview } from "../../assets/template/preview.svg";
 import Styles from "./CheckoutComp.module.scss"
 import CheckoutSvg from './CheckoutSvg'
 import { useSelector } from 'react-redux';
@@ -62,28 +62,40 @@ const CheckoutComp = () => {
                             <div className={Styles.hook_left_down}>
                                 <h3 className={Styles.hook_left_downh3}>Checkout Colors</h3>
                                 <div className={Styles.hook_left_down_color}>
-                                    <div className={Styles.hook_left_down_colorleft}>Sidebar Color:</div>
                                     <div className={Styles.hook_left_down_colorright}>
-                                        <input onChange={handleChange} value={colorOption.sidebar_color} className={Styles.hook_left_down_inputtext} type="text" name="sidebar_color" />
-                                        <input onChange={handleChange} className={Styles.hook_left_down_inputcolor} value={colorOption.sidebar_color} type="color" name="sidebar_color" id="" />
+                                        <div className={Styles.hook_left_down_colorleft}>Sidebar Color:</div>
+                                        <div>
+
+                                            <input onChange={handleChange} value={colorOption.sidebar_color} className={Styles.hook_left_down_inputtext} type="text" name="sidebar_color" />
+                                            <input onChange={handleChange} className={Styles.hook_left_down_inputcolor} value={colorOption.sidebar_color} type="color" name="sidebar_color" id="" />
+                                        </div>
                                     </div>
-                                </div>
-                                <div className={Styles.hook_left_down_color}>
-                                    <div className={Styles.hook_left_down_colorleft}>Button Color:</div>
+
                                     <div className={Styles.hook_left_down_colorright}>
-                                        <input onChange={handleChange} value={colorOption.button_color} className={Styles.hook_left_down_inputtext} type="text" name="button_color" />
-                                        <input onChange={handleChange} className={Styles.hook_left_down_inputcolor} value={colorOption.button_color} type="color" name="button_color" id="" />
+                                        <div className={Styles.hook_left_down_colorleft}>Button Color:</div>
+                                        <div>
+
+                                            <input onChange={handleChange} value={colorOption.button_color} className={Styles.hook_left_down_inputtext} type="text" name="button_color" />
+                                            <input onChange={handleChange} className={Styles.hook_left_down_inputcolor} value={colorOption.button_color} type="color" name="button_color" id="" />
+                                        </div>
                                     </div>
+                                    {/* <div className={Styles.hook_left_down_colorright}>
+                                        <div className={Styles.hook_left_down_colorleft}>Focus Color:</div>
+                                        <div>
+
+                                            <input onChange={handleChange} value={colorOption.button_color} className={Styles.hook_left_down_inputtext} type="text" name="button_color" />
+                                            <input onChange={handleChange} className={Styles.hook_left_down_inputcolor} value={colorOption.button_color} type="color" name="button_color" id="" />
+                                        </div>
+                                    </div> */}
                                 </div>
 
                             </div>
 
                         </div>
                         <div className={Styles.hook_right}>
-                            <div className={Styles.hook_right_heading}>
-                                <img src={Preview} alt="" />
-                                <p>Preview</p>
-                            </div>
+                            {/* <div className={Styles.hook_right_heading}> */}
+                            <p className={Styles.hook_right_heading}><Preview /> Preview</p>
+                            {/* </div> */}
                             <div>
                                 <CheckoutSvg sidebarColor={colorOption.sidebar_color} focus={colorOption.button_color} image={image} businessName={tradingname} />
                             </div>

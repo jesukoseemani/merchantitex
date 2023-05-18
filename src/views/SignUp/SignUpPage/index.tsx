@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './style.module.scss';
 
-import ListItemText from '@mui/material/ListItemText';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import {
 	FormControl,
@@ -20,18 +19,18 @@ const SignUp = () => {
 		{
 			id: 'individual',
 			title: 'Individual',
-			description: 'Enter your details to create an account.',
+			description: 'For startups & sole proprietors. ',
 		},
 		{
 			id: 'business',
 			title: 'Business',
 			description:
-				'Start accepting payment using our infrastructure from customers anywhere in the world.',
+				'For officially registered companies that have corporate accounts. ',
 		},
 		{
 			id: 'ngo',
 			title: 'NGO',
-			description: 'Accept credit / debit cards, USSD, Bank transfer and more.',
+			description: 'For non-profit organizations like Churches, Mosques and others.',
 		},
 	];
 	const [selectedValue, setSelectedValue] = useState<string | undefined>(
@@ -58,36 +57,19 @@ const SignUp = () => {
 		overrides: {
 			MuiRadio: {
 				colorSecondary: {
-
-
 					padding: 0,
-
 					width: 20,
 					height: 20,
 					marginLeft: 32,
 					marginRight: 25,
+
 					'&$checked': {
-						color: 'green',
+						color: '#27AE60',
 					},
 				},
 			},
 		},
 	};
-
-	// const theme = {
-	// 	overrides: {
-	// 		MuiRadio: {
-	// 			root: {
-	// 				color: 'green',
-	// 			},
-	// 			colorSecondary: {
-	// 				'&$checked': {
-	// 					color: 'green',
-	// 				},
-	// 			},
-	// 		},
-	// 	},
-	// };
 
 	const muiTheme = createTheme(theme);
 
@@ -112,12 +94,12 @@ const SignUp = () => {
 											value={id}
 											control={<Radio />}
 											label={
-												<ListItemText>
-													<div className={styles.ml}>
-														<h5 className={styles.title}>{title}</h5>
-														<p className={styles.desc}>{description}</p>
-													</div>
-												</ListItemText>
+												// <ListItemText>
+												<div className={styles.signUpRadioLabel}>
+													<h5 className={styles.title}>{title}</h5>
+													<p className={styles.desc}>{description}</p>
+												</div>
+												// </ListItemText>
 											}
 										/>
 									</ThemeProvider>

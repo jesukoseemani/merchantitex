@@ -5,17 +5,39 @@
 }
 
 .tableWrapper {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  width: 100%;
-  margin: 20px auto 100px auto;
-  grid-gap: 20px;
+  // display: grid;
+  // grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  // border: 2px solid red;
+  // width: 100%;
+  // margin: 20px auto 100px auto;
+  // grid-gap: 20px;
 
-  @media screen and (max-width:768px) {
-    grid-template-columns: 1fr;
-    grid-gap: 10px;
-    height: auto;
+  // @media screen and (max-width:768px) {
+  //   grid-template-columns: 1fr;
+  //   grid-gap: 10px;
+  //   height: auto;
+  // }
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  row-gap: 17.8px;
+  position: relative;
+  margin-top: 20px;
+
+
+  &>div {
+    width: 49%;
+    position: relative;
+    height: 400px;
+    overflow-y: auto;
+
+    @media screen and (max-width:800px) {
+      width: 100%;
+    }
+
   }
+
 }
 
 .tableContainer {
@@ -443,11 +465,14 @@ ol {
   bottom: 20%;
   transform: scale(0);
   transition: transform .3s ease-in-out;
+  z-index: 99999 !important;
 }
 
 .showHelpCenter {
+  // border: 2px solid blue;
   @extend .helpCenter;
   transform: scale(1);
+  z-index: 99999;
   transition: transform .3s ease-in-out;
 
 }

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styles from './bank.module.scss';
 import { Grid } from '@material-ui/core';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { InputLabel, TextField, Button, } from '@material-ui/core';
+import { Formik, Form, Field, ErrorMessage, useFormikContext } from 'formik';
+import { InputLabel, TextField, Button, } from '@mui/material';
 import SelectWrapperCountry from '../../../components/formUI/SelectCountry';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
@@ -44,6 +44,10 @@ const AddBank = ({ data, getTransactions }: any) => {
     const [loading, setLoading] = useState(false)
     const [editData, setEditData] = useState<any>(data?.data)
     const [selectedBank, setSeletedBank] = useState<any>()
+    const [banks, setBanks] = React.useState<any>();
+    const [input, setInput] = React.useState<any>();
+    const [resolveData, setResolvedData] = React.useState<any>();
+
 
     const fetchList = useSelector(state => state?.bankAcctReducer)
 
@@ -97,9 +101,41 @@ const AddBank = ({ data, getTransactions }: any) => {
 
     // filter banklist
     let filterBank = bankList?.find((x: any) => x?.bank === editData?.bank);
-    // setSeletedBank(filterBank)
-    console.log(filterBank);
 
+
+    const resolveAccount = async () => {
+        if (input?.accountNumber.length === 10 && input?.bvn.length === 11) {
+            dispatch(openLoader());
+            try {
+                const data: any = await axios.post('/v1/setup/account/validate', {
+                    bvn: input?.bvn,
+                    accountNumber: input?.accountNumber,
+                    bankid: input?.bankid,
+
+                },
+                )
+                dispatch(closeLoader());
+
+                setAccountName(data?.data?.accountName)
+
+                console.log(data?.data?.accountName, "dataa");
+
+            } catch (error: any) {
+                const { message } = error?.response?.data;
+                dispatch(closeLoader());
+                dispatch(
+                    openToastAndSetContent({
+                        toastContent: message,
+                        msgType: "error"
+                    })
+                );
+            }
+        }
+    };
+
+    useEffect(() => {
+        resolveAccount();
+    }, [input?.accountNumber, input?.bvn]);
 
 
     const validate = Yup.object({
@@ -108,9 +144,9 @@ const AddBank = ({ data, getTransactions }: any) => {
         bvn: Yup.string().required('Required'),
         otp: Yup.string().required('Required'),
         id: Yup.number(),
-        termsAndConditions: Yup
-            .boolean()
-            .oneOf([true], 'You need to accept the terms and conditions')
+        // termsAndConditions: Yup
+        //     .boolean()
+        //     .oneOf([true], 'You need to accept the terms and conditions')
     });
 
     const StyledTextField = styled(TextField, {
@@ -123,19 +159,28 @@ const AddBank = ({ data, getTransactions }: any) => {
         }
     });
 
-    console.log(editData)
+    const FormObserver: React.FC = () => {
+        const { values } = useFormikContext();
+
+        useEffect(() => {
+            setInput(values);
+        }, [values]);
+
+        console.log(values, "vval");
+        return null;
+    };
+
+
     return (
         <div style={{ width: '100%', maxWidth: '400px', overflow: 'hidden' }}>
-            {/* <div className={styles.header}> */}
-            {/* <h3>Add/Edit a settlement account</h3> */}
-            {/* </div> */}
             <div style={{ width: '80%', margin: '0 auto', }}>
                 <Formik
                     initialValues={{
                         bankid: filterBank?.id || '',
-                        accountNumber: editData?.accountnumber || '',
+                        accountNumber: '',
                         bvn: '',
                         otp: "",
+                        accountName: ""
 
 
                     }}
@@ -144,103 +189,62 @@ const AddBank = ({ data, getTransactions }: any) => {
                         console.log(values);
                         dispatch(openLoader());
                         setLoading(true)
-                        axios
-                            .post('/v1/setup/account/validate', {
+                        axios.post('/v1/setting/settlement/account', {
 
-                                bvn: values.bvn,
-                                accountNumber: values.accountNumber,
-                                bankid: values.bankid,
-
-                            },
-                            )
-
-                            .then((res: any) => {
-                                console.log(res, "bvnnnnnnnn")
-                                dispatch(closeLoader());
-
-                                if (res?.data?.code === "Account validated successfully") {
-                                    setAccountName(res?.data?.accountName)
-
-
-                                    axios
-                                        .post('/v1/setting/settlement/account', {
-
-                                            bvn: values.bvn,
-                                            accountNumber: values.accountNumber,
-                                            bankid: values.bankid,
-                                            accountName: res?.data?.accountName,
-                                            otp: values.otp,
-                                            accountid: editData?.id || ""
+                            bvn: values.bvn,
+                            accountNumber: values.accountNumber,
+                            bankid: values.bankid,
+                            accountName: accountName,
+                            otp: values.otp,
+                            accountid: editData?.id || ""
 
 
 
 
-                                        }).then((resp: any) => {
-                                            console.log(resp)
-                                            if (resp?.data?.code === "success") {
-                                                setLoading(false)
-                                                // dispatch(fetchBankAcct())
-                                                dispatch(
-                                                    openToastAndSetContent({
-                                                        toastContent: resp?.data?.message,
-                                                        msgType: "success"
-                                                    })
-                                                );
-
-
-
-                                                resetForm()
-                                                closeModal()
-                                                // fetch accountlist
-                                                getTransactions()
-
-
-
-                                            }
-
-                                        }).catch((err) => {
-                                            dispatch(closeLoader());
-                                            setLoading(false)
-
-
-                                            dispatch(
-                                                openToastAndSetContent({
-                                                    toastContent: err?.response?.data?.message,
-                                                    msgType: "error"
-                                                })
-                                            );
-                                        });
-
-
-
-                                }
-
-                                // resetForm();
-                                dispatch(closeModal());
-                            })
-
-                            .catch((err) => {
-                                dispatch(closeLoader());
+                        }).then((resp: any) => {
+                            console.log(resp)
+                            if (resp?.data?.code === "success") {
                                 setLoading(false)
-
-
+                                // dispatch(fetchBankAcct())
                                 dispatch(
                                     openToastAndSetContent({
-                                        toastContent: err?.response?.data?.message,
-                                        msgType: "error"
+                                        toastContent: resp?.data?.message,
+                                        msgType: "success"
                                     })
                                 );
-                            });
+                                resetForm()
+                                closeModal()
+                                // fetch accountlist
+                                getTransactions()
+
+                            }
+
+                        }).catch((err) => {
+                            dispatch(closeLoader());
+                            setLoading(false)
+
+
+                            dispatch(
+                                openToastAndSetContent({
+                                    toastContent: err?.response?.data?.message,
+                                    msgType: "error"
+                                })
+                            );
+                        });
+
+
                     }}>
                     {(props) => (
                         <Form>
+                            <FormObserver />
+
                             <Grid container style={{ paddingInline: "10px" }}>
 
 
-                                <Grid item xs={12}>
+                                <Grid item xs={12} style={{ marginBottom: "17px" }}>
                                     <InputLabel className={styles.label}>BVN</InputLabel>
                                     <Field
-                                        as={StyledTextField}
+                                        as={TextField}
                                         helperText={
                                             <ErrorMessage name='bvn'>
                                                 {(msg) => <span style={{ color: 'red' }}>{msg}</span>}
@@ -255,7 +259,7 @@ const AddBank = ({ data, getTransactions }: any) => {
                                     />
                                 </Grid>
 
-                                <Grid item xs={12}>
+                                <Grid item xs={12} style={{ marginBottom: "0px" }}>
                                     <InputLabel className={styles.label}>Bank name</InputLabel>
                                     <Field
                                         as={SelectWrapperCountry}
@@ -268,18 +272,17 @@ const AddBank = ({ data, getTransactions }: any) => {
                                         placeholder='Type'
                                         size='small'
                                         options={bankList}
+                                        defaultValue={bankList && bankList[0]}
                                     // defaultValue={filterBank?.id || ""}
-
-
 
                                     />
 
                                 </Grid>
 
-                                <Grid item xs={12}>
+                                <Grid item xs={12} style={{ marginBottom: "17px" }}>
                                     <InputLabel className={styles.label}>Account Number</InputLabel>
                                     <Field
-                                        as={StyledTextField}
+                                        as={TextField}
                                         helperText={
                                             <ErrorMessage name='accountNumber'>
                                                 {(msg) => <span style={{ color: 'red' }}>{msg}</span>}
@@ -294,10 +297,10 @@ const AddBank = ({ data, getTransactions }: any) => {
                                     />
                                 </Grid>
 
-                                <Grid item xs={12}>
+                                <Grid item xs={12} style={{ marginBottom: "10px" }}>
                                     <InputLabel className={styles.label}>Otp</InputLabel>
                                     <Field
-                                        as={StyledTextField}
+                                        as={TextField}
                                         helperText={
                                             <ErrorMessage name='otp'>
                                                 {(msg) => <span style={{ color: 'red' }}>{msg}</span>}
@@ -325,24 +328,28 @@ const AddBank = ({ data, getTransactions }: any) => {
                                             fontSize: "12px",
                                             lineHeight: "14px",
                                             marginBottom: "20px",
-                                            color: "#828282"
+                                            color: "#000"
                                         }}>
                                             Resolved Account name
                                         </FormHelperText>
                                     </Stack>
-                                    <h2 style={{
-                                        fontFamily: 'Avenir',
+
+                                    {accountName && <h2 style={{
+                                        fontFamily: 'Avenir bold',
                                         fontWeight: "900",
                                         fontSize: "14px",
                                         lineHeight: "19px",
-                                        // marginTop: "-7px",
-
-                                        color: "#333"
+                                        marginBottom: "20px",
+                                        width: "100%",
+                                        color: "#333",
+                                        background: 'rgba(39, 174, 96, 0.1)',
+                                        borderRadius: 5,
+                                        padding: "10px"
                                     }}>
                                         {accountName && accountName}
 
 
-                                    </h2>
+                                    </h2>}
                                 </Box>
                                 <br />
                                 <Box>
@@ -354,7 +361,8 @@ const AddBank = ({ data, getTransactions }: any) => {
                                                     {(msg) => <span style={{ color: 'red' }}>{msg}</span>}
                                                 </ErrorMessage>
                                             } name="termsAndConditions" />
-                                        <p>Make this the primary account</p>
+                                        <p style={{ color: "#4F4F4F", fontFamily: 'Avenir' }}>Make this the primary account</p>
+                                        {/* <Checkbox /> */}
                                     </Stack>
                                 </Box>
 

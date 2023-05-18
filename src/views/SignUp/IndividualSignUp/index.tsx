@@ -274,6 +274,7 @@ const IndividualSignUp = () => {
 													</ErrorMessage>
 												}
 												name='countryid'
+												placeholder="Choose country"
 
 												options={country}
 
@@ -292,18 +293,18 @@ const IndividualSignUp = () => {
 
 										<Grid item xs={12} md={5.6} mb="18px">
 
-											<CustomInputField label={"First name"} name="firstname" as={TextField} placeholder="First name" />
+											<CustomInputField label={"First name"} name="firstname" as={TextField} placeholder=" Enter your first name" />
 
 										</Grid>
 										<Grid item xs={12} md={5.6} mb="18px">
 
 
-											<CustomInputField label={"Trading/Business name"} name="businessname" as={TextField} placeholder="businessname" />
+											<CustomInputField label={"Trading/Business name"} name="businessname" as={TextField} placeholder="Enter a trading/business name" />
 
 										</Grid>
 										<Grid item xs={12} md={5.6} mb="18px">
 
-											<CustomInputField label={"Last name"} name="lastname" as={TextField} placeholder="lastname" />
+											<CustomInputField label={"Last name"} name="lastname" as={TextField} placeholder="Enter your last name" />
 
 										</Grid>
 										<Grid item xs={12} md={5.6} mb="18px">
@@ -329,11 +330,11 @@ const IndividualSignUp = () => {
 										<Grid item xs={12} md={5.6} >
 
 
-											<CustomInputField label={"Email"} name="email" as={TextField} placeholder="email" />
+											<CustomInputField label={"Email"} name="email" as={TextField} placeholder="email@email.com" />
 
 										</Grid>
 										<Grid item xs={12} md={5.6} >
-											<CustomInputField label={"Password"} name="password" type='password' as={TextField} placeholder="password" />
+											<CustomInputField label={"Password"} name="password" type='password' as={TextField} placeholder="Password" />
 
 										</Grid>
 										{/* <InputLabel className={styles.mt}></InputLabel> */}

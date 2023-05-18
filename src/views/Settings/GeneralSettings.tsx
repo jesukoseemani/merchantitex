@@ -242,7 +242,7 @@ const GeneralSettings = () => {
 					</TabList>
 				</Box>
 				<TabPanel value="1" sx={{ padding: 0 }}><BusinessInfo me={me} /></TabPanel>
-				<TabPanel value="2" sx={{ padding: 0 }}><Profile me={me} /></TabPanel>
+				<TabPanel value="2" sx={{ padding: 0 }}><Profile me={me} fetchUserDetails={fetchUserDetails} /></TabPanel>
 				<TabPanel value="3" sx={{ padding: 0 }}><Security fetchUserDetails={fetchUserDetails} me={me} /></TabPanel>
 			</TabContext>
 		</div>

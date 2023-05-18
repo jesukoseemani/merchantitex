@@ -6,7 +6,7 @@ import EditProfile from './EditProfile';
 import { openModalAndSetContent } from '../../../../redux/actions/modal/modalActions';
 import { useDispatch } from 'react-redux';
 
-const Profile = ({ me }: any) => {
+const Profile = ({ me, fetchUserDetails }: any) => {
     const dispatch = useDispatch()
 
     const handleEdit = () => {
@@ -23,7 +23,7 @@ const Profile = ({ me }: any) => {
                 modalContent: (
                     <div className='modalDiv'>
 
-                        <EditProfile me={me} />
+                        <EditProfile me={me} fetchUserDetails={fetchUserDetails} />
                     </div>
                 ),
             })

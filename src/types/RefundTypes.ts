@@ -1,4 +1,22 @@
 export interface RefundItem {
+  amount: number;
+  createdat: string;
+  createdby: number;
+  currency: string;
+  id: number;
+  merchantid: number;
+  merchantreference: string;
+  paymentid: string;
+  paymentlinkreference: string;
+  reason: string;
+  reference: string;
+  refundtype: string;
+  responsecode: string;
+  responsemessage: string;
+  route: string;
+  status: string;
+  timein: string;
+  timeout: string;
   transaction: {
     merchantreference: string,
     reference: string,
@@ -11,10 +29,12 @@ export interface RefundItem {
     currency: string,
     fee: { [key: string]: string }
   },
-  source: {
-    customer: {
-      email: string
-    }
+
+  customer: {
+    email: string;
+    customerid: number;
+    firstname: string;
+    lastname: string;
   },
   code: string,
   message: string
