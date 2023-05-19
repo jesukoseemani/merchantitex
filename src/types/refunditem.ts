@@ -1,22 +1,5 @@
 export interface RefundSingle {
-    amount?: number;
-    createdat?: string;
-    createdby?: number;
-    currency?: string;
-    id?: number;
-    merchantid?: number;
-    merchantreference?: string;
-    paymentid?: string;
-    paymentlinkreference: string;
-    reason: string;
-    reference: string;
-    refundtype: string;
-    responsecode: string;
-    responsemessage: string;
-    route: string;
-    status: string;
-    timein: string;
-    timeout: string;
+    refund: refundResponse;
     transaction: transRef,
 
     code: string,
@@ -54,7 +37,26 @@ export interface customerRes {
 
 
 
-
+export interface refundResponse {
+    amount: number;
+    createdat: string;
+    createdby: number;
+    currency: string;
+    id: number;
+    merchantid: number;
+    merchantreference: string;
+    paymentid: string;
+    paymentlinkreference: string;
+    reason: string;
+    reference: string;
+    refundtype: string;
+    responsecode: string;
+    responsemessage: string;
+    route: string;
+    status: string;
+    timein: string;
+    timeout: string;
+}
 
 export interface RefundSingleItem {
 

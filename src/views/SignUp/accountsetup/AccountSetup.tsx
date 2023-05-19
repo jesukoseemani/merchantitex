@@ -175,7 +175,7 @@ const AccountSetup = () => {
                             <div>{businessSetup ? <ColorcheckIcon /> : <CheckIcon />}</div>
                             <div>   <p>Business Information
                                 and Documentation</p></div>
-                            <div onClick={handleBussinessForm}> <button disabled={businessSetup} className={businessSetup && Styles.disable}>Continue</button></div>
+                            <div onClick={handleBussinessForm}> <button className={businessSetup && Styles.disable}>Continue</button></div>
 
 
 

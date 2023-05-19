@@ -27,12 +27,12 @@ import Navigation from '../../components/navbar/Navigation';
 import Addtoblacklist from '../Customers/Addtoblacklist';
 import FormatToCurrency from '../../helpers/NumberToCurrency';
 import CustomDateFormat from '../../components/customs/CustomDateFormat';
-import { RefundSingleItem } from '../../types/refunditem';
+import { RefundSingle } from '../../types/refunditem';
 import { ReactComponent as MasterCard } from "../../assets/template/MasterCard_Logo 1.svg"
 
 
 const RefundItem = () => {
-  const [refund, setRefund] = useState<any>();
+  const [refund, setRefund] = useState<RefundSingle>();
 
   const { id } = useParams<{ id: string }>();
   const history = useHistory()
@@ -42,7 +42,7 @@ const RefundItem = () => {
   const getTransaction = async () => {
     dispatch(openLoader());
     try {
-      const { data } = await axios.get<any>(`/v1/refund/${id}`);
+      const { data } = await axios.get<RefundSingle>(`/v1/refund/${id}`);
       console.log(data);
       // const { transactions } = res?.data;
       if (data) {
@@ -131,6 +131,7 @@ const RefundItem = () => {
             <div>
               <div className="amount"><h2>{refund?.refund?.currency}{FormatToCurrency(Number(refund?.refund?.amount))}</h2></div>
               <h2><CustomStatus text={refund?.refund?.status} type={refund?.refund?.status} /></h2>
+
               <p>{refund?.refund?.responsemessage} <Mark /></p>
             </div>
             <div>
@@ -179,8 +180,9 @@ const RefundItem = () => {
             <div>
               <span>Payment reference</span>
               <div className={styles.copy__details}>
-                <h2>{refund?.transaction?.paymentlinkreference.substring(0, 20)}</h2>
-                <CopyToClipboard text={refund?.transaction?.paymentlinkreference}>
+                {/* <h2>{refund?.transaction?.paymentlinkreference.substring(0, 20)}</h2> */}
+                <p>{refund?.transaction?.paymentlinkreference?.substring(0, 20)}</p>
+                <CopyToClipboard text={String(refund?.transaction?.paymentlinkreference)}>
                   <IconButton>
                     <CopyIcon />
                   </IconButton>

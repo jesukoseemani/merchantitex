@@ -133,7 +133,7 @@ const BusinessSetup = () => {
 
                 <Stepper activeStep={activeStep} orientation="vertical" sx={{
                     '.css-5grjn4-MuiStepConnector-line': {
-                        minHeight: "105px"
+                        minHeight: "150px !important"
                     }
 
                 }}>
