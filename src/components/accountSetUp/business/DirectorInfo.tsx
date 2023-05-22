@@ -11,7 +11,7 @@ import SelectWrapper from '../../formUI/Select';
 import WarningIcon from "../../../assets/images/warningIcon.svg";
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { closeLoader } from '../../../redux/actions/loader/loaderActions';
+import { closeLoader, openLoader } from '../../../redux/actions/loader/loaderActions';
 import { openToastAndSetContent } from '../../../redux/actions/toast/toastActions';
 import { saveDirector } from '../../../redux/actions/setup/index';
 import { ValidateUploads } from '../../validation/setup/Businesssetup';
@@ -41,6 +41,7 @@ interface IdProps {
 const DirectorInfo = ({ handleBack, handleNext }: Props) => {
     const [presentIndex, setPresentIndex] = useState(0)
     const [expanded, setExpanded] = useState<string | false>('panel1');
+
     const handleChange =
         (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
             setExpanded(newExpanded ? panel : false);
@@ -71,6 +72,7 @@ const DirectorInfo = ({ handleBack, handleNext }: Props) => {
         setInput(directors)
     }, [directors])
 
+    console.log(input, "input")
 
     const dispatch = useDispatch()
 
@@ -89,9 +91,12 @@ const DirectorInfo = ({ handleBack, handleNext }: Props) => {
 
 
     const splitImgUrl = (imgurl: string) => {
+
+
         const breakstring = imgurl.split('.')
         const filename = breakstring[0].substring(6, 14)
         return `${filename}.${breakstring[1]}`
+
     }
 
 
@@ -99,6 +104,7 @@ const DirectorInfo = ({ handleBack, handleNext }: Props) => {
 
     const handleUpload = async (e: any) => {
         setLoading(true)
+        dispatch(openLoader())
         try {
             const formData = new FormData()
 
@@ -120,14 +126,15 @@ const DirectorInfo = ({ handleBack, handleNext }: Props) => {
             setLoading(false)
 
             const { message } = error?.response.data;
+            dispatch(closeLoader())
+
             dispatch(
-                dispatch(
-                    openToastAndSetContent({
-                        toastContent: message,
-                        msgType: "error"
-                    })
-                )
-            );
+                openToastAndSetContent({
+                    toastContent: message,
+                    msgType: "error"
+                })
+            )
+
         } finally {
             dispatch(closeLoader());
         }
@@ -156,10 +163,10 @@ const DirectorInfo = ({ handleBack, handleNext }: Props) => {
 
 
     const saveDirectorInfo = (e: any) => {
-        // if (allNotFilled) return
-        // e.preventDefault()
+        dispatch(openLoader())
         e.stopPropagation()
         dispatch(saveDirector(input))
+        dispatch(closeLoader())
         handleNext()
 
     }
@@ -404,7 +411,7 @@ const DirectorInfo = ({ handleBack, handleNext }: Props) => {
                                             <CustomUploadBtn helperText='A valid NIN Slip, National ID Card, Permanent Voters Card, International Passport or Drivers License' onChange={(e) => {
                                                 setPresentIndex(index)
                                                 handleUpload(e)
-                                            }} label='Upload an ID' uploadMsg={imgUrl && splitImgUrl(imgUrl)} />
+                                            }} label='Upload an ID' uploadMsg={input[index].docUrl !== "" ? splitImgUrl(input[index]?.docUrl) : ""} />
 
 
 

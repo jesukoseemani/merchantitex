@@ -21,6 +21,8 @@ import styles from './blacklist.module.scss';
 import RemoveBlacklist from './RemoveBlacklist';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
+import { ReactComponent as FilterIcon } from "../../assets/images/filter.svg"
+
 import { getBlacklistedCustomers } from '../../services/customer';
 import { SETTLEMENT_FILTER_DATA } from '../../constant';
 import FilterModal from '../../components/filterModals/SettlementsFilterModal';
@@ -164,7 +166,7 @@ const BlacklistDatatable = () => {
 					<Stack direction={"row"} flexWrap="wrap" justifyContent="space-between" gap={3}>
 						<h2 className={styles.blacklistHeader}>{totalRows} blacklisted customer(s)</h2>
 						<Box className={styles.headerBox}>
-							<button onClick={() => setIsFilterModalOpen(true)}><FilterAltOutlinedIcon />Filter by:</button>
+							<button onClick={() => setIsFilterModalOpen(true)}><FilterIcon />Filter by:</button>
 							{/* <button> <InsertDriveFileOutlinedIcon />Download</button> */}
 
 						</Box>

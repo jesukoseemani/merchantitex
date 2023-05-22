@@ -6,6 +6,7 @@ import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutl
 import { Link, useHistory, useLocation, useParams } from 'react-router-dom'
 import { ReactComponent as CopyIcon } from "../../../assets/images/copyColor.svg"
 import { ReactComponent as LinkIcon } from "../../../assets/images/ext-link.svg"
+import { ReactComponent as FileIcon } from "../../../assets/images/file.svg"
 import { ReactSVG } from 'react-svg';
 import { BillInvoiceRequestItem } from '../../../types/BiilsTypes';
 import { useDispatch } from 'react-redux';
@@ -127,7 +128,7 @@ const InvoiceDetails = () => {
             <Box className={Styles.sectionOne}>
 
 
-                <Link to="/bills/invoice">
+                <Link to="/bills/invoice" style={{ textDecoration: "none" }}>
                     <Stack direction={"row"} alignItems="center">
                         <ArrowLeftIcon />
                         <p>Back to invoice</p>
@@ -143,10 +144,10 @@ const InvoiceDetails = () => {
 
                         <CustomStatus text={invoiceDetails?.invoice?.status} type={invoiceDetails?.invoice?.status} />
                     </Box>
-                    <Box className={Styles.btn_group}>
+                    <div className={Styles.btn_group}>
                         <button onClick={handleDisableInvoice}>Disable</button>
-                        <button><InsertDriveFileOutlinedIcon /> Download</button>
-                    </Box>
+                        <button><FileIcon /> Download</button>
+                    </div>
                 </Stack>
                 <Box className={Styles.listItem} >
                     <Grid container alignItems="center" justifyContent={{ xs: "center", md: "space-between" }}>

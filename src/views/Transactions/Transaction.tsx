@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Button } from "semantic-ui-react";
 import Styles from "./transaction.module.scss";
 import { ReactComponent as CopyIcon } from "../../assets/images/copyColor.svg";
 import { ReactComponent as LinkIcon } from "../../assets/images/ext-link.svg";
@@ -152,8 +151,8 @@ export default function Transaction() {
 							</div>
 						</div>
 						<div className={Styles.btn__group}>
-							<Button className={Styles.refundBtn}>Resend Receipt</Button>
-							<Button className={Styles.resendBtn}>Refund customer</Button>
+							<button className={Styles.refundBtn}>Resend Receipt</button>
+							<button className={Styles.resendBtn}>Refund customer</button>
 						</div>
 					</div>
 
@@ -197,7 +196,7 @@ export default function Transaction() {
 							<Grid item xs={12} sm={4} md={3.4}>
 								<span>Payment reference</span>
 								<h2>
-									{transaction?.transaction?.paymentlinkreference?.substring(0, 22)}
+									{transaction?.transaction?.paymentlinkreference?.substring(0, 20)}
 									<CopyToClipboard text={transaction?.transaction?.paymentlinkreference}>
 										<IconButton>
 											<CopyIcon />

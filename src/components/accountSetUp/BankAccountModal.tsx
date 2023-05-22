@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './BusinessModal.module.scss';
-import { Grid } from '@material-ui/core';
 import { Formik, Form, Field, ErrorMessage, useFormik, validateYupSchema } from 'formik';
-import { InputLabel, TextField, Button } from '@material-ui/core';
 import SelectWrapperCountry from '../formUI/SelectCountry';
 import axios from 'axios';
 import {
@@ -16,7 +14,7 @@ import { closeModal, openModalAndSetContent } from '../../redux/actions/modal/mo
 import * as Yup from 'yup';
 import { FetchProfileDetails } from '../../helpers/FetchProfileDetails';
 import { styled } from '@mui/system';
-import { Box, MenuItem, Select, FormHelperText, Stack, FormControl } from '@mui/material';
+import { Box, MenuItem, Select, FormHelperText, Stack, FormControl, Grid, InputLabel, TextField, Button } from '@mui/material';
 import CustomDropdown from '../customs/CustomInputDropdown';
 import CustomCurrency from '../formUI/SelectCountry/CustomCurrency';
 import WarningIcon from "../../assets/images/warningIcon.svg";
@@ -79,7 +77,7 @@ const BankAccount = ({ checkBusinessStatus }: any) => {
 				const { data } = await axios.get<any>(`resource/currencies`)
 				console.log(data, "currency")
 				setCurrencyList(data?.currencies)
-				checkBusinessStatus()
+				checkBusinessStatus && checkBusinessStatus()
 
 			} catch (err: any) {
 				dispatch(closeLoader());
@@ -97,6 +95,7 @@ const BankAccount = ({ checkBusinessStatus }: any) => {
 	}, [])
 
 
+
 	const validate = Yup.object({
 		bankid: Yup.number().required(),
 		accountNumber: Yup.string().required(),
@@ -105,18 +104,6 @@ const BankAccount = ({ checkBusinessStatus }: any) => {
 		otp: Yup.string().required(),
 
 	});
-
-	const StyledTextField = styled(TextField, {
-		name: "StyledTextField",
-	})({
-
-		"& .MuiInputBase-root": {
-			height: 44,
-			marginBottom: "18px",
-		}
-	});
-
-
 
 
 
@@ -156,12 +143,11 @@ const BankAccount = ({ checkBusinessStatus }: any) => {
 							openModalAndSetContent({
 								modalStyles: {
 									padding: 0,
-									maxHeight: "400px",
 
 								},
 
 								modalContent: (
-									<div className='modalDiv' style={{ height: "300px" }}>
+									<div className='modalDiv'>
 										<SuccessModal />
 									</div>
 								),
@@ -170,7 +156,7 @@ const BankAccount = ({ checkBusinessStatus }: any) => {
 						resetForm()
 						closeModal()
 
-
+						checkBusinessStatus()
 
 
 					}
@@ -187,61 +173,60 @@ const BankAccount = ({ checkBusinessStatus }: any) => {
 						})
 					);
 				});
-
-
-
 		}
 
-		// resetForm();
-		// dispatch(closeModal());
 	})
 
-
-
-
-
-
 	let { accountNumber, bvn, otp, bankid } = values
-	if (bvn?.length >= 11 && accountNumber?.length >= 10) {
-		const validateBvn = () => {
 
-			dispatch(openLoader())
-			axios
-				.post('/v1/setup/account/validate', {
+	const validateBvn = () => {
+		// if (bvn?.length === 11 && accountNumber?.length === 10) {
 
-					bvn,
-					accountNumber: accountNumber,
-					bankid
+		dispatch(openLoader())
+		axios
+			.post('/v1/setup/account/validate', {
 
-
-				},
-				)
-
-				.then((res: any) => {
-					console.log(res, "bvnnnnnnnn")
-					dispatch(closeLoader());
-
-					if (res?.data?.code === "Account validated successfully") {
-						setAccountName(res?.data?.accountName)
-						console.log(res?.data?.accountName);
-
-					}
-				})
-				.catch((err) => {
-					dispatch(closeLoader());
-					setLoading(false)
+				bvn,
+				accountNumber,
+				bankid
 
 
-					dispatch(
-						openToastAndSetContent({
-							toastContent: err?.response?.data?.message,
-							msgType: "error"
-						})
-					);
-				});
-		}
-		validateBvn()
+			},
+			)
+
+			.then((res: any) => {
+				console.log(res, "bvnnnnnnnn")
+				dispatch(closeLoader());
+
+				if (res?.data?.code === "Account validated successfully") {
+					setAccountName(res?.data?.accountName)
+					console.log(res?.data?.accountName);
+
+				}
+			})
+			.catch((err) => {
+				dispatch(closeLoader());
+				setLoading(false)
+
+
+				dispatch(
+					openToastAndSetContent({
+						toastContent: err?.response?.data?.message,
+						msgType: "error"
+					})
+				);
+			});
+		// }
 	}
+
+
+	let check = bvn?.length === 11 && accountNumber?.length === 10
+	useEffect(() => {
+		if (check) {
+			validateBvn()
+
+		}
+	}, [check]);
 
 
 
@@ -253,49 +238,36 @@ const BankAccount = ({ checkBusinessStatus }: any) => {
 			<div style={{ width: '80%', margin: '0 auto', }}>
 				<form onSubmit={handleSubmit} method="post">
 					<Grid container style={{ paddingInline: "10px" }}>
-						<Grid item xs={12}>
-							<FormControl sx={{ m: 1, marginBottom: "18px" }} fullWidth variant="outlined">
 
-								<InputLabel className={styles.label}>Select currency</InputLabel>
-								<Select
 
-									labelId="demo-customized-select-label"
-									id="demo-customized-select"
-									// as={SelectWrapperCountry}
-									// helperText={
-									// 	<ErrorMessage name='bankid'>
-									// 		{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
-									// 	</ErrorMessage>
-									// }
-									name='currency'
-									placeholder='Type'
-									size='small'
-									// options={bankList}
-									onChange={handleChange}
-									value={values.currency}
-									fullWidth
 
-								>
+						<Grid item xs={12} style={{ marginBottom: "17px" }}>
+							<InputLabel className={styles.label}>Select currency</InputLabel>
+							{/* <FormControl fullWidth variant="outlined"> */}
 
-									{currencyList?.map((x: any) => (
-										<MenuItem placeholder='hello' value={x?.id}>{x?.currencyIso}</MenuItem>
+							<TextField
+								select
+								name='currency'
+								placeholder='Type'
+								size='small'
+								onChange={handleChange}
+								value={values.currency}
+								fullWidth
+								helperText={<span style={{ color: "red", fontSize: "10px", marginTop: "-10px" }}>{touched?.currency && errors?.currency}</span>}
 
-									))}
-								</Select>
-							</FormControl>
-							<span style={{ color: "red", fontSize: "10px", marginTop: "-10px" }}>{touched?.currency && errors?.currency}</span>
+							>
+								{currencyList?.map((x: any) => (
+									<MenuItem key={x?.id} placeholder='hello' value={x?.id}>{x?.currencyIso}</MenuItem>
+								))}
+							</TextField>
+							{/* </FormControl> */}
 
 						</Grid>
-						<Grid item xs={12}>
-							<br />
-							<InputLabel className={styles.label}>BVN</InputLabel>
-							<StyledTextField
 
-								// helperText={
-								// 	<ErrorMessage name='bvn'>
-								// 		{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
-								// 	</ErrorMessage>
-								// }
+
+						<Grid item xs={12} style={{ marginBottom: "17px" }}>
+							<InputLabel className={styles.label}>BVN</InputLabel>
+							<TextField
 								name='bvn'
 								placeholder='Enter your BVN'
 								variant='outlined'
@@ -305,109 +277,89 @@ const BankAccount = ({ checkBusinessStatus }: any) => {
 								fullWidth
 								helperText={<span style={{ color: "red", fontSize: "10px", marginTop: "-10px" }}>{touched?.bvn && errors?.bvn}</span>}
 
-							// error={touched?.bvn && errors?.bvn}
 							>
-							</StyledTextField>
-						</Grid>
-						<Grid item xs={12}>
-							<FormControl sx={{ m: 1, marginBottom: "18px" }} fullWidth variant="outlined">
-
-								<InputLabel className={styles.label}>Bank name</InputLabel>
-								<Select
-
-									labelId="demo-customized-select-label"
-									id="demo-customized-select"
-									// as={SelectWrapperCountry}
-									// helperText={
-									// 	<ErrorMessage name='bankid'>
-									// 		{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
-									// 	</ErrorMessage>
-									// }
-									name='bankid'
-									placeholder='Type'
-									size='small'
-									// options={bankList}
-									onChange={handleChange}
-									value={values.bankid}
-									fullWidth
-
-								>
-
-									{bankList?.map((x: any) => (
-
-										<MenuItem placeholder='hello' value={x?.id}>{x?.bank}</MenuItem>
-									))}
-								</Select>
-
-							</FormControl>
-							<span style={{ color: "red", fontSize: "10px", marginTop: "-10px" }}>{touched?.bankid && errors?.bankid}</span>
-
+							</TextField>
 						</Grid>
 
-						<Grid item xs={12}>
-							<br />
+						<Grid item xs={12} style={{ marginBottom: "17px" }}>
+							<InputLabel className={styles.label}>Bank name</InputLabel>
+							{/* <FormControl fullWidth variant="outlined"> */}
 
+							<TextField
+								select
+
+								name='bankid'
+								placeholder='Type'
+								size='small'
+								onChange={handleChange}
+								value={values.bankid}
+								fullWidth
+								helperText={<span style={{ color: "red", fontSize: "10px", marginTop: "-10px" }}>{touched?.bankid && errors?.bankid}</span>}
+
+							>
+								{bankList?.map((x: any) => (
+
+									<MenuItem key={x?.id} placeholder='hello' value={x?.id}>{x?.bank}</MenuItem>
+								))}
+							</TextField>
+							{/* </FormControl> */}
+						</Grid>
+
+						<Grid item xs={12} style={{ marginBottom: "17px" }}>
 							<InputLabel className={styles.label}>Account Number</InputLabel>
-							<StyledTextField
-								// as={StyledTextField}
-								// helperText={
-								// 	<ErrorMessage name='accountNumber'>
-								// 		{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
-								// 	</ErrorMessage>
-								// }
+							<TextField
 								name='accountNumber'
 								placeholder='Account Number'
 								variant='outlined'
 								onChange={handleChange}
-								defaultValue={values.accountNumber}
+								value={values.accountNumber}
 								size='small'
 								fullWidth
 								helperText={<span style={{ color: "red", fontSize: "10px", marginTop: "-10px" }}>{touched?.accountNumber && errors?.accountNumber}</span>}
 
+
 							/>
 
 						</Grid>
-						<Grid item xs={12}>
+
+						<Grid item xs={12} style={{ marginBottom: "8px" }}>
 							<InputLabel className={styles.label}>Otp</InputLabel>
-							<StyledTextField
-								// as={StyledTextField}
-								// helperText={
-								// 	<ErrorMessage name='otp'>
-								// 		{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
-								// 	</ErrorMessage>
-								// }
+							<TextField
+
 								name='otp'
 								placeholder='Enter otp'
 								variant='outlined'
 								onChange={handleChange}
-								defaultValue={values.otp}
+								value={values.otp}
 								size='small'
 								fullWidth
-								helperText={<span style={{ color: "red", fontSize: "10px", marginTop: "-10px" }}>{touched?.otp && errors?.otp}</span>}
 
+								helperText={<span style={{ color: "red", fontSize: "10px", marginTop: "-10px" }}>{touched?.otp && errors?.otp}</span>}
 
 							/>
 						</Grid>
 
-						{/* <h6 className={styles.resolve}> Account name</h6> */}
 						<Box>
-							<h2 style={{
-								fontFamily: 'Avenir',
+							{accountName && <h2 style={{
+								fontFamily: 'Avenir bold',
 								fontWeight: "900",
 								fontSize: "14px",
 								lineHeight: "19px",
-								marginTop: "-7px",
-								marginBottom: "17px",
-								color: "#333"
+								marginBottom: "20px",
+								color: "#333",
+								background: 'rgba(39, 174, 96, 0.1)',
+								borderRadius: 5,
+								padding: "10px",
+								width: "100%"
 							}}>
 								{accountName && accountName}
 
 
-							</h2>
+							</h2>}
 							<Stack direction={"row"} alignItems="center" columnGap={2}>
 
 								<ReactSVG src={WarningIcon} />
-								<FormHelperText sx={{
+								<FormHelperText style={{
 									fontFamily: 'Avenir',
 									fontStyle: "italic",
 									fontWeight: 400,
@@ -439,8 +391,6 @@ const BankAccount = ({ checkBusinessStatus }: any) => {
 						</Grid>
 					</Grid>
 				</form>
-				{/* // )} */}
-				{/* </Formik> */}
 			</div>
 		</div>
 	);

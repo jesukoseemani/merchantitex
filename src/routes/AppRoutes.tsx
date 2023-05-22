@@ -24,7 +24,7 @@ import TerminalRequests from "../views/PointOfSale/TerminalRequest";
 import Bills from "../views/Bills/BillTabPanel";
 import GeneralSettings from "../views/Settings/GeneralSettings";
 import AccountSettings from "../views/Settings/AcctPreference/AccountSettings";
-import Users from "../views/Settings/Users";
+import Users from "../views/Settings/user/Users";
 import BankAccounts from "../views/Settings/bankAccount/BankAccounts";
 import SignUp from "../views/SignUp/SignUpPage";
 import IndividualSignUp from "../views/SignUp/IndividualSignUp";

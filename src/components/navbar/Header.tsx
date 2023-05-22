@@ -179,7 +179,7 @@ const Header = ({ title }: Props) => {
     <div className={Styles.header__box}>
       {/* <Container> */}
       <Grid container justifyContent="space-between" alignItems="center" spacing={3}>
-        <Grid item xs={7} md={5.5}>
+        <Grid item xs={7} md={6}>
 
           <Box className={Styles.left__header}>
             <Box sx={{ display: { xs: "none", md: "block" } }}><h2 className={Styles.title}>{title ? title : navbarRoute}</h2></Box>
@@ -200,7 +200,7 @@ const Header = ({ title }: Props) => {
                     background: " #FBFBFB",
                     border: "0.3px solid #DDDDDD",
                     borderRadius: "10px !important",
-                    height: "35px",
+                    height: "35px !important",
                     outline: "none",
                     paddingLeft: "40px !important",
                     fontFamily: 'Avenir',

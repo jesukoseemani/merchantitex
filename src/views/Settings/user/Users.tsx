@@ -1,27 +1,27 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import NavBar from '../../components/navbar/NavBar';
-import Styles from './Settings.module.scss';
-import OperantTable from '../../components/table/OperantTable';
+import NavBar from '../../../components/navbar/NavBar';
+import Styles from '../Settings.module.scss';
+import OperantTable from '../../../components/table/OperantTable';
 import { useDispatch } from 'react-redux';
 import {
 	closeLoader,
 	openLoader,
-} from '../../redux/actions/loader/loaderActions';
+} from '../../../redux/actions/loader/loaderActions';
 import axios from 'axios';
-import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
+import { openToastAndSetContent } from '../../../redux/actions/toast/toastActions';
 import { IconButton } from '@material-ui/core';
 import {
 	openModalAndSetContent,
 	closeModal,
-} from '../../redux/actions/modal/modalActions';
-import UserModal from './user/UserModal';
-import ParentContainer from '../../components/ParentContainer/ParentContainer';
-import EditUserModal from './user/EditUserModal';
+} from '../../../redux/actions/modal/modalActions';
+import UserModal from './UserModal';
+import ParentContainer from '../../../components/ParentContainer/ParentContainer';
+import EditUserModal from './EditUserModal';
 import { capitalize, Stack, Box } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { useHistory } from 'react-router-dom';
-import CustomDateFormat from '../../components/customs/CustomDateFormat';
-import CustomModal from '../../components/customs/CustomModal';
+import CustomDateFormat from '../../../components/customs/CustomDateFormat';
+import CustomModal from '../../../components/customs/CustomModal';
 
 
 

@@ -16,8 +16,8 @@ import moment from 'moment';
 import { CustomerItem, GetCustomersRes } from '../../types/CustomerTypes';
 import CustomClickTable from '../../components/table/CustomClickTable';
 import { closeModal, openModalAndSetContent } from '../../redux/actions/modal/modalActions';
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
-import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
+import { ReactComponent as FileIcon } from "../../assets/images/file.svg"
+import { ReactComponent as FilterIcon } from "../../assets/images/filter.svg"
 import AddNewCustomer from './AddNewCustomer';
 import Addtoblacklist from './Addtoblacklist';
 import { getBlacklistedCustomers, getCustomersService, getDownloadedCustomers } from '../../services/customer';
@@ -231,8 +231,8 @@ const CustomersTab = ({ value, index }: any) => {
 					<Stack direction={"row"} flexWrap="wrap" justifyContent="space-between" gap={3}>
 						<h2>{totalRows} customer(s)</h2>
 						<Box className={styles.headerBox}>
-							<button onClick={() => setIsFilterModalOpen(true)}><FilterAltOutlinedIcon />Filter by:</button>
-							<button onClick={calDownload}> <InsertDriveFileOutlinedIcon />Download</button>
+							<button onClick={() => setIsFilterModalOpen(true)}><FilterIcon />Filter by:</button>
+							<button onClick={calDownload}> <FileIcon />Download</button>
 							<button onClick={AddCustomer}>+ Add customer</button>
 						</Box>
 					</Stack>

@@ -53,8 +53,10 @@
     @extend .status-container;
     background: rgba(242, 201, 76, 0.3);
 
-    p {
-        color: #BE8F00;
+    &>p {
+
+        color: #BE8F00 !important;
+
     }
 }
 

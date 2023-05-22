@@ -1,16 +1,28 @@
-import { Box, Typography } from '@mui/material'
+import { Box, IconButton, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import ColorcheckIcon from "../../../assets/images/circle-check-color.svg"
+import { ReactComponent as ColorcheckIcon } from "../../../assets/images/circle-check-color.svg"
+import { ReactComponent as Cancel } from "../../../assets/images/cancel.svg"
 import Styles from "./success.module.scss"
+import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
+import { useDispatch } from 'react-redux'
+import { closeModal } from '../../../redux/actions/modal/modalActions';
 
-import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
- 
 
 const SuccessModal = () => {
-
+    const dispatch = useDispatch()
+    const handleClose = () => [
+        dispatch(closeModal())
+    ]
     return (
 
         <Box className={Styles.container}>
+            <Box sx={{
+                position: "absolute",
+                right: 39,
+                top: 31
+            }}>
+                <IconButton onClick={handleClose}>  <ClearOutlinedIcon /></IconButton>
+            </Box>
             <Box sx={{
 
                 height: "160px",
@@ -19,13 +31,14 @@ const SuccessModal = () => {
                 justifyContent: "center",
                 alignItems: "center",
                 flexDirection: "column",
-                // marginTop: "50px",
-                // marginBottom: "3px",
-            }}>
-                <CheckCircleOutlinedIcon color='success' style={{
-                    fontSize: "100px"
+                '& svg': {
+                    width: "116px",
+                    height: 116
+                }
 
-                }} />
+            }}>
+                <ColorcheckIcon />
+
 
             </Box>
             <Box className={Styles.textContainer} >

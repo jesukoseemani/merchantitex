@@ -39,6 +39,13 @@
 	// border: 2px solid red;
 	padding-top: 76px;
 	padding-bottom: 76px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+
+
+
 }
 
 
@@ -64,6 +71,7 @@
 	justify-content: flex-start;
 	align-items: center;
 	width: 398px;
+
 
 }
 
@@ -155,21 +163,14 @@
 	display: flex;
 	justify-content: flex-start;
 	border: 1px solid #e0e0e0;
-
+	align-items: center;
 	box-sizing: border-box;
 	border-radius: 10px;
 	width: 398px;
 	height: 95px;
-	// border: 2px solid red;
 	margin-bottom: 20px;
 
 
-	svg {
-		// border: 2px solid red;
-		// margin-left: 29px;
-		// margin-right: 27px;
-
-	}
 }
 
 .divRadioGroup:focus {
@@ -210,4 +211,13 @@
 		width: 100%;
 		height: auto;
 	}
+}
+
+
+
+.signUpRadioLabel {
+	// border: 2px solid red;
+	margin-top: -10px;
+
+
 }
