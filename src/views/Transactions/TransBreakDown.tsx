@@ -45,7 +45,7 @@ const TransBreakDown = () => {
             <div className={styles.stepperBox}>
                 <Stepper activeStep={1} orientation="vertical" sx={{
                     '.css-5grjn4-MuiStepConnector-line': {
-                        minHeight: "30px !important",
+                        minHeight: "35px !important",
                         marginTop: "-0.6rem !important"
 
                     }
@@ -78,9 +78,8 @@ const TransBreakDown = () => {
             <div className={styles.stepper__container_2}>
                 <Stepper activeStep={1} orientation="vertical" sx={{
                     '.css-5grjn4-MuiStepConnector-line': {
-                        minHeight: "25px !important",
+                        minHeight: "35px !important",
                         marginTop: "-0.6rem !important",
-                        border: "2px solid red"
                     },
 
                 }}>

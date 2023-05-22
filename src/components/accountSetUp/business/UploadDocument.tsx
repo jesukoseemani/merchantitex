@@ -49,7 +49,8 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
 
 
     const history = useHistory()
-    const handleUpload = async (e: any,) => {
+
+    const handleUpload = async (e: any, setState: React.Dispatch<React.SetStateAction<string>>) => {
         setLoading(true)
         dispatch(openLoader())
 
@@ -62,7 +63,7 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
 
             if (data) {
                 dispatch(closeLoader());
-                setImgUrl(data?.fileUrl)
+                setState(data?.fileUrl)
                 setLoading(false)
             }
 
@@ -97,29 +98,23 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
 
 
     const handleFileUploadRegDoc = (e: any) => {
-        handleUpload(e?.target.files[0])
-        setBizDoc(imgUrl)
-        console.log(e.target.file);
-
-
-        console.log("buzDoc")
+        handleUpload(e?.target.files[0], setBizDoc)
 
     }
     const handleUploadLinsence = (e: any) => {
-        handleUpload(e.target.files[0])
-        // s(imgUrl)
-        setLisenceDoc(imgUrl)
-
+        handleUpload(e.target.files[0], setLisenceDoc)
 
     }
+
     const handleBusinesType = (e: any) => {
-        handleUpload(e.target.files[0])
-        setBizReq_type(imgUrl)
+        handleUpload(e.target.files[0], setBizReq_type)
+
     }
+
     const handleProveDoc = (e: any) => {
 
-        handleUpload(e.target.files[0])
-        setProvDoc(imgUrl)
+        handleUpload(e.target.files[0], setProvDoc)
+
     }
 
 
@@ -277,8 +272,6 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
 
 
                     </Grid>
-
-
 
 
 

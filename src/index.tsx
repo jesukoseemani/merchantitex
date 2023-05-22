@@ -19,14 +19,14 @@ import { ThemeProvider } from '@mui/material';
 import theme from './components/theme/Theme';
 ReactDOM.render(
 	<React.StrictMode>
-		<Provider store={store}>
-			<PersistGate loading={<Loader />} persistor={persistor}>
-				<ThemeProvider theme={theme}>
+		<ThemeProvider theme={theme}>
+			<Provider store={store}>
+				<PersistGate loading={<Loader />} persistor={persistor}>
 
 					<App />
-				</ThemeProvider>
-			</PersistGate>
-		</Provider>
+				</PersistGate>
+			</Provider>
+		</ThemeProvider>
 	</React.StrictMode>,
 	document.getElementById('root')
 );

@@ -18,7 +18,7 @@ const RollingReserveItem = () => {
         <div className={styles.pageWrapper}>
           <div className={styles.sectionOne}>
             <div>
-              <Link to="/balance/rolling_reserve">
+              <Link to="/balance/rolling_reserve" style={{ textDecoration: "none" }}>
                 <div>
                   <ArrowLeftIcon />
                   <p>Back to Rolling reserves</p>

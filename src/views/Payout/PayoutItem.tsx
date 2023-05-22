@@ -16,7 +16,7 @@ const PayoutItem = () => {
         <Navigation title='Payouts'>
             <div>
                 <div>
-                    <Link to="/payout">
+                    <Link to="/payout" className={styles.goBackLink}>
                         <div className={styles.goBack}>
                             <ArrowLeft />
                             <p>Back to payout</p>

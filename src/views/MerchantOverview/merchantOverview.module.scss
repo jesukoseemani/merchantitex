@@ -476,3 +476,38 @@ ol {
   transition: transform .3s ease-in-out;
 
 }
+
+.ProgressBar {
+  height: 22px;
+  width: 100%;
+  display: flex;
+  // justify-content: center;
+  // align-items: center;
+
+  .bar {
+    border-radius: 2.06293px;
+    height: 100%;
+    // width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 12.7px;
+    min-width: 10%;
+
+    p {
+      font-family: 'Avenir bold';
+      font-style: normal;
+      font-weight: 700;
+      font-size: 12px;
+      line-height: 12px;
+      text-align: right;
+      letter-spacing: 0.00206293px;
+      color: #333333;
+      // display: flex;
+      // justify-content: center;
+      // align-items: flex-end;
+      width: 100%;
+      float: right;
+    }
+  }
+}

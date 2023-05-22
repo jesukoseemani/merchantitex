@@ -7,7 +7,6 @@ import { ReactSVG } from "react-svg"
 import { useDispatch } from 'react-redux'
 import { openModalAndSetContent } from '../../../redux/actions/modal/modalActions'
 import BusinessSetup from './BusinessSetup'
-import AddBusinessSetup from '../../../components/accountSetupModal/AddBusinessSetup'
 import BankAccount from '../../../components/accountSetUp/BankAccountModal'
 import ProfileSetup from './ProfileSetup'
 import axios from 'axios'
@@ -175,7 +174,7 @@ const AccountSetup = () => {
                             <div>{businessSetup ? <ColorcheckIcon /> : <CheckIcon />}</div>
                             <div>   <p>Business Information
                                 and Documentation</p></div>
-                            <div onClick={handleBussinessForm}> <button className={businessSetup && Styles.disable}>Continue</button></div>
+                            <div onClick={handleBussinessForm}> <button disabled={businessSetup} className={businessSetup && Styles.disable}>Continue</button></div>
 
 
 

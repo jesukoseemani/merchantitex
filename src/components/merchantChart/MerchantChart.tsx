@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Styles from "./merchant.module.scss";
-import { Button } from "semantic-ui-react";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import RemoveIcon from "@mui/icons-material/Remove";
 import LineChartComp from "../chart/LineChart";
@@ -84,9 +83,9 @@ export default function MerchantChart({ summary, total, setEvent }: { summary: S
     <div className={Styles.container}>
       <div className={Styles.chartHeader}>
         <div className={Styles.menuCont}>
-          <Button onClick={() => setOpenMenu(!openMenu)}>
+          <button onClick={() => setOpenMenu(!openMenu)}>
             {name} <ArrowDropDownIcon />
-          </Button>
+          </button>
 
           {openMenu && <div className={Styles.menu} style={{ borderRadius: "20px" }}>
             {DATA.map((d) => (
@@ -99,16 +98,16 @@ export default function MerchantChart({ summary, total, setEvent }: { summary: S
           </div>}
         </div>
         <div className={Styles.btnGroupWrapper}>
-          <Button.Group className={Styles.btnGroup}>
-            <Button>{form?.fromdate || ''}</Button>
-            <Button className={Styles.btnDivider}>
+          <button className={Styles.btnGroup}>
+            <button>{form?.fromdate || ''}</button>
+            <button className={Styles.btnDivider}>
               <RemoveIcon />
-            </Button>
-            <Button>{form?.todate || ''}</Button>
-          </Button.Group>
-          <Button>
+            </button>
+            <button>{form?.todate || ''}</button>
+          </button>
+          <button>
             NGN <ArrowDropDownIcon />
-          </Button>
+          </button>
         </div>
       </div>
       <div className={Styles.chartWrapper}>

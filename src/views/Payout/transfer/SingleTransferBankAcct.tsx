@@ -9,17 +9,6 @@ import { openModalAndSetContent } from '../../../redux/actions/modal/modalAction
 import Confirmation from './Confirmation';
 import CloseIcon from "@mui/icons-material/Close";
 import { IconButton } from "@material-ui/core";
-import {
-    Dropdown,
-    Menu,
-    Button,
-    Header,
-    Image,
-    Modal,
-    Checkbox,
-    Form,
-    Select,
-} from "semantic-ui-react";
 import { openToastAndSetContent } from '../../../redux/actions/toast/toastActions';
 import { getSettlementAccounts } from '../../../services/settlement';
 import { getBalance } from '../../../services/balance';
@@ -74,62 +63,7 @@ const SingleTransferBankAcct = ({ close }: { close: () => void }) => {
 
 
 
-    const ItexModalPayout = () => {
-        const [form, setForm] = useState(DATA)
 
-        const handleChange = (value: string, key: string) => {
-            setForm({
-                ...form,
-                [key]: value
-            })
-        }
-
-        return (
-            <Modal
-                onClose={() => setOpenModal(false)}
-                onOpen={() => setOpenModal(true)}
-                open={openModal}
-                className={Styles.modalContainer}
-            >
-                <div className={Styles.modalHeader}>
-                    <h2>Make a payout</h2>
-                    <IconButton onClick={() => setOpenModal(false)}>
-                        <CloseIcon />
-                    </IconButton>
-                </div>
-                <Form.Field className={Styles.inputWrapper}>
-                    <label>Balance to be debited</label>
-                    <Select
-                        placeholder="NGN balance - 123,456.78"
-                        options={formattedBalance}
-                        onChange={(e: any, value: any) => handleChange(value.value, 'balance')}
-                    />
-                </Form.Field>
-                <Form.Field className={Styles.inputWrapper}>
-                    <label>Payout amount</label>
-                    <input placeholder="NGN 0.0" onChange={e => handleChange(e.target.value, 'amount')} />
-                </Form.Field>
-                <Form.Field className={Styles.inputWrapper}>
-                    <label>Select beneficiary account</label>
-                    <Select
-                        placeholder="Select beneficiary account"
-                        options={formattedAccount}
-                        onChange={(e: any, value: any) => handleChange((value.value), 'account')}
-                    />        </Form.Field>
-                <Form.Field className={Styles.inputWrapper}>
-                    <label>Payout desciption (optional)</label>
-                    <input placeholder="e.g Thank you" onChange={e => handleChange(e.target.value, 'description')} />
-                </Form.Field>
-                {/* <p>
-          <InfoOutlinedIcon />
-          You will be charged <span> NGN45</span> fee for this transaction
-        </p> */}
-                <div className={Styles.modalFooter}>
-                    <Button onClick={() => handleSubmit(form)} disabled={!form.balance || !form.amount || !form.account}>Submit</Button>
-                </div>
-            </Modal>
-        );
-    };
 
 
 

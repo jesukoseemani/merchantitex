@@ -1,11 +1,9 @@
 import React, { useState, useCallback, useEffect } from "react";
 import NavBar from "../../components/navbar/NavBar";
 import Styles from "./transfer.module.scss";
-import { Button } from "semantic-ui-react";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import CloudDownloadOutlinedIcon from "@mui/icons-material/CloudDownloadOutlined";
 import OperantTable from "../../components/table/OperantTable";
-import { Label, Input, Select } from "semantic-ui-react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { makeStyles } from "@material-ui/core/styles";
@@ -140,45 +138,53 @@ export default function TransfersTable({ payout, changePage }: { payout: PayoutR
             <div className={Styles.dateRange}>
               <h2>Date range</h2>
               <div>
-                <Button>Today</Button>
-                <Button>Last 7 days</Button>
-                <Button>30 days</Button>
-                <Button>1 year</Button>
+                <button>Today</button>
+                <button>Last 7 days</button>
+                <button>30 days</button>
+                <button>1 year</button>
               </div>
             </div>
             <div className={Styles.dateRange}>
               <h2>Custom date range</h2>
               <div className={Styles.dateInputRange}>
-                <Input type="date" placeholder="Start date" />
+                <input type="date" placeholder="Start date" />
                 <ArrowRightIcon />
-                <Input type="date" placeholder="End date" />
+                <input type="date" placeholder="End date" />
               </div>
             </div>
             <div className={Styles.dateRange}>
               <h2>Customer email</h2>
               <div className={Styles.fluid}>
-                <Input type="email" placeholder="Enter business name" />
+                <input type="email" placeholder="Enter business name" />
               </div>
             </div>
             <div className={Styles.dateRange}>
               <h2>Status</h2>
               <div className={Styles.fluid}>
-                <Select placeholder="Choose status" options={statusOption} />
+                {/* <Select placeholder="Choose status" options={statusOption} /> */}
+                <select
+                  placeholder="Select payment type"
+                // options={paymentOption}
+                >{statusOption?.map((x: any) => (
+                  <option key={x?.key} value={x?.value}>{x?.text}</option>
+                ))}</select>
               </div>
             </div>
             <div className={Styles.dateRange}>
               <h2>Payment type</h2>
               <div className={Styles.fluid}>
-                <Select
+                <select
                   placeholder="Select payment type"
-                  options={paymentOption}
-                />
+                // options={paymentOption}
+                >{paymentOption?.map((x: any) => (
+                  <option key={x?.key} value={x?.value}>{x?.text}</option>
+                ))}</select>
               </div>
             </div>
           </div>
           <div className={Styles.menuFooter}>
-            <Button>Clear filter</Button>
-            <Button>Apply filter</Button>
+            <button>Clear filter</button>
+            <button>Apply filter</button>
           </div>
         </div>
       </Menu>

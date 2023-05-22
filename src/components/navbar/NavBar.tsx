@@ -158,9 +158,9 @@ const NavBar = () => {
         <div className={Styles.backBtn}>
           {isNested && (
             <>
-              <Button onClick={() => setIsNested(false)}>
+              <button onClick={() => setIsNested(false)}>
                 <ReactSVG src={ArrowLeft} /> Main Menu
-              </Button>
+              </button>
 
               <h3 className={Styles.menuTitle}>
                 {menuTitle} MENU

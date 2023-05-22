@@ -25,7 +25,6 @@ import ContactForm from '../../../components/accountSetUp/business/ContactForm';
 
 
 
-
 const BusinessSetup = () => {
     const { me } = useSelector(state => state?.meReducer)
     const accountType = me?.business?.merchantaccounttype
@@ -133,8 +132,9 @@ const BusinessSetup = () => {
 
                 <Stepper activeStep={activeStep} orientation="vertical" sx={{
                     '.css-5grjn4-MuiStepConnector-line': {
-                        minHeight: "150px !important"
+                        minHeight: "105px !important"
                     }
+
 
                 }}>
                     {accountType === "INDIVIDUAL" ? (
