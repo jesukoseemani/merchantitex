@@ -141,9 +141,9 @@ const theme = createTheme({
         line: {
           // border: "none"
           color: "pink",
-          height: "105px",
+          minHeight: "70px",
           borderLeft: "1px solid #B3B3B3",
-          marginTop: "-1.2rem",
+          marginTop: "-1rem",
           marginLeft: "-3px",
 
 
@@ -247,15 +247,29 @@ const theme = createTheme({
           minHeight: 44,
           '& textarea': {
             padding: "10px !important",
+          },
+          '&.MuiTextField-root': {
+            '& ::placeholder': {
+              fontFamily: 'Avenir',
+              fontStyle: "normal",
+              fontWeight: 400,
+              fontSize: "14px",
+              lineHeight: "19px",
+              textTransform: "capitalize",
+              color: "#B9B9B9",
+
+            }
           }
 
 
         },
 
-
-
       }
+
     },
+
+
+
     MuiTab: {
       styleOverrides: {
         root: {

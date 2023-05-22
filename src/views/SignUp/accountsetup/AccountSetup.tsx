@@ -1,14 +1,12 @@
 import { Button, Grid } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import ParentContainer from '../../../components/ParentContainer/ParentContainer'
 import Styles from "./accountsetup.module.scss"
-import CheckIcon from "../../../assets/images/circle-check.svg"
-import ColorcheckIcon from "../../../assets/images/circle-check-color.svg"
+import { ReactComponent as CheckIcon } from "../../../assets/images/circle-check.svg"
+import { ReactComponent as ColorcheckIcon } from "../../../assets/images/circle-check-color.svg"
 import { ReactSVG } from "react-svg"
 import { useDispatch } from 'react-redux'
 import { openModalAndSetContent } from '../../../redux/actions/modal/modalActions'
 import BusinessSetup from './BusinessSetup'
-import AddBusinessSetup from '../../../components/accountSetupModal/AddBusinessSetup'
 import BankAccount from '../../../components/accountSetUp/BankAccountModal'
 import ProfileSetup from './ProfileSetup'
 import axios from 'axios'
@@ -71,6 +69,9 @@ const AccountSetup = () => {
     const { setupStatus } = useSetup()
     console.log(setupStatus, "statussssss")
 
+
+
+
     const handleBussinessForm = () => {
         dispatch(
             openModalAndSetContent({
@@ -107,7 +108,8 @@ const AccountSetup = () => {
 
                 modalContent: (
                     <div className='modalDiv'>
-                        <BankAccount checkBusinessStatus={checkBusinessStatus} />
+                        <BankAccount />
+                        {/* <TestBank /> */}
                     </div>
                 ),
             })
@@ -137,6 +139,7 @@ const AccountSetup = () => {
 
 
 
+
     return (
 
 
@@ -153,23 +156,22 @@ const AccountSetup = () => {
                     <button onClick={handleBussinessForm}>Re-upload documents</button>
                 </div>
             </div>}
+
             <div className={Styles.container}>
                 <div className={Styles.middle_container}>
-
-
                     <h2>Hey {auth?.user?.firstname}, Let’s setup your account(s)</h2>
                     <p>Your business is currently in <span>Test Mode -</span> this means there’re a couple more things to finish up before customers can start paying you online. The guides below will show you how to do this.</p>
                     <div className={Styles.box}>
 
                         <div>
-                            <div> <ReactSVG src={ColorcheckIcon} /></div>
+                            <div> <ColorcheckIcon /></div>
                             <div> <p>Personal Profile</p></div>
                             <div onClick={handleProfileForm}> <button disabled className={Styles.disable}>Continue</button></div>
 
                         </div>
 
                         <div>
-                            <div> <ReactSVG src={businessSetup ? ColorcheckIcon : CheckIcon} /></div>
+                            <div>{businessSetup ? <ColorcheckIcon /> : <CheckIcon />}</div>
                             <div>   <p>Business Information
                                 and Documentation</p></div>
                             <div onClick={handleBussinessForm}> <button disabled={businessSetup} className={businessSetup && Styles.disable}>Continue</button></div>
@@ -180,7 +182,7 @@ const AccountSetup = () => {
                         {/* </Grid> */}
                         {/* <Grid item xs={12} sm={12} md={4}> */}
                         <div>
-                            <div> <ReactSVG src={settlementSetup ? ColorcheckIcon : CheckIcon} /></div>
+                            <div> {settlementSetup ? <ColorcheckIcon /> : <CheckIcon />} </div>
                             <div>  <p>Add Bank Accounts</p></div>
                             <div> <button onClick={handleBankAccount} disabled={settlementSetup} className={settlementSetup && Styles.disable}>Continue</button></div>
 

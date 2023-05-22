@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { closeToast } from '../../redux/actions/toast/toastActions';
 import Slide from '@material-ui/core/Slide';
 import { CustomToast } from '../customs/CustomToast';
+import { capitalize } from "@mui/material";
 
 export default function Toast() {
   const Toast = useSelector(state => state.toast);

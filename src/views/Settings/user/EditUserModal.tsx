@@ -8,12 +8,14 @@ import {
     openLoader,
     closeLoader,
 } from '../../../redux/actions/loader/loaderActions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { InputLabel, TextField } from '@mui/material';
 import { Divider, MenuItem, styled, Select, Stack, Link, Grid } from '@mui/material';
 import { closeModal } from '../../../redux/actions/modal/modalActions';
 import CustomSelect from '../../../components/customs/CustomSelect';
 import CustomCategory from '../../../components/customs/CustomCategory';
+import 'yup-phone-lite'
+import { countryCode } from '../../../helpers/CountryCode';
 
 
 
@@ -34,6 +36,8 @@ interface UserProps {
 }
 
 const EditUserModal = ({ data, getUsers }: any) => {
+    const { user } = useSelector(state => state?.meReducer?.me)
+
 
     console.log(data?.data.firstname, "edit")
     const { id, phonenumber, roleid, firstname, lastname } = data?.data
@@ -45,8 +49,9 @@ const EditUserModal = ({ data, getUsers }: any) => {
         lastname: Yup.string()
             .required('lastname is required'),
 
-        phonenumber: Yup.string()
-            .required('phonenumber is required'),
+        phonenumber: Yup.string().phone(user?.country, 'Phone number is not valid'),
+
+
         roleid: Yup.string()
             .required('Role is required'),
     });
@@ -131,11 +136,7 @@ const EditUserModal = ({ data, getUsers }: any) => {
                             );
                             dispatch(closeModal())
                             getUsers()
-                        } else {
-
-                            console.log(data, "dataerrr")
                         }
-                        console.log(data, "data");
 
                     } catch (error: any) {
                         dispatch(closeLoader());

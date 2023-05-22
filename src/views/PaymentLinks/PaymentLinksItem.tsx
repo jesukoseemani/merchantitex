@@ -247,7 +247,7 @@ const PaymentLinksItem = () => {
 			<div className={styles.pageWrapper}>
 				<div className={styles.sectionOne}>
 					<div>
-						<Link to='/payment_links'>
+						<Link to='/payment_links' style={{ textDecoration: "none" }}>
 							<div>
 								<ArrowLeftIcon />
 								<p>Back to payment links</p>

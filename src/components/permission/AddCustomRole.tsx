@@ -1,4 +1,5 @@
-import { Box, Grid, InputLabel, OutlinedInput, Checkbox, Stack, Switch } from '@mui/material'
+import { Switch } from '@material-ui/core'
+import { Box, Grid, InputLabel, OutlinedInput, Checkbox, Stack } from '@mui/material'
 import React from 'react'
 
 import styles from "./styles.module.scss"

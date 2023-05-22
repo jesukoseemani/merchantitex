@@ -218,11 +218,11 @@ const NgoSignUp = () => {
 			}}
 		>
 			{(props) => (
-				<div className={styles.signupContainer} style={{ height: "530px" }}>
+				<div className={styles.signupContainer}>
 					<div className={styles.logo}>
 						<ReactSVG src={Logo} onClick={() => history.push('/signin')} />
 					</div>
-					<div className={styles.signupDiv}>
+					<div className={styles.ngoContainer}>
 						<div className={styles.signupDiv_flex}>
 							<div>
 								<h4 className={styles.header}>Create Account</h4>
@@ -245,7 +245,7 @@ const NgoSignUp = () => {
 									</div>
 								))}
 							</div>
-							<div className={styles.formBox}>
+							<div className={styles.formBox} >
 								<Form >
 									<Grid container justifyContent="space-between" >
 										<Grid item xs={12} md={5.6} mb="18px">
@@ -271,14 +271,7 @@ const NgoSignUp = () => {
 										</Grid>
 										<Grid item xs={12} md={5.6} mb="18px">
 											<InputLabel className={styles.formTitle}>Phone number</InputLabel>
-											{/* <MuiPhoneNumber variant='outlined' name='phonenumber'
-												fullWidth defaultCountry={'us'} value={phone} onChange={(e) => setPhone(e)}
-												helperText={
-													<ErrorMessage name='phonenumber'>
-														{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
-													</ErrorMessage>
-												}
-											/> */}
+
 
 											<Field
 												as={TextField}
@@ -288,7 +281,7 @@ const NgoSignUp = () => {
 													</ErrorMessage>
 												}
 												name="phonenumber"
-												placeholder="phonenumber"
+												placeholder="09069003426"
 												// margin="normal"
 												type="text"
 												size="small"
@@ -312,7 +305,7 @@ const NgoSignUp = () => {
 													</ErrorMessage>
 												}
 												name="firstname"
-												placeholder="firstname"
+												placeholder="Enter your first name"
 												// margin="normal"
 												type="text"
 												size="small"
@@ -334,7 +327,7 @@ const NgoSignUp = () => {
 												}
 												name='organizationName'
 												variant='outlined'
-
+												placeholder="Organization name"
 												type='text'
 
 												fullWidth
@@ -347,7 +340,7 @@ const NgoSignUp = () => {
 											<Field
 												as={TextField}
 
-
+												placeholder="Enter your last name"
 												helperText={
 													<ErrorMessage name='lastname'>
 														{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
@@ -373,7 +366,7 @@ const NgoSignUp = () => {
 												}
 												name='email'
 												variant='outlined'
-												placeholder='Email'
+												placeholder='example@gmail.com'
 												type='email'
 
 												fullWidth

@@ -1,6 +1,5 @@
 import { IconButton, makeStyles } from "@material-ui/core";
 import React, { useEffect, useState, useCallback } from "react";
-import { Button, Checkbox, Icon, Label, Dropdown } from "semantic-ui-react";
 import NavBar from "../../../components/navbar/NavBar";
 import OperantTable from "../../../components/table/OperantTable";
 import Styles from "../PendingApproval/funding.module.scss";
@@ -134,10 +133,10 @@ function PendingApproval() {
         <div className={Styles.tableHeader}>
           <h2>Funding history</h2>
           <div>
-            <Button>
+            <button>
               Download <CloudUploadOutlinedIcon />
-            </Button>
-            <Button className={Styles.success}>Fund balance</Button>
+            </button>
+            <button className={Styles.success}>Fund balance</button>
           </div>
         </div>
         <div className={Styles.wrapper}>

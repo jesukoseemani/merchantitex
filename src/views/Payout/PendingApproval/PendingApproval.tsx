@@ -1,10 +1,9 @@
 import { IconButton, makeStyles } from "@material-ui/core";
 import React, { useEffect, useState, useCallback } from "react";
-import { Button, Checkbox, Icon, Label, Dropdown } from "semantic-ui-react";
 
 import Styles from "./pending.module.scss";
 
-import { Box, Stack } from "@mui/material";
+import { Box, Checkbox, Stack } from "@mui/material";
 
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
@@ -111,13 +110,14 @@ const PendingApproval = () => {
       ),
       id: <p>{id}</p>,
       action: (
-        <Dropdown text="" icon={"ellipsis horizontal"}>
-          <Dropdown.Menu className={Styles.menuContainer}>
-            <Dropdown.Item text="Approve" />
-            <Dropdown.Item text="Decline" className="text-danger" />
-            <Dropdown.Item text="Modify transfer" />
-          </Dropdown.Menu>
-        </Dropdown>
+        <p>app</p>
+        // <Dropdown text="" icon={"ellipsis horizontal"}>
+        //   <Dropdown.Menu className={Styles.menuContainer}>
+        //     <Dropdown.Item text="Approve" />
+        //     <Dropdown.Item text="Decline" className="text-danger" />
+        //     <Dropdown.Item text="Modify transfer" />
+        //   </Dropdown.Menu>
+        // </Dropdown>
       ),
     }),
     []

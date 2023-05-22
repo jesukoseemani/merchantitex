@@ -4,7 +4,8 @@ import Styles from "./transferform.module.scss"
 import { OutlinedInput } from '@mui/material';
 import { payoutTransfer } from '../../../services/payout';
 import { openToastAndSetContent } from '../../../redux/actions/toast/toastActions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { closeModal } from '../../../redux/actions/modal/modalActions';
 
 const Confirmation: FC<{
     form?: {
@@ -28,24 +29,33 @@ const Confirmation: FC<{
                 narration: form?.description!,
                 otp
             })
+            dispatch(closeModal())
         } catch (error: any) {
+            dispatch(closeModal())
+
             dispatch(
                 openToastAndSetContent({
                     toastContent: error?.response?.data?.message || 'Failed to make a payout',
                     msgType: "error"
 
                 })
+
             );
         } finally {
             setLoading(false)
+            dispatch(closeModal())
+
         }
     }
+
+    console.log(form, "form");
+    const { user } = useSelector(state => state?.meReducer?.me)
 
     return (
         <Box className={Styles.confirm_container}>
 
             <Box className={Styles.confirm}>
-                <p className={Styles.confirmText}>We sent a confirmation code to 08090909090 to complete your payout of  <span className={Styles.amt}>NGN{form?.amount}</span> to {form?.account}</p>
+                <p className={Styles.confirmText}>Enter otp to complete your payout of  <span className={Styles.amt}>NGN{form?.amount}</span> to {form?.account}</p>
                 <div className={Styles.confirmInput}>
                     <InputLabel className={Styles.label}>Confirmation Code</InputLabel>
                     <OutlinedInput fullWidth placeholder='Enter confirmation code' onChange={e => setOtp(e.target.value)} />

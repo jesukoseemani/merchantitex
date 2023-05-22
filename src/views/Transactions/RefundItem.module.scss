@@ -476,12 +476,14 @@
 			font-size: 14px;
 			line-height: 19px;
 			color: #219653;
+			margin-top: 1rem;
+
 
 			span {
 				font-weight: 400;
 				font-size: 12px;
 				line-height: 16px;
-
+				margin-top: 1rem;
 				color: #4F4F4F;
 			}
 
@@ -504,7 +506,7 @@
 	}
 
 	.timeBox {
-		margin-top: -1rem;
+		margin-top: -0.1rem;
 		font-family: 'Avenir';
 		font-style: normal;
 		font-weight: 400;

@@ -212,7 +212,7 @@ const ChargeBacksItem = () => {
                       <h2>Admin Responded to Your Dispute    |</h2>
                       <p>{res?.createdat} </p>
                       <div className={styles.chargeback__btn}>
-                        <button>Accept</button>
+                        <button onClick={handleOpenAcceptChargebackModal}>Accept</button>
                         <button onClick={handleOpenResponseChargebackModal}>Response</button>
                       </div>
                     </div>
@@ -325,7 +325,7 @@ const ChargeBacksItem = () => {
           handleClose={handleCloseAcceptChargebackModal}
           close={() => setOpenAcceptChargebackModal(false)}>
 
-          <p>{chargebackItem?.chargeback?.linkingreference}</p>
+          {/* <p>{chargebackItem?.chargeback?.linkingreference}</p> */}
           <AcceptChargeback
             chargebackid={id}
             chargeAmt={chargebackItem?.chargeback?.amount}

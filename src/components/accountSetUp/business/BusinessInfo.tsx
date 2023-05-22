@@ -13,7 +13,7 @@ import { ErrorMessage, Field, Formik, Form, useFormik } from 'formik';
 import { ValidateBusinessInfo } from '../../validation/setup/Businesssetup';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
-import { closeLoader } from '../../../redux/actions/loader/loaderActions';
+import { closeLoader, openLoader } from '../../../redux/actions/loader/loaderActions';
 import { openToastAndSetContent } from '../../../redux/actions/toast/toastActions';
 import { useDispatch } from 'react-redux';
 import { SAVE_BUSINESS_INFO } from '../../../redux/actions/constants';
@@ -39,6 +39,7 @@ interface StateProps {
 }
 const BusinessInfo = ({ handleNext }: Props) => {
     const [age, setAge] = React.useState('');
+
     const [state, setState] = useState<StateProps[]>()
     const dispatch = useDispatch()
 
@@ -87,9 +88,11 @@ const BusinessInfo = ({ handleNext }: Props) => {
             validationSchema={ValidateBusinessInfo}
 
             onSubmit={({ email, city, businessAddress, businessDescription, stateRegion, phonenumber }, { setFieldValue }) => {
+
                 dispatch(saveBusinessInfo({ email, city, businessAddress, businessDescription, stateRegion, phonenumber }));
                 console.log({ email, city, businessAddress, businessDescription, stateRegion, phonenumber })
                 handleNext();
+
             }}
         >
 
