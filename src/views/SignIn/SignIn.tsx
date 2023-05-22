@@ -185,7 +185,7 @@ const SignIn = () => {
 												}
 												name='email'
 												variant='outlined'
-
+												placeholder="Enter Email Address"
 												type='email'
 												size='small'
 												fullWidth
@@ -208,6 +208,7 @@ const SignIn = () => {
 													</ErrorMessage>
 												}
 												name='password'
+												placeholder="Enter Password"
 												variant='outlined'
 
 												type={showPassword ? 'text' : 'password'}

@@ -35,7 +35,7 @@ const Owner = () => {
                     dispatch(
                         openToastAndSetContent({
                             toastContent: message,
-                            msgType: "error",
+                            msgType: "error"
                         })
                     )
                 );
@@ -86,18 +86,27 @@ const Owner = () => {
                         <div className={styles.permission__Roles}>
                             <div>
                                 <Avatar sx={{ bgcolor: "#2684ED", fontSize: "14px", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                    JH
+                                    RU
                                 </Avatar>
                                 <div>
-                                    <p>James Haliday</p>
-                                    <span>jameshaliday@example.com</span>
+                                    <p>Roy Unachukwu</p>
+                                    <span>royunachukwu@email.com</span>
+
+                                </div>
+                            </div>
+                            <div>
+                                <Avatar sx={{ bgcolor: "#2684ED", fontSize: "14px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                    RU
+                                </Avatar>
+                                <div>
+                                    <p>Philip Kachikwu</p>
+                                    <span>philipkachikwu@email.com</span>
 
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </Permission >
     )

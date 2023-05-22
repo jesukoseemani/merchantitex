@@ -8,13 +8,14 @@ import {
 	openLoader,
 	closeLoader,
 } from '../../../redux/actions/loader/loaderActions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { InputLabel, TextField } from '@mui/material';
 import { Divider, MenuItem, styled, Select, Stack, Link, Grid } from '@mui/material';
 import { closeModal } from '../../../redux/actions/modal/modalActions';
 import CustomSelect from '../../../components/customs/CustomSelect';
 import CustomCategory from '../../../components/customs/CustomCategory';
 import 'yup-phone-lite'
+import { countryCode } from '../../../helpers/CountryCode';
 
 
 
@@ -23,7 +24,8 @@ interface Props {
 		id: string;
 		decription: string;
 		roleName: string;
-	}[]
+	}[];
+	message: string;
 
 }
 
@@ -34,6 +36,8 @@ interface UserProps {
 }
 
 function UserModal({ getUsers }: any) {
+	const { user } = useSelector(state => state?.meReducer?.me)
+
 
 	const validate = Yup.object({
 		email: Yup.string()
@@ -45,18 +49,11 @@ function UserModal({ getUsers }: any) {
 			.required('lastname is required'),
 		countryid: Yup.string()
 			.required('countryid is required'),
-		phonenumber: Yup.string().phone(["NG", "US", "AM"], 'Phone number is not valid')
+		phonenumber: Yup.string().phone(user?.country, 'Phone number is not valid')
 			.required('phonenumber is required'),
 		roleid: Yup.string()
 			.required('Role is required'),
 	});
-
-
-
-
-
-
-
 
 
 
@@ -72,20 +69,26 @@ function UserModal({ getUsers }: any) {
 				const { data } = await axios.get<Props>("/v1/setting/roles")
 				console.log(data)
 				setRoles(data?.roles)
-
+				if (data) {
+					dispatch(
+						openToastAndSetContent({
+							toastContent: data?.message,
+							msgType: "success"
+						})
+					);
+				}
 
 				dispatch(closeLoader());
+				dispatch(closeModal());
 
 			} catch (error: any) {
 				dispatch(closeLoader());
 				const { message } = error.response.data;
 				dispatch(
-					dispatch(
-						openToastAndSetContent({
-							toastContent: message,
-							msgType: "error"
-						})
-					)
+					openToastAndSetContent({
+						toastContent: message,
+						msgType: "error"
+					})
 				);
 			} finally {
 				dispatch(closeLoader());
@@ -167,14 +170,12 @@ function UserModal({ getUsers }: any) {
 							);
 							dispatch(closeModal())
 							getUsers()
-						} else {
-
-							console.log(data, "dataerrr")
 						}
-						console.log(data, "data");
 
 					} catch (error: any) {
 						dispatch(closeLoader());
+						dispatch(closeModal())
+
 
 						dispatch(
 							openToastAndSetContent({
@@ -182,6 +183,9 @@ function UserModal({ getUsers }: any) {
 								msgType: "error"
 							})
 						);
+					} finally {
+						dispatch(closeModal())
+
 					}
 				}}>
 				{(props) => (

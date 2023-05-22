@@ -83,22 +83,7 @@ const CustomUploadBtn = ({ onChange, showIcon = true, uploadMsg = "", helperStyl
                     alignItems: "center",
                     gap: "10px"
                 }}><CheckCircleOutlineIcon style={{ fontSize: "10px", width: "20px" }} /> {uploadMsg} uploaded successfully</span>}
-            {/* <Stack direction={"row"} mt={1} alignItems="flex-start" columnGap={1}>
 
-                <span style={{
-                    fontFamily: 'Avenir',
-                    // fontStyle: "italic",
-                    fontWeight: 800,
-                    fontSize: "9px",
-                    lineHeight: "16px",
-                    color: "green",
-                    width: "100%",
-
-                }}>
-                    koseemani
-                </span>
-
-            </Stack> */}
 
         </div>
     )

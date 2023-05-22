@@ -5,7 +5,6 @@ import { IconButton } from "@material-ui/core";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { makeStyles } from "@material-ui/core/styles";
-import { Dropdown, Button } from "semantic-ui-react";
 
 interface propTypes {
   title: string;
@@ -78,7 +77,7 @@ export default function OverviewTable({
 
   return (
     <div className={Styles.container} style={style}>
-      <Menu
+      {/* <Menu
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
@@ -115,11 +114,11 @@ export default function OverviewTable({
             </div>
           </div>
           <div className={Styles.menuFooter}>
-            <Button>Clear filter</Button>
-            <Button>Apply filter</Button>
+            <button>Clear filter</button>
+            <button>Apply filter</button>
           </div>
         </div>
-      </Menu>
+      </Menu> */}
       <div className={Styles.header}>
         <div className={Styles.overview__header}>
           <h2>{title}</h2>

@@ -146,25 +146,18 @@
             height: 40px;
             // border: 2ps solid red !important;
 
-            path {
 
-                stroke: #828282;
-
-
-
-                ;
-            }
         }
 
-        @media screen and (max-width:750px) {
+        @media screen and (max-width:1100px) {
             flex-direction: column;
-            // border: 2px solid red;
+            border: 2px solid red;
 
 
         }
     }
 
-    @media screen and (max-width:750px) {
+    @media screen and (max-width:1100px) {
 
         flex-direction: column;
         width: 100%;

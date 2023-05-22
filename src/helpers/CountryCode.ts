@@ -1,4 +1,4 @@
-export const countryCode: any = [
+export const countryCode: any[] = [
     "AF",
     "AL",
     "DZ",

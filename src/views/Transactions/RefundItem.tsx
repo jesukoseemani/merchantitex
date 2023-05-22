@@ -25,10 +25,14 @@ import { openModalAndSetContent } from '../../redux/actions/modal/modalActions';
 import { ReactComponent as LinkIcon } from "../../assets/images/ext-link.svg";
 import Navigation from '../../components/navbar/Navigation';
 import Addtoblacklist from '../Customers/Addtoblacklist';
+import FormatToCurrency from '../../helpers/NumberToCurrency';
+import CustomDateFormat from '../../components/customs/CustomDateFormat';
+import { RefundSingle } from '../../types/refunditem';
+import { ReactComponent as MasterCard } from "../../assets/template/MasterCard_Logo 1.svg"
 
 
 const RefundItem = () => {
-  const [refund, setRefund] = useState<TransactionItem | null>(null);
+  const [refund, setRefund] = useState<RefundSingle>();
 
   const { id } = useParams<{ id: string }>();
   const history = useHistory()
@@ -38,11 +42,11 @@ const RefundItem = () => {
   const getTransaction = async () => {
     dispatch(openLoader());
     try {
-      const res = await axios.get<GetTransactionsRes>(`/v1/refund/${id}`);
-      console.log(res?.data);
-      const { transactions } = res?.data;
-      if (transactions.length) {
-        setRefund(transactions[0]);
+      const { data } = await axios.get<RefundSingle>(`/v1/refund/${id}`);
+      console.log(data);
+      // const { transactions } = res?.data;
+      if (data) {
+        setRefund(data)
 
       }
       dispatch(closeLoader());
@@ -125,9 +129,10 @@ const RefundItem = () => {
         <div className={styles.sectionOne}>
           <div className={styles.section_header}>
             <div>
-              <div className="amount"><h2>NGN 45,000.52</h2></div>
-              <CustomStatus text='Successful' type={"successful"} />
-              <p>Refunded <Mark /></p>
+              <div className="amount"><h2>{refund?.refund?.currency}{FormatToCurrency(Number(refund?.refund?.amount))}</h2></div>
+              <h2><CustomStatus text={refund?.refund?.status} type={refund?.refund?.status} /></h2>
+
+              <p>{refund?.refund?.responsemessage} <Mark /></p>
             </div>
             <div>
               <button>Resend Receipt</button>
@@ -138,25 +143,25 @@ const RefundItem = () => {
             <div>
               <div>
                 <span>Date / Time</span>
-                <h2>Aug 13 2020 2:21 PM</h2>
+                <h2> <CustomDateFormat date={String(refund?.refund?.createdat)} time={refund?.refund?.createdat} /></h2>
               </div>
             </div>
             <div>
               <div>
                 <span>Customer email</span>
-                <h2>thejames@email.com</h2>
+                <h2>{refund?.transaction?.customer?.email}</h2>
               </div>
             </div>
             <div>
               <div>
                 <span>Card type</span>
-                <h2><Visa /></h2>
+                <h2>{refund?.transaction?.cardtype === "MC" ? <MasterCard /> : <Visa />}</h2>
               </div>
             </div>
             <div>
               <div>
                 <span>Card number</span>
-                <h2>**** **** **** 12384</h2>
+                <h2>{refund?.transaction?.mask}</h2>
               </div>
             </div>
 
@@ -175,8 +180,9 @@ const RefundItem = () => {
             <div>
               <span>Payment reference</span>
               <div className={styles.copy__details}>
-                <h2>ITEX-ab95cf961f454669a4</h2>
-                <CopyToClipboard text={"ab95cf961f454669a4"}>
+                {/* <h2>{refund?.transaction?.paymentlinkreference.substring(0, 20)}</h2> */}
+                <p>{refund?.transaction?.paymentlinkreference?.substring(0, 20)}</p>
+                <CopyToClipboard text={String(refund?.transaction?.paymentlinkreference)}>
                   <IconButton>
                     <CopyIcon />
                   </IconButton>
@@ -185,11 +191,12 @@ const RefundItem = () => {
             </div>
             <div>
               <span>Amount Due</span>
-              <h2>NGN 7,748.12</h2>
+              <h2>{refund?.refund?.currency}{FormatToCurrency(Number(refund?.refund?.amount))}</h2>
             </div>
             <div>
               <span>Transaction Fee</span>
-              <h2>NGN 7,748.12</h2>
+              <h2>{refund?.transaction?.currency}{FormatToCurrency(Number(refund?.transaction?.chargeamount))}</h2>
+
             </div>
             <div>
               <span>Country/Region</span>
@@ -197,11 +204,11 @@ const RefundItem = () => {
             </div>
             <div>
               <span>Bank name</span>
-              <h2>Access Bank</h2>
+              <h2>{refund?.refund?.route}</h2>
             </div>
             <div>
               <span>ITEX Reference</span>
-              <h2>ITEX-ab95cf961f454669a4</h2>
+              <h2>{refund?.transaction?.reference}</h2>
             </div>
           </div>
         </div>
@@ -215,33 +222,38 @@ const RefundItem = () => {
           <div className={styles.refund_info_Details}>
             <div>
               <span>Date / Time</span>
-              <h2>Aug 13 2020 2:21 PM</h2>
+              <h2>   <CustomDateFormat date={String(refund?.refund?.createdat)} time={refund?.refund?.createdat} /></h2>
             </div>
             <div>
               <span>Refund Amount</span>
-              <h2>NGN 7,748.12</h2>
+              <h2>{refund?.refund?.currency}{FormatToCurrency(Number(refund?.refund?.amount))}</h2>
+
             </div>
             <div>
               <span>Customer</span>
-              <h2>thejames@email.com</h2>
+              <h2>{refund?.transaction?.customer?.email}</h2>
+
             </div>
             <div>
               <span>Destination</span>
-              <h2>MPGS</h2>
+              <h2>{refund?.refund?.route}</h2>
+
             </div>
             <div>
               <span>Status</span>
-              <h2><CustomStatus text='Completed' type={"approved"} /></h2>
+
+              <h2><CustomStatus text={refund?.refund?.status} type={refund?.refund?.status} /></h2>
             </div>
             <div>
               <span>Balance After Refund</span>
-              <h2>NGN 7,748.12</h2>
+              <h2>{refund?.refund?.currency}{FormatToCurrency(Number(refund?.refund?.amount))}</h2>
+
             </div>
           </div>
 
           <div className={styles.refund_reason}>
             <h2>Reason for refund</h2>
-            <p>The Transaction was not recorded in our system, as our system was unable to reach Flutterwave as at the time of the transaction, please do charge the customer on any fees amount to this refunds</p>
+            <p>{refund?.refund?.reason}</p>
           </div>
         </div>
 
@@ -258,6 +270,8 @@ const RefundItem = () => {
                   height: "40px !important",
                   marginTop: "-0.6rem !important"
                 },
+
+
 
 
                 // '.css-iprrf9-MuiStepConnector-line': { background: "blue" }

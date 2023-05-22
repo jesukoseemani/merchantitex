@@ -5,6 +5,7 @@
   border: 1px solid #f2f2f2;
   border-radius: 20px;
   margin: 0 auto;
+  // border: #041926 3px solid;
 }
 
 .chart {
@@ -13,6 +14,11 @@
   @media screen and (max-width:768px) {
     padding: 5px;
     width: 100%;
+    background-color: 5px solid red;
+  }
+
+  &div {
+    border: #041926 4px solid;
   }
 }
 
@@ -107,6 +113,7 @@
       }
     }
   }
+
 }
 
 .chartWrapper {
@@ -116,6 +123,8 @@
   grid-template-columns: 1fr 273px;
   grid-template-rows: 80px 1fr;
   padding: 15px 0;
+  // border: 4px #406a99 solid;
+  overflow: hidden;
 
   &>.header {
     display: grid;
@@ -129,6 +138,7 @@
       align-items: flex-start;
       justify-content: center;
       // flex-flow: row wrap;
+
 
       span {
         font-family: 'Avenir';
@@ -172,6 +182,7 @@
     border-left: 1px solid #f2f2f2;
     grid-column: 2 / -1;
     grid-row: 1 / -1;
+    // border: 4px #080cd1 solid;
 
     &>.summary {
       width: 100%;
@@ -225,10 +236,12 @@
       justify-content: flex-end;
     }
 
-    @media screen and (max-width:768px) {
+    @media screen and (max-width:1000px) {
+
       grid-template-rows: 1fr;
       // padding: 0 20px;
       grid-column: 1/-1;
+      // display: column;
     }
   }
 }

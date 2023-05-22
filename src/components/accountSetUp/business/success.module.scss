@@ -5,7 +5,7 @@
     flex-direction: column;
 
     h2 {
-        font-family: 'Avenir';
+        font-family: 'Avenir bold';
         font-style: normal;
         font-weight: 900 !important;
         font-size: 30px;
@@ -17,22 +17,21 @@
     }
 
     p {
-        font-family: 'Avenir' !important;
+        font-family: 'Avenir';
         font-style: normal;
-        font-weight: 400 !important;
-        font-size: 16px;
+        font-weight: 400;
+        font-size: 18px;
         line-height: 25px;
         text-align: center;
         color: #333333;
-        // border: 2px solid red;
         margin-top: 18px;
     }
 }
 
 .container {
-    // height: 493px;
+    height: 493px !important;
     padding: 53px 58px;
-    // width: 540px;
+    width: 540px !important;
     // background-color: #fff;
     // height: 493px;
     // display: flex;
@@ -41,5 +40,6 @@
     // border-radius: 20px;
     // flex-direction: column;
     // margin: 0px auto;
+
 
 }

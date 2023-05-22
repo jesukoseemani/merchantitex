@@ -11,12 +11,13 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    minWidth: 400,
+    minWidth: 300,
     bgcolor: '#fff',
     boxShadow: 24,
     borderRadius: "20px !important",
     maxHeight: "97vh",
-    zIndex: "999"
+    zIndex: "999",
+
 
 
 };

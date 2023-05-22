@@ -4,7 +4,6 @@ import OverviewCard from "../../components/card/overviewCard/OverviewCard";
 import MerchantChart from "../../components/merchantChart/MerchantChart";
 import OverviewTable from "../../components/table/OverviewTable";
 import Styles from "./merchantOverview.module.scss";
-import { Progress } from "semantic-ui-react";
 import { PieChart } from "react-minimal-pie-chart";
 import HelpCenterIcon from "../../assets/images/helpCenter.svg";
 import { ReactComponent as CloseHelpCenter } from "../../assets/images/closeHelp.svg";
@@ -26,6 +25,7 @@ import axios from "axios";
 import { useDispatch } from 'react-redux';
 import { getDate } from "../../utils";
 import Navigation from '../../components/navbar/Navigation';
+
 
 const style = {
   position: "absolute" as "absolute",
@@ -58,6 +58,7 @@ const getPercent = (data: ChargeTypeRes) => {
 const MerchantOverview = () => {
   const [selected, setSelected] = useState<number | undefined>(0);
 
+
   // const [open, setOpen] = React.useState(false);
   // const handleHelpCenter = () => setOpen(true);
   // const handleClose = () => setOpen(false);
@@ -79,7 +80,6 @@ const MerchantOverview = () => {
 
   }
 
-  console.log(showHelpcenter)
 
 
   const fetchUserDetails = async () => {
@@ -232,6 +232,7 @@ const MerchantOverview = () => {
 
 
 
+          {/* <Progress className={Math.max((c?.count / charge?.total!) * 100) ? Styles.successBar : Styles.primaryBar} percent={Math.round((c?.count / charge?.total!) * 100)} progress /> */}
           <OverviewTable
             title="What payment option do my customers use the most?"
             subTitle={`${getPercent(charge!).percent}% of your customers prefer to pay with ${getPercent(charge!).type}.`}
@@ -241,7 +242,17 @@ const MerchantOverview = () => {
                 charge?.data?.length! > 0 && charge?.data.map((c, i) => (
                   <div key={i}>
                     <p>{capitalize(c.chargetype)} Payments</p>
-                    <Progress className={Math.max((c?.count / charge?.total!) * 100) ? Styles.successBar : Styles.primaryBar} percent={Math.round((c?.count / charge?.total!) * 100)} progress />
+
+
+                    <div className={Styles.ProgressBar}>
+                      <div className={Styles.bar} style={{
+                        width: `${Math.round((c?.count / charge?.total!) * 100)}%`,
+                        backgroundColor: Math.max((c?.count / charge?.total!) * 100) ? "#6FCF97" : "#56CCF2"
+
+                      }}><p>{`${Math.round((c?.count / charge?.total!) * 100)}%`}</p></div>
+
+                    </div>
+
 
                   </div>
                 ))
@@ -266,44 +277,40 @@ const MerchantOverview = () => {
 
                 ))
               }
+
             </ol>
+
+
           </OverviewTable>
-          <div className={showHelpcenter ? Styles.showHelpCenter : Styles.helpCenter}>
-            <Helpcenter />
-          </div>
-          <Box
-            sx={{
-              position: "fixed",
-              right: 0,
-              bottom: "48%",
-              transform: "translate(-50% -50%)",
-              cursor: "pointer",
-              // zIndex: 9999999
-              border: "2px solid red"
-            }}
-          >
 
-          </Box>
-          <Box
-            sx={{
-              position: "fixed",
-              right: 0,
-              bottom: "10%",
-              transform: "translate(-50% -50%)",
-              cursor: "pointer",
 
-            }}
-          >
-
-            <button style={{ background: "transparent" }}>  {showHelpcenter ? <CloseHelpCenter onClick={handleClose} /> :
-              <ReactSVG src={HelpCenterIcon} onClick={handleClick} />
-            }</button>
-
-          </Box>
 
 
         </div>
+
       </div>
+      <Box
+        sx={{
+          position: "fixed",
+          right: 0,
+          bottom: "10%",
+          transform: "translate(-50% -50%)",
+          cursor: "pointer",
+          zIndex: 9999
+
+
+
+        }}
+      >
+        <div className={showHelpcenter ? Styles.showHelpCenter : Styles.helpCenter}>
+          <Helpcenter />
+        </div>
+
+        <button style={{ background: "transparent" }}>  {showHelpcenter ? <CloseHelpCenter onClick={handleClose} /> :
+          <ReactSVG src={HelpCenterIcon} onClick={handleClick} />
+        }</button>
+
+      </Box>
 
     </Navigation>
   );

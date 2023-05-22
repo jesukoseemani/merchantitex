@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect } from 'react'
 import { useState } from 'react';
-import { closeLoader } from '../../redux/actions/loader/loaderActions';
+import { closeLoader, openLoader } from '../../redux/actions/loader/loaderActions';
 import { useDispatch } from 'react-redux';
 import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
 
@@ -16,6 +16,7 @@ const useCustomUpload = () => {
 
     const handleUpload = async (e: any) => {
         setLoading(true)
+        dispatch(openLoader())
         try {
 
 
@@ -47,12 +48,10 @@ const useCustomUpload = () => {
 
             const { message } = error?.response.data;
             dispatch(
-                dispatch(
-                    openToastAndSetContent({
-                        toastContent: message,
-                        msgType: "error"
-                    })
-                )
+                openToastAndSetContent({
+                    toastContent: message,
+                    msgType: "error"
+                })
             );
         } finally {
             dispatch(closeLoader());
@@ -64,7 +63,7 @@ const useCustomUpload = () => {
 
 
 
-    return { loading, imgUrl, handleUpload } as const
+    return { loading, imgUrl, handleUpload, setImgUrl } as const
 }
 
 export default useCustomUpload

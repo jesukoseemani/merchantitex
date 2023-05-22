@@ -1,16 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import NavBar from "../../../components/navbar/NavBar";
 import Styles from "./bank.module.scss";
-import {
-  Dropdown,
-  Menu,
-  Button,
-  Modal,
-  Form,
-  Select,
-  Label,
-
-} from "semantic-ui-react";
 import OperantTable from "../../../components/table/OperantTable";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -223,7 +213,8 @@ const BankAccounts = () => {
         modalStyles: {
           padding: 0,
           borderRadius: 20,
-          minHeight: "600px"
+          minHeight: "600px",
+          width: "400px !important"
 
         },
         modalTitle: 'Add/Edit Bank',

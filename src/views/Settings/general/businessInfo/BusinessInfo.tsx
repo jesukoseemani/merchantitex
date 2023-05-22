@@ -38,8 +38,8 @@ const BusinessInfo = ({ me }: any) => {
                         <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Wikimedia-logo.png" alt="business logo" width={"50px"} />
                     </div>
                     <div className={styles.textBox}>
-                        <p>Nomba Limited</p>
-                        <span>Merchant ID: 123456789</span>
+                        <p>{me?.business?.tradingname}</p>
+                        <span>Merchant ID: {me?.user?.merchantaccountid}</span>
                     </div>
                     <CustomStatus text={me?.business?.islive ? "Live" : "Test"} type={me?.business?.islive ? "approved" : "Abandoned"} />
 
@@ -59,15 +59,15 @@ const BusinessInfo = ({ me }: any) => {
                 </div>
                 <div>
                     <span>Business Email</span>
-                    <p>{me?.business?.businessemail || "n/a"}</p>
+                    <p>{me?.business?.businessemail || "null"}</p>
                 </div>
                 <div>
                     <span>Phone Number</span>
-                    <p>{me?.business?.businessphone || "n/a"}</p>
+                    <p>{me?.business?.businessphone || "null"}</p>
                 </div>
                 <div>
                     <span>Address </span>
-                    <p>41 James Street Lekki</p>
+                    <p>{me?.business?.businessaddress || "null"}</p>
                 </div>
 
             </div>
@@ -78,15 +78,17 @@ const BusinessInfo = ({ me }: any) => {
                 </div>
                 <div>
                     <span>Support Email</span>
-                    <p>nomba@example.com</p>
+                    <p>{me?.business?.supportemail || "null"}</p>
                 </div>
                 <div>
                     <span>Support Phone Number</span>
-                    <p>08090000231</p>
+                    <p>{me?.business?.supportphonenumber || "null"}</p>
+
                 </div>
                 <div>
                     <span>Chargeback Email </span>
-                    <p>nomba@example.com</p>
+                    <p>{me?.business?.chargebackemail || "null"}</p>
+
                 </div>
 
             </div>

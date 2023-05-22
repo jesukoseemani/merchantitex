@@ -1,5 +1,5 @@
 import react, { useEffect } from 'react';
-import { InputLabel, Typography, Button, TextField } from '@material-ui/core';
+import { InputLabel, Typography, Button, TextField } from '@mui/material';
 import styles from './SignIn.module.scss';
 import Logo from '../../assets/images/white_bg_logo.svg';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -39,15 +39,6 @@ interface RequestProp {
 }
 const TwoFaAuth = () => {
 
-    const StyledTextField = styled(TextField, {
-        name: "StyledTextField",
-    })({
-
-        "& .MuiInputBase-root": {
-            height: 44,
-            // marginBottom: "18px",
-        }
-    });
 
     const validate = Yup.object({
         otp: Yup.string()

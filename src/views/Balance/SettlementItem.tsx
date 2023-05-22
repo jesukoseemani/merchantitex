@@ -30,55 +30,8 @@ import { ReactComponent as CopyIcon } from "../../assets/images/copyColor.svg";
 import Navigation from "../../components/navbar/Navigation";
 
 
-const useTableStyles = makeStyles({
-  root: {
-    marginTop: "1rem",
-    "& .MuiTableRow-head": {
-      fontSize: ".875rem",
-      padding: "1rem",
-      backgroundColor: "#F4F6F8",
-    },
-    "& .MuiTableCell-head": {
-      fontSize: ".875rem",
-      color: "#333",
-      fontWeight: "500",
-      textTransform: "capitalize",
-    },
-    "& .MuiTableCell-root": {
-      borderBottom: "none",
-    },
-    "& .MuiTableCell-body": {
-      fontFamily: `'Avenir', san-serif`,
-      fontWeight: "400",
-      fontSize: ".875rem",
-      color: "#333",
-      borderBottom: "1px solid #E0E0E0",
-      cursor: "pointer",
-    },
-    "& .darkText": {
-      color: "#333",
-      fontSize: ".875rem",
-      fontWeight: "700",
-    },
-    "& .redText": {
-      color: "#EB5757",
-      fontSize: ".875rem",
-      fontWeight: "700",
-    },
-    "& .greenText": {
-      color: "#219653",
-      fontSize: ".875rem",
-      fontWeight: "700",
-    },
-    "& .lightText": {
-      color: "#828282",
-      fontSize: ".875rem",
-    },
-  },
-});
 
 const SettlementItem = () => {
-  const tableClasses = useTableStyles();
   const dispatch = useDispatch();
 
   const [txns, setTxns] = useState<Transaction[]>([]);
@@ -218,7 +171,7 @@ const SettlementItem = () => {
         <div className={styles.pageWrapper}>
           <div className={styles.sectionOne}>
             <div>
-              <Link to="/balance/settlements">
+              <Link to="/balance/settlements" style={{ textDecoration: "none" }}>
                 <div>
                   <ArrowLeftIcon />
                   <p>Back to settlements</p>

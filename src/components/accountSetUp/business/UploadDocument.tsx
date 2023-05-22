@@ -49,26 +49,23 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
 
 
     const history = useHistory()
-    const handleUpload = async (e: any,) => {
+
+    const handleUpload = async (e: any, setState: React.Dispatch<React.SetStateAction<string>>) => {
         setLoading(true)
+        dispatch(openLoader())
 
         try {
             const formData = new FormData()
 
-            formData.append("file", e.target.files[0])
-
-
+            formData.append("file", e)
 
             const { data } = await axios.post<any>("/v1/setup/doc/uploader", formData)
 
             if (data) {
-                setImgUrl(data?.fileUrl)
+                dispatch(closeLoader());
+                setState(data?.fileUrl)
                 setLoading(false)
             }
-
-
-
-            dispatch(closeLoader());
 
         } catch (error: any) {
 
@@ -89,7 +86,6 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
         }
     }
 
-    console.log("123")
 
 
     const splitImgUrl = (imgurl: string) => {
@@ -102,27 +98,23 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
 
 
     const handleFileUploadRegDoc = (e: any) => {
-        handleUpload(e)
-        setBizDoc(imgUrl)
-
-        console.log(splitImgUrl(imgUrl))
+        handleUpload(e?.target.files[0], setBizDoc)
 
     }
     const handleUploadLinsence = (e: any) => {
-        handleUpload(e)
-        // s(imgUrl)
-        setLisenceDoc(imgUrl)
-
+        handleUpload(e.target.files[0], setLisenceDoc)
 
     }
+
     const handleBusinesType = (e: any) => {
-        handleUpload(e)
-        setBizReq_type(imgUrl)
+        handleUpload(e.target.files[0], setBizReq_type)
+
     }
+
     const handleProveDoc = (e: any) => {
 
-        handleUpload(e)
-        setProvDoc(imgUrl)
+        handleUpload(e.target.files[0], setProvDoc)
+
     }
 
 
@@ -143,6 +135,8 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
         },
 
     ]
+    console.log(fileArray);
+
     const handleGoBack = () => {
         dispatch(saveUploadDoc(fileArray))
         handleBack()
@@ -274,12 +268,10 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
                     <Grid item xs={12} sm={6} md={6} mb="14px">
                         {/* {loading && "uploading......."}
                             {imgUrl && imgUrl} */}
-                        <CustomUploadBtn helperText='Only PDF, JPG and PNG are the accepted file formats' label='Upload Business Registration Document' onChange={(e: any) => handleFileUploadRegDoc(e)} uploadMsg={bizDoc && splitImgUrl(bizDoc)} />
+                        <CustomUploadBtn helperText='Only PDF, JPG and PNG are the accepted file formats' label='Upload Business Registration Document' onChange={(e) => handleFileUploadRegDoc(e)} uploadMsg={bizDoc && splitImgUrl(bizDoc)} />
 
 
                     </Grid>
-
-
 
 
 
@@ -334,7 +326,7 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
 
 
 
-                        <CustomUploadBtn helperText='Only PDF, JPG and PNG are the accepted file formats' label='Upload a Proof of Address' onChange={(e: any) => handleProveDoc(e)} uploadMsg={proveDoc && splitImgUrl(proveDoc)} />
+                        <CustomUploadBtn helperText='Only PDF, JPG and PNG are the accepted file formats' label='Upload a Proof of Address' onChange={(e) => handleProveDoc(e)} uploadMsg={proveDoc && splitImgUrl(proveDoc)} />
 
                     </Grid>
 
