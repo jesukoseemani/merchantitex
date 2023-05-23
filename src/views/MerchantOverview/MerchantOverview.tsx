@@ -25,6 +25,12 @@ import axios from "axios";
 import { useDispatch } from 'react-redux';
 import { getDate } from "../../utils";
 import Navigation from '../../components/navbar/Navigation';
+import CreateInvoice from "../../components/bills/invoice/CreateInvoice";
+import { openModalAndSetContent } from "../../redux/actions/modal/modalActions";
+import LinkTypeModal from "../PaymentLinks/LinkTypeModal";
+import SingleLinkModal from "../PaymentLinks/SingleLinkModal";
+import RecurringLinkModal from "../PaymentLinks/RecurringLinkModal";
+import DonationLinkModal from "../PaymentLinks/DonationLinkModal";
 
 
 const style = {
@@ -57,6 +63,27 @@ const getPercent = (data: ChargeTypeRes) => {
 }
 const MerchantOverview = () => {
   const [selected, setSelected] = useState<number | undefined>(0);
+  //show paymentlink modal
+  const [isLinkModalOpen, setIsLinkModalOpen] = useState<boolean>(false);
+  const [isSingleLinkModalOpen, setIsSingleLinkModalOpen] = useState<boolean>(false);
+  const [isRecurringLinkModalOpen, setIsRecurringLinkModalOpen] = useState<boolean>(false);
+  const [isDonationLinkModalOpen, setIsDonationLinkModalOpen] = useState<boolean>(false);
+  const [isEmpty, setIsEmpty] = useState<boolean>(false);
+  const [isUpdate, setIsUpdate] = useState<boolean>(false);
+  const openSingleLinkModal = () => {
+    setIsSingleLinkModalOpen(true);
+    setIsLinkModalOpen(false);
+  }
+
+  const openRecurringLinkModal = () => {
+    setIsRecurringLinkModalOpen(true);
+    setIsLinkModalOpen(false);
+  }
+
+  const openDonationLinkModal = () => {
+    setIsDonationLinkModalOpen(true);
+    setIsLinkModalOpen(false);
+  }
 
 
   // const [open, setOpen] = React.useState(false);
@@ -143,6 +170,29 @@ const MerchantOverview = () => {
     })();
   }, [event.key]);
   console.log(summary, "summary")
+
+
+  // handle create invoice
+
+  const handleInvoce = () => {
+    dispatch(
+      openModalAndSetContent({
+        modalStyles: {
+          padding: 0,
+          borderRadius: "0.5rem",
+          boxShadow: "0px 3px 20px rgba(0, 0, 0, 0.16)",
+          width: "753px",
+          maxWidth: "100%"
+        },
+        modalTitle: "Create an Invoice",
+        modalContent: (
+          <div className="modalDiv">
+            <CreateInvoice fetchInvoice={""} />
+          </div>
+        ),
+      })
+    );
+  }
 
   return (
     <Navigation title="Home">
@@ -239,7 +289,7 @@ const MerchantOverview = () => {
               {/* <Progress className={Math.max((c?.count / charge?.total!) * 100) ? Styles.successBar : Styles.primaryBar} percent={Math.round((c?.count / charge?.total!) * 100)} progress /> */}
               <OverviewTable
                 title="What payment option do my customers use the most?"
-                subTitle={`${Number(getPercent(charge!).percent)}% of your customers prefer to pay with ${getPercent(charge!).type}.`}
+                subTitle={`${getPercent(charge!).percent}% of your customers prefer to pay with ${getPercent(charge!).type}.`}
               >
                 <div className={Styles.paymentContainer}>
                   {
@@ -292,11 +342,23 @@ const MerchantOverview = () => {
 
             </div> </> : (
             <div className={Styles?.no_data}>
+
+              <LinkTypeModal
+                isOpen={isLinkModalOpen} handleClose={() => setIsLinkModalOpen(false)}
+                openDonationLinkModal={openDonationLinkModal}
+                openRecurringLinkModal={openRecurringLinkModal}
+                openSingleLinkModal={openSingleLinkModal}
+              />
+              <SingleLinkModal isOpen={isSingleLinkModalOpen} handleClose={() => setIsSingleLinkModalOpen(false)} setIsUpdate={setIsUpdate} />
+              <RecurringLinkModal isOpen={isRecurringLinkModalOpen} handleClose={() => setIsRecurringLinkModalOpen(false)} setIsUpdate={setIsUpdate} />
+              <DonationLinkModal isOpen={isDonationLinkModalOpen} handleClose={() => setIsDonationLinkModalOpen(false)} setIsUpdate={setIsUpdate} />
+
+
               <h2>You haven’t had any transactions yet</h2>
               <p>You’d begin to see data about your transactions here once your customers begin transacting. Create an invoice or payment link to start transacting.</p>
               <div className={Styles.buttonDiv}>
-                <button>Create an Invoice</button>
-                <button>Create Payment Link</button>
+                <button onClick={handleInvoce}>Create an Invoice</button>
+                <button onClick={() => setIsLinkModalOpen(true)}>Create Payment Link</button>
               </div>
             </div>
           )

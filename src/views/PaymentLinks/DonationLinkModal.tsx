@@ -199,7 +199,7 @@ const DonationLinkModal = ({ isOpen, handleClose, setIsUpdate }: DonationLinkMod
 
 
 	const { loading, imgUrl, handleUpload } = useCustomUpload()
-	const [currencyList, loadingCurrency, currencyId] = useCurrency()
+	const { currencyList, loadingCurrency, currencyId } = useCurrency()
 	const [loadingCountry, countryCode, countryList, countryId] = useCountry()
 
 

@@ -212,7 +212,7 @@ const RecurringLinkModal = ({
 
 
 	const dispatch = useDispatch()
-	const [currencyList] = useCurrency()
+	const { currencyList } = useCurrency()
 
 
 	const closeModal = () => {

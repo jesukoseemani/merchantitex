@@ -55,7 +55,7 @@ const CreateInvoice = ({ fetchInvoice }: any) => {
 
 
 
-    const [currencyList] = useCurrency()
+    const { currencyList } = useCurrency()
     useEffect(() => {
         dispatch(openLoader());
         const fetchCustomers = async () => {
