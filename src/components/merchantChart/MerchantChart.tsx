@@ -107,7 +107,7 @@ export default function MerchantChart({ summary, total, setEvent }: { summary: S
   useEffect(() => {
     handleMenuClick('oneyear', '1 year')
   }, [])
-
+  console.log("123")
   // const handleChange = (item: any) => {
   //   console.log("itemmm`:", item)
   //   setForm({
