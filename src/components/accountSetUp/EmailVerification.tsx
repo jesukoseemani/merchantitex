@@ -1,8 +1,4 @@
-import { InputLabel, Typography, Button, TextField } from "@material-ui/core";
-import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import styles from "./Login.module.scss";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import Logo from '../../assets/images/white_bg_logo.svg';

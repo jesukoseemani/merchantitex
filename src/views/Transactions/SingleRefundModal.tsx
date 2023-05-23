@@ -105,7 +105,7 @@ const SingleRefundModal = ({ isOpen, handleClose, setRefundLogged }: SingleRefun
       fontSize: '1rem',
       backgroundColor: '#27AE60',
       height: '44px',
-      borderRadius: '20px',
+      borderRadius: '20px !important',
       textTransform: 'none',
       cursor: "pointer",
       fontFamily: 'Avenir',
@@ -236,6 +236,7 @@ const SingleRefundModal = ({ isOpen, handleClose, setRefundLogged }: SingleRefun
               loading={loading}
               text="Continue"
               fullWidth
+              sx={{ backgroundColor: " #27AE60" }}
 
             />
           </div>

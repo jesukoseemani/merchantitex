@@ -129,14 +129,16 @@ const RefundItem = () => {
         <div className={styles.sectionOne}>
           <div className={styles.section_header}>
             <div>
-              <div className="amount"><h2>{refund?.refund?.currency}{FormatToCurrency(Number(refund?.refund?.amount))}</h2></div>
+              <div className="amount">
+                <h2>{refund?.refund?.currency}{FormatToCurrency(Number(refund?.refund?.amount))}</h2>
+              </div>
               <h2><CustomStatus text={refund?.refund?.status} type={refund?.refund?.status} /></h2>
 
               <p>{refund?.refund?.responsemessage} <Mark /></p>
             </div>
-            <div>
+            {/* <div>
               <button>Resend Receipt</button>
-            </div>
+            </div> */}
           </div>
 
           <div className={styles.refundDetails}>
@@ -181,7 +183,7 @@ const RefundItem = () => {
               <span>Payment reference</span>
               <div className={styles.copy__details}>
                 {/* <h2>{refund?.transaction?.paymentlinkreference.substring(0, 20)}</h2> */}
-                <p>{refund?.transaction?.paymentlinkreference?.substring(0, 20)}</p>
+                <h2>{refund?.transaction?.paymentlinkreference?.substring(0, 15)}</h2>
                 <CopyToClipboard text={String(refund?.transaction?.paymentlinkreference)}>
                   <IconButton>
                     <CopyIcon />
@@ -259,76 +261,7 @@ const RefundItem = () => {
 
         <div className={styles.payment_wrapper}>
 
-          <div className={styles.paymentStage}>
-            <div className={styles.last__section__header}>
-              <h2>Transaction Event</h2>
 
-            </div>
-            <div className={styles.stepWrapper}>
-              <Stepper activeStep={2} orientation="vertical" sx={{
-                '.css-5grjn4-MuiStepConnector-line': {
-                  height: "40px !important",
-                  marginTop: "-0.6rem !important"
-                },
-
-
-
-
-                // '.css-iprrf9-MuiStepConnector-line': { background: "blue" }
-              }}>
-                <Step >
-                  <StepLabel icon={<CheckColorIcon />}
-                  >
-                    <div className={styles.optionalContainer}>
-
-                      <div>
-                        <h3>Payment started</h3>
-                        <p className={styles.timeBox}>
-                          Aug 13 2020 <span>2:21 PM</span>
-                        </p>
-
-                      </div>
-                      <div>
-                        <p>1 min 05secs <span>Time spent making payment</span></p>
-
-                      </div>
-                    </div>
-                  </StepLabel>
-                </Step>
-                <Step>
-                  <StepLabel icon={<CheckColorIcon />}>
-                    <div className={styles.optionalContainer}>
-
-                      <div>
-                        <h3>Payment Completed</h3>
-                        <p className={styles.timeBox}>
-                          Aug 13 2020 <span>2:21 PM</span>
-                        </p>
-
-                      </div>
-
-                      <div className={styles.error}>
-                        <p>1 Error<span>While making payment</span></p>
-
-                      </div>
-
-
-                    </div>
-
-
-                  </StepLabel>
-                </Step>
-
-              </Stepper>
-
-
-            </div>
-            <div className={styles.link}>
-
-              <div onClick={handleBreakDown}><p>Show breakdown</p></div>
-            </div>
-
-          </div>
 
 
 

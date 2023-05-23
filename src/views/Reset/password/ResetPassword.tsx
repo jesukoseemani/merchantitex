@@ -2,15 +2,15 @@ import React from 'react'
 import Styles from "./resetpassword.module.scss";
 import Logo from "../../../assets/images/white_bg_logo.svg"
 import { ReactSVG } from "react-svg";
-import CustomInput from '../../../components/customs/CustomInput';
 import { Link, useHistory } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { InputLabel, Typography, Button, TextField } from "@material-ui/core";
+import { TextField } from "@mui/material";
 import { useDispatch } from 'react-redux';
 import { closeLoader } from '../../../redux/actions/loader/loaderActions';
 import axios from 'axios';
 import { openToastAndSetContent } from '../../../redux/actions/toast/toastActions';
+import CustomInputField from '../../../components/customs/CustomInputField';
 
 
 
@@ -79,30 +79,25 @@ const ResetPassword = () => {
                     </div>
                     <div className={Styles.form_container}>
                         <div className={Styles.middle}>
-                            <h2>Password resetsss</h2>
-                            <p>Enter the email address associated with your account and we'll send you a link to reset your password.</p>
-                            <Form>
-                                <Field
-                                    as={TextField}
-                                    helperText={
-                                        <ErrorMessage name="email">
-                                            {(msg) => <span style={{ color: "red" }}>{msg}</span>}
-                                        </ErrorMessage>
-                                    }
-                                    name="email"
-                                    placeholder="email@email.com"
-                                    variant="outlined"
-                                    type="email"
-                                    fullWidth
-                                    style={{ height: "20px !important" }}
+                            <div className={Styles.middleText}>
 
-                                />
+                                <h2>Password reset</h2>
+                                <p>Enter the email address associated with your account and we'll send you a link to reset your password.</p>
+                            </div>
+                            <Form className={Styles.myForm}>
+
+                                <div className={Styles.inputForm}>
+                                    <CustomInputField label={"Email address"} name='email' placeholder="Enter your email" as={TextField} />
+
+                                </div>
+
+
                                 <button type='submit'>Continue</button>
                             </Form>
                         </div>
 
                     </div>
-                    <Link to={"/signin"}>
+                    <Link to={"/signin"} style={{ textDecoration: "none" }}>
                         <p className={Styles.footer}>Remember your password? <span> Back to Login</span></p>
                     </Link>
                 </div>

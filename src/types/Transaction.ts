@@ -5,7 +5,7 @@ export interface TransactionItem {
   paymentlinkreference?: string
   merchantreference: string
   reference?: string
-  chargeamount?: number
+  amount?: number
   currency: string
   chargetype?: string
   timein: string

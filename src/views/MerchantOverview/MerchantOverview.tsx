@@ -142,6 +142,7 @@ const MerchantOverview = () => {
       } catch (error) { }
     })();
   }, [event.key]);
+  console.log(summary, "summary")
 
   return (
     <Navigation title="Home">
@@ -208,6 +209,7 @@ const MerchantOverview = () => {
               </div>}
             </div>
           </OverviewTable>
+
 
 
           <OverviewTable title="Top customers by volume and value">

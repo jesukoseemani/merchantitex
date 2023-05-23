@@ -79,6 +79,7 @@ export default function MerchantChart({ summary, total, setEvent }: { summary: S
     handleMenuClick('oneyear', '1 year')
   }, [])
 
+  console.log(summary, "dataa")
   return (
     <div className={Styles.container}>
       <div className={Styles.chartHeader}>
@@ -142,15 +143,18 @@ export default function MerchantChart({ summary, total, setEvent }: { summary: S
             <Link to="/balance">Go to balances</Link>
           </div>
 
-          <div className={Styles.summary}>
-            <div>
-              <span className={Styles.span}>
-                Next settlement - Oct 29, 2020
-              </span>
-              <h2>$ 0</h2>
-            </div>
+          {summary?.length > 0 && <div className={Styles.summary}>
+            {summary?.map((x: Summary) => (
+              <div>
+                <span className={Styles.span}>
+                  {/* Next settlement - Oct 29, 2020 */}
+                  {x?.settlement}
+                </span>
+                <h2>{`${x?.currency} ${x?.balance}`}</h2>
+              </div>
+            ))}
             <Link to="/balance/settlements">See all settlements</Link>
-          </div>
+          </div>}
         </div>
       </div>
     </div>

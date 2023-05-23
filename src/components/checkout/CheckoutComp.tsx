@@ -158,7 +158,7 @@ const CheckoutComp = () => {
         }
     }
 
-
+    console.log("123")
     const splitImgUrl = (imgurl: string) => {
         const breakstring = imgurl.split('.')
 
