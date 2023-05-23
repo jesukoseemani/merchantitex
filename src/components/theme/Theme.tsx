@@ -1,4 +1,3 @@
-import { borderRadius } from "@material-ui/system";
 import { createTheme, ThemeOptions } from "@mui/material/styles";
 const theme = createTheme({
   palette: {
