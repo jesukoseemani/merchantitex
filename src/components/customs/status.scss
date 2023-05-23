@@ -48,6 +48,8 @@
     }
 }
 
+.abandoned,
+.Abandoned,
 .pending,
 .Pending {
     @extend .status-container;
@@ -64,9 +66,7 @@
 .lost,
 .declined,
 .inactive,
-.expired,
-.abandoned,
-.Abandoned {
+.expired {
     @extend .status-container;
     background: rgba(255, 106, 106, 0.3);
 

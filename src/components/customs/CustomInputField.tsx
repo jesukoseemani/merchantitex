@@ -2,7 +2,6 @@ import { InputLabel, TextField } from '@mui/material'
 import React from 'react'
 import { ErrorMessage, Field } from 'formik';
 import styles from "./style.module.scss"
-import { Box } from '@mui/material';
 
 
 interface Props {

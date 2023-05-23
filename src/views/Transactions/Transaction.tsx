@@ -3,7 +3,8 @@ import Styles from "./transaction.module.scss";
 import { ReactComponent as CopyIcon } from "../../assets/images/copyColor.svg";
 import { ReactComponent as LinkIcon } from "../../assets/images/ext-link.svg";
 import { ReactComponent as VisaIcon } from "../../assets/images/visa.svg";
-import { ReactComponent as BlaklistIcon } from "../../assets/images/blacklistIcon.svg";
+import { ReactComponent as MasterCardIcon } from "../../assets/images/visa.svg";
+import { ReactComponent as BlaklistIcon } from "../../assets/images/visa.svg";
 import { ReactComponent as CheckColorIcon } from "../../assets/images/circle-check-color.svg";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
@@ -151,7 +152,7 @@ export default function Transaction() {
 							</div>
 						</div>
 						<div className={Styles.btn__group}>
-							<button className={Styles.refundBtn}>Resend Receipt</button>
+							{/* <button className={Styles.refundBtn}>Resend Receipt</button> */}
 							<button className={Styles.resendBtn}>Refund customer</button>
 						</div>
 					</div>
@@ -166,21 +167,16 @@ export default function Transaction() {
 						<div>
 							<div>
 								<span>Customer</span>
-								<h2>{transaction?.transaction?.customer?.email || ''}</h2>
+								<h2>{transaction?.transaction?.customer?.email || 'N/a'}</h2>
 							</div>
 						</div>
 						<div>
 							<div>
-								<span>Card type</span>
-								<h2>{transaction?.transaction?.cardtype === "Visa" ? <VisaIcon /> : transaction?.transaction?.cardtype || "nil"}</h2>
+								<span>Chargetype</span>
+								<h2>{transaction?.transaction?.chargetype || 'N/a'}</h2>
 							</div>
 						</div>
-						<div>
-							<div>
-								<span>Card number</span>
-								<h2>{transaction?.transaction?.mask || "nil"}</h2>
-							</div>
-						</div>
+
 
 					</div>
 
@@ -192,11 +188,11 @@ export default function Transaction() {
 						<h2>Payment information</h2>
 					</div>
 					<Box className={Styles.containerBox}>
-						<Grid container spacing={2} justifyContent="flex-start" alignItems={"center"}>
-							<Grid item xs={12} sm={4} md={3.4}>
+						<Grid container spacing={4} justifyContent="flex-start" alignItems={"center"}>
+							<Grid item xs={12} sm={4} md={4}>
 								<span>Payment reference</span>
 								<h2>
-									{transaction?.transaction?.paymentlinkreference?.substring(0, 20)}
+									{transaction?.transaction?.paymentlinkreference?.substring(0, 25)}
 									<CopyToClipboard text={transaction?.transaction?.paymentlinkreference}>
 										<IconButton>
 											<CopyIcon />
@@ -205,19 +201,19 @@ export default function Transaction() {
 								</h2>
 							</Grid>
 
-							<Grid item xs={12} sm={3} md={1.8}>
+							<Grid item xs={12} sm={3} md={3}>
 								<span className={Styles.timeline}>Transaction Fee</span>
 								<h2>{FormatToCurrency(transaction?.transaction?.fee) || 0}</h2>
 							</Grid>
-							<Grid item xs={12} sm={3} md={1.8}>
+							<Grid item xs={12} sm={3} md={2.5}>
 								<span>Country/Region</span>
 								<h2>{transaction?.transaction?.paylocationcountry || "nil"}</h2>
 							</Grid>
-							<Grid item xs={12} sm={3} md={1.8}>
+							<Grid item xs={12} sm={3} md={2.5}>
 								<span>Bank name</span>
 								<h2>{getBankName(transaction?.transaction?.bankcode) || "nil"}</h2>
 							</Grid>
-							<Grid item xs={12} sm={5} md={5} lg={3}>
+							<Grid item xs={12} sm={5} md={5} lg={4}>
 								<span>ITEX Reference</span>
 								<h2>{transaction?.transaction?.paymentid || "nil"}</h2>
 							</Grid>
@@ -273,10 +269,10 @@ export default function Transaction() {
 
 
 
-						{transaction?.events?.length > 0 && <div className={Styles.link}>
+						{/* {transaction?.events?.length > 0 && <div className={Styles.link}>
 
 							<div onClick={handleBreakDown}><p>Show breakdown</p></div>
-						</div>}
+						</div>} */}
 					</div>
 
 					<div>
@@ -299,12 +295,12 @@ export default function Transaction() {
 								<p>Blacklist customer </p> <DoDisturbIcon fontSize="small" />
 							</div>
 
-							<div className={Styles.profile}>
+							{/* <div className={Styles.profile}>
 								<p>See customer profile </p>
 								<IconButton>
 									<LinkIcon />
 								</IconButton>
-							</div>
+							</div> */}
 						</div>
 					</div>
 				</div>

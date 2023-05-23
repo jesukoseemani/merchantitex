@@ -167,8 +167,16 @@
 			padding: 20px 32px 41px 32px;
 			display: flex;
 			align-items: center;
-			gap: 30px;
+			column-gap: 1rem;
+			row-gap: 2rem;
 			flex-flow: row wrap;
+
+			&>div {
+				min-width: 200px;
+
+
+
+			}
 
 			span {
 				font-family: 'Avenir';
@@ -244,7 +252,12 @@
 			align-items: center;
 			flex-flow: row wrap;
 			padding: 20px 32px;
-			gap: 40px;
+			column-gap: 1.8rem;
+			row-gap: 3rem;
+
+			&>div {
+				min-width: 200px;
+			}
 
 			span {
 				font-family: 'Avenir';
@@ -316,7 +329,7 @@
 
 
 	&>div {
-		width: 48%;
+		width: 100%;
 		background: #FFFFFF;
 		border: 1px solid #DFDFDF;
 		border-radius: 20px;

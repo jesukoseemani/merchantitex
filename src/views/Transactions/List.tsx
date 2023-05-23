@@ -207,18 +207,18 @@ export default function TransactionsList() {
 	];
 
 	const LoanRowTab = useCallback(
-		(currency, amt, responsecode, PaymentType, email, added, id) => ({
+		(currency, amount, responsecode, PaymentType, email, added, id) => ({
 			amount: (
-				<CustomCurrencyFormat amount={amt} currency={currency} />
+				<CustomCurrencyFormat amount={amount} currency={currency} />
 			),
 			status: (
-				<CustomStatus text={getTransactionStatus(responsecode)} type={getTransactionStatus(responsecode)} />
+				<CustomStatus text={responsecode} type={responsecode} />
 			),
 			email: (
 				<p>{email}</p>
 			),
 			payment_type: (
-				<p>{PaymentType}</p>
+				<p>{PaymentType ? PaymentType : "Not Initialized"}</p>
 			),
 			date: (
 				<CustomDateFormat time={added} date={added} />
@@ -233,7 +233,7 @@ export default function TransactionsList() {
 		const newRowOptions: any[] = [];
 		transactions?.map((each: TransactionItem) =>
 			newRowOptions.push(
-				LoanRowTab(each?.currency, each?.chargeamount, getTransactionStatus(each?.responsecode), each?.chargetype, each?.customer?.email, each.timein, each.paymentid)
+				LoanRowTab(each?.currency, each?.amount, getTransactionStatus(each?.responsecode), each?.chargetype, each?.customer?.email, each.timein, each.paymentid)
 			)
 		);
 		setRows(newRowOptions);

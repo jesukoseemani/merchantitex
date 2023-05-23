@@ -104,6 +104,8 @@ nav {
   // margin-top: 1rem;
 
   // margin-top: -rem;
+  // background-color: red;
+  overflow-x: hidden;
 
   li {
     list-style: none;
@@ -119,6 +121,7 @@ nav {
     display: flex;
     padding-inline: 20px;
     align-items: center;
+    // border: 2px solid red;
 
     .linkIcon {
       width: 30px;
@@ -151,9 +154,9 @@ nav {
 
       margin-right: 20px;
 
-      path {
-        stroke: #fff;
-      }
+      // path {
+      //   // stroke: #fff;
+      // }
     }
   }
 

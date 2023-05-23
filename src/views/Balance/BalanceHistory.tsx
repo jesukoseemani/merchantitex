@@ -21,11 +21,12 @@ import { getBalanceHistoryService } from '../../services/balance';
 import FilterModal from '../../components/filterModals/BalanceHistoryFilter';
 import { BALANCE_HISTORY_FILTER_DATA } from '../../constant';
 import { stripEmpty } from '../../utils';
-import { useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import FormatToCurrency from '../../helpers/NumberToCurrency';
 import CustomCurrencyFormat from '../../components/customs/CustomCurrencyFormat';
 import CustomDateFormat from '../../components/customs/CustomDateFormat';
 import Navigation from '../../components/navbar/Navigation';
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 
 
 const useBtnStyles = makeStyles({
@@ -272,6 +273,14 @@ const BalanceHistory = () => {
 
     <Navigation title='Balance History'>
       <div className={styles.container}>
+        <div>
+          <Link to='/balance' style={{ textDecoration: "none", color: "#333", display: "flex" }}>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <ArrowLeftIcon />
+              <p>Back to balance</p>
+            </div>
+          </Link>
+        </div>
         <FilterModal
           isOpen={isFilterModalOpen}
           handleClose={() => setIsFilterModalOpen(false)}
