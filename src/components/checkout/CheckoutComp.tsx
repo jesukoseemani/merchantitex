@@ -124,12 +124,18 @@ const CheckoutComp = () => {
         //     setImage(imgUrl)
         // }
 
+        const newObject = imgUpload ? {
+            merchantlogo: imageUpload,
+            sidebar_color: colorOption?.sidebar_color,
+            button_color: colorOption?.button_color
+        } : {
+
+            sidebar_color: colorOption?.sidebar_color,
+            button_color: colorOption?.button_color
+        }
+
         try {
-            const { data } = await axios.post<CheckoutTypes>("/v1/setting/checkout/custom/update", {
-                merchantlogo: imageUpload,
-                sidebar_color: colorOption?.sidebar_color,
-                button_color: colorOption?.button_color
-            })
+            const { data } = await axios.post<CheckoutTypes>("/v1/setting/checkout/custom/update", newObject)
             if (data.code === "success") {
                 dispatch(
                     openToastAndSetContent({

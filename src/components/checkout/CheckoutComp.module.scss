@@ -42,6 +42,11 @@
             align-items: center;
             text-align: center;
             color: #FFFFFF;
+
+            &:disabled {
+                cursor: not-allowed;
+                background-color: gray;
+            }
         }
     }
 
