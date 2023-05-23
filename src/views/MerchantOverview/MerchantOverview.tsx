@@ -60,7 +60,9 @@ const getPercent = (data: ChargeTypeRes) => {
     }
   })
 
-  return { type, percent: Math.round((count / data.total) * 100) }
+  console.log((count === 0 || data.total === 0))
+
+  return { type, percent: (count === 0 || data.total === 0) ? 0 : Math.round((count / data.total) * 100) }
 }
 const MerchantOverview = () => {
   const [selected, setSelected] = useState<number | undefined>(0);
@@ -290,12 +292,12 @@ const MerchantOverview = () => {
               {/* <Progress className={Math.max((c?.count / charge?.total!) * 100) ? Styles.successBar : Styles.primaryBar} percent={Math.round((c?.count / charge?.total!) * 100)} progress /> */}
               <OverviewTable
                 title="What payment option do my customers use the most?"
-                subTitle={`${getPercent(charge!).percent}% of your customers prefer to pay with ${getPercent(charge!).type}.`}
+                subTitle={getPercent(charge!).percent > 0 ? `${getPercent(charge!).percent}% of your customers prefer to pay with ${getPercent(charge!).type}.` : ''}
               >
                 <div className={Styles.paymentContainer}>
                   {
-                    charge?.data?.length! > 0 && charge?.data.map((c, i) => (
-                      <div key={i}>
+                    charge?.data?.length! > 0 && charge?.data.map((c: ChargeType, i: number) => (
+                      (c?.count > 0 && charge?.total > 0) ? <div key={i}>
                         <p>{capitalize(c.chargetype)} Payments</p>
 
 
@@ -310,7 +312,7 @@ const MerchantOverview = () => {
 
 
                       </div>
-                    ))
+                        : null))
                   }
                 </div>
               </OverviewTable>
