@@ -244,7 +244,7 @@ const SingleLinkModal = ({ isOpen, handleClose, setIsUpdate }: SingleLinkModalPr
 	};
 	const dispatch = useDispatch()
 
-	const [currencyList] = useCurrency()
+	const { currencyList } = useCurrency()
 
 
 	return (

@@ -218,7 +218,7 @@ export default function TransactionsList() {
 				<p>{email}</p>
 			),
 			payment_type: (
-				<p>{PaymentType ? PaymentType : "Not Initialized"}</p>
+				<p>{PaymentType ? PaymentType : "N/a"}</p>
 			),
 			date: (
 				<CustomDateFormat time={added} date={added} />
