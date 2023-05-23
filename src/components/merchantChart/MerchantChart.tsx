@@ -69,8 +69,8 @@ export default function MerchantChart({ summary, total, setEvent, setParentDate 
     todate: moment().format('YYYY-MM-DD')
   })
   const [state, setState] = useState<{
-    startDate?: Date | undefined,
-    endDate?: Date | undefined,
+    startDate?: any,
+    endDate?: any,
     key?: string
   }[]>([
     {
@@ -100,7 +100,7 @@ export default function MerchantChart({ summary, total, setEvent, setParentDate 
     let fromdate = customDate.fromdate;
     let todate = customDate.todate;
 
-    if (!isExisting) {
+    if (!isExisting && selection) {
       setState([
         selection
       ])
@@ -265,7 +265,7 @@ export default function MerchantChart({ summary, total, setEvent, setParentDate 
             >
               <DateRange
                 editableDateInputs={true}
-                onChange={item => handleDateRange(item.selection)}
+                onChange={(item:any) => handleDateRange(item.selection)}
                 moveRangeOnFirstSelection={false}
                 ranges={state}
               />
