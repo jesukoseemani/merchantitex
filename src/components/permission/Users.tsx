@@ -1,4 +1,4 @@
-import { Avatar, Box, Checkbox, Grid, List, ListItem, ListItemAvatar, ListItemText } from '@mui/material'
+import { Avatar, Box, Checkbox } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { closeLoader, openLoader } from '../../redux/actions/loader/loaderActions'
@@ -8,12 +8,14 @@ import axios from 'axios';
 import { openToastAndSetContent } from '../../redux/actions/toast/toastActions'
 import { useParams } from 'react-router-dom';
 
-const UsersPermission = () => {
+const Users = () => {
 
     const dispatch = useDispatch()
     const { id } = useParams<{ id: string }>();
 
     const [roles, setRoles] = useState<any>()
+    const [user, setUser] = useState<any>()
+
 
     useEffect(() => {
         dispatch(openLoader());
@@ -24,7 +26,7 @@ const UsersPermission = () => {
                 const { data } = await axios.get<any>(`/v1/setting/roles/${id}/properties`)
                 console.log(data)
                 setRoles(data?.modules)
-
+                setUser(data?.users)
 
                 dispatch(closeLoader());
 
@@ -35,7 +37,7 @@ const UsersPermission = () => {
                     dispatch(
                         openToastAndSetContent({
                             toastContent: message,
-                            msgType: "error",
+                            msgType: "error"
                         })
                     )
                 );
@@ -77,40 +79,38 @@ const UsersPermission = () => {
 
                     </Box>
                 </Box>
-                <Box className={styles.right__container}>
-                    <Box className={styles.firstSection}>
+                <div className={styles.right__container}>
+                    <div className={styles.firstSection}>
                         <h2>Users with this role</h2>
                         <p>See users with these permissions</p>
-                    </Box>
+                    </div>
                     <div className={styles.secondSection}>
                         <div className={styles.permission__Roles}>
+                            {
+                                user?.length > 0 ? user?.map(({ firstname, lastname, email }: { firstname: string; lastname: string; email: string }) => (
 
-                            <div>
-                                <Avatar sx={{ bgcolor: "#2684ED", fontSize: "14px", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                    PG
-                                </Avatar>
-                                <div>
-                                    <p>Peter Griffin</p>
-                                    <span>petergriffin@email.com</span>
+                                    <div>
+                                        <Avatar sx={{ bgcolor: "#2684ED", fontSize: "14px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                            {firstname?.substring(0, 1).toUpperCase()}{lastname?.substring(0, 1).toUpperCase()}
 
-                                </div>
+                                        </Avatar>
+                                        <div>
+                                            <p>{firstname} {lastname}</p>
+                                            <span>{email}</span>
 
-                            </div>
-                            <div>
-                                <Avatar sx={{ bgcolor: "#2684ED", fontSize: "14px", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                    RM
-                                </Avatar>
-                                <div>
-                                    <p>Rick Morty</p>
-                                    <span>rickmorty@email.com</span>
+                                        </div>
+                                    </div>
 
-                                </div>
-                            </div>
+
+                                )) : <p className={styles.no_user}>No User with this role</p>
+                            }
+
                         </div>
                     </div>
-                </Box>
-            </div></Permission>
+                </div>
+            </div>
+        </Permission >
     )
 }
 
-export default UsersPermission
+export default Users

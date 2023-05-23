@@ -88,7 +88,7 @@ export default function Navigation(props: Props) {
                         disableRipple
 
                     >
-                        <MenuIcon fontSize='large' />
+                        <MenuIcon fontSize='large' sx={{ color: "#333" }} />
                     </IconButton>
                     <Header title={title} />
                 </Toolbar>

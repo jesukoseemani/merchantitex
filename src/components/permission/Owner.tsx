@@ -14,6 +14,8 @@ const Owner = () => {
     const { id } = useParams<{ id: string }>();
 
     const [roles, setRoles] = useState<any>()
+    const [user, setUser] = useState<any>()
+
 
     useEffect(() => {
         dispatch(openLoader());
@@ -24,7 +26,7 @@ const Owner = () => {
                 const { data } = await axios.get<any>(`/v1/setting/roles/${id}/properties`)
                 console.log(data)
                 setRoles(data?.modules)
-
+                setUser(data?.users)
 
                 dispatch(closeLoader());
 
@@ -84,26 +86,25 @@ const Owner = () => {
                     </div>
                     <div className={styles.secondSection}>
                         <div className={styles.permission__Roles}>
-                            <div>
-                                <Avatar sx={{ bgcolor: "#2684ED", fontSize: "14px", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                    RU
-                                </Avatar>
-                                <div>
-                                    <p>Roy Unachukwu</p>
-                                    <span>royunachukwu@email.com</span>
+                            {
+                                user?.length > 0 ? user?.map(({ firstname, lastname, email }: { firstname: string; lastname: string; email: string }) => (
 
-                                </div>
-                            </div>
-                            <div>
-                                <Avatar sx={{ bgcolor: "#2684ED", fontSize: "14px", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                    RU
-                                </Avatar>
-                                <div>
-                                    <p>Philip Kachikwu</p>
-                                    <span>philipkachikwu@email.com</span>
+                                    <div>
+                                        <Avatar sx={{ bgcolor: "#2684ED", fontSize: "14px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                            {firstname?.substring(0, 1).toUpperCase()}{lastname?.substring(0, 1).toUpperCase()}
 
-                                </div>
-                            </div>
+                                        </Avatar>
+                                        <div>
+                                            <p>{firstname} {lastname}</p>
+                                            <span>{email}</span>
+
+                                        </div>
+                                    </div>
+
+
+                                )) : <p className={styles.no_user}>No User with this role</p>
+                            }
+
                         </div>
                     </div>
                 </div>

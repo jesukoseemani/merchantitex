@@ -207,6 +207,18 @@
             display: flex;
             flex-flow: row wrap;
             gap: 10px;
+
+
+        }
+
+        .no_user {
+
+            position: absolute;
+            top: 70%;
+            left: 20%;
+            transform: translate(-50% -50%);
+            font-family: "Avenir bold";
+            font-size: 16px;
         }
     }
 

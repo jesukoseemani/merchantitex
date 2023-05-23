@@ -145,7 +145,7 @@ const TwoFaAuth = () => {
                                             variant='outlined'
 
                                             type='number'
-
+                                            placeholder="Enter Otp"
                                             size='small'
                                             fullWidth
 

@@ -91,7 +91,7 @@ const Operations = () => {
 
                                     <div>
                                         <Avatar sx={{ bgcolor: "#2684ED", fontSize: "14px", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                            {firstname?.substring(0)}{lastname?.substring(0)}
+                                            {firstname?.substring(0, 1).toUpperCase()}{lastname?.substring(0, 1).toUpperCase()}
                                         </Avatar>
                                         <div>
                                             <p>{firstname} {lastname}</p>
@@ -101,7 +101,7 @@ const Operations = () => {
                                     </div>
 
 
-                                )) : "No User with this role"
+                                )) : <p className={styles.no_user}>No User with this role</p>
                             }
 
                         </div>

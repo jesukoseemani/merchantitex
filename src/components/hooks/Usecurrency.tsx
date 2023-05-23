@@ -60,7 +60,7 @@ const useCurrency = () => {
 
 
 
-    return [currencyList, loadingCurrency, currencyId] as const
+    return { currencyList, loadingCurrency, currencyId } as const
 }
 
 export default useCurrency

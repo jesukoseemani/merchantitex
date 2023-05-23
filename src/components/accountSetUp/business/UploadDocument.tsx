@@ -106,10 +106,10 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
 
     }
 
-    const handleBusinesType = (e: any) => {
-        handleUpload(e.target.files[0], setBizReq_type)
+    // const handleBusinesType = (e: any) => {
+    //     handleUpload(e.target.files[0], setBizReq_type)
 
-    }
+    // }
 
     const handleProveDoc = (e: any) => {
 
@@ -121,9 +121,9 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
 
     let fileArray = [
         {
-            docType: bizDoc,
+            docType: "biz_reg",
             docNumber: bizNo,
-            docUrl: biz_req_type
+            docUrl: bizDoc
         },
         {
             docNumber: lisenceno,
@@ -275,12 +275,7 @@ const UploadDocument = ({ handleBack, handleNext }: Props) => {
 
 
 
-                    <br />
-                    <Grid item xs={12} sm={6} md={6} mb="14px">
 
-                        <CustomUploadBtn helperText='Only PDF, JPG and PNG are the accepted file formats' label='Upload Application for Business Registration' onChange={(e: any) => handleBusinesType(e)} uploadMsg={biz_req_type && splitImgUrl(biz_req_type)} />
-
-                    </Grid>
 
 
                     <Divider />
