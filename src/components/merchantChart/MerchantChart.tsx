@@ -96,7 +96,8 @@ export default function MerchantChart({ summary, total, setEvent, setParentDate 
   const d = summary.length ? summary[0].data.map((c) => ({ name: c.date, value: c.total })) : [];
 
 
-  const handleDateRange = (selection?: { startDate: string; endDate: string }, isExisting?: boolean) => {
+  // TODO: fix the type
+  const handleDateRange = (selection?: any, isExisting?: boolean) => {
     let fromdate = customDate.fromdate;
     let todate = customDate.todate;
 
