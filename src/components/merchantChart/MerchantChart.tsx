@@ -72,7 +72,7 @@ export default function MerchantChart({ summary, total, setEvent }: { summary: S
   ]);
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -136,20 +136,22 @@ export default function MerchantChart({ summary, total, setEvent }: { summary: S
           </div>}
         </div>
         <div className={Styles.btnGroupWrapper}>
-          <Button className={Styles.btnGroup} onClick={handleClick} >
-            <button>{form?.fromdate || ''}</button>
-            <button className={Styles.btnDivider}>
-              <RemoveIcon />
-            </button>
-            <button>{form?.todate || ''}</button>
-          </Button>
+          <div className={Styles.btnDiv} onClick={handleClick} >
+            <div>
+              <p>{form?.fromdate || ''}</p>
+              <span>-</span>
+              <p>{form?.todate || ''}</p>
+            </div>
+            <div>
+              <select className={Styles.select} defaultValue={"145"}>
+                {currencyList?.map((x: any) => (
+                  <option key={x?.id} value={x?.id} >{x?.currencyIso}</option>
+                ))}
+              </select>
+            </div>
+          </div>
 
 
-          <select className={Styles.select}>
-            {currencyList?.map((x: any) => (
-              <option key={x?.id} value={x?.id} defaultValue={"145"}>{x?.currencyIso}</option>
-            ))}
-          </select>
         </div>
       </div>
       <div className={Styles.chartWrapper}>
