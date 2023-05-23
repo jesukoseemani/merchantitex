@@ -1,3 +1,5 @@
+import 'react-date-range/dist/styles.css'; // main style file
+import 'react-date-range/dist/theme/default.css'; // theme css file
 import { useEffect, useState } from "react";
 import Styles from "./merchant.module.scss";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
@@ -7,11 +9,14 @@ import { Link } from "react-router-dom";
 import FormatToCurrency from "../../helpers/NumberToCurrency";
 import getSymbolFromCurrency from "currency-symbol-map";
 import { Summary } from "../../types/TrendTypes";
-import { createStyles, makeStyles } from "@material-ui/core";
+import { createStyles, makeStyles, TextField } from "@material-ui/core";
 import Menu from "@mui/material/Menu";
-import { Box, SxProps } from "@mui/material";
+import { Box, Button, MenuItem, Popover, SxProps } from "@mui/material";
 import moment from "moment";
 import { getDate } from "../../utils";
+import useCurrency from '../hooks/Usecurrency';
+import { DateRange } from 'react-date-range';
+
 
 const DATA = [{ name: 'Today', value: 'today' }, { name: 'Last 7 days', value: 'last7days' }, { name: '30 days', value: 'last30days' }, { name: '1 year', value: 'oneyear' }]
 
@@ -54,6 +59,29 @@ export default function MerchantChart({ summary, total, setEvent }: { summary: S
     fromdate: '',
     todate: ''
   })
+  const [state, setState] = useState<{
+    startDate?: Date | undefined,
+    endDate?: Date | undefined,
+    key?: string
+  }[]>([
+    {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: 'selection'
+    }
+  ]);
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
 
   const d = summary.length ? summary[0].data.map((c) => ({ name: c.date, value: c.total })) : [];
 
@@ -75,11 +103,20 @@ export default function MerchantChart({ summary, total, setEvent }: { summary: S
     setOpenMenu(false)
   }
 
+
   useEffect(() => {
     handleMenuClick('oneyear', '1 year')
   }, [])
 
-  console.log(summary, "dataa")
+  // const handleChange = (item: any) => {
+  //   console.log("itemmm`:", item)
+  //   setForm({
+  //     fromdate: moment(item?.selection?.startDate).format('YYYY-MM-DD'),
+  //     todate: moment(item?.selection?.endDate).format('YYYY-MM-DD')
+  //   })
+  // }
+
+  const { currencyList, currencyId } = useCurrency()
   return (
     <div className={Styles.container}>
       <div className={Styles.chartHeader}>
@@ -99,30 +136,36 @@ export default function MerchantChart({ summary, total, setEvent }: { summary: S
           </div>}
         </div>
         <div className={Styles.btnGroupWrapper}>
-          <button className={Styles.btnGroup}>
+          <Button className={Styles.btnGroup} onClick={handleClick} >
             <button>{form?.fromdate || ''}</button>
             <button className={Styles.btnDivider}>
               <RemoveIcon />
             </button>
             <button>{form?.todate || ''}</button>
-          </button>
-          <button>
-            NGN <ArrowDropDownIcon />
-          </button>
+          </Button>
+
+
+          <select className={Styles.select}>
+            {currencyList?.map((x: any) => (
+              <option key={x?.id} value={x?.id} defaultValue={"145"}>{x?.currencyIso}</option>
+            ))}
+          </select>
         </div>
       </div>
       <div className={Styles.chartWrapper}>
-        <div className={Styles.header}>
-          <div className={Styles.chartCard}>
-            <span className={Styles.span}>Total value</span>
-            <h2>
-              NGN
-              {FormatToCurrency(total || 0)}
-            </h2>
+        <div>
+          <div className={Styles.header}>
+            <div className={Styles.chartCard}>
+              <span className={Styles.span}>Total Transaction Count</span>
+              <h2>
+                {FormatToCurrency(total || 0)}
+              </h2>
+            </div>
           </div>
-        </div>
-        <div className={Styles.chart}>
-          <LineChartComp data={d} />
+          <div className={Styles.chart}>
+            <LineChartComp data={d} />
+          </div>
+
         </div>
         <div className={Styles.side}>
           <div className={Styles.summary}>
@@ -140,21 +183,47 @@ export default function MerchantChart({ summary, total, setEvent }: { summary: S
                 {FormatToCurrency(+summary?.[0]?.balance?.ledgerbalance || 0)}
               </h2>
             </div>
-            <Link to="/balance">Go to balances</Link>
+            <div>
+
+              <Link to="/balance" className={Styles.link}> Go to balances</Link>
+            </div>
           </div>
 
           {summary?.length > 0 && <div className={Styles.summary}>
             {summary?.map((x: Summary) => (
               <div>
                 <span className={Styles.span}>
-                  {/* Next settlement - Oct 29, 2020 */}
                   {x?.settlement}
                 </span>
                 <h2>{`${x?.currency} ${x?.balance}`}</h2>
               </div>
             ))}
-            <Link to="/balance/settlements">See all settlements</Link>
+            <div >
+              <Link to="/balance/settlements" className={Styles.link}>See all settlements</Link>
+            </div>
           </div>}
+
+          <div>
+            <Popover
+              id={id}
+              open={open}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+            >
+              <DateRange
+                editableDateInputs={true}
+                onChange={item => setState([item.selection])}
+                moveRangeOnFirstSelection={false}
+                ranges={state}
+              />
+            </Popover>
+
+          </div>
+
         </div>
       </div>
     </div>
