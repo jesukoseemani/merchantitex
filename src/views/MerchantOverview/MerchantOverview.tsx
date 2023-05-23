@@ -25,6 +25,7 @@ import axios from "axios";
 import { useDispatch } from 'react-redux';
 import { getDate } from "../../utils";
 import Navigation from '../../components/navbar/Navigation';
+import moment from "moment";
 import CreateInvoice from "../../components/bills/invoice/CreateInvoice";
 import { openModalAndSetContent } from "../../redux/actions/modal/modalActions";
 import LinkTypeModal from "../PaymentLinks/LinkTypeModal";
@@ -94,7 +95,8 @@ const MerchantOverview = () => {
 
 
   const dispatch = useDispatch()
-  const [event, setEvent] = useState({ name: '', key: '' })
+  const [event, setEvent] = useState({ name: 'Custom', key: '' })
+  const [date, setDate] = useState({ fromdate: moment().format('YYYY-MM-DD'), todate: moment().format('YYYY-MM-DD') })
 
   // show helpcenter popup
   const [showHelpcenter, setShowHelpcenter] = useState(false)
@@ -103,7 +105,6 @@ const MerchantOverview = () => {
   }
   const handleClose = () => {
     setShowHelpcenter(false)
-    console.log("12345");
 
   }
 
@@ -142,7 +143,8 @@ const MerchantOverview = () => {
 
   useEffect(() => {
     (async () => {
-      const { fromdate, todate } = getDate(event.key)
+      // const { fromdate, todate } = getDate(event.key)
+      const { fromdate, todate } = date;
       try {
         const [charge, customer, summary, performance, failure] =
           await Promise.all([
@@ -168,8 +170,7 @@ const MerchantOverview = () => {
         });
       } catch (error) { }
     })();
-  }, [event.key]);
-  console.log(summary, "summary")
+  }, [event.key, date.fromdate, date.todate]);
 
 
   // handle create invoice
@@ -200,11 +201,11 @@ const MerchantOverview = () => {
         className={Styles.container}
         style={{ display: "flex", flexDirection: "column", width: "100%" }}
       >
-        <MerchantChart summary={summary} total={performance?.total || 0} setEvent={setEvent} />
+        <MerchantChart summary={summary} total={performance?.total || 0} setEvent={setEvent} setParentDate={setDate} />
         {performance ?
           <>
 
-            <OverviewCard abandoned={performance?.abandoned || 0} event={event.name} />
+            <OverviewCard abandoned={performance?.abandoned || 0} event={event.name || 'Custom'} />
             <div className={Styles.tableWrapper}>
 
               <OverviewTable title="Perfomance">

@@ -16,9 +16,10 @@ import moment from "moment";
 import { getDate } from "../../utils";
 import useCurrency from '../hooks/Usecurrency';
 import { DateRange } from 'react-date-range';
+import { display } from '@material-ui/system';
 
 
-const DATA = [{ name: 'Today', value: 'today' }, { name: 'Last 7 days', value: 'last7days' }, { name: '30 days', value: 'last30days' }, { name: '1 year', value: 'oneyear' }]
+const DATA = [{ name: 'Custom', value: '' }, { name: 'Today', value: 'today' }, { name: 'Last 7 days', value: 'last7days' }, { name: '30 days', value: 'last30days' }, { name: '1 year', value: 'oneyear' }]
 
 interface ChartTrend {
   day: number;
@@ -40,6 +41,8 @@ interface BalanceTypes {
   ledgerbalance: string;
   availablebalance: string;
 }
+
+type Props = { summary: Summary[]; total: number; setEvent: (arg: { name: string; key: string }) => void; setParentDate: (d: { fromdate: string; todate: string }) => void }
 const TPVDefault = {
   currency: "",
   revenue: 0,
@@ -51,13 +54,19 @@ const BalanceDefault = {
   ledgerbalance: "0",
   availablebalance: "0",
 };
-export default function MerchantChart({ summary, total, setEvent }: { summary: Summary[]; total: number; setEvent: (arg: { name: string; key: string }) => void }) {
+export default function MerchantChart({ summary, total, setEvent, setParentDate }: Props) {
   const [balance, setBalance] = useState<BalanceTypes>(BalanceDefault);
   const [openMenu, setOpenMenu] = useState(false)
-  const [name, setName] = useState('1 year');
+  const [displayName, setName] = useState('Custom');
+
+  // store custom date
+  const [customDate, setCustomDate] = useState({
+    fromdate: moment().format('YYYY-MM-DD'), todate: moment().format('YYYY-MM-DD')
+  })
+
   const [form, setForm] = useState({
-    fromdate: '',
-    todate: ''
+    fromdate: moment().format('YYYY-MM-DD'),
+    todate: moment().format('YYYY-MM-DD')
   })
   const [state, setState] = useState<{
     startDate?: Date | undefined,
@@ -70,6 +79,7 @@ export default function MerchantChart({ summary, total, setEvent }: { summary: S
       key: 'selection'
     }
   ]);
+
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   const handleClick = (event: any) => {
@@ -85,11 +95,60 @@ export default function MerchantChart({ summary, total, setEvent }: { summary: S
 
   const d = summary.length ? summary[0].data.map((c) => ({ name: c.date, value: c.total })) : [];
 
+
+  const handleDateRange = (selection?: { startDate: string; endDate: string }, isExisting?: boolean) => {
+    let fromdate = customDate.fromdate;
+    let todate = customDate.todate;
+
+    if (!isExisting) {
+      setState([
+        selection
+      ])
+
+      fromdate = moment(selection?.startDate).format('YYYY-MM-DD');
+      todate = moment(selection?.endDate).format('YYYY-MM-DD')
+
+    }
+
+
+    setForm({
+      fromdate,
+      todate
+    })
+
+    setParentDate({
+      fromdate,
+      todate
+    })
+
+    setCustomDate({
+      fromdate,
+      todate
+    })
+
+    setEvent({ name: 'Custom', key: '' })
+    setName('Custom')
+
+    setOpenMenu(false)
+  }
+
+
+
   const handleMenuClick = (key: string, name: string) => {
+
+    if (name === 'Custom') {
+      handleDateRange(undefined, true);
+      return
+    }
 
     const { fromdate, todate } = getDate(key)
 
     setForm({
+      fromdate,
+      todate
+    })
+
+    setParentDate({
       fromdate,
       todate
     })
@@ -99,22 +158,10 @@ export default function MerchantChart({ summary, total, setEvent }: { summary: S
       key
     })
 
+
     setName(name)
     setOpenMenu(false)
   }
-
-
-  useEffect(() => {
-    handleMenuClick('oneyear', '1 year')
-  }, [])
-
-  // const handleChange = (item: any) => {
-  //   console.log("itemmm`:", item)
-  //   setForm({
-  //     fromdate: moment(item?.selection?.startDate).format('YYYY-MM-DD'),
-  //     todate: moment(item?.selection?.endDate).format('YYYY-MM-DD')
-  //   })
-  // }
 
   const { currencyList, currencyId } = useCurrency()
   return (
@@ -122,7 +169,7 @@ export default function MerchantChart({ summary, total, setEvent }: { summary: S
       <div className={Styles.chartHeader}>
         <div className={Styles.menuCont}>
           <button onClick={() => setOpenMenu(!openMenu)}>
-            {name} <ArrowDropDownIcon />
+            {displayName} <ArrowDropDownIcon />
           </button>
 
           {openMenu && <div className={Styles.menu} style={{ borderRadius: "20px" }}>
@@ -218,7 +265,7 @@ export default function MerchantChart({ summary, total, setEvent }: { summary: S
             >
               <DateRange
                 editableDateInputs={true}
-                onChange={item => setState([item.selection])}
+                onChange={item => handleDateRange(item.selection)}
                 moveRangeOnFirstSelection={false}
                 ranges={state}
               />
