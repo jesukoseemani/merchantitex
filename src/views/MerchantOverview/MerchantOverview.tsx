@@ -234,7 +234,7 @@ const MerchantOverview = () => {
                       paddingAngle={4}
                     />
                   </div>
-                  {!!performance && <div>
+                  {performance ? <div>
                     <h2>{performance?.total || 0}</h2>
                     <span>Total customers</span>
                     <div className={Styles.listStatus}>
@@ -261,7 +261,7 @@ const MerchantOverview = () => {
                       ></div>
                       <p>Abandoned - {performance?.abandoned || 0} ({Math.round((performance?.abandoned! / performance?.total!) * 100)}%)</p>
                     </div>
-                  </div>}
+                  </div> : <div className={Styles.no_data}><p>You dont have data yet</p></div>}
                 </div>
               </OverviewTable>
 
@@ -270,7 +270,7 @@ const MerchantOverview = () => {
               <OverviewTable title="Top customers by volume and value">
                 <div className={Styles.listWrapper}>
                   {
-                    customer?.length > 0 && customer.map((c, i) => (
+                    customer?.length > 0 ? customer.map((c, i) => (
                       <div className={Styles.listItem} key={i}>
                         <div>
                           <h2>{`${capitalize(c?.firstname || '')} ${capitalize(c?.lastname || '')}`}</h2>
@@ -281,7 +281,7 @@ const MerchantOverview = () => {
                           <span>Amount spent</span>
                         </div>
                       </div>
-                    ))
+                    )) : <div className={Styles.no_data}><p>You dont have data yet</p></div>
                   }
                 </div>
               </OverviewTable>
@@ -312,14 +312,14 @@ const MerchantOverview = () => {
 
 
                       </div>
-                        : null))
+                        : <div className={Styles.no_data}><p>You dont have data yet</p></div>))
                   }
                 </div>
               </OverviewTable>
               <OverviewTable title="Top reasons for transactions failure">
                 <ol className={Styles.transactionContainer}>
                   {
-                    failure?.length > 0 && failure.map((f, i) => (
+                    failure?.length > 0 ? failure.map((f, i) => (
                       <li key={i}>
                         <div style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
                           <p style={{ textAlign: "start" }}>
@@ -332,7 +332,7 @@ const MerchantOverview = () => {
                         </div>
                       </li>
 
-                    ))
+                    )) : <div className={Styles.no_data}><p>You dont have data yet</p></div>
                   }
 
                 </ol>

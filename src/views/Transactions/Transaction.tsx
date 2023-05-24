@@ -249,11 +249,11 @@ export default function Transaction() {
 												<div className={Styles.labelBox}>
 													<div>
 														<h6>{x?.activity}</h6>
-														<p><CustomDateFormat date={x?.timein} time={x?.timein} />
-														</p>
+
 													</div>
 													<div>
-														<p className={Styles.success}>1 min 05secs <span>Time spent making payment</span></p>
+														<p><CustomDateFormat date={x?.timein} time={x?.timein} /></p>
+
 
 													</div>
 												</div>

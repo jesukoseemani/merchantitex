@@ -9,9 +9,7 @@ import { Link } from "react-router-dom";
 import FormatToCurrency from "../../helpers/NumberToCurrency";
 import getSymbolFromCurrency from "currency-symbol-map";
 import { Summary } from "../../types/TrendTypes";
-import { createStyles, makeStyles, TextField } from "@material-ui/core";
-import Menu from "@mui/material/Menu";
-import { Box, Button, MenuItem, Popover, SxProps } from "@mui/material";
+import { Box, MenuItem, Popover, Select } from "@mui/material";
 import moment from "moment";
 import { getDate } from "../../utils";
 import useCurrency from '../hooks/Usecurrency';
@@ -165,6 +163,7 @@ export default function MerchantChart({ summary, total, setEvent, setParentDate 
   }
 
   const { currencyList, currencyId } = useCurrency()
+  const [selectedCurrency, setSelectedCurrency] = useState("145")
   return (
     <div className={Styles.container}>
       <div className={Styles.chartHeader}>
@@ -184,18 +183,18 @@ export default function MerchantChart({ summary, total, setEvent, setParentDate 
           </div>}
         </div>
         <div className={Styles.btnGroupWrapper}>
-          <div className={Styles.btnDiv} onClick={handleClick} >
-            <div>
+          <div className={Styles.btnDiv}>
+            <div onClick={handleClick} >
               <p>{form?.fromdate || ''}</p>
               <span>-</span>
               <p>{form?.todate || ''}</p>
             </div>
             <div>
-              <select className={Styles.select} defaultValue={"145"}>
+              <Select className={Styles.select} onChange={(e) => setSelectedCurrency(e.target.value)} value={selectedCurrency} sx={{ width: "80px", background: "#F8F8F8", border: "none", fontSize: "14px", borderRadius: "10px" }}>
                 {currencyList?.map((x: any) => (
-                  <option key={x?.id} value={x?.id} >{x?.currencyIso}</option>
+                  <MenuItem key={x?.id} value={x?.id}>{x?.currencyIso}</MenuItem>
                 ))}
-              </select>
+              </Select>
             </div>
           </div>
 
@@ -213,7 +212,7 @@ export default function MerchantChart({ summary, total, setEvent, setParentDate 
             </div>
           </div>
           <div className={Styles.chart}>
-            <LineChartComp data={d} />
+            {d?.length > 0 ? <LineChartComp data={d} /> : <div className={Styles?.no_data}><p>You dont have any data yet.</p></div>}
           </div>
 
         </div>
