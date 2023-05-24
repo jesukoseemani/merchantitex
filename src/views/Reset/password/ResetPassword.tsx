@@ -73,7 +73,7 @@ const ResetPassword = () => {
         >
             {(props) => (
 
-                <div className={Styles.container}>
+                <div className={Styles.container}> 
                     <div className={Styles.logo}>
                         <ReactSVG src={Logo} />
                     </div>

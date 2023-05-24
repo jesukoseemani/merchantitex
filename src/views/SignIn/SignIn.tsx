@@ -233,12 +233,7 @@ const SignIn = () => {
 											/>
 										</div>
 										{/* </FormControl> */}
-
 									</div>
-
-
-
-
 									<button
 										style={{
 											backgroundColor: '#27AE60',
@@ -263,7 +258,7 @@ const SignIn = () => {
 									<InputLabel>
 										<div className={styles.sub}>
 											<p className={styles.formSub}>
-												<span onClick={() => history.push("/reset/password")}>Forgot password?</span>
+												Forgot password? <span style={{ color: '#27AE60' }} onClick={() => history.push("/reset/password")}>Reset</span>
 											</p>
 										</div>
 									</InputLabel>
