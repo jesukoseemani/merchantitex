@@ -65,7 +65,7 @@ const BlacklistDatatable = () => {
 		{ id: 'actions', label: 'Actions', minWidth: 100 },
 	];
 
-	const handleBLacklist = () => {
+	const handleBLacklist = (id: any) => {
 		dispatch(
 			openModalAndSetContent({
 				modalStyles: {
@@ -81,7 +81,7 @@ const BlacklistDatatable = () => {
 
 				modalContent: (
 					<div className='modalDiv'>
-						<RemoveBlacklist />
+						<RemoveBlacklist id={id} getCustomers={getCustomers} />
 					</div>
 				),
 			})
@@ -101,7 +101,7 @@ const BlacklistDatatable = () => {
 			msisdn: <p className={styles.tableBodyText}>{msisdn}</p>,
 
 			actions: (
-				<button onClick={handleBLacklist} className={styles.ActionBtn}>
+				<button onClick={() => handleBLacklist(id)} className={styles.ActionBtn}>
 					Remove
 				</button>
 			),

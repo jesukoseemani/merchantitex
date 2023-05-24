@@ -13,7 +13,7 @@ interface Props {
     id?: string;
     className?: string;
     size?: string;
-
+    value?: any;
     options?: any;
     as?: any;
     multiline?: boolean;
@@ -22,7 +22,7 @@ interface Props {
 
 }
 
-const CustomInputField = ({ className, style, id, options, as = "", size = "small", rows, multiline = false, label, placeholder, name, type = "text", ...otherprops }: Props) => {
+const CustomInputField = ({ className, style, value, id, options, as = "", size = "small", rows, multiline = false, label, placeholder, name, type = "text", ...otherprops }: Props) => {
     return (
         <div>
             <InputLabel>
@@ -48,6 +48,7 @@ const CustomInputField = ({ className, style, id, options, as = "", size = "smal
                 rows={rows}
                 {...otherprops}
                 style={style}
+                value={value}
 
 
             />

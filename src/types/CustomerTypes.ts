@@ -30,7 +30,7 @@ export interface RecentCustomerItem {
   paymentType: string;
   added?: string;
   id?: string;
-  status?: string;
+  responsemessage?: string;
 }
 
 export interface GetRecentCustomerRes {

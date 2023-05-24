@@ -555,10 +555,11 @@
 
 .customerInfo {
 	display: flex;
-	justify-content: space-between;
+	// justify-content: space-between;
 	align-items: center;
 	padding: 20px 32px;
 	flex-flow: row wrap;
+	gap: 2rem;
 
 	.customerInfo_left {
 		display: flex;
