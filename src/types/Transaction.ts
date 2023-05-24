@@ -16,6 +16,7 @@ export interface TransactionItem {
 }
 
 export interface Customer {
+  id: string;
   customerid: number
   firstname: string
   lastname: string

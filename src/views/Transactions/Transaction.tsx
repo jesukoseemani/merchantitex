@@ -120,7 +120,7 @@ export default function Transaction() {
 				modalTitle: "Blacklist customer",
 				modalContent: (
 					<div className='modalDiv'>
-						<Addtoblacklist id={id} />
+						<Addtoblacklist id={transaction?.transaction?.customer?.customerid} />
 					</div>
 				),
 			})
@@ -318,12 +318,12 @@ export default function Transaction() {
 								<p>Blacklist customer </p> <DoDisturbIcon fontSize="small" />
 							</div>
 
-							{/* <div className={Styles.profile}>
+							<div className={Styles.profile}>
 								<p>See customer profile </p>
-								<IconButton>
+								<IconButton onClick={() => history?.push(`/customers/${transaction?.transaction?.customer?.customerid}`)}>
 									<LinkIcon />
 								</IconButton>
-							</div> */}
+							</div>
 						</div>
 					</div>
 				</div>

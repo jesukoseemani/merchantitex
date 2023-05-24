@@ -20,9 +20,9 @@ import { useCallback, useEffect, useState } from "react";
 import { Avatar, Box } from "@mui/material";
 import Addtoblacklist from "./Addtoblacklist";
 import { openModalAndSetContent } from "../../redux/actions/modal/modalActions";
-import { CustomerItem as Customer } from '../../types/CustomerTypes';
 import { getCustomerById } from "../../services/customer";
 import Navigation from "../../components/navbar/Navigation";
+import CustomStatus from "../../components/customs/CustomStatus";
 
 
 
@@ -76,15 +76,10 @@ const CustomerItem = () => {
   ];
 
   const TransactionRowTab = useCallback(
-    (amount, customerId, paymentType, added, status) => ({
+    (amount, customerId, paymentType, added, responsemessage) => ({
       amount: <p className={styles.tableBodyText}>NGN{amount} </p>,
       status: (
-        <span
-          className={status === "Successful" ? "success-status" : "warning-status"}
-        >
-          {" "}
-          {status}
-        </span>
+        <CustomStatus text={responsemessage} type={responsemessage} />
       ),
       customerID: <p className={styles.tableBodyText}>{customerId}</p>,
 
@@ -161,10 +156,10 @@ const CustomerItem = () => {
       newRowOptions.push(
         TransactionRowTab(
           each?.amount,
+          each?.responsemessage,
           each?.customerId,
           each?.paymentType,
-          each?.added,
-          each?.status
+          each?.added
         )
       )
     );
