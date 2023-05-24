@@ -10,13 +10,13 @@ const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2
 export const ValidateIndividual = Yup.object({
     firstname: Yup.string()
         // .max(30, 'Must be 30 characters or less')
-        .required('firstname Name is required'),
+        .required('Firstname is required'),
     lastname: Yup.string()
         // .max(30, 'Must be 30 characters or less')
-        .required('lastname Name is required'),
+        .required('Lastname  is required'),
     businessname: Yup.string()
         .required('Trading/Business name is required'),
-    phonenumber: Yup.string().required("phone number is required").phone(countryCode, "Invalid phone no"),
+    phonenumber: Yup.string().required("Phone Number is required").phone(countryCode, "Invalid phone no"),
     email: Yup.string()
         .email('Email is invalid')
         .required('Email Address is required'),
@@ -39,13 +39,12 @@ export const ValidateIndividual = Yup.object({
 
 export const ValidateNgo = Yup.object({
     firstname: Yup.string()
-        .required('firstname Name is required'),
-    lastname: Yup.string(),
-    // .max(30, 'Must be 30 characters or less')
-    // .required('lastname Name is required'),
+        .required('Firstname is required'),
+    lastname: Yup.string()
+        .required('Lastname  is required'),
     organizationName: Yup.string(),
     // .required('Trading/Business name is required'),
-    phonenumber: Yup.string().required("phone number is required").phone(countryCode, "Invalid phone no"),
+    phonenumber: Yup.string().required("phone Number is required").phone(countryCode, "Invalid phone no"),
 
     email: Yup.string()
         .email('Email is invalid'),

@@ -88,11 +88,12 @@ const SignUp = () => {
 							value={selectedValue}
 							onChange={handleChange}>
 							{accountTypes.map(({ id, title, description }, i) => (
-								<div key={i} id='divRadioGroup' className={styles.divRadioGroup}>
+								<div key={i} id='divRadioGroup' className={styles.divRadioGroup} style={{}}>
 									<ThemeProvider theme={muiTheme}>
 										<FormControlLabel
 											value={id}
 											control={<Radio />}
+
 											label={
 												// <ListItemText>
 												<div className={styles.signUpRadioLabel}>

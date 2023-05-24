@@ -28,6 +28,7 @@ import CustomSelect from '../../../components/customs/CustomSelect';
 import CustomCategory from '../../../components/customs/CustomCategory';
 import CustomPhoneNumber from '../../../components/customs/CustomPhoneInput';
 import CustomInputField from '../../../components/customs/CustomInputField';
+import CustomPasswordInput from '../../../components/customs/CustomPasswordInput';
 
 
 const createAccount = [
@@ -320,7 +321,9 @@ const BusinessSignUp = () => {
 
 										</Grid>
 										<Grid item xs={12} md={5.6} >
-											<CustomInputField label={"Password"} type="password" name="password" as={TextField} placeholder="Password" />
+											{/* <CustomInputField label={"Password"} type="password" name="password" as={TextField} placeholder="Password" /> */}
+											<CustomPasswordInput label={"Password"} name="password" as={TextField} placeholder="Password" />
+
 
 										</Grid>
 										{/* <InputLabel className={styles.mt}></InputLabel> */}
