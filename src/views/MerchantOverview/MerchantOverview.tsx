@@ -296,23 +296,34 @@ const MerchantOverview = () => {
               >
                 <div className={Styles.paymentContainer}>
                   {
-                    charge?.data?.length! > 0 && charge?.data.map((c: ChargeType, i: number) => (
+                    charge?.data?.length! > 0 ? charge?.data.map((c: ChargeType, i: number) => (
                       (c?.count > 0 && charge?.total > 0) ? <div key={i}>
                         <p>{capitalize(c.chargetype)} Payments</p>
 
 
                         <div className={Styles.ProgressBar}>
                           <div className={Styles.bar} style={{
-                            width: `${Math.round((c?.count / charge?.total!) * 100)}%`,
+                            width: `${Math.round(Number((c?.count / charge?.total!) * 100))}%`,
                             backgroundColor: Math.max((c?.count / charge?.total!) * 100) ? "#6FCF97" : "#56CCF2"
 
-                          }}><p>{`${Math.round((c?.count / charge?.total!) * 100)}%`}</p></div>
+                          }}><p>{`${Math.round((c?.count / charge?.total) * 100)}%`}</p></div>
 
                         </div>
 
 
                       </div>
-                        : <div className={Styles.no_data}><p>You dont have data yet</p></div>))
+                        :
+
+                        <div className={Styles.ProgressBar}>
+                          <div className={Styles.bar} style={{
+                            width: `${Math.round((c?.count / charge?.total!) * 100)}%`,
+                            backgroundColor: "#56CCF2"
+
+                          }}><p>{`${Math.round((c?.count / charge?.total) * 100)}%`}</p></div>
+
+                        </div>
+
+                    )) : <div className={Styles.no_data}><p>You dont have data yet</p></div>
                   }
                 </div>
               </OverviewTable>

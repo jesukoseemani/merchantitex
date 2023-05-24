@@ -37,13 +37,16 @@
 .signupDiv_flex {
 	display: flex;
 
+
 }
 
 .signupList {
 	display: flex;
 	justify-content: flex-start;
 
-
+	&>div {
+		margin-bottom: 44px;
+	}
 
 
 }
@@ -54,7 +57,7 @@
 
 .iconchecked {
 	// border: 2px solid red;
-	margin-top: 6px;
+	// margin-top: 6px;
 	padding: 0;
 	width: 20px;
 

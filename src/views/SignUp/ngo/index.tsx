@@ -26,6 +26,7 @@ import { useEffect, useState } from 'react';
 import { ValidateNgo } from '../../../components/validation/OnboadingValidate';
 import CustomSelect from '../../../components/customs/CustomSelect';
 import CustomCategory from '../../../components/customs/CustomCategory';
+import CustomPasswordInput from '../../../components/customs/CustomPasswordInput';
 
 
 const createAccount = [
@@ -375,24 +376,8 @@ const NgoSignUp = () => {
 										</Grid>
 
 										<Grid item xs={12} md={5.6} >
-											<InputLabel>
-												<span className={styles.formTitle}>Password</span>
-											</InputLabel>
-											<Field
-												as={TextField}
-												helperText={
-													<ErrorMessage name='password'>
-														{(msg) => <span style={{ color: 'red' }}>{msg}</span>}
-													</ErrorMessage>
-												}
-												name='password'
-												variant='outlined'
-												placeholder='password'
-												type='password'
+											<CustomPasswordInput label={"Password"} name="password" as={TextField} placeholder="Password" />
 
-												fullWidth
-
-											/>
 
 										</Grid>
 										{/* <Grid item xs={12} md={5.6} ></Grid> */}

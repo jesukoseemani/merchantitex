@@ -38,6 +38,7 @@ import Navigation from "../../components/navbar/Navigation";
 import CustomDateFormat from "../../components/customs/CustomDateFormat";
 import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
 import { getBankName } from "../../utils";
+import Refundcustomer from "./Refundcustomer";
 
 
 export default function Transaction() {
@@ -125,6 +126,28 @@ export default function Transaction() {
 			})
 		);
 	};
+
+
+	const handleRefund = () => {
+		dispatch(
+			openModalAndSetContent({
+				modalStyles: {
+					padding: 0,
+					width: "653px",
+					height: "500px !important",
+					borderRadius: '20px',
+					boxShadow: "0px 3px 20px rgba(0, 0, 0, 0.16)"
+
+				},
+				modalTitle: "Refund customer",
+				modalContent: (
+					<div className='modalDiv'>
+						<Refundcustomer id={id} />
+					</div>
+				),
+			})
+		);
+	}
 	return (
 
 		<Navigation title="Transactions">
@@ -153,7 +176,7 @@ export default function Transaction() {
 						</div>
 						<div className={Styles.btn__group}>
 							{/* <button className={Styles.refundBtn}>Resend Receipt</button> */}
-							<button className={Styles.resendBtn}>Refund customer</button>
+							<button className={Styles.resendBtn} onClick={handleRefund}>Refund customer</button>
 						</div>
 					</div>
 

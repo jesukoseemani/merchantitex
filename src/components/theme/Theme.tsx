@@ -264,7 +264,7 @@ const theme = createTheme({
           },
           '&.MuiTextField-root': {
             '& ::placeholder': {
-              fontFamily: 'Avenir',
+              fontFamily: 'Avenir bold',
               fontStyle: "normal",
               fontWeight: 400,
               fontSize: "14px",

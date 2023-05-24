@@ -179,29 +179,13 @@ const ChargeBacksItem = () => {
             </div>
           </div>
           <Box className={styles.chargeProgress}>
-            <Box className={styles.chargeProgress_header}><h2> Chargeback progress</h2></Box>
-            <Box className={styles.chargeProgress_body}>
-              <Box className={styles.chargeProgress_body_header}>
-                <div className={styles.Chargeback_text}>
-
-                  <h2>You disputed this chargeback     |</h2>
-                  <CustomDateFormat date={chargebackItem?.chargeback?.createdat} time={chargebackItem?.chargeback?.createdat} />
-                </div>
-
-                <div className={styles.chargebackReason}>
-                  <h2>Reason: <p>{chargebackItem?.chargeback?.chargebackreason}</p></h2>
-                </div>
-                <div className={styles.chargebackFile}>
-                  <div className="icon">
-                    <PdfIcon />
-                  </div>
-                  <div> <span>Service_delivery.pdf</span></div>
-                  <div>
-                    <button> Download <CloudDownloadOutlined /></button>
-                  </div>
-                </div>
-              </Box>
+            <Box className={styles.chargeProgress_header}><h2> Chargeback progress</h2>
+              <button onClick={handleOpenResponseChargebackModal}>Response</button>
+              {/* <div className={styles.chargeback__btn}>
+                <button onClick={handleOpenAcceptChargebackModal}>Accept</button>
+              </div> */}
             </Box>
+
             {chargebackItem?.chargebackResponses &&
               <Box className={styles.chargeProgress_body} mt={"21px"}>
 
@@ -209,26 +193,39 @@ const ChargeBacksItem = () => {
                   <div key={i} className={styles.chargeProgress_body_header}>
                     <div className={styles.Chargeback_text}>
 
-                      <h2>Admin Responded to Your Dispute    |</h2>
+                      <h2>{res?.responsefrom}  Responded to Your Dispute    |</h2>
                       <p>{res?.createdat} </p>
-                      <div className={styles.chargeback__btn}>
-                        <button onClick={handleOpenAcceptChargebackModal}>Accept</button>
-                        <button onClick={handleOpenResponseChargebackModal}>Response</button>
-                      </div>
+
                     </div>
 
                     <div className={styles.chargebackReason}>
                       <h2>Reason: <p>{res?.response}</p></h2>
                     </div>
-                    <div className={styles.chargebackFile}>
-                      <div className="icon">
-                        <PdfIcon />
-                      </div>
-                      <div> <span>Service_delivery.pdf</span></div>
-                      <div>
-                        <button> Download <CloudDownloadOutlined /></button>
-                      </div>
-                    </div>
+
+                    {res?.proof1 || res?.proof2 &&
+                      <>
+                        <div className={styles.chargebackFile}>
+                          <div className="icon">
+                            <PdfIcon />
+                          </div>
+                          <div> <span>{res?.proof1}</span></div>
+                          <div>
+                            <button> Download <CloudDownloadOutlined /></button>
+                          </div>
+                        </div>
+                        {res?.proof2 && <div className={styles.chargebackFile}>
+                          <div className="icon">
+                            <PdfIcon />
+                          </div>
+                          <div> <span>{res?.proof2}</span></div>
+                          <div>
+                            <button> Download <CloudDownloadOutlined /></button>
+                          </div>
+                        </div>}
+                      </>
+
+
+                    }
                   </div>
 
                 ))}
@@ -265,45 +262,7 @@ const ChargeBacksItem = () => {
             </div>
           </div>
         </div>
-        <div className={styles.sectionFive}>
-          <div className={styles.sectionFive_header}>
-            <div>
-              <h3>Transaction timeline</h3>
 
-            </div>
-            <div>
-              <p className={styles.time}>1min 05secs</p>
-            </div>
-            <div>
-              <p>Time spent making payment</p>
-            </div>
-            <div>
-              <p className={styles.error}>1 Error</p>
-            </div>
-            <div>
-              <p>While making payment</p>
-
-            </div>
-          </div>
-          <div className={styles.timeline}>
-            <div className={styles.timeline_first_child}>
-              <div><SuccessBadge style={{ width: "20px" }} />
-              </div>
-              <div style={{ marginTop: "8px", }}>
-                <p>Payment started</p>
-                <span>Aug 13 2020 2:21 PM</span>
-              </div>
-            </div>
-            <br />
-            <div>
-              <SuccessBadge style={{ width: "20px" }} />
-              <div>
-                <p style={{ marginTop: "8px" }}>Payment started</p>
-                <span>Aug 13 2020 2:21 PM</span>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
 

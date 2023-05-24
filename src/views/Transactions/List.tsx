@@ -233,7 +233,10 @@ export default function TransactionsList() {
 		const newRowOptions: any[] = [];
 		transactions?.map((each: TransactionItem) =>
 			newRowOptions.push(
-				LoanRowTab(each?.currency, each?.amount, getTransactionStatus(each?.responsecode), each?.chargetype, each?.customer?.email, each.timein, each.paymentid)
+				LoanRowTab(each?.currency,
+					each?.amount, getTransactionStatus(each?.responsecode),
+					each?.chargetype, each?.customer?.email, each.timein,
+					each.paymentid)
 			)
 		);
 		setRows(newRowOptions);
@@ -356,10 +359,9 @@ export default function TransactionsList() {
 						totalRows={meta?.totalcount || 0}
 						changePage={changePage}
 						limit={limit}
-						// reset={reset}
 						link="/transaction"
-						clickable
 						identifier="id"
+						clickable
 						rowsData={transactions}
 					/>
 				)}

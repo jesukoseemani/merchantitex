@@ -302,6 +302,11 @@
 
 		.chargeProgress_header {
 			padding-bottom: 21px;
+			display: flex;
+			// justify-content: space-between;
+			gap: 1rem;
+			align-items: center;
+			flex-flow: row wrap;
 
 			h2 {
 				font-family: 'Avenir bold';

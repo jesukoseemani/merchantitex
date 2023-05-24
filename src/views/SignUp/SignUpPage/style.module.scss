@@ -45,7 +45,6 @@
 	flex-direction: column;
 
 
-
 }
 
 
@@ -169,16 +168,23 @@
 	width: 398px;
 	height: 95px;
 	margin-bottom: 20px;
+	background-color: #FFFFFF
+}
 
+.active {
 
+	border: 1px solid #27ae60;
+	background-color: #f4fbf8;
 }
 
 .divRadioGroup:focus {
 	border: 1px solid #27ae60;
+	background-color: #f4fbf8;
 }
 
 .divRadioGroup:hover {
 	border: 1px solid #27ae60;
+	background-color: #f4fbf8;
 }
 
 

@@ -65,45 +65,51 @@ export interface GetBlacklistCustomerRes {
 }
 
 export interface TransactionItem {
-  transaction: {
+  transaction?: {
     merchantreference: string;
     linkingreference: string;
     reference: string;
     authoption: string;
     paymentmethod: string;
-    added: string;
-    authcode: string;
-    acquirer: string;
+    added?: string;
+    timein?: string;
+    authcode?: string;
+    acquirer?: string;
+
   };
-  order: {
-    amount: string;
+  order?: {
     description: string;
-    currency: string;
     country: string;
     fee: {
       merchantbearsfee: string;
     };
   };
-  source: {
-    customer: {
-      firstname: string;
-      lastname: string;
-      email: string;
-      msisdn: string;
-      card: {
-        number: string;
-        first6: string;
-        last4: string;
-        type: string;
-      };
-      device: {
-        fingerprint: string;
-        ip: string;
-      };
-      address: [];
+
+  customer?: {
+    firstname: string;
+    lastname: string;
+    email: string;
+    msisdn: string;
+    card: {
+      number: string;
+      first6: string;
+      last4: string;
+      type: string;
     };
+    device: {
+      fingerprint: string;
+      ip: string;
+    };
+    address: [];
   };
+
   code: string;
+  amount: number;
+  chargetype?: string;
+  currency: string;
+  responsemessage: string;
+  id: string;
+
   message: string;
 }
 

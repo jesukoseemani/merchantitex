@@ -3,7 +3,7 @@ import { TextField, MenuItem } from '@material-ui/core';
 import { useField, useFormikContext } from 'formik';
 import { styled } from '@mui/system';
 
-const CustomSelect = ({ name, options, ...otherProps }: any) => {
+const CustomSelect = ({ name, options, placeholder, ...otherProps }: any) => {
     const { setFieldValue } = useFormikContext();
     const [field, meta] = useField(name);
 
@@ -37,6 +37,8 @@ const CustomSelect = ({ name, options, ...otherProps }: any) => {
 
     return (
         <StyledTextField {...configSelect}>
+            <MenuItem value="" selected disabled hidden>{placeholder}</MenuItem>
+
             {options?.map((item: any, i: any) => {
                 return (
                     <MenuItem key={i} value={item.id}>

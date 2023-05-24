@@ -162,6 +162,7 @@ export default function MerchantChart({ summary, total, setEvent, setParentDate 
     setOpenMenu(false)
   }
 
+  console.log(d, "ddd")
   const { currencyList, currencyId } = useCurrency()
   const [selectedCurrency, setSelectedCurrency] = useState("145")
   return (
@@ -212,7 +213,10 @@ export default function MerchantChart({ summary, total, setEvent, setParentDate 
             </div>
           </div>
           <div className={Styles.chart}>
-            {d?.length > 0 ? <LineChartComp data={d} /> : <div className={Styles?.no_data}><p>You dont have any data yet.</p></div>}
+            {d?.length > 0 && <LineChartComp data={d} />
+
+            }
+            {/* : <div className={Styles?.no_data}><p>You dont have any data yet.</p></div> */}
           </div>
 
         </div>
