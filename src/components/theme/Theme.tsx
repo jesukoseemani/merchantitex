@@ -28,10 +28,25 @@ const theme = createTheme({
 
       }
     },
+    MuiList: {
+      styleOverrides: {
+        padding: {
+          paddingBottom: "0 !important",
+          paddingTop: "0 !important",
+        }
+      }
+    },
 
     MuiMenuItem: {
       styleOverrides: {
-        //  root
+        root: {
+          width: "100% !important",
+          fontFamily: 'Avenir',
+          fontStyle: "normal",
+          fontWeight: 400,
+          fontSize: "14px",
+          padding: "20px",
+        }
 
       }
     },
