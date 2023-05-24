@@ -52,7 +52,7 @@ const Refund = () => {
 	const [totalRows, setTotalRows] = useState<number>(0);
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const { search } = useLocation()
-	const { calDownload } = useDownload({ url: `${BASE_URL}/refund/download`, filename: 'refund' })
+	const { calDownload } = useDownload({ url: `${BASE_URL}/refund/download/`, filename: 'refund' })
 
 	const currentDate = moment(new Date()).format('YYYY-MM-DD');
 

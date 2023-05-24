@@ -29,12 +29,15 @@ import FormatToCurrency from '../../helpers/NumberToCurrency';
 import CustomDateFormat from '../../components/customs/CustomDateFormat';
 import { RefundSingle } from '../../types/refunditem';
 import { ReactComponent as MasterCard } from "../../assets/template/MasterCard_Logo 1.svg"
+import useDownload from '../../hooks/useDownload';
+import { BASE_URL } from '../../config';
 
 
 const RefundItem = () => {
   const [refund, setRefund] = useState<RefundSingle>();
-
   const { id } = useParams<{ id: string }>();
+  const { calDownload } = useDownload({ url: `${BASE_URL}/refund/download?reference=${refund?.transaction?.reference}`, filename: 'refund' })
+
   const history = useHistory()
 
   const dispatch = useDispatch();
@@ -104,7 +107,7 @@ const RefundItem = () => {
         modalTitle: "Blacklist customer",
         modalContent: (
           <div className='modalDiv'>
-            <Addtoblacklist id={id} />
+            <Addtoblacklist id={refund?.transaction?.customer?.customerid} />
           </div>
         ),
       })
@@ -218,7 +221,7 @@ const RefundItem = () => {
         <div className={styles.refund_info}>
           <div className={styles.refund_header}>
             <h2>Refund information</h2>
-            <button><Filecon /> Download proof of refund </button>
+            <button onClick={calDownload}><Filecon /> Download proof of refund </button>
           </div>
 
           <div className={styles.refund_info_Details}>
@@ -275,11 +278,22 @@ const RefundItem = () => {
             <div className={styles.customerInfo}>
               <div className={styles.customerInfo_left}>
                 <Avatar sx={{ bgcolor: "#FF7CFA", fontWeight: "900", width: "46px", height: "46px", fontSize: "19px", display: "flex", fontFamily: "Avenir bold", justifyContent: "center", alignItems: "center" }}>
-                  DA
+                  {refund?.transaction?.customer?.firstname || refund?.transaction?.customer?.lastname
+                    ?
+                    `${refund?.transaction?.customer?.firstname?.substring(0, 1)?.toUpperCase()}
+                     ${refund?.transaction?.customer?.lastname?.substring(0, 1)?.toUpperCase()}`
+
+                    : refund?.transaction?.customer?.email?.substring(0, 2)?.toUpperCase()}
                 </Avatar>
                 <div>
-                  <p>Daniel Arikawe</p>
-                  <span>iam4emmax@gmail.com</span>
+                  <p>{refund?.transaction?.customer?.firstname || refund?.transaction?.customer?.lastname
+                    ?
+                    `${refund?.transaction?.customer?.firstname}
+                     ${refund?.transaction?.customer?.lastname}`
+
+                    : "N/a"}
+                  </p>
+                  <span>{refund?.transaction?.customer?.email}</span>
                 </div>
               </div>
               <div className={styles.blacklist} onClick={handleBLacklist}>
