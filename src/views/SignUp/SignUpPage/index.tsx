@@ -88,7 +88,7 @@ const SignUp = () => {
 							value={selectedValue}
 							onChange={handleChange}>
 							{accountTypes.map(({ id, title, description }, i) => (
-								<div key={i} id='divRadioGroup' className={styles.divRadioGroup} style={{}}>
+								<div key={i} id='divRadioGroup' className={styles.divRadioGroup} style={{ background: selectedValue === id ? "#f4fbf8" : "#FFFFFF", border: selectedValue === id ? "1px solid #27ae60" : "1px solid #e0e0e0" }}>
 									<ThemeProvider theme={muiTheme}>
 										<FormControlLabel
 											value={id}

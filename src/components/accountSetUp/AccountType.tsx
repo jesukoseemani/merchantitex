@@ -42,7 +42,7 @@ function AccountType() {
 					<h5 style={{ fontSize: '1rem', paddingLeft: '5rem' }}>
 						Select Account type
 					</h5>
-					<div className='form__radio-group'>
+					<div style={{background: "", borderColor: ''}} className='form__radio-group'>
 						<input
 							type='radio'
 							className='form__radio-input'
