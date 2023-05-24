@@ -263,7 +263,7 @@ const SignIn = () => {
 									<InputLabel>
 										<div className={styles.sub}>
 											<p className={styles.formSub}>
-												<span onClick={() => history.push("/reset/password")}>Forgot password?</span>
+												<span onClick={() => history.push("/reset/password")}>Forgot password?<span style={{ color: "#27AE60" }}> Reset</span></span>
 											</p>
 										</div>
 									</InputLabel>

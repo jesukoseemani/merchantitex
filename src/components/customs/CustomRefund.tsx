@@ -3,7 +3,7 @@ import { TextField, MenuItem } from '@material-ui/core';
 import { useField, useFormikContext } from 'formik';
 import { styled } from '@mui/system';
 
-const CustomCategory = ({ name, options, ...otherProps }: any) => {
+const CustomRefund = ({ name, options, ...otherProps }: any) => {
     const { setFieldValue } = useFormikContext();
     const [field, meta] = useField(name);
 
@@ -36,20 +36,17 @@ const CustomCategory = ({ name, options, ...otherProps }: any) => {
     ;
 
     return (
-        <StyledTextField {...configSelect} zzzz>
+        <StyledTextField {...configSelect}>
             {options?.map((item: any, i: any) => {
                 return (
-                    <MenuItem key={i} value={item.id}>
+                    <MenuItem key={i} value={item?.name}>
                         {/* {options[item]} */}
-                        {item?.categoryName || item?.roleName}
+                        {item?.name}
                     </MenuItem>
                 );
             })}
-
-
-
         </StyledTextField>
     );
 };
 
-export default CustomCategory;
+export default CustomRefund;

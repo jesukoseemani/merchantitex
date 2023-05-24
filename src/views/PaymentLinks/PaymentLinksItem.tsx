@@ -27,6 +27,7 @@ import CustomStatus from '../../components/customs/CustomStatus';
 import { ReactComponent as CopyIcon } from "../../assets/images/copyColor.svg";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import FormatToCurrency from '../../helpers/NumberToCurrency';
+import CustomCurrencyFormat from '../../components/customs/CustomCurrencyFormat';
 
 const useBtnStyles = makeStyles({
 	root: {
@@ -152,37 +153,41 @@ const PaymentLinksItem = () => {
 	};
 
 	const TransactionRowTab = useCallback(
-		(email, added, amount, code, paymentmethod) => ({
-			amount: <p className={styles.tableBodyText}>NGN{FormatToCurrency(amount)}</p>,
-			code: formatStatus(code),
+		(currency, amount, email, responsemessage, chargetype, timein, id) => ({
+			amount: <p className={styles.tableBodyText}><CustomCurrencyFormat amount={amount} currency={currency} /></p>,
+			code: <CustomStatus text={responsemessage} type={responsemessage} />,
 			email: <p className={styles.tableBodyText}>{email}</p>,
 			paymentmethod: (
 				<p className={styles.tableBodyText}>
-					<span className={styles.capitalize}>{paymentmethod}</span>
+					<span className={styles.capitalize}>{chargetype ? chargetype : "N/a"}</span>
 				</p>
 			),
 			added: (
 				<p className={styles.tableBodyText}>
-					{moment(added).format('MMM D YYYY h:mm A')}
+					{moment(timein).format('MMM D YYYY h:mm A')}
 				</p>
 			),
+			id: <p>{id}</p>
 		}),
 		[]
 	);
-
 	const getTransactions = async () => {
 		dispatch(openLoader());
 		try {
-			const res = await axios.get<GetTransactionsRes>(
-				`/merchant/transactions?email=o@k.com&page=${pageNumber}&perpage=${rowsPerPage}`
+			const { data } = await axios.get<GetTransactionsRes>(
+				`/v1/transaction?email=${linkItem?.user?.email}&page=${pageNumber}&perpage=${rowsPerPage}`
 			);
-			const { transactions, _metadata } = res?.data;
-			if (transactions.length) {
-				setTransactions(transactions);
-				setTotalRows(_metadata?.totalcount);
+
+			if (data) {
+				const { transactions, _metadata } = data;
+
+				if (transactions?.length) {
+					setTransactions(transactions);
+					setTotalRows(_metadata?.totalcount);
+				}
+				dispatch(closeLoader());
 			}
-			dispatch(closeLoader());
-		} catch (err) {
+		} catch (err: any) {
 			console.log(err);
 			dispatch(closeLoader());
 			dispatch(
@@ -196,18 +201,22 @@ const PaymentLinksItem = () => {
 
 	useEffect(() => {
 		getTransactions();
-	}, [pageNumber, rowsPerPage]);
+	}, [pageNumber, rowsPerPage, linkItem?.user?.email]);
+	console.log(linkItem?.user?.email)
+
 
 	useEffect(() => {
 		const newRowOptions: any[] = [];
 		transactions?.map((each: TransactionItem) =>
 			newRowOptions.push(
 				TransactionRowTab(
-					each?.source.customer.email,
-					each?.transaction.added,
-					each?.order.amount,
-					each?.code,
-					each?.transaction.paymentmethod
+					each?.currency,
+					each?.amount,
+					each?.customer?.email,
+					each?.responsemessage,
+					each?.chargetype,
+					each?.transaction?.timein,
+					each?.id
 				)
 			)
 		);
@@ -263,9 +272,9 @@ const PaymentLinksItem = () => {
 							<CustomStatus text={linkItem?.status} type={linkItem?.status} />
 						</div>
 						<div>
-							<button>Edit</button>
+							{/* <button>Edit</button> */}
 							<button onClick={handleDisable}>Disable</button>
-							<button>Delete</button>
+							{/* <button>Delete</button> */}
 						</div>
 					</div>
 					<div className={styles.sectionThree}>
@@ -348,7 +357,7 @@ const PaymentLinksItem = () => {
 			<div className={styles.sectionFour}>
 				<div>
 					<Stack direction={"row"} spacing={1} justifyContent="space-between" flexWrap={"wrap"} alignItems={"center"}>
-						<h3>0 Transactions</h3>
+						<h3>{totalRows && totalRows} Transactions</h3>
 						<Box className={styles.buttonGroup}>
 							<button> <FilterAltOutlinedIcon />filter by</button>
 							<button> <InsertDriveFileOutlinedIcon />Download</button>
@@ -362,6 +371,9 @@ const PaymentLinksItem = () => {
 							totalRows={totalRows}
 							changePage={changePage}
 							limit={limit}
+							clickable
+							link="/transaction"
+							identifier="id"
 						/>
 					</div>
 				</div>

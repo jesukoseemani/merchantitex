@@ -29,6 +29,7 @@ import CustomCategory from '../../../components/customs/CustomCategory';
 import ReactCountryFlag from "react-country-flag"
 import CustomPhoneNumber from '../../../components/customs/CustomPhoneInput';
 import CustomInputField from '../../../components/customs/CustomInputField';
+import CustomPasswordInput from '../../../components/customs/CustomPasswordInput';
 
 const createAccount = [
 	{
@@ -334,8 +335,9 @@ const IndividualSignUp = () => {
 
 										</Grid>
 										<Grid item xs={12} md={5.6} >
-											<CustomInputField label={"Password"} name="password" type='password' as={TextField} placeholder="Password" />
+											{/* <CustomInputField label={"Password"} name="password" type='password' as={TextField} placeholder="Password" /> */}
 
+											<CustomPasswordInput label={"Password"} name="password" as={TextField} placeholder="Password" />
 										</Grid>
 										{/* <InputLabel className={styles.mt}></InputLabel> */}
 										<Grid item xs={12} md={5.6}></Grid>

@@ -1,18 +1,18 @@
 .container {
   width: 100%;
-  // min-height: 320px;
-  // height: 318.72px;
+  height: 318.72px;
   background: #fbfefd;
   border: 1px solid #f2f2f2;
   border-radius: 20px;
   position: relative;
+  // overflow: scroll;
   // @media screen and (max-width:768px) {
 
   // }
-  // border: 2px solid red;
 
   @media screen and (max-width:768px) {
     height: auto;
+
   }
 }
 
@@ -47,6 +47,7 @@
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #f2f2f2;
+  border: 2px solid red;
 
 
   &>h2 {
@@ -127,7 +128,8 @@
 .tableContent {
   height: 100%;
   width: 100%;
-  min-height: 250px;
+  height: 320px;
+  overflow: auto;
 
   @media screen and (max-width:768px) {
     max-height: auto;
