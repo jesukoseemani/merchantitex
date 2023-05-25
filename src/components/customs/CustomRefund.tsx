@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { TextField, MenuItem } from '@material-ui/core';
 import { useField, useFormikContext } from 'formik';
 import { styled } from '@mui/system';
+import { capitalize } from '@mui/material';
 
 const CustomRefund = ({ name, options, ...otherProps }: any) => {
     const { setFieldValue } = useFormikContext();
@@ -30,7 +31,7 @@ const CustomRefund = ({ name, options, ...otherProps }: any) => {
     })({
 
         "& .MuiInputBase-root": {
-            height: 44
+            height: 44,
         }
     });
     ;
@@ -41,7 +42,7 @@ const CustomRefund = ({ name, options, ...otherProps }: any) => {
                 return (
                     <MenuItem key={i} value={item?.name}>
                         {/* {options[item]} */}
-                        {item?.name}
+                        {capitalize(item?.name)}
                     </MenuItem>
                 );
             })}

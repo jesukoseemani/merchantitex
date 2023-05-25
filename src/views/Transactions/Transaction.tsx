@@ -230,11 +230,11 @@ export default function Transaction() {
 							</Grid>
 							<Grid item xs={12} sm={3} md={2.5}>
 								<span>Country/Region</span>
-								<h2>{transaction?.transaction?.paylocationcountry || "nil"}</h2>
+								<h2>{transaction?.transaction?.paylocationcountry || "N/a"}</h2>
 							</Grid>
 							<Grid item xs={12} sm={3} md={2.5}>
 								<span>Bank name</span>
-								<h2>{getBankName(transaction?.transaction?.bankcode) || "nil"}</h2>
+								<h2>{getBankName(transaction?.transaction?.bankcode) || "N/a"}</h2>
 							</Grid>
 							<Grid item xs={12} sm={5} md={5} lg={4}>
 								<span>ITEX Reference</span>
@@ -244,7 +244,7 @@ export default function Transaction() {
 					</Box>
 					<div className={Styles.naration}>
 						<span>Narration</span>
-						<h2>{transaction?.transaction?.narration}</h2>
+						<h2>{transaction?.transaction?.narration || "N/a"}</h2>
 
 					</div>
 

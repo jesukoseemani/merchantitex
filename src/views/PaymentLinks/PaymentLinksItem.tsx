@@ -6,7 +6,6 @@ import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import { Box, Button, IconButton, Stack } from '@mui/material';
 import { makeStyles } from '@material-ui/styles';
 import CustomClickTable from '../../components/table/CustomClickTable';
-import { GetTransactionsRes, TransactionItem } from '../../types/CustomerTypes';
 import { useDispatch } from 'react-redux';
 import {
 	closeLoader,
@@ -15,7 +14,6 @@ import {
 import axios from 'axios';
 import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
 import moment from 'moment';
-import { GetLinksRes, LinkItem } from '../../types/PaymentlinkTypes';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { ReactComponent as ExtLinkIcon } from '../../assets/images/ext-link.svg';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
@@ -28,6 +26,8 @@ import { ReactComponent as CopyIcon } from "../../assets/images/copyColor.svg";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import FormatToCurrency from '../../helpers/NumberToCurrency';
 import CustomCurrencyFormat from '../../components/customs/CustomCurrencyFormat';
+import { Paymentlink, PaymentLinkItem, TransactionRes } from '../../types/PaymentItemType';
+import { Transaction } from '../../types/Transaction';
 
 const useBtnStyles = makeStyles({
 	root: {
@@ -60,10 +60,10 @@ const useBtnStyles = makeStyles({
 const PaymentLinksItem = () => {
 	const btnClasses = useBtnStyles();
 
-	const [transactions, setTransactions] = useState<TransactionItem[]>([]);
-	const [rows, setRows] = useState<TransactionItem[]>([]);
+	const [transactions, setTransactions] = useState<Transaction[]>([]);
+	const [rows, setRows] = useState<Transaction[]>([]);
 	const [pageNumber, setPageNumber] = useState<number>(1);
-	const [linkItem, setLinkItem] = useState<any>();
+	const [linkItem, setLinkItem] = useState<Paymentlink>();
 
 	const [rowsPerPage, setRowsPerPage] = useState<number>(5);
 	const [totalRows, setTotalRows] = useState<number>(0);
@@ -102,6 +102,7 @@ const PaymentLinksItem = () => {
 
 			if (data?.paymentlink) {
 				setLinkItem(data?.paymentlink);
+				setTransactions(data?.transactions?.transactions)
 			}
 			dispatch(closeLoader());
 		} catch (err) {
@@ -119,7 +120,7 @@ const PaymentLinksItem = () => {
 	useEffect(() => {
 		getPaymentLinkById();
 
-		return () => setLinkItem("")
+		// return () => setLinkItem("")
 	}, [id]);
 
 	console.log(linkItem, "linkitemsmsms");
@@ -171,43 +172,15 @@ const PaymentLinksItem = () => {
 		}),
 		[]
 	);
-	const getTransactions = async () => {
-		dispatch(openLoader());
-		try {
-			const { data } = await axios.get<GetTransactionsRes>(
-				`/v1/transaction?email=${linkItem?.user?.email}&page=${pageNumber}&perpage=${rowsPerPage}`
-			);
 
-			if (data) {
-				const { transactions, _metadata } = data;
 
-				if (transactions?.length) {
-					setTransactions(transactions);
-					setTotalRows(_metadata?.totalcount);
-				}
-				dispatch(closeLoader());
-			}
-		} catch (err: any) {
-			console.log(err);
-			dispatch(closeLoader());
-			dispatch(
-				openToastAndSetContent({
-					toastContent: 'Failed to get transactions',
-					msgType: "error"
-				})
-			);
-		}
-	};
 
-	useEffect(() => {
-		getTransactions();
-	}, [pageNumber, rowsPerPage, linkItem?.user?.email]);
-	console.log(linkItem?.user?.email)
+	// console.log(linkItem)
 
 
 	useEffect(() => {
 		const newRowOptions: any[] = [];
-		transactions?.map((each: TransactionItem) =>
+		transactions?.map((each: Transaction) =>
 			newRowOptions.push(
 				TransactionRowTab(
 					each?.currency,
@@ -215,7 +188,7 @@ const PaymentLinksItem = () => {
 					each?.customer?.email,
 					each?.responsemessage,
 					each?.chargetype,
-					each?.transaction?.timein,
+					each?.timein,
 					each?.id
 				)
 			)
@@ -283,7 +256,7 @@ const PaymentLinksItem = () => {
 							<span>Payment Link URL</span>
 							<p>
 								{linkItem?.paymenturl?.substring(0, 25)}
-								<CopyToClipboard text={linkItem?.paymenturl}>
+								<CopyToClipboard text={String(linkItem?.paymenturl)}>
 									<IconButton>
 										<CopyIcon />
 									</IconButton>
@@ -291,7 +264,7 @@ const PaymentLinksItem = () => {
 								</CopyToClipboard>
 
 
-								<IconButton onClick={() => window.location.href = linkItem?.paymenturl} className={styles.urlBox}>
+								<IconButton onClick={() => window.location.href = String(linkItem?.paymenturl)} className={styles.urlBox}>
 
 									<ExtLinkIcon style={{ color: "#2F80ED" }} />
 								</IconButton>
@@ -302,10 +275,10 @@ const PaymentLinksItem = () => {
 						<div>
 							<span>Date created</span>
 							<p className={styles.tableBodyText}>
-								{moment(linkItem?.added).format('MMM D YYYY')}
+								{moment(linkItem?.createdAt).format('MMM D YYYY')}
 								<span className={styles.tableBodySpan}>
 									{' '}
-									{moment(linkItem?.added).format('h:mm A')}
+									{moment(linkItem?.createdAt).format('h:mm A')}
 								</span>
 							</p>
 						</div>
@@ -315,7 +288,7 @@ const PaymentLinksItem = () => {
 						</div>
 						<div>
 							<span>Amount</span>
-							<p>NGN {FormatToCurrency(linkItem?.amount)}</p>
+							<p>NGN {FormatToCurrency(Number(linkItem?.amount))}</p>
 						</div>
 						{linkItem?.donationWebsite && <div>
 							<span>Donation websites</span>
@@ -325,9 +298,9 @@ const PaymentLinksItem = () => {
 							<span>RedirectUrl</span>
 							<p> {linkItem?.redirectUrl}</p>
 						</div>}
-						{linkItem?.chargeCount && <div>
+						{linkItem?.subChargeCount && <div>
 							<span>Charge count</span>
-							<p> {linkItem?.chargeCount}</p>
+							<p> {linkItem?.subChargeCount}</p>
 						</div>}
 						{linkItem?.donationContact && <div>
 							<span>Contact phone number</span>
@@ -346,7 +319,7 @@ const PaymentLinksItem = () => {
 						{linkItem?.pageImage &&
 							<div className={styles.img}>
 								<span>Image</span>
-								<img src={linkItem?.pageImage} alt={linkItem?.linkItempageImage} width="117px" height={"55px"} />
+								<img src={linkItem?.pageImage} alt={linkItem?.linkName} width="117px" height={"55px"} />
 							</div>
 						}
 					</div>
@@ -358,10 +331,10 @@ const PaymentLinksItem = () => {
 				<div>
 					<Stack direction={"row"} spacing={1} justifyContent="space-between" flexWrap={"wrap"} alignItems={"center"}>
 						<h3>{totalRows && totalRows} Transactions</h3>
-						<Box className={styles.buttonGroup}>
+						{/* <Box className={styles.buttonGroup}>
 							<button> <FilterAltOutlinedIcon />filter by</button>
 							<button> <InsertDriveFileOutlinedIcon />Download</button>
-						</Box>
+						</Box> */}
 
 					</Stack>
 					<div className={styles.tableContainer}>

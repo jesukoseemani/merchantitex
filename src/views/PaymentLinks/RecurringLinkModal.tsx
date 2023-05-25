@@ -287,7 +287,7 @@ const RecurringLinkModal = ({
 						dispatch(
 							openToastAndSetContent({
 								toastContent: data?.message,
-								msgType: "error"
+								msgType: "success"
 							})
 						)
 						setIsUpdate(true)

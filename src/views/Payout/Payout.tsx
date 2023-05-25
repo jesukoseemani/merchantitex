@@ -18,6 +18,7 @@ const Payout = () => {
     const [pageNumber, setPageNumber] = useState(1);
     const { search } = useLocation()
 
+
     const changePage = (value: number) => {
         setPageNumber(value);
     };

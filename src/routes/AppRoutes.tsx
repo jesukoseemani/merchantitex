@@ -344,6 +344,24 @@ export default function AppRoutes() {
           path="/payout/:id"
           component={PayoutItem}
           AuthUser={loadingState}
+
+
+
+        />
+
+        <ProtectedRoute
+          exact
+          path="/bills/invoice"
+          component={Invoice}
+
+          AuthUser={loadingState}
+        />
+        <ProtectedRoute
+          exact
+          path="/bills/invoice/details/:id"
+          component={InvoiceDetails}
+
+          AuthUser={loadingState}
         />
         <Navigation title="">
           <>
@@ -525,20 +543,7 @@ export default function AppRoutes() {
               component={AirtimeSaleRequest}
               AuthUser={loadingState}
             />
-            <ProtectedRoute
-              exact
-              path="/bills/invoice"
-              component={Invoice}
 
-              AuthUser={loadingState}
-            />
-            <ProtectedRoute
-              exact
-              path="/bills/invoice/details/:id"
-              component={InvoiceDetails}
-
-              AuthUser={loadingState}
-            />
             <ProtectedRoute
               exact
               path="/bill/requests/:slug"

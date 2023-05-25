@@ -190,8 +190,8 @@ export default function MerchantChart({ summary, total, setEvent, setParentDate 
               <span>-</span>
               <p>{form?.todate || ''}</p>
             </div>
-            <div>
-              <Select className={Styles.select} onChange={(e) => setSelectedCurrency(e.target.value)} value={selectedCurrency} sx={{ width: "80px", background: "#F8F8F8", border: "none", fontSize: "14px", borderRadius: "10px" }}>
+            <div className={Styles.currencyBox}>
+              <Select className={Styles.select} onChange={(e) => setSelectedCurrency(e.target.value)} value={selectedCurrency} sx={{ width: "80px", background: "#F8F8F8", border: "none", fontSize: "14px", borderRadius: "10px", minHeight: "40px !important" }}>
                 {currencyList?.map((x: any) => (
                   <MenuItem key={x?.id} value={x?.id}>{x?.currencyIso}</MenuItem>
                 ))}
@@ -213,10 +213,10 @@ export default function MerchantChart({ summary, total, setEvent, setParentDate 
             </div>
           </div>
           <div className={Styles.chart}>
-            {d?.length > 0 && <LineChartComp data={d} />
+            {d?.length > 0 ? <LineChartComp data={d} />
 
+              : <div className={Styles?.no_data}><p>You dont have any data yet.</p></div>
             }
-            {/* : <div className={Styles?.no_data}><p>You dont have any data yet.</p></div> */}
           </div>
 
         </div>
@@ -269,7 +269,7 @@ export default function MerchantChart({ summary, total, setEvent, setParentDate 
             >
               <DateRange
                 editableDateInputs={true}
-                onChange={(item:any) => handleDateRange(item.selection)}
+                onChange={(item: any) => handleDateRange(item.selection)}
                 moveRangeOnFirstSelection={false}
                 ranges={state}
               />

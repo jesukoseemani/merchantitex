@@ -289,7 +289,7 @@ const SingleLinkModal = ({ isOpen, handleClose, setIsUpdate }: SingleLinkModalPr
 						dispatch(
 							openToastAndSetContent({
 								toastContent: data?.message,
-								msgType: "error"
+								msgType: "success"
 							})
 						)
 						setIsUpdate(true)

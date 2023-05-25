@@ -50,7 +50,7 @@ const CustomerItem = () => {
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
   const [totalRows, setTotalRows] = useState<number>(0);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
+  const [loading, setLoading] = useState(true)
   const changePage = (value: number) => {
     setPageNumber(value);
   };
@@ -99,11 +99,14 @@ const CustomerItem = () => {
 
 
   const getSingleCustomer = async () => {
-    dispatch(openLoader());
     try {
+      dispatch(openLoader());
       const res = await getCustomerById(slug);
-      setCustomer(res?.customer || {});
-      setTransactions(res?.transactions || [])
+      if (res?.customer) {
+        setCustomer(res?.customer);
+        setTransactions(res?.transactions)
+
+      }
       dispatch(closeLoader());
     } catch (err) {
       console.log(err);
@@ -123,6 +126,7 @@ const CustomerItem = () => {
     }
   }, [slug])
 
+  // if (!customer) return null;
 
 
   const callback = () => {
@@ -165,6 +169,8 @@ const CustomerItem = () => {
     );
     setRows(newRowOptions);
   }, [transactions, TransactionRowTab]);
+
+
 
   return (
     <Navigation title={`${customer?.firstname || ''} ${customer?.lastname || ''}`}>
@@ -242,7 +248,7 @@ const CustomerItem = () => {
           <div className={styles.sectionFour}>
             <div className={styles.transHeader}>
               <h3>Recent transactions</h3>
-              <p>See all customer’s transactions</p>
+              {/* <p>See all customer’s transactions</p> */}
             </div>
             <div className={styles.tableContainer}>
               <CustomClickTable

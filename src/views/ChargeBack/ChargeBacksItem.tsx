@@ -23,6 +23,8 @@ import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
 import CustomStatus from '../../components/customs/CustomStatus';
 import CustomDateFormat from '../../components/customs/CustomDateFormat';
 import FormatToCurrency from '../../helpers/NumberToCurrency';
+import Refundcustomer from '../Transactions/Refundcustomer';
+import { openModalAndSetContent } from '../../redux/actions/modal/modalActions';
 
 
 
@@ -95,7 +97,26 @@ const ChargeBacksItem = () => {
   }, [id])
 
 
+  const handleRefund = () => {
+    dispatch(
+      openModalAndSetContent({
+        modalStyles: {
+          padding: 0,
+          width: "653px",
+          height: "500px !important",
+          borderRadius: '20px',
+          boxShadow: "0px 3px 20px rgba(0, 0, 0, 0.16)"
 
+        },
+        modalTitle: "Refund customer",
+        modalContent: (
+          <div className='modalDiv'>
+            <Refundcustomer id={chargebackItem?.chargeback?.paymentid} />
+          </div>
+        ),
+      })
+    );
+  }
 
   return (
 
@@ -116,7 +137,7 @@ const ChargeBacksItem = () => {
               <CustomStatus text={chargebackItem?.chargeback?.status} type={chargebackItem?.chargeback?.status} />
             </div>
             <div className={styles.refundBtn}>
-              <button>Refund customer</button>
+              <button onClick={handleRefund}>Refund customer</button>
             </div>
           </div>
 
@@ -152,7 +173,7 @@ const ChargeBacksItem = () => {
             </div>
             <Box>
               <button onClick={handleOpenAcceptChargebackModal}>Accept Chargeback</button>
-              <button onClick={handleOpenDisputModal}>Dispute chargeback</button>
+              {/* <button onClick={handleOpenDisputModal}>Dispute chargeback</button> */}
             </Box>
 
           </Box>
@@ -165,10 +186,10 @@ const ChargeBacksItem = () => {
               <p>Chargeback date</p>
               <p>{moment(chargebackItem?.chargeback?.duedate).format("MMM D YYYY h:mm A")}</p>
             </div>
-            <div>
+            {/* <div>
               <p>Chargeback trail</p>
               <Link to={"#"}>View chargeback trail</Link>
-            </div>
+            </div> */}
             <div>
               <p>Chargeback Reason</p>
               <p>{chargebackItem?.chargeback?.chargebackreason}</p>
@@ -249,11 +270,11 @@ const ChargeBacksItem = () => {
             </div>
             <div>
               <p>Country/Region</p>
-              {/* <p>{}</p> */}
+              <p>N/a</p>
             </div>
             <div>
               <p>Bank name</p>
-              {/* <p>{bank}</p> */}
+              <p>N/a</p>
             </div>
             <div>
               <p>ITEX Reference</p>
