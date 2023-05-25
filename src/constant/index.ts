@@ -37,3 +37,9 @@ export const PAYMENTLINK_FILTER_DATA = {
     reference: '',
     status: '',
 }
+export const INVOICE_FILTER_DATA = {
+    fromdate: '',
+    todate: '',
+    reference: '',
+    invoiceStatus: '',
+}
