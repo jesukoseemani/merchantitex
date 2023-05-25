@@ -22,6 +22,8 @@ import CustomStatus from '../../components/customs/CustomStatus';
 import CustomDateFormat from '../../components/customs/CustomDateFormat';
 import { ReactComponent as FileIcon } from "../../assets/images/file.svg"
 import { ReactComponent as FilterIcon } from "../../assets/images/filter.svg"
+import useDownload from '../../hooks/useDownload';
+import { BASE_URL } from '../../config';
 export default function ChargeBacks() {
 
 
@@ -59,6 +61,8 @@ export default function ChargeBacks() {
 	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
 		setAnchorEl(event.currentTarget);
 	};
+	const { calDownload } = useDownload({ url: `${BASE_URL}/payout/download`, filename: 'payout' })
+
 
 	useEffect(() => {
 		if (event === 'today') {
@@ -228,12 +232,12 @@ export default function ChargeBacks() {
 
 					<Stack direction={"row"} justifyContent={"space-between"} flexWrap="wrap">
 						<Box>
-							<h2>{meta?.totalcount || 0} transaction(s)</h2>
+							<h2>{meta?.totalcount || 0} Chargeback(s)</h2>
 						</Box>
 						<Box className={Styles.right__btn}>
 
 							<button onClick={() => setIsFilterModalOpen(true)}><FilterIcon />Filter by:</button>
-							<button> <FileIcon />Download</button>
+							<button > <FileIcon />Download</button>
 
 
 

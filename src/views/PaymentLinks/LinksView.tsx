@@ -2,7 +2,7 @@ import styles from './PaymentLinks.module.scss';
 import { useTheme } from '@mui/material/styles';
 import { makeStyles } from '@material-ui/styles';
 import { Box, Button, Grid, IconButton, Modal, OutlinedInput, TextField } from '@mui/material';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import axios from 'axios';
 import { MouseEvent, useCallback, useEffect, useState } from 'react';
@@ -32,42 +32,10 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import FormatToCurrency from '../../helpers/NumberToCurrency';
 import CustomCurrencyFormat from '../../components/customs/CustomCurrencyFormat';
 import CustomDateFormat from '../../components/customs/CustomDateFormat';
+import PaymentLinkFilter from './PaymentLinkFilter';
+import { PAYMENTLINK_FILTER_DATA } from '../../constant';
+import { stripSearch } from '../../utils';
 
-const useModalBtnStyles = makeStyles({
-	root: {
-		display: 'flex',
-		justifyContent: 'flex-end',
-		padding: '33px 30px',
-		gap: '1.25rem',
-		'& .MuiButton-root': {
-			fontFamily: `'Avenir', sans-serif`,
-			lineHiieght: "19px",
-			fontSize: '14px',
-			color: 'black',
-			background: '#E0E0E0',
-			borderRadius: '20px',
-			textTransform: 'none',
-			padding: '.35rem 1.2rem',
-			fontStyle: "normal",
-			fontWeight: "400",
-		},
-		'& .MuiButton-root:nth-child(2)': {
-			color: 'white',
-			background: '#27AE60',
-		},
-		'& .MuiButton-root:nth-child(1)': {
-			// color: 'white',
-			background: 'transparent',
-			border: "1px solid #095B2C",
-			color: "#095B2C",
-		},
-	},
-	selected: {
-		border: '1px solid #27ae60 !important',
-		color: '#27ae60 !important',
-
-	},
-});
 
 interface LinksViewProps {
 	openLinkModal: () => void;
@@ -121,15 +89,26 @@ const LinksView = ({ openLinkModal, isUpdate, setIsUpdate }: LinksViewProps) => 
 
 	const dispatch = useDispatch();
 
-	const modalBtnClasses = useModalBtnStyles();
-	const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+
+	const [isFilterModalOpen, setIsFilterModalOpen] = useState<boolean>(false);
+
 	const [links, setLinks] = useState<LinkItem[]>([]);
 	const [rows, setRows] = useState<LinkItem[]>([]);
 	const [pageNumber, setPageNumber] = useState<number>(1);
 	const [rowsPerPage, setRowsPerPage] = useState<number>(5);
 	const [totalRows, setTotalRows] = useState<number>(0);
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+	const { search } = useLocation()
+	const [reset, setReset] = useState<boolean>(false);
+	const [fromDate, setFromDate] = useState('');
+	const [toDate, setToDate] = useState('');
+	const [ref, setRef] = useState('');
+	const [status, setStatus] = useState('');
+	const [payment, setPayment] = useState('');
+	const [event, setEvent] = useState('');
+
 	const open = Boolean(anchorEl);
+
 
 	const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
 		setAnchorEl(event.currentTarget);
@@ -144,6 +123,14 @@ const LinksView = ({ openLinkModal, isUpdate, setIsUpdate }: LinksViewProps) => 
 
 	const limit = (value: number) => {
 		setRowsPerPage(value);
+	};
+	const clearHandler = () => {
+		setEvent('');
+		setFromDate('');
+		setToDate('');
+		setStatus('');
+		setRef('');
+		setIsFilterModalOpen(false);
 	};
 
 	interface Column {
@@ -227,10 +214,10 @@ const LinksView = ({ openLinkModal, isUpdate, setIsUpdate }: LinksViewProps) => 
 		setRows(newRowOptions);
 	}, [links, LinkRowTab]);
 
-	const getPaymentLinks = async () => {
+	const getPaymentLinks = async ({ fromdate, todate, reference, status } = PAYMENTLINK_FILTER_DATA) => {
 		dispatch(openLoader());
 		try {
-			const res = await axios.get<GetLinksRes>('/v1/payment/paymentlinks');
+			const res = await axios.get<GetLinksRes>(`/v1/payment/paymentlinks?search=${stripSearch(search)}&page=${pageNumber}&perpage=${rowsPerPage}&status=${status}&reference=${reference}&fromdate=${fromdate}&todate=${todate}`);
 			const { paymentlinks, _metadata } = res?.data;
 			if (paymentlinks.length) {
 				setLinks(paymentlinks);
@@ -253,72 +240,26 @@ const LinksView = ({ openLinkModal, isUpdate, setIsUpdate }: LinksViewProps) => 
 
 	useEffect(() => {
 		getPaymentLinks();
-	}, [pageNumber, rowsPerPage, isUpdate]);
-
+	}, [pageNumber, rowsPerPage, isUpdate, search]);
+	const action = (form: typeof PAYMENTLINK_FILTER_DATA) => {
+		getPaymentLinks(form)
+	}
+	const modalFunc = () => {
+		setIsFilterModalOpen(false)
+		setReset(true);
+	};
 
 
 	return (
 		<>
-			<Modal
-				open={isFilterModalOpen}
-				onClose={() => setIsFilterModalOpen(false)}
-				aria-labelledby='chargebacks filter modal'>
-				<div className={styles.filterModalContainer}>
-					<Box className={styles.filterHeader}>
-						<h2>Filters</h2>
-						<IconButton onClick={() => setIsFilterModalOpen(false)}>
-							<CloseOutlined />
-						</IconButton>
-					</Box>
-
-					<hr />
-					<div className={styles.modalContent}>
-						<div>
-							<p>Due date</p>
-							<div>
-								<p>Today</p>
-								<p>Last 7 days</p>
-								<p>30 days</p>
-								<p>1 year</p>
-							</div>
-						</div>
-						<div>
-							<p>Custom date range</p>
-							<Box>
-								<Grid container justifyContent={"space-between"} alignItems="center">
-									<Grid item xs={5}>
-										<input placeholder='Start date' />
-									</Grid>
-									<Grid item xs={2} justifyContent="center" display={"flex"} alignItems="center"><ArrowRightAltIcon /></Grid>
-									<Grid item xs={5}>
-
-
-										<input placeholder='end date' />
-									</Grid>
-
-								</Grid>
-
-							</Box>
-						</div>
-						<div>
-							<p>Withheld amount</p>
-							<input placeholder='NGN 0.00' />
-						</div>
-						<div>
-							<p>Status</p>
-							<input
-								placeholder='Choose status'
-
-							/>
-						</div>
-					</div>
-					<hr />
-					<div className={modalBtnClasses.root}>
-						<Button style={{ borderRadius: "20px" }}>Clear filter</Button>
-						<Button style={{ borderRadius: "20px" }}>Apply filter</Button>
-					</div>
-				</div>
-			</Modal>
+			<PaymentLinkFilter
+				isOpen={isFilterModalOpen}
+				handleClose={() => setIsFilterModalOpen(false)}
+				action={action}
+				clearHandler={clearHandler}
+				name='paymentlink'
+				filterFunction={modalFunc}
+			/>
 			<div className={styles.topContainer}>
 				<div>
 					<p>{totalRows} payment links</p>

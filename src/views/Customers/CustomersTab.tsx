@@ -27,6 +27,7 @@ import { BASE_URL } from '../../config';
 import FilterModal from '../../components/filterModals/SettlementsFilterModal';
 import { SETTLEMENT_FILTER_DATA } from '../../constant';
 import Navigation from '../../components/navbar/Navigation';
+import CustomDateFormat from '../../components/customs/CustomDateFormat';
 
 const CustomersTab = ({ value, index }: any) => {
 	const theme = useTheme();
@@ -130,7 +131,7 @@ const CustomersTab = ({ value, index }: any) => {
 	};
 
 	const CustomerRowTab = useCallback(
-		(firstname, lastname, email, msisdn, isblacklisted, createdat, id) => ({
+		(firstname, lastname, email, msisdn, createdat, isblacklisted, id) => ({
 			name: (
 				<p className={styles.tableBodyText}>
 					<span className={styles.capitalText}>{firstname}</span>{' '}
@@ -139,11 +140,11 @@ const CustomersTab = ({ value, index }: any) => {
 			),
 			id: <p className={styles.tableBodyText}>{id}</p>,
 			email: <p className={styles.tableBodyText}>{email}</p>,
-			msisdn: <p className={styles.tableBodyText}>{msisdn}</p>,
-			added: <p className={styles.tableBodyText}>{createdat}</p>,
+			msisdn: <p className={styles.tableBodyText}>{msisdn || "N/a"}</p>,
+			added: <p className={styles.tableBodyText}><CustomDateFormat date={createdat} time={createdat} /></p>,
 
 			actions: (
-				isblacklisted ? <div></div> : <p style={{ color: "red" }} onClickCapture={(e) => handleClick(e, id)}>Blacklist</p>
+				isblacklisted ? <div><p style={{ color: "#219653" }}>Active</p></div> : <p style={{ color: "red" }} onClickCapture={(e) => handleClick(e, id)}>Blacklist</p>
 			),
 
 		}),
@@ -159,8 +160,8 @@ const CustomersTab = ({ value, index }: any) => {
 					each?.lastname,
 					each?.email,
 					each?.msisdn,
-					each.createdat,
-					each.isblacklisted,
+					each?.createdat,
+					each?.isblacklisted,
 					each?.id
 				)
 			)

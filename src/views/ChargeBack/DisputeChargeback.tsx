@@ -72,7 +72,7 @@ const DisputeChargeback = ({ chargebackid, setOpenResponseChargebackModal }: any
                     formdata.append("proof1", img)
                     const { data } = await axios.post<Props>(`/v1/chargeback/${chargebackid}/respond`, formdata)
 
-                    if (data?.code === "success") {
+                    if (data) {
                         setOpenResponseChargebackModal(false)
 
                         dispatch(
@@ -84,9 +84,11 @@ const DisputeChargeback = ({ chargebackid, setOpenResponseChargebackModal }: any
 
                         resetForm()
                         dispatch(closeLoader());
+                        console.log(data, "chargegeg");
 
                     }
                 } catch (error: any) {
+                    console.log(error)
                     dispatch(closeLoader());
                     setOpenResponseChargebackModal(false)
                     const { message } = error?.response.data;
@@ -96,8 +98,9 @@ const DisputeChargeback = ({ chargebackid, setOpenResponseChargebackModal }: any
                             toastContent: message,
                             msgType: "error"
                         })
-
                     );
+                    setOpenResponseChargebackModal(false)
+
                 } finally {
                     dispatch(closeLoader());
                     setOpenResponseChargebackModal(false)

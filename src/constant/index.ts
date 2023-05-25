@@ -30,3 +30,10 @@ export const CHARGEBACK_FILTER_DATA = {
     todate: '',
     status: '',
 }
+
+export const PAYMENTLINK_FILTER_DATA = {
+    fromdate: '',
+    todate: '',
+    reference: '',
+    status: '',
+}

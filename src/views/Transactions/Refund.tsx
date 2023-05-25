@@ -6,12 +6,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Box, Button, Menu, MenuItem } from '@mui/material';
 import InsertDriveFileOutlined from '@mui/icons-material/InsertDriveFileOutlined';
-import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
-import {
-	DownloadRefundsRes,
-	// GetRefundsRes,
-	// RefundItem,
-} from '../../types/RefundTypes';
+
 import {
 	closeLoader,
 	openLoader,

@@ -1,14 +1,18 @@
 import { Box } from '@mui/material'
 
 import InvoiceRequesttable from './InvoiceRequesttable'
+import Navigation from '../../navbar/Navigation';
 
 const Invoice = () => {
 
     return (
-        <Box >
+        <Navigation title='Invoice'>
+            <Box>
 
-            <InvoiceRequesttable />
-        </Box>
+                <InvoiceRequesttable />
+            </Box>
+
+        </Navigation>
 
     )
 }

@@ -1,195 +1,133 @@
-@import url('https://font.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Avenir:wght@400;500;700&display=swap');
+@import url("https://font.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Avenir:wght@400;500;700&display=swap");
 @font-face {
-	font-family: 'Avenir';
-	src: url('./fonts/Avenir\ Roman.otf');
+  font-family: "Avenir";
+  src: url("./fonts/Avenir\ Roman.otf");
 }
 @font-face {
-	font-family: 'Avenir Bold';
-	src: url('./fonts/heavy.ttf');
+  font-family: "Avenir Bold";
+  src: url("./fonts/heavy.ttf");
 }
 @font-face {
-	font-family: 'Avenir SemiBold';
-	src: url('./fonts/medium.otf');
+  font-family: "Avenir SemiBold";
+  src: url("./fonts/medium.otf");
 }
 @font-face {
-	font-family: 'Avenir Light';
-	src: url('./fonts/light.otf');
+  font-family: "Avenir Light";
+  src: url("./fonts/light.otf");
 }
 @font-face {
-	font-family: 'Avenir Book';
-	src: url('./fonts/book.otf');
+  font-family: "Avenir Book";
+  src: url("./fonts/book.otf");
 }
 @font-face {
-	font-family: 'Avenir Roman';
-	src: url('./fonts/roman.otf');
+  font-family: "Avenir Roman";
+  src: url("./fonts/roman.otf");
 }
 
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: 'Avenir';
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Avenir";
 }
 
 body {
-	margin: 0;
-	font-family: GeometriaLight, sans-serif;
-	font-family: 'Avenir';
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	background-color: #eff3f8;
+  margin: 0;
+  font-family: GeometriaLight, sans-serif;
+  font-family: "Avenir";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #eff3f8;
 }
 
 h1,
 h2,
 h3,
 h4 {
-	font-family: 'Avenir Bold';
-}
-
-.MuiInputBase-input::placeholder {
-	font-family: 'Avenir' !important;
-	font-style: normal !important;
-	font-weight: 400 !important;
-	font-size: 14px !important;
-	line-height: 19px !important;
-	color: #323030 !important;
+  font-family: "Avenir Bold";
 }
 
 .check {
-	display: none;
+  display: none;
 }
 
 iframe {
-	display: none;
+  display: none;
 }
 button {
-	font-family: 'Avenir', sans-serif !important;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  font-family: "Avenir", sans-serif !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .success {
-	background-color: #27ae60 !important;
-	color: #fff !important;
+  background-color: #27ae60 !important;
+  color: #fff !important;
 }
 .warning {
-	background-color: #f2c94c !important;
-	color: #12122c !important;
+  background-color: #f2c94c !important;
+  color: #12122c !important;
 }
 .danger {
-	background-color: #eb5757 !important;
-	color: #fff !important;
+  background-color: #eb5757 !important;
+  color: #fff !important;
 }
 button.success {
-	width: auto;
-	height: auto;
-	max-height: 50px;
-	max-width: fit-content !important;
-	opacity: 1;
-	transition: all 0.4s ease;
-	background-color: #27ae60;
-	color: #fff;
+  width: auto;
+  height: auto;
+  max-height: 50px;
+  max-width: fit-content !important;
+  opacity: 1;
+  transition: all 0.4s ease;
+  background-color: #27ae60;
+  color: #fff;
 }
 button:hover {
-	opacity: 0.9;
+  opacity: 0.9;
 }
 .ui.page.modals {
-	z-index: 9999;
+  z-index: 9999;
 }
 .text-success {
-	font-family: 'Avenir';
-	font-style: normal;
-	font-weight: 500;
-	font-size: 14px;
-	line-height: 16px;
-	text-align: right;
-	color: #27ae60;
+  font-family: "Avenir";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  text-align: right;
+  color: #27ae60;
 }
 .action.text-success > span {
-	font-size: 14px;
-	color: #27ae60;
+  font-size: 14px;
+  color: #27ae60;
 }
 .text-danger {
-	font-family: 'Avenir';
-	font-style: normal;
-	font-weight: 500;
-	font-size: 14px;
-	line-height: 16px;
-	text-align: right;
-	color: #eb5757 !important;
+  font-family: "Avenir";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  text-align: right;
+  color: #eb5757 !important;
 }
 .action.text-danger > span {
-	font-size: 14px;
-	color: #eb5757;
+  font-size: 14px;
+  color: #eb5757;
 }
 .ui.checkbox input:checked ~ .box:after,
 .ui.checkbox input:checked ~ label:after {
-	background: #ffffff;
-	border: 1.5px solid #27ae60;
-	color: #27ae60 !important;
-	border-radius: 2px;
+  background: #ffffff;
+  border: 1.5px solid #27ae60;
+  color: #27ae60 !important;
+  border-radius: 2px;
 }
 .ui.radio.checkbox input:checked ~ .box:after,
 .ui.radio.checkbox input:checked ~ label:after {
-	background: #27ae60;
-	border: 1.5px solid #27ae60;
+  background: #27ae60;
+  border: 1.5px solid #27ae60;
 }
 button.active {
-	color: #27ae60 !important;
-	border: 1px solid #27ae60 !important;
-}
-
-.success-status {
-	font-family: 'Avenir';
-	font-style: normal;
-	font-weight: 500 !important;
-	font-size: 12px !important;
-	line-height: 16px;
-	text-align: center;
-	background-color: rgba(39, 174, 96, 0.15) !important;
-	color: #27ae60 !important;
-	height: 19px;
-	display: flex;
-	padding: 2px 15px !important;
-	border-radius: 20px !important;
-	justify-content: center;
-	align-items: center;
-}
-.warning-status {
-	background-color: #f2c94c !important;
-	color: #12122c !important;
-	font-family: 'Avenir';
-	font-style: normal;
-	font-weight: 500 !important;
-	font-size: 12px !important;
-	line-height: 16px;
-	text-align: center;
-	background: rgba(242, 201, 76, 0.15) !important;
-	color: #b99528 !important;
-	height: 19px;
-	display: flex;
-	padding: 2px 15px !important;
-	border-radius: 20px !important;
-	justify-content: center;
-	align-items: center;
-}
-.danger-status {
-	background-color: #f2c94c !important;
-	color: #12122c !important;
-	font-family: 'Avenir';
-	font-style: normal;
-	font-weight: 500 !important;
-	font-size: 12px !important;
-	line-height: 16px;
-	text-align: center;
-	background: rgba(235, 87, 87, 0.15) !important;
-	color: #eb5757 !important;
-	height: 19px;
-	display: flex;
-	padding: 2px 15px !important;
-	border-radius: 20px !important;
-	justify-content: center;
-	align-items: center;
+  color: #27ae60 !important;
+  border: 1px solid #27ae60 !important;
 }

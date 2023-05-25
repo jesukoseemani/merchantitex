@@ -207,7 +207,7 @@ const InvoiceRequesttable = () => {
                 <h2 className={styles.headerTitle}>{history?.length} Invoices Created</h2>
 
                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "10px", marginTop: { xs: "30px" } }} >
-                    <button className={styles.outlinedBtn}>All invoice</button>
+                    <button className={styles.outlinedBtn}>Filter by</button>
                     <button className={styles.containedBtn} onClick={handleCreateInvoice}>+ Create invoice</button>
                 </Box>
             </Stack>

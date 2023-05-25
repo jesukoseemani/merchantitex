@@ -1,35 +1,18 @@
-import {
-  Button,
-  Box,
-  Modal,
-  Input,
-  OutlinedInput,
-  Stack,
-  Grid,
-  IconButton,
-} from "@mui/material";
+import { Button, Box, } from "@mui/material";
 import { MouseEvent, useCallback, useEffect, useState } from "react";
 import styles from "./Balance.module.scss";
 import { makeStyles } from "@material-ui/styles";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import {
-  GetRollingReservesRes,
-  RollingReserveItem,
-} from "../../types/BalanceTypes";
-import moment from "moment";
-import {
   closeLoader,
   openLoader,
 } from "../../redux/actions/loader/loaderActions";
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
-import CloseOutlined from "@mui/icons-material/CloseOutlined";
-import axios from "axios";
 import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
 import { useDispatch } from "react-redux";
 import CustomClickTable from "../../components/table/CustomClickTable";
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { getRollingReserve } from "../../services/rolling-reserve";
 import useDownload from "../../hooks/useDownload";
 import { BASE_URL } from "../../config";
@@ -198,11 +181,7 @@ const RollingReserve = () => {
     setRowsPerPage(value);
   };
 
-  const statusFormatObj: { [key: string]: string } = {
-    successful: "wonText",
-    error: "lostText",
-    pending: "pendingText",
-  };
+
   interface Column {
     id: "amount" | "balanceBefore" | "balanceAfter" | "created" | "duedate";
     label: any;

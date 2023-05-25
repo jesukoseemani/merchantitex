@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 import { openLoader, closeLoader } from '../../redux/actions/loader/loaderActions';
 import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
 import CustomInputField from '../../components/customs/CustomInputField';
-import { Formik, Form } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import CustomSelect from '../../components/customs/CustomSelect';
 import CustomRefund from '../../components/customs/CustomRefund';
 import { closeModal } from '../../redux/actions/modal/modalActions';
@@ -111,7 +111,24 @@ const Refundcustomer = ({ id }: any) => {
 
                         <Grid item xs={12} sm={12}>
 
-                            <CustomInputField as={CustomRefund} options={actiontypes} name="refundtype" label={"Reason for declining chargeback"} placeholder="Items are out of stock" />
+
+
+                            <InputLabel>Reason for declining chargeback</InputLabel>
+
+                            <Field
+                                as={CustomRefund}
+                                helperText={
+                                    <ErrorMessage name="refundtype">
+                                        {(msg) => <span style={{ color: "red" }}>{msg}</span>}
+                                    </ErrorMessage>
+                                }
+                                fullWidth
+                                placeholder='Enter city'
+                                name="refundtype"
+
+                                options={actiontypes}
+
+                            />
                         </Grid>
                         <Grid item xs={12} sm={12}>
 

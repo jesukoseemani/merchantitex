@@ -75,7 +75,7 @@ export default function TransfersTable({ payout, changePage }: { payout: PayoutR
       status: (
         <CustomStatus type={status} text={status} />
       ),
-      receipient: <p>{`${receipientname} | ${receipientbank} | ${recipientaccountnumber}`}</p>,
+      receipient: <p>{`${receipientname || "N/a"} | ${receipientbank || "N/a"} | ${recipientaccountnumber || "N/a"}`}</p>,
       date: (
         <CustomDateFormat date={date} time={date} />
       ),
