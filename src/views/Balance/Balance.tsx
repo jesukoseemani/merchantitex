@@ -16,10 +16,10 @@ import { getBalance } from "../../services/balance";
 import FormatToCurrency from "../../helpers/NumberToCurrency";
 import { useHistory } from 'react-router-dom';
 import Navigation from "../../components/navbar/Navigation";
+import useQuery from "../../hooks/useQuery";
 
 const Balance = () => {
   const [balances, setBalances] = useState<BalanceType[]>([])
-
   const dispatch = useDispatch();
   const history = useHistory()
 
@@ -119,7 +119,7 @@ const Balance = () => {
                 <h2>{balance?.currency} Balance</h2>
 
                 <Stack direction={"row"} alignItems="center" columnGap={"10px"} flexWrap="wrap" >
-                  <button>See {balance?.currency} Transactions</button>
+                  <button onClick={() => history.replace(`/transactions?currency=${balance?.currency}`)}>See {balance?.currency} Transactions</button>
                   <button onClick={() => history.push(`/balance_history/${balance?.id}`)}>View balance history</button>
                 </Stack>
 

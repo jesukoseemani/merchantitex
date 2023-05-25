@@ -35,6 +35,7 @@ import RecurringLinkModal from '../PaymentLinks/RecurringLinkModal';
 import DonationLinkModal from '../PaymentLinks/DonationLinkModal';
 import { openModalAndSetContent } from '../../redux/actions/modal/modalActions';
 import CreateInvoice from '../../components/bills/invoice/CreateInvoice';
+import useQuery from '../../hooks/useQuery';
 
 export default function TransactionsList() {
 
@@ -42,6 +43,13 @@ export default function TransactionsList() {
 
 	const history = useHistory();
 	const { search } = useLocation()
+	let customquery = useQuery();
+	const currency = customquery.get('currency');
+
+
+	console.log("search:", search)
+	console.log("currency:", currency)
+
 
 	interface sortTypes {
 		dateCustom: string | number;
@@ -136,7 +144,7 @@ export default function TransactionsList() {
 				todate,
 				reference,
 				paymentmethod,
-				search: stripSearch(search),
+				search: search.includes('currency') ? currency : stripSearch(search),
 				status
 			}));
 			setTransactions(data?.transactions || []);

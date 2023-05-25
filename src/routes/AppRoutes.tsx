@@ -73,7 +73,7 @@ import BulkTransferEntry from "../views/Payout/transfer/BulkTransferEntry";
 import Pendingdetails from "../views/Payout/PendingApproval/Pendingdetails";
 import BeneficiaryDetails from "../views/Payout/beneficiary/BeneficiaryDetails";
 import CustomersTab from "../views/Customers/CustomersTab";
-import BlacklistTab from "../views/Customers/BlacklistTab";
+// import BlacklistTab from "../views/Customers/BlacklistTab";
 import InvoiceDetails from "../components/bills/invoice/InvoiceDetails";
 import TransferHistory from "../views/Payout/transfer/TransferHistory";
 import Navigation from "../components/navbar/Navigation";
