@@ -166,7 +166,7 @@ const BlacklistDatatable = () => {
 					<Stack direction={"row"} flexWrap="wrap" justifyContent="space-between" gap={3}>
 						<h2 className={styles.blacklistHeader}>{totalRows} blacklisted customer(s)</h2>
 						<Box className={styles.headerBox}>
-							<button onClick={() => setIsFilterModalOpen(true)}><FilterIcon />Filter by:</button>
+							{/* <button onClick={() => setIsFilterModalOpen(true)}><FilterIcon />Filter by:</button> */}
 							{/* <button> <InsertDriveFileOutlinedIcon />Download</button> */}
 
 						</Box>

@@ -116,7 +116,14 @@ const InvoiceRequesttable = () => {
 
 
         try {
-            const { data } = await axios.get<InvoiceRes>(`/v1/payment/merchantinvoices?page=${pageNumber}&perpage=${rowsPerPage}&fromdate=${fromdate}&todate=${todate}&reference=${reference}`)
+
+            let url = status === ""
+                ?
+                `/v1/payment/merchantinvoices?page=${pageNumber}&perpage=${rowsPerPage}&fromdate=${fromdate}&todate=${todate}&reference=${reference}`
+                :
+                `/v1/payment/merchantinvoices?page=${pageNumber}&perpage=${rowsPerPage}&fromdate=${fromdate}&todate=${todate}&reference=${reference}&status=${status}`
+
+            const { data } = await axios.get<InvoiceRes>(url)
 
             if (data?.invoices) {
                 // const { invoices, _metadata } = invoiceList;

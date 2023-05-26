@@ -1,4 +1,4 @@
-import { Backdrop, Box, Fade, IconButton, Modal, OutlinedInput, MenuItem, Select } from '@mui/material';
+import { Backdrop, Box, Fade, IconButton, Modal, OutlinedInput, MenuItem, Select, TextField } from '@mui/material';
 import { makeStyles } from "@material-ui/styles";
 import CloseIcon from '@mui/icons-material/Close';
 import { Dispatch, SetStateAction, useState } from 'react';
@@ -21,12 +21,14 @@ const SingleRefundModal = ({ isOpen, handleClose, setRefundLogged }: SingleRefun
       top: '50%',
       left: '50%',
       transform: 'translate(-50%, -50%)',
-      maxWidth: '400px',
+      maxWidth: '419px',
       width: '100%',
       backgroundColor: 'white',
       boxShadow: '0px 3px 20px rgba(0, 0, 0, 0.16)',
       borderRadius: '20px',
       paddingBottom: "20px",
+      maxHeight: "95vh",
+      overflowY: "auto",
 
       '& h2': {
         fontFamily: 'Avenir',
@@ -53,7 +55,7 @@ const SingleRefundModal = ({ isOpen, handleClose, setRefundLogged }: SingleRefun
         },
       },
       '& hr': {
-        // background: '',
+        background: 'transparent',
         border: "#E0E0E0 1px solid",
         height: "0.01px"
       },
@@ -81,22 +83,7 @@ const SingleRefundModal = ({ isOpen, handleClose, setRefundLogged }: SingleRefun
         fontStyle: "normal",
         lineHeight: "19px",
       },
-      '& input, & textarea': {
-        background: 'white',
-        // border: '1px solid #ff0',
-        borderRadius: '10px !important',
-        fontFamily: 'Avenir',
 
-        marginTop: '.2rem',
-        // padding: '.75rem',
-        // height: "11px",
-        fontSize: '.875rem',
-        resize: 'none',
-        '&::placeholder': {
-          color: '#B9B9B9',
-          fontSize: "14px"
-        }
-      }
     },
     formBtn: {
       color: 'white',
@@ -120,7 +107,6 @@ const SingleRefundModal = ({ isOpen, handleClose, setRefundLogged }: SingleRefun
         opacity: '.75'
       }
     },
-    select: {}
   });
 
   const classes = useModalStyles();
@@ -174,7 +160,7 @@ const SingleRefundModal = ({ isOpen, handleClose, setRefundLogged }: SingleRefun
               <CloseIcon />
             </IconButton>
           </div>
-          <hr />
+          <hr style={{ height: "0.1px", backgroundColor: "transparent" }} />
           <div className={classes.form}>
             <div className={classes.formBox}>
               <label htmlFor='amount'>Amount</label>
@@ -185,7 +171,7 @@ const SingleRefundModal = ({ isOpen, handleClose, setRefundLogged }: SingleRefun
             </div>
             <div className={classes.formBox}>
               <label htmlFor='id'>Payment Id</label>
-              <OutlinedInput
+              <TextField
                 placeholder='TEST_IBK_025493323680005613942' value={id}
                 name="id"
                 onChange={(e) => setId(e.target.value)}
@@ -195,7 +181,7 @@ const SingleRefundModal = ({ isOpen, handleClose, setRefundLogged }: SingleRefun
               <label htmlFor='id'>Refund Type</label>
               <Select
                 fullWidth
-                className={classes.select}
+                // className={classes.select}
                 value={type}
                 name='refunType'
                 id='refunType'
@@ -209,7 +195,7 @@ const SingleRefundModal = ({ isOpen, handleClose, setRefundLogged }: SingleRefun
             </div>
             <div className={classes.formBox}>
               <label htmlFor='reason'>Reason for refund</label>
-              <OutlinedInput placeholder='reason' multiline rows={10} value={desc} onChange={(e) => setDesc(e.target.value)} />
+              <OutlinedInput placeholder='reason' multiline rows={7} value={desc} onChange={(e) => setDesc(e.target.value)} />
             </div>
           </div>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "13px", marginBottom: "20px" }}>

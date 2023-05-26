@@ -10,7 +10,7 @@ interface Props {
 const CustomStatus = ({ type, text }: Props) => {
     return (
         <div className={`${type}`} style={{ textTransform: "lowercase" }}>
-            <p>{text && text}</p>
+            <span>{text && text}</span>
         </div>
     )
 }
