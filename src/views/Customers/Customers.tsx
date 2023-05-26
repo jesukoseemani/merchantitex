@@ -8,7 +8,6 @@ import React, { SyntheticEvent, useState } from 'react';
 import NavBar from '../../components/navbar/NavBar';
 import styles from './Customers.module.scss';
 import { makeStyles } from '@material-ui/styles';
-import BlacklistTab from './BlacklistTab';
 import CustomersTab from './CustomersTab';
 import ParentContainer from '../../components/ParentContainer/ParentContainer';
 
@@ -67,11 +66,7 @@ const Customers = () => {
 	};
 
 	return (
-
-
 		<div className={styles.container}>
-
-
 			<Box sx={{ width: '100%', marginInline: 'auto', typography: 'body1' }}>
 				<TabContext value={value}>
 					<Box sx={{ borderBottom: 0, borderColor: 'divider' }}>
@@ -84,7 +79,7 @@ const Customers = () => {
 						<CustomersTab />
 					</TabPanel>
 					<TabPanel value='2'>
-						<BlacklistTab />
+						{/* <BlacklistTab /> */}
 					</TabPanel>
 				</TabContext>
 			</Box>

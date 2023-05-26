@@ -22,7 +22,7 @@ import LinkIcon from "../assets/images/paymentlink.svg";
 import BillIcon from "../assets/images/bills.svg";
 import SettlementIcon from "../assets/images/settlement.svg";
 import HistoryIcon from "../assets/images/balanceIcon.svg";
-import PermisionIcon from "../assets/images/permision.svg";
+import PermisionIcon from "../assets/images/key.svg";
 import CheckIcon from "../assets/images/check.svg";
 
 

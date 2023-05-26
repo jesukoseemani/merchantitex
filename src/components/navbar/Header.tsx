@@ -89,7 +89,7 @@ const Header = ({ title }: Props) => {
 
   useEffect(() => {
     history.replace({ pathname, search })
-  }, [search])
+  }, [search]) 
 
 
   const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({

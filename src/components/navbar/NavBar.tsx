@@ -18,6 +18,7 @@ import CustomModal from "../customs/CustomModal";
 import AddBusiness from "./AddBusiness";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import useSetup from "../hooks/useSetup";
+import { saveMenuTitle, saveNav, saveNested } from "../../redux/actions/selectedMenu/menuAction";
 
 
 
@@ -29,14 +30,17 @@ const NavBar = () => {
   const business = useSelector((state) => state?.meReducer?.me?.business);
   const { auth } = useSelector((state) => state?.authReducer);
   const { userDetails } = useSelector(state => state?.userDetailReducer)
+  const { nestState, navState, titleState } = useSelector(state => state?.menuReducer)
+
+
 
 
   const { pathname } = useLocation();
   const [active, setActive] = React.useState<string | number>(0);
   const [routes, setRoutes] = useState<any[]>(navRoutes);
-  const [isNested, setIsNested] = useLocalStorage('isNested', false);
-  const [nav, setNav] = useLocalStorage('nav', []);
-  const [menuTitle, setMenuTitle] = useLocalStorage('menuTitle', "");
+  // const [isNested, setIsNested] = useLocalStorage('isNested', false);
+  // const [nav, setNav] = useLocalStorage('nav', []);
+  // const [menuTitle, setMenuTitle] = useLocalStorage('menuTitle', "");
   const [userMenu, setUserMenu] = React.useState<null | HTMLElement>(null);
   const [openModal, setOpenModal] = useState(false)
   const [showUserInfo, setShowuserInfo] = useState(false)
@@ -48,7 +52,6 @@ const NavBar = () => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
-
     setAnchorEl(null);
     setShowuserInfo(false)
   };
@@ -58,6 +61,10 @@ const NavBar = () => {
   useEffect(() => {
     console.log("setup", setupStatus?.isSetupComplete)
   }, [setupStatus])
+  // console.log("fest:", nestState, navState, titleState)
+  // console.log("check:", isNested, nav, menuTitle)
+
+
 
 
   const openUserMenu = Boolean(userMenu);
@@ -73,10 +80,12 @@ const NavBar = () => {
 
   const changeHandler = (item: any) => {
     if (item.submenu) {
-      setIsNested(true)
+      dispatch(saveNested(true))
       // dispatch(changeNewNavbar(item.title))
-      setMenuTitle(item.title)
-      setNav(item.nav)
+      dispatch(saveMenuTitle(item.title))
+
+      dispatch(saveNav(item.nav))
+
       // history.push(item.link)
     } else {
       history.push(item.link)
@@ -156,14 +165,16 @@ const NavBar = () => {
       </div>
       <div>
         <div className={Styles.backBtn}>
-          {isNested && (
+          {nestState && (
             <>
-              <button onClick={() => setIsNested(false)}>
+              <button onClick={() => {
+                dispatch(saveNested(false))
+              }}>
                 <ReactSVG src={ArrowLeft} /> Main Menu
               </button>
 
               <h3 className={Styles.menuTitle}>
-                {menuTitle} MENU
+                {titleState} MENU
               </h3>
             </>
           )}
@@ -189,7 +200,7 @@ const NavBar = () => {
           }
 
 
-          {!isNested && routes?.map((item) => {
+          {!nestState && routes?.map((item) => {
             return (
               <>
                 <li
@@ -210,7 +221,7 @@ const NavBar = () => {
           })}
 
 
-          {isNested && nav?.map(({ id, title, icon, link }: any) => {
+          {nestState && navState?.map(({ id, title, icon, link }: any) => {
             return (
               <li
                 key={id}

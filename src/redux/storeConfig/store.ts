@@ -18,6 +18,7 @@ const persistConfig = {
 		'countryReducer',
 		'navbarReducer',
 		'setupReducer',
+		'menuReducer',
 		"bankAcctReducer"
 	],
 };

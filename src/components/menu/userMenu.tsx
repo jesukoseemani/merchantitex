@@ -122,13 +122,14 @@ export default function UserMenu() {
 	};
 
 	const signOutHandler = () => {
-		localStorage.clear();
+		sessionStorage.clear();
+		sessionStorage.removeItem('persist:root')
 		dispatch(logOut());
-		history.push('/signIn');
-		dispatch(saveLoading(false));
 		dispatch(changeNewNavbar("Home"))
 		dispatch(removeMe());
 		setAnchorEl(null);
+		history.push('/signIn');
+		dispatch(saveLoading(false));
 	};
 
 	// const handleChecked = () => {
