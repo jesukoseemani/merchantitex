@@ -16,10 +16,13 @@ import CustomStatus from '../../customs/CustomStatus';
 import FormatToCurrency from '../../../helpers/NumberToCurrency';
 import CustomCurrencyFormat from '../../customs/CustomCurrencyFormat';
 import CustomDateFormat from '../../customs/CustomDateFormat';
+import InvoiceFilterModal from './FilterModal';
+import { INVOICE_FILTER_DATA } from '../../../constant';
+import { useLocation } from 'react-router-dom';
+import { stripSearch } from '../../../utils';
 
 
 
-// const useModalBtnStyles = makeStyles({
 //     root: {
 //         display: 'flex',
 //         justifyContent: 'flex-end',
@@ -71,8 +74,17 @@ const InvoiceRequesttable = () => {
     const [rowsPerPage, setRowsPerPage] = useState<number>(5);
     const [totalRows, setTotalRows] = useState<number>(0);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const [reset, setReset] = useState<boolean>(false);
+    const [fromDate, setFromDate] = useState('');
+    const [toDate, setToDate] = useState('');
+    const [ref, setRef] = useState('');
+    const [invoiceStatus, setInvoiceStatus] = useState('');
+    const [payment, setPayment] = useState('');
+    const [event, setEvent] = useState('');
     const open = Boolean(anchorEl);
+    const [isFilterModalOpen, setIsFilterModalOpen] = useState<boolean>(false);
 
+    const { search } = useLocation()
     const dispatch = useDispatch();
 
 
@@ -84,6 +96,66 @@ const InvoiceRequesttable = () => {
     const limit = (value: number) => {
         setRowsPerPage(value);
     };
+
+
+    const clearHandler = () => {
+        setEvent('');
+        setFromDate('');
+        setToDate('');
+        setInvoiceStatus('');
+        setRef('');
+        setIsFilterModalOpen(false);
+    };
+
+
+
+    const getInvoiceRequest = async ({ fromdate, todate, reference, invoiceStatus } = INVOICE_FILTER_DATA) => {
+        dispatch(openLoader());
+
+        try {
+            // const { data } = await axios.get<any>(`/v1/payment/merchantinvoices?search=${stripSearch(search)}&page=${pageNumber}&perpage=${rowsPerPage}&status=${status}&reference=${reference}&fromdate=${fromdate}&todate=${todate}`)
+            const { data } = await axios.get<any>(`/v1/payment/merchantinvoices?page=${pageNumber}&perpage=${rowsPerPage}&fromdate=${fromdate}&todate=${todate}&reference=${reference}`)
+
+            // v1/payment/merchantinvoices?perpage=3&page=1&reference=INV_256267431683268273635&status=pending            console.log(data);
+            // payment/merchantinvoices
+
+            if (data?.invoices) {
+                // const { invoices, _metadata } = invoiceList;
+                setHistory(data?.invoices);
+                setTotalRows(data?._metadata?.totalcount);
+            }
+            dispatch(closeLoader());
+        } catch (error: any) {
+            dispatch(closeLoader());
+            const { message } = error.response.data;
+            dispatch(
+                dispatch(
+                    openToastAndSetContent({
+                        toastContent: message,
+                        msgType: "error"
+                    })
+                )
+            );
+        } finally {
+            dispatch(closeLoader());
+        }
+    };
+
+
+
+    useEffect(() => {
+        getInvoiceRequest();
+    }, [pageNumber, rowsPerPage, search]);
+
+
+    const action = (form: typeof INVOICE_FILTER_DATA) => {
+        getInvoiceRequest(form)
+    }
+    const modalFunc = () => {
+        setIsFilterModalOpen(false)
+        setReset(true);
+    };
+
 
     interface Column {
         id: 'title' | 'status' | 'amount' | 'name' | "email" | 'date';
@@ -143,39 +215,7 @@ const InvoiceRequesttable = () => {
         setRows(newRowOptions);
     }, [history, InvoiceHistoryRowTab]);
 
-    const getInvoiceRequest = async () => {
-        dispatch(openLoader());
 
-        try {
-            const { data } = await axios.get<any>("/v1/payment/merchantinvoices")
-
-            console.log(data);
-
-            if (data?.invoices) {
-                // const { invoices, _metadata } = invoiceList;
-                setHistory(data?.invoices);
-                setTotalRows(data?._metadata?.totalcount);
-            }
-            dispatch(closeLoader());
-        } catch (error: any) {
-            dispatch(closeLoader());
-            const { message } = error.response.data;
-            dispatch(
-                dispatch(
-                    openToastAndSetContent({
-                        toastContent: message,
-                        msgType: "error"
-                    })
-                )
-            );
-        } finally {
-            dispatch(closeLoader());
-        }
-    };
-
-    useEffect(() => {
-        getInvoiceRequest();
-    }, [pageNumber, rowsPerPage]);
 
 
 
@@ -203,11 +243,19 @@ const InvoiceRequesttable = () => {
     }
     return (
         <Box sx={{ marginTop: "1.7rem" }}>
+            <InvoiceFilterModal
+                isOpen={isFilterModalOpen}
+                handleClose={() => setIsFilterModalOpen(false)}
+                action={action}
+                clearHandler={clearHandler}
+                name='paymentlink'
+                filterFunction={modalFunc}
+            />
             <Stack direction={"row"} justifyContent="space-between" flexWrap={"wrap"} alignItems={"center"} spacing={2}>
                 <h2 className={styles.headerTitle}>{history?.length} Invoices Created</h2>
 
                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "10px", marginTop: { xs: "30px" } }} >
-                    <button className={styles.outlinedBtn}>Filter by</button>
+                    <button className={styles.outlinedBtn} onClick={() => setIsFilterModalOpen(true)}>Filter by</button>
                     <button className={styles.containedBtn} onClick={handleCreateInvoice}>+ Create invoice</button>
                 </Box>
             </Stack>
