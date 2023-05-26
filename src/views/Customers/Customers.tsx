@@ -66,11 +66,7 @@ const Customers = () => {
 	};
 
 	return (
-
-
 		<div className={styles.container}>
-
-
 			<Box sx={{ width: '100%', marginInline: 'auto', typography: 'body1' }}>
 				<TabContext value={value}>
 					<Box sx={{ borderBottom: 0, borderColor: 'divider' }}>
@@ -82,7 +78,6 @@ const Customers = () => {
 					<TabPanel value='1'>
 						<CustomersTab />
 					</TabPanel>
-
 				</TabContext>
 			</Box>
 		</div>

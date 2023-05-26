@@ -39,6 +39,9 @@ import CustomDateFormat from "../../components/customs/CustomDateFormat";
 import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
 import { getBankName } from "../../utils";
 import Refundcustomer from "./Refundcustomer";
+import { saveMenuTitle, saveNav, saveNested } from "../../redux/actions/selectedMenu/menuAction";
+import CustomerIcon from "../../assets/images/customerIcon.svg";
+import BlacklistIcon from "../../assets/images/blacklistIcon.svg";
 
 
 export default function Transaction() {
@@ -148,6 +151,32 @@ export default function Transaction() {
 			})
 		);
 	}
+
+
+	const sendToRoute = () => {
+
+		dispatch(saveNested(true))
+
+		dispatch(saveMenuTitle("Customer"))
+
+		dispatch(saveNav([
+			{
+				id: 12,
+				title: "Customer",
+				icon: CustomerIcon,
+				link: "/customers",
+			},
+			{
+				id: 13,
+				title: "Blacklist",
+				icon: BlacklistIcon,
+				link: "/blacklist",
+			},
+		]))
+		history?.push(`/customers/${transaction?.transaction?.customer?.customerid}`)
+	}
+
+
 	return (
 
 		<Navigation title="Transactions">
@@ -320,7 +349,7 @@ export default function Transaction() {
 
 							<div className={Styles.profile}>
 								<p>See customer profile </p>
-								<IconButton onClick={() => history?.push(`/customers/${transaction?.transaction?.customer?.customerid}`)}>
+								<IconButton onClick={sendToRoute}>
 									<LinkIcon />
 								</IconButton>
 							</div>

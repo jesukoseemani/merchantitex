@@ -17,6 +17,10 @@ import FormatToCurrency from "../../helpers/NumberToCurrency";
 import { useHistory } from 'react-router-dom';
 import Navigation from "../../components/navbar/Navigation";
 import useQuery from "../../hooks/useQuery";
+import TranIcon from "../../assets/images/transactions.svg";
+import BackArrow from "../../assets/images/backArrow.svg";
+import { saveMenuTitle, saveNav, saveNested } from "../../redux/actions/selectedMenu/menuAction";
+
 
 const Balance = () => {
   const [balances, setBalances] = useState<BalanceType[]>([])
@@ -106,6 +110,29 @@ const Balance = () => {
     );
   }
 
+  // const sendToRoute = () => {
+
+  //   dispatch(saveNested(true))
+
+  //   dispatch(saveMenuTitle("Customer"))
+
+  //   dispatch(saveNav([
+  //     {
+  //       id: 12,
+  //       title: "Customer",
+  //       icon: CustomerIcon,
+  //       link: "/customers",
+  //     },
+  //     {
+  //       id: 13,
+  //       title: "Blacklist",
+  //       icon: BlacklistIcon,
+  //       link: "/blacklist",
+  //     },
+  //   ]))
+  //   history?.push(`/customers/${refund?.transaction?.customer?.customerid}`)
+  // }
+
   return (
 
     <Navigation title="Balance">
@@ -119,7 +146,28 @@ const Balance = () => {
                 <h2>{balance?.currency} Balance</h2>
 
                 <Stack direction={"row"} alignItems="center" columnGap={"10px"} flexWrap="wrap" >
-                  <button onClick={() => history.replace(`/transactions?currency=${balance?.currency}`)}>See {balance?.currency} Transactions</button>
+                  <button onClick={(e) => {
+                    e.preventDefault()
+                    dispatch(saveNested(true))
+
+                    dispatch(saveMenuTitle("Transactions"))
+
+                    dispatch(saveNav([
+                      {
+                        id: " 3",
+                        title: "Transactions",
+                        icon: TranIcon,
+                        link: "/transactions",
+                      },
+                      {
+                        id: "4",
+                        title: "Refund",
+                        icon: BackArrow,
+                        link: "/transactions/refund",
+                      },
+                    ]))
+                    history.push(`/transactions?currency=${balance?.currency}`)
+                  }}>See {balance?.currency} Transactions</button>
                   <button onClick={() => history.push(`/balance_history/${balance?.id}`)}>View balance history</button>
                 </Stack>
 

@@ -31,6 +31,9 @@ import { RefundSingle } from '../../types/refunditem';
 import { ReactComponent as MasterCard } from "../../assets/template/MasterCard_Logo 1.svg"
 import useDownload from '../../hooks/useDownload';
 import { BASE_URL } from '../../config';
+import { saveMenuTitle, saveNav, saveNested } from "../../redux/actions/selectedMenu/menuAction";
+import CustomerIcon from "../../assets/images/customerIcon.svg";
+import BlacklistIcon from "../../assets/images/blacklistIcon.svg";
 
 
 const RefundItem = () => {
@@ -113,6 +116,30 @@ const RefundItem = () => {
       })
     );
   }
+
+  const sendToRoute = () => {
+
+    dispatch(saveNested(true))
+
+    dispatch(saveMenuTitle("Customer"))
+
+    dispatch(saveNav([
+      {
+        id: 12,
+        title: "Customer",
+        icon: CustomerIcon,
+        link: "/customers",
+      },
+      {
+        id: 13,
+        title: "Blacklist",
+        icon: BlacklistIcon,
+        link: "/blacklist",
+      },
+    ]))
+    history?.push(`/customers/${refund?.transaction?.customer?.customerid}`)
+  }
+
   return (
 
     <Navigation title='Refund'>
@@ -302,7 +329,7 @@ const RefundItem = () => {
             </div>
             <div className={styles.profile}>
               <p>See customer profile </p>
-              <IconButton>
+              <IconButton onClick={sendToRoute}>
                 <LinkIcon />
               </IconButton>
             </div>

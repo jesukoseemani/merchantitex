@@ -27,3 +27,7 @@ export const SAVE_DIRECTOR_INFO = 'SAVE_DIRECTOR_INFO';
 export const FETCH_BANK_ACCT = 'FETCH_BANK_ACCT';
 export const SAVE_UPLOAD_DOC = 'SAVE_UPLOAD_DOC';
 export const SAVE_CONTACT_FORM = 'SAVE_CONTACT_FORM';
+export const SAVE_NESTED = 'SAVE_NESTED';
+export const SAVE_NAV = 'SAVE_NAV';
+export const SAVE_MENU_TITLE = 'SAVE_MENU_TITLE';
+

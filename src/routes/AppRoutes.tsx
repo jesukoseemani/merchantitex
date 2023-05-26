@@ -154,7 +154,8 @@ export default function AppRoutes() {
           })
 
         );
-        localStorage.clear();
+        sessionStorage.clear();
+        sessionStorage.removeItem('persist:root')
         dispatch(logOut());
         history.push("/signin");
         dispatch(changeNewNavbar("Home"))
