@@ -96,6 +96,7 @@ const theme = createTheme({
 
       }
     },
+
     MuiRadio: {
 
       styleOverrides: {
@@ -272,7 +273,9 @@ const theme = createTheme({
               textTransform: "capitalize",
               color: "#B9B9B9",
 
-            }
+            },
+
+
           }
 
 

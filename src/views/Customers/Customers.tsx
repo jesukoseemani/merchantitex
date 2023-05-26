@@ -78,9 +78,6 @@ const Customers = () => {
 					<TabPanel value='1'>
 						<CustomersTab />
 					</TabPanel>
-					<TabPanel value='2'>
-						{/* <BlacklistTab /> */}
-					</TabPanel>
 				</TabContext>
 			</Box>
 		</div>

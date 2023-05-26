@@ -240,11 +240,11 @@ export default function Transaction() {
 						<h2>Payment information</h2>
 					</div>
 					<Box className={Styles.containerBox}>
-						<Grid container spacing={4} justifyContent="flex-start" alignItems={"center"}>
-							<Grid item xs={12} sm={4} md={4}>
+						<Grid container columnSpacing={5} rowSpacing={2} justifyContent="flex-start" alignItems={"center"}>
+							<Grid item xs={12} sm={6} md={4}>
 								<span>Payment reference</span>
-								<h2>
-									{transaction?.transaction?.paymentlinkreference?.substring(0, 25)}
+								<h2 style={{ marginRight: "5px" }}>
+									{transaction?.transaction?.paymentlinkreference?.substring(0, 24)}
 									<CopyToClipboard text={transaction?.transaction?.paymentlinkreference}>
 										<IconButton>
 											<CopyIcon />
@@ -253,22 +253,26 @@ export default function Transaction() {
 								</h2>
 							</Grid>
 
-							<Grid item xs={12} sm={3} md={3}>
+							<Grid item xs={12} sm={6} md={3}>
 								<span className={Styles.timeline}>Transaction Fee</span>
 								<h2>{FormatToCurrency(transaction?.transaction?.fee) || 0}</h2>
 							</Grid>
-							<Grid item xs={12} sm={3} md={2.5}>
+							<Grid item xs={12} sm={6} md={2.5}>
 								<span>Country/Region</span>
 								<h2>{transaction?.transaction?.paylocationcountry || "N/a"}</h2>
 							</Grid>
-							<Grid item xs={12} sm={3} md={2.5}>
+							<Grid item xs={12} sm={6} md={2.5}>
 								<span>Bank name</span>
 								<h2>{getBankName(transaction?.transaction?.bankcode) || "N/a"}</h2>
 							</Grid>
-							<Grid item xs={12} sm={5} md={5} lg={4}>
+							<Grid item xs={12} sm={6} md={5} lg={4}>
 								<span>ITEX Reference</span>
 								<h2>{transaction?.transaction?.paymentid || "nil"}</h2>
 							</Grid>
+							{/* <Grid item xs={12} sm={6} md={5} lg={4}>
+								<span>Narration</span>
+								<h2>{transaction?.transaction?.narration || "nil"}</h2>
+							</Grid> */}
 						</Grid>
 					</Box>
 					<div className={Styles.naration}>

@@ -68,10 +68,10 @@ const PayoutItem = () => {
                         </div>
                         <div>
                             <span>Payment reference</span>
-                            <p>
+                            <p style={{ position: "relative" }}>
                                 ITEX-ab95cf961f454669a4
                                 <CopyToClipboard text={"ITEX-ab95cf961f454669a4"}>
-                                    <IconButton>
+                                    <IconButton sx={{ position: "absolute", top: 0, marginTop: "-8px" }}>
                                         <CopyIcon />
                                     </IconButton>
                                 </CopyToClipboard>
@@ -92,7 +92,7 @@ const PayoutItem = () => {
                     </div>
                 </div>
             </div>
-        </Navigation>
+        </Navigation >
     )
 }
 

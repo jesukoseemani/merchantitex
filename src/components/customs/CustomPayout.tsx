@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import { TextField, MenuItem } from '@material-ui/core';
+import { TextField, MenuItem } from '@mui/material';
 import { useField, useFormikContext } from 'formik';
-import { styled } from '@mui/system';
+import { styled } from '@material-ui/styles';
+// import { styled } from '@mui/system';
 
 const CustomPayout = ({ name, options, ...otherProps }: any) => {
     const { setFieldValue } = useFormikContext();
@@ -25,18 +26,10 @@ const CustomPayout = ({ name, options, ...otherProps }: any) => {
         configSelect.error = true;
         configSelect.helperText = meta.error;
     }
-    const StyledTextField = styled(TextField, {
-        name: "StyledTextField",
-    })({
 
-        "& .MuiInputBase-root": {
-            height: 44
-        }
-    });
-    ;
 
     return (
-        <StyledTextField {...configSelect}>
+        <TextField {...configSelect}>
             {options?.map((item: any, i: any) => {
                 return (
                     <MenuItem key={i} value={item?.text}>
@@ -45,7 +38,7 @@ const CustomPayout = ({ name, options, ...otherProps }: any) => {
                     </MenuItem>
                 );
             })}
-        </StyledTextField>
+        </TextField>
     );
 };
 

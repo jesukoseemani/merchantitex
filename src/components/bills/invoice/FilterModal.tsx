@@ -59,13 +59,13 @@ interface FilterModalProps {
     setToDate?: React.Dispatch<React.SetStateAction<string>>;
     setRef?: React.Dispatch<React.SetStateAction<string>>;
     setEmail?: React.Dispatch<React.SetStateAction<string>>;
-    setInvoiceStatus?: React.Dispatch<React.SetStateAction<string>>;
+    setStatus?: React.Dispatch<React.SetStateAction<string>>;
     eventDate?: string;
     clearHandler?: () => void;
     setBearer?: React.Dispatch<React.SetStateAction<boolean>>;
     name?: String;
     setPayment?: React.Dispatch<React.SetStateAction<string>>;
-    invoiceStatus?: string;
+    status?: string;
     payment?: string;
     filterFunction?: () => void;
     changePage?: (value: number) => void;
@@ -228,7 +228,7 @@ const InvoiceFilterModal = ({
                         <Select
                             fullWidth
                             className={classes.select}
-                            value={form.invoiceStatus}
+                            value={form.status}
                             name='status'
                             id='status'
                             onChange={(e) => handleChange(e.target.value, 'status')}
@@ -237,7 +237,6 @@ const InvoiceFilterModal = ({
                             <MenuItem value='' disabled selected hidden>
                                 Choose status
                             </MenuItem>
-                            <MenuItem value='approved'>Approved</MenuItem>
                             <MenuItem value='pending'>Pending</MenuItem>
                             <MenuItem value='expired'>Expired</MenuItem>
 

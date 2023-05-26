@@ -20,6 +20,7 @@ import InvoiceFilterModal from './FilterModal';
 import { INVOICE_FILTER_DATA } from '../../../constant';
 import { useLocation } from 'react-router-dom';
 import { stripSearch } from '../../../utils';
+import { Invoice, InvoiceRes } from '../../../types/InvoiceTypes';
 
 
 
@@ -67,9 +68,9 @@ import { stripSearch } from '../../../utils';
 // });
 
 const InvoiceRequesttable = () => {
-    const [requests, setRequests] = useState<BillInvoiceRequestItem[]>([]);
-    const [history, setHistory] = useState<BillInvoiceRequestItem[]>([]);
-    const [rows, setRows] = useState<BillInvoiceRequestItem[]>([]);
+    const [requests, setRequests] = useState<Invoice[]>([]);
+    const [history, setHistory] = useState<Invoice[]>([]);
+    const [rows, setRows] = useState<InvoiceRes[]>([]);
     const [pageNumber, setPageNumber] = useState<number>(1);
     const [rowsPerPage, setRowsPerPage] = useState<number>(5);
     const [totalRows, setTotalRows] = useState<number>(0);
@@ -78,7 +79,7 @@ const InvoiceRequesttable = () => {
     const [fromDate, setFromDate] = useState('');
     const [toDate, setToDate] = useState('');
     const [ref, setRef] = useState('');
-    const [invoiceStatus, setInvoiceStatus] = useState('');
+    const [status, setStatus] = useState('');
     const [payment, setPayment] = useState('');
     const [event, setEvent] = useState('');
     const open = Boolean(anchorEl);
@@ -102,27 +103,32 @@ const InvoiceRequesttable = () => {
         setEvent('');
         setFromDate('');
         setToDate('');
-        setInvoiceStatus('');
+        setStatus('');
         setRef('');
         setIsFilterModalOpen(false);
     };
 
 
 
-    const getInvoiceRequest = async ({ fromdate, todate, reference, invoiceStatus } = INVOICE_FILTER_DATA) => {
+    const getInvoiceRequest = async ({ fromdate, todate, reference, status } = INVOICE_FILTER_DATA) => {
         dispatch(openLoader());
+        console.log(status);
+
 
         try {
-            // const { data } = await axios.get<any>(`/v1/payment/merchantinvoices?search=${stripSearch(search)}&page=${pageNumber}&perpage=${rowsPerPage}&status=${status}&reference=${reference}&fromdate=${fromdate}&todate=${todate}`)
-            const { data } = await axios.get<any>(`/v1/payment/merchantinvoices?page=${pageNumber}&perpage=${rowsPerPage}&fromdate=${fromdate}&todate=${todate}&reference=${reference}`)
 
-            // v1/payment/merchantinvoices?perpage=3&page=1&reference=INV_256267431683268273635&status=pending            console.log(data);
-            // payment/merchantinvoices
+            let url = status === ""
+                ?
+                `/v1/payment/merchantinvoices?page=${pageNumber}&perpage=${rowsPerPage}&fromdate=${fromdate}&todate=${todate}&reference=${reference}`
+                :
+                `/v1/payment/merchantinvoices?page=${pageNumber}&perpage=${rowsPerPage}&fromdate=${fromdate}&todate=${todate}&reference=${reference}&status=${status}`
+
+            const { data } = await axios.get<InvoiceRes>(url)
 
             if (data?.invoices) {
                 // const { invoices, _metadata } = invoiceList;
                 setHistory(data?.invoices);
-                setTotalRows(data?._metadata?.totalcount);
+                setTotalRows(Number(data?._metadata?.totalcount));
             }
             dispatch(closeLoader());
         } catch (error: any) {
@@ -196,16 +202,16 @@ const InvoiceRequesttable = () => {
     );
     useEffect(() => {
         const newRowOptions: any[] = [];
-        history?.map((each: BillInvoiceRequestItem) =>
+        history?.map((each: Invoice) =>
             newRowOptions.push(
                 InvoiceHistoryRowTab(
                     each?.invoiceName,
                     each?.status,
                     each?.currency,
                     each?.totalAmount,
-                    each?.customer.firstname,
-                    each?.customer.lastname,
-                    each?.customer.email,
+                    each?.customer?.firstname,
+                    each?.customer?.lastname,
+                    each?.customer?.email,
                     each?.createdAt,
                     each?.id,
 

@@ -41,5 +41,5 @@ export const INVOICE_FILTER_DATA = {
     fromdate: '',
     todate: '',
     reference: '',
-    invoiceStatus: '',
+    status: '',
 }

@@ -236,7 +236,7 @@ const InvoiceDetails = () => {
 
                 <Box className={Styles.sectionFour}>
                     <Box className={Styles.title}>
-                        <h2>Purchase details details</h2>
+                        <h2>Purchase details</h2>
                     </Box>
 
 

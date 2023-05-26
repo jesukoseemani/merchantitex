@@ -37,7 +37,8 @@ const CustomRefund = ({ name, options, ...otherProps }: any) => {
     ;
 
     return (
-        <StyledTextField {...configSelect}>
+        <StyledTextField {...configSelect} >
+            <MenuItem value="" selected hidden>Select city</MenuItem>
             {options?.map((item: any, i: any) => {
                 return (
                     <MenuItem key={i} value={item?.name}>

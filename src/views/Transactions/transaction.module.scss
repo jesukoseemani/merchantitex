@@ -39,16 +39,19 @@
 	border-radius: 20px;
 	background-color: #fff;
 	flex-flow: row wrap;
-	gap: 2rem;
+	column-gap: 3rem;
+	row-gap: 1.5rem;
+
 
 
 	&>div {
 		// border: 1px solid red;
-		min-width: 150px;
+		min-width: 200px;
 
 
 		&>div {
 			margin-top: 7px;
+
 
 			&>span {
 				font-family: 'Avenir';
@@ -69,7 +72,14 @@
 				margin-top: 7px;
 				color: #333333;
 			}
+
+
 		}
+
+		// min-width: 250px;
+
+
+
 
 
 	}
@@ -77,12 +87,16 @@
 
 
 
-	&>div:not(:first-child) {
-		display: flex;
-		justify-content: center;
-		border-left: 1px solid #EFF3F8;
-		padding-left: 3rem;
+	&>div:not(:last-child) {
+
+		border-right: 1px solid #EFF3F8;
+		padding-right: 3rem;
 		// border: 1px solid red;
+
+		@media screen and (max-width:768px) {
+			border: none;
+		}
+
 	}
 
 	&>.cta {
@@ -106,29 +120,29 @@
 		}
 	}
 
-	@media screen and (max-width:900px) {
-		// grid-template-columns: 1fr;
+	// @media screen and (max-width:900px) {
+	// 	// grid-template-columns: 1fr;
 
-		&>div {
-			padding: 10px;
+	// 	&>div {
+	// 		padding: 10px;
 
-			&>div {
-				width: 100%;
-			}
+	// 		&>div {
+	// 			width: 100%;
+	// 		}
 
-		}
+	// 	}
 
-		&>div:not(:first-child) {
+	// 	&>div:not(:first-child) {
 
-			// border-left: none;
-			padding: 0;
-		}
+	// 		// border-left: none;
+	// 		padding: 0;
+	// 	}
 
-		&>div:nth-of-type(3) {
-			border: none;
-			padding: 0;
-		}
-	}
+	// 	&>div:nth-of-type(3) {
+	// 		border: none;
+	// 		padding: 0;
+	// 	}
+	// }
 }
 
 
@@ -302,7 +316,7 @@
 		gap: 10px;
 	}
 
-	.refundBtn {
+	.resendBtn {
 		background-color: unset;
 		border-radius: 20px;
 		border: 1px solid #27AE60;
@@ -324,8 +338,8 @@
 		}
 	}
 
-	.resendBtn {
-		@extend .refundBtn;
+	.refundBtn {
+		@extend .resendBtn;
 		background: #27AE60;
 		border: 1px solid #27AE60;
 		color: #FFFFFF;
@@ -350,6 +364,11 @@
 	border-bottom: 1px solid #EFF3F8;
 	padding: 22px 32px;
 	flex-flow: row wrap;
+	position: sticky;
+	top: 0;
+	z-index: 99;
+	background-color: #fff;
+
 
 	&>div {
 		display: flex;
@@ -435,6 +454,10 @@
 	// padding: 1px 12px;
 	.last__section__header {
 		padding: 22px 32px;
+		position: sticky;
+		top: 0;
+		background-color: #fff;
+		z-index: 99;
 	}
 
 	svg {
@@ -458,28 +481,6 @@
 		// padding-top: 10px;
 	}
 
-	// .timeBox {
-	// 	display: flex;
-	// 	margin-top: 5px;
-
-	// 	p {
-	// 		font-family: 'Avenir';
-	// 		font-style: normal;
-	// 		font-weight: 500;
-	// 		font-size: 14px;
-	// 		line-height: 19px;
-
-	// 		color: #219653;
-
-	// 		span {
-	// 			font-weight: 400;
-	// 			font-size: 10px;
-	// 			line-height: 16px;
-
-	// 			color: #4F4F4F;
-	// 		}
-	// 	}
-	// }
 
 
 

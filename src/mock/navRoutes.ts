@@ -130,7 +130,7 @@ export const navRoutes: NavProps[] = [
   {
     id: 12,
     title: "Payout",
-    icon: TranIcon,
+    icon: Payout,
     link: "/payout",
     submenu: false
   },
