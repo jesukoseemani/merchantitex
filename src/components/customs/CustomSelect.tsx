@@ -19,7 +19,6 @@ const CustomSelect = ({ name, options, placeholder, ...otherProps }: any) => {
         variant: 'outlined',
         fullWidth: true,
         onChange: handleChange,
-
     };
 
     if (meta && meta.touched && meta.error) {
@@ -38,7 +37,7 @@ const CustomSelect = ({ name, options, placeholder, ...otherProps }: any) => {
 
     return (
         <StyledTextField {...configSelect}>
-            {/* <MenuItem value="" selected disabled hidden>{placeholder}</MenuItem> */}
+            <MenuItem value="" selected disabled hidden>{placeholder}</MenuItem>
 
             {options?.map((item: any, i: any) => {
                 return (
