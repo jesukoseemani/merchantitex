@@ -20,7 +20,7 @@ const DATA = {
     description: ''
 }
 
-const Listtransfer = ({ payout, setOpen, changePage }: { payout?: PayoutRes, setOpen?: () => void; changePage?: (p: number) => void }) => {
+const Listtransfer = ({ payout, setOpen, changePage, setIsFilter }: { payout?: PayoutRes, setOpen?: () => void; changePage?: (p: number) => void; setIsFilter: any; }) => {
     const { calDownload } = useDownload({ url: `${BASE_URL}/payout/download`, filename: 'payout' })
 
     const useStyles = makeStyles({
@@ -110,6 +110,12 @@ const Listtransfer = ({ payout, setOpen, changePage }: { payout?: PayoutRes, set
     }
 
 
+    const filterHandler = () => {
+        setOpen?.()
+        setIsFilter(true)
+    }
+
+
     return (
 
         <Box mt={"20px"}>
@@ -117,7 +123,7 @@ const Listtransfer = ({ payout, setOpen, changePage }: { payout?: PayoutRes, set
                 <Stack direction={"row"} justifyContent="space-between" gap={"5px"} flexWrap="wrap">
                     <h2 className={Styles.transfertitle}>{payout?._metadata?.totalcount || 0} Payout(s)</h2>
                     <Box className={Styles.headerBox}>
-                        <button onClick={setOpen}><FilterAltOutlinedIcon />Filter by:</button>
+                        <button onClick={filterHandler}><FilterAltOutlinedIcon />Filter by:</button>
                         <button onClick={calDownload}> <InsertDriveFileOutlinedIcon />Download</button>
                         <button onClick={MakePayout}>+ New transfer</button>
                     </Box>

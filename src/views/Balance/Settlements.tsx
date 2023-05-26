@@ -222,7 +222,6 @@ const Settlements = () => {
       destination: <p className={styles.tableBodyText}>{destination}</p>,
       added: (
         <CustomDateFormat time={added} date={added} />
-
       ),
       id: <p>{id}</p>,
     }),

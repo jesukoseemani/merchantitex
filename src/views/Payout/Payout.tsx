@@ -9,14 +9,18 @@ import { stripEmpty, stripSearch } from "../../utils";
 import FilterModal from "../../components/filterModals/PayoutFilterModal";
 import { REFUND_FILTER_DATA } from "../../constant";
 import Navigation from "../../components/navbar/Navigation";
+import { closeLoader, openLoader } from "../../redux/actions/loader/loaderActions";
+import { useDispatch } from "react-redux";
 
 const Payout = () => {
 
     const [isData, setIsData] = useState<boolean>(false);
+    const [isfilter, setIsFilter] = useState<boolean>(false);
     const [payout, setPayout] = useState<PayoutRes | null>(null);
     const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
     const [pageNumber, setPageNumber] = useState(1);
     const { search } = useLocation()
+    const dispatch = useDispatch()
 
 
     const changePage = (value: number) => {
@@ -24,8 +28,10 @@ const Payout = () => {
     };
 
     const call = async (form = REFUND_FILTER_DATA) => {
+        dispatch(openLoader());
         const res = await getPayoutService(stripEmpty({ page: pageNumber, perpage: 5, search: stripSearch(search), ...form }))
         setPayout(res);
+        dispatch(closeLoader());
         setIsData(!!res?.payouts?.length)
     }
 
@@ -47,7 +53,7 @@ const Payout = () => {
                     handleClose={() => setIsFilterModalOpen(false)}
                     action={action}
                 />
-                {!isData ? <EmptyTransfers /> : <Listtransfer payout={payout!} setOpen={() => setIsFilterModalOpen(true)} changePage={changePage} />}
+                {!isData && !isfilter ? <EmptyTransfers /> : <Listtransfer setIsFilter={setIsFilter} payout={payout!} setOpen={() => setIsFilterModalOpen(true)} changePage={changePage} />}
             </div>
 
         </Navigation>
