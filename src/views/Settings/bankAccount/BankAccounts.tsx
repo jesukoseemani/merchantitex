@@ -21,10 +21,11 @@ import AddBank from "./AddBank";
 import { fetchBankAcct } from "../../../redux/actions/settings/BankAccount";
 import Navigation from "../../../components/navbar/Navigation";
 import CustomStatus from "../../../components/customs/CustomStatus";
+import RemoveBankAccount from "./RemoveBankAccount";
 
 
 interface TransactionsProps {
-  id?: number;
+  id?: number | undefined;
   accountname: string;
   accountnumber: number;
   accounttype?: string;
@@ -174,7 +175,7 @@ const BankAccounts = () => {
     bankcode,
     action: (<Stack direction={"row"}>
       <IconButton onClick={() => handleEditBAnk({ data: { id, accountnumber, currency, bank, accountname, country, bankcode } })}><ReactSVG src={EditIcon} /></IconButton>
-      <IconButton><ReactSVG src={DeleteIcon} /></IconButton>
+      <IconButton onClick={() => handleDeleteBank(id)}><ReactSVG src={DeleteIcon} /></IconButton>
 
     </Stack>),
   }),
@@ -247,6 +248,26 @@ const BankAccounts = () => {
   }
 
 
+  const handleDeleteBank = async (id: any) => {
+    dispatch(
+      openModalAndSetContent({
+        modalStyles: {
+          padding: 0,
+          borderRadius: 20,
+          height: "270px",
+          width: "500px !important"
+
+        },
+        modalTitle: 'Remove Bank Account',
+        modalContent: (
+          <div className={Styles.modalDiv}>
+            <RemoveBankAccount id={id} getTransactions={getTransactions} />
+          </div>
+        ),
+      })
+    );
+
+  }
 
   return (
     <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>

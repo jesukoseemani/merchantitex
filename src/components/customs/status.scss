@@ -39,6 +39,7 @@
 .Approved,
 .approved,
 .successful,
+.withheld,
 .active {
     @extend .status-container;
     background: #D6FFE7 !important;
@@ -51,6 +52,7 @@
 .abandoned,
 .Abandoned,
 .pending,
+.onhold,
 .Pending {
     @extend .status-container;
     background: rgba(242, 201, 76, 0.3);
