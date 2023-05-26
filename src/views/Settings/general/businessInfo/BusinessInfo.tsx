@@ -5,6 +5,7 @@ import { CircleFlag } from 'react-circle-flags';
 import { openModalAndSetContent } from '../../../../redux/actions/modal/modalActions';
 import { useDispatch } from 'react-redux';
 import EditBusiness from './EditBusiness';
+import { Avatar } from '@mui/material';
 
 const BusinessInfo = ({ me }: any) => {
     console.log({ me, }, me?.business?.country);
@@ -35,7 +36,10 @@ const BusinessInfo = ({ me }: any) => {
             <div className={styles.business__header}>
                 <div className={styles.left}>
                     <div className="logo">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Wikimedia-logo.png" alt="business logo" width={"50px"} />
+                        <Avatar sx={{ width: 50, height: 50, backgroundColor: "#27AE60", fontFamily: "Avenir bold" }}>
+                            {me?.business?.tradingname?.substring(0, 1)}
+                        </Avatar>
+                        {/* <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Wikimedia-logo.png" alt="business logo" width={"50px"} /> */}
                     </div>
                     <div className={styles.textBox}>
                         <p>{me?.business?.tradingname}</p>
@@ -59,15 +63,15 @@ const BusinessInfo = ({ me }: any) => {
                 </div>
                 <div>
                     <span>Business Email</span>
-                    <p>{me?.business?.businessemail || "null"}</p>
+                    <p>{me?.business?.businessemail || "N/a"}</p>
                 </div>
                 <div>
                     <span>Phone Number</span>
-                    <p>{me?.business?.businessphone || "null"}</p>
+                    <p>{me?.business?.businessphone || "N/a"}</p>
                 </div>
                 <div>
                     <span>Address </span>
-                    <p>{me?.business?.businessaddress || "null"}</p>
+                    <p>{me?.business?.businessaddress || "N/a"}</p>
                 </div>
 
             </div>
@@ -78,16 +82,16 @@ const BusinessInfo = ({ me }: any) => {
                 </div>
                 <div>
                     <span>Support Email</span>
-                    <p>{me?.business?.supportemail || "null"}</p>
+                    <p>{me?.business?.supportemail || "N/a"}</p>
                 </div>
                 <div>
                     <span>Support Phone Number</span>
-                    <p>{me?.business?.supportphonenumber || "null"}</p>
+                    <p>{me?.business?.supportphonenumber || "N/a"}</p>
 
                 </div>
                 <div>
                     <span>Chargeback Email </span>
-                    <p>{me?.business?.chargebackemail || "null"}</p>
+                    <p>{me?.business?.chargebackemail || "N/a"}</p>
 
                 </div>
 

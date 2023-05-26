@@ -133,16 +133,16 @@ const Webhooks = () => {
 
                                 <br />
 
-                                <FormHelperText id="component-helper-text" className={Styles.helperText} style={{ maxWidth: "90%" }}>
+                                <FormHelperText id="component-helper-text" className={Styles.helperText} style={{ maxWidth: "90%", marginTop: 3 }}>
 
 
                                     Secret harsh is used to verify your webhook requests. Verify webhook requests with the secretharsh returned as verify hash from ITEX Pay
                                 </FormHelperText>
                             </Box>
-                            <div className="controlCheckbox">
+                            {/* <div className="controlCheckbox">
                                 <FormControlLabel control={<Checkbox />} label="Receive webhook response in JSON format" />
 
-                            </div>
+                            </div> */}
                         </Grid>
                     </Grid>
 
