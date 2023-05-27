@@ -24,6 +24,7 @@ import SettlementIcon from "../assets/images/settlement.svg";
 import HistoryIcon from "../assets/images/balanceIcon.svg";
 import PermisionIcon from "../assets/images/key.svg";
 import CheckIcon from "../assets/images/check.svg";
+import RollingIcon from "../assets/images/rolling.svg";
 
 
 // import { ReactSVG } from "react-svg";
@@ -101,7 +102,7 @@ export const navRoutes: NavProps[] = [
       {
         id: 9,
         title: "Rolling Reserve",
-        icon: CustomerIcon,
+        icon: RollingIcon,
         link: "/balance/rolling_reserve",
       },
     ],

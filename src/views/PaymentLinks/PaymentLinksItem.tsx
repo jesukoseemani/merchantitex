@@ -78,15 +78,11 @@ const PaymentLinksItem = () => {
 		setRowsPerPage(value);
 	};
 
-	const location = useLocation<{ rowData: string }>();
-	const history = useHistory();
 	const dispatch = useDispatch();
 
 	const { id } = useParams<{ id: string }>();
 
-	// if (!location.state.rowData) {
-	// 	history.replace('/payment_links');
-	// }
+
 
 
 
