@@ -20,7 +20,7 @@ const DATA = {
     description: ''
 }
 
-const Listtransfer = ({ payout, setOpen, changePage, setIsFilter }: { payout?: PayoutRes, setOpen?: () => void; changePage?: (p: number) => void; setIsFilter: any; }) => {
+const Listtransfer = ({ payout, setOpen, changePage, setIsFilter }: { payout?: PayoutRes, setOpen?: () => void; changePage?: (p: number) => void; setIsFilter?: any; }) => {
     const { calDownload } = useDownload({ url: `${BASE_URL}/payout/download`, filename: 'payout' })
 
     const useStyles = makeStyles({
