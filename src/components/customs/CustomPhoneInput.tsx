@@ -35,7 +35,7 @@ interface Props {
 }
 
 const CustomPhoneNumber = ({ adornmentOptions, className, position = "start", adornment, id, InputProps, options, as = "", size = "small", rows, multiline = false, label, placeholder, name = "", type = "text", ...props }: Props) => {
-    const [countryList, defaultCountry, defaultCountryDialCode,] = useCountry()
+    const { countryList, defaultCountry, defaultCountryDialCode } = useCountry()
 
     return (
         <div>
