@@ -29,8 +29,8 @@ const PayoutItem = () => {
 
     const dispatch = useDispatch()
     const getPayoutDetails = async () => {
-        dispatch(openLoader());
         try {
+            dispatch(openLoader());
             const { data } = await axios.get<PayoutItemRes>(`/v1/payout/${id}`);
             console.log(data);
 
