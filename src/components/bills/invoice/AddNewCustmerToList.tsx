@@ -22,7 +22,7 @@ interface Props {
 }
 const AddNewCustmerToList = ({ fetchInvoice }: any) => {
     const dispatch = useDispatch()
-    const [countryList, defaultCountry] = useCountry()
+    const { countryList, defaultCountry } = useCountry()
     return (
         <Formik
             initialValues={{

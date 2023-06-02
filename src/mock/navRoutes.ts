@@ -117,7 +117,7 @@ export const navRoutes: NavProps[] = [
       {
         id: 12,
         title: "Customer",
-        icon: CustomerIcon,
+        icon: Customer,
         link: "/customers",
       },
       {

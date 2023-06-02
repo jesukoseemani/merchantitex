@@ -5,6 +5,7 @@ import { openLoader, closeLoader } from '../../../redux/actions/loader/loaderAct
 import { openToastAndSetContent } from '../../../redux/actions/toast/toastActions';
 import styles from "./style.module.scss"
 import { Checkbox, FormControlLabel, FormGroup } from '@mui/material';
+import { PaymentMethod, PaymentMethodRes } from '../../../types/paymentmethodtypes';
 
 
 
@@ -19,36 +20,42 @@ interface Props {
 const PaymentTab = () => {
 
     const dispatch = useDispatch();
-    const [payment, setPayment] = useState<any>()
+    const [payment, setPayment] = useState<PaymentMethod[]>()
     const [checked, setChecked] = useState(false);
 
 
 
-    const getPaymentMethod = () => {
-        dispatch(openLoader());
-        axios
-            .get<Props>(`/v1/setting/methods`)
-            .then((res: any) => {
-                const { methods } = res?.data;
-                // const { account } = business?.settlement;
-                console.log(methods, "methods")
+    const getPaymentMethod = async () => {
+        try {
+            dispatch(openLoader());
+            let { data } = await axios.get<PaymentMethodRes>(`/v1/setting/methods`)
+            if (data?.code === "success") {
+                setPayment(data?.methods)
+                dispatch(
+                    openToastAndSetContent({
+                        toastContent: data?.message,
+                        msgType: "success"
+                    })
+                );
+            }
 
-                setPayment(methods);
-                dispatch(closeLoader());
-            })
-            .catch((error: any) => {
-                dispatch(closeLoader());
-                if (error.response) {
-                    const { message } = error.response.data;
-                    dispatch(
-                        openToastAndSetContent({
-                            toastContent: message,
-                            msgType: "error"
-                        })
-                    );
-                }
-            });
-    };
+        } catch (error: any) {
+            dispatch(closeLoader());
+            if (error.response) {
+                const { message } = error.response.data;
+                dispatch(
+                    openToastAndSetContent({
+                        toastContent: message,
+                        msgType: "error"
+                    })
+                );
+            }
+        }
+        finally {
+            dispatch(closeLoader());
+
+        }
+    }
 
     useEffect(() => {
         getPaymentMethod();
@@ -57,30 +64,12 @@ const PaymentTab = () => {
 
 
 
-    interface SwitchProp {
-        code: string;
-        message: string
-    }
 
-    const [paymentOptions, setPaymentOption] = useState<any>([])
-    const [newPaymentOptions, setNewPaymentOption] = useState<any>()
-    // const handleChange = (e: any, id: any) => {
-    //     let { value } = e.target
-    //     setPaymentOption({ ...paymentOptions, value })
-
-
-
-    // }
-
-    console.log(newPaymentOptions)
-    console.log(paymentOptions);
-
-
-    const handleChange = (e: any, id: any) => {
+    const handleChange = (e: any) => {
 
         dispatch(openLoader());
         axios
-            .get<SwitchProp>(`/v1/setting/methods/${e.target.value}/switch`)
+            .get<PaymentMethodRes>(`/v1/setting/methods/${e.target.value}/switch`)
             .then((res: any) => {
                 if (res?.data?.code === "success") {
                     dispatch(
@@ -127,9 +116,9 @@ const PaymentTab = () => {
                         <p>No payment method found</p>
                     ) : (
 
-                        payment?.map((x: any, i: any) => (
-                            <FormGroup key={i}>
-                                <FormControlLabel name={x?.paymentmethod} id={x?.merchantaccountmethodid} value={x?.merchantaccountmethodid} onChange={(e: any, id: any) => handleChange(e, id)} control={<Checkbox defaultChecked />} label={x?.paymentmethod} />
+                        payment?.map((x: PaymentMethod) => (
+                            <FormGroup key={x?.merchantaccountmethodid}>
+                                <FormControlLabel name={x?.paymentmethod} value={x?.merchantaccountmethodid} onChange={(e: any) => handleChange(e)} control={<Checkbox defaultChecked={x?.status === true} />} label={x?.paymentmethod} />
 
                             </FormGroup>
                         ))

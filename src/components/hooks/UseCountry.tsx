@@ -66,7 +66,7 @@ const useCountry = () => {
 
 
 
-    return [countryList, defaultCountry, defaultCountryDialCode, countryCode, loadingCountry, countryId] as const
+    return { countryList, defaultCountry, defaultCountryDialCode, countryCode, loadingCountry, countryId } as const
 }
 
 export default useCountry

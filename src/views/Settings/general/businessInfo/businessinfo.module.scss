@@ -66,12 +66,21 @@
         padding: 27.5px 31px;
         display: flex;
         align-items: center;
-        gap: 4rem;
+        column-gap: 4rem;
+        row-gap: 2rem;
         flex-flow: row wrap;
 
-        &>div:not(:nth-of-type(1)) {
-            border-left: 1px solid #DFDFDF;
-            padding-left: 4rem;
+        // div {
+        // }
+
+        &>div {
+            width: 170px;
+            border-right: 1px solid #DFDFDF;
+
+            // padding-left: 4rem;
+            &:last-child {
+                border: none;
+            }
 
             @media screen and (max-width:500px) {
                 border: none;

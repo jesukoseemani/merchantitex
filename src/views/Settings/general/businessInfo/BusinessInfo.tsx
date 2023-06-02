@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from "./businessinfo.module.scss"
 import CustomStatus from '../../../../components/customs/CustomStatus';
 import { CircleFlag } from 'react-circle-flags';
@@ -6,10 +6,57 @@ import { openModalAndSetContent } from '../../../../redux/actions/modal/modalAct
 import { useDispatch } from 'react-redux';
 import EditBusiness from './EditBusiness';
 import { Avatar } from '@mui/material';
+import { closeLoader, openLoader } from '../../../../redux/actions/loader/loaderActions';
+import axios from 'axios';
+import { openToastAndSetContent } from '../../../../redux/actions/toast/toastActions';
+import { Address, BusinessProfile, Meta } from '../../../../types/businessProfileTypes';
+import { getCountryCode } from '../../../../helpers/getCountryCode';
 
 const BusinessInfo = ({ me }: any) => {
     console.log({ me, }, me?.business?.country);
     const dispatch = useDispatch()
+    const [business, setBusiness] = useState<Address>()
+    const [meta, setMeta] = useState<Meta[]>()
+
+    const GetBusinessProfile = async () => {
+
+        try {
+            dispatch(openLoader());
+            const { data } = await axios.get<BusinessProfile>(`/v1/setting/business/profile`)
+            if (data?.code === "success") {
+                setBusiness(data?.address)
+                setMeta(data?.meta)
+                dispatch(closeLoader());
+
+            }
+
+        } catch (error: any) {
+            const { message } = error.response.data;
+
+            dispatch(
+                openToastAndSetContent({
+                    toastContent: message,
+                    msgType: "error"
+                })
+            );
+            dispatch(closeLoader());
+
+        }
+        finally {
+            dispatch(closeLoader());
+
+        }
+
+    };
+    console.log("business", business);
+
+
+    useEffect(() => {
+        GetBusinessProfile();
+    }, []);
+
+    console.log(getCountryCode(business?.country), "contrrr");
+
 
     const handleEdit = () => {
         dispatch(
@@ -25,7 +72,7 @@ const BusinessInfo = ({ me }: any) => {
                 modalContent: (
                     <div className='modalDiv'>
 
-                        <EditBusiness me={me} />
+                        <EditBusiness me={business} GetBusinessProfile={GetBusinessProfile} business={business} meta={meta} />
                     </div>
                 ),
             })
@@ -37,13 +84,13 @@ const BusinessInfo = ({ me }: any) => {
                 <div className={styles.left}>
                     <div className="logo">
                         <Avatar sx={{ width: 50, height: 50, backgroundColor: "#27AE60", fontFamily: "Avenir bold" }}>
-                            {me?.business?.tradingname?.substring(0, 1)}
+                            {/* {business?.?.substring(0, 1)} */}
                         </Avatar>
                         {/* <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Wikimedia-logo.png" alt="business logo" width={"50px"} /> */}
                     </div>
                     <div className={styles.textBox}>
                         <p>{me?.business?.tradingname}</p>
-                        <span>Merchant ID: {me?.user?.merchantaccountid}</span>
+                        <span>Merchant ID: {business?.merchantaccountid}</span>
                     </div>
                     <CustomStatus text={me?.business?.islive ? "Live" : "Test"} type={me?.business?.islive ? "approved" : "Abandoned"} />
 
@@ -71,29 +118,24 @@ const BusinessInfo = ({ me }: any) => {
                 </div>
                 <div>
                     <span>Address </span>
-                    <p>{me?.business?.businessaddress || "N/a"}</p>
+                    <p>{business?.addressline1 || "N/a"}</p>
                 </div>
 
             </div>
             <div className={styles.business_body2}>
                 <div>
                     <span>Country</span>
-                    <p><CircleFlag countryCode={me?.business?.country?.toLocaleLowerCase()} height="15" /> Nigeria</p>
+                    <p><CircleFlag countryCode={String(business?.country)?.toLocaleLowerCase()} height="15" /> {getCountryCode(String(business?.country))}</p>
                 </div>
-                <div>
-                    <span>Support Email</span>
-                    <p>{me?.business?.supportemail || "N/a"}</p>
-                </div>
-                <div>
-                    <span>Support Phone Number</span>
-                    <p>{me?.business?.supportphonenumber || "N/a"}</p>
+                {meta?.map((x: Meta) => (
+                    <div key={x?.id}>
+                        <span>{x?.name}</span>
+                        <p>{x?.value || "N/a"}</p>
+                    </div>
 
-                </div>
-                <div>
-                    <span>Chargeback Email </span>
-                    <p>{me?.business?.chargebackemail || "N/a"}</p>
+                ))
+                }
 
-                </div>
 
             </div>
         </div>

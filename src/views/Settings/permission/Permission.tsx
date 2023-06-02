@@ -83,7 +83,7 @@ const Permission = ({ children }: PermissionProps) => {
         <div className={styles.permissionContainer}>
             <div className={styles.headerBox}>
                 <h2>All roles</h2>
-                <button onClick={handleCustomRole}> Create a custom role</button>
+                {/* <button onClick={handleCustomRole}> Create a custom role</button> */}
 
             </div>
 
