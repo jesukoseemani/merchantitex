@@ -1,5 +1,5 @@
 # pull official base image
-FROM node:14.18.0-alpine as base
+FROM node:18.0.0-alpine as base
 WORKDIR /app
 # add the node_modules folder to $PATH
 ENV PATH /app/node_modules/.bin:$PATH
