@@ -12,9 +12,10 @@ import { Summary } from "../../types/TrendTypes";
 import { Box, MenuItem, Popover, Select } from "@mui/material";
 import moment from "moment";
 import { getDate } from "../../utils";
-import useCurrency from '../hooks/useCurrency';
 import { DateRange } from 'react-date-range';
 import { display } from '@material-ui/system';
+import useCurrency from '../hooks/useCurrency';
+
 
 
 const DATA = [{ name: 'Custom', value: '' }, { name: 'Today', value: 'today' }, { name: 'Last 7 days', value: 'last7days' }, { name: '30 days', value: 'last30days' }, { name: '1 year', value: 'oneyear' }]

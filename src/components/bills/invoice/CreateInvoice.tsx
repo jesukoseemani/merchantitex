@@ -14,7 +14,6 @@ import { closeLoader, openLoader } from '../../../redux/actions/loader/loaderAct
 import CustomInputField from '../../customs/CustomInputField';
 import useCurrency from '../../hooks/useCurrency';
 import CustomCurrency from '../../formUI/SelectCountry/CustomCurrency';
-import UseFetch from '../../hooks/useFetch';
 import CustomerListDropDown from '../../customs/CustomerListDropDown';
 import CustomSelect from '../../customs/CustomSelect';
 import AddNewCustmerToList from './AddNewCustmerToList';
