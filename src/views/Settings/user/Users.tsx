@@ -19,9 +19,10 @@ import ParentContainer from '../../../components/ParentContainer/ParentContainer
 import EditUserModal from './EditUserModal';
 import { capitalize, Stack, Box } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import CustomDateFormat from '../../../components/customs/CustomDateFormat';
 import CustomModal from '../../../components/customs/CustomModal';
+import { stripSearch } from '../../../utils/index';
 
 
 
@@ -46,7 +47,7 @@ const Users = () => {
 	const open = Boolean(anchorEl);
 	const [openModal, setOpenModal] = useState(false);
 	const [active, setActive] = useState(false);
-
+	const { search } = useLocation()
 
 	const dispatch = useDispatch();
 	const history = useHistory()
@@ -62,7 +63,7 @@ const Users = () => {
 	const getUsers = () => {
 		dispatch(openLoader());
 		axios
-			.get(`/v1/users?page=${pageNumber}&perpage=${rowsPerPage}`)
+			.get(`/v1/users?search=${stripSearch(search)}&page=${pageNumber}&perpage=${rowsPerPage}`)
 			.then((res: any) => {
 				console.log(res)
 				const { users, message, _metadata } = res?.data;
@@ -101,7 +102,7 @@ const Users = () => {
 
 	useEffect(() => {
 		getUsers();
-	}, [pageNumber, rowsPerPage]);
+	}, [pageNumber, rowsPerPage, search]);
 
 	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
 		setAnchorEl(event.currentTarget);
@@ -257,6 +258,8 @@ const Users = () => {
 					maxWidth: '653px',
 					height: '254px !important',
 					width: '100%',
+
+
 
 
 

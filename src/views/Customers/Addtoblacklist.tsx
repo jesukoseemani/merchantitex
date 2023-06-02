@@ -56,7 +56,6 @@ const Addtoblacklist: FC<{ id: any; callback?: () => void; fn?: () => void }> = 
         <p>
           Are you sure want to blacklist this customer. They will no longer have
           access to your platform. Click on ‘Confirm’ to blacklist this customer
-          {id}
         </p>
 
         <div className={Styles.text_area_cover}>
