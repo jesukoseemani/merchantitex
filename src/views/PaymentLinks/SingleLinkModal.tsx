@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
 	Backdrop,
 	Button,
@@ -24,7 +25,6 @@ import useCurrency from '../../components/hooks/useCurrency';
 import useCountry from '../../components/hooks/useCountry';
 import CustomInputField from '../../components/customs/CustomInputField';
 import styles from './PaymentLinks.module.scss';
-
 import CustomInputDropdown from '../../components/customs/CustomInputDropdown';
 import CustomPhoneNumber from '../../components/customs/CustomPhoneInput';
 
