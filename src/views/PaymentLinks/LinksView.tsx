@@ -24,8 +24,8 @@ import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import CustomArray from '../../components/customs/CustomArray';
-import useCurrency from '../../components/hooks/Usecurrency';
-import useCountry from '../../components/hooks/UseCountry';
+import useCurrency from '../../components/hooks/useCurrency';
+import useCountry from '../../components/hooks/useCountry';
 import CustomPhoneNumber from '../../components/customs/CustomPhoneInput';
 import { ReactComponent as CopyIcon } from "../../assets/images/copyColor.svg"
 import { CopyToClipboard } from 'react-copy-to-clipboard';

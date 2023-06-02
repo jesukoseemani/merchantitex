@@ -9,7 +9,7 @@ import { openToastAndSetContent } from "../../redux/actions/toast/toastActions";
 interface Props {
     data: [];
 }
-const UseFetch = (url: any) => {
+const useFetch = (url: any) => {
     const [data, setData] = useState<any>();
     const [loading, setLoading] = useState(false)
     const [pageNumber, setPageNumber] = useState<number>(1);
@@ -54,4 +54,4 @@ const UseFetch = (url: any) => {
 
 }
 
-export default UseFetch
+export default useFetch

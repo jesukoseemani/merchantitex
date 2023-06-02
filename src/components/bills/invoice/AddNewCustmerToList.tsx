@@ -10,7 +10,7 @@ import CustomInputField from '../../customs/CustomInputField';
 import CustomPhoneNumber from '../../customs/CustomPhoneInput';
 import CustomSelect from '../../customs/CustomSelect';
 import { addcustomerSchema } from '../../validation/payment/paymentValidation';
-import useCountry from '../../hooks/UseCountry';
+import useCountry from '../../hooks/useCountry';
 import Styles from "./style.module.scss"
 
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom';
-import UseFetch from '../../../components/hooks/UseFetch';
+import UseFetch from '../../../components/hooks/useFetch';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useCallback } from 'react';

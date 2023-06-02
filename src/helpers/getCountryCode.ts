@@ -1,5 +1,5 @@
 import React from 'react'
-import useCountry from '../components/hooks/UseCountry'
+import useCountry from '../components/hooks/useCountry'
 
 export const getCountryCode = (countryCode: any) => {
   const { countryList } = useCountry()

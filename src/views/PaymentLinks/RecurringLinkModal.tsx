@@ -25,7 +25,7 @@ import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
 import CustomInputField from '../../components/customs/CustomInputField';
 import styles from './PaymentLinks.module.scss';
 import CustomInputDropdown from '../../components/customs/CustomInputDropdown';
-import useCurrency from '../../components/hooks/Usecurrency';
+import useCurrency from '../../components/hooks/useCurrency';
 import CustomCurrency from '../../components/formUI/SelectCountry/CustomCurrency';
 import CustomSelect from '../../components/customs/CustomSelect';
 import CustomInterval from '../../components/customs/CustomInterval';

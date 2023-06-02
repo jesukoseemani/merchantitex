@@ -12,7 +12,7 @@ import { Summary } from "../../types/TrendTypes";
 import { Box, MenuItem, Popover, Select } from "@mui/material";
 import moment from "moment";
 import { getDate } from "../../utils";
-import useCurrency from '../hooks/Usecurrency';
+import useCurrency from '../hooks/useCurrency';
 import { DateRange } from 'react-date-range';
 import { display } from '@material-ui/system';
 

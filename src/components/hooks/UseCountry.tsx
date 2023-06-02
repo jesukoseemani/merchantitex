@@ -5,10 +5,6 @@ import { closeLoader } from '../../redux/actions/loader/loaderActions';
 import { useDispatch } from 'react-redux';
 import { openToastAndSetContent } from '../../redux/actions/toast/toastActions';
 
-
-
-
-
 const useCountry = () => {
 
     const [countryList, setCountryList] = useState<any>()
@@ -16,7 +12,6 @@ const useCountry = () => {
     const [countryCode, setCountryCode] = useState<any>()
     const [defaultCountryDialCode, setDefaultCountryDialCode] = useState<any>()
     const [defaultCountry, setDefaultCountry] = useState<any>()
-
     const [loadingCountry, setLoadingCountry] = useState(false)
     const dispatch = useDispatch()
 

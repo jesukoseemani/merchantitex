@@ -3,7 +3,7 @@ import React from 'react'
 import { ErrorMessage, Field } from 'formik';
 import styles from "./style.module.scss"
 import { InputAdornment } from '@mui/material';
-import useCountry from '../hooks/UseCountry';
+import useCountry from '../hooks/useCountry';
 import CustomSelect from './CustomSelect';
 import SelectWrapperCountry from '../formUI/SelectCountry';
 import { CircleFlag } from 'react-circle-flags';
