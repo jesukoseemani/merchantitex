@@ -10,7 +10,7 @@ import { closeLoader, openLoader } from '../../../../redux/actions/loader/loader
 import axios from 'axios';
 import { openToastAndSetContent } from '../../../../redux/actions/toast/toastActions';
 import { Address, BusinessProfile, Meta } from '../../../../types/businessProfileTypes';
-import { getCountryCode } from '../../../../helpers/getCountryCode';
+import GetCountryCode from '../../../../helpers/GetCountryCode';
 
 const BusinessInfo = ({ me }: any) => {
     console.log({ me, }, me?.business?.country);
@@ -55,7 +55,7 @@ const BusinessInfo = ({ me }: any) => {
         GetBusinessProfile();
     }, []);
 
-    console.log(getCountryCode(business?.country), "contrrr");
+    console.log(GetCountryCode(business?.country), "contrrr");
 
 
     const handleEdit = () => {
@@ -125,7 +125,7 @@ const BusinessInfo = ({ me }: any) => {
             <div className={styles.business_body2}>
                 <div>
                     <span>Country</span>
-                    <p><CircleFlag countryCode={String(business?.country)?.toLocaleLowerCase()} height="15" /> {getCountryCode(String(business?.country))}</p>
+                    <p><CircleFlag countryCode={String(business?.country)?.toLocaleLowerCase()} height="15" /> {GetCountryCode(String(business?.country))}</p>
                 </div>
                 {meta?.map((x: Meta) => (
                     <div key={x?.id}>
